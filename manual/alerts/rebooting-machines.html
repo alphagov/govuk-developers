@@ -159,6 +159,9 @@
         <a href="#special-cases"><span>Special cases</span></a>
         <ul>
           <li>
+            <a href="#rebooting-jenkins-ci-agents"><span>Rebooting Jenkins CI agents</span></a>
+          </li>
+          <li>
             <a href="#rebooting-cache-machines-in-aws"><span>Rebooting Cache machines in AWS</span></a>
           </li>
           <li>
@@ -210,7 +213,7 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/f86fa0c196d7f65dbbfe4975753ca58fb1b99541">8 Jan 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0c04af1a4534b31ad827e8f0549ba8bbaba0d2c4">13 Jan 2021</a>
 </div>
 
  <h1 id='header'>Reboot a machine</h1> <p>Under normal circumstances most machines reboot automatically when an update is required.
@@ -306,6 +309,27 @@ manual entry on <a href="/manual/adding-disks-in-vcloud.html">adding disks</a> f
 more info.</p>
 
 <h2 id="special-cases">Special cases</h2>
+
+<h3 id="rebooting-jenkins-ci-agents">Rebooting Jenkins CI agents</h3>
+
+<p>Sometimes a CI agent starts continually erroring on Jenkins jobs, and the
+most straightforward way of fixing the issue is to reboot the machine.</p>
+
+<p>First, visit the <a href="https://ci.integration.publishing.service.gov.uk/computer/">Jenkins nodes list</a>.
+Click on the problematic agent and then "Mark this node temporarily
+offline". You'll need to provide a reason, which could just be "to reboot
+problematic agent". This will stop the agent from being used for new jobs.</p>
+
+<p>SSH into the agent; the machine number to SSH into will match the agent
+number. For example:</p>
+
+<div class="highlight"><pre class="highlight shell"><code>gds govuk connect ssh <span class="nt">-e</span> integration ci_agent:6
+</code></pre></div>
+<p>Reboot the machine: <code>sudo reboot</code>.</p>
+
+<p>Finally, go back into the Jenkins nodes list to take the node online and
+then to "Launch agent". You'll be taken to the live log for the agent,
+where you should see the output <code>Agent successfully connected and online</code>.</p>
 
 <h3 id="rebooting-cache-machines-in-aws">Rebooting Cache machines in AWS</h3>
 
