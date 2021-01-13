@@ -543,6 +543,8 @@ tagged to any of the associated taxons.</li>
 <p>Collections will be running locally at collections.dev.gov.uk.</p>
 <h3 id="running-the-test-suite">Running the test suite</h3>
 <p>Use <code>bundle exec rake</code> to run the test suite, excluding JavaScript. Or if you are running in docker, <code>govuk-docker-run bundle exec rake</code></p>
+<p>To test a single file:</p>
+<p><code>govuk-docker-run bundle exec rails test test/unit/application_helper_test.rb</code></p>
 <h4 id="javascript-tests">Javascript tests</h4>
 <p>Use <code>bundle exec rake jasmine:ci</code> to run Jasmine tests</p>
 <h2 id="license">License</h2>
