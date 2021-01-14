@@ -132,15 +132,36 @@
     <ul>
       <li>
         <a href="#application"><span>Application</span></a>
+        <ul>
+          <li>
+            <a href="#finding-the-ip-address-of-the-machine"><span>Finding the IP address of the machine</span></a>
+          </li>
+          <li>
+            <a href="#sshing-onto-the-machine"><span>SSH'ing onto the machine</span></a>
+          </li>
+        </ul>
       </li>
       <li>
-        <a href="#snapshot"><span>Snapshot</span></a>
+        <a href="#historical-data"><span>Historical data</span></a>
+        <ul>
+          <li>
+            <a href="#snapshot"><span>Snapshot</span></a>
+          </li>
+          <li>
+            <a href="#on-datagovuk"><span>On data.gov.uk</span></a>
+          </li>
+        </ul>
       </li>
       <li>
-        <a href="#on-datagovuk"><span>On data.gov.uk</span></a>
-      </li>
-      <li>
-        <a href="#takedown-requests"><span>Takedown requests</span></a>
+        <a href="#takedown-and-text-change-requests"><span>Takedown and text change requests</span></a>
+        <ul>
+          <li>
+            <a href="#authorise-the-request"><span>Authorise the request</span></a>
+          </li>
+          <li>
+            <a href="#process-the-request"><span>Process the request</span></a>
+          </li>
+        </ul>
       </li>
     </ul>
   </li>
@@ -156,18 +177,24 @@
             
   <p><a href='/manual.html#data-gov-uk'>data.gov.uk</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/983af2989375d3c43230221461ee2c7f61dcd6ae">3 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/20849890746b2ca187e030ddc4b88009b8346981">12 Jan 2021</a>
 </div>
 
  <h1 id='header'>Data.gov.uk Contracts Archive</h1> <h2 id="application">Application</h2>
 
 <p>Visit the <a href="https://data.gov.uk/data/contracts-finder-archive">contracts archive finder</a>.</p>
 
+<h3 id="finding-the-ip-address-of-the-machine">Finding the IP address of the machine</h3>
+
 <p>Credentials for the AWS account are in the <code>govuk-secrets</code> repository under
 <code>2ndline/datagovuk/contracts-finder-archive-aws-console-pass</code>.</p>
 
 <p>Once logged in to the AWS console, you'll be able to list the EC2 instances and
 find the IP of the contracts archive finder.</p>
+
+<h3 id="sshing-onto-the-machine">SSH'ing onto the machine</h3>
+
+<p><a name="ssh-instructions"></a></p>
 
 <p>If you need to <code>ssh</code> on to the machine, you can do so by grabbing the private
 key from <code>govuk-secrets</code> under
@@ -187,7 +214,9 @@ file:</p>
 
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>ssh <span class="nt">-i</span> <span class="s2">"govuk-contracts-archive.pem"</span> ubuntu@&lt;ip address&gt;
 </code></pre></div>
-<h2 id="snapshot">Snapshot</h2>
+<h2 id="historical-data">Historical data</h2>
+
+<h3 id="snapshot">Snapshot</h3>
 
 <p>There is a point in time snapshot of the contracts archive finder, should you
 need to access older log files.</p>
@@ -213,16 +242,45 @@ These have the following descriptions:</p>
   <li>snapshot_contracts_20190319 (started March 19 2019)</li>
 </ul>
 
-<h2 id="on-datagovuk">On data.gov.uk</h2>
+<h3 id="on-datagovuk">On data.gov.uk</h3>
 
-<p>A database of the contracts archive is also accessible in a sqlite database on
-<a href="https://data.gov.uk/dataset/97c75a0c-dd9b-42f9-969c-5e667d8c80f1/contracts-finder-archive-2011-to-2015">data.gov.uk</a></p>
+<p>A database of the contracts archive is also accessible in a SQLite database on
+this <a href="https://data.gov.uk/dataset/97c75a0c-dd9b-42f9-969c-5e667d8c80f1/contracts-finder-archive-2011-to-2015">dataset on data.gov.uk</a>.</p>
 
-<h2 id="takedown-requests">Takedown requests</h2>
+<h2 id="takedown-and-text-change-requests">Takedown and text change requests</h2>
 
-<p>To take down a contract, <a href="#contracts-archive-finder-application"><code>ssh</code></a> onto
-the contracts archive machine and then move the relevant contract attachments
-to the redacted folder.</p>
+<h3 id="authorise-the-request">Authorise the request</h3>
+
+<p>Respond to the user's Zendesk ticket, saying that we're processing the request.
+Change priority to Low and leave a message for the product owners that this ticket
+requires authorisation. When they have checked the validity of the request, they'll
+leave a comment in the ticket and move it to the relevant priority queue for the
+2nd line developers to process.</p>
+
+<h3 id="process-the-request">Process the request</h3>
+
+<h4 id="text-change">Text change</h4>
+
+<p>To change the text inside a contract, e.g. to remove company details from the actual
+contract entry, you'd <a href="#ssh-instructions">SSH onto the contracts archive machine</a>,
+then open SQLite:</p>
+
+<div class="highlight"><pre class="highlight shell"><code>sqlite3 ~/src/contracts-archive/instance/app.db
+</code></pre></div>
+<p>Find out the <code>award_id</code>:</p>
+
+<div class="highlight"><pre class="highlight sql"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">award_detail</span> <span class="k">where</span> <span class="n">business_name</span> <span class="k">like</span> <span class="nv">"%word%"</span><span class="p">;</span>
+</code></pre></div>
+<p>Then for each <code>award_id</code>:</p>
+
+<div class="highlight"><pre class="highlight plaintext"><code>UPDATE award_detail set business_name = 'Redacted', business_address = 'Redacted' WHERE award_id = xxxxxx;
+</code></pre></div>
+<p>Note that a reindex is <em>not</em> necessary.</p>
+
+<h4 id="takedown">Takedown</h4>
+
+<p>To take down a contract, <a href="#ssh-instructions">SSH onto the contracts archive machine</a>
+and then move the relevant contract attachments to the redacted folder.</p>
 
 <p>Contracts are located on the machine at
 <code>~/src/contracts-archive/instance/documents</code>. Find the directory for the
@@ -242,7 +300,7 @@ directory the same as the contract id.</p>
 contract page available to view on the website. This is fine. You can confirm
 that you've redacted the documents by navigating to the contract in the
 contracts archive finder application and clicking on the download links for
-each attachment. It should return a 404 Not Found.  This may require adding a
+each attachment. It should return a 404 Not Found. This may require adding a
 cachebust string to the download URL.</p>
 
 <p>You should also remove it from Google cache (this will only work once we've
