@@ -148,7 +148,7 @@
         </ul>
       </li>
       <li>
-        <a href="#changing-parent-organisation-apha-not-appearing-under-defra-for-users"><span>Changing parent organisation (APHA not appearing under DEFRA for users)</span></a>
+        <a href="#organisations-with-multiple-parents"><span>Organisations with multiple parents</span></a>
       </li>
     </ul>
   </li>
@@ -164,7 +164,7 @@
             
   <p><a href='/manual.html#accounts'>Accounts</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c622bdc053ddbae306bcb5ecd926094c94d5bc13">8 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5a1e18618b8607d0d47a301be90940237fe2dd88">18 Jan 2021</a>
 </div>
 
  <h1 id='header'>Manage Signon user/API accounts and access tokens</h1> <p><a href="https://docs.publishing.service.gov.uk/apps/signon.html">Signon</a> is the
@@ -226,15 +226,25 @@ including editors, however it is only <a href="https://github.com/alphagov/signo
 
 <p>An account can have API tokens for multiple applications.</p>
 
-<h2 id="changing-parent-organisation-apha-not-appearing-under-defra-for-users">Changing parent organisation (APHA not appearing under DEFRA for users)</h2>
+<h2 id="organisations-with-multiple-parents">Organisations with multiple parents</h2>
 
-<p>There is a bug in Signon for orgs that have multiple parent orgs in Whitehall. There is a <a href="https://trello.com/c/7koTf4OD">Trello card for this problem</a>.</p>
+<p>This <a href="https://github.com/alphagov/signon/issues/1572">structure cannot currently be modelled in Signon</a>
+which sometimes leads to Zendesk tickets where users cannot access things they should
+be able to.</p>
 
-<p>To address the problem for APHA, re-run the following <a href="/manual/running-rake-tasks.html">rake task</a>:</p>
+<p>This can be applied manually for the day (it will reset when the organisations are
+imported from Whitehall):</p>
 
-<p><code>db:migrate VERSION=20200805142418</code></p>
+<div class="highlight"><pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">parent</span> <span class="o">=</span> <span class="no">Organisation</span><span class="p">.</span><span class="nf">find_by!</span><span class="p">(</span><span class="ss">slug: </span><span class="s2">"..."</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">child</span> <span class="o">=</span> <span class="no">Organisation</span><span class="p">.</span><span class="nf">find_by!</span><span class="p">(</span><span class="ss">slug: </span><span class="s2">"..."</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">child</span><span class="p">.</span><span class="nf">update!</span><span class="p">(</span><span class="ss">parent: </span><span class="n">parent</span><span class="p">)</span>
+</code></pre></div>
+<p>Or if you think it makes sense to apply this permanently,
+<a href="https://github.com/alphagov/signon/commit/31066d931c073250f0c5d83b0312a489b12c870c">it can be added to the <code>OrganisationFetcher</code></a>.</p>
 
-<p>Otherwise raise a PR similar to <a href="https://github.com/alphagov/signon/pull/1481">https://github.com/alphagov/signon/pull/1481</a> to add a migration.</p>
+<p>The decision of whether this should be applied for the day or permanently depends on
+which parent organisation is more likely to need access to the child organisation.</p>
+
 
 
   <div class='related-content'>
