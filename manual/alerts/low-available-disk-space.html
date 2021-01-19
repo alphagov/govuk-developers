@@ -148,12 +148,6 @@
         </ul>
       </li>
       <li>
-        <a href="#no-disk-space-on-the-mysql-master"><span>No disk space on the MySQL master</span></a>
-      </li>
-      <li>
-        <a href="#low-available-disk-space-on-varlibpostgresql"><span>Low available disk space on /var/lib/postgresql</span></a>
-      </li>
-      <li>
         <a href="#no-disk-space-in-general"><span>No disk space in general</span></a>
       </li>
       <li>
@@ -181,7 +175,7 @@
 
      <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/de537a5af237020d96d771b03b0750fef1bb5e90">17 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b4f3f7ea8dbad62455ab7a4ce03a375d1063690c">8 Dec 2020</a>
 </div>
 
  <h1 id='header'>Low available disk space</h1> <h2 id="low-available-disk-space-on-root">Low available disk space on root</h2>
@@ -271,54 +265,6 @@ mount the EBS volume in /mnt/crawler_worker.</p>
   <li>Once it has settled to the "in-use" state, SSH in to the mirrorer instance and run <code>govuk_puppet --test</code></li>
 </ol>
 
-<h2 id="no-disk-space-on-the-mysql-master">No disk space on the MySQL master</h2>
-
-<p>If the MySQL master runs out of disk space, all of the apps that rely on MySQL
-may crash. You'll probably notice this in Icinga. There's a lot of red.</p>
-
-<p>Binary logs take up space that could be freed. If the slave and the backup are
-at a reasonably up-to-date binlog position (<code>SHOW SLAVE STATUS \G</code>), the older
-binlogs can be removed from the master.</p>
-
-<p>To recover:</p>
-
-<ol>
-  <li>SSH to mysql-master-1.backend</li>
-  <li>Stop MySQL using <code>sudo service mysql stop</code> (this may never return)</li>
-  <li>At this point <code>service mysql status</code> may return <code>stop/killed</code>, indicating
-that Upstart has tried to kill MySQL but it is refusing to die</li>
-  <li><code>cd /var/lib/mysql &amp;&amp; ls</code></li>
-  <li>Remove enough (5 to 10?) binlog files so that you can start MySQL</li>
-  <li>Edit the <code>mysql-bin.index</code> file to remove references to the binlog files you
-removed manually</li>
-  <li><code>sudo service mysql start</code></li>
-  <li><code>mysql -u root -p</code></li>
-  <li><code>PURGE BINARY LOGS TO 'mysql-bin.########';</code></li>
-</ol>
-
-<p>If there's no disk space available, purging binary logs from within MySQL
-doesn't work - this is why we first need to manually delete some logs and
-update the index.</p>
-
-<h2 id="low-available-disk-space-on-varlibpostgresql">Low available disk space on /var/lib/postgresql</h2>
-
-<p>Check which databases are occupying a lot of space and discuss with the
-relevant owners about reducing size or exanding the size of the postgres drive.</p>
-
-<p>Steps to investigate postgres db size:</p>
-
-<ol>
-  <li>SSH into <code>postgresql-primary-1.backend</code></li>
-  <li>See what space is left: <code>df -h</code></li>
-  <li>Open the psql console: <code>sudo -u postgres psql postgres</code></li>
-  <li>List databases: <code>\list</code> or <code>\l</code></li>
-  <li>Check out which databases can be improved</li>
-  <li>You can choose one of the dbs by doing: <code>\c &lt;name-of-db&gt;</code>
-For example: <code>\c email-alert-api_production</code></li>
-</ol>
-
-<p>If this continues to be a problem see if you need to <a href="/manual/adding-disks-in-vcloud.html">resize the disk</a>.</p>
-
 <h2 id="no-disk-space-in-general">No disk space in general</h2>
 
 <p>If you cant find any of the above cases causing low disk spaces, it can
@@ -337,7 +283,12 @@ use ncdu on that directory. Do it with the following command:
 
 <p>If you are able to determine that the machine simply requires more disk space
 to run the applications (such as a growing database) you can increase capacity
-by <a href="/manual/adding-disks-in-vcloud.html">adding a new disk in vCloud</a>.</p>
+by:</p>
+
+<ol>
+  <li><a href="https://docs.publishing.service.gov.uk/manual/manually-resize-ebs.html">Growing a persistent volume</a> in case of a stateful app</li>
+  <li>If the app is stateless and the volume ephemeral you can resize it in govuk-aws-data at data/&lt;app&gt;/&lt;env&gt;/common.tfvars and modify root_block_device_volume .You will then have to terminate the instances for them to be respawned by the autoscaling group with the new resized volume.</li>
+</ol>
 
 <h2 id="disk-space-used-by-logfiles">Disk space used by logfiles</h2>
 
