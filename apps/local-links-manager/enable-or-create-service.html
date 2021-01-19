@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>local-links-manager: Adding a new LGSL code - GOV.UK Developer Documentation</title>
+    <title>local-links-manager: Enabling (or creating) a new service - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/local-links-manager/adding-a-new-lgsl-code.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/local-links-manager/enable-or-create-service.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="local-links-manager: Adding a new LGSL code - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/adding-a-new-lgsl-code.html" />
+      <meta name="twitter:title" content="local-links-manager: Enabling (or creating) a new service - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/enable-or-create-service.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="local-links-manager: Adding a new LGSL code" />
+      <meta property="og:title" content="local-links-manager: Enabling (or creating) a new service" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/adding-a-new-lgsl-code.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/enable-or-create-service.html" />
 
     
   </head>
@@ -153,9 +153,9 @@
     <li>
       <a href="/apps/local-links-manager.html"><span>local-links-manager</span></a>
         <ul>
-            <li><a href="/apps/local-links-manager/adding-a-new-lgsl-code.html" class="toc-link--in-view"><span>Adding a new LGSL code</span></a></li>
             <li><a href="/apps/local-links-manager/checking-links.html"><span>Checking Links</span></a></li>
             <li><a href="/apps/local-links-manager/deleting-a-link.html"><span>Deleting a local transaction link</span></a></li>
+            <li><a href="/apps/local-links-manager/enable-or-create-service.html" class="toc-link--in-view"><span>Enabling (or creating) a new service</span></a></li>
             <li><a href="/apps/local-links-manager/exporting-local-authority-links.html"><span>Exporting Local Authority links to services</span></a></li>
             <li><a href="/apps/local-links-manager/google_analytics_custom_import.html"><span>Authorisation for Google Analytics custom import</span></a></li>
             <li><a href="/apps/local-links-manager/importing-local-authorities-data.html"><span>Importing Local Authorities data</span></a></li>
@@ -579,18 +579,11 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/local-links-manager/commit/5824954102e8c92218d29c0beb9085307347859b">1 Jul 2020</a>
+  Last updated: <a href="https://github.com/alphagov/local-links-manager/commit/c77d5df162863ca67ede2f9f787e6ad393a89bba">19 Jan 2021</a>
 </div>
 
-  <h1 class="page-title">local-links-manager: Adding a new LGSL code</h1>
+  <h1 class="page-title">local-links-manager: Enabling (or creating) a new service</h1>
 
   
 <p>From time to time, we have requests to add new LGSL codes. For this,
@@ -621,9 +614,11 @@ against the Publisher app.</p>
 <h2 id="3-activate-relevant-service-interactions">3. Activate relevant service interactions</h2>
 <p>You can either do this by creating a local transaction in Publisher, but this
 may show the transaction on the live site before the links are ready, so check
-with your product manager to make sure this is OK, or use a migration instead.</p>
-<p>See <a href="https://github.com/alphagov/local-links-manager/blob/master/db/migrate/20190603131841_enable_service1788.rb">20190603131841_enable_service1788.rb</a>
-for an example of the data migration.</p>
+with your product manager to make sure this is OK.</p>
+<p>Or use the <a href="https://github.com/alphagov/local-links-manager/blob/master/lib/tasks/service.rb"><code>service:enable</code></a> rake task instead. If
+you need to create a new service that has not been defined by the Local
+Government Association, you can specify a dummy LGSL code, along with a label
+and slug to create a new service.</p>
 <h2 id="4-add-missing-links-for-new-service-interaction">4. Add missing links for new service interaction</h2>
 <p>Run the rake task <code>import:missing_links</code>.</p>
 <h2 id="5-contentdepartment-follow-up">5. Content/department follow-up</h2>
@@ -637,8 +632,8 @@ in the missing links in Local Links Manager.</p>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/local-links-manager/blob/master/docs/adding-a-new-lgsl-code.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/local-links-manager/adding-a-new-lgsl-code.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/local-links-manager/blob/master/docs/enable-or-create-service.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/local-links-manager/enable-or-create-service.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
