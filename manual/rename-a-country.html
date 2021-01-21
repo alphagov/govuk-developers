@@ -169,7 +169,7 @@
             
   <p><a href='/manual.html#publishing'>Publishing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3ee8d63e5d10304657e39d22b446df5f6c7b46a4">2 Oct 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0ebe87266706d3f82f68b52c3267fbc82436026c">20 Jan 2021</a>
 </div>
 
  <h1 id='header'>Rename a country</h1> <blockquote>
@@ -307,7 +307,7 @@
 
 <h3 id="5-update-email-alert-api">5. Update Email Alert API</h3>
 
-<p>The country's subscription list(s) <code>title</code> and <code>slug</code> needs to be updated, such as:</p>
+<p>The country may have associated subscriber lists, such as:</p>
 
 <ul>
   <li>"Publications related to <code>&lt;country_name&gt;</code>"</li>
@@ -315,19 +315,18 @@
   <li>"<code>&lt;country_name&gt;</code>"</li>
 </ul>
 
+<p>The titles of these lists will update automatically the next time a user tries to subscribe. You can force this to happen sooner by pretending to subscribe yourself (just to the point where you select a frequency).</p>
+
+<p>Each subscriber list also has a "slug", which appears in the query params of the last few pages of the signup journey (selecting a frequency and entering an email). You can reset the slug manually as follows:</p>
+
+<p><strong>WARNING: the slug is used as an ID for the last few pages of the signup journey (e.g. <a href="https://github.com/alphagov/email-alert-frontend/blob/784009bfff734003e028e1c0ab36b61d1775a45f/app/controllers/content_item_signups_controller.rb#L33">here</a>). When you change the slug, any users currently trying to sign up on the pages will receive a 404.</strong></p>
+
 <ol>
   <li>Run the rake task <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=email-alert-api&amp;MACHINE_CLASS=email_alert_api&amp;RAKE_TASK=data_migration:find_subscriber_list_by_title[country_name]">data_migration:find_subscriber_list_by_title[title]</a>
   with the country name to see which subscription lists need to be updated</li>
-  <li>Run the rake task <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=email-alert-api&amp;MACHINE_CLASS=email_alert_api&amp;RAKE_TASK=data_migration:update_subscriber_list[country_slug,&quot;new_title&quot;,new_country_slug]">data_migration:update_subscriber_list[slug,"new_title",new_slug]</a>
+  <li>Run the rake task <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=email-alert-api&amp;MACHINE_CLASS=email_alert_api&amp;RAKE_TASK=data_migration:update_subscriber_list_slug[country_slug,new_country_slug]">data_migration:update_subscriber_list_slug[slug,new_slug]</a>
   to update the subscription lists</li>
 </ol>
-
-<blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>You can test the emails are being sent out correctly in <code>integration</code> and <code>staging</code>
-    by following <a href="https://docs.publishing.service.gov.uk/manual/receiving-emails-from-email-alert-api-in-integration-and-staging.html">Receive emails from Email Alert API in integration and staging</a></p>
-</blockquote>
 
 <h3 id="6-remove-duplicate-search-results">6. Remove duplicate search results</h3>
 
