@@ -136,6 +136,9 @@
       <li>
         <a href="#grafana-tips"><span>Grafana tips</span></a>
       </li>
+      <li>
+        <a href="#fixing-na-in-dashboards"><span>Fixing N/A in dashboards</span></a>
+      </li>
     </ul>
   </li>
 </ul>
@@ -150,7 +153,7 @@
             
   <p><a href='/manual.html#monitoring'>Monitoring</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/aa6b96661cc87c5730b2803755f0a08c6347ba5b">6 Nov 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0ff6b4c3cea6c5cfdfbf81ca4ee4682ad884c032">19 Jan 2021</a>
 </div>
 
  <h1 id='header'>Grafana</h1> <p><a href="https://grafana.com/">Grafana</a> is an open-source visualisation tool.
@@ -202,6 +205,34 @@ can <code>CMD + click</code> to select multiple:</p>
 
 <p>For more tips, see the <a href="https://docs.google.com/presentation/d/1jza62bRUt8BnyIqKkGP0oaP2X26pI-rooU6ri3YCm5w/edit">Introduction to Grafana slides</a>.</p>
 
+<h2 id="fixing-na-in-dashboards">Fixing N/A in dashboards</h2>
+
+<p>When a request for data times out, Grafana will render an "N/A" in the panel.
+Usually refreshing the page or choosing a shorter time range fixes the issue.</p>
+
+<p>If a dashboard consistently returns "N/A", then there may be an underlying issue.</p>
+
+<p>In the failing panel, open Query Inspector, and read the error message for clues:</p>
+
+<p><img src="https://trello-attachments.s3.amazonaws.com/5acb8d0387ff12f600df0a13/5fa2aabcd3c6a14f183a4864/67fefdfd06aaaeca84977dcc32abc27f/Screenshot_2020-11-30_at_10.53.20.png" alt="screenshot of query inspector" /></p>
+
+<p>If you see the following error:</p>
+
+<div class="highlight"><pre class="highlight plaintext"><code>raise CorruptWhisperFile(&amp;quot;Unable to read header&amp;quot;, fh.name) CorruptWhisperFile: Unable to read header (/opt/graphite/storage/whisper/stats/govuk/app/collections-publisher/ip-10-1-5-36/errors_occurred.wsp)
+</code></pre></div>
+<p>…that suggests the <a href="https://github.com/graphite-project/carbon/issues/327">disk was full at the time of writing to Graphite</a>.
+The solution is to remove the corrupt file, and ensure there is space on the disk.</p>
+
+<p>SSH into the relevant machine and <code>more errors_occurred.wsp</code> to see the file contents,
+or <code>ls -lsa</code> in the directory to see the file sizes. This should confirm a file size of
+zero.</p>
+
+<p>Delete all empty (corrupt) WSP files with:</p>
+
+<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>find /opt/graphite/storage/whisper/ <span class="nt">-type</span> f <span class="nt">-empty</span> <span class="nt">-delete</span>
+</code></pre></div>
+<p>You should now find the dashboard panels load properly.</p>
+
 
   <div class='related-content'>
 
@@ -213,12 +244,12 @@ can <code>CMD + click</code> to select multiple:</p>
 
           <ul class="govuk-list">
             <li><a href="/manual/govuk-env-sync.html">Environment data sync</a></li>
-            <li><a href="/manual/error-reporting.html">Error reporting with Sentry</a></li>
             <li><a href="/manual/graphite-and-deployment-dashboards.html">Graphite and deployment dashboards</a></li>
             <li><a href="/manual/icinga.html">Icinga</a></li>
             <li><a href="/manual/metrics.html">Metrics</a></li>
             <li><a href="/manual/pingdom-bouncer-canary-check.html">Pingdom Bouncer canary check</a></li>
             <li><a href="/manual/screens.html">Screens that we have in the office</a></li>
+            <li><a href="/manual/sentry.html">Sentry</a></li>
             <li><a href="/manual/sidekiq.html">Sidekiq</a></li>
             <li><a href="/manual/tools.html">Tools: Icinga, Grafana and Graphite, Kibana, Fabric and friends</a></li>
             <li><a href="/manual/uptime-metrics.html">Uptime Metrics</a></li>
