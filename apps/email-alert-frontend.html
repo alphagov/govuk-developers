@@ -388,9 +388,11 @@ gds govuk connect ssh <span class="nt">-e</span> production aws/draft_frontend
 <p>* Note that <a href="https://github.com/alphagov/email-alert-api/pull/1083">the token strategy has changed over time</a>.</p>
 <h3 id="manage">Manage</h3>
 <p>This allows the user to list, modify and delete their subscriptions [<a href="https://www.gov.uk/email/manage/authenticate">login</a>]. It uses a similar, but separate email/token process to authenticate a user, establishing a session for them to make their changes.</p>
+<h3 id="testing">Testing</h3>
+<p>Some pages are only accessible from a link sent in an email. The documentation on <a href="https://docs.publishing.service.gov.uk/manual/receiving-emails-from-email-alert-api-in-integration-and-staging.html">receiving emails from Email Alert API in Integration and Staging</a> will show how to send emails so these pages can be viewed.</p>
 <h2 id="nomenclature">Nomenclature</h2>
 <h3 id="tags-and-links">Tags and links</h3>
-<p>Uniquely define a list people can subscribe to. The criteria within are used to figure out whether an update is relevant subscribers in the list. Defined in <a href="https://github.com/alphagov/email-alert-api/blob/master/doc/matching-content-to-subscriber-lists.md">the docs for email-alert-api</a>.</p>
+<p>Uniquely define a list people can subscribe to. The criteria within are used to figure out whether an update is relevant subscribers in the list. Defined in <a href="https://docs.publishing.service.gov.uk/apps/email-alert-api/matching-content-to-subscriber-lists.html">the docs for email-alert-api</a>.</p>
 <pre><code>tags: { topics: { any: ["business-tax/vat"] } }
 </code></pre>
 <pre><code>links: { topics: { any: ["1ddaaacb-0981-4abc-a532-a5111f2bea6b"] } }

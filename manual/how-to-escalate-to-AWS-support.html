@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>SSH into machines - GOV.UK Developer Documentation</title>
+    <title>How to raise a support ticket with AWS - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/how-to-escalate-to-AWS-support.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="SSH into machines - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html" />
+      <meta name="twitter:title" content="How to raise a support ticket with AWS - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/how-to-escalate-to-AWS-support.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="SSH into machines" />
+      <meta property="og:title" content="How to raise a support ticket with AWS" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/how-to-escalate-to-AWS-support.html" />
 
     
   </head>
@@ -128,23 +128,7 @@
                   <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
   <ul>
   <li>
-    <a href="#header"><span>SSH into machines</span></a>
-    <ul>
-      <li>
-        <a href="#usage"><span>Usage</span></a>
-      </li>
-      <li>
-        <a href="#troubleshooting"><span>Troubleshooting</span></a>
-        <ul>
-          <li>
-            <a href="#ssh-key"><span>SSH Key</span></a>
-          </li>
-          <li>
-            <a href="#cli-problems"><span>CLI Problems</span></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <a href="#header"><span>How to raise a support ticket with AWS</span></a>
   </li>
 </ul>
 
@@ -158,83 +142,16 @@
             
   <p><a href='/manual.html#aws'>AWS</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/2e8db39807b724c08e6c11a8b6f7b17460141ae1">21 Oct 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/51d116eef499325dadbc80f02258570a173c83f1">19 Jan 2021</a>
 </div>
 
- <h1 id='header'>SSH into machines</h1> <p>This document explains how to SSH into machines, and what commands exist to navigate machines and applications quickly. We use a tool called <a href="https://github.com/alphagov/govuk-connect">GOV.UK Connect</a> to make this easier.</p>
+ <h1 id='header'>How to raise a support ticket with AWS</h1> <p>Sign in to the AWS Management Console.</p>
 
-<h2 id="usage">Usage</h2>
+<p><code>gds aws &lt;command&gt; -l</code></p>
 
-<p>If you know the class of machine you want, you can SSH straight from the command line:</p>
+<p>Where <code>&lt;command&gt;</code> maps to an AWS account and IAM role you have permissions to assume into. This should be the AWS account that the problem is associated with e.g. <code>govuk-production-poweruser</code>.</p>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh cache
-</code></pre></div>
-<p>This will automatically SSH into a random <code>cache</code> machine on AWS.</p>
-
-<p>To see all classes, run:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh <span class="k">*</span>
-</code></pre></div>
-<p>You can connect to specific machines if you know their internal IP address:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect ssh <span class="nt">-e</span> integration ip-10-1-6-234.eu-west-1.compute.internal
-</code></pre></div>
-<p>You can also start a Rails Console on a remote server, from your local machine:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging app-console publishing-api
-</code></pre></div>
-<p>For a full list of commands, run <code>gds govuk connect --help</code>.</p>
-
-<h2 id="troubleshooting">Troubleshooting</h2>
-
-<h3 id="ssh-key">SSH Key</h3>
-
-<p>Sometimes you might try to ssh into a server and nothing happens. Double-check that you
-have added the key into the keychain like so: <code>ssh-add -K ~/.ssh/id_rsa</code>.</p>
-
-<p>Make sure you have been granted access. For example, if you have yet to be granted access
-to production, your attempt to SSH into a production node will fail silently.</p>
-
-<h3 id="cli-problems">CLI Problems</h3>
-
-<p><a href="https://github.com/alphagov/govuk-connect">GOV.UK Connect</a> is a tool we use to make working with our machines quicker and easier. If
-it's not working, you can try manually running the commands it normally runs for you.</p>
-
-<ul>
-  <li>
-    <p><a href="https://docs.publishing.service.gov.uk/apps.html">Find the class of machine you need (and which cloud it lives in)</a>.</p>
-  </li>
-  <li>
-    <p>Find <a href="https://github.com/alphagov/govuk-connect/blob/fcbe054874c84968b6af97e45005b00bc5aa285a/lib/govuk_connect/cli.rb#L81">the jumpbox for the environment you need</a>.</p>
-  </li>
-  <li>
-    <p>SSH to the jumpbox.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>ssh <span class="nt">-A</span> jumpbox.staging.govuk.digital
-</code></pre></div>  </li>
-  <li>
-    <p>On the jumpbox, run <code>govuk_node_list</code> to find the machine you want.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>govuk_node_list <span class="nt">-c</span> backend
-ip-10-12-4-106.eu-west-1.compute.internal
-ip-10-12-5-205.eu-west-1.compute.internal
-ip-10-12-6-44.eu-west-1.compute.internal
-</code></pre></div>  </li>
-  <li>
-    <p>Still on the jumpbox, SSH to one of the machines in the list.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>ssh ip-10-12-4-106.eu-west-1.compute.internal
-</code></pre></div>  </li>
-  <li>
-    <p>Once you're on the machine you need, you can start a Rails console.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>govuk_app_console publishing-api
-</code></pre></div>  </li>
-</ul>
-
-<p>These common commands, along with <code>govuk_node_list</code>, live in
-<a href="https://github.com/alphagov/govuk-puppet/tree/master/modules/govuk_scripts">govuk-puppet</a>.</p>
-
+<p>Then follow steps 2-6 in the official AWS docs: <a href="https://docs.aws.amazon.com/awssupport/latest/user/case-management.html#creating-a-support-case">Creating a support case</a></p>
 
 
   <div class='related-content'>
@@ -247,7 +164,6 @@ ip-10-12-6-44.eu-west-1.compute.internal
 
           <ul class="govuk-list">
             <li><a href="/manual/aws-iam-key-rotation.html">AWS IAM Key Rotation</a></li>
-            <li><a href="/manual/how-to-escalate-to-AWS-support.html">How to raise a support ticket with AWS</a></li>
             <li><a href="/manual/govuk-in-aws.html">Migration to AWS</a></li>
           </ul>
         </div>
@@ -257,6 +173,7 @@ ip-10-12-6-44.eu-west-1.compute.internal
 
           <ul class="govuk-list">
             <li><a href="/manual/set-up-gcp-account.html">Set up your GCP account</a></li>
+            <li><a href="/manual/howto-ssh-to-machines.html">SSH into machines</a></li>
           </ul>
         </div>
 
@@ -269,8 +186,8 @@ ip-10-12-6-44.eu-west-1.compute.internal
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/howto-ssh-to-machines.html.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'SSH%20into%20machines'&amp;body=Problem%20with%20'SSH%20into%20machines'%20(https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/how-to-escalate-to-AWS-support.html.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'How%20to%20raise%20a%20support%20ticket%20with%20AWS'&amp;body=Problem%20with%20'How%20to%20raise%20a%20support%20ticket%20with%20AWS'%20(https://docs.publishing.service.gov.uk/manual/how-to-escalate-to-AWS-support.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
