@@ -148,7 +148,7 @@
         <a href="#get-someone-to-review-your-pull-request"><span>Get someone to review your Pull Request</span></a>
       </li>
       <li>
-        <a href="#check-if-there-is-a-deploy-freeze"><span>Check if there is a deploy freeze</span></a>
+        <a href="#check-for-or-implement-a-deploy-freeze"><span>Check for or implement a deploy freeze</span></a>
       </li>
       <li>
         <a href="#merge-your-own-pull-request"><span>Merge your own Pull Request</span></a>
@@ -177,15 +177,8 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#deployment'>Deployment</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/98b3bda99645049030d42401c32a0d62c2980a0d">6 Jul 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/ddc2dd87a06c40134ffa23dd9113aa7bded14bd0">25 Jan 2021</a>
 </div>
 
  <h1 id='header'>The development and deployment pipeline</h1> <blockquote>
@@ -199,7 +192,7 @@
   <li><a href="#wait-for-continuous-integration-to-pass">Wait for Continuous Integration to pass</a></li>
   <li><a href="#review-your-own-changes">Review your own changes</a></li>
   <li><a href="#get-someone-to-review-your-pull-request">Get someone to review your Pull Request</a></li>
-  <li><a href="#check-if-there-is-a-deploy-freeze">Check if there is a deploy freeze</a></li>
+  <li><a href="#check-if-there-is-a-deploy-freeze">Check for or implement a deploy freeze</a></li>
   <li><a href="#merge-your-own-pull-request">Merge your own Pull Request</a></li>
   <li><a href="#deployment">Deploy through each of the environments</a></li>
 </ol>
@@ -247,7 +240,7 @@ and click 'Build with Parameters':</p>
 <p>Only when the tests pass and the code has been approved the Pull Request can be merged, since we've
 <a href="/manual/configure-github-repo.html">configured GitHub to prevent merges</a> otherwise.</p>
 
-<h2 id="check-if-there-is-a-deploy-freeze">Check if there is a deploy freeze</h2>
+<h2 id="check-for-or-implement-a-deploy-freeze">Check for or implement a deploy freeze</h2>
 
 <p>In exceptional circumstances, we may wish to block or <em>freeze</em>
 deployments for a short period of time. This should be done by
@@ -260,16 +253,21 @@ deployments for the application. You can still deploy urgent
 changes manually if necessary.</p>
 </blockquote>
 
+<p>It is important to ensure people are aware of a code freeze.</p>
+
+<blockquote>
+  <p>Send a message to #govuk-developers on slack with the @channel
+prefix (to ensure people who are offline are notified) and email
+<a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#103;&#111;&#118;&#117;&#107;&#045;&#116;&#101;&#099;&#104;&#045;&#109;&#101;&#109;&#098;&#101;&#114;&#115;&#064;&#100;&#105;&#103;&#105;&#116;&#097;&#108;&#046;&#099;&#097;&#098;&#105;&#110;&#101;&#116;&#045;&#111;&#102;&#102;&#105;&#099;&#101;&#046;&#103;&#111;&#118;&#046;&#117;&#107;">&#103;&#111;&#118;&#117;&#107;&#045;&#116;&#101;&#099;&#104;&#045;&#109;&#101;&#109;&#098;&#101;&#114;&#115;&#064;&#100;&#105;&#103;&#105;&#116;&#097;&#108;&#046;&#099;&#097;&#098;&#105;&#110;&#101;&#116;&#045;&#111;&#102;&#102;&#105;&#099;&#101;&#046;&#103;&#111;&#118;&#046;&#117;&#107;</a>. Your message
+should include the repo you are freezing, the reason why, and the
+expected duration. Follow up to let people know when the freeze
+is lifted.</p>
+</blockquote>
+
 <p>When a deploy freeze is in effect, you should avoid merging any PRs.
 This is because your changes may block other, urgent changes related
 to the deploy freeze. Your changes will also remain undeployed for a
 long time.</p>
-
-<blockquote>
-  <p>People don't always check the Release app before merging their PRs.
-If you need to freeze deployments for an application, you should
-also make people aware using other channels.</p>
-</blockquote>
 
 <h2 id="merge-your-own-pull-request">Merge your own Pull Request</h2>
 
