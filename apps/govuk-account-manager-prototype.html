@@ -401,16 +401,6 @@
 <li><code>make email-alert-api</code></li>
 </ul>
 <p>These commands set up a docker image, build the required system and gem dependencies, and set up the database.</p>
-<h2 id="prevent-developers-from-deploying-secrets">Prevent developers from deploying secrets</h2>
-<p>The Account Manager prototype uses the <a href="https://pre-commit.com/">Pre-Commit framework</a> and the <a href="https://github.com/Yelp/detect-secrets"><code>detect-secrets</code></a> plugin to prevent developers deploying secrets.</p>
-<h3 id="install-pre-commit-framework">Install Pre-Commit framework</h3>
-<p>If you are using the <a href="https://brew.sh/">Homebrew Package Manager</a> or <a href="https://docs.brew.sh/Homebrew-on-Linux">Linuxbrew</a> on Mac, install Pre-Commit by running <code>brew install pre-commit</code> in the command line.</p>
-<p>See <a href="https://pre-commit.com/#installation">the Pre-Commit framework installation documentation</a> for more instructions on how to install Pre-Commit.</p>
-<p>You must have Python 3 installed for this to work. Running the <code>brew install</code> command will install Python 3 as well. See the <a href="https://www.python.org/downloads/">Python downloads page</a> for other ways to install Python 3 if required.</p>
-<h3 id="install-detect-secrets">Install <code>detect-secrets</code>
-</h3>
-<p>The <code>detect-secrets</code> plugin to the Pre-Commit framework detects secrets within a codebase.</p>
-<p>To alert developers when they attempt to enter a secret in the codebase, <a href="https://github.com/Yelp/detect-secrets#client-side-pre-commit-hook">install the client-side pre-commit hook</a>.</p>
 <h2 id="start-the-brexit-transition-checker-and-account-manager-prototype-apps">Start the Brexit transition checker and account manager prototype apps</h2>
 <p>In the command line, go to the <code>finder-frontend</code> repo folder and run <code>govuk-docker-up</code>. This starts the <code>finder-frontend</code> Brexit transition checker and its dependencies.</p>
 <p>Open up a web browser and go to <code>https://finder-frontend.dev.gov.uk</code>.</p>

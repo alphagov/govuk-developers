@@ -360,13 +360,6 @@ Until our prototype is live you will need <a href="https://github.com/alphagov/g
 <p>If you are on a mac, running finder-frontend will spin up a large number of apps and require many resources.
 Ensure you have read <a href="https://github.com/alphagov/govuk-docker/blob/master/docs/installation.md#docker-settings">the installation guide</a> about increasing system resources to docker, or you may see errors transitioning between apps.</p>
 <p>We also maintain <a href="https://github.com/alphagov/govuk-accounts-docker">govuk-accounts-docker</a> which is intended to help government services outside GOV.UK set up a development environment.</p>
-<h3 id="pre-commit-hooks-detect-secrets">Pre-commit hooks &amp; Detect Secrets</h3>
-<p>This repo uses pre-commit hooks (<a href="https://pre-commit.com/">https://pre-commit.com/</a>) and the plugin detect-secrets (<a href="https://github.com/Yelp/detect-secrets">https://github.com/Yelp/detect-secrets</a>) to prevent developers deploying secrets.
-Developers working with this repo should ensure they have pre-commit installed on their system before they attempt to commit and push changes.</p>
-<p>The <a href="https://pre-commit.com/">pre-commit project page</a> has instructions on the many ways the tool can be installed.
-If you are using Brew on Mac or linuxbrew, an easy way is to:</p>
-<pre><code>brew install pre-commit
-</code></pre>
 <h3 id="running-the-tests">Running the tests</h3>
 <p>You don't need govuk-accounts-docker to run the tests, a local postgres database is enough:</p>
 <pre><code>docker run --rm -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=db -p 5432:5432 postgres:13
