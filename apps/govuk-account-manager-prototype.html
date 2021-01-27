@@ -1,0 +1,665 @@
+
+<!doctype html>
+<html lang="en" class="govuk-template no-js">
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>Application: govuk-account-manager-prototype - GOV.UK Developer Documentation</title>
+
+    <link href="/stylesheets/manifest.css" rel="stylesheet" />
+
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/govuk-account-manager-prototype.html">
+
+      <meta name="description" content="Everything about the govuk-account-manager-prototype application (Prototype OIDC IDP &amp; user-facing account manager)" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta name="twitter:title" content="Application: govuk-account-manager-prototype - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/govuk-account-manager-prototype.html" />
+
+      <meta property="og:description" content="Everything about the govuk-account-manager-prototype application (Prototype OIDC IDP &amp; user-facing account manager)" />
+      <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="og:site_name" content="GOV.UK Developer Documentation" />
+      <meta property="og:title" content="Application: govuk-account-manager-prototype" />
+      <meta property="og:type" content="object" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/govuk-account-manager-prototype.html" />
+
+    
+  </head>
+
+  <body class="govuk-template__body">
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+
+    <div class="app-pane">
+      <div class="app-pane__header toc-open-disabled">
+        <a href="#content" class="govuk-skip-link">Skip to main content</a>
+
+        <header class="govuk-header app-header" role="banner" data-module="govuk-header">
+  <div class="govuk-header__container govuk-header__container--full-width">
+    <div class="govuk-header__logo">
+      <a href="/" class="govuk-header__link govuk-header__link--homepage">
+        <span class="govuk-header__logotype">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            class="govuk-header__logotype-crown"
+            xmlns="http://www.w3.org/2000/svg"
+            viewbox="0 0 132 97"
+            height="30"
+            width="36"
+          >
+            <path
+              fill="currentColor" fill-rule="evenodd"
+              d="M25 30.2c3.5 1.5 7.7-.2 9.1-3.7 1.5-3.6-.2-7.8-3.9-9.2-3.6-1.4-7.6.3-9.1 3.9-1.4 3.5.3 7.5 3.9 9zM9 39.5c3.6 1.5 7.8-.2 9.2-3.7 1.5-3.6-.2-7.8-3.9-9.1-3.6-1.5-7.6.2-9.1 3.8-1.4 3.5.3 7.5 3.8 9zM4.4 57.2c3.5 1.5 7.7-.2 9.1-3.8 1.5-3.6-.2-7.7-3.9-9.1-3.5-1.5-7.6.3-9.1 3.8-1.4 3.5.3 7.6 3.9 9.1zm38.3-21.4c3.5 1.5 7.7-.2 9.1-3.8 1.5-3.6-.2-7.7-3.9-9.1-3.6-1.5-7.6.3-9.1 3.8-1.3 3.6.4 7.7 3.9 9.1zm64.4-5.6c-3.6 1.5-7.8-.2-9.1-3.7-1.5-3.6.2-7.8 3.8-9.2 3.6-1.4 7.7.3 9.2 3.9 1.3 3.5-.4 7.5-3.9 9zm15.9 9.3c-3.6 1.5-7.7-.2-9.1-3.7-1.5-3.6.2-7.8 3.7-9.1 3.6-1.5 7.7.2 9.2 3.8 1.5 3.5-.3 7.5-3.8 9zm4.7 17.7c-3.6 1.5-7.8-.2-9.2-3.8-1.5-3.6.2-7.7 3.9-9.1 3.6-1.5 7.7.3 9.2 3.8 1.3 3.5-.4 7.6-3.9 9.1zM89.3 35.8c-3.6 1.5-7.8-.2-9.2-3.8-1.4-3.6.2-7.7 3.9-9.1 3.6-1.5 7.7.3 9.2 3.8 1.4 3.6-.3 7.7-3.9 9.1zM69.7 17.7l8.9 4.7V9.3l-8.9 2.8c-.2-.3-.5-.6-.9-.9L72.4 0H59.6l3.5 11.2c-.3.3-.6.5-.9.9l-8.8-2.8v13.1l8.8-4.7c.3.3.6.7.9.9l-5 15.4v.1c-.2.8-.4 1.6-.4 2.4 0 4.1 3.1 7.5 7 8.1h.2c.3 0 .7.1 1 .1.4 0 .7 0 1-.1h.2c4-.6 7.1-4.1 7.1-8.1 0-.8-.1-1.7-.4-2.4V34l-5.1-15.4c.4-.2.7-.6 1-.9zM66 92.8c16.9 0 32.8 1.1 47.1 3.2 4-16.9 8.9-26.7 14-33.5l-9.6-3.4c1 4.9 1.1 7.2 0 10.2-1.5-1.4-3-4.3-4.2-8.7L108.6 76c2.8-2 5-3.2 7.5-3.3-4.4 9.4-10 11.9-13.6 11.2-4.3-.8-6.3-4.6-5.6-7.9 1-4.7 5.7-5.9 8-.5 4.3-8.7-3-11.4-7.6-8.8 7.1-7.2 7.9-13.5 2.1-21.1-8 6.1-8.1 12.3-4.5 20.8-4.7-5.4-12.1-2.5-9.5 6.2 3.4-5.2 7.9-2 7.2 3.1-.6 4.3-6.4 7.8-13.5 7.2-10.3-.9-10.9-8-11.2-13.8 2.5-.5 7.1 1.8 11 7.3L80.2 60c-4.1 4.4-8 5.3-12.3 5.4 1.4-4.4 8-11.6 8-11.6H55.5s6.4 7.2 7.9 11.6c-4.2-.1-8-1-12.3-5.4l1.4 16.4c3.9-5.5 8.5-7.7 10.9-7.3-.3 5.8-.9 12.8-11.1 13.8-7.2.6-12.9-2.9-13.5-7.2-.7-5 3.8-8.3 7.1-3.1 2.7-8.7-4.6-11.6-9.4-6.2 3.7-8.5 3.6-14.7-4.6-20.8-5.8 7.6-5 13.9 2.2 21.1-4.7-2.6-11.9.1-7.7 8.8 2.3-5.5 7.1-4.2 8.1.5.7 3.3-1.3 7.1-5.7 7.9-3.5.7-9-1.8-13.5-11.2 2.5.1 4.7 1.3 7.5 3.3l-4.7-15.4c-1.2 4.4-2.7 7.2-4.3 8.7-1.1-3-.9-5.3 0-10.2l-9.5 3.4c5 6.9 9.9 16.7 14 33.5 14.8-2.1 30.8-3.2 47.7-3.2z"
+            ></path>
+            <image src="/assets/images/govuk-logotype-crown.png" xlink:href="" class="govuk-header__logotype-crown-fallback-image" width="36" height="32"></image>
+          </svg>
+          <span class="govuk-header__logotype-text">
+            GOV.UK
+          </span>
+        </span>
+        <span class="govuk-header__product-name">
+          Developer docs
+        </span>
+      </a>
+    </div>
+    <div class="govuk-header__content">
+      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <nav>
+        <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/">Dashboard</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/manual/get-started.html">Get started</a>
+            </li>
+            <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
+              <a class="govuk-header__link" href="/apps.html">Apps</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/manual.html">Manual</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/content-schemas.html">Schemas</a>
+            </li>
+            <li class="govuk-header__navigation-item">
+              <a class="govuk-header__link" href="/document-types.html">Document types</a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+      </div>
+
+        <div id="toc-heading" class="toc-show fixedsticky">
+          <a href="#toc" class="toc-show__label js-toc-show" aria-controls="toc">
+            Table of contents <span class="toc-show__icon"></span>
+          </a>
+        </div>
+
+      <div class="app-pane__body">
+          <div class="app-pane__toc">
+            <div class="toc" data-module="table-of-contents">
+              <div class="search" data-module="search">
+  <form action="https://www.google.co.uk/search" method="get" role="search">
+    <input type="hidden" name="as_sitesearch" value="https://docs.publishing.service.gov.uk"/>
+    <label class="govuk-label search__label" for="search">
+      Search (via Google)
+    </label>
+    <input class="govuk-input govuk-!-margin-bottom-4" id="search" name="q" type="text" aria-controls="search-results" placeholder="Search">
+  </form>
+  <div id="search-results" class="search-results" aria-hidden="true" role="dialog" aria-labelledby="search-results-title">
+    <div class="search-results__inner">
+      <button class="search-results__close">Close<span class="search-results__close-label"> search results</span></button>
+      <h2 id="search-results-title" class="search-results__title" aria-live="polite">Results</h2>
+      <div class="search-results__content"></div>
+    </div>
+  </div>
+</div>
+
+              <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
+              <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
+                  <ul>
+    <li>
+      <a href="/apps/by-team.html">
+        <span>Application ownership by team</span>
+      </a>
+    </li>
+
+      <li>
+        <a href="/apps.html">
+          <span>APIs</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/asset-manager.html"><span>asset-manager</span></a></li>
+          <li><a href="/apps/content-store.html"><span>content-store</span></a></li>
+          <li><a href="/apps/email-alert-api.html"><span>email-alert-api</span></a></li>
+          <li><a href="/apps/hmrc-manuals-api.html"><span>hmrc-manuals-api</span></a></li>
+          <li><a href="/apps/imminence.html"><span>imminence</span></a></li>
+          <li><a href="/apps/link-checker-api.html"><span>link-checker-api</span></a></li>
+          <li><a href="/apps/mapit.html"><span>mapit</span></a></li>
+          <li><a href="/apps/publishing-api.html"><span>publishing-api</span></a></li>
+          <li><a href="/apps/router-api.html"><span>router-api</span></a></li>
+          <li><a href="/apps/search-api.html"><span>search-api</span></a></li>
+          <li><a href="/apps/support-api.html"><span>support-api</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>Supporting apps</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/authenticating-proxy.html"><span>authenticating-proxy</span></a></li>
+          <li><a href="/apps/content-data-admin.html"><span>content-data-admin</span></a></li>
+          <li><a href="/apps/content-data-api.html"><span>content-data-api</span></a></li>
+          <li><a href="/apps/govuk-load-testing.html"><span>govuk-load-testing</span></a></li>
+          <li><a href="/apps/release.html"><span>release</span></a></li>
+          <li><a href="/apps/router.html"><span>router</span></a></li>
+          <li><a href="/apps/search-admin.html"><span>search-admin</span></a></li>
+          <li><a href="/apps/signon.html"><span>signon</span></a></li>
+          <li><a href="/apps/support.html"><span>support</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>Transition apps</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/bouncer.html"><span>bouncer</span></a></li>
+          <li><a href="/apps/side-by-side-browser.html"><span>side-by-side-browser</span></a></li>
+          <li><a href="/apps/transition.html"><span>transition</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>Services</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/cache-clearing-service.html"><span>cache-clearing-service</span></a></li>
+          <li><a href="/apps/email-alert-service.html"><span>email-alert-service</span></a></li>
+          <li><a href="/apps/search-analytics.html"><span>search-analytics</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>Frontend apps</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/calculators.html"><span>calculators</span></a></li>
+          <li><a href="/apps/collections.html"><span>collections</span></a></li>
+          <li><a href="/apps/email-alert-frontend.html"><span>email-alert-frontend</span></a></li>
+          <li><a href="/apps/feedback.html"><span>feedback</span></a></li>
+          <li><a href="/apps/finder-frontend.html"><span>finder-frontend</span></a></li>
+          <li><a href="/apps/frontend.html"><span>frontend</span></a></li>
+          <li><a href="/apps/government-frontend.html"><span>government-frontend</span></a></li>
+          <li><a href="/apps/info-frontend.html"><span>info-frontend</span></a></li>
+          <li><a href="/apps/licence-finder.html"><span>licence-finder</span></a></li>
+          <li><a href="/apps/manuals-frontend.html"><span>manuals-frontend</span></a></li>
+          <li><a href="/apps/service-manual-frontend.html"><span>service-manual-frontend</span></a></li>
+          <li><a href="/apps/smart-answers.html"><span>smart-answers</span></a></li>
+          <li><a href="/apps/static.html"><span>static</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>data.gov.uk apps</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/ckanext-datagovuk.html"><span>ckanext-datagovuk</span></a></li>
+          <li><a href="/apps/datagovuk_find.html"><span>datagovuk_find</span></a></li>
+          <li><a href="/apps/datagovuk_publish.html"><span>datagovuk_publish</span></a></li>
+          <li><a href="/apps/datagovuk_reference.html"><span>datagovuk_reference</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>Publishing apps</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/collections-publisher.html"><span>collections-publisher</span></a></li>
+          <li><a href="/apps/contacts-admin.html"><span>contacts-admin</span></a></li>
+          <li><a href="/apps/content-publisher.html"><span>content-publisher</span></a></li>
+          <li><a href="/apps/content-tagger.html"><span>content-tagger</span></a></li>
+          <li><a href="/apps/local-links-manager.html"><span>local-links-manager</span></a></li>
+          <li><a href="/apps/manuals-publisher.html"><span>manuals-publisher</span></a></li>
+          <li><a href="/apps/maslow.html"><span>maslow</span></a></li>
+          <li><a href="/apps/publisher.html"><span>publisher</span></a></li>
+          <li><a href="/apps/service-manual-publisher.html"><span>service-manual-publisher</span></a></li>
+          <li><a href="/apps/short-url-manager.html"><span>short-url-manager</span></a></li>
+          <li><a href="/apps/specialist-publisher.html"><span>specialist-publisher</span></a></li>
+          <li><a href="/apps/travel-advice-publisher.html"><span>travel-advice-publisher</span></a></li>
+          <li><a href="/apps/whitehall.html"><span>whitehall</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>GOV.UK Account</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/govuk-account-manager-prototype.html" class="toc-link--in-view"><span>govuk-account-manager-prototype</span></a></li>
+          <li><a href="/apps/govuk-attribute-service-prototype.html"><span>govuk-attribute-service-prototype</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>Utilities</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/govuk-alert-tracker.html"><span>govuk-alert-tracker</span></a></li>
+          <li><a href="/apps/govuk-content-store-examples.html"><span>govuk-content-store-examples</span></a></li>
+          <li><a href="/apps/govuk-dependencies.html"><span>govuk-dependencies</span></a></li>
+          <li><a href="/apps/govuk-display-screen.html"><span>govuk-display-screen</span></a></li>
+          <li><a href="/apps/govuk-pact-broker.html"><span>govuk-pact-broker</span></a></li>
+          <li><a href="/apps/govuk-puppet.html"><span>govuk-puppet</span></a></li>
+          <li><a href="/apps/govuk-secondline-blinken.html"><span>govuk-secondline-blinken</span></a></li>
+          <li><a href="/apps/govuk-zendesk-display-screen.html"><span>govuk-zendesk-display-screen</span></a></li>
+          <li><a href="/apps/seal.html"><span>seal</span></a></li>
+          <li><a href="/apps/search-performance-explorer.html"><span>search-performance-explorer</span></a></li>
+          <li><a href="/apps/side-by-side-browser.html"><span>side-by-side-browser</span></a></li>
+          <li><a href="/apps/tech-docs-monitor.html"><span>tech-docs-monitor</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>Data science</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/govuk-knowledge-graph.html"><span>govuk-knowledge-graph</span></a></li>
+          <li><a href="/apps/govuk-related-links-recommender.html"><span>govuk-related-links-recommender</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
+          <span>Licensing apps</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/licensify.html"><span>licensify</span></a></li>
+        </ul>
+      </li>
+  </ul>
+
+              </nav>
+            </div>
+          </div>
+
+        <div class="app-pane__content toc-open-disabled">
+          <main id="content" class="technical-documentation" data-module="anchored-headings">
+              <h1 class="page-title">Application: govuk-account-manager-prototype</h1>
+
+  <p>Prototype OIDC IDP &amp; user-facing account manager</p>
+
+<h2 id="ownership">Ownership</h2>
+
+<p><strong>#govuk-accounts-tech</strong> owns the application and is responsible for updating its dependencies.</p>
+
+<h2 id="hosting">Hosting</h2>
+
+<p>The production version of this application is hosted on <strong>GOV.UK PaaS</strong>.</p>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li><a href="https://github.com/alphagov/govuk-account-manager-prototype">GitHub repo</a></li>
+
+    <li><a href="https://sentry.io/organizations/govuk/issues/?project=5370953">Sentry (error tracking)</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+
+<h2 id="readme">README</h2>
+
+<div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-warning-text__assistive">Warning</span>
+      The content below is pulled in directly from the repository.<br />
+      Links might not function properly.
+    </strong>
+  </div>
+
+<div class="embedded-readme">
+    
+<p>See further howtos in <a href="https://team-manual.account.publishing.service.gov.uk/">Team Manual</a>.</p>
+<h1 id="set-up-the-gov-uk-account-manager-prototype">Set up the GOV.UK account manager prototype</h1>
+<p>The GOV.UK account manager prototype is an application to test how users:</p>
+<ul>
+<li>authenticate their data</li>
+<li>authorise their data for exchange</li>
+<li>stay informed of the use of their data</li>
+<li>manage consent for use of their data</li>
+</ul>
+<p>This content tells you how to:</p>
+<ul>
+<li>set up and run the GOV.UK account manager prototype</li>
+<li>integrate the <code>finder-frontend</code> Brexit transition checker with the GOV.UK account manager</li>
+</ul>
+<p>This content is for GOV.UK developers working on Macs or Linux. If you are not a GOV.UK developer, you cannot use this prototype.</p>
+<h2 id="install-gov-uk-docker">Install GOV.UK Docker</h2>
+<p><a href="https://github.com/alphagov/govuk-docker">Install GOV.UK Docker</a>. Make sure that you allocate at least the minimum resources specified in the <a href="https://github.com/alphagov/govuk-docker/blob/master/README.md#installation">GOV.UK Docker installation guidance</a> as running the prototype on your local machine is resource-intensive.</p>
+<h2 id="clone-repositories-to-local-machine">Clone repositories to local machine</h2>
+<p>To set up GOV.UK account manager, ensure you have a <code>~/govuk</code> directory.</p>
+<p>Clone the following repositories (repos) to the <code>~/govuk</code> folder on your local machine:</p>
+<ul>
+<li>the <a href="https://github.com/alphagov/govuk-account-manager-prototype">GOV.UK account manager prototype</a>
+</li>
+<li>the <a href="https://github.com/alphagov/govuk-attribute-service-prototype">GOV.UK attribute service prototype</a>
+</li>
+<li>the <a href="https://github.com/alphagov/finder-frontend">finder frontend</a> that contains the Brexit transition checker</li>
+<li>the <a href="https://github.com/alphagov/email-alert-api/">email alert API</a>
+</li>
+</ul>
+<p>Check out the following branches on the different repos:</p>
+<ul>
+<li>
+<code>master</code> branch on the GOV.UK Docker repo</li>
+<li>
+<code>main</code> branch on the GOV.UK account manager prototype repo</li>
+<li>
+<code>main</code> branch on the GOV.UK attribute service prototype repo</li>
+<li>
+<code>master</code> branch on the Brexit transition checker repo</li>
+</ul>
+<h2 id="set-up-the-docker-image-and-database">Set up the docker image and database</h2>
+<p>In the command line, go to the <code>govuk/govuk-docker</code> repo folder and run the following commands:</p>
+<ul>
+<li><code>make govuk-attribute-service-prototype</code></li>
+<li><code>make govuk-account-manager-prototype</code></li>
+<li><code>make finder-frontend</code></li>
+<li><code>make email-alert-api</code></li>
+</ul>
+<p>These commands set up a docker image, build the required system and gem dependencies, and set up the database.</p>
+<h2 id="prevent-developers-from-deploying-secrets">Prevent developers from deploying secrets</h2>
+<p>The Account Manager prototype uses the <a href="https://pre-commit.com/">Pre-Commit framework</a> and the <a href="https://github.com/Yelp/detect-secrets"><code>detect-secrets</code></a> plugin to prevent developers deploying secrets.</p>
+<h3 id="install-pre-commit-framework">Install Pre-Commit framework</h3>
+<p>If you are using the <a href="https://brew.sh/">Homebrew Package Manager</a> or <a href="https://docs.brew.sh/Homebrew-on-Linux">Linuxbrew</a> on Mac, install Pre-Commit by running <code>brew install pre-commit</code> in the command line.</p>
+<p>See <a href="https://pre-commit.com/#installation">the Pre-Commit framework installation documentation</a> for more instructions on how to install Pre-Commit.</p>
+<p>You must have Python 3 installed for this to work. Running the <code>brew install</code> command will install Python 3 as well. See the <a href="https://www.python.org/downloads/">Python downloads page</a> for other ways to install Python 3 if required.</p>
+<h3 id="install-detect-secrets">Install <code>detect-secrets</code>
+</h3>
+<p>The <code>detect-secrets</code> plugin to the Pre-Commit framework detects secrets within a codebase.</p>
+<p>To alert developers when they attempt to enter a secret in the codebase, <a href="https://github.com/Yelp/detect-secrets#client-side-pre-commit-hook">install the client-side pre-commit hook</a>.</p>
+<h2 id="start-the-brexit-transition-checker-and-account-manager-prototype-apps">Start the Brexit transition checker and account manager prototype apps</h2>
+<p>In the command line, go to the <code>finder-frontend</code> repo folder and run <code>govuk-docker-up</code>. This starts the <code>finder-frontend</code> Brexit transition checker and its dependencies.</p>
+<p>Open up a web browser and go to <code>https://finder-frontend.dev.gov.uk</code>.</p>
+<p>If you have set up the apps correctly, you will be able to access the following links:</p>
+<ul>
+<li>the <a href="http://finder-frontend.dev.gov.uk/transition-check/questions">Brexit transition checker journey start page</a>
+</li>
+<li>the <a href="http://finder-frontend.dev.gov.uk/transition-check/results?c%5B%5D=living-ie">Brexit transition checker results page</a> that reflects the answers you give during the Brexit transition checker journey</li>
+<li>select the subscribe banner or button to access the <a href="http://finder-frontend.dev.gov.uk/transition-check/save-your-results?c%5B%5D=living-ie">account sign up page</a>
+</li>
+</ul>
+<p>When you have set up your local account, you can <a href="http://www.login.service.dev.gov.uk/">sign into your account</a> and view the manage screens.</p>
+<p>You have now set up and run the GOV.UK account manager prototype, and integrated the <code>finder-frontend</code> Brexit transition checker with the GOV.UK account manager.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If you are having issues setting up and running the GOV.UK account manager prototype, it might be because:</p>
+<ul>
+<li>you have not allocated enough resources to GOV.UK Docker</li>
+<li>there have been backend changes to the database or the prototypes</li>
+<li>there have been <a href="https://rubyonrails.org/">Ruby on Rails</a> configuration changes to the app</li>
+</ul>
+<h3 id="not-enough-resources-allocated-to-gov-uk-docker">Not enough resources allocated to GOV.UK Docker</h3>
+<p>To change the resource allocation for GOV.UK Docker, see the <a href="https://github.com/alphagov/govuk-docker/blob/master/README.md#installation">GOV.UK Docker readme</a>.</p>
+<h3 id="backend-changes-to-the-database-or-the-prototypes">Backend changes to the database or the prototypes</h3>
+<p>To account for recent backend changes, go to the main branch of your local GOV.UK Docker repo and run the following in the command line:</p>
+<pre><code>govuk-docker run govuk-account-manager-prototype-lite bundle exec rake db:migrate
+govuk-docker run govuk-account-manager-prototype-lite bundle exec rake db:migrate RAILS_ENV=test
+</code></pre>
+<p>Then <a href="#start-the-transition-checker-and-account-manager-prototype-apps">restart the Brexit transition checker and account manager prototype apps</a>.</p>
+<h3 id="ruby-on-rails-configuration-changes-to-the-app">Ruby on Rails configuration changes to the app</h3>
+<p>If there have been Ruby on Rails configuration changes to the app, you must restart the app to see these changes reflected.</p>
+<ol>
+<li>Run <code>govuk-docker down</code> in the command line to stop all GOV.UK Docker containers.</li>
+<li>Run <code>govuk-docker-up</code> in the folder of the app you want to run to restart the GOV.UK Docker containers.</li>
+</ol>
+<h2 id="sending-emails-locally">Sending emails locally</h2>
+<p>You'll need to pass a GOV.UK Notify API key as an environment variable
+<code>NOTIFY_API_KEY</code>, and change the delivery method in <a href="https://github.com/alphagov/govuk-account-manager-prototype/blob/master/config/environments/development.rb">development.rb</a>:</p>
+<pre lang="ruby"><code>config.action_mailer.delivery_method = :notify
+</code></pre>
+<p>You'll also need to set a <code>GOVUK_NOTIFY_TEMPLATE_ID</code>, which might involve
+creating a template in Notify if <a href="https://www.notifications.service.gov.uk/accounts">your Notify service</a> doesn't have one.</p>
+<p>The template should have a Message of <code>((body))</code> only.</p>
+<h2 id="running-the-tests">Running the tests</h2>
+<p>You don't need govuk-accounts-docker to run the tests, a local postgres database is enough:</p>
+<pre><code>docker run --rm -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=db -p 5432:5432 postgres:13
+</code></pre>
+<p>Set up your environment and create the database tables:</p>
+<pre><code>export TEST_DATABASE_URL="postgresql://postgres:postgres@127.0.0.1/db"
+bundle exec rake db:migrate RAILS_ENV=test
+</code></pre>
+<p>Then you can run the tests with:</p>
+<pre><code>bundle exec rake
+</code></pre>
+<h2 id="deployment-to-gov-uk-via-concourse">Deployment to GOV.UK via concourse</h2>
+<p>Every commit to main is deployed to GOV.UK PaaS by <a href="https://cd.gds-reliability.engineering/teams/govuk-tools/pipelines/govuk-account-manager-prototype">this concourse pipeline</a>, which is configured in <a href="https://github.com/alphagov/govuk-account-manager-prototype/blob/master/concourse/pipeline.yml">concourse/pipeline.yml</a>.</p>
+<p>You will need to be logged into the GDS VPN to access concourse.</p>
+<p>The concourse pipeline has credentials for the govuk-accounts-developers user in GOV.UK PaaS. This user has the SpaceDeveloper role, so it can <code>cf push</code> the application.</p>
+<h2 id="secrets">Secrets</h2>
+<p>Secrets are defined via the <a href="https://github.com/alphagov/gds-cli">gds-cli</a> and Concourse secrets manager.</p>
+<p>You can view live secrets with an authenticated cloud foundry command:
+<code>cf env govuk-account-manager</code>.</p>
+<p>Adding or updating a secret can be done with Concourse secrets manager and the <a href="https://docs.publishing.service.gov.uk/manual/get-started.html#3-install-gds-tooling">GDS cli</a>.</p>
+<pre><code>gds cd secrets add cd-govuk-tools govuk-account-manager-prototype/SECRET_NAME your_secret_value
+</code></pre>
+<p>To remove a secret:</p>
+<pre><code>gds cd secrets rm cd-govuk-tools govuk-account-manager-prototype/SECRET_NAME
+</code></pre>
+<p>You would also need to unset it from the PaaS environment. Which you can do with this command:</p>
+<pre><code>cf unset-env govuk-account-manager SECRET_NAME
+</code></pre>
+<h2 id="creating-a-new-oauth-application">Creating a new OAuth application</h2>
+<p>First get a Rails console.  For example, when running locally in Docker Compose:</p>
+<pre><code>docker ps
+docker exec -it ${container_id} rails console
+</code></pre>
+<p>Then create a new <code>Doorkeeper::Application</code>:</p>
+<pre><code>a = Doorkeeper::Application.create!(name: "...", redirect_uri: "...", scopes: [...])
+puts "client id:     #{a.uid}"
+puts "client secret: #{a.secret}"
+</code></pre>
+<p>You will probably want <code>openid</code> in the list of scopes.</p>
+<h2 id="disabling-registrations">Disabling registrations</h2>
+<p>Set the <code>ENABLE_REGISTRATION</code> environment variable to <code>false</code> to
+disable the registration form.</p>
+<p>To do this in production / staging:</p>
+<ol>
+<li>Edit <code>concourse/pipeline.yml</code>, changing <code>ENABLE_REGISTRATION: "true"</code> to  <code>ENABLE_REGISTRATION: "false"</code> in the relevant environment</li>
+<li>Deploy the pipeline change (happens automatically on push to main)</li>
+<li>Deploy the application (happens automatically on push to main)</li>
+</ol>
+<p>If changing the pipeline isn't feasible (for example, you are doing
+this out-of-hours and nobody else is around), you can use the PaaS CLI
+to set the environment variable:</p>
+<ol>
+<li>Log into the PaaS</li>
+<li><code>cf set-env govuk-account-manager ENABLE_REGISTRATION false</code></li>
+<li><code>cf restage govuk-account-manager</code></li>
+</ol>
+<p>This approach will cause some brief downtime as the app restarts, and
+the environment variable change will be lost on the next Concourse
+deployment.</p>
+<h2 id="exporting-registration-statistics">Exporting registration statistics</h2>
+<p>We may periodically be asked to produce reports with information about the
+number of registrations, logins, etc. There is a rake task to handle this and
+has to be run manually in production, e.g. to produce statistics for the 28th
+October 2020:</p>
+<pre><code>cf login -u &lt;your_email&gt; -a https://api.london.cloud.service.gov.uk --sso
+cf target -s production
+cf v3-ssh govuk-account-manager
+$ /tmp/lifecycle/shell
+$ rake "statistics:general[2020-10-28 00:00, 2020-10-28 23:59]"
+</code></pre>
+<h2 id="starting-an-ab-test">Starting an A/B test</h2>
+<p>A/B testing works similarly as on GOV.UK, but with two exceptions:</p>
+<ul>
+<li>We don't use Fastly, so the variant selection and persistence logic
+is done in the app.</li>
+<li>If a user is logged in, we persist the selected variant in their
+account, regardless of device.</li>
+</ul>
+<p>Before starting an A/B test you'll need:</p>
+<ul>
+<li>A custom dimension for Google Analytics from a performance analyst.</li>
+<li>A migration creating a field <code>ab_test_&lt;testname&gt;</code> on the user model.</li>
+</ul>
+<p>Here's an example of a controller with an A/B test:</p>
+<pre lang="ruby"><code># app/controllers/party_controller.rb
+class PartyController &lt; ApplicationController
+  def show
+    ab_test = AbTest.new(
+      "your_ab_test_name",
+      dimension: 300,
+      expires: 1.week,
+      allowed_variants: { NoChange: 1, LongTitle : 2, ShortTitle: 2 },
+      control_variant: "NoChange"
+    )
+    @requested_variant = ab_test.requested_variant(request, cookies, current_user)
+    @requested_variant.configure_response(response, cookies)
+
+    case true
+    when @requested_variant.variant?("LongTitle")
+      render "show_template_with_long_title"
+    when @requested_variant.variant?("ShortTitle")
+      render "show_template_with_short_title"
+    else
+      render "show"
+    end
+  end
+end
+</code></pre>
+<p>In this example, we are running a multivariate test with 3 options
+being tested: the existing version (control) being shown 1/5th of the
+time, and two changes each being shown 2/5ths of the time.  The
+minimum number of variants in any test should be two.</p>
+<p>When first switching on this A/B test, make sure to also deploy a
+migration:</p>
+<pre lang="ruby"><code># db/migrations/xxxxxxxxxxxxxx_start_ab_test_your_test_name.rb
+class StartAbTestYourTestName &lt; ActiveRecord::Migration[6.0]
+  def change
+    add_column :users, :ab_test_your_ab_test_name, :string
+  end
+end
+</code></pre>
+<p>Then, add this to your layouts, so that we have a meta tag that can be
+picked up by analytics:</p>
+<pre lang="html"><code>&lt;!-- application.html.erb --&gt;
+&lt;head&gt;
+  &lt;%= @requested_variant.analytics_meta_tag.html_safe %&gt;
+&lt;/head&gt;
+</code></pre>
+<p>When switching off an A/B test, first remove the test from the
+controller and view, then deploy a migration removing the field from
+the users model:</p>
+<pre lang="ruby"><code># db/migrations/xxxxxxxxxxxxxx_stop_ab_test_your_test_name.rb
+class StopAbTestYourTestName &lt; ActiveRecord::Migration[6.0]
+  def change
+    remove_column :users, :ab_test_your_ab_test_name
+  end
+end
+</code></pre>
+<p>See <a href="https://github.com/alphagov/govuk_ab_testing#govuk-ab-testing">the govuk_ab_testing README</a> for full documentation on usage
+and testing.</p>
+<h2 id="supporting-information">Supporting information</h2>
+<p>See the <a href="https://docs.account.publishing.service.gov.uk/">GOV.UK Account technical documentation</a> for more information on using the GOV.UK Account product.</p>
+<p>See the <a href="https://team-manual.account.publishing.service.gov.uk/">GOV.UK Account team manual</a> for more information on internal GOV.UK Account team processes such as handling Zendesk tickets or deploying a branch to the staging environment.</p>
+<p>You should check the GOV.UK Account technical documentation and team manual regularly as they are both currently under development and will change frequently.</p>
+<p>See the <a href="https://docs.publishing.service.gov.uk/">GOV.UK developer documentation</a> for more information on GOV.UK applications, infrastructure and tools.</p>
+  </div>
+
+
+
+            
+          </main>
+
+          <aside>
+              <ul class="contribution-banner">
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/data/applications.yml">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/govuk-account-manager-prototype.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
+              </ul>
+          </aside>
+
+          <footer class="govuk-footer app-footer" role="contentinfo">
+  <div class="govuk-footer__meta">
+    <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+
+        <ul class="govuk-footer__inline-list">
+            <li class="govuk-footer__inline-list-item">
+              <a class="govuk-footer__link" href="/accessibility.html">Accessibility</a>
+            </li>
+        </ul>
+
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        class="govuk-footer__licence-logo"
+        xmlns="http://www.w3.org/2000/svg"
+        viewbox="0 0 483.2 195.7"
+        height="17"
+        width="41"
+      >
+        <path
+          fill="currentColor"
+          d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"
+        />
+      </svg>
+      <span class="govuk-footer__licence-description">
+        All content is available under the
+        <a
+          class="govuk-footer__link"
+          href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+          rel="license"
+        >Open Government Licence v3.0</a>, except where otherwise stated
+      </span>
+    </div>
+    <div class="govuk-footer__meta-item">
+      <a
+        class="govuk-footer__link govuk-footer__copyright-logo"
+        href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
+      >© Crown copyright</a>
+    </div>
+  </div>
+</footer>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <script src="/javascripts/application.js"></script>
+  </body>
+</html>

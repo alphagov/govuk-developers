@@ -23,7 +23,9 @@ feedback,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.s
 finder-frontend,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/finder-frontend.html,https://github.com/alphagov/finder-frontend,aws
 frontend,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/frontend.html,https://github.com/alphagov/frontend,aws
 government-frontend,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/government-frontend.html,https://github.com/alphagov/government-frontend,aws
+govuk-account-manager-prototype,#govuk-accounts-tech,#govuk-accounts-tech,https://docs.publishing.service.gov.uk/apps/govuk-account-manager-prototype.html,https://github.com/alphagov/govuk-account-manager-prototype,paas
 govuk-alert-tracker,,,https://docs.publishing.service.gov.uk/apps/govuk-alert-tracker.html,https://github.com/alphagov/govuk-alert-tracker,heroku
+govuk-attribute-service-prototype,#govuk-accounts-tech,#govuk-accounts-tech,https://docs.publishing.service.gov.uk/apps/govuk-attribute-service-prototype.html,https://github.com/alphagov/govuk-attribute-service-prototype,paas
 govuk-content-store-examples,,,https://docs.publishing.service.gov.uk/apps/govuk-content-store-examples.html,https://github.com/alphagov/govuk-content-schemas,heroku
 govuk-dependencies,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/govuk-dependencies.html,https://github.com/alphagov/govuk-dependencies,heroku
 govuk-display-screen,,,https://docs.publishing.service.gov.uk/apps/govuk-display-screen.html,https://github.com/alphagov/govuk-display-screen,heroku
