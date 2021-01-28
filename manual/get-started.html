@@ -215,7 +215,7 @@
             
   <p><a href='/manual.html#learning-gov-uk'>Learning GOV.UK</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/59915b476a3d23c02a6000bda58344a9cbe14f52">16 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/67371adc4fb0300c081ec7473258e13eb4f57f71">28 Jan 2021</a>
 </div>
 
  <h1 id='header'>Get started on GOV.UK</h1> <p>This is the guide for new technical staff working on GOV.UK in <a href="https://gds.blog.gov.uk/about/">GDS</a>. If you just joined, 👋 welcome!</p>
@@ -435,6 +435,21 @@ to the <a href="https://console.aws.amazon.com/iam/home?region=eu-west-1#/users"
 <p>After your PR has been merged, someone from the <code>govuk-administrators</code>
 or <code>govuk-internal-administrators</code> group needs to deploy the
 <code>infra-security</code> project.</p>
+
+<h4 id="assuming-all-roles-for-users-with-production-access">Assuming all roles for users with production access</h4>
+
+<p>In addition to the previous section's named roles, anyone with production access
+can assume <code>admin</code>, <code>poweruser</code> and <code>user</code> roles. For example, if you want to
+assume a <code>poweruser</code> role in <code>integration</code>, the role you would specify would be:</p>
+
+<ul>
+  <li><code>govuk-integration-poweruser</code> if using the GDS CLI</li>
+  <li><code>your.name-poweruser</code> if going directly through the AWS Console</li>
+</ul>
+
+<p>More generally, to assume a role directly through the AWS Console, the role you
+specify should be of the form <code>your.name-&lt;role&gt;</code>, where role is either <code>admin</code>,
+<code>poweruser</code> or <code>user</code>.</p>
 
 <h2 id="8-use-your-aws-access">8. Use your AWS access</h2>
 
