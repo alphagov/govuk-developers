@@ -215,7 +215,7 @@
             
   <p><a href='/manual.html#learning-gov-uk'>Learning GOV.UK</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/67371adc4fb0300c081ec7473258e13eb4f57f71">28 Jan 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/7c255afbbf6ccf43d889c6f7b72c05bf02b8ead6">28 Jan 2021</a>
 </div>
 
  <h1 id='header'>Get started on GOV.UK</h1> <p>This is the guide for new technical staff working on GOV.UK in <a href="https://gds.blog.gov.uk/about/">GDS</a>. If you just joined, 👋 welcome!</p>
@@ -490,13 +490,20 @@ You're about to use it in the 'Web Console' section below.</p>
 
 <h4 id="web-console">Web Console</h4>
 
-<p>If you're new to GOV.UK and want to look around in integration:</p>
+<p>If you want to look around in integration:</p>
 
 <div class="highlight"><pre class="highlight shell"><code>gds aws govuk-integration-readonly <span class="nt">-l</span>
 </code></pre></div>
-<p>Replace <code>readonly</code> with the non-pluralised version of your role name. For example,
-if you want to assume the <code>govuk-powerusers</code> role on Staging, you would run
-<code>gds aws govuk-staging-poweruser -l</code>.</p>
+<p>If you're new to GOV.UK you'll only be able to use the readonly role.</p>
+
+<p>Users with production access can choose to use more privileged roles:</p>
+
+<div class="highlight"><pre class="highlight shell"><code>gds aws govuk-integration-readonly <span class="nt">-l</span>  <span class="c"># Read only access</span>
+gds aws govuk-integration-poweruser <span class="nt">-l</span> <span class="c"># Full access, except for Identity Access Management (IAM)</span>
+gds aws govuk-integration-admin <span class="nt">-l</span>     <span class="c"># Full access, including Identity Access Management (IAM)</span>
+</code></pre></div>
+<p>It is best practice to use the least privileged role you need for your task.
+This reduces the impact if your credentials or session are somehow compromised.</p>
 
 <p><code>-l</code> opens the web browser and logs you in. For a full list of CLI parameters,
 consult the <a href="https://github.com/alphagov/gds-cli">gds-cli README</a>.</p>
