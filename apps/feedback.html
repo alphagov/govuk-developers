@@ -430,6 +430,13 @@ survey. However, it does not collect the answers. More documentation about that 
 <a href="https://github.com/alphagov/static">static</a> - renders contact forms that will collect information that will be sent to the <code>feedback</code> app.</li>
 </ul>
 <h3 id="running-the-application">Running the application</h3>
+<p>To start the app using <a href="https://github.com/alphagov/govuk-docker">govuk-docker</a>, after making the app via the instructions in the govuk-docker repo, navigate to your local repo directory and run:</p>
+<pre><code>govuk-docker-up
+</code></pre>
+<p>You can also run the following from outside the repo:</p>
+<pre><code>govuk-docker up feedback-app
+</code></pre>
+<p>The app will then be available locally via <a href="http://feedback.dev.gov.uk/contact">http://feedback.dev.gov.uk/contact</a></p>
 <p>To start the app using <code>bowler</code>:</p>
 <pre><code>bowl feedback
 </code></pre>
@@ -440,6 +447,9 @@ survey. However, it does not collect the answers. More documentation about that 
 <h3 id="running-the-test-suite">Running the test suite</h3>
 <p>To run unit tests, execute the following:</p>
 <pre><code>bundle exec rake
+</code></pre>
+<p>You can also run these via govuk-docker (if using):</p>
+<pre><code>govuk-docker-run bundle exec rake
 </code></pre>
 <h4 id="manual-testing-with-a-mock-signon-strategy">Manual testing with a mock signon strategy</h4>
 <p>Launch using <code>bowl</code> from the <code>development</code> directory:</p>
