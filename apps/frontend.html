@@ -372,14 +372,14 @@ gds govuk connect ssh <span class="nt">-e</span> production aws/draft_frontend
 <ul>
   <li><a href="https://www.gov.uk/sign-in-universal-credit">Sign in to your Universal Credit account</a></li>
   <li><a href="https://www.gov.uk/check-mot-history">Check the MOT history of a vehicle</a></li>
-  <li><a href="https://www.gov.uk/get-information-about-a-company">Get information about a company</a></li>
   <li><a href="https://www.gov.uk/vehicle-tax">Tax your vehicle</a></li>
-  <li><a href="https://www.gov.uk/check-vehicle-tax">Check if a vehicle is taxed</a></li>
+  <li><a href="https://www.gov.uk/get-information-about-a-company">Get information about a company</a></li>
   <li><a href="https://www.gov.uk/report-covid19-result">Report a COVID-19 test result</a></li>
+  <li><a href="https://www.gov.uk/check-vehicle-tax">Check if a vehicle is taxed</a></li>
   <li><a href="https://www.gov.uk/check-mot-status">Check the MOT status of a vehicle</a></li>
   <li><a href="https://www.gov.uk/view-driving-licence">View or share your driving licence information</a></li>
-  <li><a href="https://www.gov.uk/provide-journey-contact-details-before-travel-uk">Fill in your passenger locator form</a></li>
   <li><a href="https://www.gov.uk/sign-in-childcare-account">Sign in to your childcare account</a></li>
+  <li><a href="https://www.gov.uk/provide-journey-contact-details-before-travel-uk">Fill in your passenger locator form</a></li>
 </ul>
 
 <h2 id="readme">README</h2>
@@ -504,13 +504,13 @@ gds govuk connect ssh <span class="nt">-e</span> production aws/draft_frontend
 <a href="https://github.com/alphagov/publishing-api">alphagov/publishing-api</a> - this app sends data to the content-store</li>
 </ul>
 <h3 id="running-the-application">Running the application</h3>
+<p>If you are <a href="https://github.com/alphagov/govuk-docker">using docker</a> to run the application (which is advised) it will be available on the host at <a href="http://frontend.dev.gov.uk/">http://frontend.dev.gov.uk/</a></p>
 <p>To run the application standalone, run <a href="https://github.com/alphagov/static">static</a> and execute the following command:</p>
-<pre><code>PLEK_SERVICE_STATIC_URI=http://127.0.0.1:3013 ./startup.sh
+<pre><code>PLEK_SERVICE_STATIC_URI=http://127.0.0.1:3013 ./startup.sh --live
 </code></pre>
-<p>which uses a local copy of static.</p>
+<p>which uses a local copy of static and content from production.</p>
 <p>Note that you will have to have <a href="https://github.com/alphagov/mapit">GOV.UK Mapit</a> running locally. A valid dataset will have to be loaded for Mapit or postcode lookups will not succeed. This is part of the standard GOV.UK data replication steps.</p>
 <p>To run in a full development stack (with DNS, all apps running etc.) use<code>./startup.sh</code>.</p>
-<p>If you are using the GDS development virtual machine then the application will be available on the host at <a href="http://frontend.dev.gov.uk/">http://frontend.dev.gov.uk/</a></p>
 <h3 id="running-the-test-suite">Running the test suite</h3>
 <p><code>bundle exec rake</code> runs the test suite.</p>
 <h2 id="additional-information-for-calendars">Additional information for calendars</h2>
@@ -518,9 +518,8 @@ gds govuk connect ssh <span class="nt">-e</span> production aws/draft_frontend
 <pre><code>bundle exec rake publishing_api:publish
 </code></pre>
 <p>Search indexing is performed automatically on data sent to publishing api.</p>
-<p>A rake task has been created to generate the bank holidays JSON for a given year. They need to be then inserted, and modified to
-take into account any additions/modifications made by proclamation.
-Run the rake task like this:</p>
+<p>A rake task has been created to generate the bank holidays JSON for a given year. They need to be then inserted, and modified to take into account any additions/modifications made by proclamation.</p>
+<p>Run the rake task like this:</p>
 <pre><code>bundle exec rake bank_holidays:generate_json[2016]
 </code></pre>
 <h3 id="canonical-sources">Canonical sources</h3>
