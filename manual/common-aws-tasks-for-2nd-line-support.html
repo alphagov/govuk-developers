@@ -217,7 +217,7 @@
             
   <p><a href='/manual.html#aws'>AWS</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/cf63e32ba06b821998bd46d15ac29cb5fab47148">2 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/dac2467a1c0ca0e5b8d7e58aedddd430d5f61115">2 Feb 2021</a>
 </div>
 
  <h1 id='header'>Common AWS tasks for 2nd line support</h1> <p>This document details some of the tasks that GOV.UK 2nd line support may
@@ -273,7 +273,7 @@ address) to a list named <code>role_internal_admin_user_arns</code>.</p>
 </ul>
 
 <p>Once you have put up a PR to change the developer's role, you'll need to assume
-the admin role in order to apply the Terraform change.</p>
+the admin role in order to <a href="https://docs.publishing.service.gov.uk/manual/deploying-terraform.html">apply the Terraform change</a>.</p>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
 
@@ -357,11 +357,11 @@ you can terminate the instance via the AWS EC2 user interface.</p>
   instance. This will prompt AWS to bring up the new bigger instances
   automatically.</p>
 
-<p>Be careful here, provisioning a machine is slow, flaky and
-  requires manual intervention (e.g. sometimes we need to manually run puppet
-  on a new instance, must deploy apps to new instances from Jenkins).
-  Check that the new instances are healthy before removing the healthy old
-  instances.</p>
+<p>Be careful here, <a href="#how-are-instances-provisioned">provisioning a machine</a> is
+  slow, flaky and requires manual intervention (e.g. sometimes we need to
+  manually run puppet on a new instance, must deploy apps to new instances from
+  Jenkins). Check that the new instances are healthy before removing the
+  healthy old instances.</p>
 
 <h2 id="how-to-scale-horizontally">How to scale horizontally</h2>
 
@@ -427,6 +427,10 @@ Concourse via the AWS CLI - these are mainly for data science projects.</p>
 <p>We use <a href="https://github.com/alphagov/govuk-aws/blob/master/terraform/userdata/20-puppet-client">userdata scripts</a> to run commands on our instances at launch. These
 scripts install various core bits of software needed by a particular instance
 and then typically use <a href="https://github.com/alphagov/govuk-puppet">govuk-puppet</a> to provision our instances.</p>
+
+<p>Finally, new instances send Jenkins their Fully Qualified Domain Name (FQDN)
+and puppet class. Jenkins automatically <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_Node_Apps/">deploys apps</a> to newly provisioned
+instances.</p>
 
 
 
