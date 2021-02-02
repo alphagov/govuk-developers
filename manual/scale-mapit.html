@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Add a new Ruby version - GOV.UK Developer Documentation</title>
+    <title>Scale Mapit - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/ruby.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/scale-mapit.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Add a new Ruby version - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/ruby.html" />
+      <meta name="twitter:title" content="Scale Mapit - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/scale-mapit.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="Add a new Ruby version" />
+      <meta property="og:title" content="Scale Mapit" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/ruby.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/scale-mapit.html" />
 
     
   </head>
@@ -128,32 +128,7 @@
                   <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
   <ul>
   <li>
-    <a href="#header"><span>Add a new Ruby version</span></a>
-    <ul>
-      <li>
-        <a href="#managing-different-versions-of-ruby"><span>Managing different versions of Ruby</span></a>
-      </li>
-      <li>
-        <a href="#setting-up-rbenv"><span>Setting up rbenv</span></a>
-      </li>
-      <li>
-        <a href="#add-a-new-ruby-version-in-puppet"><span>Add a new Ruby version in puppet</span></a>
-        <ul>
-          <li>
-            <a href="#building-the-fpm-package"><span>Building the fpm package.</span></a>
-          </li>
-          <li>
-            <a href="#copying-to-aptly"><span>Copying to Aptly</span></a>
-          </li>
-          <li>
-            <a href="#add-to-puppet"><span>Add to Puppet</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#testing-whether-a-version-of-ruby-is-in-use"><span>Testing whether a version of Ruby is in use</span></a>
-      </li>
-    </ul>
+    <a href="#header"><span>Scale Mapit</span></a>
   </li>
 </ul>
 
@@ -167,75 +142,25 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/7f94a9ca553cf07821ad195562cf13046192f0f7">3 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5d284a928eaee2d56e2c920dcdbbccfd0c0ef97a">2 Feb 2021</a>
 </div>
 
- <h1 id='header'>Add a new Ruby version</h1> <p>The <a href="https://www.ruby-lang.org/en/">Ruby language</a> is a core part of GOV.UK - most of our applications are written in it.</p>
+ <h1 id='header'>Scale Mapit</h1> <p>Mapit has a scaling process that is different to other GOV.UK applications.</p>
 
-<h2 id="managing-different-versions-of-ruby">Managing different versions of Ruby</h2>
+<p>To scale Mapit, follow these steps:</p>
 
-<p>Each app can use whatever version of Ruby it wants. We manage this with
-<a href="https://github.com/rbenv/rbenv">rbenv</a>.</p>
-
-<h2 id="setting-up-rbenv">Setting up rbenv</h2>
-
-<p>We set up rbenv differently depending on what's going on:</p>
-
-<ul>
-  <li>Interactive login shells: <code>/etc/profile.d/rbenv.sh</code> sets up rbenv</li>
-  <li>Applications: <code>govuk_setenv</code> and a <code>.ruby-version</code> in the app directory set up rbenv</li>
-  <li>Deployment: Capistrano uses a non -login shell so we <a href="https://github.com/alphagov/govuk-app-deployment/blob/master/recipes/ruby.rb#L4">set <code>default_environment</code></a>
-(<a href="https://github.com/alphagov/alphagov-deployment/commit/b6404e33c354ef63f01c13b202ce0cf2ed2975fc">commit</a>)</li>
-  <li>Testing: Jenkins uses a non-login shell so we <a href="https://github.com/alphagov/govuk-secrets/blob/master/puppet/hieradata/integration_credentials.yaml">add <code>/usr/lib/rbenv/shims</code> to the <code>PATH</code></a></li>
-  <li>Cronjobs: some cronjobs start with <code>/bin/bash -l -c</code> which runs a login shell</li>
-</ul>
-
-<h2 id="add-a-new-ruby-version-in-puppet">Add a new Ruby version in puppet</h2>
-
-<p>You will need to build a new <a href="/manual/debian-packaging.html#fpm">fpm</a> package with the new Ruby version.
-This package can then be copied to Aptly machine, and the new version added to puppet.</p>
-
-<h3 id="building-the-fpm-package">Building the fpm package.</h3>
-
-<ul>
+<ol>
   <li>
-    <p>Add a new recipe for the ruby version in <a href="https://github.com/alphagov/packager/tree/master/fpm/recipes">Packager</a>.
-The folder name will be the Ruby version, and contain a <code>recipe.rb</code> file. See previous entries for examples.
-The recipe will require the <a href="https://emn178.github.io/online-tools/sha256_checksum.html">SHA256</a> of the version's <code>tar.gz</code>, available at <a href="https://cache.ruby-lang.org/pub/ruby/">Ruby cache</a>.</p>
+    <p>Edit the <a href="https://github.com/alphagov/govuk-aws/blob/a8217e42ee95b25da434fb27ab39788555a9448a/terraform/projects/app-mapit/main.tf#L157-L191">Mapit machine Terraform</a> to include a <code>module mapit-&lt;number&gt;</code> and <code>resource "aws_erb_volume" "mapit-&lt;number&gt;"</code> block for each instance, e.g. for 4 instances you would need a <code>mapit-1</code>, <code>mapit-2</code>, <code>mapit-3</code> and <code>mapit-4</code>. You can copy an existing block and change the numbers.</p>
   </li>
   <li>
-    <p>Once the Packager change is merged, <a href="https://ci.integration.publishing.service.gov.uk/job/build_fpm_package">build the package</a>.</p>
+    <p><a href="/manual/deploying-terraform.html">Deploy the Terraform</a>.</p>
   </li>
-</ul>
+  <li>
+    <p><a href="/manual/mapit-database-not-available.html">Make the Mapit database available to each machine</a>.</p>
+  </li>
+</ol>
 
-<p>Use the VM to <a href="/manual/debian-packaging.html#test-the-recipe">test the recipe</a></p>
-
-<p>To make sure it has been successful:</p>
-
-<ul>
-  <li><code>rbenv versions</code> to make sure your version is available</li>
-  <li><code>rbenv local X.X.X</code> to use your new version</li>
-  <li><code>ruby -v</code> to make sure your version is in use</li>
-</ul>
-
-<h3 id="copying-to-aptly">Copying to Aptly</h3>
-
-<p>See <a href="/manual/debian-packaging.html#uploading-a-new-package">Uploading a new package</a></p>
-
-<h3 id="add-to-puppet">Add to Puppet</h3>
-
-<p>Once it's available as a package in Aptly you can
-<a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk_rbenv/manifests/all.pp">install it everywhere using Puppet</a>. Machines only run
-<code>apt-get update</code> periodically so it might take a little time for the package
-to become available.</p>
-
-<h2 id="testing-whether-a-version-of-ruby-is-in-use">Testing whether a version of Ruby is in use</h2>
-
-<p>You can use the Fabric task <code>rbenv.version_in_use</code> to find out which
-applications are using a specific version of Ruby on GOV.UK. For example:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fab production puppet_class:govuk_rbenv::all rbenv.version_in_use:2.3.1
-</code></pre></div>
 
   <div class='related-content'>
 
@@ -261,6 +186,7 @@ applications are using a specific version of Ruby on GOV.UK. For example:</p>
 
           <ul class="govuk-list">
             <li><a href="/manual/adding-disks-in-vcloud.html">Add a disk to a vCloud machine (Carrenza only)</a></li>
+            <li><a href="/manual/ruby.html">Add a new Ruby version</a></li>
             <li><a href="/manual/connect-to-vcloud-director.html">Connect to vCloud Director (Carrenza only)</a></li>
             <li><a href="/manual/generate-csr.html">Generate a Certificate Signing Request (CSR) for GOV.UK</a></li>
             <li><a href="/manual/rabbitmq.html">Manage RabbitMQ</a></li>
@@ -273,7 +199,6 @@ applications are using a specific version of Ruby on GOV.UK. For example:</p>
             <li><a href="/manual/remove-machines.html">Remove a machine</a></li>
             <li><a href="/manual/renew-a-tls-certificate.html">Renew a TLS certificate for GOV.UK</a></li>
             <li><a href="/manual/reprovision.html">Reprovision a machine</a></li>
-            <li><a href="/manual/scale-mapit.html">Scale Mapit</a></li>
           </ul>
         </div>
 
@@ -286,8 +211,8 @@ applications are using a specific version of Ruby on GOV.UK. For example:</p>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/ruby.html.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'Add%20a%20new%20Ruby%20version'&amp;body=Problem%20with%20'Add%20a%20new%20Ruby%20version'%20(https://docs.publishing.service.gov.uk/manual/ruby.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/scale-mapit.html.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'Scale%20Mapit'&amp;body=Problem%20with%20'Scale%20Mapit'%20(https://docs.publishing.service.gov.uk/manual/scale-mapit.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
