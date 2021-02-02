@@ -155,7 +155,7 @@
 
      <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/71931f4d590de79cf70415cfd75b93006d037607">15 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c6c1cc819e7db95eed87e9be0aa697a56621c5e1">1 Feb 2021</a>
 </div>
 
  <h1 id='header'>Signon app healthcheck not ok</h1> 
@@ -201,12 +201,12 @@ Puppet.</li>
 
 <blockquote>
   <p>Changes to govuk-secrets do not automatically trigger a Puppet deploy. One
-way to work around this is to <a href="https://deploy.production.govuk.digital/job/Deploy_Puppet/">rebuild the last release</a>. You
-then need to wait for Puppet to run on each of the affected machines.</p>
+way to work around this is to <a href="https://deploy.production.govuk.digital/job/Deploy_Puppet/">rebuild the last release</a> in the appropriate
+environment. You then need to wait for Puppet to run on each of the affected machines.</p>
 </blockquote>
 
 <ul>
-  <li>Check the token is there with <code>govuk_setenv content-publisher env | grep -i token</code></li>
+  <li>Once puppet has been deployed you can check the new token is there by sshing into a machine and running a command such as <code>govuk_setenv content-publisher env | grep -i TOKEN_YOU_ARE_ROTATING</code></li>
   <li>Check the app can still access the remote application APIs with the new token.</li>
   <li>Once you're happy the new token works, you can <em>Revoke</em> the old one in Signon.</li>
 </ul>
@@ -215,6 +215,14 @@ then need to wait for Puppet to run on each of the affected machines.</p>
   <p>How to check the new token works depends on the application. One way to check
 the token works is to manually open a console for the application and call
 one of the remote APIs using <a href="https://github.com/alphagov/gds-api-adapters/blob/master/lib/gds_api.rb">gds-api-adapters</a>.</p>
+
+  <p>For example, to open a console you can run</p>
+
+  <p><code>gds govuk connect -e integration app-console content-data-api</code></p>
+
+  <p>The api call could be something like</p>
+
+  <p><code>GdsApi::SupportApi.new(Plek.new.find("support-api"), bearer_token: ENV["SUPPORT_API_BEARER_TOKEN"])</code></p>
 </blockquote>
 
 <p>Finally, most applications should automatically restart when Puppet updates the
