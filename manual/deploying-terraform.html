@@ -169,7 +169,7 @@
             
   <p><a href='/manual.html#deployment'>Deployment</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/839b9ad194e389327347312bab9c6c3b7a7f6493">27 Nov 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/7fd80b5ce2dffd9b0595b5a868ce4c5d531f497a">3 Feb 2021</a>
 </div>
 
  <h1 id='header'>Deploy Terraform</h1> <p>We use <a href="https://terraform.io">Terraform</a> for configuring GOV.UK infrastructure in AWS.</p>
@@ -178,16 +178,20 @@
 
 <h3 id="1-check-that-you-have-sufficient-access">1. Check that you have sufficient access</h3>
 
-<p>Which changes you can deploy depends on the level of access you have
-to our AWS environments.</p>
+<p>Which changes you can deploy depends on the role you have assumed
+in our AWS environments.</p>
 
 <ul>
-  <li><code>govuk-users</code> can't deploy anything.</li>
-  <li><code>*-powerusers</code> can deploy anything except IAM.</li>
-  <li><code>*-administrators</code> can deploy anything.</li>
+  <li><code>govuk-users</code> can only assume readonly roles, so cannot apply terraform</li>
+  <li>people with production access can assume <code>poweruser</code> roles, which can deploy anything except IAM</li>
+  <li>people with production access can assume <code>administrator</code> roles, which can deploy anything</li>
 </ul>
 
-<p>You can find which class of user you are <a href="https://github.com/alphagov/govuk-aws-data/tree/master/data/infra-security">infra-security project in govuk-aws-data</a>.</p>
+<p>You should always use the least privileged role that will let you accomplish
+your task.</p>
+
+<p>Unless your terraform plan needs to make changes to IAM resources, use a
+poweruser role.</p>
 
 <h3 id="2-install-gds-cli">2. Install <code>gds-cli</code></h3>
 
