@@ -412,6 +412,8 @@
     </li>
     <li>
       <a href="/apps/smart-answers.html"><span>smart-answers</span></a>
+        <ul>
+        </ul>
     </li>
     <li>
       <a href="/apps/service-manual-frontend.html"><span>service-manual-frontend</span></a>
@@ -594,7 +596,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/collections-publisher/commit/0007f0302d252bb710ffca5228bfd713798aaa27">2 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/collections-publisher/commit/e5176bc67684879b3ae64ed1bb0e97f59212b35d">5 Feb 2021</a>
 </div>
 
   <h1 class="page-title">collections-publisher: # Coronavirus Publishing Tool</h1>
@@ -638,7 +640,7 @@
 <p>The accordion content is stored in the database as a SubSection:</p>
 <ul>
 <li>
-<p>A CoronavirusPage has many SubSections.</p>
+<p>A Coronavirus::Page has many SubSections.</p>
 </li>
 <li>
 <p>Each SubSection has a title (eg Funding and Support) and content (stored as markdown).</p>
@@ -647,7 +649,7 @@
 <h3 id="how-to-create-a-new-hub-page">How to create a new hub page</h3>
 <ol>
 <li>Create a new yaml file following the format of those currently in <a href="https://github.com/alphagov/govuk-coronavirus-content/tree/master/content">govuk-coronavirus-content</a> repository, and add page content.</li>
-<li>Add a basic page configuration to <a href="https://github.com/alphagov/collections-publisher/blob/master/docs/app/services/coronavirus_pages/configuration.rb">this file</a> in Collections Publisher.</li>
+<li>Add a basic page configuration to <a href="https://github.com/alphagov/collections-publisher/blob/master/docs/app/services/coronavirus/pages/configuration.rb">this file</a> in Collections Publisher.</li>
 <li>Visiting the Coronavirus page tab of collections publisher will create a coronavirus page model based on the configuration using the service Coronavirus::Pages::ModelBuilder.</li>
 <li>As a result two new links will be created on the <a href="https://collections-publisher.publishing.service.gov.uk/coronavirus">index page</a>:</li>
 </ol>
