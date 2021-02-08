@@ -402,6 +402,22 @@ displays the contacts themselves, fetching them from content store:</p>
 <a href="https://github.com/alphagov/content-store">content-store</a> - for doing some
 command-line based tasks to withdraw and redirect a contact</li>
 </ul>
+<h3 id="running-with-govuk-docker">Running with govuk-docker</h3>
+<p>Setup:</p>
+<pre lang="sh"><code>govuk-docker-run env RAILS_ENV=test env bin/rake db:create
+</code></pre>
+<p>Then run tests:</p>
+<pre lang="sh"><code>govuk-docker-run env RUNNING_IN_CI='true' bundle exec rspec
+</code></pre>
+<h4 id="previewing-the-application">Previewing the application</h4>
+<p>Seed the database, with ENV overrides so that <code>ImportOrganisations</code> doesn't attempt to fetch organisations from dev:</p>
+<pre lang="sh"><code>govuk-docker-run env GOVUK_APP_DOMAIN='https://www.gov.uk' env GOVUK_WEBSITE_ROOT='https://www.gov.uk' bin/rake db:seed
+</code></pre>
+<p>Run the app:</p>
+<pre lang="sh"><code>govuk-docker-up
+</code></pre>
+<p>Visit <a href="http://contacts-admin.dev.gov.uk/">http://contacts-admin.dev.gov.uk/</a>.</p>
+<p>For CRUD operations to work, you may need to <code>cd ../publishing-api &amp;&amp; govuk-docker-up</code> in another shell.</p>
 <h3 id="running-the-application">Running the application</h3>
 <p><code>./startup.sh</code></p>
 <p>This runs <code>bundle install</code> to install dependencies and runs the app on port <code>3051</code>. When using the GOV.UK development VM it will be available at <a href="http://contacts-admin.dev.gov.uk/admin">http://contacts-admin.dev.gov.uk/admin</a>.</p>
