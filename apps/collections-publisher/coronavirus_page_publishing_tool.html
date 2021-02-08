@@ -596,60 +596,17 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/collections-publisher/commit/e5176bc67684879b3ae64ed1bb0e97f59212b35d">5 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/collections-publisher/commit/7dc27df3e1861c651b9fdde2b73e4d2a7126e898">8 Feb 2021</a>
 </div>
 
   <h1 class="page-title">collections-publisher: # Coronavirus Publishing Tool</h1>
 
   <h2 id="coronavirus-publishing-tool">Coronavirus Publishing Tool</h2>
-<p>There are currently three coronavirus hub pages(/coronavirus/business-support, /coronavirus/education-and-childcare, /coronavirus/worker-support), and a coronavirus landing page. As we approached lockdown, a basic publishing interface was required at short notice. This is how it works:</p>
-<ol>
-<li>Content is added to the relevant yaml file in the <a href="https://github.com/alphagov/govuk-coronavirus-content/tree/master/content">govuk-coronavirus-content</a> repository.</li>
-<li>A user with "Coronavirus editor" permissions) visits <a href="https://collections-publisher.publishing.service.gov.uk/coronavirus">Coronavirus pages</a> tab of collections publisher.</li>
-<li>Selects which page to publish.</li>
-<li>Clicking update draft and publish buttons, fetches the yaml file, parses it, and sends it to publishing api as JSON.</li>
-<li>Collections renders the page by reading from this updated content item.</li>
-</ol>
-<h3 id="first-iteration-of-new-tool">First iteration of new tool</h3>
-<p>In order to reduce the load on content designers and supporting developers, a better publishing tool was required that would remove the need to make content changes via github. The first iteration of this tool was to move the accordion content out of the yaml file in govuk-coronavirus-content, and into the collections publisher database. This means it could be edited from collections publisher directly via a friendlier UI. <strong>NB the content for the rest of the page would still be edited via the steps above.</strong></p>
-<p><img src="https://raw.githubusercontent.com/docs/screenshot-coronavirus-edit-page.png" alt="Screenshot of sections publishing tool"></p>
-<h4 id="content-editable-from-collections-publisher">Content editable from collections publisher:</h4>
-<p>See the govuk-coronavirus-content <a href="https://github.com/alphagov/govuk-coronavirus-content/tree/master/content/coronavirus_landing_page.yml">yaml file</a> for comparison</p>
-<ul>
-<li>[ ] title</li>
-<li>[ ] meta_description</li>
-<li>[ ] page_header</li>
-<li>[ ] header_section</li>
-<li>[ ] announcements</li>
-<li>[ ] nhs_banner</li>
-<li>[ ] find_help</li>
-<li>[ ] sections_heading</li>
-<li>[x] sections (called accordions by designers, stored as subsections)</li>
-<li>[ ] statistics_section</li>
-<li>[ ] topic_section</li>
-<li>[ ] notifications</li>
-<li>[ ] live_stream</li>
-<li>[x] live_stream:video_url and date</li>
-<li>[ ] special_announcements_schema</li>
-</ul>
-<h3 id="future-iterations">Future iterations</h3>
-<p>Future iterations will be needed to move the content that remains in the govuk-coronavirus-content repository out of the yaml file, and into collections publisher.</p>
-<h3 id="models-and-naming">Models and naming</h3>
-<p>The term accordion is used by content designers to describe this part of the page:</p>
-<p><img src="https://raw.githubusercontent.com/docs/coronavirus-page-accordion.png" alt="Screenshot of accordions"></p>
-<p>The accordion content is stored in the database as a SubSection:</p>
-<ul>
-<li>
-<p>A Coronavirus::Page has many SubSections.</p>
-</li>
-<li>
-<p>Each SubSection has a title (eg Funding and Support) and content (stored as markdown).</p>
-</li>
-</ul>
+<p>There are currently three coronavirus hub pages(/coronavirus/business-support, /coronavirus/education-and-childcare, /coronavirus/worker-support), and a coronavirus landing page. The content for these is managed by a combination of CMS functionality within collections-publisher and the use of a yaml file stored in the <a href="https://github.com/alphagov/govuk-coronavirus-content/tree/master/content">govuk-coronavirus-content</a> repository.</p>
 <h3 id="how-to-create-a-new-hub-page">How to create a new hub page</h3>
 <ol>
 <li>Create a new yaml file following the format of those currently in <a href="https://github.com/alphagov/govuk-coronavirus-content/tree/master/content">govuk-coronavirus-content</a> repository, and add page content.</li>
-<li>Add a basic page configuration to <a href="https://github.com/alphagov/collections-publisher/blob/master/docs/app/services/coronavirus/pages/configuration.rb">this file</a> in Collections Publisher.</li>
+<li>Add a basic page configuration to <a href="https://github.com/alphagov/collections-publisher/blob/master/app/services/coronavirus/pages/configuration.rb">this file</a> in Collections Publisher.</li>
 <li>Visiting the Coronavirus page tab of collections publisher will create a coronavirus page model based on the configuration using the service Coronavirus::Pages::ModelBuilder.</li>
 <li>As a result two new links will be created on the <a href="https://collections-publisher.publishing.service.gov.uk/coronavirus">index page</a>:</li>
 </ol>

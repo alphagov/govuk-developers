@@ -417,7 +417,8 @@ command-line based tasks to withdraw and redirect a contact</li>
 <pre lang="sh"><code>govuk-docker-up
 </code></pre>
 <p>Visit <a href="http://contacts-admin.dev.gov.uk/">http://contacts-admin.dev.gov.uk/</a>.</p>
-<p>For CRUD operations to work, you may need to <code>cd ../publishing-api &amp;&amp; govuk-docker-up</code> in another shell.</p>
+<p>You may see sometimes see a <code>GdsApi::TimedOutException</code> when performing a CRUD operation such as creating a contact.
+This usually means Publishing API is still starting up. Wait a few moments, then try again.</p>
 <h3 id="running-the-application">Running the application</h3>
 <p><code>./startup.sh</code></p>
 <p>This runs <code>bundle install</code> to install dependencies and runs the app on port <code>3051</code>. When using the GOV.UK development VM it will be available at <a href="http://contacts-admin.dev.gov.uk/admin">http://contacts-admin.dev.gov.uk/admin</a>.</p>
