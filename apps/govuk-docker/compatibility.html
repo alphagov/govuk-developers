@@ -617,28 +617,14 @@
 <li><strong>TODO: Missing support for a webserver stack</strong></li>
 </ul>
 </li>
-<li>⚠ cache-clearing-service
-<ul>
-<li>Tests pass</li>
-<li>Queues are not set-up, so cache-clearing-service can't be run locally</li>
-</ul>
-</li>
-<li>⚠ calculators
-<ul>
-<li>Web UI doesn't work without the content item being present in the content-store.</li>
-</ul>
-</li>
+<li>✅ cache-clearing-service</li>
+<li>✅ calculators</li>
 <li>❌ ckan
 <ul>
 <li>Has a <a href="https://github.com/alphagov/docker-ckan">separate</a> Docker project.</li>
 </ul>
 </li>
-<li>⚠  collections
-<ul>
-<li>You will need to <a href="#mongodb">populate the Content Store database</a> or run the live stack in order for it to work locally.</li>
-<li>To view topic pages locally you still need to use the live stack as they rely on Elasticsearch data which we are yet to be able to import.</li>
-</ul>
-</li>
+<li>✅  collections</li>
 <li>✅ collections-publisher</li>
 <li>✅ contacts-admin</li>
 <li>⚠ content-data-admin
@@ -666,14 +652,10 @@
 </li>
 <li>✅ email-alert-api</li>
 <li>✅ email-alert-frontend</li>
-<li>⚠ email-alert-service
-<ul>
-<li><strong>TODO: Missing support for message queues</strong></li>
-</ul>
-</li>
+<li>✅ email-alert-service</li>
 <li>✅ feedback</li>
 <li>✅ finder-frontend</li>
-<li>❓ frontend</li>
+<li>✅ frontend</li>
 <li>✅ government-frontend</li>
 <li>⚠ govuk_crawler_worker
 <ul>
@@ -681,6 +663,8 @@
 </ul>
 </li>
 <li>✅ govuk_publishing_components</li>
+<li>✅ govuk-attribute-service-prototype</li>
+<li>✅ govuk-account-manager-prototype</li>
 <li>✅ govuk-developer-docs</li>
 <li>⚠ hmrc-manuals-api
 <ul>
@@ -707,11 +691,7 @@
 <li><strong>TODO: Missing support for a webserver stack</strong></li>
 </ul>
 </li>
-<li>✅ mapit
-<ul>
-<li><strong>TODO: Data replication</strong></li>
-</ul>
-</li>
+<li>✅ mapit</li>
 <li>✅ maslow</li>
 <li>✅ publisher</li>
 <li>✅ publishing-api</li>
@@ -732,35 +712,13 @@
 <li>✅ smart-answers</li>
 <li>✅ special-route-publisher</li>
 <li>✅ specialist-publisher</li>
-<li>⚠ static
-<ul>
-<li>JavaScript 404 errors when previewing pages, possibly <a href="https://github.com/alphagov/static/blob/master/app/assets/javascripts/analytics/init.js.erb#L28">related to analytics</a>
-</li>
-</ul>
-</li>
+<li>✅ static</li>
 <li>✅ support</li>
 <li>✅ support-api</li>
 <li>✅ transition</li>
 <li>❌ transition-config</li>
 <li>✅ travel-advice-publisher</li>
-<li>⚠ whitehall
-<ul>
-<li>Who knows, really - several tests are failing, lots pass ;-)</li>
-<li>Rake task to <a href="https://github.com/alphagov/whitehall/blob/master/lib/tasks/taxonomy.rake#L11">create a test taxon</a> for publishing is not idempotent</li>
-<li>Placeholder images don't work as missing proxy for <a href="https://github.com/alphagov/whitehall/blob/master/app/presenters/publishing_api/news_article_presenter.rb#L133">/government/assets</a>
-</li>
-</ul>
-</li>
-<li>⚠ govuk-attribute-service-prototype
-<ul>
-<li><strong>No support for a webserver stack</strong></li>
-</ul>
-</li>
-<li>⚠ govuk-account-manager-prototype
-<ul>
-<li><strong>No support for a webserver stack</strong></li>
-</ul>
-</li>
+<li>✅ whitehall</li>
 </ul>
 <h2 id="generic-ruby-libraries">Generic Ruby libraries</h2>
 <p>These repos are used as part of running the live GOV.UK site. Since all of them have the same config and "lite" stack, they are bundled together in a single "generic-ruby-library" project.</p>
