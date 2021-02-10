@@ -447,25 +447,6 @@ govuk-docker run govuk-account-manager-prototype-lite bundle exec rake db:migrat
 <li>Run <code>govuk-docker down</code> in the command line to stop all GOV.UK Docker containers.</li>
 <li>Run <code>govuk-docker-up</code> in the folder of the app you want to run to restart the GOV.UK Docker containers.</li>
 </ol>
-<h2 id="sending-emails-locally">Sending emails locally</h2>
-<p>You'll need to pass a GOV.UK Notify API key as an environment variable
-<code>NOTIFY_API_KEY</code>, and change the delivery method in <a href="https://github.com/alphagov/govuk-account-manager-prototype/blob/master/config/environments/development.rb">development.rb</a>:</p>
-<pre lang="ruby"><code>config.action_mailer.delivery_method = :notify
-</code></pre>
-<p>You'll also need to set a <code>GOVUK_NOTIFY_TEMPLATE_ID</code>, which might involve
-creating a template in Notify if <a href="https://www.notifications.service.gov.uk/accounts">your Notify service</a> doesn't have one.</p>
-<p>The template should have a Message of <code>((body))</code> only.</p>
-<h2 id="running-the-tests">Running the tests</h2>
-<p>You don't need govuk-accounts-docker to run the tests, a local postgres database is enough:</p>
-<pre><code>docker run --rm -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=db -p 5432:5432 postgres:13
-</code></pre>
-<p>Set up your environment and create the database tables:</p>
-<pre><code>export TEST_DATABASE_URL="postgresql://postgres:postgres@127.0.0.1/db"
-bundle exec rake db:migrate RAILS_ENV=test
-</code></pre>
-<p>Then you can run the tests with:</p>
-<pre><code>bundle exec rake
-</code></pre>
 <h2 id="secrets">Secrets</h2>
 <p>Secrets are defined via the <a href="https://github.com/alphagov/gds-cli">gds-cli</a> and Concourse secrets manager.</p>
 <p>You can view live secrets with an authenticated cloud foundry command:
@@ -490,37 +471,6 @@ puts "client id:     #{a.uid}"
 puts "client secret: #{a.secret}"
 </code></pre>
 <p>You will probably want <code>openid</code> in the list of scopes.</p>
-<h2 id="disabling-registrations">Disabling registrations</h2>
-<p>Set the <code>ENABLE_REGISTRATION</code> environment variable to <code>false</code> to
-disable the registration form.</p>
-<p>To do this in production / staging:</p>
-<ol>
-<li>Edit <code>concourse/pipeline.yml</code>, changing <code>ENABLE_REGISTRATION: "true"</code> to  <code>ENABLE_REGISTRATION: "false"</code> in the relevant environment</li>
-<li>Deploy the pipeline change (happens automatically on push to main)</li>
-<li>Deploy the application (happens automatically on push to main)</li>
-</ol>
-<p>If changing the pipeline isn't feasible (for example, you are doing
-this out-of-hours and nobody else is around), you can use the PaaS CLI
-to set the environment variable:</p>
-<ol>
-<li>Log into the PaaS</li>
-<li><code>cf set-env govuk-account-manager ENABLE_REGISTRATION false</code></li>
-<li><code>cf restage govuk-account-manager</code></li>
-</ol>
-<p>This approach will cause some brief downtime as the app restarts, and
-the environment variable change will be lost on the next Concourse
-deployment.</p>
-<h2 id="exporting-registration-statistics">Exporting registration statistics</h2>
-<p>We may periodically be asked to produce reports with information about the
-number of registrations, logins, etc. There is a rake task to handle this and
-has to be run manually in production, e.g. to produce statistics for the 28th
-October 2020:</p>
-<pre><code>cf login -u &lt;your_email&gt; -a https://api.london.cloud.service.gov.uk --sso
-cf target -s production
-cf v3-ssh govuk-account-manager
-$ /tmp/lifecycle/shell
-$ rake "statistics:general[2020-10-28 00:00, 2020-10-28 23:59]"
-</code></pre>
 <h2 id="starting-an-ab-test">Starting an A/B test</h2>
 <p>A/B testing works similarly as on GOV.UK, but with two exceptions:</p>
 <ul>
