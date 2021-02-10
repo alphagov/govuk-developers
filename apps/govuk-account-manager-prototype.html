@@ -455,10 +455,6 @@ bundle exec rake db:migrate RAILS_ENV=test
 <p>Then you can run the tests with:</p>
 <pre><code>bundle exec rake
 </code></pre>
-<h2 id="deployment-to-gov-uk-via-concourse">Deployment to GOV.UK via concourse</h2>
-<p>Every commit to main is deployed to GOV.UK PaaS by <a href="https://cd.gds-reliability.engineering/teams/govuk-tools/pipelines/govuk-account-manager-prototype">this concourse pipeline</a>, which is configured in <a href="https://github.com/alphagov/govuk-account-manager-prototype/blob/master/concourse/pipeline.yml">concourse/pipeline.yml</a>.</p>
-<p>You will need to be logged into the GDS VPN to access concourse.</p>
-<p>The concourse pipeline has credentials for the govuk-accounts-developers user in GOV.UK PaaS. This user has the SpaceDeveloper role, so it can <code>cf push</code> the application.</p>
 <h2 id="secrets">Secrets</h2>
 <p>Secrets are defined via the <a href="https://github.com/alphagov/gds-cli">gds-cli</a> and Concourse secrets manager.</p>
 <p>You can view live secrets with an authenticated cloud foundry command:
