@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Move apps between servers - GOV.UK Developer Documentation</title>
+    <title>Move apps between servers | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/move-apps-between-servers.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Move apps between servers - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/move-apps-between-servers.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Move apps between servers" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/move-apps-between-servers.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Move apps between servers | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/move-apps-between-servers.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -214,7 +214,7 @@ are left for reference purposes only and will be removed in a few months.</p>
     <p>SSH to the puppetmaster in staging and run a loop to sign SSL certificates for the new servers as they're created:</p>
 
 <div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ </span>ssh puppetmaster-1.management.staging
- <span class="nv">$ </span><span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do </span><span class="nb">sudo </span>puppet cert sign <span class="nt">--all</span><span class="p">;</span> <span class="nb">sleep </span>10<span class="p">;</span> <span class="k">done</span>
+ <span class="nv">$ </span><span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do </span><span class="nb">sudo </span>puppet cert sign <span class="nt">--all</span><span class="p">;</span> sleep 10<span class="p">;</span> <span class="k">done</span>
 </code></pre></div>  </li>
   <li>Run the <a href="https://deploy.staging.publishing.service.gov.uk/job/Launch_VMs/">Launch VMs</a> Jenkins job, using the <a href="https://github.com/alphagov/govuk-secrets/blob/master/pass/2ndline/carrenza/vcloud-staging.gpg">Carrenza staging username and password</a>, to create the new servers.</li>
   <li>Once the job has completed, terminate the loop on the puppetmaster.</li>
@@ -346,7 +346,7 @@ no further traffic is routed to the old servers.</p>
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

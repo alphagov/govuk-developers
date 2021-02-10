@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Common 2nd line support tasks for CKAN - GOV.UK Developer Documentation</title>
+    <title>Common 2nd line support tasks for CKAN | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/data-gov-uk-supporting-ckan.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Common 2nd line support tasks for CKAN - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/data-gov-uk-supporting-ckan.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Common 2nd line support tasks for CKAN" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/data-gov-uk-supporting-ckan.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Common 2nd line support tasks for CKAN | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/data-gov-uk-supporting-ckan.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -441,7 +441,7 @@ root     29503  0.0  0.0  59652  2040 ?        Ss   06:04   0:00 <span class="nb
 </code></pre></div>
 <p>It is worth checking the <code>pycsw</code> logs to investigate why it failed:</p>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">tail</span> <span class="nt">-f</span> /var/log/ckan/pycsw.err.log
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>tail <span class="nt">-f</span> /var/log/ckan/pycsw.err.log
 </code></pre></div>
 <p>You can get a summary of <code>csw</code> records available from this url <a href="https://ckan.publishing.service.gov.uk/csw?service=CSW&amp;version=2.0.2&amp;request=GetRecords&amp;typenames=csw:Record&amp;elementsetname=brief">https://ckan.publishing.service.gov.uk/csw?service=CSW&amp;version=2.0.2&amp;request=GetRecords&amp;typenames=csw:Record&amp;elementsetname=brief</a></p>
 
@@ -558,7 +558,7 @@ a while.</p>
 still being written to the log file on the <code>ckan</code> machine:</p>
 
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> production ssh ckan
-<span class="nv">$ </span><span class="nb">sudo tail</span> <span class="nt">-f</span> /var/log/ckan/procfile_harvester_fetch_consumer.err.log
+<span class="nv">$ </span><span class="nb">sudo </span>tail <span class="nt">-f</span> /var/log/ckan/procfile_harvester_fetch_consumer.err.log
 </code></pre></div>
 <p>Or you could check that the services are all showing as <code>started</code> on the <code>ckan</code>
 machine:</p>
@@ -710,7 +710,7 @@ running, so is safe to run immediately if you suspect the process has crashed:</
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

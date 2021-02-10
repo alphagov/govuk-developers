@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Redirect a route - GOV.UK Developer Documentation</title>
+    <title>Redirect a route | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/redirect-routes.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Redirect a route - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/redirect-routes.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Redirect a route" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/redirect-routes.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Redirect a route | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/redirect-routes.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -342,11 +342,11 @@ made.</p>
 
 <p>Open a router-api console:</p>
 
-<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span><span class="w"> </span>gds govuk connect app-console <span class="nt">-e</span> production router_backend/router-api
+<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span> gds govuk connect app-console <span class="nt">-e</span> production router_backend/router-api
 </code></pre></div>
 <p>Then search for the incoming path you are interested in:</p>
 
-<div class="highlight"><pre class="highlight console"><code><span class="gp">&gt;</span><span class="w"> </span>Route.where<span class="o">(</span>incoming_path: <span class="s1">'/path-to-item'</span><span class="o">)</span>
+<div class="highlight"><pre class="highlight console"><code><span class="gp">&gt;</span> Route.where<span class="o">(</span>incoming_path: <span class="s1">'/path-to-item'</span><span class="o">)</span>
 </code></pre></div>
 <p>If a route is found, and it has the handler <code>redirect</code>, then there is
 already a redirect in place.</p>
@@ -355,7 +355,7 @@ already a redirect in place.</p>
 
 <p>Open a Content Store console:</p>
 
-<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span><span class="w"> </span>gds govuk connect app-console <span class="nt">-e</span> production content_store/content-store
+<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span> gds govuk connect app-console <span class="nt">-e</span> production content_store/content-store
 </code></pre></div>
 <p>Then search for the incoming path you are interested in:</p>
 
@@ -389,9 +389,9 @@ and using non-default values for the <code>segments_mode</code>.</p>
 <div class="highlight"><pre class="highlight plaintext"><code>redirect:destroy[&lt;UUID goes here&gt;]
 </code></pre></div>
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=short-url-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=redirect:destroy[UUID goes here]">Run redirect:destroy[UUID goes here] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=short-url-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=redirect:destroy[UUID goes here]">Run redirect:destroy[UUID goes here] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=short-url-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=redirect:destroy[UUID goes here]">⚠️ Run redirect:destroy[UUID goes here] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=short-url-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=redirect:destroy[UUID goes here]" class="govuk-link">Run redirect:destroy[UUID goes here] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=short-url-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=redirect:destroy[UUID goes here]" class="govuk-link">Run redirect:destroy[UUID goes here] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=short-url-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=redirect:destroy[UUID goes here]" class="govuk-link">⚠️ Run redirect:destroy[UUID goes here] on Production ⚠️</a></li>
 </ul>
 
 <p>For example:</p>
@@ -527,7 +527,7 @@ Kelvin Gan can raise a ticket.</p>
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

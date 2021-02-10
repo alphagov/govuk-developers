@@ -6,25 +6,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Application: government-frontend - GOV.UK Developer Documentation</title>
+    <title>Application: government-frontend | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/government-frontend.html">
 
-      <meta name="description" content="Everything about the government-frontend application (Serves government pages on GOV.UK)" />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Application: government-frontend - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/government-frontend.html" />
 
+      <meta property="description" content="Everything about the government-frontend application (Serves government pages on GOV.UK)" />
       <meta property="og:description" content="Everything about the government-frontend application (Serves government pages on GOV.UK)" />
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Application: government-frontend" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/government-frontend.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Application: government-frontend | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/government-frontend.html" />
 
     
   </head>
@@ -42,7 +42,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -313,94 +313,98 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: government-frontend</h1>
 
-  <p>Serves government pages on GOV.UK</p>
+  
+<p>Serves government pages on GOV.UK</p>
 
-<h2 id="ownership">Ownership</h2>
+<div class="gem-c-summary-list ">
 
-<p><strong>#govuk-platform-health</strong> owns the application and is responsible for updating its dependencies.</p>
+      <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
 
-<h2 id="hosting">Hosting</h2>
+            <dt class="govuk-summary-list__key">GitHub</dt>
+            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/government-frontend">government-frontend</a></dd>
 
-<p>The production version of this application is hosted on <strong>AWS</strong>.</p>
+</div>          <div class="govuk-summary-list__row">
 
-<h3 id="ssh-access-aws">SSH Access (AWS)</h3>
+            <dt class="govuk-summary-list__key">Ownership</dt>
+            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
 
-<div class="highlight"><pre class="highlight shell"><code>gds govuk connect ssh <span class="nt">-e</span> integration draft_frontend
-gds govuk connect ssh <span class="nt">-e</span> staging aws/draft_frontend
-gds govuk connect ssh <span class="nt">-e</span> production aws/draft_frontend
-</code></pre></div>
-<h2 id="run-a-rake-task">Run a rake task</h2>
+</div>          <div class="govuk-summary-list__row">
 
-<ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=government-frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=">Run a Rake task on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=government-frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=">Run a Rake task on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=government-frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=">⚠️ Run a Rake task on Production ⚠️</a></li>
+            <dt class="govuk-summary-list__key">Hosting</dt>
+            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>draft_frontend</strong> machine class</dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
+            <dd class="govuk-summary-list__value">Yes</dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Rake tasks</dt>
+            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=government-frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=government-frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=government-frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Links</dt>
+            <dd class="govuk-summary-list__value"><ul>
+    <li><a href="https://sentry.io/govuk/app-government-frontend" class="govuk-link">Sentry (error tracking)</a></li>
+
+
+    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/government_frontend.pp" class="govuk-link">Puppet configuration</a></li>
+
+    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/government-frontend/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
+
+    <li><a href="https://grafana.production.govuk.digital/dashboard/file/government-frontend.json" class="govuk-link">Deployment dashboard</a></li>
+
+    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22government_frontend%3A+true%22+path%3A%2Fspec%2F" class="govuk-link">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
+
+
+    <li><a href="https://government-frontend.herokuapp.com/component-guide" class="govuk-link">Component guide</a></li>
+
+
+</ul>
+</dd>
+
+</div></dl>
+    <div class="gem-c-summary__block"></div>
+</div>
+
+<h2 id="relevant-manual-pages">Relevant manual pages</h2>
+<ul class="gem-c-list govuk-list">
+      <li><a href="/manual/howto-add-organisation-brand-colour.html" class="govuk-link">Add an organisation's brand colour</a></li>
 </ul>
 
-<h2 id="links">Links</h2>
-
-<ul>
-  <li><a href="https://github.com/alphagov/government-frontend">GitHub repo</a></li>
-
-    <li><a href="https://sentry.io/govuk/app-government-frontend">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/government_frontend.pp">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/government-frontend/config/deploy.rb">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/government-frontend.json">Deployment dashboard</a></li>
-
-    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22government_frontend%3A+true%22+path%3A%2Fspec%2F">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
-
-
-    <li><a href="https://government-frontend.herokuapp.com/component-guide">Component guide</a></li>
-
-
-</ul>
-
-<h3 id="relevant-manual-pages">Relevant manual pages</h3>
-
-<ul>
-  <li><a href="/manual/howto-add-organisation-brand-colour.html">Add an organisation's brand colour</a></li>
+<h2 id="imported-documents">Imported documents</h2>
+<ul class="gem-c-list govuk-list">
+      <li><a href="/apps/government-frontend/webchat.html" class="govuk-link">Webchat Component</a></li>
 </ul>
 
 <h2 id="example-pages-published-by-government-frontend">Example pages published by government-frontend</h2>
-
-<ul>
-    <li><a href="https://www.gov.uk/government/history/10-downing-street">History of 10 Downing Street</a></li>
-    <li><a href="https://www.gov.uk/government/history/lancaster-house">History of Lancaster House (FCDO)</a></li>
-    <li><a href="https://www.gov.uk/government/history">History of the UK government</a></li>
-    <li><a href="https://www.gov.uk/government/history/11-downing-street">History of 11 Downing Street</a></li>
-    <li><a href="https://www.gov.uk/government/history/king-charles-street">History of King Charles Street (FCDO)</a></li>
-    <li><a href="https://www.gov.uk/government/history/1-horse-guards-road">History of 1 Horse Guards Road</a></li>
+<ul class="gem-c-list govuk-list">
+      <li><a href="https://www.gov.uk/government/history/10-downing-street" class="govuk-link">History of 10 Downing Street</a></li>
+      <li><a href="https://www.gov.uk/government/history/lancaster-house" class="govuk-link">History of Lancaster House (FCDO)</a></li>
+      <li><a href="https://www.gov.uk/government/history" class="govuk-link">History of the UK government</a></li>
+      <li><a href="https://www.gov.uk/government/history/11-downing-street" class="govuk-link">History of 11 Downing Street</a></li>
+      <li><a href="https://www.gov.uk/government/history/king-charles-street" class="govuk-link">History of King Charles Street (FCDO)</a></li>
+      <li><a href="https://www.gov.uk/government/history/1-horse-guards-road" class="govuk-link">History of 1 Horse Guards Road</a></li>
 </ul>
 
 <h2 id="example-pages-rendered-by-government-frontend">Example pages rendered by government-frontend</h2>
-
-<ul>
-  <li><a href="https://www.gov.uk/log-in-register-hmrc-online-services">HMRC services: sign in or register</a></li>
-  <li><a href="https://www.gov.uk/get-coronavirus-test">Get a free NHS test to check if you have coronavirus</a></li>
-  <li><a href="https://www.gov.uk/universal-credit">Universal Credit</a></li>
-  <li><a href="https://www.gov.uk/log-in-file-self-assessment-tax-return">File your Self Assessment tax return online</a></li>
-  <li><a href="https://www.gov.uk/pay-self-assessment-tax-bill">Pay your Self Assessment tax bill</a></li>
-  <li><a href="https://www.gov.uk/self-assessment-tax-returns">Self Assessment tax returns</a></li>
-  <li><a href="https://www.gov.uk/cold-weather-payment">Cold Weather Payment</a></li>
-  <li><a href="https://www.gov.uk/benefits-calculators">Benefits calculators</a></li>
-  <li><a href="https://www.gov.uk/uk-border-control">Entering the UK</a></li>
-  <li><a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/self-assessment">Self Assessment: general enquiries</a></li>
+<ul class="gem-c-list govuk-list">
+      <li><a href="https://www.gov.uk/log-in-register-hmrc-online-services" class="govuk-link">HMRC services: sign in or register</a></li>
+      <li><a href="https://www.gov.uk/get-coronavirus-test" class="govuk-link">Get a free NHS test to check if you have coronavirus</a></li>
+      <li><a href="https://www.gov.uk/universal-credit" class="govuk-link">Universal Credit</a></li>
+      <li><a href="https://www.gov.uk/log-in-file-self-assessment-tax-return" class="govuk-link">File your Self Assessment tax return online</a></li>
+      <li><a href="https://www.gov.uk/pay-self-assessment-tax-bill" class="govuk-link">Pay your Self Assessment tax bill</a></li>
+      <li><a href="https://www.gov.uk/self-assessment-tax-returns" class="govuk-link">Self Assessment tax returns</a></li>
+      <li><a href="https://www.gov.uk/cold-weather-payment" class="govuk-link">Cold Weather Payment</a></li>
+      <li><a href="https://www.gov.uk/benefits-calculators" class="govuk-link">Benefits calculators</a></li>
+      <li><a href="https://www.gov.uk/uk-border-control" class="govuk-link">Entering the UK</a></li>
+      <li><a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/self-assessment" class="govuk-link">Self Assessment: general enquiries</a></li>
 </ul>
 
 <h2 id="readme">README</h2>
-
-<div class="govuk-warning-text">
-    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-    <strong class="govuk-warning-text__text">
-      <span class="govuk-warning-text__assistive">Warning</span>
-      The content below is pulled in directly from the repository.<br />
-      Links might not function properly.
-    </strong>
-  </div>
 
 <div class="embedded-readme">
     
@@ -710,7 +714,7 @@ This url should not include session ids or require anything specific parameters 
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

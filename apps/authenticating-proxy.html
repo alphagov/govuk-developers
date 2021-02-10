@@ -6,25 +6,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Application: authenticating-proxy - GOV.UK Developer Documentation</title>
+    <title>Application: authenticating-proxy | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/authenticating-proxy.html">
 
-      <meta name="description" content="Everything about the authenticating-proxy application (Allows authorised users to access the GOV.UK draft stack)" />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Application: authenticating-proxy - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/authenticating-proxy.html" />
 
+      <meta property="description" content="Everything about the authenticating-proxy application (Allows authorised users to access the GOV.UK draft stack)" />
       <meta property="og:description" content="Everything about the authenticating-proxy application (Allows authorised users to access the GOV.UK draft stack)" />
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Application: authenticating-proxy" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/authenticating-proxy.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Application: authenticating-proxy | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/authenticating-proxy.html" />
 
     
   </head>
@@ -42,7 +42,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -313,60 +313,62 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: authenticating-proxy</h1>
 
-  <p>Allows authorised users to access the GOV.UK draft stack</p>
+  
+<p>Allows authorised users to access the GOV.UK draft stack</p>
 
-<h2 id="ownership">Ownership</h2>
+<div class="gem-c-summary-list ">
 
-<p><strong>#govuk-platform-health</strong> owns the application and is responsible for updating its dependencies.</p>
+      <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
 
-<h2 id="hosting">Hosting</h2>
+            <dt class="govuk-summary-list__key">GitHub</dt>
+            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/authenticating-proxy">authenticating-proxy</a></dd>
 
-<p>The production version of this application is hosted on <strong>AWS</strong>.</p>
+</div>          <div class="govuk-summary-list__row">
 
-<h3 id="ssh-access-aws">SSH Access (AWS)</h3>
+            <dt class="govuk-summary-list__key">Ownership</dt>
+            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
 
-<div class="highlight"><pre class="highlight shell"><code>gds govuk connect ssh <span class="nt">-e</span> integration draft_cache
-gds govuk connect ssh <span class="nt">-e</span> staging aws/draft_cache
-gds govuk connect ssh <span class="nt">-e</span> production aws/draft_cache
-</code></pre></div>
-<h2 id="run-a-rake-task">Run a rake task</h2>
+</div>          <div class="govuk-summary-list__row">
 
-<ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=authenticating-proxy&amp;MACHINE_CLASS=draft_cache&amp;RAKE_TASK=">Run a Rake task on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=authenticating-proxy&amp;MACHINE_CLASS=draft_cache&amp;RAKE_TASK=">Run a Rake task on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=authenticating-proxy&amp;MACHINE_CLASS=draft_cache&amp;RAKE_TASK=">⚠️ Run a Rake task on Production ⚠️</a></li>
+            <dt class="govuk-summary-list__key">Hosting</dt>
+            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>draft_cache</strong> machine class</dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
+            <dd class="govuk-summary-list__value">Yes</dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Rake tasks</dt>
+            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=authenticating-proxy&amp;MACHINE_CLASS=draft_cache&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=authenticating-proxy&amp;MACHINE_CLASS=draft_cache&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=authenticating-proxy&amp;MACHINE_CLASS=draft_cache&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Links</dt>
+            <dd class="govuk-summary-list__value"><ul>
+    <li><a href="https://sentry.io/govuk/app-authenticating-proxy" class="govuk-link">Sentry (error tracking)</a></li>
+
+
+    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/authenticating_proxy.pp" class="govuk-link">Puppet configuration</a></li>
+
+    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/authenticating-proxy/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
+
+    <li><a href="https://grafana.production.govuk.digital/dashboard/file/authenticating-proxy.json" class="govuk-link">Deployment dashboard</a></li>
+
+
+
+
+
 </ul>
+</dd>
 
-<h2 id="links">Links</h2>
-
-<ul>
-  <li><a href="https://github.com/alphagov/authenticating-proxy">GitHub repo</a></li>
-
-    <li><a href="https://sentry.io/govuk/app-authenticating-proxy">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/authenticating_proxy.pp">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/authenticating-proxy/config/deploy.rb">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/authenticating-proxy.json">Deployment dashboard</a></li>
-
-
-
-
-
-</ul>
+</div></dl>
+    <div class="gem-c-summary__block"></div>
+</div>
 
 <h2 id="readme">README</h2>
-
-<div class="govuk-warning-text">
-    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-    <strong class="govuk-warning-text__text">
-      <span class="govuk-warning-text__assistive">Warning</span>
-      The content below is pulled in directly from the repository.<br />
-      Links might not function properly.
-    </strong>
-  </div>
 
 <div class="embedded-readme">
     
@@ -511,7 +513,7 @@ and <strong>must</strong> not include sensitive or personally identifiable data.
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

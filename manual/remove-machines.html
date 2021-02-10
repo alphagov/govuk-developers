@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Remove a machine - GOV.UK Developer Documentation</title>
+    <title>Remove a machine | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/remove-machines.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Remove a machine - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/remove-machines.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Remove a machine" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/remove-machines.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Remove a machine | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/remove-machines.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -209,13 +209,13 @@ can find <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-insta
 puppetmaster and then on the monitoring machine, which could be up to
 an hour.  You can force this by running Puppet on the puppetmaster:</p>
 
-<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span><span class="w"> </span>gds govuk connect <span class="nt">-e</span> &lt;environment&gt; ssh puppetmaster
-<span class="gp">$</span><span class="w"> </span>govuk_puppet <span class="nt">--verbose</span>
+<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span> gds govuk connect <span class="nt">-e</span> &lt;environment&gt; ssh puppetmaster
+<span class="gp">$</span> govuk_puppet <span class="nt">--verbose</span>
 </code></pre></div>
 <p>And then on the monitoring machine:</p>
 
-<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span><span class="w"> </span>gds govuk connect <span class="nt">-e</span> &lt;environment&gt; ssh monitoring
-<span class="gp">$</span><span class="w"> </span>govuk_puppet <span class="nt">--verbose</span>
+<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span> gds govuk connect <span class="nt">-e</span> &lt;environment&gt; ssh monitoring
+<span class="gp">$</span> govuk_puppet <span class="nt">--verbose</span>
 </code></pre></div>
 <h2 id="carrenza">Carrenza</h2>
 
@@ -229,16 +229,16 @@ removing checks from Icinga.</p>
 
 <p>Next, SSH into the puppetmaster for the environment:</p>
 
-<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span><span class="w"> </span>ssh puppetmaster-1.management.production
+<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span> ssh puppetmaster-1.management.production
 </code></pre></div>
 <p>Then run this on each machine:</p>
 
-<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span><span class="w"> </span>govuk_node_clean &lt;machine_name&gt;
+<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span> govuk_node_clean &lt;machine_name&gt;
 </code></pre></div>
 <p>Where <code>&lt;machine_name&gt;</code> might be <code>machine-name-1.vdc-name.production</code> (Carrenza)
 To find the names of the machines, you can list the nodes on puppetmaster:</p>
 
-<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>puppet cert list <span class="nt">--all</span>
+<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span> <span class="nb">sudo </span>puppet cert list <span class="nt">--all</span>
 </code></pre></div>
 <p>If <code>govuk_node_clean</code> was successful, you will get output like:</p>
 
@@ -249,8 +249,8 @@ Notice: Removing file Puppet::SSL::Certificate redirector-1.redirector.productio
 <p>After this, Icinga will forget about the machine when it next
 runs Puppet. You can force this with:</p>
 
-<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span><span class="w"> </span>ssh monitoring-1.management.production
-<span class="gp">$</span><span class="w"> </span>govuk_puppet <span class="nt">--test</span>
+<div class="highlight"><pre class="highlight console"><code><span class="gp">$</span> ssh monitoring-1.management.production
+<span class="gp">$</span> govuk_puppet <span class="nt">--test</span>
 </code></pre></div>
 <p>You may need to wait a few minutes, but it should then disappear from
 the "Host Detail" page in Icinga.</p>
@@ -333,7 +333,7 @@ rules that apply to the vDC.</p>
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

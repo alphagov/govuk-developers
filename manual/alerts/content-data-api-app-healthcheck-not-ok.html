@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>content-data-api app healthcheck not ok - GOV.UK Developer Documentation</title>
+    <title>content-data-api app healthcheck not ok | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/alerts/content-data-api-app-healthcheck-not-ok.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="content-data-api app healthcheck not ok - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/alerts/content-data-api-app-healthcheck-not-ok.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="content-data-api app healthcheck not ok" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/alerts/content-data-api-app-healthcheck-not-ok.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="content-data-api app healthcheck not ok | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/alerts/content-data-api-app-healthcheck-not-ok.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -263,9 +263,9 @@ aggregations of the metrics failed.</p>
 <p>To fix this problem run the <a href="https://github.com/alphagov/content-data-api/blob/master/lib/tasks/etl.rake#L10">following rake task</a>:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD]">⚠️ Run etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">⚠️ Run etl:repopulate_aggregations_month[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
 </ul>
 
 <h3 id="etl--no--searches-updated-from-yesterday">ETL :: no <range> searches updated from yesterday</range></h3>
@@ -276,9 +276,9 @@ Materialized Views failed to update those views.</p>
 <p>To fix this problem run the <a href="https://github.com/alphagov/content-data-api/blob/master/lib/tasks/etl.rake#L25">following rake task</a>:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_search">Run etl:repopulate_aggregations_search on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_search">Run etl:repopulate_aggregations_search on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_search">⚠️ Run etl:repopulate_aggregations_search on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_search" class="govuk-link">Run etl:repopulate_aggregations_search on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_search" class="govuk-link">Run etl:repopulate_aggregations_search on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_aggregations_search" class="govuk-link">⚠️ Run etl:repopulate_aggregations_search on Production ⚠️</a></li>
 </ul>
 
 <h3 id="etl--no-daily-metrics-for-yesterday">ETL :: no daily metrics for yesterday</h3>
@@ -300,9 +300,9 @@ from the <a href="https://github.com/alphagov/content-data-api/blob/master/app/d
 <p>To fix this problem run the <a href="https://github.com/alphagov/content-data-api/blob/master/lib/tasks/etl.rake#L32">following rake task</a>:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]">⚠️ Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">⚠️ Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
 </ul>
 
 <h3 id="etl--no-upviews-for-yesterday">ETL :: no upviews for yesterday</h3>
@@ -314,9 +314,9 @@ originate from the <a href="https://github.com/alphagov/content-data-api/blob/ma
 <p>To fix this problem run the <a href="https://github.com/alphagov/content-data-api/blob/master/lib/tasks/etl.rake#L32">following rake task</a>:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]">⚠️ Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">⚠️ Run etl:repopulateviews[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
 </ul>
 
 <h3 id="etl--no-searches-for-yesterday">ETL :: no searches for yesterday</h3>
@@ -328,9 +328,9 @@ originate from the <a href="https://github.com/alphagov/content-data-api/blob/ma
 <p>To fix this problem run the <a href="https://github.com/alphagov/content-data-api/blob/master/lib/tasks/etl.rake#L45">following rake task</a>:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD]">⚠️ Run etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">⚠️ Run etl:repopulate_searches[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
 </ul>
 
 <h3 id="etl--no-feedex-for-yesterday">ETL :: no feedex for yesterday</h3>
@@ -342,9 +342,9 @@ collect <code>feedex</code> metrics from <code>support-api</code>. The issue may
 <p>To fix this problem run the <a href="https://github.com/alphagov/content-data-api/blob/master/lib/tasks/etl.rake#L71">following rake task</a>:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD]">Run etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD]">⚠️ Run etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">Run etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-data-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD]" class="govuk-link">⚠️ Run etl:repopulate_feedex[YYYY-MM-DD,YYYY-MM-DD] on Production ⚠️</a></li>
 </ul>
 
 <h3 id="other-troubleshooting-tips">Other troubleshooting tips</h3>
@@ -382,7 +382,7 @@ collect <code>feedex</code> metrics from <code>support-api</code>. The issue may
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

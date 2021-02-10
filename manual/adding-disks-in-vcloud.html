@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Add a disk to a vCloud machine (Carrenza only) - GOV.UK Developer Documentation</title>
+    <title>Add a disk to a vCloud machine (Carrenza only) | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/adding-disks-in-vcloud.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Add a disk to a vCloud machine (Carrenza only) - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/adding-disks-in-vcloud.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Add a disk to a vCloud machine (Carrenza only)" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/adding-disks-in-vcloud.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Add a disk to a vCloud machine (Carrenza only) | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/adding-disks-in-vcloud.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -263,7 +263,7 @@ already present.</li>
   <li>Run the following loop as root to probe for new discs</li>
 </ol>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">echo</span> <span class="s1">'- - -'</span> | <span class="nb">sudo tee</span> <span class="nt">-a</span> /sys/class/scsi_host/<span class="k">*</span>/scan
+<div class="highlight"><pre class="highlight shell"><code><span class="nb">echo</span> <span class="s1">'- - -'</span> | <span class="nb">sudo </span>tee <span class="nt">-a</span> /sys/class/scsi_host/<span class="k">*</span>/scan
 </code></pre></div>
 <ol>
   <li>Run <code>sudo fdisk -l</code> again and note that you have a new disk called
@@ -404,7 +404,7 @@ with the appropriate names from <code>sudo vgs</code> and <code>sudo lvs</code>:
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

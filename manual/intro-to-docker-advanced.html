@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Intro to GOV.UK Docker (Advanced) - GOV.UK Developer Documentation</title>
+    <title>Intro to GOV.UK Docker (Advanced) | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/intro-to-docker-advanced.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Intro to GOV.UK Docker (Advanced) - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/intro-to-docker-advanced.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Intro to GOV.UK Docker (Advanced)" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/intro-to-docker-advanced.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Intro to GOV.UK Docker (Advanced) | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/intro-to-docker-advanced.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -189,7 +189,7 @@
 
 <p>We did some tidy-up work at the end of the last tutorial, but there are still some manual setup commands to run.</p>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker-compose run content-publisher-demo bundle <span class="nb">install</span>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker-compose run content-publisher-demo bundle install
 <span class="nv">$mac</span> docker-compose run content-publisher-demo bundle <span class="nb">exec </span>rake db:setup
 </code></pre></div>
 <p>To avoid having to remember these commands and type them to setup different projects, we can use a <a href="https://www.gnu.org/software/make/manual/html_node/Introduction.html">Makefile</a>.</p>
@@ -532,19 +532,19 @@ address=/intro-to-docker.gov.uk/127.0.0.1
 </ul>
 
 <div class="highlight"><pre class="highlight shell"><code>docker-compose down
-docker <span class="nb">rm</span> <span class="si">$(</span>docker ps <span class="nt">-aq</span> <span class="nt">-f</span> <span class="nv">status</span><span class="o">=</span>exited<span class="si">)</span>
-docker <span class="nb">rm</span> <span class="si">$(</span>docker ps <span class="nt">-aq</span> <span class="nt">-f</span> <span class="nv">status</span><span class="o">=</span>created<span class="si">)</span>
-docker volume <span class="nb">rm </span>content-publisher-bundle
-docker volume <span class="nb">rm </span>content-publisher-postgres
-docker volume <span class="nb">rm </span>content-publisher_bundle
-docker volume <span class="nb">rm </span>content-publisher_home
-docker volume <span class="nb">rm </span>content-publisher_postgres
-docker network <span class="nb">rm </span>content-publisher-network
-docker network <span class="nb">rm </span>content-publisher_default
-docker image <span class="nb">rm </span>content-publisher-demo
-docker image <span class="nb">rm </span>content-publisher_content-publisher-demo
-docker image <span class="nb">rm </span>content-publisher_content-publisher
-docker image <span class="nb">rm</span> <span class="si">$(</span>docker image <span class="nb">ls</span> <span class="nt">-q</span> <span class="nt">-f</span> <span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span><span class="si">)</span>
+docker rm <span class="k">$(</span>docker ps <span class="nt">-aq</span> <span class="nt">-f</span> <span class="nv">status</span><span class="o">=</span>exited<span class="k">)</span>
+docker rm <span class="k">$(</span>docker ps <span class="nt">-aq</span> <span class="nt">-f</span> <span class="nv">status</span><span class="o">=</span>created<span class="k">)</span>
+docker volume rm content-publisher-bundle
+docker volume rm content-publisher-postgres
+docker volume rm content-publisher_bundle
+docker volume rm content-publisher_home
+docker volume rm content-publisher_postgres
+docker network rm content-publisher-network
+docker network rm content-publisher_default
+docker image rm content-publisher-demo
+docker image rm content-publisher_content-publisher-demo
+docker image rm content-publisher_content-publisher
+docker image rm <span class="k">$(</span>docker image <span class="nb">ls</span> <span class="nt">-q</span> <span class="nt">-f</span> <span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span><span class="k">)</span>
 </code></pre></div>
 <blockquote>
   <p>Some of these commands may return errors if you've deviated slightly from this tutorial. This isn't a problem.</p>
@@ -554,8 +554,8 @@ docker image <span class="nb">rm</span> <span class="si">$(</span>docker image <
   <li>Remove the files you created</li>
 </ul>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">rm</span> .dockerignore docker-compose.yml Dockerfile Makefile
-<span class="nb">sudo rm</span> /etc/resolver/intro-to-docker.gov.uk
+<div class="highlight"><pre class="highlight shell"><code>rm .dockerignore docker-compose.yml Dockerfile Makefile
+<span class="nb">sudo </span>rm /etc/resolver/intro-to-docker.gov.uk
 </code></pre></div>
 <ul>
   <li>Re-run the setup for GOV.UK Docker</li>
@@ -606,7 +606,7 @@ bin/setup
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

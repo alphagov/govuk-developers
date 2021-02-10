@@ -6,25 +6,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Application: content-publisher - GOV.UK Developer Documentation</title>
+    <title>Application: content-publisher | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/content-publisher.html">
 
-      <meta name="description" content="Everything about the content-publisher application (Publishing application for GOV.UK )" />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Application: content-publisher - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/content-publisher.html" />
 
+      <meta property="description" content="Everything about the content-publisher application (Publishing application for GOV.UK )" />
       <meta property="og:description" content="Everything about the content-publisher application (Publishing application for GOV.UK )" />
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Application: content-publisher" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/content-publisher.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Application: content-publisher | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/content-publisher.html" />
 
     
   </head>
@@ -42,7 +42,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -313,76 +313,89 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: content-publisher</h1>
 
-  <p>Publishing application for GOV.UK</p>
+  
+<p>Publishing application for GOV.UK</p>
 
-<h2 id="ownership">Ownership</h2>
+<div class="gem-c-summary-list ">
 
-<p><strong>#govuk-platform-health</strong> owns the application and is responsible for updating its dependencies.</p>
+      <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
 
-<h2 id="hosting">Hosting</h2>
+            <dt class="govuk-summary-list__key">GitHub</dt>
+            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/content-publisher">content-publisher</a></dd>
 
-<p>The production version of this application is hosted on <strong>AWS</strong>.</p>
+</div>          <div class="govuk-summary-list__row">
 
-<h3 id="ssh-access-aws">SSH Access (AWS)</h3>
+            <dt class="govuk-summary-list__key">Ownership</dt>
+            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
 
-<div class="highlight"><pre class="highlight shell"><code>gds govuk connect ssh <span class="nt">-e</span> integration backend
-gds govuk connect ssh <span class="nt">-e</span> staging aws/backend
-gds govuk connect ssh <span class="nt">-e</span> production aws/backend
-</code></pre></div>
-<h2 id="run-a-rake-task">Run a rake task</h2>
+</div>          <div class="govuk-summary-list__row">
 
-<ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=">Run a Rake task on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=">Run a Rake task on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=">⚠️ Run a Rake task on Production ⚠️</a></li>
+            <dt class="govuk-summary-list__key">Hosting</dt>
+            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>backend</strong> machine class</dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
+            <dd class="govuk-summary-list__value">Yes</dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Rake tasks</dt>
+            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Links</dt>
+            <dd class="govuk-summary-list__value"><ul>
+    <li><a href="https://sentry.io/govuk/app-content-publisher" class="govuk-link">Sentry (error tracking)</a></li>
+
+
+    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/content_publisher.pp" class="govuk-link">Puppet configuration</a></li>
+
+    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/content-publisher/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
+
+    <li><a href="https://grafana.production.govuk.digital/dashboard/file/content-publisher.json" class="govuk-link">Deployment dashboard</a></li>
+
+    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22content_publisher%3A+true%22+path%3A%2Fspec%2F" class="govuk-link">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
+
+
+
+
 </ul>
+</dd>
 
-<h2 id="links">Links</h2>
+</div></dl>
+    <div class="gem-c-summary__block"></div>
+</div>
 
-<ul>
-  <li><a href="https://github.com/alphagov/content-publisher">GitHub repo</a></li>
-
-    <li><a href="https://sentry.io/govuk/app-content-publisher">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/content_publisher.pp">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/content-publisher/config/deploy.rb">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/content-publisher.json">Deployment dashboard</a></li>
-
-    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22content_publisher%3A+true%22+path%3A%2Fspec%2F">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
-
-
-
-
+<h2 id="imported-documents">Imported documents</h2>
+<ul class="gem-c-list govuk-list">
+      <li><a href="/apps/content-publisher/approach-to-analytics.html" class="govuk-link">Approach to Analytics</a></li>
+      <li><a href="/apps/content-publisher/edit-change-note-history.html" class="govuk-link">Editing a document's change history</a></li>
+      <li><a href="/apps/content-publisher/history-mode.html" class="govuk-link">History mode</a></li>
+      <li><a href="/apps/content-publisher/import-from-whitehall.html" class="govuk-link">Importing documents from Whitehall to Content Publisher</a></li>
+      <li><a href="/apps/content-publisher/removing-documents.html" class="govuk-link">Removing or removing and redirecting a document</a></li>
+      <li><a href="/apps/content-publisher/scheduled-publishing.html" class="govuk-link">Scheduled publishing</a></li>
+      <li><a href="/apps/content-publisher/testing-strategy.html" class="govuk-link">Testing Strategy</a></li>
+      <li><a href="/apps/content-publisher/user-permissions.html" class="govuk-link">User Permissions</a></li>
 </ul>
 
 <h2 id="example-pages-published-by-content-publisher">Example pages published by content-publisher</h2>
-
-<ul>
-    <li><a href="https://www.gov.uk/government/news/new-standard-tenancy-agreement-to-help-renters-with-well-behaved-pets">New standard tenancy agreement to help renters with well behaved pets</a></li>
-    <li><a href="https://www.gov.uk/government/news/past-covid-19-infection-provides-some-immunity-but-people-may-still-carry-and-transmit-virus">Past COVID-19 infection provides some immunity but people may still carry and transmit virus</a></li>
-    <li><a href="https://www.gov.uk/government/news/government-reforms-make-it-easier-and-cheaper-for-leaseholders-to-buy-their-homes">Government reforms make it easier and cheaper for leaseholders to buy  their homes </a></li>
-    <li><a href="https://www.gov.uk/government/news/new-winter-package-to-provide-further-support-for-children-and-families">New winter package to provide further support for children and families</a></li>
-    <li><a href="https://www.gov.uk/government/news/uk-flu-levels-according-to-phe-statistics-2019-to-2020">UK flu levels according to PHE statistics: 2019 to 2020</a></li>
-    <li><a href="https://www.gov.uk/government/news/all-new-developments-must-meet-local-standards-of-beauty-quality-and-design-under-new-rules">All new developments must meet local standards of beauty, quality and design under new rules</a></li>
-    <li><a href="https://www.gov.uk/government/news/kickstart-moves-up-a-gear-with-over-120-000-jobs-created-so-far-and-government-making-it-even-simpler-for-employers-to-join">Kickstart moves up a gear with over 120,000 jobs created so far and government making it even simpler for employers to join</a></li>
-    <li><a href="https://www.gov.uk/government/news/confirmed-cases-of-covid-19-variants-identified-in-uk">Confirmed cases of COVID-19 variants identified in UK</a></li>
-    <li><a href="https://www.gov.uk/government/news/weekly-national-flu-and-covid-19-surveillance-reports-published">Weekly national flu and COVID-19 surveillance reports published</a></li>
-    <li><a href="https://www.gov.uk/government/news/build-the-future-announced-as-theme-for-national-apprenticeship-week-2021">‘Build the Future’ announced as theme for National Apprenticeship Week 2021</a></li>
+<ul class="gem-c-list govuk-list">
+      <li><a href="https://www.gov.uk/government/news/new-standard-tenancy-agreement-to-help-renters-with-well-behaved-pets" class="govuk-link">New standard tenancy agreement to help renters with well behaved pets</a></li>
+      <li><a href="https://www.gov.uk/government/news/past-covid-19-infection-provides-some-immunity-but-people-may-still-carry-and-transmit-virus" class="govuk-link">Past COVID-19 infection provides some immunity but people may still carry and transmit virus</a></li>
+      <li><a href="https://www.gov.uk/government/news/government-reforms-make-it-easier-and-cheaper-for-leaseholders-to-buy-their-homes" class="govuk-link">Government reforms make it easier and cheaper for leaseholders to buy  their homes </a></li>
+      <li><a href="https://www.gov.uk/government/news/new-winter-package-to-provide-further-support-for-children-and-families" class="govuk-link">New winter package to provide further support for children and families</a></li>
+      <li><a href="https://www.gov.uk/government/news/uk-flu-levels-according-to-phe-statistics-2019-to-2020" class="govuk-link">UK flu levels according to PHE statistics: 2019 to 2020</a></li>
+      <li><a href="https://www.gov.uk/government/news/all-new-developments-must-meet-local-standards-of-beauty-quality-and-design-under-new-rules" class="govuk-link">All new developments must meet local standards of beauty, quality and design under new rules</a></li>
+      <li><a href="https://www.gov.uk/government/news/kickstart-moves-up-a-gear-with-over-120-000-jobs-created-so-far-and-government-making-it-even-simpler-for-employers-to-join" class="govuk-link">Kickstart moves up a gear with over 120,000 jobs created so far and government making it even simpler for employers to join</a></li>
+      <li><a href="https://www.gov.uk/government/news/confirmed-cases-of-covid-19-variants-identified-in-uk" class="govuk-link">Confirmed cases of COVID-19 variants identified in UK</a></li>
+      <li><a href="https://www.gov.uk/government/news/weekly-national-flu-and-covid-19-surveillance-reports-published" class="govuk-link">Weekly national flu and COVID-19 surveillance reports published</a></li>
+      <li><a href="https://www.gov.uk/government/news/build-the-future-announced-as-theme-for-national-apprenticeship-week-2021" class="govuk-link">‘Build the Future’ announced as theme for National Apprenticeship Week 2021</a></li>
 </ul>
 
 <h2 id="readme">README</h2>
-
-<div class="govuk-warning-text">
-    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-    <strong class="govuk-warning-text__text">
-      <span class="govuk-warning-text__assistive">Warning</span>
-      The content below is pulled in directly from the repository.<br />
-      Links might not function properly.
-    </strong>
-  </div>
 
 <div class="embedded-readme">
     
@@ -464,7 +477,7 @@ bundle exec rake jasmine
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

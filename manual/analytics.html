@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Analytics on GOV.UK - GOV.UK Developer Documentation</title>
+    <title>Analytics on GOV.UK | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/analytics.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Analytics on GOV.UK - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/analytics.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Analytics on GOV.UK" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/analytics.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Analytics on GOV.UK | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/analytics.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -206,7 +206,7 @@ Pageviews are typically recorded as the user visits the page.</p>
 
 <p>The javascript function</p>
 
-<div class="highlight"><pre class="highlight javascript"><code><span class="nx">GOVUK</span><span class="p">.</span><span class="nx">analytics</span><span class="p">.</span><span class="nx">addLinkedTrackerDomain</span><span class="p">(</span><span class="dl">'</span><span class="s1">UA-43888888-1</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">someServiceTracker</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">some.service.gov.uk</span><span class="dl">'</span><span class="p">])</span>
+<div class="highlight"><pre class="highlight javascript"><code><span class="nx">GOVUK</span><span class="p">.</span><span class="nx">analytics</span><span class="p">.</span><span class="nx">addLinkedTrackerDomain</span><span class="p">(</span><span class="s1">'UA-43888888-1'</span><span class="p">,</span> <span class="s1">'someServiceTracker'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'some.service.gov.uk'</span><span class="p">])</span>
 </code></pre></div>
 <p>registers a <em>linked</em> (cross domain) tracker and sends a pageview to the tracker. The <a href="https://github.com/alphagov/static/blob/master/app/assets/javascripts/analytics/init.js.erb#L160">current cross domain configuration on GOV.UK</a> contains only those domains that have turned on cross domain tracking. More information is included in <a href="https://github.com/alphagov/static/blob/master/docs/analytics.md#tracking-across-domains">static's analytics documentation</a>.</p>
 
@@ -221,7 +221,7 @@ Pageviews are typically recorded as the user visits the page.</p>
 
 <p>Once the linked tracker is registered, it's also possible to track events using the registered tracker name:</p>
 
-<div class="highlight"><pre class="highlight javascript"><code><span class="nx">GOVUK</span><span class="p">.</span><span class="nx">analytics</span><span class="p">.</span><span class="nx">trackEvent</span><span class="p">(</span><span class="dl">'</span><span class="s1">Radio button chosen</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">selected-service-option</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">trackerName</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">someServiceTracker</span><span class="dl">'</span> <span class="p">})</span>
+<div class="highlight"><pre class="highlight javascript"><code><span class="nx">GOVUK</span><span class="p">.</span><span class="nx">analytics</span><span class="p">.</span><span class="nx">trackEvent</span><span class="p">(</span><span class="s1">'Radio button chosen'</span><span class="p">,</span> <span class="s1">'selected-service-option'</span><span class="p">,</span> <span class="p">{</span> <span class="s1">'trackerName'</span><span class="p">:</span> <span class="s1">'someServiceTracker'</span> <span class="p">})</span>
 </code></pre></div>
 <h3 id="cross-domain-tracking-and-govuk-javascript-module-loading">Cross domain tracking and GOV.UK javascript module loading</h3>
 
@@ -292,7 +292,7 @@ This is useful for testing what is being sent to GA and when. Other GA debuggers
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

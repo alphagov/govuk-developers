@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Manage assets - GOV.UK Developer Documentation</title>
+    <title>Manage assets | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/manage-assets.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Manage assets - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/manage-assets.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Manage assets" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/manage-assets.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Manage assets | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/manage-assets.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -174,15 +174,15 @@ follow these steps:</p>
 </ol>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:delete[ASSET_ID]">Run assets:delete[ASSET_ID] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:delete[ASSET_ID]">Run assets:delete[ASSET_ID] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:delete[ASSET_ID]">⚠️ Run assets:delete[ASSET_ID] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:delete[ASSET_ID]" class="govuk-link">Run assets:delete[ASSET_ID] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:delete[ASSET_ID]" class="govuk-link">Run assets:delete[ASSET_ID] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:delete[ASSET_ID]" class="govuk-link">⚠️ Run assets:delete[ASSET_ID] on Production ⚠️</a></li>
 </ul>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_delete[LEGACY_URL_PATH]">Run assets:whitehall_delete[LEGACY_URL_PATH] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_delete[LEGACY_URL_PATH]">Run assets:whitehall_delete[LEGACY_URL_PATH] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_delete[LEGACY_URL_PATH]">⚠️ Run assets:whitehall_delete[LEGACY_URL_PATH] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_delete[LEGACY_URL_PATH]" class="govuk-link">Run assets:whitehall_delete[LEGACY_URL_PATH] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_delete[LEGACY_URL_PATH]" class="govuk-link">Run assets:whitehall_delete[LEGACY_URL_PATH] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_delete[LEGACY_URL_PATH]" class="govuk-link">⚠️ Run assets:whitehall_delete[LEGACY_URL_PATH] on Production ⚠️</a></li>
 </ul>
 
 <ol>
@@ -216,15 +216,15 @@ an associated document wasn't unpublished correctly. There are some Rake tasks
 available for this:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:redirect[ASSET_ID,REDIRECT_URL]">Run assets:redirect[ASSET_ID,REDIRECT_URL] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:redirect[ASSET_ID,REDIRECT_URL]">Run assets:redirect[ASSET_ID,REDIRECT_URL] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:redirect[ASSET_ID,REDIRECT_URL]">⚠️ Run assets:redirect[ASSET_ID,REDIRECT_URL] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:redirect[ASSET_ID,REDIRECT_URL]" class="govuk-link">Run assets:redirect[ASSET_ID,REDIRECT_URL] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:redirect[ASSET_ID,REDIRECT_URL]" class="govuk-link">Run assets:redirect[ASSET_ID,REDIRECT_URL] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:redirect[ASSET_ID,REDIRECT_URL]" class="govuk-link">⚠️ Run assets:redirect[ASSET_ID,REDIRECT_URL] on Production ⚠️</a></li>
 </ul>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL]">Run assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL] on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL]">Run assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL] on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL]">⚠️ Run assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL] on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL]" class="govuk-link">Run assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL] on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL]" class="govuk-link">Run assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL] on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=asset-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL]" class="govuk-link">⚠️ Run assets:whitehall_redirect[LEGACY_URL_PATH,REDIRECT_URL] on Production ⚠️</a></li>
 </ul>
 
 <h2 id="uploading-an-asset">Uploading an asset</h2>
@@ -352,7 +352,7 @@ changing the URL, follow these steps:</p>
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>High memory for application - GOV.UK Developer Documentation</title>
+    <title>High memory for application | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/alerts/high-memory-for-application.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="High memory for application - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/alerts/high-memory-for-application.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="High memory for application" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/alerts/high-memory-for-application.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="High memory for application | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/alerts/high-memory-for-application.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -196,8 +196,8 @@ which can cause an app getting into a cycle of constant restarting. You can
 change them in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata_aws/common.yaml">hieradata_aws/common.yaml</a> or
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/common.yaml">hieradata/common.yaml</a>.</p>
 
-<div class="highlight"><pre class="highlight yaml"><code><span class="s">govuk::apps::the_warning::nagios_memory_warning: </span><span class="m">2500</span>
-<span class="s">govuk::apps::the_warning::nagios_memory_critical: </span><span class="m">2500</span>
+<div class="highlight"><pre class="highlight yaml"><code><span class="s">govuk::apps::the_warning::nagios_memory_warning</span><span class="pi">:</span> <span class="s">2500</span>
+<span class="s">govuk::apps::the_warning::nagios_memory_critical</span><span class="pi">:</span> <span class="s">2500</span>
 </code></pre></div>
 <p>An example of upping the thresholds can be found <a href="https://github.com/alphagov/govuk-puppet/pull/8755">here</a>.</p>
 
@@ -230,7 +230,7 @@ change them in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hie
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

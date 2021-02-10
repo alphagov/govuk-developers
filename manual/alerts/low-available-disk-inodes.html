@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Low available disk inodes - GOV.UK Developer Documentation</title>
+    <title>Low available disk inodes | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/alerts/low-available-disk-inodes.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Low available disk inodes - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/alerts/low-available-disk-inodes.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Low available disk inodes" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/alerts/low-available-disk-inodes.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Low available disk inodes | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/alerts/low-available-disk-inodes.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -174,7 +174,7 @@
 
  <h1 id='header'>Low available disk inodes</h1> <p>The inode usage on a machine can be checked using:</p>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">df</span> <span class="nt">-i</span>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>df <span class="nt">-i</span>
 </code></pre></div>
 <p>which will give output like:</p>
 
@@ -188,7 +188,7 @@
 <p>If Jenkins is running out of inodes (rather than disk space) then it may be
 possible to free some by clearing out old workspaces:</p>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>find /var/lib/jenkins/workspace/ <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> d <span class="nt">-mtime</span> +1 <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-rf</span> <span class="o">{}</span> <span class="se">\;</span>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>find /var/lib/jenkins/workspace/ <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> d <span class="nt">-mtime</span> +1 <span class="nt">-exec</span> rm <span class="nt">-rf</span> <span class="o">{}</span> <span class="se">\;</span>
 </code></pre></div>
 <p>This will find any directories that are older than 1 day and delete them.</p>
 
@@ -206,8 +206,8 @@ machines.</p>
 <p>If <code>/var/lib/docker</code> is consuming a large amount of disk space run the
 following as root:</p>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>docker rmi <span class="si">$(</span>docker images <span class="nt">--filter</span> <span class="s2">"dangling=true"</span> <span class="nt">-q</span> <span class="nt">--no-trunc</span><span class="si">)</span>
-<span class="nv">$ </span>docker volume <span class="nb">rm</span> <span class="si">$(</span>docker volume <span class="nb">ls</span> <span class="nt">-qf</span> <span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span><span class="si">)</span>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>docker rmi <span class="k">$(</span>docker images <span class="nt">--filter</span> <span class="s2">"dangling=true"</span> <span class="nt">-q</span> <span class="nt">--no-trunc</span><span class="k">)</span>
+<span class="nv">$ </span>docker volume rm <span class="k">$(</span>docker volume <span class="nb">ls</span> <span class="nt">-qf</span> <span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span><span class="k">)</span>
 </code></pre></div>
 <p>This will remove 'dangling' images and volumes. A comprehensive set of
 instructions can be found in this
@@ -242,7 +242,7 @@ instructions can be found in this
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

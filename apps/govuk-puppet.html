@@ -6,25 +6,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Application: govuk-puppet - GOV.UK Developer Documentation</title>
+    <title>Application: govuk-puppet | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/govuk-puppet.html">
 
-      <meta name="description" content="Everything about the govuk-puppet application (Puppet manifests used to provision the main GOV.UK web stack)" />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Application: govuk-puppet - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/govuk-puppet.html" />
 
+      <meta property="description" content="Everything about the govuk-puppet application (Puppet manifests used to provision the main GOV.UK web stack)" />
       <meta property="og:description" content="Everything about the govuk-puppet application (Puppet manifests used to provision the main GOV.UK web stack)" />
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Application: govuk-puppet" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/govuk-puppet.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Application: govuk-puppet | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/govuk-puppet.html" />
 
     
   </head>
@@ -42,7 +42,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -313,25 +313,35 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: govuk-puppet</h1>
 
-  <p>Puppet manifests used to provision the main GOV.UK web stack</p>
+  
+<p>Puppet manifests used to provision the main GOV.UK web stack</p>
 
-<h2 id="ownership">Ownership</h2>
+<div class="gem-c-summary-list ">
 
-<p><strong>#govuk-developers</strong> owns the application and is responsible for updating its dependencies.</p>
+      <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
 
-<h2 id="hosting">Hosting</h2>
+            <dt class="govuk-summary-list__key">GitHub</dt>
+            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/govuk-puppet">govuk-puppet</a></dd>
 
-<p>There is no production version of this application yet.</p>
+</div>          <div class="govuk-summary-list__row">
 
-<h2 id="links">Links</h2>
+            <dt class="govuk-summary-list__key">Ownership</dt>
+            <dd class="govuk-summary-list__value">#govuk-developers</dd>
 
-<ul>
-  <li><a href="https://github.com/alphagov/govuk-puppet">GitHub repo</a></li>
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Hosting</dt>
+            <dd class="govuk-summary-list__value">N/A</dd>
+
+</div>          <div class="govuk-summary-list__row">
+
+            <dt class="govuk-summary-list__key">Links</dt>
+            <dd class="govuk-summary-list__value"><ul>
 
 
 
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/govuk-puppet/config/deploy.rb">Deploy scripts</a></li>
+    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/govuk-puppet/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
 
 
 
@@ -339,17 +349,24 @@
 
 
 </ul>
+</dd>
+
+</div></dl>
+    <div class="gem-c-summary__block"></div>
+</div>
+
+<h2 id="imported-documents">Imported documents</h2>
+<ul class="gem-c-list govuk-list">
+      <li><a href="/apps/govuk-puppet/README.html" class="govuk-link">Docs</a></li>
+      <li><a href="/apps/govuk-puppet/adding-a-new-app.html" class="govuk-link">adding-a-new-app</a></li>
+      <li><a href="/apps/govuk-puppet/dependency-management.html" class="govuk-link">Dependency management</a></li>
+      <li><a href="/apps/govuk-puppet/nagios-checks.html" class="govuk-link">Nagios checks</a></li>
+      <li><a href="/apps/govuk-puppet/process-supervision.html" class="govuk-link">Process supervision</a></li>
+      <li><a href="/apps/govuk-puppet/puppet-class-assigment.html" class="govuk-link">Puppet Class Assignment</a></li>
+      <li><a href="/apps/govuk-puppet/things-that-should-not-be-in-puppet.html" class="govuk-link">Things that should not be in Puppet</a></li>
+</ul>
 
 <h2 id="readme">README</h2>
-
-<div class="govuk-warning-text">
-    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-    <strong class="govuk-warning-text__text">
-      <span class="govuk-warning-text__assistive">Warning</span>
-      The content below is pulled in directly from the repository.<br />
-      Links might not function properly.
-    </strong>
-  </div>
 
 <div class="embedded-readme">
     
@@ -557,7 +574,7 @@ runs.</p>
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

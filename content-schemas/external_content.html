@@ -6,25 +6,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Schema: external_content - GOV.UK Developer Documentation</title>
+    <title>Schema: external_content | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/content-schemas/external_content.html">
 
-      <meta name="description" content="Everything about the 'external_content' schema" />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Schema: external_content - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/content-schemas/external_content.html" />
 
+      <meta property="description" content="Everything about the 'external_content' schema" />
       <meta property="og:description" content="Everything about the 'external_content' schema" />
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Schema: external_content" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/content-schemas/external_content.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Schema: external_content | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/content-schemas/external_content.html" />
 
     
   </head>
@@ -42,7 +42,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -415,8 +415,8 @@ a publishing application sends to the publishing-api in a
 <h3 id="random-example">Random example</h3>
 
 <div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"access_limited"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"auth_bypass_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"access_limited"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"auth_bypass_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="s2">"bfeb8cab-4bdc-127e-a67a-8c0fea6ef517"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"4495505b-4b90-1cdf-a5a4-b3adeae7bad5"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"ed3cd8e6-cbd3-11c3-a450-e6dda3ce6e5d"</span><span class="p">,</span><span class="w">
@@ -425,9 +425,9 @@ a publishing application sends to the publishing-api in a
       </span><span class="s2">"db6904a8-fcd3-1d49-ac28-c22a92cfeaed"</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ut habitant eu ac ultricies dolor molestie orci molestie et volutpat vestibulum. eros. Pellentesque risus Ut tristique fames hendrerit netus morbi cursus sagittis Quisque dolor non sit libero. scelerisque. a ac non adipiscing nibh. turpis mauris Suspendisse senectus Lorem eu Sed interdum. sem massa sollicitudin vel Duis suscipit interdum. pellentesque malesuada lorem consectetur bibendum. et risus lectus finibus egestas. ac nibh Nam at Nam elit. Aenean Mauris aliquet. est. vel tristique in nisl imperdiet tempor leo ipsum porttitor ac sed purus amet tempor"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"hidden_search_terms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ut habitant eu ac ultricies dolor molestie orci molestie et volutpat vestibulum. eros. Pellentesque risus Ut tristique fames hendrerit netus morbi cursus sagittis Quisque dolor non sit libero. scelerisque. a ac non adipiscing nibh. turpis mauris Suspendisse senectus Lorem eu Sed interdum. sem massa sollicitudin vel Duis suscipit interdum. pellentesque malesuada lorem consectetur bibendum. et risus lectus finibus egestas. ac nibh Nam at Nam elit. Aenean Mauris aliquet. est. vel tristique in nisl imperdiet tempor leo ipsum porttitor ac sed purus amet tempor"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"hidden_search_terms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="s2">"finibus cursus sed turpis interdum. et suscipit Suspendisse molestie amet ac in purus ac malesuada imperdiet Pellentesque sollicitudin ac Ut risus vestibulum. hendrerit Aenean habitant ipsum Ut elit. nisl"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"dolor purus netus non scelerisque. ultricies Duis volutpat Aenean turpis Lorem vel tristique Ut nibh. Quisque malesuada Suspendisse morbi Nam leo sit tempor sollicitudin Nam vestibulum. senectus"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"interdum. libero. netus fames ac Suspendisse orci dolor ultricies malesuada Ut molestie vel interdum. Pellentesque sed dolor egestas. Lorem et est. ipsum eros. morbi sit tristique a nisl aliquet. Nam consectetur Aenean scelerisque. non lorem Nam imperdiet tempor"</span><span class="p">,</span><span class="w">
@@ -439,16 +439,16 @@ a publishing application sends to the publishing-api in a
       </span><span class="s2">"interdum. volutpat risus tempor dolor lectus eu Pellentesque aliquet. vel nibh scelerisque. lorem a ipsum non eros. massa elit. libero. Nam ac non Lorem ac finibus habitant et senectus Nam sagittis orci suscipit ultricies sed est. adipiscing mauris consectetur dolor vestibulum. Mauris interdum. Suspendisse Aenean pellentesque imperdiet et molestie risus vel morbi at leo bibendum. sem sollicitudin purus cursus tempor netus Duis porttitor sit ac nisl in malesuada hendrerit eu tristique nibh. turpis amet fames molestie Sed"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"sem Duis adipiscing Suspendisse et scelerisque. Nam cursus Quisque ipsum eros. molestie molestie Nam netus interdum. Mauris lectus finibus sagittis a hendrerit consectetur vel turpis Sed suscipit non ac nisl libero. imperdiet Ut ac sed purus at tempor malesuada Aenean volutpat elit. ac bibendum. morbi senectus Ut pellentesque porttitor risus interdum. vel leo tempor sollicitudin dolor egestas. tristique ultricies Pellentesque habitant nibh. aliquet. sit eu Lorem dolor et amet massa eu lorem nibh vestibulum. ac in tristique mauris orci est. non fames risus"</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/a98d9668-d0f5-19fe-abaf-fb57d62fabc4/97bfff6d-046c-101c-a698-aecdd725fd5a#d895fffef4"</span><span class="w">
+    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/a98d9668-d0f5-19fe-abaf-fb57d62fabc4/97bfff6d-046c-101c-a698-aecdd725fd5a#d895fffef4"</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"document_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"external_content"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"previous_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sagittis Ut ac morbi elit. in porttitor vel Aenean hendrerit turpis bibendum. amet senectus pellentesque sit Mauris imperdiet egestas. molestie est. tempor eu tempor et risus massa finibus ac a fames orci Lorem Nam ac nisl Quisque Duis interdum. at Sed ac habitant Suspendisse libero. nibh. eu risus tristique netus adipiscing vel sollicitudin dolor non molestie interdum. ipsum ultricies lectus suscipit leo sed vestibulum. purus Pellentesque tristique Ut cursus malesuada"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"publishing_app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"manuals-publisher"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"rendering_app"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"schema_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"external_content"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elit. lorem nibh leo bibendum. et morbi tristique purus volutpat malesuada tempor sagittis habitant risus Sed netus risus libero. molestie eu mauris turpis vel non cursus sit suscipit eros. dolor in ac aliquet. Nam nibh. at tempor non senectus molestie fames ac interdum. Aenean consectetur Suspendisse sem finibus hendrerit massa est. Mauris Duis ultricies lectus pellentesque tristique vel Ut imperdiet eu amet Quisque sollicitudin nisl Lorem porttitor Ut a scelerisque. egestas. dolor ipsum interdum. ac Nam et adipiscing orci vestibulum. sed"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"update_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"republish"</span><span class="w">
+  </span><span class="s2">"document_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"external_content"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"previous_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sagittis Ut ac morbi elit. in porttitor vel Aenean hendrerit turpis bibendum. amet senectus pellentesque sit Mauris imperdiet egestas. molestie est. tempor eu tempor et risus massa finibus ac a fames orci Lorem Nam ac nisl Quisque Duis interdum. at Sed ac habitant Suspendisse libero. nibh. eu risus tristique netus adipiscing vel sollicitudin dolor non molestie interdum. ipsum ultricies lectus suscipit leo sed vestibulum. purus Pellentesque tristique Ut cursus malesuada"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"publishing_app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"manuals-publisher"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"rendering_app"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"schema_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"external_content"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elit. lorem nibh leo bibendum. et morbi tristique purus volutpat malesuada tempor sagittis habitant risus Sed netus risus libero. molestie eu mauris turpis vel non cursus sit suscipit eros. dolor in ac aliquet. Nam nibh. at tempor non senectus molestie fames ac interdum. Aenean consectetur Suspendisse sem finibus hendrerit massa est. Mauris Duis ultricies lectus pellentesque tristique vel Ut imperdiet eu amet Quisque sollicitudin nisl Lorem porttitor Ut a scelerisque. egestas. dolor ipsum interdum. ac Nam et adipiscing orci vestibulum. sed"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"update_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"republish"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <hr />
@@ -469,8 +469,8 @@ a publishing application sends to the publishing-api in a
 <h3 id="random-example-1">Random example</h3>
 
 <div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"bulk_publishing"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"bulk_publishing"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -504,7 +504,7 @@ a publishing application sends to the publishing-api in a
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

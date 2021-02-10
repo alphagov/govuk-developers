@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Set up Heroku review apps for pull requests - GOV.UK Developer Documentation</title>
+    <title>Set up Heroku review apps for pull requests | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/review-apps.html">
 
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Set up Heroku review apps for pull requests - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/review-apps.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Set up Heroku review apps for pull requests" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/review-apps.html" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta property="twitter:title" content="Set up Heroku review apps for pull requests | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/review-apps.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            aria-hidden="true"
+            role="presentation"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -215,41 +215,41 @@ environment, both set in the Heroku environment.</p>
 <p>A standard <code>app.json</code> file for a Rails project will look somewhat like this:</p>
 
 <div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"govuk-app"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"repository"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/alphagov/govuk-app"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"GOVUK_APP_DOMAIN"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.gov.uk"</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"govuk-app"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"repository"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/alphagov/govuk-app"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"GOVUK_APP_DOMAIN"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.gov.uk"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"GOVUK_WEBSITE_ROOT"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.gov.uk"</span><span class="w">
+    </span><span class="s2">"GOVUK_WEBSITE_ROOT"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.gov.uk"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"PLEK_SERVICE_CONTENT_STORE_URI"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.gov.uk/api"</span><span class="w">
+    </span><span class="s2">"PLEK_SERVICE_CONTENT_STORE_URI"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.gov.uk/api"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"PLEK_SERVICE_SEARCH_URI"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.gov.uk/api"</span><span class="w">
+    </span><span class="s2">"PLEK_SERVICE_SEARCH_URI"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.gov.uk/api"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"PLEK_SERVICE_STATIC_URI"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assets.digital.cabinet-office.gov.uk"</span><span class="w">
+    </span><span class="s2">"PLEK_SERVICE_STATIC_URI"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assets.digital.cabinet-office.gov.uk"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"RAILS_SERVE_STATIC_ASSETS"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="w">
+    </span><span class="s2">"RAILS_SERVE_STATIC_ASSETS"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"SECRET_KEY_BASE"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"generator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret"</span><span class="w">
+    </span><span class="s2">"SECRET_KEY_BASE"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"generator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"HEROKU_APP_NAME"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="s2">"HEROKU_APP_NAME"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"heroku/ruby"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"buildpacks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"heroku/ruby"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"buildpacks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/heroku/heroku-buildpack-ruby"</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/heroku/heroku-buildpack-ruby"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"addons"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="s2">"addons"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>There is more information about it on the
@@ -352,7 +352,7 @@ application is being deployed to a new review app.</p>
         </ul>
 
       <svg
-        aria-hidden="true"
+        role="presentation"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"
