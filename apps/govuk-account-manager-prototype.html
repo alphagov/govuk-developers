@@ -447,19 +447,6 @@ govuk-docker run govuk-account-manager-prototype-lite bundle exec rake db:migrat
 <li>Run <code>govuk-docker down</code> in the command line to stop all GOV.UK Docker containers.</li>
 <li>Run <code>govuk-docker-up</code> in the folder of the app you want to run to restart the GOV.UK Docker containers.</li>
 </ol>
-<h2 id="secrets">Secrets</h2>
-<p>Secrets are defined via the <a href="https://github.com/alphagov/gds-cli">gds-cli</a> and Concourse secrets manager.</p>
-<p>You can view live secrets with an authenticated cloud foundry command:
-<code>cf env govuk-account-manager</code>.</p>
-<p>Adding or updating a secret can be done with Concourse secrets manager and the <a href="https://docs.publishing.service.gov.uk/manual/get-started.html#3-install-gds-tooling">GDS cli</a>.</p>
-<pre><code>gds cd secrets add cd-govuk-tools govuk-account-manager-prototype/SECRET_NAME your_secret_value
-</code></pre>
-<p>To remove a secret:</p>
-<pre><code>gds cd secrets rm cd-govuk-tools govuk-account-manager-prototype/SECRET_NAME
-</code></pre>
-<p>You would also need to unset it from the PaaS environment. Which you can do with this command:</p>
-<pre><code>cf unset-env govuk-account-manager SECRET_NAME
-</code></pre>
 <h2 id="creating-a-new-oauth-application">Creating a new OAuth application</h2>
 <p>First get a Rails console.  For example, when running locally in Docker Compose:</p>
 <pre><code>docker ps
