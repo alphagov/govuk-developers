@@ -185,7 +185,7 @@
             
   <p><a href='/manual.html#transition'>Transition</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3696da32a59182a22a88e7aa9b1adb068d87296a">25 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3a74fdb4e80176283745e44dc1dd83710f7b2c44">12 Feb 2021</a>
 </div>
 
  <h1 id='header'>Transition a site to GOV.UK</h1> <p>When a site is going to move to GOV.UK, there are two ways that the old site
@@ -355,6 +355,10 @@ addresses</a>.</p>
 
 <p>If the site is one that was <a href="https://github.com/alphagov/gds-dns-config/tree/master/zones">administered by GDS</a>
 (e.g. theorytest.direct.gov.uk), you will need to <a href="/manual/dns.html#making-changes-to-publishing-service-gov-uk">update and re-deploy the DNS config</a>.</p>
+
+<p>You'll need to create a TLS certificate in Fastly for HTTPS domains, otherwise
+users will see a certificate error when being redirected from an external
+HTTPS URL to GOV.UK via Bouncer. Read how to <a href="/request-fastly-tls-certificate.html">request a Fastly TLS certificate</a></p>
 
 <h3 id="10-get-the-organisation-to-monitor-the-traffic-data-in-the-transition-app">10) Get the organisation to monitor the traffic data in the Transition app</h3>
 

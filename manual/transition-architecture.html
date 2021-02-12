@@ -162,15 +162,8 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#transition'>Transition</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/09c7dbe43f5f76403c1c550f515fcd4a68fe496d">3 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3a74fdb4e80176283745e44dc1dd83710f7b2c44">12 Feb 2021</a>
 </div>
 
  <h1 id='header'>Transition architecture</h1> <p>The Transition system is built to transition government websites to GOV.UK. The
@@ -294,10 +287,10 @@ to the machines when Bouncer is deployed.</p>
 
 <h4 id="https-support-for-transitioned-sites">HTTPS support for transitioned sites</h4>
 
-<p>Bouncer does not support HTTPS for transitioned sites. This functionality is under
-investigation as of December 2018. This limitation should be investigated as part
-of any site transition, especially if the existing site uses HSTS to force secure
-connections.</p>
+<p>Bouncer in late 2020 began supporting HTTPS for transitioned sites, through
+a new feature in Fastly.</p>
+
+<p>Follow the guidance to <a href="/request-fastly-tls-certificate.html">request a Fastly TLS certificate</a>.</p>
 
 
 
