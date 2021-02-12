@@ -596,7 +596,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/12d26c356da08d38272a14e828c5c75de2dd20f6">30 Nov 2020</a>
+  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/6e1b5c1c19f022b9743bc568001b88413c69f11d">4 Feb 2021</a>
 </div>
 
   <h1 class="page-title">email-alert-api: Analytics</h1>
@@ -607,7 +607,7 @@
 <p>See "<a href="/apps/email-alert-api/data-cleanup-mechanisms.html">data cleanup mechanisms</a>" for information about how long we retain data in the system.</p>
 </blockquote>
 <h2 id="subscription-data-for-each-subscriber-list">Subscription data for each subscriber list</h2>
-<p>This generates a CSV report about each subscriber list, for a specific date. In order to help disambiguate between lists with similar titles, each row of the report includes all of the <a href="/apps/email-alert-api/matching-content-to-subscriber-lists.html">matching criteria</a> for a list.</p>
+<p>This generates a CSV report about each subscriber list, for a specific date. In order to help disambiguate between lists with similar titles, by default each row of the report includes all of the <a href="/apps/email-alert-api/matching-content-to-subscriber-lists.html">matching criteria</a> for a list.</p>
 <pre lang="bash"><code>report:csv_subscriber_lists["2020-11-05"]
 
 # or for specific lists
@@ -619,7 +619,12 @@ TAGS_PATTERN=brexit_checklist_criteria report:csv_subscriber_lists["2020-11-05"]
 # or with links containing a string
 LINKS_PATTERN=countries report:csv_subscriber_lists["2020-11-05"]
 </code></pre>
+<p>If you want just some specific headers, you can choose which headers you want as follows:</p>
+<pre lang="bash"><code>HEADERS=title,individual_subscribers,daily_subscribers,weekly_subscribers,total_subscribers report:csv_subscriber_lists["2020-11-05"]
+</code></pre>
+<p>All available headers are used by default, pass in the name of the headers as they are in the first row of the default output</p>
 <p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=email-alert-api&amp;MACHINE_CLASS=email_alert_api&amp;RAKE_TASK=report:csv_subscriber_lists">⚙ Run rake task on Integration</a></p>
+<p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=email-alert-api&amp;MACHINE_CLASS=email_alert_api&amp;RAKE_TASK=HEADERS=title,individual_subscribers,daily_subscribers,weekly_subscribers,total_subscribers%20report:csv_subscriber_lists">⚙ Run rake task with limited number of headers on Integration</a></p>
 <h2 id="content-changes-for-each-subscriber-list">Content changes for each subscriber list</h2>
 <p>This generates a CSV report of matched content changes over the last week.</p>
 <pre lang="bash"><code>report:matched_content_changes
