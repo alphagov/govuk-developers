@@ -186,15 +186,8 @@
     </div>
 
      <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/d0a2a77f483927e50e6df2ac431a6a7e21102528">30 Jul 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b8693afe9595b66f475bb0204d347c027dac27fd">16 Feb 2021</a>
 </div>
 
  <h1 id='header'>content-data-api app healthcheck not ok</h1> <p>If there is a health check error showing for Content Data API, click
@@ -352,6 +345,32 @@ collect <code>feedex</code> metrics from <code>support-api</code>. The issue may
 <p>For problems in the ETL process, you can check the output in <a href="https://deploy.blue.production.govuk.digital/job/content_data_api_import_etl_master_process/">Jenkins</a>.</p>
 
 <p>You can also check for any errors in <a href="https://sentry.io/organizations/govuk/issues/?environment=production&amp;project=1461890">Sentry</a> or the <a href="https://kibana.logit.io/s/283f08f6-d117-48df-9667-c4aa492b81f9/app/kibana#/discover?_g=()&amp;_a=(columns:!(_source),index:'*-*',interval:auto,query:(query_string:(query:'application:%20content-data-api')),sort:!('@timestamp',desc))">logs in kibana</a></p>
+
+<h4 id="sidekiq_retry_size-is-above-the-warning-threshold">sidekiq_retry_size is above the warning threshold</h4>
+
+<p>We have an ongoing issue where occasionally a Whitehall document is not successfully
+updated in the database, returning with a database conflict error.
+In the <code>content-data-api</code> you may find the first content item is (incorrectly)
+still considered <code>live: true</code>, and that the second content item doesn't exist.</p>
+
+<p>We are <a href="https://sentry.io/organizations/govuk/issues/1905340462/events/45b36be8d1054e3fa69e9e88085cb8d5/?project=1461890">notified of this error through Sentry</a> as well as a <code>warning</code> Icinga
+alert on the <code>content-data-api</code> healthcheck, specifically that `sidekiq_retry_size</p>
+<ul>
+  <li>warning - 3 is above the warning threshold (1)<code> because </code>content-data-api` is
+unable to pull in data.</li>
+</ul>
+
+<p>To fix this and get the data successfully pulled into <code>content-data-api</code> you can
+apply this manual fix:</p>
+
+<div class="highlight"><pre class="highlight plaintext"><code>Dimensions::Edition.where(content_id: "b6a2a286-8669-4cbe-a4ad-7997608598d2")
+  .last
+  .update!(live: false, schema_name: "gone", document_type: "gone")
+</code></pre></div><p>You can get the <code>base url</code> from the Sentry error and query the database for the
+<code>content_id</code>.</p>
+
+<p>Then the next time the Sidekiq worker runs, it should successfully be able to add
+the new content item.</p>
 
 
 
