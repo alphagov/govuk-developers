@@ -150,7 +150,7 @@
 
      <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/d273df04a1a6c18702505efd9873b63b1eb495ab">17 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5d5bd5a8e467b6d53f8d408588953e13f526b34a">16 Feb 2021</a>
 </div>
 
  <h1 id='header'>Fetch analytics data for search failed</h1> <p>This checks the latest build state of <a href="https://deploy.blue.production.govuk.digital/job/search-api-fetch-analytics-data/">a job in production
@@ -171,7 +171,29 @@ updated.</li>
 </ol>
 
 <p>If the job fails or gets stuck in part 1, you can cancel it and leave
-it to run the next day.</p>
+it to run the next day. If you see in the Jenkins job output:</p>
+
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>jenkins.util.io.CompositeIOException: Unable to delete <span class="s1">'/var/lib/jenkins/workspace/search-api-fetch-analytics-data'</span><span class="nb">.</span>
+</code></pre></div>
+<p>The job runs a Docker container which uses <code>root</code>, and if it fails the
+files don't get cleaned up properly. You can check by running the following
+command on the machine:</p>
+
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>su - jenkins
+<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-al</span> /var/lib/jenkins/workspace/search-api-fetch-analytics-data
+</code></pre></div>
+<div class="highlight"><pre class="highlight shell"><code>total 20
+drwxr-xr-x  5 jenkins jenkins 4096 Dec 31 21:17 <span class="nb">.</span>
+drwxr-xr-x 78 jenkins jenkins 4096 Feb 15 14:18 ..
+drwxr-xr-x  4 jenkins jenkins 4096 Dec 31 21:17 analytics_fetcher
+drwxr-xr-x  2 root    root    4096 Dec 23 04:10 cache
+drwxr-xr-x  3 jenkins jenkins 4096 Dec 31 21:17 gapy
+</code></pre></div>
+<p>They can be removed by running:</p>
+
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>rm <span class="nt">-r</span> /var/lib/jenkins/workspace/search-api-fetch-analytics-data
+</code></pre></div>
+<p>The job should hopefully run successfully overnight.</p>
 
 <p>If the job fails or gets stuck in part 2, the search indices may still
 be locked.  If that's the case, documents will be missing from search.
