@@ -379,6 +379,12 @@ It will look at the pages API for your site, find all pages that have expired, a
   "your-docs-site.cloudapps.digital"
 ]
 </code></pre>
+<p>If you want to limit the number of links that are posted to Slack after a single run, add this to  <code>limits</code> in the <a href="https://github.com/alphagov/tech-docs-monitor/blob/master/Rakefile"><code>Rakefile</code></a></p>
+<pre><code>limits = {
+  "your-docs-site.cloudapps.digital" =&gt; 3
+}
+</code></pre>
+<p>The default behaviour is no limit, and the Slack message will contain all pages discovered.</p>
 <h3 id="general-configuration">General configuration</h3>
 <p>The following environment variables are necessary:</p>
 <ul>
