@@ -142,7 +142,7 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5d284a928eaee2d56e2c920dcdbbccfd0c0ef97a">2 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/61ff26758f1d9b5fedcd5ddfc942cb62b20d0e68">19 Feb 2021</a>
 </div>
 
  <h1 id='header'>Scale Mapit</h1> <p>Mapit has a scaling process that is different to other GOV.UK applications.</p>
@@ -151,7 +151,7 @@
 
 <ol>
   <li>
-    <p>Edit the <a href="https://github.com/alphagov/govuk-aws/blob/a8217e42ee95b25da434fb27ab39788555a9448a/terraform/projects/app-mapit/main.tf#L157-L191">Mapit machine Terraform</a> to include a <code>module mapit-&lt;number&gt;</code> and <code>resource "aws_erb_volume" "mapit-&lt;number&gt;"</code> block for each instance, e.g. for 4 instances you would need a <code>mapit-1</code>, <code>mapit-2</code>, <code>mapit-3</code> and <code>mapit-4</code>. You can copy an existing block and change the numbers.</p>
+    <p>Edit the <a href="https://github.com/alphagov/govuk-aws/blob/a8217e42ee95b25da434fb27ab39788555a9448a/terraform/projects/app-mapit/main.tf#L157-L191">Mapit machine Terraform</a> to include a <code>module mapit-&lt;number&gt;</code>, <code>resource "aws_erb_volume" "mapit-&lt;number&gt;"</code> and <code>resource "aws_iam_role_policy_attachment" "mapit_&lt;number&gt;_iam_role_policy_attachment"</code> block for each instance, e.g. for 4 instances you would need a <code>mapit-1</code>, <code>mapit-2</code>, <code>mapit-3</code> and <code>mapit-4</code>. You can copy an existing block and change the numbers.</p>
   </li>
   <li>
     <p><a href="/manual/deploying-terraform.html">Deploy the Terraform</a>.</p>
