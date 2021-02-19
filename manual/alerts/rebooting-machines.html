@@ -213,7 +213,7 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3a131045e7bbe8bbe657c341c8d3751e5e645215">9 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4431385af524610ff9cae054692c8b07a3ab42f7">19 Feb 2021</a>
 </div>
 
  <h1 id='header'>Reboot a machine</h1> <p>Under normal circumstances most machines reboot automatically when an update is required.
@@ -341,7 +341,7 @@ remove them from the AWS load balancer target groups before rebooting.</p>
 is the recommended way to reboot a cache machine:</p>
 
 <div class="highlight"><pre class="highlight plaintext"><code>cd govuk-puppet
-gds govuk-integration-poweruser -- ./tools/reboot-cache-instances.sh -e integration ip-1-2-3-4.eu-west-1.compute.internal
+gds aws govuk-integration-poweruser -- ./tools/reboot-cache-instances.sh -e integration ip-1-2-3-4.eu-west-1.compute.internal
 </code></pre></div>
 <p>The tool takes an environment and a private DNS name, which are provided by the
 Icinga alert.</p>
