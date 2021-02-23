@@ -440,28 +440,14 @@ notification services. Currently supports only <a href="https://www.notification
 </li>
 </ul>
 <h2 id="technical-documentation">Technical documentation</h2>
-<h3 id="dependencies">Dependencies</h3>
-<ul>
-<li>PostgreSQL database (9.3 or higher - requires <code>json</code> with <code>json_object_keys</code> method)</li>
-<li>Redis (for <a href="http://sidekiq.org/">Sidekiq</a>)</li>
-<li>GOV.UK Notify API key and other details (see
-<a href="https://github.com/alphagov/email-alert-api/blob/master/config/email_service.yml"><code>email_service.yml</code></a> for required fields)</li>
-</ul>
-<h3 id="running-the-application">Running the application</h3>
-<pre lang="bash"><code>bundle exec rails server
-</code></pre>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 <h3 id="running-the-test-suite">Running the test suite</h3>
-<pre lang="bash"><code>bundle exec rspec
+<pre lang="bash"><code>bundle exec rake
 </code></pre>
-<h2 id="documentation">Documentation</h2>
-<ul>
-<li><a href="/apps/email-alert-api/analytics.html">Analytics</a></li>
-<li><a href="/apps/email-alert-api/api.html">API</a></li>
-<li><a href="/apps/email-alert-api/data-cleanup-mechanisms.html">Data cleanup mechanisms</a></li>
-<li><a href="/apps/email-alert-api/matching-content-to-subscriber-lists.html">Matching content to subscriber lists</a></li>
-<li><a href="/apps/email-alert-api/support-tasks.html">Support tasks</a></li>
-<li><a href="/apps/email-alert-api/env-vars.html">ENV vars</a></li>
-</ul>
+<h3 id="manuals-and-decisions">Manuals and decisions</h3>
+<p>Check the <a href="https://github.com/alphagov/email-alert-api/blob/master/docs/">docs/</a> directory for detailed instructions, decisions and other documentation.</p>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/email-alert-api/blob/master/LICENCE">MIT License</a></p>
   </div>

@@ -374,23 +374,20 @@
     
 <p>This is a message queue consumer that triggers email alerts when documents are published with a major change.</p>
 <h2 id="technical-documentation">Technical documentation</h2>
-<p>Messages are read from the <code>published_documents</code> exchange which carries documents
-published from all publishing applications via the content-store.</p>
-<p>When the service detects a published document which was tagged to one or more
-topics, it builds an email message, and passes it to email-alert-api.</p>
-<h3 id="dependencies">Dependencies</h3>
-<ul>
-<li>redis</li>
-</ul>
-<h3 id="running-the-application">Running the application</h3>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
+<h3 id="before-running-the-app">Before running the app</h3>
 <p>The email-alert-service uses the <a href="https://github.com/alphagov/govuk_message_queue_consumer">govuk_message_queue_consumer</a>
 to connect to a message queue on the <code>published_documents</code> exchange.</p>
 <p>There is a rake task to create the queue for this exchange:</p>
-<p><code>bundle exec rake message_queues:create_queues</code></p>
+<pre><code>bundle exec rake message_queues:create_queues
+</code></pre>
 <p>There is a rake task to start a processor to consume from the queue:</p>
-<p><code>bundle exec rake message_queues:major_change_consumer</code></p>
+<pre><code>bundle exec rake message_queues:major_change_consumer
+</code></pre>
 <h3 id="running-the-test-suite">Running the test suite</h3>
-<p><code>bundle exec rspec</code></p>
+<pre><code>bundle exec rake
+</code></pre>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/email-alert-service/blob/master/LICENCE">MIT License</a></p>
   </div>
