@@ -142,7 +142,7 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/61ff26758f1d9b5fedcd5ddfc942cb62b20d0e68">19 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6bcc865db12ec8541cf797c1d6c06cfe6935bb5c">22 Feb 2021</a>
 </div>
 
  <h1 id='header'>Scale Mapit</h1> <p>Mapit has a scaling process that is different to other GOV.UK applications.</p>
@@ -156,6 +156,13 @@
   <li>
     <p><a href="/manual/deploying-terraform.html">Deploy the Terraform</a>.</p>
   </li>
+  <li>
+    <p>Install the virtualenv by running the following on each new instance:</p>
+
+<div class="highlight"><pre class="highlight plaintext"><code>sudo pip3.6 install setuptools virtualenv pip gunicorn --upgrade
+sudo rm -rf /data/apps/mapit/shared/venv3
+sudo -H -u deploy virtualenv /data/apps/mapit/shared/venv3 -p python3.6
+</code></pre></div>  </li>
   <li>
     <p><a href="/manual/mapit-database-not-available.html">Make the Mapit database available to each machine</a>.</p>
   </li>
