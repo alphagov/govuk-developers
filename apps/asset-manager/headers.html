@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>whitehall: Timestamps | GOV.UK Developer Documentation</title>
+    <title>asset-manager: Headers | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/whitehall/timestamps.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/asset-manager/headers.html">
 
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="whitehall: Timestamps" />
+      <meta property="og:title" content="asset-manager: Headers" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/whitehall/timestamps.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/asset-manager/headers.html" />
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="whitehall: Timestamps | GOV.UK Developer Documentation" />
-      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/whitehall/timestamps.html" />
+      <meta property="twitter:title" content="asset-manager: Headers | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/asset-manager/headers.html" />
 
     
   </head>
@@ -217,7 +217,7 @@
             <li><a href="/apps/whitehall/link_checker_api_integration.html"><span>Link Checker API Integrations</span></a></li>
             <li><a href="/apps/whitehall/search_setup_guide.html"><span>Search setup guide</span></a></li>
             <li><a href="/apps/whitehall/testing_guide.html"><span>Testing Guide</span></a></li>
-            <li><a href="/apps/whitehall/timestamps.html" class="toc-link--in-view"><span>Timestamps</span></a></li>
+            <li><a href="/apps/whitehall/timestamps.html"><span>Timestamps</span></a></li>
         </ul>
     </li>
     <li>
@@ -289,7 +289,7 @@
       <a href="/apps/asset-manager.html"><span>asset-manager</span></a>
         <ul>
             <li><a href="/apps/asset-manager/api.html"><span>API</span></a></li>
-            <li><a href="/apps/asset-manager/headers.html"><span>Headers</span></a></li>
+            <li><a href="/apps/asset-manager/headers.html" class="toc-link--in-view"><span>Headers</span></a></li>
         </ul>
     </li>
     <li>
@@ -599,44 +599,15 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/whitehall/commit/d5f2fe2481c06cd1859f895ac16305e8ebdd8680">16 Jun 2020</a>
+  Last updated: <a href="https://github.com/alphagov/asset-manager/commit/ba4ca954bdfb8ca8602f00a4411c857f13b7e6f3">23 Feb 2021</a>
 </div>
 
-  <h1 class="page-title">whitehall: Timestamps</h1>
+  <h1 class="page-title">asset-manager: Headers</h1>
 
   
-<h2 id="public_timestamp"><code>public_timestamp</code></h2>
-<ul>
-<li>point in time the edition became visible to the public on the website. Updated for major changes</li>
-<li>used to sort documents in the atom feed</li>
-<li>for building <code>change_history</code> on a document</li>
-<li>used when comparing edition published dates in scopes on Edition (e.g. <code>published_before(date)</code>)</li>
-<li>set to <code>first_public_at</code> or <code>major_change_published_at</code> on every save</li>
-</ul>
-<h2 id="first_published_at"><code>first_published_at</code></h2>
-<ul>
-<li>signifies when the document was 'first published', which may be before the public timestamp. E.g. transitioned content, etc.</li>
-<li>Either user supplied on the form, or set during publishing to the <code>major_change_published_at</code> timestamp</li>
-</ul>
-<h2 id="first_public_at"><code>first_public_at</code></h2>
-<ul>
-<li>
-<code>first_published_at</code> on Edition</li>
-<li>
-<code>opening_at</code> on Consultation</li>
-</ul>
-<h2 id="major_change_published_at"><code>major_change_published_at</code></h2>
-<ul>
-<li>date of the last major change. Major changes require change notes. This is decided by the user.</li>
-</ul>
+<p>Previously, the Rails app received <code>X-Sendfile-Type</code> &amp; <code>X-Accel-Mapping</code> request headers and set the <code>X-Accel-Redirect</code> response header which caused <code>Rack::Sendfile</code> not to send the asset file in the body of the response. Nginx would interpret the <code>X-Accel-Redirect</code> response header and serve the file directly from disk. When running the app standalone (i.e. without Nginx) the app would not receive the request headers mentioned above. This in turn caused <code>Rack::Sendfile</code> to send the asset file in the body of the response. Thus it was possible to use the app running standalone to serve asset requests.</p>
+<p>However, now the app doesn't make use of <code>Rack::Sendfile</code> and instead <em>always</em> responds to asset requests by setting the <code>X-Accel-Redirect</code> response header and <em>not</em> sending the asset file in the response body. Nginx is configured to proxy the request to the URL supplied in <code>X-Accel-Redirect</code> response header on the development VM, but if you want to run the app standalone and you want to actually serve the asset file in the response body, you'll need something (e.g. Nginx) in front of the Rails app.</p>
 
 
             
@@ -644,8 +615,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/whitehall/blob/master/docs/timestamps.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/whitehall/timestamps.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/asset-manager/blob/master/docs/headers.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/asset-manager/headers.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

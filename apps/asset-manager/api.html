@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>whitehall: Timestamps | GOV.UK Developer Documentation</title>
+    <title>asset-manager: API | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/whitehall/timestamps.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/asset-manager/api.html">
 
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="whitehall: Timestamps" />
+      <meta property="og:title" content="asset-manager: API" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/whitehall/timestamps.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/asset-manager/api.html" />
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="whitehall: Timestamps | GOV.UK Developer Documentation" />
-      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/whitehall/timestamps.html" />
+      <meta property="twitter:title" content="asset-manager: API | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/asset-manager/api.html" />
 
     
   </head>
@@ -217,7 +217,7 @@
             <li><a href="/apps/whitehall/link_checker_api_integration.html"><span>Link Checker API Integrations</span></a></li>
             <li><a href="/apps/whitehall/search_setup_guide.html"><span>Search setup guide</span></a></li>
             <li><a href="/apps/whitehall/testing_guide.html"><span>Testing Guide</span></a></li>
-            <li><a href="/apps/whitehall/timestamps.html" class="toc-link--in-view"><span>Timestamps</span></a></li>
+            <li><a href="/apps/whitehall/timestamps.html"><span>Timestamps</span></a></li>
         </ul>
     </li>
     <li>
@@ -288,7 +288,7 @@
     <li>
       <a href="/apps/asset-manager.html"><span>asset-manager</span></a>
         <ul>
-            <li><a href="/apps/asset-manager/api.html"><span>API</span></a></li>
+            <li><a href="/apps/asset-manager/api.html" class="toc-link--in-view"><span>API</span></a></li>
             <li><a href="/apps/asset-manager/headers.html"><span>Headers</span></a></li>
         </ul>
     </li>
@@ -599,44 +599,151 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/whitehall/commit/d5f2fe2481c06cd1859f895ac16305e8ebdd8680">16 Jun 2020</a>
+  Last updated: <a href="https://github.com/alphagov/asset-manager/commit/8d365c26fdb05afe48e2f7d156d756c0e452b4b1">23 Feb 2021</a>
 </div>
 
-  <h1 class="page-title">whitehall: Timestamps</h1>
+  <h1 class="page-title">asset-manager: API</h1>
 
   
-<h2 id="public_timestamp"><code>public_timestamp</code></h2>
-<ul>
-<li>point in time the edition became visible to the public on the website. Updated for major changes</li>
-<li>used to sort documents in the atom feed</li>
-<li>for building <code>change_history</code> on a document</li>
-<li>used when comparing edition published dates in scopes on Edition (e.g. <code>published_before(date)</code>)</li>
-<li>set to <code>first_public_at</code> or <code>major_change_published_at</code> on every save</li>
-</ul>
-<h2 id="first_published_at"><code>first_published_at</code></h2>
-<ul>
-<li>signifies when the document was 'first published', which may be before the public timestamp. E.g. transitioned content, etc.</li>
-<li>Either user supplied on the form, or set during publishing to the <code>major_change_published_at</code> timestamp</li>
-</ul>
-<h2 id="first_public_at"><code>first_public_at</code></h2>
-<ul>
-<li>
-<code>first_published_at</code> on Edition</li>
-<li>
-<code>opening_at</code> on Consultation</li>
-</ul>
-<h2 id="major_change_published_at"><code>major_change_published_at</code></h2>
-<ul>
-<li>date of the last major change. Major changes require change notes. This is decided by the user.</li>
-</ul>
+<p>See the <code>AssetPresenter</code> class for the return format for the above API calls. Unless developing locally, all API requests must be authenticated with a token generated in the Signon application.</p>
+<h2 id="create-an-asset">Create an asset</h2>
+<p><code>POST /assets</code> expects a single file uploaded via the <code>asset[file]</code> parameter. This creates the asset and schedules it for scanning.</p>
+<pre><code># Create a temporary file
+echo `date` &gt; tmp.txt
+
+# Upload file to Asset Manager
+curl http://asset-manager.dev.gov.uk/assets --form "asset[file]=@tmp.txt"
+{
+  "_response_info":{"status":"created"},
+  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
+  "name":"tmp.txt",
+  "content_type":"text/plain",
+  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
+  "state":"unscanned"
+}
+</code></pre>
+<h2 id="get-asset-info">Get asset info</h2>
+<p><code>GET /assets/:id</code> returns information about the requested asset, but not the asset itself.</p>
+<pre><code># Before virus scanning
+curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96
+{
+  "_response_info":{"status":"ok"},
+  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
+  "name":"tmp.txt",
+  "content_type":"text/plain",
+  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
+  "state":"unscanned"
+}
+
+# After virus scanning
+curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96
+{
+  "_response_info":{"status":"ok"},
+  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
+  "name":"tmp.txt",
+  "content_type":"text/plain",
+  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
+  "state":"clean"
+}
+</code></pre>
+<h2 id="get-asset">Get asset</h2>
+<p><code>GET /media/:id/:filename</code> serves the file to the user if it is marked as clean.</p>
+<pre><code># Before virus scanning
+curl http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt
+{
+  "_response_info":{"status":"not found"}
+}
+
+# After virus scanning
+curl http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt
+Tue 18 Jul 2017 16:18:38 BST
+</code></pre>
+<h2 id="update-asset">Update asset</h2>
+<p><code>PUT /assets/:id</code> expects a file in the same format, and replaces it at the provided ID.</p>
+<pre><code># Create a new tmp file
+echo `date` &gt; tmp123.txt
+
+# Update the file on asset-manager
+curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96 --request PUT --form "asset[file]=@tmp123.txt"
+{
+  "_response_info":{"status":"success"},
+  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
+  "name":"tmp123.txt",
+  "content_type":"text/plain",
+  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp123.txt",
+  "state":"unscanned"
+}
+
+# Request asset using original filename
+curl http://asset-manager.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt
+&lt;html&gt;&lt;body&gt;You are being &lt;a href="/media/597b098a759b743e0b759a96/tmp123.txt"&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;
+
+# Request asset using latest filename
+curl http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp123.txt
+Tue 18 Jul 2017 17:06:41 BST
+</code></pre>
+<h2 id="delete-asset">Delete asset</h2>
+<p><code>DELETE /assets/:id</code> marks the asset as having been deleted.</p>
+<pre><code># Delete the asset
+curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96 \
+  --request DELETE
+{
+  "_response_info":{"status":"success"},
+  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
+  "name":"tmp.txt",
+  "content_type":"text/plain",
+  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
+  "state":"clean"
+}
+
+# Confirm that it's been deleted
+curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96
+{
+  "_response_info":{"status":"not found"}
+}
+</code></pre>
+<h2 id="restore-asset">Restore asset</h2>
+<p><code>POST /assets/:id/restore</code> restores a previously deleted asset.</p>
+<pre><code># This assumes the asset has been deleted
+curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96/restore \
+  --request POST
+{
+  "_response_info":{"status":"success"},
+  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
+  "name":"tmp.txt",
+  "content_type":"text/plain",
+  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
+  "state":"clean"
+}
+
+# Confirm that it's been restored
+curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96
+{
+  "_response_info":{"status":"ok"},
+  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
+  "name":"tmp.txt",
+  "content_type":"text/plain",
+  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
+  "state":"clean"
+}
+</code></pre>
+<h2 id="create-a-whitehall-asset">Create a Whitehall asset</h2>
+<p><code>POST /whitehall_assets</code> expects a single file uploaded via the <code>asset[file]</code> parameter and a path set in <code>asset[legacy_url_path]</code>. The latter tells Asset Manager the URL path at which the asset should be served. Note that this is intended as a transitional measure while we move Whitehall assets into Asset Manager. The idea is that eventually all asset URLs will be rationalised and consolidated and at that point Asset Manager will tell Whitehall the URL at which the asset will be served as it currently does for Mainstream assets. This endpoint also accepts two optional parameters, <code>asset[legacy_etag]</code> &amp; <code>asset[legacy_last_modified]</code>. These are only intended for use when we move <em>existing</em> Whitehall assets into Asset Manager so that we can avoid wholesale cache invalidation. <strong>Note</strong> this endpoint should only be used from the Whitehall Admin app; not from any other publishing apps.</p>
+<pre><code># Create a temporary file
+echo `date` &gt; tmp.txt
+
+# Upload file to Asset Manager
+curl http://asset-manager.dev.gov.uk/whitehall_assets --form "asset[file]=@tmp.txt" --form "asset[legacy_url_path]=/government/uploads/path/to/tmp.txt"
+{
+  "_response_info":{"status":"created"},
+  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
+  "name":"tmp.txt",
+  "content_type":"text/plain",
+  "file_url":"http://assets-origin.dev.gov.uk/government/uploads/path/to/tmp.txt",
+  "state":"unscanned"
+}
+</code></pre>
 
 
             
@@ -644,8 +751,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/whitehall/blob/master/docs/timestamps.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/whitehall/timestamps.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/asset-manager/blob/master/docs/api.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/asset-manager/api.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

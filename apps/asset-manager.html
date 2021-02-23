@@ -373,235 +373,30 @@
       <li><a href="/manual/assets.html" class="govuk-link">Assets: how they work</a></li>
 </ul>
 
+<h2 id="imported-documents">Imported documents</h2>
+<ul class="gem-c-list govuk-list">
+      <li><a href="/apps/asset-manager/api.html" class="govuk-link">API</a></li>
+      <li><a href="/apps/asset-manager/headers.html" class="govuk-link">Headers</a></li>
+</ul>
+
 <h2 id="readme">README</h2>
 
 <div class="embedded-readme">
     
 <p>Manages uploaded assets (images, PDFs etc.) for applications in the GOV.UK Publishing stack.</p>
-<h2 id="technical-documentation">Technical Documentation</h2>
-<p>This is a small Rails application that receives uploaded files from publishing applications and returns the URLs that they will be made available at. Before an asset is available to the public, it is virus scanned. Once a file is found to be clean, Asset Manager serves it at the previously generated URL. Unscanned or Infected files return a 404 Not Found error.</p>
+<p>The app receives uploaded files from publishing applications and returns the URLs that they will be made available at. Before an asset is available to the public, it is virus scanned. Once a file is found to be clean, Asset Manager serves it at the previously generated URL. Unscanned or Infected files return a 404 Not Found error.</p>
 <p>Scanning uses <a href="https://www.clamav.net/">ClamAV</a> and occurs asynchronously via <a href="https://github.com/alphagov/govuk_sidekiq">govuk_sidekiq</a>.</p>
-<h3 id="dependencies">Dependencies</h3>
-<ul>
-<li>
-<a href="https://www.mongodb.org/">MongoDB</a> via <a href="https://github.com/mongodb/mongoid">Mongoid</a>
-</li>
-<li><a href="https://github.com/alphagov/govuk_sidekiq">govuk_sidekiq</a></li>
-<li>govuk_clamscan</li>
-</ul>
-<p>Virus scanning expects <code>govuk_clamscan</code> to exist on the PATH, and to be symlinked to either <code>clamscan</code> or <code>clamdscan</code>, which are part of <code>clamav</code>. This is configured by <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/clamav/manifests/package.pp">govuk-puppet</a>.</p>
+<h2 id="technical-documentation">Technical Documentation</h2>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
+<h3 id="running-the-test-suite">Running the test suite</h3>
+<p><code>bundle exec rspec</code></p>
 <h3 id="assets-on-s3">Assets on S3</h3>
 <p>All assets are uploaded to the S3 bucket via a separate <code>govuk_sidekiq</code> job triggered if virus scanning succeeds. Assets are currently still also saved to the NFS mount as per the original behaviour.</p>
-<h4 id="standard-aws-environment-variables-required-in-production">Standard AWS environment variables (required in production)</h4>
-<ul>
-<li><code>AWS_ACCESS_KEY_ID</code></li>
-<li><code>AWS_SECRET_ACCESS_KEY</code></li>
-<li><code>AWS_REGION</code></li>
-</ul>
-<h4 id="application-specific-environment-variables">Application-specific environment variables</h4>
-<ul>
-<li>
-<code>AWS_S3_BUCKET_NAME</code> - name of bucket where assets are to be stored (required in production)</li>
-</ul>
-<h4 id="fake-s3">Fake S3</h4>
 <p>In non-production environments if the <code>AWS_S3_BUCKET_NAME</code> environment variable is not set, then a fake version of S3 (<code>S3Storage::Fake</code>) is used and the other <code>AWS_*</code> environment variables do not need to be set. In this case, files are saved to the local filesystem instead of S3 and are served via an instance of <code>Rack::File</code> mounted on the appropriate route path prefix.</p>
-<h3 id="development">Development</h3>
-<p>Previously, the Rails app received <code>X-Sendfile-Type</code> &amp; <code>X-Accel-Mapping</code> request headers and set the <code>X-Accel-Redirect</code> response header which caused <code>Rack::Sendfile</code> not to send the asset file in the body of the response. Nginx would interpret the <code>X-Accel-Redirect</code> response header and serve the file directly from disk. When running the app standalone (i.e. without Nginx) the app would not receive the request headers mentioned above. This in turn caused <code>Rack::Sendfile</code> to send the asset file in the body of the response. Thus it was possible to use the app running standalone to serve asset requests.</p>
-<p>However, now the app doesn't make use of <code>Rack::Sendfile</code> and instead <em>always</em> responds to asset requests by setting the <code>X-Accel-Redirect</code> response header and <em>not</em> sending the asset file in the response body. Nginx is configured to proxy the request to the URL supplied in <code>X-Accel-Redirect</code> response header on the development VM, but if you want to run the app standalone and you want to actually serve the asset file in the response body, you'll need something (e.g. Nginx) in front of the Rails app.</p>
-<h3 id="testing">Testing</h3>
-<p><code>bundle exec rspec</code></p>
-<h3 id="api">API</h3>
-<p><code>POST /assets</code> expects a single file uploaded via the <code>asset[file]</code> parameter. This creates the asset and schedules it for scanning.</p>
-<p><code>PUT /assets/:id</code> expects a file in the same format, and replaces it at the provided ID.</p>
-<p><code>GET /assets/:id</code> returns information about the requested asset, but not the asset itself.</p>
-<p><code>DELETE /assets/:id</code> marks the asset as having been deleted.</p>
-<p><code>POST /assets/:id/restore</code> restores a previously deleted asset.</p>
-<p>See the <code>AssetPresenter</code> class for the return format for the above API calls. All API requests must be authenticated with a token generated in the Signon application.</p>
-<p><code>GET /media/:id/:filename</code> serves the file to the user if it is marked as clean.</p>
-<p><code>POST /whitehall_assets</code> expects a single file uploaded via the <code>asset[file]</code> parameter and a path set in <code>asset[legacy_url_path]</code>. The latter tells Asset Manager the URL path at which the asset should be served. Note that this is intended as a transitional measure while we move Whitehall assets into Asset Manager. The idea is that eventually all asset URLs will be rationalised and consolidated and at that point Asset Manager will tell Whitehall the URL at which the asset will be served as it currently does for Mainstream assets. This endpoint also accepts two optional parameters, <code>asset[legacy_etag]</code> &amp; <code>asset[legacy_last_modified]</code>. These are only intended for use when we move <em>existing</em> Whitehall assets into Asset Manager so that we can avoid wholesale cache invalidation. <strong>Note</strong> this endpoint should only be used from the Whitehall Admin app; not from any other publishing apps.</p>
-<h3 id="api-examples-development-vm">API examples (development VM)</h3>
-<p>These examples assume you're using the <a href="https://github.com/alphagov/govuk-puppet/tree/master/development-vm">Development VM</a>.</p>
-<h4 id="create-an-asset">Create an asset</h4>
-<pre><code># Create a temporary file
-vagrant@development:$ echo `date` &gt; tmp.txt
-
-# Upload file to Asset Manager
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/assets --form "asset[file]=@tmp.txt"
-{
-  "_response_info":{"status":"created"},
-  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
-  "name":"tmp.txt",
-  "content_type":"text/plain",
-  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
-  "state":"unscanned"
-}
-</code></pre>
-<h4 id="get-asset-info">Get asset info</h4>
-<pre><code># Before virus scanning
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96
-{
-  "_response_info":{"status":"ok"},
-  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
-  "name":"tmp.txt",
-  "content_type":"text/plain",
-  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
-  "state":"unscanned"
-}
-
-# After virus scanning
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96
-{
-  "_response_info":{"status":"ok"},
-  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
-  "name":"tmp.txt",
-  "content_type":"text/plain",
-  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
-  "state":"clean"
-}
-</code></pre>
-<h4 id="get-asset">Get asset</h4>
-<pre><code># Before virus scanning
-vagrant@development:$ curl http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt
-{
-  "_response_info":{"status":"not found"}
-}
-
-# After virus scanning
-vagrant@development:$ curl http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt
-Tue 18 Jul 2017 16:18:38 BST
-</code></pre>
-<h4 id="update-asset">Update asset</h4>
-<pre><code># Create a new tmp file
-vagrant@development:$ echo `date` &gt; tmp123.txt
-
-# Update the file on asset-manager
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96 --request PUT --form "asset[file]=@tmp123.txt"
-{
-  "_response_info":{"status":"success"},
-  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
-  "name":"tmp123.txt",
-  "content_type":"text/plain",
-  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp123.txt",
-  "state":"unscanned"
-}
-
-# Request asset using original filename
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt
-&lt;html&gt;&lt;body&gt;You are being &lt;a href="/media/597b098a759b743e0b759a96/tmp123.txt"&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;
-
-# Request asset using latest filename
-vagrant@development:$ curl http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp123.txt
-Tue 18 Jul 2017 17:06:41 BST
-</code></pre>
-<h4 id="delete-asset">Delete asset</h4>
-<pre><code># Delete the asset
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96 \
-  --request DELETE
-{
-  "_response_info":{"status":"success"},
-  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
-  "name":"tmp.txt",
-  "content_type":"text/plain",
-  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
-  "state":"clean"
-}
-
-# Confirm that it's been deleted
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96
-{
-  "_response_info":{"status":"not found"}
-}
-</code></pre>
-<h4 id="restore-asset">Restore asset</h4>
-<pre><code># This assumes the asset has been deleted
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96/restore \
-  --request POST
-{
-  "_response_info":{"status":"success"},
-  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
-  "name":"tmp.txt",
-  "content_type":"text/plain",
-  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
-  "state":"clean"
-}
-
-# Confirm that it's been restored
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96
-{
-  "_response_info":{"status":"ok"},
-  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
-  "name":"tmp.txt",
-  "content_type":"text/plain",
-  "file_url":"http://assets-origin.dev.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
-  "state":"clean"
-}
-</code></pre>
-<h4 id="create-a-whitehall-asset">Create a Whitehall asset</h4>
-<pre><code># Create a temporary file
-vagrant@development:$ echo `date` &gt; tmp.txt
-
-# Upload file to Asset Manager
-vagrant@development:$ curl http://asset-manager.dev.gov.uk/whitehall_assets --form "asset[file]=@tmp.txt" --form "asset[legacy_url_path]=/government/uploads/path/to/tmp.txt"
-{
-  "_response_info":{"status":"created"},
-  "id":"http://asset-manager.dev.gov.uk/assets/597b098a759b743e0b759a96",
-  "name":"tmp.txt",
-  "content_type":"text/plain",
-  "file_url":"http://assets-origin.dev.gov.uk/government/uploads/path/to/tmp.txt",
-  "state":"unscanned"
-}
-</code></pre>
-<h3 id="api-examples-integration">API examples (integration)</h3>
-<p>These examples assume you're running on a machine with access to the integration environment. You need to set two extra headers on all API requests:</p>
-<ul>
-<li><code>Authorization: Bearer &lt;bearer-token&gt;</code></li>
-<li><code>Accept: application/json</code></li>
-</ul>
-<p>Note that a suitable value for the bearer token is stored in <code>/etc/govuk/manuals-publisher/env.d/ASSET_MANAGER_BEARER_TOKEN</code>. This
-environment variable can be made available in a new shell by using:
-<code>govuk_setenv manuals-publisher bash</code>.</p>
-<h4 id="create-an-asset">Create an asset</h4>
-<pre><code>deploy@integration-backend-1:$ echo `date` &gt; tmp.txt
-
-deploy@integration-backend-1:$ cat tmp.txt
-Wed Sep 20 14:42:54 UTC 2017
-
-deploy@integration-backend-1:$ govuk_setenv manuals-publisher bash
-
-deploy@integration-backend-1:$ curl \
-  -H"Authorization: Bearer $ASSET_MANAGER_BEARER_TOKEN" \
-  -H"Accept: application/json" \
-  https://asset-manager.$GOVUK_APP_DOMAIN/assets \
-  --form "asset[file]=@tmp.txt"
-
-{
-  "_response_info":{"status":"created"},
-  "id":"https://asset-manager.integration.govuk-internal.digital/assets/59c282e2e5274a598a083a92",
-  "name":"tmp.txt",
-  "content_type":"text/plain",
-  "file_url":"https://assets-origin.integration.publishing.service.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
-  "state":"unscanned"
-}
-</code></pre>
-<h4 id="get-asset-info">Get asset info</h4>
-<pre><code>deploy@integration-backend-1:$ curl \
-  -H"Authorization: Bearer $ASSET_MANAGER_BEARER_TOKEN" \
-  -H"Accept: application/json" \
-  https://asset-manager.$GOVUK_APP_DOMAIN/assets/59c282e2e5274a598a083a92
-{
-  "_response_info":{"status":"ok"},
-  "id":"https://asset-manager.integration.govuk-internal.digital/assets/59c282e2e5274a598a083a92",
-  "name":"tmp.txt",
-  "content_type":"text/plain",
-  "file_url":"https://assets-origin.integration.publishing.service.gov.uk/media/597b098a759b743e0b759a96/tmp.txt",
-  "state":"clean"
-}
-</code></pre>
-<h4 id="get-asset">Get asset</h4>
-<p>Note that the extra request headers are not required for public asset URLs.</p>
-<pre><code>deploy@integration-backend-1:$ curl https://assets-origin.integration.publishing.service.gov.uk/media/597b098a759b743e0b759a96/tmp.txt
-Wed Sep 20 14:42:54 UTC 2017
-</code></pre>
+<h3 id="manuals-and-decisions">Manuals and decisions</h3>
+<p>Check the <a href="https://github.com/alphagov/asset-manager/blob/master/docs/">docs</a> directory for detailed instructions, including API documentation.</p>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/asset-manager/blob/master/LICENCE">MIT License</a></p>
   </div>
