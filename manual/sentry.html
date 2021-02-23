@@ -164,6 +164,23 @@
           </li>
         </ul>
       </li>
+      <li>
+        <a href="#sentry-issue-actions"><span>Sentry issue actions</span></a>
+        <ul>
+          <li>
+            <a href="#merging-sentry-issues"><span>Merging Sentry issues</span></a>
+          </li>
+          <li>
+            <a href="#resolving-an-issue"><span>Resolving an issue</span></a>
+          </li>
+          <li>
+            <a href="#ignoring-an-issue"><span>Ignoring an issue</span></a>
+          </li>
+          <li>
+            <a href="#commenting-on-an-issue"><span>Commenting on an issue</span></a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
@@ -178,7 +195,7 @@
             
   <p><a href='/manual.html#monitoring'>Monitoring</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b25cc8991ed0d89b8810b0fda4a79c2a7eb59376">15 Jan 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/51bc9b051e584a0c6d33958c45a12bc060a058fc">23 Feb 2021</a>
 </div>
 
  <h1 id='header'>Sentry</h1> <p><a href="https://sentry.io/govuk/">Sentry</a> is a service that collates errors that happen on GOV.UK in one
@@ -365,6 +382,46 @@ errors to risk breaching our account limit. These limits are configured on the
 errors in an hour period gets alerted to <code>#govuk-platform-health</code>. These alerts
 are configured in the <a href="https://sentry.io/organizations/govuk/alerts/rules/">Alerts panel</a>.</p>
 
+<h2 id="sentry-issue-actions">Sentry issue actions</h2>
+
+<p>In the Sentry UI, you can merge related issues together, resolve issues, or
+ignore issues (permanently or for a set time period).</p>
+
+<h3 id="merging-sentry-issues">Merging Sentry issues</h3>
+
+<p>Duplicate issues can be merged by going into the project view, checking the
+boxes associated with each issue, and clicking "Merge". This should be done very
+carefully, as issues cannot be unmerged once they are merged, and the issues are
+often subtly different and warrant being separate issues. For example, they may
+have the same exception type but occur in different transactions, so require two
+separate fixes.</p>
+
+<p>To find out why Sentry has treated two issues as separate, visit each issue and
+scroll to the bottom of the page to see the "Event grouping information".</p>
+
+<h3 id="resolving-an-issue">Resolving an issue</h3>
+
+<p>When you know you've fixed the underlying issue, you should
+<a href="#commenting-on-an-issue">comment on the issue</a> explaining what you've done, and then
+click the "Resolve" button. This removes it from the default Sentry UI, making it
+less noisy, but also has the advantage of marking it as a regression and emailing
+you if the issue occurs again.</p>
+
+<h3 id="ignoring-an-issue">Ignoring an issue</h3>
+
+<p>When you've identified an issue and written it up as a Trello card, or are
+actively working on fixing it, it can be unhelpful for the issue to keep
+accumulating events (and potentially spamming your Slack channel). In these cases,
+you should <a href="#commenting-on-an-issue">comment on the issue</a> with a link to your card or PR,
+then ignore the issue. You should also set the "Assignee" to yourself.</p>
+
+<p>You can either click "Ignore" to ignore it permanently, or click the arrow next to
+it to ignore for a set time, e.g. 1 week. You can also un-ignore an issue later.</p>
+
+<h3 id="commenting-on-an-issue">Commenting on an issue</h3>
+
+<p>Click on the issue, then on the "Activity" tab, where you can leave a comment.
+Comments support markdown.</p>
 
 
   <div class='related-content'>
