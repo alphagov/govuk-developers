@@ -600,7 +600,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/hmrc-manuals-api/commit/62513e056d67d12ab719b091d42298a1c21e986c">8 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/hmrc-manuals-api/commit/af3296fb8e5233ef74efb9fd0b4af8a3673a0546">23 Feb 2021</a>
 </div>
 
   <h1 class="page-title">hmrc-manuals-api: HMRC Manuals API - Extended Documentation</h1>
@@ -768,7 +768,7 @@ users to find.</p>
 <pre><code>$ cd /var/apps/hmrc-manuals-api
 $ sudo -u deploy govuk_setenv hmrc-manuals-api bundle exec rake remove_hmrc_manuals[slug-to-remove-1,slug-to-remove-2,...,slug-to-remove-n]
 </code></pre>
-<h2 id="testing-publishing-in-the-gov-uk-development-vm">Testing publishing in the GOV.UK development VM</h2>
+<h2 id="testing-publishing-in-gov-uk-docker">Testing publishing in GOV.UK Docker</h2>
 <p>You can use the JSON examples of requests for testing publishing in development,
 for example with cURL from the root directory of the repository:</p>
 <pre><code>curl -i -XPUT -H'Authorization: Bearer faketoken' -H'Accept: application/json' \

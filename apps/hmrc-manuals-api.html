@@ -382,21 +382,25 @@
 <ul class="gem-c-list govuk-list">
       <li><a href="https://www.gov.uk/hmrc-internal-manuals/capital-gains-manual" class="govuk-link">Capital Gains Manual</a></li>
       <li><a href="https://www.gov.uk/hmrc-internal-manuals/international-exchange-of-information/ieim402040" class="govuk-link">IEIM402040 - Reportable Information: Tax Identification Number</a></li>
-      <li><a href="https://www.gov.uk/hmrc-internal-manuals/pensions-tax-manual" class="govuk-link">Pensions Tax Manual</a></li>
       <li><a href="https://www.gov.uk/hmrc-internal-manuals/vat-reverse-charge" class="govuk-link">VAT Reverse Charge</a></li>
+      <li><a href="https://www.gov.uk/hmrc-internal-manuals/pensions-tax-manual" class="govuk-link">Pensions Tax Manual</a></li>
       <li><a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual" class="govuk-link">Employment Status Manual</a></li>
       <li><a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm11000" class="govuk-link">ESM11000 - Check Employment Status For Tax: Contents</a></li>
-      <li><a href="https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr14330" class="govuk-link">CISR14330 - The Scheme: construction operations: index of construction operations</a></li>
       <li><a href="https://www.gov.uk/hmrc-internal-manuals/stamp-duty-land-tax-manual/sdltm09730" class="govuk-link">SDLTM09730 - SDLT - higher rates for additional dwellings: Contents</a></li>
+      <li><a href="https://www.gov.uk/hmrc-internal-manuals/construction-industry-scheme-reform/cisr14330" class="govuk-link">CISR14330 - The Scheme: construction operations: index of construction operations</a></li>
       <li><a href="https://www.gov.uk/hmrc-internal-manuals/capital-gains-manual/cg60201c" class="govuk-link">CG60201C - Capital Gains Manual: Reliefs: contents</a></li>
-      <li><a href="https://www.gov.uk/hmrc-internal-manuals/inheritance-tax-manual" class="govuk-link">Inheritance Tax Manual</a></li>
+      <li><a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm10000" class="govuk-link">ESM10000 - Off-payroll working legislation: Chapter 10, ITEPA 2003 (from 6 April 2021): Contents</a></li>
 </ul>
 
 <h2 id="readme">README</h2>
 
 <div class="embedded-readme">
     
-<p>This app provides URLs for pushing HMRC manuals to the GOV.UK Publishing API.</p>
+<p>Provides an API for a system built by HMRC to publish tax manuals onto GOV.UK. In many
+ways it is analogous to a backend/admin app for publishing on GOV.UK. Content which
+passes validation and checks for unsanitary content is submitted to the GOV.UK
+Publishing API application. The application does not have a database itself. An HMRC
+manual consists of two document types: the manual itself and manual sections.</p>
 <h2 id="nomenclature">Nomenclature</h2>
 <ul>
 <li>
@@ -406,13 +410,20 @@
 <p><strong>Section</strong>: Sections can contain sub-sections and/or a content body. See <a href="/apps/hmrc-manuals-api/extended_documentation.html">Adding or updating a section</a> for more details.</p>
 </li>
 </ul>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="adding-a-new-slug">Adding a new slug</h2>
-<p>Before adding a new manual through the api, the slug for the manual must be added to <a href="https://github.com/alphagov/hmrc-manuals-api/blob/master/config/initializers/known_manual_slugs.rb">/config/initializers/known_manual_slugs.rb</a> and the application re-deployed.</p>
-<p>The workflow for this is likely to be initiated by a zendesk ticket raised by HMRC with the new slug. A developer can
-then add the slug and re-deploy the application and inform HMRC that the slug is ready to be published against.</p>
 <h2 id="technical-documentation">Technical documentation</h2>
-<p>Provides an API for a system built by HMRC to publish tax manuals onto GOV.UK. In many ways it is analogous to a backend/admin app for publishing on GOV.UK. Content which passes validation and checks for unsanitary content is submitted to the GOV.UK Publishing API application. The application does not have a database itself. An HMRC manual consists of two document types: the manual itself and manual sections.</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
+<h3 id="running-the-test-suite">Running the test suite</h3>
+<pre lang="sh"><code>bundle exec rspec
+</code></pre>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="adding-a-new-slug">Adding a new slug</h3>
+<p>Before adding a new manual through the API, the slug for the manual must be added to <a href="https://github.com/alphagov/hmrc-manuals-api/blob/master/config/initializers/known_manual_slugs.rb">/config/initializers/known_manual_slugs.rb</a> and the application re-deployed.</p>
+<p>The workflow for this is likely to be initiated by a Zendesk ticket raised by HMRC with
+the new slug. A developer can then add the slug and re-deploy the application and
+inform HMRC that the slug is ready to be published against.</p>
+<h2 id="manuals-and-decisions">Manuals and decisions</h2>
 <p>See the <a href="/apps/hmrc-manuals-api/extended_documentation.html">extended documentation</a> for details:</p>
 <ul>
 <li><a href="/apps/hmrc-manuals-api/extended_documentation.html">Connecting to the API</a></li>
@@ -424,26 +435,10 @@ then add the slug and re-deploy the application and inform HMRC that the slug is
 <li><a href="/apps/hmrc-manuals-api/extended_documentation.html">Markup</a></li>
 <li><a href="/apps/hmrc-manuals-api/extended_documentation.html">Manual Tags</a></li>
 <li><a href="/apps/hmrc-manuals-api/extended_documentation.html">Removing published manuals</a></li>
-<li><a href="/apps/hmrc-manuals-api/extended_documentation.html">Testing publishing in the GOVUK dev vm</a></li>
+<li><a href="/apps/hmrc-manuals-api/extended_documentation.html">Testing publishing in GOV.UK Docker</a></li>
 <li><a href="/apps/hmrc-manuals-api/extended_documentation.html">Managing manuals and sections with rake</a></li>
+<li><a href="/apps/hmrc-manuals-api/extended_documentation.html">Responses to PUT requests</a></li>
 </ul>
-<h3 id="dependencies">Dependencies</h3>
-<ul>
-<li>
-<a href="https://github.com/alphagov/search-api">alphagov/search-api</a>: allows document sections to be retrieved</li>
-<li>
-<a href="https://github.com/alphagov/publishing-api">alphagov/publishing-api</a>: allows documents to be published to the Publishing queue</li>
-</ul>
-<h3 id="running-the-application">Running the application</h3>
-<p><code>./startup.sh</code></p>
-<p>This runs <code>bundle install</code> to install dependencies and runs the app on port <code>3071</code>.</p>
-<p>When using the GOV.UK development VM use <code>bowl hmrc-manuals-api</code> in the Dev VM <code>development</code> directory. The app will be available at <a href="http://hmrc-manuals-api.dev.gov.uk/">http://hmrc-manuals-api.dev.gov.uk/</a>.</p>
-<h3 id="running-the-test-suite">Running the test suite</h3>
-<p><code>bundle exec rake</code></p>
-<h3 id="any-deviations-from-idiomatic-railsgo-etc-">Any deviations from idiomatic Rails/Go etc.</h3>
-<p>The application does not have a database itself, it sends on requests to the Publishing API.</p>
-<h3 id="example-api-output">Example API output</h3>
-<p><a href="/apps/hmrc-manuals-api/extended_documentation.html">Responses to PUT requests</a></p>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/hmrc-manuals-api/blob/master/LICENCE">MIT License</a></p>
   </div>
