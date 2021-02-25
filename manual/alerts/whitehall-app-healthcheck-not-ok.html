@@ -150,34 +150,10 @@
 
      <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4f605eb60449a5ea7596af913f74f6b3bbc3709d">12 Nov 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3a217386b867f8a5c21b11f21cf79c41ea2e672f">24 Feb 2021</a>
 </div>
 
- <h1 id='header'>Whitehall app healthcheck not ok</h1> <p>See also: <a href="/manual/alerts/app-healthcheck-not-ok.html">how healthcheck alerts work on GOV.UK</a></p>
-
-<p>If the message is a warning about <code>scheduled_queue</code>, eg '850 scheduled
-edition(s); 840 job(s) queued', this alert means that the number of
-editions in the database which are scheduled to be published in the
-future is different from the number currently in the queue.</p>
-
-<p>Run the <code>publishing:scheduled:requeue_all_jobs</code> Rake task to requeue all
-scheduled editions:</p>
-
-<ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk//job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:scheduled:requeue_all_jobs">Run in Integration Jenkins</a></li>
-  <li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:scheduled:requeue_all_jobs">Run in Staging Jenkins</a></li>
-</ul>
-
-<p>Historically, this error has happened in the staging and integration
-environments, after the nightly <a href="/manual/govuk-env-sync.html">data sync</a>.
-We <a href="https://github.com/alphagov/govuk-puppet/pull/10842">no longer spawn scheduling workers</a>
-for Whitehall on Staging and Integration, so this will no longer affect
-those environments. The alert and rake task fix could still prove useful
-on Production.</p>
-
-<p>If we find this never happens on Production, we should remove the alert
-altogether (from govuk-puppet and from <a href="https://github.com/alphagov/whitehall/pull/5882">Whitehall</a>),
-and delete this manual.</p>
+ <h1 id='header'>Whitehall app healthcheck not ok</h1> <p>See: <a href="/manual/alerts/app-healthcheck-not-ok.html">how healthcheck alerts work on GOV.UK</a></p>
 
 
   <div class='related-content'>
