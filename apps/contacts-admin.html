@@ -437,19 +437,13 @@ This usually means Publishing API is still starting up. Wait a few moments, then
 bundle exec rake db:seed
 bundle exec rake contacts:import_hmrc DATA_FILE=db/contact-records.csv
 </code></pre>
-<h2 id="redirecting-removed-contacts">Redirecting removed contacts</h2>
-<p>The Web UI of the app issues a “gone” item to the publishing api when a contact is deleted. Sometimes the correct thing to do is to issue a “redirect” instead. There is no web UI for this but there are two rake tasks to achieve this depending on the state of the contact to be redirected.</p>
-<h3 id="for-contacts-that-still-exist">For contacts that still exist</h3>
-<p>The rake task is <code>contacts:remove_with_redirect</code>, and is invoked as follows:</p>
-<pre><code>$ cd /var/apps/contacts
-$ sudo -u deploy govuk_setenv contacts bundle exec rake contacts:remove_with_redirect[contact-to-remove-slug,path-to-redirect-to]
-</code></pre>
-<h3 id="for-contacts-that-have-been-removed-already">For contacts that have been removed already</h3>
-<p>The rake task is <code>contacts:replace_gone_with_redirect</code>, and is invoked as follows:</p>
+<h2 id="redirecting-contacts-that-have-been-removed-already">Redirecting contacts that have been removed already</h2>
+<p>Contacts Admin used to issue a “gone” item to Publishing API when a contact was deleted. But since <a href="https://github.com/alphagov/contacts-admin/pull/838">#838</a>, we issue a “redirect” instead.</p>
+<p>If a contact was removed as a “gone” item and now needs to be redirected, we have a Rake task for this:</p>
 <pre><code>$ cd /var/apps/contacts
 $ sudo -u deploy govuk_setenv contacts bundle exec rake contacts:replace_gone_with_redirect[removed-contact-slug,organisation-slug,path-to-redirect-to]
 </code></pre>
-<p>This will fail if any of the following are true</p>
+<p>This will fail if either of the following are true:</p>
 <ol>
 <li>
 <code>removed-contact-slug</code> references a contact object in the Contacts Admin database</li>
