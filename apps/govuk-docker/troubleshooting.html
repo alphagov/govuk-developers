@@ -600,7 +600,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-docker/commit/521c16514cbc0d31f397e470b1b17be2fdd58ff3">17 Nov 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-docker/commit/baa1cbda105c1d45343bcfb6580c13dcdac1bd38">26 Feb 2021</a>
 </div>
 
   <h1 class="page-title">govuk-docker: Troubleshooting</h1>
@@ -618,7 +618,12 @@
 govuk-docker-run rake db:migrate
 </code></pre>
 <ul>
-<li>Check if one of the dependencies is the problem.</li>
+<li>
+<p>Try repeating the action. If you got a <code>GdsApi::HTTPUnavailable</code> or <code>GdsApi::TimedOutException</code> the first time around, it could mean that Publishing API wasn't ready in time, as unfortunately there's no way for govuk-docker to know when each dependency is ready.</p>
+</li>
+<li>
+<p>Check if one of the dependencies is the problem.</p>
+</li>
 </ul>
 <blockquote>
 <p>A common problem for dependencies is when you've previously <code>git pull</code>ed the repo, but haven't run <code>bundle install</code> or <code>rake db:migrate</code>. The logs for the dependency will show if this is the problem.</p>
