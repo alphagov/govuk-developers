@@ -153,6 +153,9 @@
           </li>
         </ul>
       </li>
+      <li>
+        <a href="#writing-pact-tests"><span>Writing Pact tests</span></a>
+      </li>
     </ul>
   </li>
 </ul>
@@ -166,15 +169,8 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#testing'>Testing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6cdea9fe3514035d0350940fad7fb85e088b36a2">10 Jun 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0c8f7a38cefc256ce1bbc0fe5e0c32e238592681">1 Mar 2021</a>
 </div>
 
  <h1 id='header'>Pact Broker</h1> <p><a href="https://docs.pact.io/">Pact</a> is a tool for <em>consumer-driven contract testing</em>.
@@ -239,6 +235,28 @@ In addition to numeric versions, our scheme allows for "master", and
 "branch-foo" versions to be uploaded. These will always be ordered after any
 numeric versions, so the 'latest' pactfile from the pact brokers POV will
 always be the highest numeric version.</p>
+
+<h2 id="writing-pact-tests">Writing Pact tests</h2>
+
+<p>This has to be done in several stages:</p>
+
+<ol>
+  <li>Write the consumer tests (<a href="https://github.com/alphagov/gds-api-adapters/pull/1035">example</a>).</li>
+  <li>Write the provider pact (<a href="https://github.com/alphagov/frontend/pull/2643">example</a>).
+    <ul>
+      <li>You'll need to write these two in conjunction with each other.</li>
+    </ul>
+  </li>
+  <li>Merge both of the above PRs.</li>
+  <li>Configure the consumer to test against the provider as part of its deployment pipeline (<a href="https://github.com/alphagov/frontend/pull/2644">example</a>).
+    <ul>
+      <li>You'll need to provide a way of testing against different branches of the provider, so that changes can be made to the API in future. See the example PR above.</li>
+    </ul>
+  </li>
+  <li>Merge.</li>
+  <li>Configure the provider to test against the consumer as part of its deployment pipeline (<a href="https://github.com/alphagov/gds-api-adapters/pull/1036">example</a>).</li>
+  <li>Merge.</li>
+</ol>
 
 
   <div class='related-content'>
