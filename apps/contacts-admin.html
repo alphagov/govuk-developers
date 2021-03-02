@@ -369,6 +369,11 @@
     <div class="gem-c-summary__block"></div>
 </div>
 
+<h2 id="imported-documents">Imported documents</h2>
+<ul class="gem-c-list govuk-list">
+      <li><a href="/apps/contacts-admin/redirects.html" class="govuk-link">Redirecting contacts that have been removed already</a></li>
+</ul>
+
 <h2 id="readme">README</h2>
 
 <div class="embedded-readme">
@@ -385,70 +390,20 @@ displays the contacts themselves, fetching them from content store:</p>
 <li><a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/alcohol-duties-national-registration-unit">https://www.gov.uk/government/organisations/hm-revenue-customs/contact/alcohol-duties-national-registration-unit</a></li>
 </ul>
 <h2 id="technical-documentation">Technical documentation</h2>
-<p>This is a Ruby on Rails application that provides a private admin UI for signon users with permission to allow them to manage the contacts for their organisation.</p>
-<p>The app has its own database (MySQL), which is used by the admin UI. This is in contrast to the separate <a href="https://github.com/alphagov/government-frontend">government-frontend</a> app which reads contacts from the <a href="https://github.com/alphagov/content-store">content-store</a>. The admin UI part of this app handles publishing the contacts to the <a href="https://github.com/alphagov/publishing-api">publishing-api</a> so that they are present for <a href="https://github.com/alphagov/finder-frontend">finder-frontend</a> and <a href="https://github.com/alphagov/government-frontend">government-frontend</a> to read.</p>
-<h3 id="dependencies">Dependencies</h3>
-<ul>
-<li>Ruby 2.3.0</li>
-<li>MySQL</li>
-<li>
-<a href="https://github.com/alphagov/whitehall">whitehall</a>
-<ol>
-<li>to access the organisations API and maintain parity with the organisations managed in whitehall.</li>
-<li>to access the world locations API to provide the correct list of countries for the country dropdown in the address form</li>
-</ol>
-</li>
-<li>
-<a href="https://github.com/alphagov/signonotron2">signon</a> - for managing user authentication</li>
-<li>
-<a href="https://github.com/alphagov/content-store">content-store</a> - for doing some
-command-line based tasks to withdraw and redirect a contact</li>
-</ul>
-<h3 id="running-with-govuk-docker">Running with govuk-docker</h3>
-<p>Setup:</p>
-<pre lang="sh"><code>govuk-docker-run env RAILS_ENV=test env bin/rake db:create
-</code></pre>
-<p>Then run tests:</p>
-<pre lang="sh"><code>govuk-docker-run env RUNNING_IN_CI='true' bundle exec rspec
-</code></pre>
-<h4 id="previewing-the-application">Previewing the application</h4>
-<p>Seed the database, with ENV overrides so that <code>ImportOrganisations</code> doesn't attempt to fetch organisations from dev:</p>
-<pre lang="sh"><code>govuk-docker-run env GOVUK_APP_DOMAIN='https://www.gov.uk' env GOVUK_WEBSITE_ROOT='https://www.gov.uk' bin/rake db:seed
-</code></pre>
-<p>Run the app:</p>
-<pre lang="sh"><code>govuk-docker-up
-</code></pre>
-<p>Visit <a href="http://contacts-admin.dev.gov.uk/">http://contacts-admin.dev.gov.uk/</a>.</p>
-<p>You may see sometimes see a <code>GdsApi::TimedOutException</code> when performing a CRUD operation such as creating a contact.
-This usually means Publishing API is still starting up. Wait a few moments, then try again.</p>
-<h3 id="running-the-application">Running the application</h3>
-<p><code>./startup.sh</code></p>
-<p>This runs <code>bundle install</code> to install dependencies and runs the app on port <code>3051</code>. When using the GOV.UK development VM it will be available at <a href="http://contacts-admin.dev.gov.uk/admin">http://contacts-admin.dev.gov.uk/admin</a>.</p>
-<p>By default, this application uses the GOV.UK preview environment for assets. To run against a local version of static, you need to set <code>STATIC_DEV</code> to
-"<a href="http://static.dev.gov.uk">http://static.dev.gov.uk</a>".</p>
-<h3 id="running-the-test-suite">Running the test suite</h3>
-<p><code>bundle exec rake</code></p>
-<p>The tests in this project rely upon <a href="http://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a>. By default these should be in the parent directory, otherwise you can specify their location with the <code>GOVUK_CONTENT_SCHEMAS_PATH</code> environment variable.</p>
-<h3 id="tasks">Tasks</h3>
-<p>Rake tasks can be found in the standard location: <code>lib/tasks</code>. The implementation of many of these can be found in <code>app/tasks</code> and <code>app/interactors</code> so they can also be run from the console.</p>
-<h3 id="database-setup">Database setup</h3>
-<p>The best way to get a database with good seed data is to use a dump from preview; alternatively you can load the database schema and use the old initial seed data:</p>
-<pre><code>bundle exec rake db:schema:load
-bundle exec rake db:seed
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
+<h3 id="before-running-the-app">Before running the app</h3>
+<p>The best way to get a database with good seed data is to replicate from Integration. Alternatively, you can use a combination of import commands and old seed data to seed the database, as follows:</p>
+<pre lang="sh"><code>env GOVUK_APP_DOMAIN='https://www.gov.uk' GOVUK_WEBSITE_ROOT='https://www.gov.uk' bin/rake db:seed
 bundle exec rake contacts:import_hmrc DATA_FILE=db/contact-records.csv
 </code></pre>
-<h2 id="redirecting-contacts-that-have-been-removed-already">Redirecting contacts that have been removed already</h2>
-<p>Contacts Admin used to issue a “gone” item to Publishing API when a contact was deleted. But since <a href="https://github.com/alphagov/contacts-admin/pull/838">#838</a>, we issue a “redirect” instead.</p>
-<p>If a contact was removed as a “gone” item and now needs to be redirected, we have a Rake task for this:</p>
-<pre><code>$ cd /var/apps/contacts
-$ sudo -u deploy govuk_setenv contacts bundle exec rake contacts:replace_gone_with_redirect[removed-contact-slug,organisation-slug,path-to-redirect-to]
+<p>Contacts Admin imports from Whitehall's organisations API (as the source of truth for organisations); and its world locations API (to provide the list of countries for the dropdown in the address form).</p>
+<h3 id="running-the-test-suite">Running the test suite</h3>
+<pre lang="sh"><code>bundle exec rspec
 </code></pre>
-<p>This will fail if either of the following are true:</p>
-<ol>
-<li>
-<code>removed-contact-slug</code> references a contact object in the Contacts Admin database</li>
-<li>the path constructed by <code>removed-contact-slug</code> and <code>organisation-slug</code> does not refer to a “gone” item in content store</li>
-</ol>
+<h3 id="further-documentation">Further documentation</h3>
+<p>Check the <a href="https://github.com/alphagov/contacts-admin/blob/master/docs/">docs/</a> directory.</p>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/contacts-admin/blob/master/LICENCE">MIT License</a></p>
   </div>

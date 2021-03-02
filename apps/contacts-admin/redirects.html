@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>travel-advice-publisher: Error Monitoring for Travel Advice Alerts | GOV.UK Developer Documentation</title>
+    <title>contacts-admin: Redirecting contacts that have been removed already | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/travel-advice-publisher/error-monitoring-for-travel-advice-alerts.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/contacts-admin/redirects.html">
 
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="travel-advice-publisher: Error Monitoring for Travel Advice Alerts" />
+      <meta property="og:title" content="contacts-admin: Redirecting contacts that have been removed already" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/travel-advice-publisher/error-monitoring-for-travel-advice-alerts.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/contacts-admin/redirects.html" />
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="travel-advice-publisher: Error Monitoring for Travel Advice Alerts | GOV.UK Developer Documentation" />
-      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/travel-advice-publisher/error-monitoring-for-travel-advice-alerts.html" />
+      <meta property="twitter:title" content="contacts-admin: Redirecting contacts that have been removed already | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/contacts-admin/redirects.html" />
 
     
   </head>
@@ -138,7 +138,7 @@
     <li>
       <a href="/apps/contacts-admin.html"><span>contacts-admin</span></a>
         <ul>
-            <li><a href="/apps/contacts-admin/redirects.html"><span>Redirecting contacts that have been removed already</span></a></li>
+            <li><a href="/apps/contacts-admin/redirects.html" class="toc-link--in-view"><span>Redirecting contacts that have been removed already</span></a></li>
         </ul>
     </li>
     <li>
@@ -203,7 +203,7 @@
     <li>
       <a href="/apps/travel-advice-publisher.html"><span>travel-advice-publisher</span></a>
         <ul>
-            <li><a href="/apps/travel-advice-publisher/error-monitoring-for-travel-advice-alerts.html" class="toc-link--in-view"><span>Error Monitoring for Travel Advice Alerts</span></a></li>
+            <li><a href="/apps/travel-advice-publisher/error-monitoring-for-travel-advice-alerts.html"><span>Error Monitoring for Travel Advice Alerts</span></a></li>
             <li><a href="/apps/travel-advice-publisher/further-technical-information.html"><span># Further technical information</span></a></li>
             <li><a href="/apps/travel-advice-publisher/publish_and_notification_workflow.html"><span>Publish and Notification Workflow</span></a></li>
         </ul>
@@ -602,48 +602,24 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/travel-advice-publisher/commit/ece4245c0488b469e1e3ecfee5671c0c1e2ae9a5">29 Mar 2018</a>
+  Last updated: <a href="https://github.com/alphagov/contacts-admin/commit/eaa22455f69f80b4732574f95661c8efd02f47ea">25 Feb 2021</a>
 </div>
 
-  <h1 class="page-title">travel-advice-publisher: Error Monitoring for Travel Advice Alerts</h1>
+  <h1 class="page-title">contacts-admin: Redirecting contacts that have been removed already</h1>
 
   
-<ul>
-<li>An email alert monitoring script
-<ul>
-<li><a href="https://github.com/alphagov/email-alert-monitoring/">https://github.com/alphagov/email-alert-monitoring/</a></li>
-<li>This runs once every hour on the Production deploy server</li>
-<li>It checks <a href="https://www.gov.uk/api/foreign-travel-advice.json">https://www.gov.uk/api/foreign-travel-advice.json</a> and
-looks for all country updates within a specific window (from 2 days
-ago to 1 hour ago)</li>
-<li>It then checks a dedicated inbox that has been subscribed to all
-travel alerts</li>
-<li>If an expected update isn't present in the inbox, an urgent alert is
-shown in Icinga</li>
-<li>This urgent alert triggers a phone call to the 2nd line/on called<br>
-support team</li>
-</ul>
-</li>
-<li>Application error monitoring in Sentry</li>
-<li>A healthcheck in <code>email-alert-api</code>
-<ul>
-<li>We use GOV.UK Notify to deliver emails</li>
+<p>Contacts Admin used to issue a “gone” item to Publishing API when a contact was deleted. But since <a href="https://github.com/alphagov/contacts-admin/pull/838">#838</a>, we issue a “redirect” instead.</p>
+<p>If a contact was removed as a “gone” item and now needs to be redirected, we have a Rake task for this:</p>
+<pre><code>$ cd /var/apps/contacts
+$ sudo -u deploy govuk_setenv contacts bundle exec rake contacts:replace_gone_with_redirect[removed-contact-slug,organisation-slug,path-to-redirect-to]
+</code></pre>
+<p>This will fail if either of the following are true:</p>
+<ol>
 <li>
-<code>email-alert-api</code> is the app which communicates with GOV.UK Notify</li>
-<li>We have a healthcheck set up to ensure that <code>email-alert-api</code> can
-connect to GOV.UK Notify</li>
-<li>If the healthcheck fails, an urgent alert is shown in Icinga</li>
-</ul>
-</li>
-</ul>
+<code>removed-contact-slug</code> references a contact object in the Contacts Admin database</li>
+<li>the path constructed by <code>removed-contact-slug</code> and <code>organisation-slug</code> does not refer to a “gone” item in content store</li>
+</ol>
 
 
             
@@ -651,8 +627,8 @@ connect to GOV.UK Notify</li>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/travel-advice-publisher/blob/master/docs/error-monitoring-for-travel-advice-alerts.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/travel-advice-publisher/error-monitoring-for-travel-advice-alerts.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/contacts-admin/blob/master/docs/redirects.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/contacts-admin/redirects.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
