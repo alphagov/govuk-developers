@@ -163,7 +163,7 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0b46ec5078f1c52f86e7beaceb0ac79603eb918c">16 Nov 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b0201ced8212ffbd3fdf4c71b63a07be520ecb5f">1 Mar 2021</a>
 </div>
 
  <h1 id='header'>GOV.UK and Virtual Private Networks (VPNs)</h1> <p>GOV.UK uses several VPNs to connect environments. This page explains what they
@@ -188,7 +188,8 @@ unreachable hosts in GOV.UK monitoring</li>
 
 <p>There's a VPN between AWS Production (only) and UKCloud Production which exists
 only as a workaround for routing certain requests from Licensify to Civica, one
-of Licensify's payment gateways.</p>
+of Licensify's payment gateways. This is undesirable and <a href="https://trello.com/c/CG5mc7Zi/213-licensify-connection-to-civica-still-goes-via-uk-cloud-and-vpn-from-aws">recorded as
+GOV.UK Tech Debt</a>.</p>
 
 <p>If this VPN is down:</p>
 
