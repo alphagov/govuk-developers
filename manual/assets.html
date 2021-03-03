@@ -132,14 +132,6 @@
     <ul>
       <li>
         <a href="#static-assets"><span>Static assets</span></a>
-        <ul>
-          <li>
-            <a href="#how-users-access-assets"><span>How users access assets</span></a>
-          </li>
-          <li>
-            <a href="#assets-at-origin"><span>Assets at origin</span></a>
-          </li>
-        </ul>
       </li>
       <li>
         <a href="#uploaded-assets"><span>Uploaded assets</span></a>
@@ -148,6 +140,9 @@
             <a href="#how-uploaded-assets-are-stored-and-served"><span>How uploaded assets are stored and served</span></a>
           </li>
         </ul>
+      </li>
+      <li>
+        <a href="#static-templates"><span>Static templates</span></a>
       </li>
     </ul>
   </li>
@@ -162,18 +157,11 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#assets'>Assets</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c62dba7281977b94b6217dcba94985ea85a067de">30 Jan 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b6cba749cf0a7306027b2a8b519b7ad79596eb13">26 Feb 2021</a>
 </div>
 
- <h1 id='header'>Assets: how they work</h1> <p>There are two types of asset files.</p>
+ <h1 id='header'>Assets: how they work</h1> <p>There are three types of asset files.</p>
 
 <p><strong>Static assets</strong> are stylesheets (CSS), JavaScript (JS) and image files which
 make GOV.UK look the way it does.</p>
@@ -181,39 +169,34 @@ make GOV.UK look the way it does.</p>
 <p><strong>Uploaded assets</strong> - also called attachments - are files like PDFs, CSVs and
 images which are uploaded via the publishing apps and attached to documents.</p>
 
+<p><strong>Static templates</strong> - these are HTML snippets served by the <a href="/apps/static.html">Static</a>
+application. These are used by applications to share common parts of the GOV.UK
+page layout (such as header and footer).</p>
+
 <h2 id="static-assets">Static assets</h2>
 
-<h3 id="how-users-access-assets">How users access assets</h3>
+<p>These assets are served from <code>https://www.gov.uk/assets</code> with a path associated
+with the application that is serving them. For example files within
+<code>https://www.gov.uk/assets/government-frontend</code> are assets for the
+<a href="/apps/government-frontend.html">Government Frontend</a> application. These files
+are cached by <a href="/manual/cdn.html">the GOV.UK content delivery network</a>.</p>
 
-<p><a href="/manual/cdn.html">The GOV.UK content delivery network</a> is in front of our assets
-hostname (<code>assets.publishing.service.gov.uk</code> and equivalents in other
-environments). The CDN fetches anything not in its cache from <code>assets-origin</code>.</p>
-
-<h3 id="assets-at-origin">Assets at origin</h3>
-
-<p>Assets are served by the cache machines in all environments.</p>
-
-<p>The cache machines proxy requests to the application hostnames based on the
-first segment of the path. For example <code>/government-frontend/</code> is proxied to
-the hostname for <code>government-frontend</code> in that environment.</p>
-
-<p>All other assets that have a path that don't match fall back to the static
-application.</p>
+<p>These assets are served by the cache machines, these will proxy requests to
+the application based on the path. For example <code>/assets/government-frontend/</code>
+will proxy asset requests to Government Frontend</p>
 
 <h2 id="uploaded-assets">Uploaded assets</h2>
 
-<p>Asset Manager is an API that is called internally by Publisher, Specialist
-Publisher, Manuals Publisher, Travel Advice Publisher and Whitehall to manage
+<p><a href="apps/asset-manager.html">Asset Manager</a> is an API that is called internally
+by <a href="/#publishing-apps">GOV.UK publishing applications</a> to manage
 their uploads. It serves the uploaded assets on
 <code>assets.publishing.service.gov.uk</code>.</p>
 
 <h3 id="how-uploaded-assets-are-stored-and-served">How uploaded assets are stored and served</h3>
 
 <p>Asset files are stored in an S3 bucket (e.g. <code>govuk-assets-production</code> in
-production) and Asset Manager instructs nginx to proxy requests to them.</p>
-
-<p>It should be noted that Asset Manager does actually serve the asset requests,
-rather than letting nginx serve directly from the share. This is to enable the
+production) and Asset Manager instructs nginx to proxy requests to them.
+Proxying was chosen, rather than linking directly to S3, to support the
 following features:</p>
 
 <ul>
@@ -225,12 +208,26 @@ the replacement. Currently only Whitehall and Specialist Publisher support
 this.</li>
 </ul>
 
+<h2 id="static-templates">Static templates</h2>
+
+<p>The templates that Static hosts are used by
+<a href="/#frontend-apps">GOV.UK frontend applications</a> to render consistent aspects
+of GOV.UK pages. Production instances of GOV.UK applications access these by
+internal communication with Static.</p>
+
+<p>These assets are also available publicly for development and preview versions
+of GOV.UK applications. They allow apps to utilise these production resources
+without needing to run an instance of Static manaul. Public access to Static
+is provided by the <code>assets.publishing.service.gov.uk</code> hostname, which will
+proxy any requests not served by Asset Manager to Static.</p>
+
 
   <div class='related-content'>
     <h4>Related applications</h4>
 
     <ul class="govuk-list">
       <li><a href="/apps/asset-manager.html">asset-manager</a></li>
+      <li><a href="/apps/static.html">static</a></li>
     </ul>
 
     <h3>More in the Assets section</h3>
