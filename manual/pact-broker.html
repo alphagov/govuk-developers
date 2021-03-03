@@ -155,6 +155,11 @@
       </li>
       <li>
         <a href="#writing-pact-tests"><span>Writing Pact tests</span></a>
+        <ul>
+          <li>
+            <a href="#updating-pact-tests"><span>Updating Pact tests</span></a>
+          </li>
+        </ul>
       </li>
     </ul>
   </li>
@@ -170,7 +175,7 @@
             
   <p><a href='/manual.html#testing'>Testing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0c8f7a38cefc256ce1bbc0fe5e0c32e238592681">1 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b5ca2dc176873633e32ee2a01bdefdee39f7c435">3 Mar 2021</a>
 </div>
 
  <h1 id='header'>Pact Broker</h1> <p><a href="https://docs.pact.io/">Pact</a> is a tool for <em>consumer-driven contract testing</em>.
@@ -248,14 +253,38 @@ always be the highest numeric version.</p>
     </ul>
   </li>
   <li>Merge both of the above PRs.</li>
-  <li>Configure the consumer to test against the provider as part of its deployment pipeline (<a href="https://github.com/alphagov/frontend/pull/2644">example</a>).
+  <li>Configure the provider to test against the default branch of the consumer as part of its deployment pipeline (<a href="https://github.com/alphagov/frontend/pull/2644">example</a>).
     <ul>
-      <li>You'll need to provide a way of testing against different branches of the provider, so that changes can be made to the API in future. See the example PR above.</li>
+      <li>You'll need to expose this as a rake task that takes a branch argument (see the example PR above). This is needed in the next step.</li>
     </ul>
   </li>
   <li>Merge.</li>
-  <li>Configure the provider to test against the consumer as part of its deployment pipeline (<a href="https://github.com/alphagov/gds-api-adapters/pull/1036">example</a>).</li>
+  <li>Configure the consumer to test against the provider as part of its deployment pipeline, using the rake task defined above (<a href="https://github.com/alphagov/gds-api-adapters/pull/1036">example</a>).</li>
   <li>Merge.</li>
+</ol>
+
+<h3 id="updating-pact-tests">Updating Pact tests</h3>
+
+<p>Due to the co-dependent nature of Pact providers and consumers, changes need to be made in a particular order:</p>
+
+<ol>
+  <li>Make the change to the API (your provider, e.g. Frontend), in a branch.
+    <ul>
+      <li>Its build should fail at the Pact test stage, because it is testing against the default branch of the consumer.</li>
+    </ul>
+  </li>
+  <li>Make the change to the pactfile in the consumer (e.g. gds-api-adapters), in a branch.
+    <ul>
+      <li>Its build should fail at the Pact test stage, because it is testing against the default branch of the provider.</li>
+    </ul>
+  </li>
+  <li>Run a parameterised build of the consumer, specifying the new branch name of the provider to test against.
+    <ul>
+      <li>The build should pass.</li>
+      <li>It should also be possible to <a href="https://github.com/alphagov/frontend/blob/master/CONTRIBUTING.md#pact-tests">test this locally, if your provider is set up to do so</a>.</li>
+    </ul>
+  </li>
+  <li>Merge the consumer PR, followed by the provider PR.</li>
 </ol>
 
 
