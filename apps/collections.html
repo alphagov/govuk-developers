@@ -276,6 +276,7 @@
           <li><a href="/apps/govuk-puppet.html"><span>govuk-puppet</span></a></li>
           <li><a href="/apps/govuk-secondline-blinken.html"><span>govuk-secondline-blinken</span></a></li>
           <li><a href="/apps/govuk-zendesk-display-screen.html"><span>govuk-zendesk-display-screen</span></a></li>
+          <li><a href="/apps/govuk_app_config.html"><span>govuk_app_config</span></a></li>
           <li><a href="/apps/seal.html"><span>seal</span></a></li>
           <li><a href="/apps/search-performance-explorer.html"><span>search-performance-explorer</span></a></li>
           <li><a href="/apps/side-by-side-browser.html"><span>side-by-side-browser</span></a></li>
@@ -566,6 +567,15 @@ tagged to any of the associated taxons.</li>
 <p><code>govuk-docker-run bundle exec rails test test/unit/application_helper_test.rb</code></p>
 <h4 id="javascript-tests">Javascript tests</h4>
 <p>Use <code>bundle exec rake jasmine:ci</code> to run Jasmine tests</p>
+<h3 id="pact-tests">Pact tests</h3>
+<p>Collections Organisations API has pact tests with <a href="https://github.com/alphagov/gds-api-adapters/blob/19515f01395a2a2cdfa22e1c86f8cb1a4298c492/test/test_helpers/pact_helper.rb">gds-api-adapters</a>.</p>
+<p>Use <code>bundle exec rake pact:verify</code> to run the pact tests against the master pactfile stored on the pact broker.</p>
+<p>If you have made a change to the code that consumes the organisations api, you might want to confirm that collections will still honour its pact. You can do so by running the pact tests against your local gds-api-adapters branch like so:</p>
+<ul>
+<li>From gds-api-adapters run <code>bundle exec rake</code> to regenerate a new pactfile on you local machine.</li>
+<li>From collections run <code>bundle exec rake PACT_URI="../gds-api-adapters/spec/pacts/gds_api_adapters-collections_organisation_api.json" pact:verify</code>
+</li>
+</ul>
 <h2 id="license">License</h2>
 <p><a href="https://github.com/alphagov/collections/blob/master/LICENCE.txt">MIT License</a></p>
   </div>

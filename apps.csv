@@ -37,6 +37,7 @@ govuk-puppet,#govuk-developers,#govuk-developers,https://docs.publishing.service
 govuk-related-links-recommender,#govuk-data-labs,#govuk-data-labs,https://docs.publishing.service.gov.uk/apps/govuk-related-links-recommender.html,https://github.com/alphagov/govuk-related-links-recommender,none
 govuk-secondline-blinken,,,https://docs.publishing.service.gov.uk/apps/govuk-secondline-blinken.html,https://github.com/alphagov/blinkenjs,heroku
 govuk-zendesk-display-screen,,,https://docs.publishing.service.gov.uk/apps/govuk-zendesk-display-screen.html,https://github.com/alphagov/govuk-zendesk-display-screen,heroku
+govuk_app_config,#govuk-developers,#govuk-developers,https://docs.publishing.service.gov.uk/apps/govuk_app_config.html,https://github.com/alphagov/govuk_app_config,none
 hmrc-manuals-api,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/hmrc-manuals-api.html,https://github.com/alphagov/hmrc-manuals-api,aws
 imminence,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/imminence.html,https://github.com/alphagov/imminence,aws
 info-frontend,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/info-frontend.html,https://github.com/alphagov/info-frontend,aws
