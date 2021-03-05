@@ -158,15 +158,8 @@
     </div>
 
      <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/d9e1ded13c3e85b53249b7835d13bdb5946794fd">20 Apr 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/585de026a5bef2b9ae1f09014ef8637add60b138">5 Mar 2021</a>
 </div>
 
  <h1 id='header'>Low available disk inodes</h1> <p>The inode usage on a machine can be checked using:</p>
@@ -185,7 +178,7 @@
 <p>If Jenkins is running out of inodes (rather than disk space) then it may be
 possible to free some by clearing out old workspaces:</p>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>find /var/lib/jenkins/workspace/ <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> d <span class="nt">-mtime</span> +1 <span class="nt">-exec</span> rm <span class="nt">-rf</span> <span class="o">{}</span> <span class="se">\;</span>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>find /var/lib/jenkins/workspace/ <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> d <span class="nt">-mtime</span> +1 <span class="nt">-exec</span> rm <span class="nt">-rf</span> <span class="o">{}</span> <span class="se">\;</span>
 </code></pre></div>
 <p>This will find any directories that are older than 1 day and delete them.</p>
 
