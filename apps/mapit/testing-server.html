@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>whitehall: Internationalisation guide | GOV.UK Developer Documentation</title>
+    <title>mapit: Testing a server with an updated Mapit database | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/whitehall/internationalisation_guide.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/mapit/testing-server.html">
 
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="whitehall: Internationalisation guide" />
+      <meta property="og:title" content="mapit: Testing a server with an updated Mapit database" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/whitehall/internationalisation_guide.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/mapit/testing-server.html" />
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="whitehall: Internationalisation guide | GOV.UK Developer Documentation" />
-      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/whitehall/internationalisation_guide.html" />
+      <meta property="twitter:title" content="mapit: Testing a server with an updated Mapit database | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/mapit/testing-server.html" />
 
     
   </head>
@@ -212,7 +212,7 @@
             <li><a href="/apps/whitehall/css.html"><span>Whitehall CSS Styleguide</span></a></li>
             <li><a href="/apps/whitehall/edition_workflow.html"><span>Edition Workflow</span></a></li>
             <li><a href="/apps/whitehall/finders.html"><span>Finders</span></a></li>
-            <li><a href="/apps/whitehall/internationalisation_guide.html" class="toc-link--in-view"><span>Internationalisation guide</span></a></li>
+            <li><a href="/apps/whitehall/internationalisation_guide.html"><span>Internationalisation guide</span></a></li>
             <li><a href="/apps/whitehall/javascript.html"><span>Whitehall JavaScript</span></a></li>
             <li><a href="/apps/whitehall/link_checker_api_integration.html"><span>Link Checker API Integrations</span></a></li>
             <li><a href="/apps/whitehall/search_setup_guide.html"><span>Search setup guide</span></a></li>
@@ -309,7 +309,7 @@
         <ul>
             <li><a href="/apps/mapit/about-datasets.html"><span>About datasets</span></a></li>
             <li><a href="/apps/mapit/importing-data.html"><span>MapIt - import postcode and boundary data</span></a></li>
-            <li><a href="/apps/mapit/testing-server.html"><span>Testing a server with an updated Mapit database</span></a></li>
+            <li><a href="/apps/mapit/testing-server.html" class="toc-link--in-view"><span>Testing a server with an updated Mapit database</span></a></li>
         </ul>
     </li>
     <li>
@@ -610,40 +610,135 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/whitehall/commit/4d649bf9e876129623851204295e16930ebcc476">12 Apr 2016</a>
+  Last updated: <a href="https://github.com/alphagov/mapit/commit/fad7ea4dc41d175533f12ff51af4e66ef97c3ec2">5 Mar 2021</a>
 </div>
 
-  <h1 class="page-title">whitehall: Internationalisation guide</h1>
+  <h1 class="page-title">mapit: Testing a server with an updated Mapit database</h1>
 
   
-<p>This is mostly standard <a href="http://guides.rubyonrails.org/i18n.html">Rails i18n</a> - Translations are stored in <code>config/locales/</code>, with a <code>.yml</code> file per locale.</p>
-<p>If translation value is missing from a locale file then the EN value will be used instead.</p>
-<h2 id="changing-an-existing-translation-key">Changing an existing translation key</h2>
-<p>Edit the value of EN locale, you should then <em>manually</em> edit all other locales to set the altered translated value to be blank.</p>
-<h2 id="adding-a-new-translation-key">Adding a new translation key</h2>
-<p><em>Manually</em> create the key in <code>en.yml</code>, with the english text.</p>
-<p>Run a task to add that key to all other language files:</p>
-<pre><code>bundle exec rake translation:regenerate
+<p>We have two expectations for an updated Mapit database:</p>
+<ul>
+<li><a href="#changes-to-postcodes">Changes to postcodes</a></li>
+<li><a href="#changes-to-areas">Changes to areas</a></li>
+</ul>
+<h2 id="changes-to-postcodes">Changes to Postcodes</h2>
+<h3 id="existing-postcodes">Existing postcodes</h3>
+<p>It returns a <code>200 OK</code> status for all postcode requests that
+previously returned <code>200 OK</code>. The ONSPD is a complete set of all
+postcodes, live and terminated and we import the whole thing so
+postcodes should never be "deleted". If a request for a postcode
+previously succeeded, it should still succeed.</p>
+<h3 id="invalid-postcodes">Invalid postcodes</h3>
+<p>It returns either a <code>404 Not Found</code> or a <code>200 OK</code> for all postcode
+requests that previously returned <code>404 Not Found</code>. As postcodes are
+released every 3 months, people may have searched for one that did
+not exist previously that is in our new dataset (now <code>200 OK</code>).
+However if they searched for a bad postcode, or something that is
+not a postcode at all, we would still expect that to
+<code>404 Not Found</code>.</p>
+<h2 id="changes-to-areas">Changes to Areas</h2>
+<p>A url of the form <code>/area/&lt;ons-or-gss-code</code> will result in a
+<code>302 Redirect</code> to a url <code>/area/&lt;internal-id&gt;</code>.</p>
+<p>As part of the import process it's quite likely that the internal ids
+will have changed. We should therefore check that all <code>302 Redirect</code>
+request still result in a <code>302 Redirect</code>, and that what it redirects to
+is a <code>200 OK</code>. It means we can't really expect all <code>200 OK</code> messages
+regardless of the URL to remain <code>200 OK</code> - because the import will
+change ids.</p>
+<p>You can test the new database using one of the options:</p>
+<ol>
+<li><a href="#generating-some-test-data">Generating some test data</a></li>
+<li><a href="#running-the-test-samples-script">Running the test samples script</a></li>
+</ol>
+<h2 id="generating-some-test-data">Generating some test data</h2>
+<p>The best source of testing data for postcode lookups is Production, so
+let's grab all the relevant responses from yesterday's log:</p>
+<pre><code>$ your laptop&gt; ssh &lt;mapit_production_machine&gt;
+$ mapit-1&gt; sudo awk '$9==200 {print "http://localhost:3108" $7}' /var/log/nginx/mapit-access.log | sort | uniq &gt;mapit-200s
+$ mapit-1&gt; sudo awk '$9==404 {print "http://localhost:3108" $7}' /var/log/nginx/mapit-access.log | sort | uniq &gt;mapit-404s
+$ mapit-1&gt; sudo awk '$9==302 {print "http://localhost:3108" $7}' /var/log/nginx/mapit-access.log | sort | uniq &gt;mapit-302s
 </code></pre>
-<h3 id="pluralised-translations">Pluralised translations</h3>
-<p>For terms that are translatable in both singular and plural forms (e.g. document.type.publication), include "one" and "other"
-keys for the singular and plural translation of the term.</p>
-<p>Note: pluralised translation terms should only ever contain these two plural form keys in en.yml, otherwise the code that
-regenerates the other translation locale files will not recognise them as being plural translations and will not generate
-the correct pluralisation keys for the different locales.</p>
-<h2 id="updating-the-locales-files">Updating the locales files</h2>
-<p>There are rake tasks to export and import a CSV file of translations and keys
-(provided by the <a href="https://github.com/alphagov/rails_translation_manager"><code>rails_translation_manager</code></a>
-gem. These CSV files are exported, edited and then imported back as <code>.yml</code> files.</p>
-<p>There's no timeline for how frequently this is done, so you can expect many translation values to be missing in non EN locales.</p>
+<blockquote>
+<p>In the commands above, for every line where the 9th field is "200", print the string "<a href="http://localhost:3108">http://localhost:3108</a>" followed by the 7th field of that line, which is the postcode.</p>
+</blockquote>
+<p>Download the files via the jumpbox and store in your /Downloads folder, e.g.</p>
+<pre><code>$ scp -r -oProxyJump=jumpbox.production.govuk.digital &lt;ip_address&gt;:mapit-200s ~/Downloads/
+</code></pre>
+<p>Then copy the three files (mapit-200s, mapit-404s, mapit-302s) to the server you're testing on, e.g.</p>
+<pre><code>$ scp -v -r -oProxyJump=jumpbox.staging.govuk.digital ~/Downloads/mapit-302s &lt;ip_address&gt;:~
+</code></pre>
+<p>In the server you want to test run the following:</p>
+<ol>
+<li>
+<p>Test that all the 200s are still 200s:</p>
+<pre><code> $ while read line; do curl -sI $line | grep HTTP/1.1 ; done &lt;mapit-200s | sort | uniq -c
+   27916 HTTP/1.1 200 OK
+</code></pre>
+</li>
+<li>
+<p>Test that all the old 404s are either 200s or 404s:</p>
+<pre><code> $ while read line; do curl -sI $line | grep HTTP/1.1 ; done &lt;mapit-404s | sort | uniq -c
+   104 HTTP/1.1 200 OK
+   331 HTTP/1.1 404 Not Found
+</code></pre>
+</li>
+<li>
+<p>Test that all the 302s are still 302s:</p>
+<pre><code> $ while read line; do curl -sI $line | grep HTTP/1.1 ; done &lt;mapit-302s | sort | uniq -c
+   807 HTTP/1.1 302 Found
+</code></pre>
+</li>
+<li>
+<p>Check that the 200s are still returning areas:</p>
+<pre><code> $ while read line; do curl $line | python -c "import sys, json; data = json.load(sys.stdin); print '${line} found' if len(data['areas']) &gt; 0 else '${line} missing'"; done &lt;mapit-200s
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: Checking the 200's can take around 30 minutes. You can also see the CPU and load on this <a href="https://grafana.blue.production.govuk.digital/dashboard/file/machine.json?refresh=1m&amp;orgId=1">Grafana graph</a> and select the machine.</p>
+</blockquote>
+<p>This process has been automated somewhat via the following <a href="https://github.com/alphagov/fabric-scripts/blob/master/mapit.py#L51">fabric
+script</a>:</p>
+<pre><code>$ fab $environment -H &lt;ip_address&gt; mapit.check_database_upgrade
+</code></pre>
+<p><strong>Note</strong>: This replays yesterday's traffic from the machine you
+run it on rather than replaying traffic from production. Useful when
+upgrading production environments, perhaps less so for upgrading other
+environments.</p>
+<h2 id="running-the-test-samples-script">Running the test samples script</h2>
+<p>For a more comprehensive test, you can use the <a href="https://github.com/alphagov/mapit/blob/master/test-samples.sh">test-samples.sh</a>
+script, which needs to be run before and after a database upgrade:</p>
+<pre><code>$ your laptop&gt; ssh mapit-1.production
+$ mapit-1&gt; sudo su - root /var/apps/mapit/test-samples.sh sample
+</code></pre>
+<blockquote>
+<p>This can take around 15-20 minutes</p>
+</blockquote>
+<p>Perform the database import in the usual way, and then run the script
+in "check" mode, to download the postcode data again and diff the
+results:</p>
+<pre><code>$ your laptop&gt; ssh mapit-1.production
+$ mapit-1&gt; /var/apps/mapit/test-samples.sh check
+</code></pre>
+<p>Once you have tested the updated mapit node works as expected, you can update
+the other mapit nodes, and then the same on production.</p>
+<h2 id="things-you-might-have-to-fix">Things you might have to fix</h2>
+<p>The Office for National Statistics maintains a series of codes that represent a
+wide range of geographical areas of the UK. MapIt includes these and they are
+unique to each area, but an area can change code, for example when boundaries
+change. If this happens, you might have to change some of our apps to use the
+new codes instead of the old ones.</p>
+<p>Our forked repo of MapIt contains a file [<code>mapit_gb/data/authorities.json</code>]
+(<a href="https://github.com/alphagov/mapit/blob/master/mapit_gb/data/authorities.json">https://github.com/alphagov/mapit/blob/master/mapit_gb/data/authorities.json</a>)
+which contains a list of Local Authorities, their slugs and their GSS codes.
+During the import (invoked by the <code>import-uk-onspd</code> script), the GSS codes are
+used to match to the areas in MapIt that represent LocalAuthorities and the
+slugs are added to each of the areas. These GSS codes need to be kept up to date
+in case they change. An example of doing this is [frontend PR 948]
+(<a href="https://github.com/alphagov/frontend/pull/948">https://github.com/alphagov/frontend/pull/948</a>) (when the file was still
+residing in Frontend,[it has been moved it to MapIt since]
+(<a href="https://github.com/alphagov/mapit/pull/20">https://github.com/alphagov/mapit/pull/20</a>)).</p>
 
 
             
@@ -651,8 +746,8 @@ gem. These CSV files are exported, edited and then imported back as <code>.yml</
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/whitehall/blob/master/docs/internationalisation_guide.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/whitehall/internationalisation_guide.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/mapit/blob/master/docs/testing-server.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/mapit/testing-server.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
