@@ -6,24 +6,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Application: calculators | GOV.UK Developer Documentation</title>
+    <title>Application: calculators (retired) | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/calculators.html">
 
 
-      <meta property="description" content="Everything about the calculators application (Serves the Child benefit tax calculator on GOV.UK)" />
-      <meta property="og:description" content="Everything about the calculators application (Serves the Child benefit tax calculator on GOV.UK)" />
+      <meta property="description" content="Everything about the calculators application (calculators used to report how much child benefit tax you are entitled during a tax year.
+It was only responsible for rendering https://www.gov.uk/child-benefit-tax-calculator.
+That page has now been moved into Smart Answers.
+)" />
+      <meta property="og:description" content="Everything about the calculators application (calculators used to report how much child benefit tax you are entitled during a tax year.
+It was only responsible for rendering https://www.gov.uk/child-benefit-tax-calculator.
+That page has now been moved into Smart Answers.
+)" />
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="Application: calculators" />
+      <meta property="og:title" content="Application: calculators (retired)" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/calculators.html" />
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="Application: calculators | GOV.UK Developer Documentation" />
+      <meta property="twitter:title" content="Application: calculators (retired) | GOV.UK Developer Documentation" />
       <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/apps/calculators.html" />
 
     
@@ -191,12 +197,24 @@
       </li>
       <li>
         <a href="/apps.html">
+          <span>data.gov.uk apps</span>
+        </a>
+      </li>
+      <li>
+        <ul class='subnav'>
+          <li><a href="/apps/ckanext-datagovuk.html"><span>ckanext-datagovuk</span></a></li>
+          <li><a href="/apps/datagovuk_find.html"><span>datagovuk_find</span></a></li>
+          <li><a href="/apps/datagovuk_publish.html"><span>datagovuk_publish</span></a></li>
+          <li><a href="/apps/datagovuk_reference.html"><span>datagovuk_reference</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/apps.html">
           <span>Frontend apps</span>
         </a>
       </li>
       <li>
         <ul class='subnav'>
-          <li><a href="/apps/calculators.html" class="toc-link--in-view"><span>calculators</span></a></li>
           <li><a href="/apps/collections.html"><span>collections</span></a></li>
           <li><a href="/apps/email-alert-frontend.html"><span>email-alert-frontend</span></a></li>
           <li><a href="/apps/feedback.html"><span>feedback</span></a></li>
@@ -209,19 +227,6 @@
           <li><a href="/apps/service-manual-frontend.html"><span>service-manual-frontend</span></a></li>
           <li><a href="/apps/smart-answers.html"><span>smart-answers</span></a></li>
           <li><a href="/apps/static.html"><span>static</span></a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="/apps.html">
-          <span>data.gov.uk apps</span>
-        </a>
-      </li>
-      <li>
-        <ul class='subnav'>
-          <li><a href="/apps/ckanext-datagovuk.html"><span>ckanext-datagovuk</span></a></li>
-          <li><a href="/apps/datagovuk_find.html"><span>datagovuk_find</span></a></li>
-          <li><a href="/apps/datagovuk_publish.html"><span>datagovuk_publish</span></a></li>
-          <li><a href="/apps/datagovuk_reference.html"><span>datagovuk_reference</span></a></li>
         </ul>
       </li>
       <li>
@@ -309,89 +314,15 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-              <h1 class="page-title">Application: calculators</h1>
+              <h1 class="page-title">Application: calculators (retired)</h1>
 
-  
-<p>Serves the Child benefit tax calculator on GOV.UK</p>
+  <p>This application is retired.</p>
 
-<div class="gem-c-summary-list ">
+<p>calculators used to report how much child benefit tax you are entitled during a tax year.
+It was only responsible for rendering <a href="https://www.gov.uk/child-benefit-tax-calculator">https://www.gov.uk/child-benefit-tax-calculator</a>.
+That page has now been moved into Smart Answers.</p>
 
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/calculators">calculators</a></dd>
-
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>Unknown - have you configured and merged your app in govuk-puppet/hieradata_aws/common.yaml</strong> machine class</dd>
-
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Rake tasks</dt>
-            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=calculators&amp;MACHINE_CLASS=Unknown - have you configured and merged your app in govuk-puppet/hieradata_aws/common.yaml&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=calculators&amp;MACHINE_CLASS=Unknown - have you configured and merged your app in govuk-puppet/hieradata_aws/common.yaml&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=calculators&amp;MACHINE_CLASS=Unknown - have you configured and merged your app in govuk-puppet/hieradata_aws/common.yaml&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
-
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/govuk/app-calculators" class="govuk-link">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/calculators.pp" class="govuk-link">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/calculators/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/calculators.json" class="govuk-link">Deployment dashboard</a></li>
-
-    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22calculators%3A+true%22+path%3A%2Fspec%2F" class="govuk-link">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
-
-
-
-
-</ul>
-</dd>
-
-</div></dl>
-    <div class="gem-c-summary__block"></div>
-</div>
-
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
-<p>This calculator reports how much child benefit tax you are entitled during a tax year.</p>
-<p>There is a cut-off date of 7 January 2013. This is the date <a href="https://www.gov.uk/child-benefit-tax-charge/overview">High Income Child Benefit Tax Charge</a> came in effect.
-This means that if the 2012 tax year is selected the calculator will only calculate the child benefit you are entitled to from 7 Jan 2013 to 5 Apr 2013, not for the entire tax year.</p>
-<h2 id="running-the-app">Running the app</h2>
-<pre><code>./startup.sh
-</code></pre>
-<p>To run the app with the live content store and static</p>
-<pre><code>./startup.sh --live
-</code></pre>
-<p>The only content in this app is <a href="http://calculators.dev.gov.uk/child-benefit-tax-calculator/main">child-benefit-tax-calculator/main</a></p>
-<h2 id="running-tests">Running tests</h2>
-<pre><code>bundle exec rake spec
-</code></pre>
-<h2 id="dependencies">Dependencies</h2>
-<ul>
-<li>
-<a href="https://github.com/alphagov/publishing-api">publishing-api</a>: this app sends
-data to publishing-api to register URLs.</li>
-</ul>
-  </div>
-
+<p><a href="https://github.com/alphagov/calculators">GitHub repository</a></p>
 
 
             

@@ -3,7 +3,6 @@ asset-manager,#govuk-platform-health,#govuk-platform-health,https://docs.publish
 authenticating-proxy,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/authenticating-proxy.html,https://github.com/alphagov/authenticating-proxy,aws
 bouncer,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/bouncer.html,https://github.com/alphagov/bouncer,aws
 cache-clearing-service,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/cache-clearing-service.html,https://github.com/alphagov/cache-clearing-service,aws
-calculators,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/calculators.html,https://github.com/alphagov/calculators,aws
 ckanext-datagovuk,#govuk-platform-health,#govuk-datagovuk,https://docs.publishing.service.gov.uk/apps/ckanext-datagovuk.html,https://github.com/alphagov/ckanext-datagovuk,aws
 collections,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/collections.html,https://github.com/alphagov/collections,aws
 collections-publisher,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/collections-publisher.html,https://github.com/alphagov/collections-publisher,aws
