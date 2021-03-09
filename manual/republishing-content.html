@@ -130,6 +130,9 @@
       <li>
         <a href="#whitehall"><span>Whitehall</span></a>
       </li>
+      <li>
+        <a href="#content-publisher"><span>Content Publisher</span></a>
+      </li>
     </ul>
   </li>
 </ul>
@@ -144,11 +147,12 @@
             
   <p><a href='/manual.html#publishing'>Publishing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/59da1ff43f7a2d370bb77803a523797d523f8d08">23 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/d4fdc4766b7eea4ae70db1cda45fd2108edcf19a">9 Mar 2021</a>
 </div>
 
- <h1 id='header'>Republish content</h1> <p>Sometimes it may be necessary to republish content to make it show up on the
-website. This process varies per app.</p>
+ <h1 id='header'>Republish content</h1> <p>Sometimes it may be necessary to republish content to make it show up on the website. For example if we make an update to <a href="https://github.com/alphagov/govspeak/">govspeak</a> that would require us to re-render and save new HTML for content.</p>
+
+<p>This process varies per app.</p>
 
 <h2 id="whitehall">Whitehall</h2>
 
@@ -159,6 +163,19 @@ website. This process varies per app.</p>
 <p>For organisations, run:</p>
 
 <p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:republish_organisation[slug]"><code>publishing_api:republish_organisation[slug]</code></a></p>
+
+<h2 id="content-publisher">Content Publisher</h2>
+
+<p>If the document is in content publisher, there is a <a href="https://github.com/alphagov/content-publisher/blob/master/lib/tasks/resync.rake">resync Rake task</a> you can run.</p>
+
+<p>You can resync a single document by passing it a content ID and locale:</p>
+
+<p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=resync:document[a-content-id:locale]"><code>resync:document[a-content-id:locale]</code></a></p>
+
+<p>or you can resync all documents:</p>
+
+<p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=resync:all"><code>resync:all</code></a></p>
+
 
 
   <div class='related-content'>
