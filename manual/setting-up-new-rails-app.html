@@ -159,7 +159,7 @@
             
   <p><a href='/manual.html#applications'>Applications</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/134ad64aeb93c1dba23ba0132e08ef5d5a6a932c">22 Oct 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/fea9ce78394df80135c1fa8f45ade212151a805b">11 Mar 2021</a>
 </div>
 
  <h1 id='header'>Set up a new Rails application</h1> 
@@ -356,6 +356,14 @@ How to test the app
   <li>Add the application to the <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_App/">Deploy_App job</a> in Jenkins (click Configure)</li>
   <li>Run the <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_App/">Deploy_App job</a> using with <code>with_migrations</code> option to get started</li>
 </ul>
+
+<p>When adding your application to <code>data/application.yml</code> - ensure your new repository has
+a description set in the "About" section on github. This will be used to describe what your app
+is on the <a href="https://docs.publishing.service.gov.uk/#applications">application listings</a> and is also
+required to render an application page.</p>
+
+<p>If you do not do this, you may see Middleman errors when the docs are building which reference
+attempts to modify a frozen empty string.</p>
 
 <h2 id="configuring-the-app-for-jenkins">Configuring the app for Jenkins</h2>
 
