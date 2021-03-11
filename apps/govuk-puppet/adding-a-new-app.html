@@ -614,7 +614,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-puppet/commit/1f1d0307da865605c8b35f274ec3e448fc968a5e">13 Nov 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-puppet/commit/27a99a6627a8b9baab89b47a106858bf5f31423c">10 Mar 2021</a>
 </div>
 
   <h1 class="page-title">govuk-puppet: adding-a-new-app</h1>
@@ -697,7 +697,7 @@ class govuk::apps::myapp (
     asset_pipeline    =&gt; true,
   }
 
-  govuk::app::Envvar {
+  Govuk::App::Envvar {
     app               =&gt; $app_name,
     ensure            =&gt; $ensure,
     notify_service    =&gt; $enabled,
@@ -705,14 +705,14 @@ class govuk::apps::myapp (
 
   govuk::app::envvar {
     "${title}-SECRET_KEY_BASE":
-      varname        =&gt; 'SECRET_KEY_BASE',
-      value          =&gt; $secret_key_base;
+      varname =&gt; 'SECRET_KEY_BASE',
+      value   =&gt; $secret_key_base;
     "${title}-GDS_SSO_OAUTH_ID":
-      varname        =&gt; 'GDS_SSO_OAUTH_ID',
-      value          =&gt; $oauth_id;
+      varname =&gt; 'GDS_SSO_OAUTH_ID',
+      value   =&gt; $oauth_id;
     "${title}-GDS_SSO_OAUTH_SECRET":
-      varname        =&gt; 'GDS_SSO_OAUTH_SECRET',
-      value          =&gt; $oauth_secret;
+      varname =&gt; 'GDS_SSO_OAUTH_SECRET',
+      value   =&gt; $oauth_secret;
   }
 
   govuk::app::envvar::database_url { $app_name:
@@ -723,7 +723,7 @@ class govuk::apps::myapp (
     port                      =&gt; $db_port,
     allow_prepared_statements =&gt; $db_allow_prepared_statements,
     database                  =&gt; $db_name,
- }
+  }
 }
 </code></pre>
 <p>Also add a file in <code>modules/govuk/manifests/apps/my_app</code> named <code>db.pp</code>:</p>
@@ -761,7 +761,7 @@ class govuk::apps::myapp::db (
   $rds = false,
   $username = 'myapp',
   $password = undef,
-  $name = 'myapp_production',
+  $db_name = 'myapp_production',
 ) {
   govuk_postgresql::db { $db_name:
     user                    =&gt; $username,
