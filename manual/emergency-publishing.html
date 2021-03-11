@@ -134,10 +134,13 @@
             <a href="#1-get-the-content-you-will-need"><span>1. Get the content you will need</span></a>
           </li>
           <li>
-            <a href="#2-deploy-the-banner-using-jenkins"><span>2. Deploy the banner using Jenkins</span></a>
+            <a href="#2-hide-the-brexit-link-from-the-global-bar"><span>2. Hide the Brexit link from the global bar</span></a>
           </li>
           <li>
-            <a href="#3-test-with-cache-bust-strings"><span>3. Test with cache bust strings</span></a>
+            <a href="#3-deploy-the-banner-using-jenkins"><span>3. Deploy the banner using Jenkins</span></a>
+          </li>
+          <li>
+            <a href="#4-test-with-cache-bust-strings"><span>4. Test with cache bust strings</span></a>
           </li>
         </ul>
       </li>
@@ -196,15 +199,8 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#publishing'>Publishing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/eafe767706aa0143f156ec684695cb929c3134fe">7 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0de242f14f2f071ce5ff5e19d46a6374c33658ef">10 Mar 2021</a>
 </div>
 
  <h1 id='header'>Deploy emergency publishing banners</h1> <p>There are three types of events that would lead GOV.UK to add an emergency
@@ -237,7 +233,20 @@ Head of GOV.UK.</p>
   <li>(Optional) Link text that will be displayed for the more information URL (this will default to "More information" if you do not supply it).</li>
 </ul>
 
-<h3 id="2-deploy-the-banner-using-jenkins">2. Deploy the banner using Jenkins</h3>
+<h3 id="2-hide-the-brexit-link-from-the-global-bar">2. Hide the Brexit link from the global bar</h3>
+
+<p>Showing the emergency banner <em>and</em> a large global banner dominates too much of the top of our pages. We can hide the Brexit link to reduce the size of the global banner.</p>
+
+<ol>
+  <li>
+    <p>Open a PR on static to <a href="https://github.com/alphagov/static/blob/1d9f02889665615e62e287d1dc661441d2b668e5/app/views/notifications/_global_bar.html.erb#L14">hide the Brexit link</a> and get it approved.</p>
+  </li>
+  <li>
+    <p>Deploy the change and <a href="#some-example-pages-to-check">check that the link has disappeared</a>.</p>
+  </li>
+</ol>
+
+<h3 id="3-deploy-the-banner-using-jenkins">3. Deploy the banner using Jenkins</h3>
 
 <p>The data for the emergency banner is stored in Redis. Jenkins is used to set the variables.</p>
 
@@ -266,7 +275,7 @@ Head of GOV.UK.</p>
   <p>The Jenkins job will also clear all caches. The main page updates immediately, however whitehall and travel advice can take a couple of minutes before the banner appears.</p>
 </blockquote>
 
-<h3 id="3-test-with-cache-bust-strings">3. Test with cache bust strings</h3>
+<h3 id="4-test-with-cache-bust-strings">4. Test with cache bust strings</h3>
 
 <p>Test the changes by visiting pages and adding a cache-bust string. Remember to change the URL based on the environment you are testing in (integration, staging, production).</p>
 
@@ -279,7 +288,7 @@ Head of GOV.UK.</p>
   <li>Make sure the banner colour is appropriate - black for a notable death, red for a national emergency, green for a local emergency</li>
 </ul>
 
-<p>Some example pages to check:</p>
+<h4 id="some-example-pages-to-check">Some example pages to check</h4>
 
 <ul>
   <li><a href="https://www.gov.uk/?ae00e491">https://www.gov.uk/?ae00e491</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/?ae00e491">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/?ae00e491">Staging</a>)</li>
