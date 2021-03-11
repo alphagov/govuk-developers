@@ -1,5 +1,4 @@
 Name,Team,Dependencies Team,Docs URL,Repo URL,Hosted On
-account-api,#govuk-accounts-tech,#govuk-accounts-tech,https://docs.publishing.service.gov.uk/apps/account-api.html,https://github.com/alphagov/account-api,aws
 asset-manager,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/asset-manager.html,https://github.com/alphagov/asset-manager,aws
 authenticating-proxy,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/authenticating-proxy.html,https://github.com/alphagov/authenticating-proxy,aws
 bouncer,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/bouncer.html,https://github.com/alphagov/bouncer,aws
