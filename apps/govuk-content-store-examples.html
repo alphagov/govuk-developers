@@ -394,21 +394,43 @@
 
 <div class="embedded-readme">
     
-<p>This repo contains schemas and examples of the content that uses them on GOV.UK.</p>
-<p>The aim of it is to support 'contract testing' between the frontend and
-publisher apps by expressing the schema and examples in strict, machine
-processable form.</p>
-<p>We use <a href="http://json-schema.org/">JSON Schema</a> to define the schemas.</p>
-<p>For each schema, there are three possible representations:</p>
+<p>This repo contains <a href="http://json-schema.org/">JSON Schema</a> files and examples of the content that uses them on GOV.UK.</p>
+<pre><code># source files and shared definitions
+formats
+└── case_study.jsonnet
+└── shared
+    └── default_format.jsonnet
+
+# built schemas (DO NOT EDIT DIRECTLY)
+dist
+└── formats
+    └── case_study
+        ├── frontend
+        │   └── schema.json
+        └── publisher
+            └── schema.json
+
+# fixtures to support testing in apps
+examples
+└── case_study
+    └── frontend
+        ├── archived.json
+        ├── case_study.json
+        └── translated.json
+
+</code></pre>
+<p>For each source file, we generate up to schemas for the content:</p>
 <ul>
-<li>the 'publisher' representation, which is used when a publishing application
-transmits data to the content store.</li>
-<li>the 'frontend' representation, which is produced by the content store when a
-frontend application requests data</li>
-<li>the 'notification' representation, which is used when broadcasting messages about content
-items on the message queue</li>
+<li>
+<code>publisher</code> - for when a publishing application transmits data to the content store.</li>
+<li>
+<code>frontend</code> - for data returned by the content store for a frontend application request</li>
+<li>
+<code>notification</code> - for broadcasting messages about content items on the message queue</li>
 </ul>
-<h2 id="howtos">Howtos</h2>
+<h2 id="technical-documentation">Technical documentation</h2>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 <ul>
 <li><a href="/apps/govuk-content-schemas/changing-a-schema.html">How to change a schema</a></li>
 <li><a href="/apps/govuk-content-schemas/adding-a-new-schema.html">How to add a new content schema</a></li>
@@ -419,52 +441,6 @@ items on the message queue</li>
 <li><a href="/apps/govuk-content-schemas/running-frontend-against-examples.html">Running your frontend against the examples and random content (content-store not needed)</a></li>
 <li><a href="/apps/govuk-content-schemas/deployment.html">Deployment</a></li>
 </ul>
-<h2 id="background">Background</h2>
-<h3 id="publisher-schema-defined-using-component-parts">Publisher schema defined using component parts</h3>
-<p>Schemas are built from a single file defined in the formats directory.
-An example file defining the schema is available in
-<a href="https://github.com/alphagov/govuk-content-schemas/blob/master/formats/_example.jsonnet"><code>formats/_example.jsonnet</code></a>.</p>
-<p>These files are stored in the <code>govuk-content-schemas</code> repository in the
-<a href="https://github.com/alphagov/govuk-content-schemas/blob/master/formats"><code>formats</code></a> subdirectory. A build process (implemented using a
-<a href="https://github.com/alphagov/govuk-content-schemas/blob/master/Rakefile"><code>Rakefile</code></a>) combines the three component files into the final
-<code>schema.json</code> file.</p>
-<p>The generated files are all stored in the <a href="https://github.com/alphagov/govuk-content-schemas/blob/master/dist/"><code>dist</code></a> subdirectory.</p>
-<p>The build process applies the rules for the various different schema
-representations.</p>
-<p>There are a number of shared definitions that are used across multiple schemas
-these are defined in the <a href="https://github.com/alphagov/govuk-content-schemas/blob/master/formats/shared"><code>formats/shared</code></a> directory.</p>
-<p>Examples of schemas are available in the <a href="https://github.com/alphagov/govuk-content-schemas/blob/master/examples"><code>examples</code></a> directory.</p>
-<p><strong>DO NOT EDIT FILES in the <code>dist</code> directory directly</strong>, instead, edit the source
-files in the <code>formats</code> directory.</p>
-<p>In summary the folder structure is:</p>
-<pre><code>dist
-└── formats
-    └── case_study
-        ├── frontend
-        │   └── schema.json
-        └── publisher
-            └── schema.json
-examples
-└── case_study
-    └── frontend
-        ├── archived.json
-        ├── case_study.json
-        └── translated.json
-formats
-└── case_study.jsonnet
-
-</code></pre>
-<h3 id="validation-of-examples">Validation of examples</h3>
-<p>To validate examples against the generated schemas, use the <code>validate_examples</code>
-Rake task:</p>
-<pre lang="sh"><code>$ bundle exec rake validate_examples
-</code></pre>
-<p>This will print the errors out to the console if validation fails.</p>
-<h3 id="rakefile">Rakefile</h3>
-<p>A <code>Rakefile</code> exists which combines these scripts. It
-automatically re-generates the intermediate schema files and validates all the
-examples.</p>
-<p>To invoke the default task just invoke <code>rake</code> on its own.</p>
   </div>
 
 
