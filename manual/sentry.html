@@ -176,6 +176,9 @@
           <li>
             <a href="#commenting-on-an-issue"><span>Commenting on an issue</span></a>
           </li>
+          <li>
+            <a href="#deleting-and-discarding-an-issue"><span>Deleting and discarding an issue</span></a>
+          </li>
         </ul>
       </li>
     </ul>
@@ -192,7 +195,7 @@
             
   <p><a href='/manual.html#monitoring'>Monitoring</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/51bc9b051e584a0c6d33958c45a12bc060a058fc">23 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5ee999f62c1f39456845950c3c0f52c66620c0d6">15 Mar 2021</a>
 </div>
 
  <h1 id='header'>Sentry</h1> <p><a href="https://sentry.io/govuk/">Sentry</a> is a service that collates errors that happen on GOV.UK in one
@@ -419,6 +422,18 @@ it to ignore for a set time, e.g. 1 week. You can also un-ignore an issue later.
 
 <p>Click on the issue, then on the "Activity" tab, where you can leave a comment.
 Comments support markdown.</p>
+
+<h3 id="deleting-and-discarding-an-issue">Deleting and discarding an issue</h3>
+
+<p>If you've identified an issue that is high-volume, but is unlikely to be fixed any
+time soon, you can <a href="https://blog.sentry.io/2018/01/03/delete-and-discard">Delete and Discard</a> the issue by clicking the arrow next to
+the trash can and selecting "Delete and discard future events".</p>
+
+<p>This should only be used when the issue is likely to have a significant impact on
+our <a href="#rate-limiting">Sentry quota</a>. It is possible to "undiscard" the issue later,
+but this will only capture new events. Any events prior to the "undiscard" action
+are lost.</p>
+
 
 
   <div class='related-content'>
