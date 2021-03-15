@@ -618,24 +618,17 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/static/commit/2338c582ecd5fef5e9c6c692fa86fb38449ccf8e">9 Jun 2020</a>
+  Last updated: <a href="https://github.com/alphagov/static/commit/19f1ec5c5cc89251afe37dad2b3bb6b918b36d21">12 Mar 2021</a>
 </div>
 
   <h1 class="page-title">static: # Global banner</h1>
 
   <h2 id="global-banner">Global banner</h2>
 <p>A site-wide banner can be activated to convey important information on GOV.UK which is not deemed emergency level information.
-The file <code>app/views/notifications/_global_bar.html.erb</code> contains the necessary code to activate and render the banner.</p>
+The file <code>app/views/components/_global_bar.html.erb</code> contains the necessary code to activate and render the banner.</p>
 <h3 id="activating-the-global-banner">Activating the global banner</h3>
-<p>In <code>app/views/notifications/_global_bar.html.erb</code></p>
+<p>In <code>app/views/components/_global_bar.html.erb</code></p>
 <ol>
 <li>Update the variables <code>title</code>, <code>title_href</code>, <code>link_href</code> and <code>link_text</code> with the relevant info where applicable, otherwise set to <code>false</code>.</li>
 <li>Update the <code>show_global_bar</code> variable to <code>true</code>
@@ -674,7 +667,7 @@ This will clear cache for the top 10 most visited pages.</p>
 <li><a href="https://deploy.blue.production.govuk.digital/job/clear-varnish-cache/">varnish</a></li>
 </ul>
 <h3 id="removing-the-global-banner">Removing the global banner</h3>
-<p>In <code>app/views/notifications/_global_bar.html.erb</code></p>
+<p>In <code>app/views/components/_global_bar.html.erb</code></p>
 <ol>
 <li>Update the show_global_bar variable to false</li>
 <li>Deploy static</li>
