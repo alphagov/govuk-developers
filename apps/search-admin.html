@@ -410,7 +410,7 @@
 
 <div class="embedded-readme">
     
-<p>The <code>search-admin</code> application manages search "best bets" and "external links" along with other search and browse data.</p>
+<p>Manages search "best bets" and "external links" along with other search and browse data.</p>
 <h2 id="screenshots">Screenshots</h2>
 <p><img src="https://raw.githubusercontent.com/alphagov/search-admin/master/docs/images/screenshot.png" alt="Search Admin" /></p>
 <h2 id="live-example">Live example</h2>
@@ -418,25 +418,9 @@
 <li><a href="https://search-admin.publishing.service.gov.uk/">https://search-admin.publishing.service.gov.uk/</a></li>
 </ul>
 <h2 id="technical-documentation">Technical documentation</h2>
-<p>This is a Ruby on Rails application that manages search "best bets" and "external links" along with other search and browse data. It is behind the signon authentication system and doesn't have a public API.</p>
-<h3 id="dependencies">Dependencies</h3>
-<ul>
-<li>
-<a href="https://github.com/alphagov/publishing-api">alphagov/publishing-api</a> - search-admin publishes external links to the publishing API</li>
-<li>
-<a href="https://github.com/alphagov/search-api">alphagov/search-api</a> - search-admin sends updates to search-api when best bets are edited</li>
-</ul>
-<h3 id="running-the-application">Running the application</h3>
-<p><code>./startup.sh</code></p>
-<p>The app runs on port 3073. If you're using the dev VM it will be available at <a href="http://search-admin.dev.gov.uk/">http://search-admin.dev.gov.uk/</a></p>
-<h4 id="creating-the-mysql-user">Creating the mysql user</h4>
-<p>The database.yml for this project is checked into source control so
-you'll need a local user with credentials that match those in
-database.yml.</p>
-<pre lang="sql"><code>    mysql&gt; create user 'search_admin'@'localhost' identified by 'search_admin';
-    mysql&gt; grant all on `search_admin\_%`.* to search_admin@localhost;
-    mysql&gt; flush privileges;
-</code></pre>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 <h3 id="running-the-test-suite">Running the test suite</h3>
 <p><code>bundle exec rake</code></p>
 <h3 id="external-links">External links</h3>

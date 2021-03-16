@@ -400,36 +400,13 @@
 <div class="embedded-readme">
     
 <p>An application to make managing releases to specific environments easier.</p>
-<h2 id="getting-started">Getting started</h2>
-<ol>
-<li>
-<p>Create app-specific mysql user (check <a href="https://github.com/alphagov/release/blob/master/config/database.yml">config/database.yml</a> for user details):</p>
-<pre><code>mysql.server start
-mysql -u root
-
-# Create release user
-CREATE USER 'release'@'localhost' IDENTIFIED BY 'release';
-GRANT ALL PRIVILEGES
-ON `release_%`.*
-TO 'release'@'localhost'
-WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-exit
+<h2 id="technical-documentation">Technical documentation</h2>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
+<h3 id="to-the-run-the-tests">To the run the tests</h3>
+<pre><code>bundle exec rake
 </code></pre>
-</li>
-<li>
-<p>Install dependencies, create databases and run initial migrations, test:</p>
-<pre><code>bundle install
-bundle exec rake db:create:all db:migrate
-bundle exec rake
-</code></pre>
-</li>
-<li>
-<p>Create applications in <a href="https://github.com/alphagov/release/blob/master/db/seeds.rb">db/seeds.rb</a>:</p>
-<pre><code>bundle exec rake db:seed
-</code></pre>
-</li>
-</ol>
   </div>
 
 
