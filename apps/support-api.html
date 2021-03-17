@@ -411,9 +411,7 @@ app is scanned to see if it may contain Personally Identifiable Information (PII
 think it might.</li>
 <li>
 <strong>Service Feedback</strong>: This is feedback that came from the short survey on a "done" page and contains
-a 1-5 rating for what the user thought of the service.  These ratings are aggregated and sent to the
-<a href="https://github.com/alphagov/backdrop">performance platform</a> so that it can appear in the performance details as
-user satisfaction of those services.</li>
+a 1-5 rating for what the user thought of the service.</li>
 <li>
 <strong>Page Improvement</strong>: Unlike other feedback types, this is not stored in the database, but instead
 is sent directly to <a href="https://govuk.zendesk.com">Zendesk</a> to be handled by the GOV.UK support team.</li>
@@ -424,9 +422,6 @@ It has 3 main functions:</p>
 <ol>
 <li>a write API used by the <a href="https://github.com/alphagov/feedback">feedback app</a> to store feedback</li>
 <li>a read API used by the <a href="https://github.com/alphagov/support">support app</a> to read that feedback and request exports to CSV</li>
-<li>a background job used to aggregate service feedback and write it to the <a href="https://github.com/alphagov/backdrop">performance
-platform</a>
-</li>
 </ol>
 <h3 id="csv-exports">CSV exports</h3>
 <p>When a CSV export is requested by the support app, a CSV file is generated and saved in Amazon S3.</p>
@@ -442,18 +437,13 @@ of the feedback.</li>
 Whitehall is the canonical source of that information we use its Organisations API to keep our data up
 to date.</li>
 <li>
-<a href="https://github.com/alphagov/backdrop">performance platform</a> - Support API stores ratings for services.
-It aggregates those ratings every day and writes that data to the performance platform write API.  We
-can also use the performance platform read API to import those ratings if there's ever a discrepancy.</li>
-<li>
 <a href="https://govuk.zendesk.com">zendesk</a> - Support API sends some types of feedback to Zendesk so it can be
 acted on by the support teams directly rather than storing it in its own database.</li>
 <li>
 <a href="https://www.postgresql.org">postgres</a> - Support API uses postgres as its own database</li>
 <li>
 <a href="https://redis.io/">redis</a> - Support API uses <a href="https://github.com/mperham/sidekiq">sidekiq</a> to process
-background jobs (like sending feedback to zendesk, or aggregating feedback and sending it to the
-performance platform) and sidekiq relies on redis</li>
+background jobs (like sending feedback to zendesk) and sidekiq relies on redis</li>
 </ul>
 <h3 id="running-the-test-suite">Running the test suite</h3>
 <p><code>bundle exec rake</code></p>
