@@ -3512,6 +3512,12 @@ html.has-search-results-open {
   @media (min-width: 40.0625em) {
     .gem-c-summary__block {
       margin-bottom: 30px; } }
+@media (min-width: 40.0625em) {
+  .gem-c-summary-list--wide-title .govuk-summary-list__key {
+    width: 60%; }
+  .gem-c-summary-list--wide-title .govuk-summary-list__value {
+    width: 20%; } }
+
 .gem-c-summary-list {
   border-bottom: 0;
   /* We have an extra border-bottom for some reason */ }
