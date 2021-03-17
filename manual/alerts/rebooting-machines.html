@@ -171,13 +171,16 @@
             <a href="#rebooting-rabbitmq-machines"><span>Rebooting RabbitMQ machines</span></a>
           </li>
           <li>
-            <a href="#rebooting-asset-master-and-slave-machines"><span>Rebooting asset master and slave machines</span></a>
+            <a href="#rebooting-asset-primary-and-secondary-machines"><span>Rebooting asset primary and secondary machines</span></a>
           </li>
           <li>
             <a href="#rebooting-router-backend-machines"><span>Rebooting router-backend machines</span></a>
           </li>
           <li>
             <a href="#rebooting-jumpbox-machines"><span>Rebooting jumpbox machines</span></a>
+          </li>
+          <li>
+            <a href="#rebooting-docker-management"><span>Rebooting docker-management</span></a>
           </li>
           <li>
             <a href="#rebooting-backend-lb-machines-carrenza-only"><span>Rebooting backend-lb machines (Carrenza only)</span></a>
@@ -210,7 +213,7 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4431385af524610ff9cae054692c8b07a3ab42f7">19 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5427c4ebc59b0c3137c957f094ba7d9e3138e663">16 Mar 2021</a>
 </div>
 
  <h1 id='header'>Reboot a machine</h1> <p>Under normal circumstances most machines reboot automatically when an update is required.
@@ -281,7 +284,7 @@ effects of this reboot have been considered.</p>
 <p>Alternatively, there is a Fabric task to schedule a machine for downtime
 in Nagios for 20 minutes and then reboot it:</p>
 
-<div class="highlight"><pre class="highlight plaintext"><code>fab $environment -H graphite-1.management vm.reboot
+<div class="highlight"><pre class="highlight plaintext"><code>fab &lt;aws_environment&gt; -H &lt;ip_address&gt; vm.reboot
 </code></pre></div>
 <h3 id="rebooting-guidance-for-aws">Rebooting guidance for AWS</h3>
 
@@ -434,19 +437,28 @@ take manual action to resolve the problem.</p>
 then either add a note here about how to make that application recover,
 or get the team responsible to make it point to the cluster.</p>
 
-<h3 id="rebooting-asset-master-and-slave-machines">Rebooting asset master and slave machines</h3>
+<p>Rebooting rabbitmq may cause alerts for other apps which can be restarted,
+for example email-alert-api:</p>
 
-<p>Unless there are urgent updates to apply the master machine should not be
-rebooted in production during working hours - as the master machine is required
+<div class="highlight"><pre class="highlight plaintext"><code>fab aws_staging class:email_alert_api app.restart:email-alert-service
+</code></pre></div>
+<p>You can also ssh into individual machines to restart the service:</p>
+
+<div class="highlight"><pre class="highlight plaintext"><code>sudo service cache-clearing-service restart
+</code></pre></div>
+<h3 id="rebooting-asset-primary-and-secondary-machines">Rebooting asset primary and secondary machines</h3>
+
+<p>Unless there are urgent updates to apply the primary machine should not be
+rebooted in production during working hours - as the primary machine is required
 for attachments to be uploaded.</p>
 
-<p>The slave machines can be rebooted as they hold a copy of data and are resynced
+<p>The secondary machines can be rebooted as they hold a copy of data and are resynced
 regularly.</p>
 
-<p>Reboots of the master machine should be organised by On Call staff,
+<p>Reboots of the step_down_primary machine should be organised by On Call staff,
 for the production environment.</p>
 
-<p>You may reboot the master machine in the staging environment during working
+<p>You may reboot the primary machine in the staging environment during working
 hours however it is prudent to warn colleagues that uploading attachments will
 be unavailable during this period.</p>
 
@@ -460,6 +472,12 @@ as per the <a href="#rebooting-mongodb-machines">MongoDB rebooting guidance</a>.
 <p>These machines are safe to reboot during the day. During the night they
 are involved in a data sync processes and rebooting could cause the data
 sync to fail.</p>
+
+<div class="highlight"><pre class="highlight plaintext"><code>fab &lt;aws_environment&gt; -H &lt;ip_address&gt; vm.reboot
+</code></pre></div>
+<h3 id="rebooting-docker-management">Rebooting docker-management</h3>
+
+<p>It is safe to reboot while no other unattended reboot is underway - see https://github.com/alphagov/govuk-puppet/blob/master/hieradata_aws/class/docker_management.yaml</p>
 
 <h3 id="rebooting-backend-lb-machines-carrenza-only">Rebooting backend-lb machines (Carrenza only)</h3>
 
