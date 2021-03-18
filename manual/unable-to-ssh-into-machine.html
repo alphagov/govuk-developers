@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>app_domain handling in GOV.UK during migration to AWS | GOV.UK Developer Documentation</title>
+    <title>Unable to SSH into a machine | GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/govuk-app-domain-handling-during-migration.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/unable-to-ssh-into-machine.html">
 
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="app_domain handling in GOV.UK during migration to AWS" />
+      <meta property="og:title" content="Unable to SSH into a machine" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/govuk-app-domain-handling-during-migration.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/unable-to-ssh-into-machine.html" />
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="app_domain handling in GOV.UK during migration to AWS | GOV.UK Developer Documentation" />
-      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/govuk-app-domain-handling-during-migration.html" />
+      <meta property="twitter:title" content="Unable to SSH into a machine | GOV.UK Developer Documentation" />
+      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/unable-to-ssh-into-machine.html" />
 
     
   </head>
@@ -125,7 +125,7 @@
                   <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
   <ul>
   <li>
-    <a href="#header"><span>app_domain handling in GOV.UK during migration to AWS</span></a>
+    <a href="#header"><span>Unable to SSH into a machine</span></a>
   </li>
 </ul>
 
@@ -139,40 +139,18 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/59915b476a3d23c02a6000bda58344a9cbe14f52">16 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/ae736a1892c99fc93508c8984b5d50144b911bd0">18 Mar 2021</a>
 </div>
 
- <h1 id='header'>app_domain handling in GOV.UK during migration to AWS</h1> <blockquote>
-  <p>Deprecation note:
-This page should be removed after all machines in Carrenza have been shutdown
-and all reference to this has been removed from <a href="https://github.com/alphagov/govuk-puppet">govuk-puppet</a></p>
-</blockquote>
+ <h1 id='header'>Unable to SSH into a machine</h1> <p>If you are on the VPN and you are unable to connect to an instance (it hangs and then
+eventually fails with <code>kex_exchange_identification: Connection closed by remote host</code>),
+then the instance is unhealthy. There are probably a number of alerts associated with
+the instance too.</p>
 
-<p>The app-by-app migration plan to move GOV.UK to AWS introduced an <code>$app_domain_internal</code> parameter in addition to the previously used <code>$app_domain</code>.</p>
-
-<p>This is necessary because in AWS we use a <code>&lt;environment&gt;.govuk-internal.digital</code> domain in addition to the <code>&lt;environment&gt;.govuk.digital</code> domain.</p>
-
-<p>Furthermore, the <code>app_domain</code> parameter may be set to the <code>&lt;environment&gt;.publishing.service.gov.uk</code> for migrated apps as well. The exact configuration depends on the current state of the migrated app as well as its dependencies.</p>
-
-<p>For example, migrated backend applications, such as Support, may be configured to use the <code>&lt;environment&gt;.publishing.service.gov.uk</code> <code>$app_domain</code> to facilitate access to Signon over the internet.</p>
-
-<p>Applications in Carrenza which talk to AWS over the VPN need to resolve <code>&lt;environment&gt;.govuk-internal.digital</code>. The names under <code>govuk-internal.digital</code> point to private IP addresses in AWS.</p>
-
-<p>At the moment this is only done for RabbitMQ exchange federation because the performance platform (backdrop) still depends on RabbitMQ.</p>
-
-<p>As a rule of thumb:</p>
-
-<ul>
-  <li>Applications which have been moved to AWS and have all their dependencies in AWS will use <code>$app_domain=&lt;environment&gt;.govuk.digital</code> and <code>$app_domain_internal=&lt;environment&gt;.govuk-internal.digital</code>.</li>
-  <li>Applications which remain in Carrenza, including all their dependencies, will only use <code>app_domain=&lt;environment&gt;.publishing.service.gov.uk</code>.</li>
-  <li>Applications having dependencies in both AWS and Carrenza will require some customisation of service resolution in form of a Plek URI override and may use either <code>$app_domain=&lt;environment&gt;.govuk.digital</code> or <code>$app_domain=&lt;environment&gt;.publishing.service.gov.uk</code>.</li>
-</ul>
-
-<p>Note: we use <a href="https://github.com/alphagov/plek">Plek</a> to generate the correct base URLs for internal GOV.UK services. These URLs can be overridden when a <a href="https://github.com/alphagov/plek/blob/master/lib/plek.rb#L29">Plek instance is instantiated</a>.</p>
-
-<p>Since setting the correct service discovery environment for a particular app is complicated due to the migration to AWS, please take extra care to make sure you understand the effects of changes to the app_domain parameter and Plek URI overrides via environment variables.</p>
-
-<p>If in doubt, please <a href="https://docs.publishing.service.gov.uk/manual/raising-issues-with-reliability-engineering.html">talk to GOV.UK Replatforming</a> to make sure your changes will not have unintended side effects.</p>
+<p>You'll need to sign into AWS and <a href="/manual/reprovision.html">reprovision the instance</a>.
+You may want to click the "Report instance status" button while you're there, to inform
+AWS that the instance is unresponsive - this should help AWS to improve their automated
+checks in the future.</p>
 
 
   <div class='related-content'>
@@ -184,6 +162,7 @@ and all reference to this has been removed from <a href="https://github.com/alph
           <h4>Learn</h4>
 
           <ul class="govuk-list">
+            <li><a href="/manual/govuk-app-domain-handling-during-migration.html">app_domain handling in GOV.UK during migration to AWS</a></li>
             <li><a href="/manual/concourse.html">Concourse</a></li>
             <li><a href="/manual/dns.html">Domain Name System (DNS) records</a></li>
             <li><a href="/manual/vpn.html">GOV.UK and Virtual Private Networks (VPNs)</a></li>
@@ -213,7 +192,6 @@ and all reference to this has been removed from <a href="https://github.com/alph
             <li><a href="/manual/renew-a-tls-certificate.html">Renew a TLS certificate for GOV.UK</a></li>
             <li><a href="/manual/reprovision.html">Reprovision a machine</a></li>
             <li><a href="/manual/scale-mapit.html">Scale Mapit</a></li>
-            <li><a href="/manual/unable-to-ssh-into-machine.html">Unable to SSH into a machine</a></li>
           </ul>
         </div>
 
@@ -226,8 +204,8 @@ and all reference to this has been removed from <a href="https://github.com/alph
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/govuk-app-domain-handling-during-migration.html.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'app_domain%20handling%20in%20GOV.UK%20during%20migration%20to%20AWS'&amp;body=Problem%20with%20'app_domain%20handling%20in%20GOV.UK%20during%20migration%20to%20AWS'%20(https://docs.publishing.service.gov.uk/manual/govuk-app-domain-handling-during-migration.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/unable-to-ssh-into-machine.html.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'Unable%20to%20SSH%20into%20a%20machine'&amp;body=Problem%20with%20'Unable%20to%20SSH%20into%20a%20machine'%20(https://docs.publishing.service.gov.uk/manual/unable-to-ssh-into-machine.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
