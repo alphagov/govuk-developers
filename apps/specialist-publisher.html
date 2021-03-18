@@ -401,6 +401,7 @@
       <li><a href="/apps/specialist-publisher/acceptance-testing.html" class="govuk-link"># Acceptance Testing</a></li>
       <li><a href="/apps/specialist-publisher/creating-a-new-specialist-document-type.html" class="govuk-link">Creating a new specialist document format</a></li>
       <li><a href="/apps/specialist-publisher/email-alerts.html" class="govuk-link"># Email Alerts</a></li>
+      <li><a href="/apps/specialist-publisher/tasks.html" class="govuk-link">Rake tasks</a></li>
 </ul>
 
 <h2 id="example-pages-published-by-specialist-publisher">Example pages published by specialist-publisher</h2>
@@ -422,6 +423,8 @@
 <div class="embedded-readme">
     
 <p>Publishing App for Specialist Documents.</p>
+<p>This application does not store documents in a database of its own. Instead it uses Publishing API to store and retrieve documents. MongoDB is used for storing local user records.</p>
+<p>Formats can be <a href="https://github.com/alphagov/specialist-publisher/blob/f8e93142dfad6f3971a73c923b01f2e7352bdb54/lib/documents/schemas/tax_tribunal_decisions.json#L64">flagged</a> as <code>pre-production</code>. <code>pre-production</code> documents are only publishable on development and integration.</p>
 <h2 id="screenshots">Screenshots</h2>
 <p><img src="https://raw.githubusercontent.com/alphagov/specialist-publisher/master/docs/specialist-publisher-screenshot.png" alt="Specialist Documents - CMA Case Format" />
 <em>Specialist Documents - CMA Case Format</em></p>
@@ -453,77 +456,24 @@
 <strong>Schema</strong>: JSON files defining attributes for each format, including <code>base_path</code>, <code>document_noun</code> and <code>document_type</code>. It also contains the facets and their possible values for each <code>document_type</code> which are displayed by <code>_form.html.erb</code>.</li>
 </ul>
 <h2 id="technical-documentation">Technical documentation</h2>
-<p>Specialist Publisher is a Ruby on Rails application used to create and manage documents. This application does not store documents in a database of its own. Instead it sends JSON data to the publishing-api where it is persisted in a Postgres datastore. This data is then requested from the publishing-api and displayed to the user.</p>
-<p>Another result of publishing a document is that a call is made to the Email Alert Api which will notify Gov Delivery to send an email to subscribers. These emails are sent when a document is first published and also when an editor makes a major update. This is true for all formats other than Drug Safety Updates which are instead sent via a monthly email newsletter.</p>
-<p>Attachments are sent to and then handled by Asset Manager. When an attachment is uploaded, Asset Manager will scan the attachment for viruses and then return a URL from which the attachment can be viewed. When an attachment is deleted it will be 'soft' deleted from Asset Manager so as to be no longer viewable by a user.</p>
-<p>The original Specialist-Publisher codebase contained Manuals and Finders in the same application. Manuals are now being managed by <a href="https://github.com/alphagov/manuals-publisher">Manuals Publisher</a>.</p>
-<h2 id="pre-production">Pre-production</h2>
-<p>A number of formats are <a href="https://github.com/alphagov/specialist-publisher/blob/f8e93142dfad6f3971a73c923b01f2e7352bdb54/lib/documents/schemas/tax_tribunal_decisions.json#L64">flagged</a> as <code>pre-production</code>. <code>pre-production</code> documents are only publishable on development and integration.</p>
-<h2 id="dependencies">Dependencies</h2>
-<ul>
-<li>
-<a href="http://github.com/alphagov/asset-manager">alphagov/asset-manager</a>: provides uploading for static files</li>
-<li>
-<a href="http://github.com/alphagov/publishing-api">alphagov/publishing-api</a>: documents are sent here, persisted and then requested.</li>
-<li>
-<a href="http://github.com/alphagov/email-alert-api">alphagov/email-alert-api</a>: sends emails to subscribed users when documents are published</li>
-<li>Mongo: mongodb used for storing local users</li>
-<li><a href="https://github.com/alphagov/specialist-publisher-rebuild/blob/master/Gemfile">These Gems</a></li>
-</ul>
-<h3 id="running-the-application">Running the application</h3>
-<pre><code>$ ./startup.sh
-</code></pre>
-<p>If you are using the GDS development virtual machine then the application will be available on the host at <a href="http://specialist-publisher.dev.gov.uk/">http://specialist-publisher.dev.gov.uk/</a></p>
-<h3 id="granting-permissions">Granting permissions</h3>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
+<h3 id="before-running-the-app">Before running the app</h3>
 <p>You may find that you can't see any documents after replicating data. To fix
 this, you need to grant user permissions in this application:</p>
 <pre lang="bash"><code>bundle exec rake permissions:grant['Chris Patuzzo'] # Or whichever user you're logged in as.
 </code></pre>
-<p>You also need to set the <code>app_name</code> for the Dummy API User in Publishing API:</p>
-<pre lang="ruby"><code>User.find_by(email: "dummyapiuser@domain.com").update!(app_name: "specialist-publisher")
-</code></pre>
-<h3 id="populate-development-database">Populate development database</h3>
-<p>If you're starting from a blank database, you can quickly get your local database into working order with:</p>
-<pre><code>$ bundle exec rake db:seed
-</code></pre>
-<p>Currently this:</p>
-<ul>
-<li>creates a default user record with basic permissions that allows you to log in and create a new document</li>
-</ul>
 <h3 id="running-the-test-suite">Running the test suite</h3>
 <pre><code>$ bundle exec rake
 </code></pre>
-<h2 id="adding-a-new-specialist-document-format">Adding a new Specialist Document format</h2>
-<p>👉 <a href="/apps/specialist-publisher/creating-a-new-specialist-document-type.html">Creating a new specialist document type</a></p>
-<h2 id="running-tasks">Running tasks</h2>
-<p>You can use the Jenkins rake task runner to run these tasks.</p>
-<h3 id="discarding-a-draft-document">Discarding a draft document</h3>
-<p>If a document has been created in draft, it can be discarded with this task:
-<code>ops:discard['some-content-id']</code></p>
-<p>Drafts can also be discarded by running a similar task from the Publishing API:</p>
-<p><code>discard_draft['some-content-id']</code></p>
-<p>See <a href="https://github.com/alphagov/publishing-api/blob/master/doc/admin-tasks.md">Admin Tasks</a></p>
-<h3 id="triggering-an-email-notification">Triggering an email notification</h3>
-<p>If an email has not been sent for a document, it can be re-triggered with this task:
-<code>ops:email['some-content-id']</code></p>
-<h3 id="setting-the-public_updated_at">Setting the public_updated_at</h3>
-<p>If a document has an incorrect public_updated_at, it can be set with this task:
-<code>ops:set_public_updated_at['some-content-id','2016-01-01']</code></p>
-<p>This is useful if a published document is appearing with an incorrect published time on GOV.UK. This is not something users of the publishing app can set manually and so occasionally we get support requests to change this.</p>
-<p>Rails will call <code>DateTime.parse</code> on the string provided, so most formats should work. You can also pass ‘now’ to use the current time.</p>
-<p>You can’t currently set the <code>public_updated_at</code> field if a publisher has created a new draft for the document. You’ll either need to discard it or publish it first for this task to succeed.</p>
-<h3 id="republishing">Republishing</h3>
-<p>Republishing is useful if content failed to make its way through the system. This might be the case if an error was thrown somewhere along the way. Republishing a document will notify Publishing API of the change (which will in turn notify RUMMAGER via a notifaction queue). It will not send email notifications.</p>
-<p>You can republish a single document with this task:
-<code>republish:one['some-content-id']</code></p>
-<p>You can republish all documents for a document_type with this task:
-<code>republish:document_type['some_document_type']</code></p>
-<p>You can republish all specialist documents with this task:
-<code>republish:all</code></p>
-<p>These last two tasks place a large number of items on Specialist Publisher’s sidekiq queue. These tasks could take a very long time to complete. You can’t currently republish published documents if a publisher has created a new draft for the document.</p>
-<h2 id="phase-2-migration">Phase 2 migration</h2>
-<p>There is tonnes of information on our learnings from migrating this app to
-"phase 2" <a href="https://github.com/alphagov/specialist-publisher/blob/master/docs/phase-2-migration/README.md">here</a>.</p>
+<h3 id="further-documentation">Further documentation</h3>
+<ul>
+<li><a href="/apps/specialist-publisher/email-alerts.html">Email alerts</a></li>
+<li><a href="/apps/specialist-publisher/tasks.html">Rake tasks</a></li>
+<li><a href="/apps/specialist-publisher/creating-a-new-specialist-document-type.html">Creating a new specialist document type</a></li>
+<li><a href="https://github.com/alphagov/specialist-publisher/blob/master/docs/phase-2-migration/README.md">Historical info about migrating to use the Publishing API</a></li>
+</ul>
   </div>
 
 
