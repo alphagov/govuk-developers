@@ -390,69 +390,27 @@
     <div class="gem-c-summary__block"></div>
 </div>
 
+<h2 id="imported-documents">Imported documents</h2>
+<ul class="gem-c-list govuk-list">
+      <li><a href="/apps/router-api/api-endpoints.html" class="govuk-link">API endpoints</a></li>
+</ul>
+
 <h2 id="readme">README</h2>
 
 <div class="embedded-readme">
     
 <p>This provides an API for updating the routes used by the <a href="https://github.com/alphagov/router/">router</a>.</p>
 <h2 id="technical-documentation">Technical documentation</h2>
-<p>A Ruby on Rails application that manages the router database.  Routes are
-stored in a mongo database using <a href="http://mongoid.org/">Mongoid</a> as an ORM.</p>
-<h3 id="dependencies">Dependencies</h3>
-<ul>
-<li><a href="http://www.mongodb.org/">mongoDB</a></li>
-<li>
-<a href="https://github.com/alphagov/router/">alphagov/router</a> - to reload routes
-(optional in dev mode)</li>
-</ul>
-<p>When running in development mode, this will ignore connection errors when
-triggering a reload of the router</p>
-<h3 id="running-the-application">Running the application</h3>
-<p><code>bundle exec rails s</code></p>
-<p>The app will then be available at <a href="http://localhost:3000/">http://localhost:3000/</a> (the port can be
-changed by passing a <code>-p</code> option to the command)</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 <h3 id="running-the-test-suite">Running the test suite</h3>
-<p><code>bundle exec rake</code></p>
-<h2 id="api-endpoints">API endpoints</h2>
-<h3 id="routes">Routes</h3>
-<p>Information about the route data structure can be found in the <a href="https://github.com/alphagov/router#routes">router repository</a>.</p>
-<h5 id="getting-details-of-a-route">Getting details of a route:</h5>
-<pre lang="sh"><code>curl "http://router-api.example.com/routes?incoming_path=/foo"
+<pre><code>bundle exec rake
 </code></pre>
-<p>This will return the corresponding route in JSON format.</p>
-<h5 id="creatingupdating-a-route">Creating/updating a route:</h5>
-<p>The following will create/update a route entry:</p>
-<pre lang="sh"><code>curl http://router-api.example.com/routes -X PUT \
-    -H 'Content-type: application/json' \
-    -d '{"route": {"incoming_path": "/foo", "route_type": "exact", "handler": "backend", "backend_id": "foo"}}'
-</code></pre>
-<p>This will return details of the updated route in JSON format.  If the route doesn't already exist, it will be created and a 201 status code returned.  The <code>backend_id</code> must reference a backend that exists (see below).</p>
-<p>On error a 400 status code will be returned, and the JSON response will include an "errors" key with more details.</p>
-<h5 id="deleting-a-route">Deleting a route:</h5>
-<pre lang="sh"><code>curl "http://router-api.example.com/routes?incoming_path=/foo" -X DELETE
-</code></pre>
-<p>This will delete the corresponding route.  If no route matches the JSON request, a 404 status code will be returned.</p>
-<h5 id="committing-changes">Committing changes:</h5>
-<pre lang="sh"><code>curl http://router-api.example.com/routes/commit -X POST
-</code></pre>
-<p>This will trigger a router reload and cause any changes to the route to take effect.</p>
-<h3 id="backends">Backends</h3>
-<p>Backends represent an application that the router can route requests to.  They are referenced by entries in the routes collection. Information about the backend data structure can be found in the <a href="https://github.com/alphagov/router#backends">router repository</a>.</p>
-<h5 id="getting-details-for-a-backend">Getting details for a backend:</h5>
-<pre lang="sh"><code>curl http://router-api.example.com/backends/foo
-</code></pre>
-<p>Will return the backend details in JSON format.</p>
-<h5 id="creatingupdating-a-backend">Creating/updating a backend:</h5>
-<pre lang="sh"><code>curl http://router-api.example.com/backends/foo -X PUT \
-    -H 'Content-type: application/json' \
-    -d '{"backend": {"backend_url": "http://foo.example.com/"}}'
-</code></pre>
-<p>This will update the <code>backend_url</code> for the backend with id 'foo'.  The backend entry will be created if it doesn't already exist (and a 201 status code returned).  The response will be a JSON representation of the updated backend.</p>
-<p>On validation error a 400 status code will be returned, and the resulting JSON document will have an "errors" key with more details.</p>
-<h5 id="deleting-a-backend">Deleting a backend:</h5>
-<pre lang="sh"><code>curl http://router-api.example.com/backends/foo -X DELETE
-</code></pre>
-<p>This will delete the backend with id 'foo'.  This will only be allowed if the backend has no associated routes.  A 400 status code will be returned if this is the case.</p>
+<h2 id="further-documentation">Further documentation</h2>
+<ul>
+<li><a href="/apps/router-api/api-endpoints.html">API Endpoints</a></li>
+</ul>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/router-api/blob/master/LICENSE">MIT License</a></p>
   </div>
