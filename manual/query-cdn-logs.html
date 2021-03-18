@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Query CDN logs | GOV.UK Developer Documentation</title>
+    <title>Query CDN logs - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/query-cdn-logs.html">
 
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta name="twitter:title" content="Query CDN logs - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/query-cdn-logs.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Query CDN logs" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/query-cdn-logs.html" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="Query CDN logs | GOV.UK Developer Documentation" />
-      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/query-cdn-logs.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            role="presentation"
+            aria-hidden="true"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -95,32 +95,38 @@
       </div>
 
         <div id="toc-heading" class="toc-show fixedsticky">
-          <a href="#toc" class="toc-show__label js-toc-show" aria-controls="toc">
+          <button type="button" class="toc-show__label js-toc-show" aria-controls="toc">
             Table of contents <span class="toc-show__icon"></span>
-          </a>
+          </button>
         </div>
 
       <div class="app-pane__body">
           <div class="app-pane__toc">
-            <div class="toc" data-module="table-of-contents">
+            <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
               <div class="search" data-module="search">
-  <form action="https://www.google.co.uk/search" method="get" role="search">
+  <form action="https://www.google.co.uk/search" method="get" role="search" class="search__form govuk-!-margin-bottom-4">
     <input type="hidden" name="as_sitesearch" value="https://docs.publishing.service.gov.uk"/>
-    <label class="govuk-label search__label" for="search">
+    <label class="govuk-label search__label" for="search" aria-hidden="true">
       Search (via Google)
     </label>
-    <input class="govuk-input govuk-!-margin-bottom-4" id="search" name="q" type="text" aria-controls="search-results" placeholder="Search">
+    <input
+      type="text"
+      id="search" name="q"
+      class="govuk-input govuk-!-margin-bottom-0 search__input"
+      aria-controls="search-results"
+      placeholder="Search">
+    <button type="submit" class="govuk-button search__button">Search</button>
   </form>
   <div id="search-results" class="search-results" aria-hidden="true" role="dialog" aria-labelledby="search-results-title">
     <div class="search-results__inner">
       <button class="search-results__close">Close<span class="search-results__close-label"> search results</span></button>
-      <h2 id="search-results-title" class="search-results__title" aria-live="polite">Results</h2>
+      <h2 id="search-results-title" class="search-results__title" aria-live="assertive" role="alert">Results</h2>
       <div class="search-results__content"></div>
     </div>
   </div>
 </div>
 
-              <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
+              <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
               <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
                   <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
   <ul>
@@ -276,7 +282,7 @@ AWS provides <a href="https://docs.aws.amazon.com/athena/latest/ug/functions-ope
 
 <div class="highlight"><pre class="highlight sql"><code><span class="k">SELECT</span> <span class="o">*</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
-<span class="k">WHERE</span> <span class="n">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2018</span>
+<span class="k">WHERE</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2018</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">request_received</span> <span class="k">DESC</span>
 <span class="k">LIMIT</span> <span class="mi">10</span>
 </code></pre></div>
@@ -307,16 +313,16 @@ write useful queries for particular scenarios.</p>
 <div class="highlight"><pre class="highlight sql"><code><span class="k">SELECT</span> <span class="n">status</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
 <span class="k">WHERE</span> <span class="n">status</span> <span class="o">&gt;=</span> <span class="mi">500</span> <span class="k">AND</span> <span class="n">status</span> <span class="o">&lt;=</span> <span class="mi">599</span>
-<span class="k">AND</span> <span class="n">request_received</span> <span class="o">&gt;=</span> <span class="k">TIMESTAMP</span> <span class="s1">'2018-08-20 08:00'</span>
-<span class="k">AND</span> <span class="n">request_received</span> <span class="o">&lt;</span> <span class="k">TIMESTAMP</span> <span class="s1">'2018-08-20 12:00'</span>
-<span class="k">AND</span> <span class="n">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2018</span>
+<span class="k">AND</span> <span class="n">request_received</span> <span class="o">&gt;=</span> <span class="nb">TIMESTAMP</span> <span class="s1">'2018-08-20 08:00'</span>
+<span class="k">AND</span> <span class="n">request_received</span> <span class="o">&lt;</span> <span class="nb">TIMESTAMP</span> <span class="s1">'2018-08-20 12:00'</span>
+<span class="k">AND</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2018</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">status</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="k">count</span> <span class="k">DESC</span>
 </code></pre></div>
 <div class="highlight"><pre class="highlight sql"><code><span class="k">SELECT</span> <span class="n">url</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
 <span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="k">AND</span> <span class="n">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2018</span>
+<span class="k">AND</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2018</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">url</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="k">count</span> <span class="k">DESC</span>
 </code></pre></div>
@@ -330,9 +336,9 @@ write useful queries for particular scenarios.</p>
     <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">total</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
 <span class="k">WHERE</span> <span class="n">url</span> <span class="o">=</span> <span class="s1">'/vat-rates'</span>
-<span class="k">AND</span> <span class="n">date</span> <span class="o">=</span> <span class="mi">16</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">7</span> <span class="k">AND</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2020</span>
+<span class="k">AND</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">16</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">7</span> <span class="k">AND</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2020</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">date_trunc</span><span class="p">(</span><span class="s1">'hour'</span><span class="p">,</span> <span class="n">request_received</span><span class="p">)</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="k">timestamp</span><span class="p">;</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="nb">timestamp</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="which-govuk-pages-changed-from-200-to-a-410-status-codes">Which GOV.UK pages changed from 200 to a 410 status codes</h3>
 
@@ -343,13 +349,13 @@ write useful queries for particular scenarios.</p>
   <span class="k">AND</span> <span class="n">response_non_200</span><span class="p">.</span><span class="k">method</span> <span class="o">=</span> <span class="n">response_200</span><span class="p">.</span><span class="k">method</span>
   <span class="k">AND</span> <span class="n">response_non_200</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">410</span>
   <span class="k">AND</span> <span class="n">response_non_200</span><span class="p">.</span><span class="n">request_received</span> <span class="o">&gt;</span> <span class="n">response_200</span><span class="p">.</span><span class="n">request_received</span>
-  <span class="k">AND</span> <span class="n">response_non_200</span><span class="p">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">response_200</span><span class="p">.</span><span class="n">date</span>
+  <span class="k">AND</span> <span class="n">response_non_200</span><span class="p">.</span><span class="nb">date</span> <span class="o">=</span> <span class="n">response_200</span><span class="p">.</span><span class="nb">date</span>
   <span class="k">AND</span> <span class="n">response_non_200</span><span class="p">.</span><span class="k">month</span> <span class="o">=</span> <span class="n">response_200</span><span class="p">.</span><span class="k">month</span>
-  <span class="k">AND</span> <span class="n">response_non_200</span><span class="p">.</span><span class="k">year</span> <span class="o">=</span> <span class="n">response_200</span><span class="p">.</span><span class="k">year</span>
+  <span class="k">AND</span> <span class="n">response_non_200</span><span class="p">.</span><span class="nb">year</span> <span class="o">=</span> <span class="n">response_200</span><span class="p">.</span><span class="nb">year</span>
 <span class="k">WHERE</span> <span class="n">response_200</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">200</span>
-<span class="k">AND</span> <span class="n">response_200</span><span class="p">.</span><span class="n">date</span> <span class="o">=</span> <span class="mi">21</span>
+<span class="k">AND</span> <span class="n">response_200</span><span class="p">.</span><span class="nb">date</span> <span class="o">=</span> <span class="mi">21</span>
 <span class="k">AND</span> <span class="n">response_200</span><span class="p">.</span><span class="k">month</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="k">AND</span> <span class="n">response_200</span><span class="p">.</span><span class="k">year</span> <span class="o">=</span> <span class="mi">2018</span>
+<span class="k">AND</span> <span class="n">response_200</span><span class="p">.</span><span class="nb">year</span> <span class="o">=</span> <span class="mi">2018</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">response_200</span><span class="p">.</span><span class="n">url</span>
 <span class="k">LIMIT</span> <span class="mi">100</span><span class="p">;</span>
 </code></pre></div>
@@ -358,7 +364,7 @@ write useful queries for particular scenarios.</p>
 <div class="highlight"><pre class="highlight sql"><code><span class="k">SELECT</span> <span class="n">date_trunc</span><span class="p">(</span><span class="s1">'hour'</span><span class="p">,</span> <span class="n">request_received</span><span class="p">)</span> <span class="k">AS</span> <span class="n">hour</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
 <span class="k">WHERE</span> <span class="n">url</span> <span class="o">=</span> <span class="s1">'/vat-rates'</span>
-<span class="k">AND</span> <span class="n">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2018</span>
+<span class="k">AND</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2018</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">date_trunc</span><span class="p">(</span><span class="s1">'hour'</span><span class="p">,</span> <span class="n">request_received</span><span class="p">)</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">date_trunc</span><span class="p">(</span><span class="s1">'hour'</span><span class="p">,</span> <span class="n">request_received</span><span class="p">)</span> <span class="k">ASC</span><span class="p">;</span>
 </code></pre></div>
@@ -366,7 +372,7 @@ write useful queries for particular scenarios.</p>
 
 <div class="highlight"><pre class="highlight sql"><code><span class="k">SELECT</span> <span class="n">url</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_assets</span>
-<span class="k">WHERE</span> <span class="n">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2018</span>
+<span class="k">WHERE</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2018</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">url</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="k">count</span> <span class="k">DESC</span>
 <span class="k">LIMIT</span> <span class="mi">50</span>
@@ -375,7 +381,7 @@ write useful queries for particular scenarios.</p>
 
 <div class="highlight"><pre class="highlight sql"><code><span class="k">SELECT</span> <span class="n">url</span><span class="p">,</span> <span class="n">bytes</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">served</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_assets</span>
-<span class="k">WHERE</span> <span class="n">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2018</span>
+<span class="k">WHERE</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2018</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">url</span><span class="p">,</span> <span class="n">bytes</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">bytes</span> <span class="k">DESC</span>
 <span class="k">LIMIT</span> <span class="mi">50</span>
@@ -384,7 +390,7 @@ write useful queries for particular scenarios.</p>
 
 <div class="highlight"><pre class="highlight sql"><code><span class="k">SELECT</span> <span class="n">user_agent</span><span class="p">,</span> <span class="k">host</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">bouncer</span>
-<span class="k">WHERE</span> <span class="n">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2018</span>
+<span class="k">WHERE</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">20</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">AND</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2018</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">user_agent</span><span class="p">,</span> <span class="k">host</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="k">count</span> <span class="k">DESC</span>
 <span class="k">LIMIT</span> <span class="mi">50</span>
@@ -392,7 +398,7 @@ write useful queries for particular scenarios.</p>
 <h3 id="tls-versions-over-time">TLS versions over time</h3>
 
 <div class="highlight"><pre class="highlight sql"><code><span class="k">SELECT</span>
-    <span class="n">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">),</span>
+    <span class="nb">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">),</span>
     <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">hits</span><span class="p">,</span>
                              <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">tls_client_protocol</span> <span class="o">=</span> <span class="s1">'TLSv1'</span><span class="p">)</span>       <span class="k">AS</span> <span class="n">TLSv10</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span> <span class="o">/</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">tls_client_protocol</span> <span class="o">=</span> <span class="s1">'TLSv1'</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>   <span class="k">AS</span> <span class="n">TLSv10_perc</span><span class="p">,</span>
@@ -406,8 +412,8 @@ write useful queries for particular scenarios.</p>
     <span class="n">ROUND</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span> <span class="o">/</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">tls_client_protocol</span> <span class="o">=</span> <span class="s1">''</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>        <span class="k">AS</span> <span class="n">unknown_perc</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
 <span class="k">WHERE</span> <span class="n">fastly_backend</span> <span class="o">!=</span> <span class="s1">'force_ssl'</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span> <span class="k">ASC</span><span class="p">;</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="nb">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="nb">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span> <span class="k">ASC</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="requests-from-tor-exit-nodes">Requests from Tor exit nodes</h3>
 
@@ -415,7 +421,7 @@ write useful queries for particular scenarios.</p>
 <span class="c1">-- Tor nodes change regularly: the longer back in time you query, the less accurate it will be</span>
 <span class="k">SELECT</span> <span class="n">hit_date</span><span class="p">,</span> <span class="n">hits</span><span class="p">,</span> <span class="n">tor_hits</span><span class="p">,</span> <span class="mi">100</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">hits</span><span class="o">*</span><span class="n">tor_hits</span> <span class="k">AS</span> <span class="n">tor_perc</span> <span class="k">FROM</span> <span class="p">(</span>
     <span class="k">SELECT</span>
-        <span class="n">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span> <span class="k">AS</span> <span class="n">hit_date</span><span class="p">,</span>
+        <span class="nb">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span> <span class="k">AS</span> <span class="n">hit_date</span><span class="p">,</span>
         <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">hits</span><span class="p">,</span>
         <span class="k">SUM</span><span class="p">(</span>
           <span class="k">CASE</span> <span class="k">WHEN</span> <span class="n">client_ip</span> <span class="k">IN</span> <span class="p">(</span>
@@ -425,10 +431,10 @@ write useful queries for particular scenarios.</p>
             <span class="s1">'98.174.90.43'</span>
           <span class="p">)</span> <span class="k">THEN</span> <span class="mi">1</span> <span class="k">ELSE</span> <span class="mi">0</span> <span class="k">END</span><span class="p">)</span> <span class="k">AS</span> <span class="n">tor_hits</span>
     <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
-    <span class="k">WHERE</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="n">X</span>
+    <span class="k">WHERE</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="n">X</span>
       <span class="k">AND</span> <span class="n">fastly_backend</span> <span class="o">!=</span> <span class="s1">'force_ssl'</span>
-    <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span>
-    <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span> <span class="k">ASC</span>
+    <span class="k">GROUP</span> <span class="k">BY</span> <span class="nb">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span>
+    <span class="k">ORDER</span> <span class="k">BY</span> <span class="nb">DATE</span><span class="p">(</span><span class="n">request_received</span><span class="p">)</span> <span class="k">ASC</span>
 <span class="p">)</span>
 </code></pre></div>
 <h3 id="cdn-cache-response-rates">CDN cache response rates</h3>
@@ -447,7 +453,7 @@ write useful queries for particular scenarios.</p>
                              <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">cache_response</span> <span class="o">=</span> <span class="s1">'SYNTH'</span><span class="p">)</span>     <span class="k">AS</span> <span class="n">synth_cnt</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span> <span class="o">/</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">cache_response</span> <span class="o">=</span> <span class="s1">'SYNTH'</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span> <span class="k">AS</span> <span class="n">synth_pc</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
-<span class="k">WHERE</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="n">date</span> <span class="o">=</span> <span class="n">X</span>
+<span class="k">WHERE</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="nb">date</span> <span class="o">=</span> <span class="n">X</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span> <span class="k">ASC</span><span class="p">;</span>
 </code></pre></div>
@@ -461,7 +467,7 @@ write useful queries for particular scenarios.</p>
                              <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">cache_response</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">'PASS'</span><span class="p">,</span> <span class="s1">'MISS'</span><span class="p">))</span>         <span class="k">AS</span> <span class="n">cache_misses</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span> <span class="o">/</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">cache_response</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">'PASS'</span><span class="p">,</span> <span class="s1">'MISS'</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>     <span class="k">AS</span> <span class="n">cache_miss_pc</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
-<span class="k">WHERE</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="n">date</span> <span class="o">=</span> <span class="n">X</span>
+<span class="k">WHERE</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="nb">date</span> <span class="o">=</span> <span class="n">X</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">2</span> <span class="k">DESC</span><span class="p">;</span>
 </code></pre></div>
@@ -472,7 +478,7 @@ write useful queries for particular scenarios.</p>
     <span class="k">method</span><span class="p">,</span>
     <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">AS</span> <span class="n">total_requests</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="k">AVG</span><span class="p">(</span><span class="n">request_time</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span> <span class="k">AS</span> <span class="n">average_rq_time</span><span class="p">,</span>
-    <span class="k">CAST</span><span class="p">(</span><span class="n">ROUND</span><span class="p">(</span><span class="k">SUM</span><span class="p">(</span><span class="n">request_time</span><span class="p">))</span> <span class="k">AS</span> <span class="n">INTEGER</span><span class="p">)</span> <span class="k">AS</span> <span class="n">total_rq_time</span><span class="p">,</span>
+    <span class="k">CAST</span><span class="p">(</span><span class="n">ROUND</span><span class="p">(</span><span class="k">SUM</span><span class="p">(</span><span class="n">request_time</span><span class="p">))</span> <span class="k">AS</span> <span class="nb">INTEGER</span><span class="p">)</span> <span class="k">AS</span> <span class="n">total_rq_time</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="k">MIN</span><span class="p">(</span><span class="n">request_time</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p0</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="n">APPROX_PERCENTILE</span><span class="p">(</span><span class="n">request_time</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p50</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="n">APPROX_PERCENTILE</span><span class="p">(</span><span class="n">request_time</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">7</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p70</span><span class="p">,</span>
@@ -481,7 +487,7 @@ write useful queries for particular scenarios.</p>
     <span class="n">ROUND</span><span class="p">(</span><span class="n">APPROX_PERCENTILE</span><span class="p">(</span><span class="n">request_time</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">95</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p95</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="k">MAX</span><span class="p">(</span><span class="n">request_time</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p100</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
-<span class="k">WHERE</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2020</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">11</span> <span class="k">AND</span> <span class="n">date</span> <span class="o">=</span> <span class="mi">26</span>
+<span class="k">WHERE</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2020</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">11</span> <span class="k">AND</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">26</span>
   <span class="k">AND</span> <span class="n">url</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'/assets/%'</span>
   <span class="k">AND</span> <span class="n">cache_response</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">'PASS'</span><span class="p">,</span> <span class="s1">'MISS'</span><span class="p">)</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
@@ -511,7 +517,7 @@ write useful queries for particular scenarios.</p>
     <span class="n">ROUND</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span> <span class="o">/</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">cache_response</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">'PASS'</span><span class="p">,</span> <span class="s1">'MISS'</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>     <span class="k">AS</span> <span class="n">cache_miss_pc</span><span class="p">,</span>
     <span class="c1">-- mean and summed request time</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="k">AVG</span><span class="p">(</span><span class="n">request_time</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span> <span class="k">AS</span> <span class="n">average_rq_time</span><span class="p">,</span>
-    <span class="k">CAST</span><span class="p">(</span><span class="n">ROUND</span><span class="p">(</span><span class="k">SUM</span><span class="p">(</span><span class="n">request_time</span><span class="p">))</span> <span class="k">AS</span> <span class="n">INTEGER</span><span class="p">)</span> <span class="k">AS</span> <span class="n">total_rq_time</span><span class="p">,</span>
+    <span class="k">CAST</span><span class="p">(</span><span class="n">ROUND</span><span class="p">(</span><span class="k">SUM</span><span class="p">(</span><span class="n">request_time</span><span class="p">))</span> <span class="k">AS</span> <span class="nb">INTEGER</span><span class="p">)</span> <span class="k">AS</span> <span class="n">total_rq_time</span><span class="p">,</span>
     <span class="c1">-- approximated request time percentiles</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="k">MIN</span><span class="p">(</span><span class="n">request_time</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p0</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="n">APPROX_PERCENTILE</span><span class="p">(</span><span class="n">request_time</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p50</span><span class="p">,</span>
@@ -521,7 +527,7 @@ write useful queries for particular scenarios.</p>
     <span class="n">ROUND</span><span class="p">(</span><span class="n">APPROX_PERCENTILE</span><span class="p">(</span><span class="n">request_time</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">95</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p95</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="k">MAX</span><span class="p">(</span><span class="n">request_time</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p100</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
-<span class="k">WHERE</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">AND</span> <span class="n">date</span> <span class="o">=</span> <span class="n">X</span>
+<span class="k">WHERE</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">AND</span> <span class="nb">date</span> <span class="o">=</span> <span class="n">X</span>
   <span class="k">AND</span> <span class="n">url</span> <span class="k">LIKE</span> <span class="s1">'/find-coronavirus-local-restrictions?postcode=%'</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">2</span> <span class="k">DESC</span><span class="p">;</span>
@@ -544,7 +550,7 @@ write useful queries for particular scenarios.</p>
                              <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">cache_response</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">'PASS'</span><span class="p">,</span> <span class="s1">'MISS'</span><span class="p">))</span>         <span class="k">AS</span> <span class="n">cache_misses</span><span class="p">,</span>
     <span class="n">ROUND</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">0</span> <span class="o">/</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">cache_response</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">'PASS'</span><span class="p">,</span> <span class="s1">'MISS'</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>     <span class="k">AS</span> <span class="n">cache_miss_pc</span>
 <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
-<span class="k">WHERE</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="n">date</span> <span class="o">=</span> <span class="n">X</span>
+<span class="k">WHERE</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="nb">date</span> <span class="o">=</span> <span class="n">X</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span> <span class="k">ASC</span><span class="p">;</span>
 </code></pre></div>
@@ -566,9 +572,9 @@ write useful queries for particular scenarios.</p>
     <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">status</span> <span class="k">BETWEEN</span> <span class="mi">200</span> <span class="k">AND</span> <span class="mi">499</span><span class="p">)</span> <span class="k">AS</span> <span class="n">successful_requests</span><span class="p">,</span>
     <span class="mi">100</span><span class="p">.</span><span class="mi">0</span> <span class="o">/</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">*</span> <span class="n">COUNT_IF</span><span class="p">(</span><span class="n">status</span> <span class="k">BETWEEN</span> <span class="mi">200</span> <span class="k">AND</span> <span class="mi">499</span><span class="p">)</span> <span class="k">AS</span> <span class="n">availability</span>
   <span class="k">FROM</span> <span class="n">fastly_logs</span><span class="p">.</span><span class="n">govuk_www</span>
-  <span class="k">WHERE</span> <span class="k">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="n">date</span> <span class="o">&gt;=</span> <span class="mi">12</span> <span class="k">AND</span> <span class="n">date</span> <span class="o">&lt;=</span> <span class="mi">12</span>
+  <span class="k">WHERE</span> <span class="nb">year</span> <span class="o">=</span> <span class="mi">2021</span> <span class="k">AND</span> <span class="k">month</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="nb">date</span> <span class="o">&gt;=</span> <span class="mi">12</span> <span class="k">AND</span> <span class="nb">date</span> <span class="o">&lt;=</span> <span class="mi">12</span>
     <span class="k">AND</span> <span class="n">user_agent</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="s1">'GOV.UK Crawler Worker%'</span>
-    <span class="k">AND</span> <span class="n">request_received</span> <span class="o">&gt;</span> <span class="k">TIMESTAMP</span> <span class="s1">'2021-01-12 15:00:00'</span>
+    <span class="k">AND</span> <span class="n">request_received</span> <span class="o">&gt;</span> <span class="nb">TIMESTAMP</span> <span class="s1">'2021-01-12 15:00:00'</span>
   <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">date_trunc</span><span class="p">(</span><span class="s1">'minute'</span><span class="p">,</span> <span class="n">request_received</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="k">WHERE</span> <span class="n">availability</span> <span class="o">&lt;</span> <span class="mi">99</span><span class="p">.</span><span class="mi">9</span>
@@ -740,7 +746,7 @@ problem or update the log formatting in Fastly to resolve the issue.</p>
         </ul>
 
       <svg
-        role="presentation"
+        aria-hidden="true"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Our content delivery network (CDN) | GOV.UK Developer Documentation</title>
+    <title>Our content delivery network (CDN) - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/cdn.html">
 
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta name="twitter:title" content="Our content delivery network (CDN) - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/cdn.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Our content delivery network (CDN)" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/cdn.html" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="Our content delivery network (CDN) | GOV.UK Developer Documentation" />
-      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/cdn.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            role="presentation"
+            aria-hidden="true"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -95,32 +95,38 @@
       </div>
 
         <div id="toc-heading" class="toc-show fixedsticky">
-          <a href="#toc" class="toc-show__label js-toc-show" aria-controls="toc">
+          <button type="button" class="toc-show__label js-toc-show" aria-controls="toc">
             Table of contents <span class="toc-show__icon"></span>
-          </a>
+          </button>
         </div>
 
       <div class="app-pane__body">
           <div class="app-pane__toc">
-            <div class="toc" data-module="table-of-contents">
+            <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
               <div class="search" data-module="search">
-  <form action="https://www.google.co.uk/search" method="get" role="search">
+  <form action="https://www.google.co.uk/search" method="get" role="search" class="search__form govuk-!-margin-bottom-4">
     <input type="hidden" name="as_sitesearch" value="https://docs.publishing.service.gov.uk"/>
-    <label class="govuk-label search__label" for="search">
+    <label class="govuk-label search__label" for="search" aria-hidden="true">
       Search (via Google)
     </label>
-    <input class="govuk-input govuk-!-margin-bottom-4" id="search" name="q" type="text" aria-controls="search-results" placeholder="Search">
+    <input
+      type="text"
+      id="search" name="q"
+      class="govuk-input govuk-!-margin-bottom-0 search__input"
+      aria-controls="search-results"
+      placeholder="Search">
+    <button type="submit" class="govuk-button search__button">Search</button>
   </form>
   <div id="search-results" class="search-results" aria-hidden="true" role="dialog" aria-labelledby="search-results-title">
     <div class="search-results__inner">
       <button class="search-results__close">Close<span class="search-results__close-label"> search results</span></button>
-      <h2 id="search-results-title" class="search-results__title" aria-live="polite">Results</h2>
+      <h2 id="search-results-title" class="search-results__title" aria-live="assertive" role="alert">Results</h2>
       <div class="search-results__content"></div>
     </div>
   </div>
 </div>
 
-              <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
+              <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
               <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
                   <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
   <ul>
@@ -276,7 +282,7 @@
   <li>Find the correct values for $stag_prefix and $prod_prefix in Carrenza and run this script, setting env to either staging or production and put the list of new Fastly IP ranges into fastly_ips as an array</li>
 </ol>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">env</span><span class="o">=</span><span class="nv">$1</span>
+<div class="highlight"><pre class="highlight shell"><code><span class="nb">env</span><span class="o">=</span><span class="nv">$1</span>
 <span class="nv">fastly_ips</span><span class="o">=()</span>
 
 <span class="k">case</span> <span class="nv">$env</span> <span class="k">in</span>
@@ -298,21 +304,21 @@
 <span class="nv">names</span><span class="o">=(</span>origin API monitoring-1_GOV.UK monitoring-1_Assets monitoring-1_Bouncer apt_mirror Backend_AWS<span class="o">)</span>
 
 <span class="nv">nb_rules</span><span class="o">=</span><span class="k">$((</span> <span class="k">${#</span><span class="nv">fastly_ips</span><span class="p">[@]</span><span class="k">}</span> <span class="o">*</span> <span class="m">7</span> <span class="k">))</span>
-<span class="k">for </span>i <span class="k">in</span> <span class="k">$(</span>seq <span class="nv">$nb_rules</span> <span class="nv">$END</span><span class="k">)</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq</span> <span class="nv">$nb_rules</span> <span class="nv">$END</span><span class="si">)</span>
 <span class="k">do
         </span>vcd gateway services firewall create <span class="nt">--disabled</span> <span class="nt">--name</span> <span class="s2">"NewRule_</span><span class="nv">$i</span><span class="s2">"</span> <span class="nt">--action</span> accept <span class="nt">--type</span> user <span class="nv">$gateway</span>
 <span class="k">done
 
-</span><span class="nv">newrules_ids</span><span class="o">=(</span><span class="sb">`</span>vcd gateway services firewall list <span class="nv">$gateway</span> | <span class="nb">grep</span> <span class="s1">'NewRule_'</span> | awk <span class="s1">'{print $1'</span><span class="o">}</span><span class="sb">`</span><span class="o">)</span>
+</span><span class="nv">newrules_ids</span><span class="o">=(</span><span class="sb">`</span>vcd gateway services firewall list <span class="nv">$gateway</span> | <span class="nb">grep</span> <span class="s1">'NewRule_'</span> | <span class="nb">awk</span> <span class="s1">'{print $1'</span><span class="o">}</span><span class="sb">`</span><span class="o">)</span>
 
-<span class="nv">seq</span><span class="o">=</span>0
+<span class="nb">seq</span><span class="o">=</span>0
 <span class="k">for </span>ip <span class="k">in</span> <span class="k">${</span><span class="nv">fastly_ips</span><span class="p">[@]</span><span class="k">}</span>
 <span class="k">do
-        for </span>i <span class="k">in</span> <span class="sb">`</span>seq 0 6<span class="sb">`</span>
+        for </span>i <span class="k">in</span> <span class="sb">`</span><span class="nb">seq </span>0 6<span class="sb">`</span>
         <span class="k">do
                 </span><span class="nv">name</span><span class="o">=</span><span class="s2">"'Fastly </span><span class="nv">$ip</span><span class="s2"> to </span><span class="k">${</span><span class="nv">names</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span><span class="s2">'"</span>
                 vcd gateway services firewall update <span class="nt">--enabled</span> <span class="nt">--name</span> <span class="nv">$name</span> <span class="nt">--source</span> <span class="nv">$ip</span>:ip <span class="nt">--destination</span> <span class="k">${</span><span class="nv">dests</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span>:ip <span class="nt">--service</span> tcp any <span class="k">${</span><span class="nv">ports</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span> <span class="nv">$gateway</span> <span class="k">${</span><span class="nv">newrules_ids</span><span class="p">[</span><span class="nv">$seq</span><span class="p">]</span><span class="k">}</span>
-                <span class="nv">seq</span><span class="o">=</span><span class="k">$((</span>seq+1<span class="k">))</span>
+                <span class="nb">seq</span><span class="o">=</span><span class="k">$((</span><span class="nb">seq</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
         <span class="k">done
 done</span>
 </code></pre></div>
@@ -410,7 +416,7 @@ done</span>
         </ul>
 
       <svg
-        role="presentation"
+        aria-hidden="true"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

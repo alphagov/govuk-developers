@@ -6,25 +6,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Document type: news_article | GOV.UK Developer Documentation</title>
+    <title>Document type: news_article - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/document-types/news_article.html">
 
+      <meta name="description" content="Everything about the 'news_article' document type" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta name="twitter:title" content="Document type: news_article - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/document-types/news_article.html" />
 
-      <meta property="description" content="Everything about the 'news_article' document type" />
       <meta property="og:description" content="Everything about the 'news_article' document type" />
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Document type: news_article" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/document-types/news_article.html" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="Document type: news_article | GOV.UK Developer Documentation" />
-      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/document-types/news_article.html" />
 
     
   </head>
@@ -42,7 +42,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            role="presentation"
+            aria-hidden="true"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -93,32 +93,38 @@
       </div>
 
         <div id="toc-heading" class="toc-show fixedsticky">
-          <a href="#toc" class="toc-show__label js-toc-show" aria-controls="toc">
+          <button type="button" class="toc-show__label js-toc-show" aria-controls="toc">
             Table of contents <span class="toc-show__icon"></span>
-          </a>
+          </button>
         </div>
 
       <div class="app-pane__body">
           <div class="app-pane__toc">
-            <div class="toc" data-module="table-of-contents">
+            <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
               <div class="search" data-module="search">
-  <form action="https://www.google.co.uk/search" method="get" role="search">
+  <form action="https://www.google.co.uk/search" method="get" role="search" class="search__form govuk-!-margin-bottom-4">
     <input type="hidden" name="as_sitesearch" value="https://docs.publishing.service.gov.uk"/>
-    <label class="govuk-label search__label" for="search">
+    <label class="govuk-label search__label" for="search" aria-hidden="true">
       Search (via Google)
     </label>
-    <input class="govuk-input govuk-!-margin-bottom-4" id="search" name="q" type="text" aria-controls="search-results" placeholder="Search">
+    <input
+      type="text"
+      id="search" name="q"
+      class="govuk-input govuk-!-margin-bottom-0 search__input"
+      aria-controls="search-results"
+      placeholder="Search">
+    <button type="submit" class="govuk-button search__button">Search</button>
   </form>
   <div id="search-results" class="search-results" aria-hidden="true" role="dialog" aria-labelledby="search-results-title">
     <div class="search-results__inner">
       <button class="search-results__close">Close<span class="search-results__close-label"> search results</span></button>
-      <h2 id="search-results-title" class="search-results__title" aria-live="polite">Results</h2>
+      <h2 id="search-results-title" class="search-results__title" aria-live="assertive" role="alert">Results</h2>
       <div class="search-results__content"></div>
     </div>
   </div>
 </div>
 
-              <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
+              <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
               <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
                   <ul>
     <li><a href="/document-types.html"><span>Document types</span></a>
@@ -386,16 +392,16 @@
 <h2 id="example-pages">Example pages</h2>
 
 <ul>
-  <li><a href="https://www.gov.uk/government/world-location-news/275931.es">Un día en la vida de Simon Manley</a></li>
-  <li><a href="https://www.gov.uk/government/world-location-news/286041.es-419">Se presentó la 5ta edición del Festival Shakespeare Buenos Aires en la Residencia del Embajador Británico en Argentina</a></li>
-  <li><a href="https://www.gov.uk/government/world-location-news/international-day-against-homophobia-and-transphobia--2">International Day Against Homophobia and Transphobia</a></li>
-  <li><a href="https://www.gov.uk/government/world-location-news/turks-and-caicos-post-cabinet-meeting-statement--35">TURKS AND CAICOS POST CABINET MEETING STATEMENT</a></li>
-  <li><a href="https://www.gov.uk/government/world-location-news/179099.pt">Governo britânico promove a Grã-Bretanha na Rock Street</a></li>
-  <li><a href="https://www.gov.uk/government/world-location-news/294171.es-419">Ministro Británico de Estado para América Latina felicita al nuevo Vicepresidente de Guatemala</a></li>
-  <li><a href="https://www.gov.uk/government/world-location-news/210510.zh-tw">英國慶祝世界人權日 讚許台灣人權發展</a></li>
-  <li><a href="https://www.gov.uk/government/world-location-news/--8">英國貿易投資署和英國智慧財產權官員協助蘇格蘭威士忌協會打擊中國侵權，成功捍衛蘇格蘭原產地地理標示資格</a></li>
-  <li><a href="https://www.gov.uk/government/world-location-news/263762.it">La premiazione dei ragazzi vincitori del Kangourou della lingua inglese 2014</a></li>
-  <li><a href="https://www.gov.uk/government/world-location-news/264569.es-419">Ministro para Latinoamérica participa en el Chile Day 2014</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/lietuvos-pirmininkavimas-es-tarybai-keli-faktai--2">Lietuvos pirmininkavimas ES Tarybai: keli faktai</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/glasgow-2014-commonwealth-games-to-start-tomorrow--2">Glasgow 2014 Commonwealth Games to start tomorrow</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/215466.es">"España es una de las naciones europeas líderes en el ámbito científico…por lo que es muy importante para nosotros"</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/reduced-consular-services-at-british-embassy-ljubljana--2">Reduced consular services at British Embassy Ljubljana</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/uk-foreign-secretary-william-hague-arrives-in-pakistan">UK Foreign Secretary William Hague arrives in Pakistan</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/british-embassy-zagreb-closed-for-easter-holidays">British Embassy Zagreb and British consulates are closed</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/284564.es-419">Embajada Británica otorgará 10 becas para estudiar inglés en línea</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/turks-and-caicos-post-cabinet-meeting-statement--10">TURKS AND CAICOS POST CABINET MEETING STATEMENT</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/structural-survey-of-anguillas-main-jetty-by-major-andy-nixon-mbe">Structural Survey of Anguilla's Main Jetty by Major Andy Nixon MBE</a></li>
+  <li><a href="https://www.gov.uk/government/world-location-news/179566.cs">Reakce na reportáž České televize o odebírání dětí v UK</a></li>
 </ul>
 
 <p><a href="https://www.gov.uk/api/search.json?filter_content_store_document_type=news_article&amp;count=10">Source query from Search API</a></p>
@@ -423,7 +429,7 @@
         </ul>
 
       <svg
-        role="presentation"
+        aria-hidden="true"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"

@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Intro to GOV.UK Docker | GOV.UK Developer Documentation</title>
+    <title>Intro to GOV.UK Docker - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
     <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/intro-to-docker.html">
 
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
+      <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
+      <meta name="twitter:title" content="Intro to GOV.UK Docker - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/intro-to-docker.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
       <meta property="og:title" content="Intro to GOV.UK Docker" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/intro-to-docker.html" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:domain" content="docs.publishing.service.gov.uk" />
-      <meta property="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta property="twitter:title" content="Intro to GOV.UK Docker | GOV.UK Developer Documentation" />
-      <meta property="twitter:url" content="https://docs.publishing.service.gov.uk/manual/intro-to-docker.html" />
 
     
   </head>
@@ -44,7 +44,7 @@
       <a href="/" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           <svg
-            role="presentation"
+            aria-hidden="true"
             focusable="false"
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
       <nav>
         <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item">
@@ -95,32 +95,38 @@
       </div>
 
         <div id="toc-heading" class="toc-show fixedsticky">
-          <a href="#toc" class="toc-show__label js-toc-show" aria-controls="toc">
+          <button type="button" class="toc-show__label js-toc-show" aria-controls="toc">
             Table of contents <span class="toc-show__icon"></span>
-          </a>
+          </button>
         </div>
 
       <div class="app-pane__body">
           <div class="app-pane__toc">
-            <div class="toc" data-module="table-of-contents">
+            <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
               <div class="search" data-module="search">
-  <form action="https://www.google.co.uk/search" method="get" role="search">
+  <form action="https://www.google.co.uk/search" method="get" role="search" class="search__form govuk-!-margin-bottom-4">
     <input type="hidden" name="as_sitesearch" value="https://docs.publishing.service.gov.uk"/>
-    <label class="govuk-label search__label" for="search">
+    <label class="govuk-label search__label" for="search" aria-hidden="true">
       Search (via Google)
     </label>
-    <input class="govuk-input govuk-!-margin-bottom-4" id="search" name="q" type="text" aria-controls="search-results" placeholder="Search">
+    <input
+      type="text"
+      id="search" name="q"
+      class="govuk-input govuk-!-margin-bottom-0 search__input"
+      aria-controls="search-results"
+      placeholder="Search">
+    <button type="submit" class="govuk-button search__button">Search</button>
   </form>
   <div id="search-results" class="search-results" aria-hidden="true" role="dialog" aria-labelledby="search-results-title">
     <div class="search-results__inner">
       <button class="search-results__close">Close<span class="search-results__close-label"> search results</span></button>
-      <h2 id="search-results-title" class="search-results__title" aria-live="polite">Results</h2>
+      <h2 id="search-results-title" class="search-results__title" aria-live="assertive" role="alert">Results</h2>
       <div class="search-results__content"></div>
     </div>
   </div>
 </div>
 
-              <a href="#" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></a>
+              <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
               <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
                   <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
   <ul>
@@ -249,7 +255,7 @@ Docker version 18.09.2, build 6247962
   <li>Mount your current directory as a volume to the container by running:</li>
 </ul>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app ruby:2.6.3 bash
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>:/app ruby:2.6.3 bash
 </code></pre></div>
 <p>This will map your current directory (the root of the <a href="https://github.com/alphagov/content-publisher">content-publisher</a> project) to <code>/app</code> inside of the container. So now the files on your <code>$mac</code> for <a href="https://github.com/alphagov/content-publisher">content-publisher</a> are now also available inside of the container.</p>
 
@@ -258,7 +264,7 @@ Docker version 18.09.2, build 6247962
 </ul>
 
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$dev</span> <span class="nb">cd</span> /app
-<span class="nv">$dev</span> bundle install
+<span class="nv">$dev</span> bundle <span class="nb">install</span>
 </code></pre></div>
 <blockquote>
   <p>Note: you may need to use a different image (e.g. <code>ruby:2.6.5</code>) depending on the version specified in <a href="https://github.com/alphagov/content-publisher/blob/master/.ruby-version"><code>.ruby-version</code></a> in <a href="https://github.com/alphagov/content-publisher">content-publisher</a>.</p>
@@ -286,14 +292,14 @@ Docker version 18.09.2, build 6247962
   <li>Run docker with that volume by using the <code>-v</code> flag and passing it the name of the volume:</li>
 </ul>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app <span class="nt">-v</span> content-publisher-bundle:/usr/local/bundle ruby:2.6.3 bash
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>:/app <span class="nt">-v</span> content-publisher-bundle:/usr/local/bundle ruby:2.6.3 bash
 </code></pre></div>
 <ul>
   <li>Then install the gems again:</li>
 </ul>
 
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$dev</span> <span class="nb">cd</span> /app
-<span class="nv">$dev</span> bundle install
+<span class="nv">$dev</span> bundle <span class="nb">install</span>
 </code></pre></div>
 <p>This time the gems will install in the <code>content-publisher-bundle</code> volume, which is available in the container under <code>/usr/local/bundle</code>. The gems will now be around if you shut down the container and restarted it.</p>
 
@@ -329,8 +335,8 @@ Docker version 18.09.2, build 6247962
 
 <span class="k">RUN </span>curl <span class="nt">-sL</span> https://deb.nodesource.com/setup_12.x | bash
 <span class="k">RUN </span>curl <span class="nt">-sS</span> https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-<span class="k">RUN </span><span class="nb">echo</span> <span class="s2">"deb https://dl.yarnpkg.com/debian/ stable main"</span> | tee /etc/apt/sources.list.d/yarn.list
-<span class="k">RUN </span>apt-get update <span class="nt">-qq</span> <span class="o">&amp;&amp;</span> apt-get install <span class="nt">-y</span> yarn nodejs
+<span class="k">RUN </span><span class="nb">echo</span> <span class="s2">"deb https://dl.yarnpkg.com/debian/ stable main"</span> | <span class="nb">tee</span> /etc/apt/sources.list.d/yarn.list
+<span class="k">RUN </span>apt-get update <span class="nt">-qq</span> <span class="o">&amp;&amp;</span> apt-get <span class="nb">install</span> <span class="nt">-y</span> yarn nodejs
 </code></pre></div>
 <ul>
   <li>Build our new image:</li>
@@ -352,7 +358,7 @@ log
   <li>Now we can start a container with our new image:</li>
 </ul>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app <span class="nt">-v</span> content-publisher-bundle:/usr/local/bundle content-publisher-demo bash
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>:/app <span class="nt">-v</span> content-publisher-bundle:/usr/local/bundle content-publisher-demo bash
 <span class="nv">$mac</span> <span class="nb">cd</span> /app
 <span class="nv">$mac</span> yarn
 </code></pre></div>
@@ -362,16 +368,16 @@ log
   <li>Add the following to the Dockerfile:</li>
 </ul>
 
-<div class="highlight"><pre class="highlight docker"><code><span class="k">RUN </span>apt-get install <span class="nt">-y</span> libxss1 libappindicator1 libindicator7 <span class="o">&amp;&amp;</span> apt-get clean
+<div class="highlight"><pre class="highlight docker"><code><span class="k">RUN </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> libxss1 libappindicator1 libindicator7 <span class="o">&amp;&amp;</span> apt-get clean
 <span class="k">RUN </span>wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-<span class="k">RUN </span>dpkg <span class="nt">-i</span> google-chrome-stable_current_amd64.deb<span class="p">;</span> apt-get <span class="nt">-fy</span> install
+<span class="k">RUN </span>dpkg <span class="nt">-i</span> google-chrome-stable_current_amd64.deb<span class="p">;</span> apt-get <span class="nt">-fy</span> <span class="nb">install</span>
 </code></pre></div>
 <ul>
   <li>Then rebuild image and re-run the container:</li>
 </ul>
 
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker build <span class="nt">-t</span> content-publisher-demo <span class="nb">.</span>
-<span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app <span class="nt">-v</span> content-publisher-bundle:/usr/local/bundle content-publisher-demo bash
+<span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>:/app <span class="nt">-v</span> content-publisher-bundle:/usr/local/bundle content-publisher-demo bash
 </code></pre></div>
 <blockquote>
   <p>Note: Each time you change the Dockerfile, you need to remember to rebuild the docker image.</p>
@@ -470,7 +476,7 @@ a7b87be3e1bc        postgres            <span class="s2">"docker-entrypoint.s…
   <li>Give the content-publisher container <a href="privileged">low-level privileges</a></li>
 </ul>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/app <span class="nt">-v</span> content-publisher-bundle:/usr/local/bundle <span class="nt">--privileged</span> content-publisher-demo bash
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker run <span class="nt">-it</span> <span class="nt">-v</span> <span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>:/app <span class="nt">-v</span> content-publisher-bundle:/usr/local/bundle <span class="nt">--privileged</span> content-publisher-demo bash
 </code></pre></div>
 <ul>
   <li>Run the tests and watch (most of) them pass!</li>
@@ -534,7 +540,7 @@ services:
       TEST_DATABASE_URL: "postgresql://postgres@postgres/content-publisher-test"
     working_dir: /app
 </code></pre></div>
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker-compose run content-publisher-demo bundle install
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$mac</span> docker-compose run content-publisher-demo bundle <span class="nb">install</span>
 <span class="nv">$mac</span> docker-compose run content-publisher-demo bundle <span class="nb">exec </span>rake db:setup
 <span class="nv">$mac</span> docker-compose run content-publisher-demo bundle <span class="nb">exec </span>rake
 </code></pre></div>
@@ -597,7 +603,7 @@ services:
         </ul>
 
       <svg
-        role="presentation"
+        aria-hidden="true"
         focusable="false"
         class="govuk-footer__licence-logo"
         xmlns="http://www.w3.org/2000/svg"
