@@ -400,15 +400,9 @@
 
 <div class="embedded-readme">
     
-<p>Imminence manages sets of (somewhat) structured data for use elsewhere on GOV.UK.
-It's primarily used for geographical data such as lists of registry offices, test
-centres, and the like.</p>
-<p>The data is structured as a set of Services which represent a distinct type of
-location. A Service can then have many Data Sets which are in turn collections of
-Places. Only one Data Set will be "active" at any given time.</p>
-<p>Each data set is uploaded as a CSV file. A cron job takes care of geocoding the
-places within it. It can then be manually inspected or exported as CSV, JSON or KML
-so it can be tested using a variety of other tools.</p>
+<p>Imminence manages sets of (somewhat) structured data for use elsewhere on GOV.UK. It's primarily used for geographical data such as lists of registry offices, test centres, and the like.</p>
+<p>The data is structured as a set of Services which represent a distinct type of location. A Service can then have many Data Sets which are in turn collections of Places. Only one Data Set will be "active" at any given time.</p>
+<p>Each data set is uploaded as a CSV file. A cron job takes care of geocoding the places within it. It can then be manually inspected or exported as CSV, JSON or KML so it can be tested using a variety of other tools.</p>
 <p>There is a simple JSON API for integrating the data with other applications.</p>
 <h2 id="nomenclature">Nomenclature</h2>
 <ul>
@@ -420,22 +414,12 @@ so it can be tested using a variety of other tools.</p>
 <strong>Places</strong>: Geocoded data of individual locations which belong to a Dataset.</li>
 </ul>
 <h2 id="technical-documentation">Technical documentation</h2>
-<p>Imminence is a Ruby on Rails application backed by a MongoDB database.</p>
-<h3 id="dependencies">Dependencies</h3>
-<ul>
-<li>
-<a href="https://github.com/alphagov/mapit">alphagov/mapit</a> - provides postcode lookups</li>
-</ul>
-<h3 id="running-the-application">Running the application</h3>
-<p>From within the app root directory:</p>
-<p><code>./startup.sh</code></p>
-<p>Note that you will have to have GOV.UK Mapit running locally.</p>
-<p>In the GOV.UK DEV VM from the 'development' directory:</p>
-<p><code>bowl imminence</code></p>
-<p>Note that the app uses a local version of <a href="https://github.com/alphagov/mapit">GOV.UK Mapit</a>, therefore a valid dataset will have to be loaded for Mapit, otherwise postcode lookups will not succeed. This is part of the standard GOV.UK data replication steps.</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 <h3 id="running-the-test-suite">Running the test suite</h3>
-<p><code>bundle exec rake</code></p>
-<p><code>bundle exec govuk-lint-ruby app test lib</code></p>
+<pre lang="sh"><code>bundle exec rake
+</code></pre>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/imminence/blob/master/LICENCE">MIT License</a></p>
   </div>
