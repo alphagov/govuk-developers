@@ -167,7 +167,7 @@
             
   <p><a href='/manual.html#monitoring'>Monitoring</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/ce7f8504903249fa2f98d960617f0727bbc25928">11 Nov 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/ef1148ebb4a2ec2a10df7631433770690423740e">22 Mar 2021</a>
 </div>
 
  <h1 id='header'>Sidekiq</h1> <p>Many of our applications use
@@ -209,25 +209,18 @@ signifies a bigger, less transient problem maybe occurring.</p>
 
 <h3 id="sidekiq-web-aka-sidekiq-monitoring">Sidekiq Web (aka Sidekiq Monitoring)</h3>
 
-<p>Sidekiq comes with a web application,
-<a href="https://github.com/mperham/sidekiq/wiki/Monitoring"><code>Sidekiq::Web</code></a>
-that can display the current state of a Sidekiq installation. We have
-configured this as the <a href="https://github.com/alphagov/sidekiq-monitoring">sidekiq-monitoring web app</a>
-to monitor multiple Sidekiq configurations used throughout GOV.UK.</p>
+<p>Sidekiq comes with a web application, <a href="https://github.com/mperham/sidekiq/wiki/Monitoring"><code>Sidekiq::Web</code></a> that can
+display the current state of Sidekiq's queues for an application. We have
+configured this as the <a href="https://github.com/alphagov/sidekiq-monitoring">sidekiq-monitoring web app</a> which
+can monitor multiple Sidekiq configurations used throughout GOV.UK.</p>
 
-<p>We have restricted public access because the Web UI allows modifying the
-state of Sidekiq queues. To access the Sidekiq monitoring UI for
-Production AWS, run:</p>
+<p>You can access each application's dashboard via a URL for:</p>
 
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect sidekiq-monitoring <span class="nt">-e</span> production aws/backend
-</code></pre></div>
-<p>The output will be something like:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>Port forwarding setup, access:
-
-  http://127.0.0.1:xxxxx/
-</code></pre></div>
-<p>Go to the URL in the command output to see the UI.</p>
+<ul>
+  <li><a href="https://sidekiq-monitoring.integration.govuk.digital/">Integration</a></li>
+  <li><a href="https://sidekiq-monitoring.staging.govuk.digital/">Staging</a></li>
+  <li><a href="https://sidekiq-monitoring.production.govuk.digital/">Production</a></li>
+</ul>
 
 <h4 id="set-up-sidekiq-monitoring-for-your-application">Set up Sidekiq Monitoring for your application</h4>
 
