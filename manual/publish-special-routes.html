@@ -145,14 +145,19 @@
             
   <p><a href='/manual.html#deployment'>Deployment</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/f85f176209e3466bff33e60a7251dcc3d1424220">23 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/2066dd66f173910e47c4d3555257f0db414e2201">22 Mar 2021</a>
 </div>
 
  <h1 id='header'>Publish special routes</h1> <p>The <a href="https://github.com/alphagov/special-route-publisher">Special Route Publisher</a> is the home for all special routes that are currently published by a variety of apps to the Publishing API.</p>
 
 <p>All new special routes should be created in this tool, and existing special routes should be moved as necessary.</p>
 
-<p>The <a href="https://deploy.blue.staging.govuk.digital/job/Publish_Special_Routes/">Publish special routes Jenkins job</a> will re-publish all defined special routes to the Publishing API.</p>
+<p>There are two Jenkins jobs to publish special routes:</p>
+
+<ul>
+  <li>Publish a single special route: <a href="https://deploy.integration.publishing.service.gov.uk/job/Publish_Single_Special_Route/">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/Publish_Single_Special_Route/">Staging</a> and <a href="https://deploy.blue.production.govuk.digital/job/Publish_Single_Special_Route/">Production</a>.</li>
+  <li>Publish all special routes: <a href="https://deploy.integration.publishing.service.gov.uk/job/Publish_Special_Routes/">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/Publish_Special_Routes/">Staging</a> and <a href="https://deploy.blue.production.govuk.digital/job/Publish_Special_Routes/">Production</a>.</li>
+</ul>
 
 
   <div class='related-content'>
