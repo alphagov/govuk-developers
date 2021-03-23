@@ -424,59 +424,14 @@
 
 <div class="embedded-readme">
     
-<p>Content Tagger is the publishing application for the Topic Taxonomy on
-GOV.UK. It also provides some functionality for tagging content in
-bulk.</p>
+<p>Content Tagger is the publishing application for the <a href="https://docs.publishing.service.gov.uk/manual/taxonomy.html">Topic Taxonomy</a> on GOV.UK. It also provides some functionality for tagging content in bulk.</p>
 <h2 id="technical-documentation">Technical documentation</h2>
-<p>This is a Ruby on Rails application. It stores some data in a
-PostgreSQL database, but for managing taxons and tagging content, it
-interacts with the Publishing API.</p>
-<h3 id="permissions">Permissions</h3>
-<p>Users need to have either the <code>GDS Editor</code> or the <code>Tagathon participant</code> permission to access this application.</p>
-<ul>
-<li>
-<strong>GDS Editor</strong> users will have full unrestricted access to the
-GOV.UK taxonomy and navigation tools</li>
-<li>
-<strong>Tagathon participant</strong> users have restricted access to the
-Tagathon Project bulk tagger and analytics tools</li>
-</ul>
-<h3 id="running-the-application-locally">Running the application locally</h3>
-<p>For the purposes of local development, it's easiest to run this in a
-Rails console locally to give yourself admin access to the
-application.</p>
-<pre><code>User.first.update permissions: ["signin", "GDS Editor"]
-</code></pre>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 <h3 id="running-the-test-suite">Running the test suite</h3>
-<pre><code>$ bundle exec rspec
+<pre><code>bundle exec rake
 </code></pre>
-<h2 id="features">Features</h2>
-<h3 id="managing-the-topic-taxonomy">Managing the Topic Taxonomy</h3>
-<p>Content Tagger can create, edit and unpublish taxons. It also can view
-the content tagged to a taxon, and how this has changed over time.</p>
-<p>Read <a href="https://docs.publishing.service.gov.uk/manual/taxonomy.html">How the topic taxonomy works</a>.</p>
-<h3 id="tagging-content">Tagging content</h3>
-<p>Content Tagger has a "Projects" function for tagging content in bulk
-to the Topic Taxonomy. It also supports tagging individual pages.</p>
-<h2 id="screenshots">Screenshots</h2>
-<h3 id="tagging-content">Tagging content</h3>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-tagger/master/docs/screenshots/taggings.png" alt="Tagging content" /></p>
-<h3 id="taxons">Taxons</h3>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-tagger/master/docs/screenshots/taxons.png" alt="Taxons" /></p>
-<h3 id="education-taxon">Education taxon</h3>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-tagger/master/docs/screenshots/education-taxon.png" alt="Education taxon" /></p>
-<h3 id="bubbles-visualisation">Bubbles visualisation</h3>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-tagger/master/docs/screenshots/education-taxon-bubbles.png" alt="Bubbles visualisation" /></p>
-<h3 id="list-visualisation">List visualisation</h3>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-tagger/master/docs/screenshots/education-taxon-list.png" alt="List visualisation" /></p>
-<h3 id="editing-a-taxon">Editing a taxon</h3>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-tagger/master/docs/screenshots/education-taxon-edit.png" alt="Editing a taxon" /></p>
-<h3 id="tagging-projects">Tagging projects</h3>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-tagger/master/docs/screenshots/projects.png" alt="Tagging projects" /></p>
-<h2 id="dependencies">Dependencies</h2>
-<ul>
-<li><a href="https://github.com/alphagov/publishing-api">alphagov/publishing-api</a></li>
-</ul>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/content-tagger/blob/master/LICENCE">MIT License</a></p>
   </div>

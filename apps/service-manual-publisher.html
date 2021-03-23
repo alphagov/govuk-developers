@@ -397,6 +397,8 @@
     <div class="gem-c-summary__block"></div>
 </div>
 
+<h2 id="imported-documents">Imported documents</h2>
+
 <h2 id="example-pages-published-by-service-manual-publisher">Example pages published by service-manual-publisher</h2>
 <ul class="gem-c-list govuk-list">
       <li><a href="https://www.gov.uk/service-manual/service-standard" class="govuk-link">Service Standard</a></li>
@@ -415,78 +417,28 @@
 
 <div class="embedded-readme">
     
-<p>Service Manual Publisher is used for publishing and maintaining <a href="https://gov.uk/service-manual">https://gov.uk/service-manual</a>. This application, together with
-<a href="https://github.com/alphagov/service-manual-frontend">service-manual-frontend</a>
-replaced the previous Jekyll-based
-<a href="https://github.com/alphagov/government-service-design-manual">service manual</a>.</p>
-<h2 id="screenshots">Screenshots</h2>
-<p><img src="http://i.imgur.com/UHqjufR.png" alt="Landing page screenshot" /></p>
-<p><img src="http://i.imgur.com/sFP1IUD.png" alt="Edit interface screenshot" /></p>
+<p>Service Manual Publisher is used for publishing and maintaining <a href="https://www.gov.uk/service-manual">https://www.gov.uk/service-manual</a>. This application, together with <a href="https://github.com/alphagov/service-manual-frontend">Service Manual Frontend</a> replaced the previous <a href="https://github.com/alphagov/government-service-design-manual">Jekyll-based service manual</a>.</p>
 <h2 id="nomenclature">Nomenclature</h2>
 <ul>
 <li>
 <strong>Guide</strong>: A guide is the main document format used for manuals.</li>
 <li>
-<strong>Guide Community</strong>: A profile page that represents the community who curate a
-collection of guides.</li>
+<strong>Guide Community</strong>: A profile page that represents the community who curate a collection of guides.</li>
 <li>
 <strong>Topic</strong>: A collection of guides.</li>
 <li>
 <strong>Point</strong>: A point from the service standard.</li>
 </ul>
 <h2 id="technical-documentation">Technical documentation</h2>
-<p>PostgreSQL-backed Rails publishing application for internal use, with no
-public facing aspect.</p>
-<p>There is some <a href="https://github.com/alphagov/service-manual-publisher/blob/master/doc/arch/002-disparity-between-database-and-publishing-api.md">disparity between the content as it appears in the database, and
-the content as it appears in the publishing api</a>.
-This will need to be addressed if we switch to using the publishing api as our
-main data store in the future.</p>
-<p>The Service manual's guide pages have a nested URL structure which is unusual
-for GOV.UK. The pros and cons to the nested URL structure are
-<a href="https://github.com/alphagov/service-manual-publisher/blob/master/doc/arch/001-nested-url-structure.md">retrospectively documented</a>.</p>
-<h3 id="dependencies">Dependencies</h3>
-<ul>
-<li><a href="https://github.com/alphagov/publishing-api">publishing-api</a></li>
-<li>PostgreSQL</li>
-</ul>
-<h4 id="optional-dependencies">Optional dependencies</h4>
-<p><strong>To handle image uploads</strong></p>
-<ul>
-<li><a href="https://github.com/alphagov/asset-manager">asset_manager</a></li>
-</ul>
-<p><strong>To persist and render guides</strong></p>
-<ul>
-<li><a href="https://github.com/alphagov/content-store">content-store</a></li>
-<li><a href="https://github.com/alphagov/service-manual-frontend">service-manual-frontend</a></li>
-</ul>
-<p><em>NB: Every application above may have its own dependencies</em></p>
-<p>You will need to clone down all these repositories, and run the following commands
-for each one:</p>
-<pre><code>bundle
-bundle exec rake db:setup
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
+<h3 id="running-the-test-suite">Running the test suite</h3>
+<pre lang="sh"><code>bundle exec rake
 </code></pre>
-<h3 id="development">Development</h3>
-<p>To run the application in development you will need at least one user in the
-application database. In a rails console do:</p>
-<pre><code>User.create!(name: "My Name", email: "my.email@somedomain.com")
-</code></pre>
-<p>You can use <a href="https://github.com/JordanHatch/bowler">Bowler</a> to automatically run
-the application and all of its dependencies. To do this, you'll need to check
-out the <a href="https://github.gds/gds/development">development repository</a> where the
-<code>Pinfile</code> is located.</p>
-<pre><code>cd /var/govuk/development
-bowl service-manual-publisher service-manual-frontend
-</code></pre>
-<p>Alternatively, run <code>./startup.sh</code> in the <code>service-manual-publisher</code> directory on
-the development VM.</p>
-<pre><code>cd /var/govuk/service-manual-publisher
-./startup.sh
-</code></pre>
-<p>The application runs on port <code>3111</code> by default. If you're using the GDS VM it's
-exposed on <a href="http://service-manual-publisher.dev.gov.uk">http://service-manual-publisher.dev.gov.uk</a>.</p>
-<p>The application has a style guide that can be accessed on <code>/style-guide</code>.</p>
-<h3 id="testing">Testing</h3>
-<p><code>bundle exec rake</code></p>
+<h2 id="further-documentation">Further documentation</h2>
+<p>There is some <a href="https://github.com/alphagov/service-manual-publisher/blob/master/docs/arch/002-disparity-between-database-and-publishing-api.md">disparity between the content as it appears in the database, and the content as it appears in the publishing api</a>. This will need to be addressed if we switch to using the Publishing API as our main data store in the future.</p>
+<p>The Service manual's guide pages have a nested URL structure which is unusual for GOV.UK. The pros and cons to the nested URL structure are <a href="https://github.com/alphagov/service-manual-publisher/blob/master/docs/arch/001-nested-url-structure.md">retrospectively documented</a>.</p>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/service-manual-publisher/blob/master/LICENCE">MIT License</a></p>
   </div>
