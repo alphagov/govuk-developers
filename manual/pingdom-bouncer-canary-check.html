@@ -144,15 +144,8 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#monitoring'>Monitoring</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4f8588da88b60bceef1a4c2dc6e967e0ab95d699">17 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/dc78736bf66c6b4d0adc57243493d59e8fb3b21a">24 Mar 2021</a>
 </div>
 
  <h1 id='header'>Pingdom Bouncer canary check</h1> <p>Bouncer has a canary route at <a href="https://www.direct.gov.uk/__canary__">https://www.direct.gov.uk/__canary__</a>
@@ -184,39 +177,40 @@ effect on requests for transitioned sites of errors when querying them:</p>
 <div class="table-container">
         <table>
           <tr>
-<th>Database table</th>
-<th>HTTP status codes for requests for transitioned sites</th>
-<th></th>
+<th>Database table name</th>
+<th>HTTP response when table inaccessible</th>
+<th>HTTP response when table missing data</th>
 </tr><tr>
-<td>table name</td>
-<td>when table inaccessible</td>
-<td>when table missing data</td>
-</tr><tr>
-<td><code>hosts</code></td>
+<th scope="row"><code>hosts</code>
+</th>
 <td>
 <code>500</code> for all requests</td>
 <td>
 <code>404</code> for all requests</td>
 </tr><tr>
-<td><code>sites</code></td>
+<th scope="row"><code>sites</code>
+</th>
 <td>
 <code>500</code> for all requests</td>
 <td>
 <code>500</code> for all requests</td>
 </tr><tr>
-<td><code>mappings</code></td>
+<th scope="row"><code>mappings</code>
+</th>
 <td>
 <code>500</code> for most requests</td>
 <td>
 <code>404</code> for most requests</td>
 </tr><tr>
-<td><code>whitelisted_hosts</code></td>
+<th scope="row"><code>whitelisted_hosts</code>
+</th>
 <td>
 <code>500</code> for requests which should redirect to non-<code>*.gov.uk</code>/<code>*.mod.uk</code>/<code>*.nhs.uk</code> domains</td>
 <td>
 <code>501</code> for those requests</td>
 </tr><tr>
-<td><code>organisations</code></td>
+<th scope="row"><code>organisations</code>
+</th>
 <td>
 <code>500</code> for most requests which should<br>serve a 404 or 410 page</td>
 <td>
