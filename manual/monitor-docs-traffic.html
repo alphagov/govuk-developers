@@ -167,22 +167,11 @@
 </div>
 
  <h1 id='header'>Monitor docs traffic</h1> <p>This site is served by S3 via a <a href="https://github.com/alphagov/govuk-puppet/blob/d9f32be24890a47e0ed7368efccec7fb70ecab50/modules/govuk/manifests/node/s_backend_lb.pp#L132-L139">proxy defined in govuk-puppet</a>.</p>
-
 <p>You can inspect the traffic forwarded in <a href="/manual/logit.html">Kibana</a>. The data goes back a few weeks.</p>
-
-<h2 id="all-traffic">All traffic</h2>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">http_host</span><span class="ss">:"docs.publishing.service.gov.uk"</span>
+<h2 id='all-traffic'>All traffic</h2><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">http_host</span><span class="ss">:"docs.publishing.service.gov.uk"</span>
+</code></pre></div><h2 id='all-404s'>All 404s</h2><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">http_host</span><span class="ss">:"docs.publishing.service.gov.uk"</span> <span class="no">AND</span> <span class="n">status</span><span class="p">:</span><span class="mi">404</span>
+</code></pre></div><h2 id='particular-page'>Particular page</h2><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">http_host</span><span class="ss">:"docs.publishing.service.gov.uk"</span> <span class="no">AND</span> <span class="n">request</span><span class="ss">:"/manual/emergency-publishing.html"</span>
 </code></pre></div>
-<h2 id="all-404s">All 404s</h2>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">http_host</span><span class="ss">:"docs.publishing.service.gov.uk"</span> <span class="no">AND</span> <span class="n">status</span><span class="p">:</span><span class="mi">404</span>
-</code></pre></div>
-<h2 id="particular-page">Particular page</h2>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">http_host</span><span class="ss">:"docs.publishing.service.gov.uk"</span> <span class="no">AND</span> <span class="n">request</span><span class="ss">:"/manual/emergency-publishing.html"</span>
-</code></pre></div>
-
 
   <div class='related-content'>
 

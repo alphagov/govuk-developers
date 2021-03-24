@@ -165,54 +165,28 @@
 </div>
 
  <h1 id='header'>Concourse</h1> <p>Concourse is a continuous integration and continuous deployment system similar to Jenkins.</p>
-
 <p>The RE Autom8 team runs a <a href="https://cd.gds-reliability.engineering/">hosted Concourse</a> service for all GDS teams.</p>
-
 <p>Concourse is built on the concept of pipelines. Each pipeline can be compared to a collection of related Jenkins jobs. Pipelines consist of multiple jobs and resources. Jobs are collections of commands that are run, and are stateless since they are run inside disposable Docker containers. All state needs to be stored and read from resources, which may be a git repository, an AWS S3 bucket or another storage medium. Triggers allow changes to resources to start a job, and jobs can trigger other jobs.</p>
-
-<h2 id="teams">Teams</h2>
-
-<p>GOV.UK currently has one team named <a href="https://cd.gds-reliability.engineering/teams/govuk-tools">govuk-tools</a>.</p>
-
+<h2 id='teams'>Teams</h2><p>GOV.UK currently has one team named <a href="https://cd.gds-reliability.engineering/teams/govuk-tools">govuk-tools</a>.</p>
 <p>To view pipelines within this Concourse team, you need to be a member of the GOV.UK GitHub team.
 To change pipelines within this Concourse team, you need to be a member of the GOV.UK Production GitHub team.</p>
-
-<h2 id="pipelines">Pipelines</h2>
-
-<h3 id="what-pipelines-do-we-currently-have">What pipelines do we currently have?</h3>
-
-<h4 id="the-coronavirus-forms-pipelines">The coronavirus forms pipelines</h4>
-
-<p>More information about these can be found <a href="/manual/covid-19-services.html#deployment">on the docs page for the forms</a>.</p>
-
-<h4 id="the-operations-pipeline">The operations pipeline</h4>
-
-<p>We currently use the <code>operations</code> pipeline to <a href="/manual/repository-mirroring.html">mirror all GOV.UK GitHub repositories to AWS CodeCommit</a>.</p>
-
-<h4 id="the-info-pipeline">The info pipeline</h4>
-
-<p>The <code>info</code> pipeline is a meta pipeline. Its main use is as a method to store secrets that can then be used in other pipelines. For example, the repository mirroring job uses GitHub and AWS credentials that are stored as secrets using this method. How to add and remove secrets is documented <a href="https://reliability-engineering.cloudapps.digital/continuous-deployment.html#secrets">in the Reliability Engineering manual</a>.</p>
-
-<h3 id="creating-new-pipelines">Creating new pipelines</h3>
-
-<p>The above pipelines serve as good examples for how to do continuous deployment and scheduled tasks with Concourse.</p>
-
+<h2 id='pipelines'>Pipelines</h2><h3 id='what-pipelines-do-we-currently-have'>What pipelines do we currently have?</h3><h4 id='the-coronavirus-forms-pipelines'>The coronavirus forms pipelines</h4><p>More information about these can be found <a href="/manual/covid-19-services.html#deployment">on the docs page for the forms</a>.</p>
+<h4 id='the-operations-pipeline'>The operations pipeline</h4><p>We currently use the <code>operations</code> pipeline to <a href="/manual/repository-mirroring.html">mirror all GOV.UK GitHub repositories to AWS CodeCommit</a>.</p>
+<h4 id='the-info-pipeline'>The info pipeline</h4><p>The <code>info</code> pipeline is a meta pipeline. Its main use is as a method to store secrets that can then be used in other pipelines. For example, the repository mirroring job uses GitHub and AWS credentials that are stored as secrets using this method. How to add and remove secrets is documented <a href="https://reliability-engineering.cloudapps.digital/continuous-deployment.html#secrets">in the Reliability Engineering manual</a>.</p>
+<h3 id='creating-new-pipelines'>Creating new pipelines</h3><p>The above pipelines serve as good examples for how to do continuous deployment and scheduled tasks with Concourse.</p>
 <p>Whenever a pipeline YAML is created or changed, it needs to be applied for the changes to take effect.</p>
-
-<p>Some of our Concourse pipelines use the beta Concourse "self-update" feature that runs a task whenever a change to the pipeline YAML is merged to master. For others, like the <a href="/manual/repository-mirroring.html">repo mirroring job</a>, or if you're writing a new Concourse pipeline, you have to run <code>fly set-pipeline</code> manually:</p>
+<p>Some of our Concourse pipelines use the beta Concourse &ldquo;self-update&rdquo; feature that runs a task whenever a change to the pipeline YAML is merged to master. For others, like the <a href="/manual/repository-mirroring.html">repo mirroring job</a>, or if you&rsquo;re writing a new Concourse pipeline, you have to run <code>fly set-pipeline</code> manually:</p>
 
 <ol>
-  <li>If this is your first time using Concourse, download the <code>fly</code> CLI by clicking the appropriate OS logo at the bottom right corner of the <a href="https://cd.gds-reliability.engineering/teams/govuk-tools">team page</a> and move it to somewhere in your <code>$PATH</code>. If that doesn't download an executable file, try <code>brew install fly</code>.</li>
-  <li>Set a target for the team you want to login to: <code>fly login -c https://cd.gds-reliability.engineering -n govuk-tools -t cd-govuk-tools</code></li>
-  <li>Navigate to the folder that contains the pipeline config YAML file</li>
-  <li>Run <code>fly -t cd-govuk-tools set-pipeline -p [pipeline name] -c [pipeline config YAML file name]</code></li>
-  <li>Visit the provided URL to log in</li>
-  <li>Double-check the diff to ensure you're happy with what is about to be applied</li>
-  <li>Enter <code>y</code> to make the changes</li>
+<li>If this is your first time using Concourse, download the <code>fly</code> CLI by clicking the appropriate OS logo at the bottom right corner of the <a href="https://cd.gds-reliability.engineering/teams/govuk-tools">team page</a> and move it to somewhere in your <code>$PATH</code>. If that doesn&rsquo;t download an executable file, try <code>brew install fly</code>.</li>
+<li>Set a target for the team you want to login to: <code>fly login -c https://cd.gds-reliability.engineering -n govuk-tools -t cd-govuk-tools</code></li>
+<li>Navigate to the folder that contains the pipeline config YAML file</li>
+<li>Run <code>fly -t cd-govuk-tools set-pipeline -p [pipeline name] -c [pipeline config YAML file name]</code></li>
+<li>Visit the provided URL to log in</li>
+<li>Double-check the diff to ensure you&rsquo;re happy with what is about to be applied</li>
+<li>Enter <code>y</code> to make the changes</li>
 </ol>
-
 <p>RE Autom8 provide <a href="https://reliability-engineering.cloudapps.digital/continuous-deployment.html#getting-started-with-concourse">further documentation</a>. More information on working with Concourse and the Fly CLI can be found in <a href="https://concourse-ci.org/fly.html">the official documentation</a>.</p>
-
 
 
   <div class='related-content'>

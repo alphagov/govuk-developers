@@ -156,23 +156,20 @@
 </div>
 
  <h1 id='header'>Node classes without redundancy</h1> <p>Below we provide a list of node classes that are not configured to be highly available (HA). This means that short outages of these machines are architecturally considered acceptable.</p>
-
 <p>Installation of a critical software component on a non-redundant node class has caused an incident in the past. This happened when <code>pgbouncer</code>, required for all Postgresql database accesses at the time, was installed on <code>db_admin</code>, a single EC2 instance. That single instance became unavailable and took down Postgres in Production.</p>
-
-<p><strong>Please do not install new services or applications on any of the following machines unless it's OK for your service to be down 5% of the time:</strong></p>
+<p><strong>Please do not install new services or applications on any of the following machines unless it&rsquo;s OK for your service to be down 5% of the time:</strong></p>
 
 <ul>
-  <li>db-admin</li>
-  <li>transition-db-admin</li>
-  <li>content-data-api-db-admin</li>
-  <li>asset-master</li>
-  <li>jumpbox</li>
-  <li>ckan</li>
-  <li>apt</li>
-  <li>mirrorer</li>
-  <li>licensing_backend</li>
+<li>db-admin</li>
+<li>transition-db-admin</li>
+<li>content-data-api-db-admin</li>
+<li>asset-master</li>
+<li>jumpbox</li>
+<li>ckan</li>
+<li>apt</li>
+<li>mirrorer</li>
+<li>licensing_backend</li>
 </ul>
-
 <p>If in doubt, please discuss your requirements with RE GOV.UK (#re-govuk on Slack).</p>
 
 

@@ -317,90 +317,81 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: search-analytics</h1>
 
-  
-<p>Extract data from google analytics and process it for use by site search</p>
+  <p>Extract data from google analytics and process it for use by site search</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/search-analytics">search-analytics</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/search-analytics"&gt;search-analytics&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value">N/A</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-platform-health&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/govuk/app-search-analytics" class="govuk-link">Sentry (error tracking)</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;N/A&lt;/dd&gt;
 
 
 
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/search-analytics/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.publishing.service.gov.uk/dashboard/file/search-analytics.json" class="govuk-link">Deployment dashboard</a></li>
-
-
-
-
-
-</ul>
-</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://sentry.io/govuk/app-search-analytics" class="govuk-link"&gt;Sentry (error tracking)&lt;/a&gt;&lt;/li&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-app-deployment/blob/master/search-analytics/config/deploy.rb" class="govuk-link"&gt;Deploy scripts&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://grafana.publishing.service.gov.uk/dashboard/file/search-analytics.json" class="govuk-link"&gt;Deployment dashboard&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
+</div></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>This code extracts analytics data from google analytics and processes it such
 that it can be used by the site search on gov.uk for improving search result
 quality.</p>
+
 <h2 id="installation">Installation</h2>
+
 <p>Requires python 3.4.</p>
+
 <pre><code>virtualenv ENV
 source ENV/bin/activate
 pip install -r requirements.txt
 </code></pre>
-<p>Note for those unfamiliar with virtualenv: the "source ENV/bin/activate" line
+
+<p>Note for those unfamiliar with virtualenv: the &ldquo;source ENV/bin/activate&rdquo; line
 will need to be run in each shell that you want to run the scripts in this
 repository from.</p>
+
 <h2 id="authentication-with-google-analytics">Authentication with Google Analytics</h2>
-<p>To make the data-fetch from Google Analytics work, you'll need to fetch a
+
+<p>To make the data-fetch from Google Analytics work, you&rsquo;ll need to fetch a
 <code>client_secrets.json</code> file from google containing credentials, and use that to
 generate a refresh token.  This refresh token must then be passed to the script
 via an environment variable.</p>
+
 <p>Some details on generating these credentials are given in <a href="https://developers.google.com/analytics/solutions/articles/hello-analytics-api">the GA
 tutorial</a>,
 but in summary:</p>
+
 <ul>
 <li>
 <p>create (or already have) a google account with access to the google
@@ -411,74 +402,90 @@ analytics profile for <a href="http://www.gov.uk">www.gov.uk</a>.</p>
 console</a></p>
 </li>
 <li>
-<p>For the project, go to the "APIs &amp; auth" section on the dashboard, and
-ensure that the "Analytics API" is turned on.</p>
+<p>For the project, go to the &ldquo;APIs &amp; auth&rdquo; section on the dashboard, and
+ensure that the &ldquo;Analytics API&rdquo; is turned on.</p>
 </li>
 <li>
-<p>Go to the "Credentials" section on the dashboard, and click the "Create New
-Client ID" button, to create a new OAuth 2.0 client ID.</p>
+<p>Go to the &ldquo;Credentials&rdquo; section on the dashboard, and click the &ldquo;Create New
+Client ID&rdquo; button, to create a new OAuth 2.0 client ID.</p>
 </li>
 <li>
-<p>Pick the "Installed Application" option, and a type of "other"</p>
+<p>Pick the &ldquo;Installed Application&rdquo; option, and a type of &ldquo;other&rdquo;</p>
 </li>
 <li>
-<p>Download the JSON for the newly created client (using the "Download JSON"
+<p>Download the JSON for the newly created client (using the &ldquo;Download JSON&rdquo;
 button underneath it).</p>
 </li>
 <li>
 <p>Run the following command to generate the refresh token.</p>
 <pre><code>PYTHONPATH=. python scripts/setup_auth.py /path/to/client_secrets.json
 </code></pre>
-<p>It will display a url which you'll need to open with a browser that's signed
+<p>It will display a url which you&rsquo;ll need to open with a browser that&rsquo;s signed
 in to the google account that the client JSON was downloaded from; paste the
-result into the prompt.  The command will output (to stdout) a "GAAUTH"
+result into the prompt.  The command will output (to stdout) a &ldquo;GAAUTH&rdquo;
 environment variable value which needs to be set when calling the fetching
 script.</p>
 </li>
 <li>
-<p>Delete the <code>client_secrets.json</code> file after use - it shouldn't be needed
-again, and this ensures it doesn't get leaked (eg, by committing it to git).</p>
+<p>Delete the <code>client_secrets.json</code> file after use - it shouldn&rsquo;t be needed
+again, and this ensures it doesn&rsquo;t get leaked (eg, by committing it to git).</p>
 </li>
 <li>
 <p>Run the fetch script (<code>scripts/fetch.py</code>) with environment variables set.
 See below for details.</p>
 </li>
 <li>
-<p>Don't commit any of the generated secrets to this git repo!  For regular
+<p>Don&rsquo;t commit any of the generated secrets to this git repo!  For regular
 runs from Jenkins, pass the environment variables in from the Jenkins jobs.</p>
 </li>
 </ul>
+
 <h2 id="fetching-data">Fetching data</h2>
+
 <p>Ensure that the virtualenv is activated, and then run:</p>
+
 <pre><code>GAAUTH='...' PYTHONPATH=. python scripts/fetch.py page-traffic.dump 14
 </code></pre>
+
 <p>(Where <code>GAAUTH</code> is the value obtained from the <code>setup_auth.py</code> script, and
 the final argument <code>14</code> is the number of days to fetch analytics data for.)</p>
+
 <p>This will generate a file called <code>page-traffic.dump</code>, which is in elasticsearch
 bulk load format, and can be loaded into the search index using the <code>bulk_load</code>
 script in search-api.  This contains information on the amount of traffic each
 page on GOV.UK got (after some normalisation).</p>
-<p>The fetching script fetches data from GA by making requests for each day's
-data.  It caches the results for each day, so that it doesn't need to repeat
+
+<p>The fetching script fetches data from GA by making requests for each day&rsquo;s
+data.  It caches the results for each day, so that it doesn&rsquo;t need to repeat
 all the requests when run on a subsequent day.  By default, the cache is placed
-in a directory "cache" at the top level of a checkout.  The location of the
+in a directory &ldquo;cache&rdquo; at the top level of a checkout.  The location of the
 cache can be controlled by passing a path in the <code>CACHE_DIR</code> environment
 variable.  Entries which are older than 30 days will be removed from the cache
 at the end of each run of the fetch script.</p>
+
 <h2 id="running-popularity-update-without-retrieving-ga-data">Running popularity update without retrieving GA data</h2>
+
 <p>When running the full script on integration and staging it is desirable that
-we don't retrieve new data from GA.</p>
+we don&rsquo;t retrieve new data from GA.</p>
+
 <p>This can be achieved with the following command:</p>
+
 <pre lang="bash"><code>./nightly-run.sh SKIP_TRAFFIC_LOAD=true
 </code></pre>
+
 <h2 id="the-dump-format">The dump format</h2>
+
 <p>The dump is in Elasticsearch bulk load format.  It looks like this:</p>
+
 <pre lang="json"><code>{"index":{"_type":"page-traffic","_id":"/search/all"}}
 {"path_components":["/search","/search/all"],"rank_14":3,"vc_14":3201853,"vf_14":0.029424856324613228}
 </code></pre>
+
 <p>There are <code>rank_%i</code>, <code>vc_%i</code>, and <code>vf_%i</code> entries for each range of
 days, though the nightly load script only uses 14-day ranges.</p>
+
 <p>The fields are:</p>
+
 <ul>
 <li>
 <code>path_components</code>: the path and all of its prefixes.</li>
@@ -489,8 +496,7 @@ days, though the nightly load script only uses 14-day ranges.</p>
 <li>
 <code>vf_%i</code>: the <code>vc_%i</code> of the page divided by the sum of the <code>vc_%i</code> values for all pages.</li>
 </ul>
-  </div>
-
+<p></div></p>
 
 
             

@@ -157,15 +157,11 @@
 
  <h1 id='header'>Modify a change note in Publishing API</h1> <p>Spelling mistakes can creep into change notes, and we are often asked
 to correct them.</p>
-
 <p>Connect to the Publishing API console:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>govuk-connect app-console -e production publishing_api/publishing-api
-</code></pre></div>
-<p>Then find your document and update its content. You should see the
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk-connect app-console -e production publishing_api/publishing-api
+</code></pre></div><p>Then find your document and update its content. You should see the
 <code>note</code> and <code>updated_at</code> values change.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ d = Document.find_by_content_id("4dc38774-e687-4bff-aa68-6e08c66e98f9")
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ d = Document.find_by_content_id("4dc38774-e687-4bff-aa68-6e08c66e98f9")
 =&gt; #&lt;ChangeNote id: 397621, note: "Bar", public_timestamp: "2020-06-16 11:02:22", edition_id: 5146461, created_at: "2020-06-16 10:22:34", updated_at: "2020-06-16 11:02:22"&gt;
 
 $ d.live.change_note.update(note: "Foo")

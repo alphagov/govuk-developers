@@ -175,126 +175,94 @@
 services for the COVID-19 pandemic response:</p>
 
 <ul>
-  <li><a href="#business-volunteer-service">Business volunteer service</a></li>
-  <li><a href="#vulnerable-people-service">Vulnerable people service</a></li>
-  <li><a href="#find-support-service">Find support service</a></li>
+<li><a href="#business-volunteer-service">Business volunteer service</a></li>
+<li><a href="#vulnerable-people-service">Vulnerable people service</a></li>
+<li><a href="#find-support-service">Find support service</a></li>
 </ul>
-
 <p>These services are no longer deployed, live or in active development.</p>
-
-<h2 id="business-volunteer-service">Business volunteer service</h2>
-
-<p>This service allowed businesses to tell us how they might be able to
+<h2 id='business-volunteer-service'>Business volunteer service</h2><p>This service allowed businesses to tell us how they might be able to
 help with the response to coronavirus.  That included goods or
 services such as medical equipment, hotel rooms or childcare.</p>
-
 <p><strong>The service has been replaced with a guidance page.</strong></p>
-
 <p>A backup of the production database was taken prior to the service
 being removed. It is available at:</p>
 
 <ul>
-  <li>AWS S3 bucket: <code>govuk-production-database-backups</code></li>
-  <li>Key: <code>coronavirus-business-volunteer-form/production.sql.gzip</code></li>
-  <li>Retention period: 365 days (as per our privacy policy)</li>
-  <li>Expiry date: Wed, 13 Oct 2021 00:00:00 GMT</li>
+<li>AWS S3 bucket: <code>govuk-production-database-backups</code></li>
+<li>Key: <code>coronavirus-business-volunteer-form/production.sql.gzip</code></li>
+<li>Retention period: 365 days (as per our privacy policy)</li>
+<li>Expiry date: Wed, 13 Oct 2021 00:00:00 GMT</li>
 </ul>
-
-<p>The file information can be retrieved with the following command…</p>
-
-<div class="highlight"><pre class="highlight shell"><code>gds aws govuk-production-poweruser aws s3api head-object <span class="nt">--bucket</span> govuk-production-database-backups <span class="nt">--key</span> coronavirus-business-volunteer-form/production.sql.gzip
+<p>The file information can be retrieved with the following command&hellip;</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds aws govuk-production-poweruser aws s3api head-object <span class="nt">--bucket</span> govuk-production-database-backups <span class="nt">--key</span> coronavirus-business-volunteer-form/production.sql.gzip
 </code></pre></div>
 <ul>
-  <li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form">Original GitHub Repository</a></li>
-  <li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form/blob/master/docs/how-to-bring-back-this-service.md">Information on how to bring this service back to life</a></li>
-  <li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form/blob/76ba8ce4e6b08bc2a7c3cc6acb9cdaea35530933/concourse/tasks/deploy-to-govuk-paas.yml">PaaS deployment YAML file</a> for <a href="#restoring-the-paas-infrastructure">restoring the PaaS infrastructure</a></li>
-  <li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form/blob/master/concourse/pipeline.yml">Concourse pipeline YAML definition file</a> for <a href="#restoring-the-concourse-pipeline">restoring the Concourse pipeline</a></li>
-  <li>Here are screenshots of the <a href="https://drive.google.com/file/d/1kNoWpiF494Yng6HNc_wz2R_WyRpFs6y8/view?usp=sharing">required settings</a> and <a href="https://drive.google.com/file/d/12gs79eNyy7CUb3fmOTcpaSNojdX0LME8/view?usp=sharing">optional settings</a> to recreate the Pingdom check</li>
-  <li><a href="https://drive.google.com/file/d/1olTHkQwwq0mlMWsg3BOyjwFy2xhuzcf9/view?usp=sharing">Restoring the Sentry error monitor</a></li>
-  <li><a href="https://github.com/alphagov/covid-engineering/pull/948">Restoring the AWS infrastructure</a></li>
+<li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form">Original GitHub Repository</a></li>
+<li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form/blob/master/docs/how-to-bring-back-this-service.md">Information on how to bring this service back to life</a></li>
+<li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form/blob/76ba8ce4e6b08bc2a7c3cc6acb9cdaea35530933/concourse/tasks/deploy-to-govuk-paas.yml">PaaS deployment YAML file</a> for <a href="#restoring-the-paas-infrastructure">restoring the PaaS infrastructure</a></li>
+<li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form/blob/master/concourse/pipeline.yml">Concourse pipeline YAML definition file</a> for <a href="#restoring-the-concourse-pipeline">restoring the Concourse pipeline</a></li>
+<li>Here are screenshots of the <a href="https://drive.google.com/file/d/1kNoWpiF494Yng6HNc_wz2R_WyRpFs6y8/view?usp=sharing">required settings</a> and <a href="https://drive.google.com/file/d/12gs79eNyy7CUb3fmOTcpaSNojdX0LME8/view?usp=sharing">optional settings</a> to recreate the Pingdom check</li>
+<li><a href="https://drive.google.com/file/d/1olTHkQwwq0mlMWsg3BOyjwFy2xhuzcf9/view?usp=sharing">Restoring the Sentry error monitor</a></li>
+<li><a href="https://github.com/alphagov/covid-engineering/pull/948">Restoring the AWS infrastructure</a></li>
 </ul>
-
-<h2 id="vulnerable-people-service">Vulnerable people service</h2>
-
-<p>This service allowed people identified as vulnerable by the NHS to
+<h2 id='vulnerable-people-service'>Vulnerable people service</h2><p>This service allowed people identified as vulnerable by the NHS to
 tell us if they need help accessing essential supplies and support.
 Users will have received a link to the service in a letter or a text
 message from the NHS, or been advised by their GP to fill in the form.</p>
-
 <p><strong>The service has been rebuilt by the #vulnerable-people-services team.</strong></p>
 
 <ul>
-  <li><a href="https://github.com/alphagov/govuk-coronavirus-vulnerable-people-form">Original GitHub Repository</a></li>
-  <li><a href="https://github.com/alphagov/govuk-shielded-vulnerable-people-service">Rebuilt Service GitHub Repository</a></li>
+<li><a href="https://github.com/alphagov/govuk-coronavirus-vulnerable-people-form">Original GitHub Repository</a></li>
+<li><a href="https://github.com/alphagov/govuk-shielded-vulnerable-people-service">Rebuilt Service GitHub Repository</a></li>
 </ul>
-
-<h2 id="find-support-service">Find support service</h2>
-
-<p>This service allowed the public - who may not have been eligible for
+<h2 id='find-support-service'>Find support service</h2><p>This service allowed the public - who may not have been eligible for
 the extremely vulnerable service - to find information about what help
-is available if they're struggling with unemployment, an inability to
+is available if they&rsquo;re struggling with unemployment, an inability to
 get food, having somewhere to live, or their general wellbeing as a
 result of coronavirus.</p>
-
 <p><strong>The service has now been migrated and is now a smart answer.</strong></p>
-
 <p>A backup of the production database was taken prior to the service
 being removed. It is available at:</p>
 
 <ul>
-  <li>AWS S3 bucket: <code>govuk-production-database-backups</code></li>
-  <li>Key: <code>coronavirus-find-support/production.sql.gzip</code></li>
-  <li>Retention period: 365 days (as per our privacy policy)</li>
-  <li>Expiry date: Fri, 08 Oct 2021 00:00:00 GMT</li>
+<li>AWS S3 bucket: <code>govuk-production-database-backups</code></li>
+<li>Key: <code>coronavirus-find-support/production.sql.gzip</code></li>
+<li>Retention period: 365 days (as per our privacy policy)</li>
+<li>Expiry date: Fri, 08 Oct 2021 00:00:00 GMT</li>
 </ul>
-
-<p>The file information can be retrieved with the following command…</p>
-
-<div class="highlight"><pre class="highlight shell"><code>gds aws govuk-production-poweruser aws s3api head-object <span class="nt">--bucket</span> govuk-production-database-backups <span class="nt">--key</span> coronavirus-find-support/production.sql.gzip
+<p>The file information can be retrieved with the following command&hellip;</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds aws govuk-production-poweruser aws s3api head-object <span class="nt">--bucket</span> govuk-production-database-backups <span class="nt">--key</span> coronavirus-find-support/production.sql.gzip
 </code></pre></div>
 <ul>
-  <li><a href="https://github.com/alphagov/smart-answers/blob/master/lib/smart_answer_flows/find-coronavirus-support.rb">Smart Answers GitHub Repository</a></li>
-  <li><a href="https://github.com/alphagov/govuk-coronavirus-find-support">Original GitHub Repository</a></li>
-  <li><a href="https://github.com/alphagov/covid-engineering/pull/890">Restoring the AWS infrastructure</a></li>
+<li><a href="https://github.com/alphagov/smart-answers/blob/master/lib/smart_answer_flows/find-coronavirus-support.rb">Smart Answers GitHub Repository</a></li>
+<li><a href="https://github.com/alphagov/govuk-coronavirus-find-support">Original GitHub Repository</a></li>
+<li><a href="https://github.com/alphagov/covid-engineering/pull/890">Restoring the AWS infrastructure</a></li>
 </ul>
-
-<h2 id="restoring-the-paas-infrastructure">Restoring the PaaS infrastructure</h2>
-
-<p>Details on how to restore or recreate the PaaS infrastructure can be
+<h2 id='restoring-the-paas-infrastructure'>Restoring the PaaS infrastructure</h2><p>Details on how to restore or recreate the PaaS infrastructure can be
 found <a href="https://docs.cloud.service.gov.uk/#gov-uk-platform-as-a-service">here</a>.</p>
-
 <p>Here are a series of screenshots that may assist with the recreation process:</p>
 
 <ul>
-  <li><a href="https://drive.google.com/file/d/1K_2GYVEMFkhSIbMeH1vnh2kooawih-RK/view?usp=sharing">Organisations</a></li>
-  <li><a href="https://drive.google.com/file/d/12HnBN-LYlXZXQS_voLkBfjUOXhMSy7fc/view?usp=sharing">govuk-development-overview</a></li>
-  <li><a href="https://drive.google.com/file/d/1lapanTMiEpDtJcOtcQrSX0fTp6CsdbjA/view?usp=sharing">Applications</a></li>
-  <li><a href="https://drive.google.com/file/d/1vd6JtUJxPqTz6kC4ShjkxL4SPa11Pqu4/view?usp=sharing">Backing services</a></li>
-  <li><a href="https://drive.google.com/file/d/1chsWl-MyAZKH00mrxFhkMCC0W35i7EMW/view?usp=sharing">Business volunteer service</a></li>
-  <li><a href="https://drive.google.com/file/d/17s-uCd1lvrzIkRqOebOgigM7jp0Vm07R/view?usp=sharing">Vulnerable people service</a></li>
+<li><a href="https://drive.google.com/file/d/1K_2GYVEMFkhSIbMeH1vnh2kooawih-RK/view?usp=sharing">Organisations</a></li>
+<li><a href="https://drive.google.com/file/d/12HnBN-LYlXZXQS_voLkBfjUOXhMSy7fc/view?usp=sharing">govuk-development-overview</a></li>
+<li><a href="https://drive.google.com/file/d/1lapanTMiEpDtJcOtcQrSX0fTp6CsdbjA/view?usp=sharing">Applications</a></li>
+<li><a href="https://drive.google.com/file/d/1vd6JtUJxPqTz6kC4ShjkxL4SPa11Pqu4/view?usp=sharing">Backing services</a></li>
+<li><a href="https://drive.google.com/file/d/1chsWl-MyAZKH00mrxFhkMCC0W35i7EMW/view?usp=sharing">Business volunteer service</a></li>
+<li><a href="https://drive.google.com/file/d/17s-uCd1lvrzIkRqOebOgigM7jp0Vm07R/view?usp=sharing">Vulnerable people service</a></li>
 </ul>
-
-<h2 id="restoring-the-concourse-pipeline">Restoring the Concourse pipeline</h2>
-
-<p>Details on how to restore or recreate a Concourse pipeline can be found <a href="https://docs.publishing.service.gov.uk/manual/concourse.html#creating-new-pipelines">here</a>.</p>
-
-<h2 id="restoring-the-pagerduty-alert">Restoring the PagerDuty alert</h2>
-
-<p>Here are a series of screenshots that may assist with the recreation process:</p>
+<h2 id='restoring-the-concourse-pipeline'>Restoring the Concourse pipeline</h2><p>Details on how to restore or recreate a Concourse pipeline can be found <a href="https://docs.publishing.service.gov.uk/manual/concourse.html#creating-new-pipelines">here</a>.</p>
+<h2 id='restoring-the-pagerduty-alert'>Restoring the PagerDuty alert</h2><p>Here are a series of screenshots that may assist with the recreation process:</p>
 
 <ul>
-  <li><a href="https://drive.google.com/file/d/1ez9MzT3ODiG54m0nyutl2efbQgQH0Fuu/view?usp=sharing">Activity tab</a></li>
-  <li><a href="https://drive.google.com/file/d/1Lm0-B4mEhpJjnrjHM4FNuthnoZF34J-0/view?usp=sharing">Integrations tab</a></li>
-  <li><a href="https://drive.google.com/file/d/1GdNqhXiQBjQAvq5oBBicUDnHsxAjj2vp/view?usp=sharing">Response tab</a></li>
-  <li><a href="https://drive.google.com/file/d/1n1Q4Jv51-gk3OAyjrzWWr4bJVlJxCyYA/view?usp=sharing">Incoming event source</a></li>
-  <li><a href="https://drive.google.com/file/d/1_nRUkSZIIAD35o_Wb5Sp4b4kais0wU-M/view?usp=sharing">Edit rule - when events match these conditions</a></li>
-  <li><a href="https://drive.google.com/file/d/1vdeODTseE1CF-XSt_lYF6pIvwyPId_HX/view?usp=sharing">Edit rule - do these things</a></li>
-  <li><a href="https://drive.google.com/file/d/1OxTU3so5_aJWAKgDDvq0s_W8swAqm0mT/view?usp=sharing">Edit rule - at these times</a></li>
+<li><a href="https://drive.google.com/file/d/1ez9MzT3ODiG54m0nyutl2efbQgQH0Fuu/view?usp=sharing">Activity tab</a></li>
+<li><a href="https://drive.google.com/file/d/1Lm0-B4mEhpJjnrjHM4FNuthnoZF34J-0/view?usp=sharing">Integrations tab</a></li>
+<li><a href="https://drive.google.com/file/d/1GdNqhXiQBjQAvq5oBBicUDnHsxAjj2vp/view?usp=sharing">Response tab</a></li>
+<li><a href="https://drive.google.com/file/d/1n1Q4Jv51-gk3OAyjrzWWr4bJVlJxCyYA/view?usp=sharing">Incoming event source</a></li>
+<li><a href="https://drive.google.com/file/d/1_nRUkSZIIAD35o_Wb5Sp4b4kais0wU-M/view?usp=sharing">Edit rule - when events match these conditions</a></li>
+<li><a href="https://drive.google.com/file/d/1vdeODTseE1CF-XSt_lYF6pIvwyPId_HX/view?usp=sharing">Edit rule - do these things</a></li>
+<li><a href="https://drive.google.com/file/d/1OxTU3so5_aJWAKgDDvq0s_W8swAqm0mT/view?usp=sharing">Edit rule - at these times</a></li>
 </ul>
-
-<h2 id="restoring-the-prometheus-alertmanager-monitor">Restoring the Prometheus AlertManager monitor</h2>
-
-<p>To restore or recreate the Prometheus monitor <a href="https://github.com/alphagov/prometheus-aws-configuration-beta/pull/433">revert this PR</a></p>
+<h2 id='restoring-the-prometheus-alertmanager-monitor'>Restoring the Prometheus AlertManager monitor</h2><p>To restore or recreate the Prometheus monitor <a href="https://github.com/alphagov/prometheus-aws-configuration-beta/pull/433">revert this PR</a></p>
 
 
   <div class='related-content'>

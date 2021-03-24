@@ -140,7 +140,7 @@
         <a href="#2-add-the-extra-disk-in-vcloud-director"><span>2) Add the extra disk in vCloud Director</span></a>
       </li>
       <li>
-        <a href="#3-update-the-govuk-provisioning-repository"><span>3) Update the GOV.UK provisioning repository</span></a>
+        <a href="#3-update-the-gov-uk-provisioning-repository"><span>3) Update the GOV.UK provisioning repository</span></a>
       </li>
       <li>
         <a href="#4-probe-for-the-new-disk-on-each-vm"><span>4) Probe for the new disk on each VM</span></a>
@@ -179,167 +179,126 @@
 </div>
 
  <h1 id='header'>Add a disk to a vCloud machine (Carrenza only)</h1> <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>This process is only applicable to Carrenza environments.
+<p><strong>Note</strong></p>
+<p>This process is only applicable to Carrenza environments.
 For AWS environments, disk space can be expanded by changing
 and deploying the appropriate Terraform configuration
 <a href="https://github.com/alphagov/govuk-aws/blob/master/terraform/projects/app-backend/main.tf#L204">(example for backend machines)</a>.</p>
 </blockquote>
-
 <p>New disks are added to machines to add or increase the size of a
 <a href="https://en.wikipedia.org/wiki/Logical_volume_management">logical volume (LV)</a>.</p>
-
-<h2 id="1-add-the-new-disk-to-puppet-hieradata">1) Add the new disk to Puppet Hieradata</h2>
-
-<p>Add the new disk to
+<h2 id='1-add-the-new-disk-to-puppet-hieradata'>1) Add the new disk to Puppet Hieradata</h2><p>Add the new disk to
 <a href="https://github.com/alphagov/govuk-puppet/tree/master/hieradata">Hiera data</a>
 (<a href="https://github.com/alphagov/govuk-puppet/commit/73531ea7a7c28cbbb1c04f41ec5da53b4ff591d2">example</a>).</p>
-
 <p>You can deploy Puppet once the changes have been merged in. However, until the
 disk is configured, Puppet runs on the machine will result in errors.</p>
-
-<h2 id="2-add-the-extra-disk-in-vcloud-director">2) Add the extra disk in vCloud Director</h2>
-
+<h2 id='2-add-the-extra-disk-in-vcloud-director'>2) Add the extra disk in vCloud Director</h2>
 <ol>
-  <li>Navigate to the VM Properties in the vCloud Director interface and
-select the 'Hardware' tab. From here, click the add button under
+<li>Navigate to the VM Properties in the vCloud Director interface and
+select the &lsquo;Hardware&rsquo; tab. From here, click the add button under
 disks, choose a size and click Save.</li>
-  <li>Wait for the VM to reconfigure.</li>
+<li>Wait for the VM to reconfigure.</li>
 </ol>
-
 <p>Please view this <a href="/manual/connect-to-vcloud-director.html">page</a> for details on how to access Carrenza. The appropriate credentials are in <code>govuk-secrets</code>.</p>
 
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>In the link above, you will see a link format similar to https://vcloud.carrenza.com/tenant/{environment}, where {environment} is the value of the <code>Org</code> key you get from decrypting secrets. It will look something like <code>Org: XXXX-govuk-staging-london</code>.</p>
-
-  <p><strong>Note</strong></p>
-
-  <p>Aligning disk partitions on VMware VMs ensures that disk I/O is not
+<p><strong>Note</strong></p>
+<p>In the link above, you will see a link format similar to https://vcloud.carrenza.com/tenant/{environment}, where {environment} is the value of the <code>Org</code> key you get from decrypting secrets. It will look something like <code>Org: XXXX-govuk-staging-london</code>.</p>
+<p><strong>Note</strong></p>
+<p>Aligning disk partitions on VMware VMs ensures that disk I/O is not
 negatively affected. If a disk is not partition aligned correctly, I/O
 from each filesystem is being translated into 2 I/Os to the
 underlying virtual disk, and thus to the SAN itself. Ultimately, it is
 not exactly a doubling. In fact, it leads to about a 20-30% disk I/O
 increase, thus creating further load.</p>
-
-  <p>Further details can be found in <a href="http://www.vmware.com/pdf/esx3_partition_align.pdf">this VMware
+<p>Further details can be found in <a href="http://www.vmware.com/pdf/esx3_partition_align.pdf">this VMware
 PDF</a>, or at <a href="http://blogs.vmware.com/vsphere/2011/08/guest-os-partition-alignment.html">this
 blog
 post</a>.
 VMware performance recommendations can be <a href="http://www.vmware.com/pdf/Perf_Best_Practices_vSphere5.0.pdf">found
 here</a>.</p>
-
-  <p><strong>WARNING</strong></p>
-
-  <p>When adding new disks, be careful to select an appropriate disk
+<p><strong>WARNING</strong></p>
+<p>When adding new disks, be careful to select an appropriate disk
 controller.</p>
-
-  <p>There is a known issue whereby adding disks using certain disk
-controllers may alter the BIOS boot order, causing a 'System disk not
-found error' when restarting the VM. Specifically, check the
+<p>There is a known issue whereby adding disks using certain disk
+controllers may alter the BIOS boot order, causing a &lsquo;System disk not
+found error&rsquo; when restarting the VM. Specifically, check the
 compability table (Table 5-4) on page 109 of the <a href="http://pubs.vmware.com/vsphere-55/topic/com.vmware.ICbase/PDF/vsphere-esxi-vcenter-server-551-virtual-machine-admin-guide.pdf">vSphere Virtual
 Machine Administration
 Guide</a>.</p>
-
-  <p>Using the 'LSI Logic SAS (SCSI)' avoids this bug as it's also the
+<p>Using the &lsquo;LSI Logic SAS (SCSI)&rsquo; avoids this bug as it&rsquo;s also the
 default disk controller used when we provision machines using <a href="http://rubygems.org/gems/vcloud-launcher">vCloud
 Launcher</a>.</p>
 </blockquote>
-
-<h2 id="3-update-the-govuk-provisioning-repository">3) Update the GOV.UK provisioning repository</h2>
-
-<p>The <a href="https://github.com/alphagov/govuk-provisioning">GOV.UK provisioning</a>
+<h2 id='3-update-the-gov-uk-provisioning-repository'>3) Update the GOV.UK provisioning repository</h2><p>The <a href="https://github.com/alphagov/govuk-provisioning">GOV.UK provisioning</a>
 repository contains all the configuration of the hosts needed for provisioning
-GOV.UK environments. It's important that this remains in sync with the
+GOV.UK environments. It&rsquo;s important that this remains in sync with the
 configuration in vCloud Director.</p>
-
 <p>See an <a href="https://github.com/alphagov/govuk-provisioning/pull/17/files">example</a>.</p>
-
-<h2 id="4-probe-for-the-new-disk-on-each-vm">4) Probe for the new disk on each VM</h2>
-
+<h2 id='4-probe-for-the-new-disk-on-each-vm'>4) Probe for the new disk on each VM</h2>
 <ol>
-  <li>Run <code>sudo fdisk -l</code> and note the output. You should see each disk
+<li>Run <code>sudo fdisk -l</code> and note the output. You should see each disk
 already configured listed separately. Make a note of which are
 already present.</li>
-  <li>Run the following loop as root to probe for new discs</li>
+<li>Run the following loop as root to probe for new discs</li>
 </ol>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">echo</span> <span class="s1">'- - -'</span> | <span class="nb">sudo tee</span> <span class="nt">-a</span> /sys/class/scsi_host/<span class="k">*</span>/scan
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">echo</span> <span class="s1">'- - -'</span> | <span class="nb">sudo tee</span> <span class="nt">-a</span> /sys/class/scsi_host/<span class="k">*</span>/scan
 </code></pre></div>
 <ol>
-  <li>Run <code>sudo fdisk -l</code> again and note that you have a new disk called
+<li>Run <code>sudo fdisk -l</code> again and note that you have a new disk called
 <code>/dev/sdX</code> where X is a letter. This disk <em>should</em> be unpartitioned.</li>
 </ol>
-
-<h2 id="5-partition-the-disk-if-necessary">5) Partition the disk if necessary</h2>
-
-<p>You can skip this step if you have configured Puppet to use the whole
+<h2 id='5-partition-the-disk-if-necessary'>5) Partition the disk if necessary</h2><p>You can skip this step if you have configured Puppet to use the whole
 disk as an LVM physical volume.</p>
 
 <ol>
-  <li>Set an environment variable, replacing <code>X</code> with the appropriate
+<li>Set an environment variable, replacing <code>X</code> with the appropriate
 block device letter</li>
 </ol>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">export </span><span class="nv">NEW_DISK</span><span class="o">=</span>/dev/sdX
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">export </span><span class="nv">NEW_DISK</span><span class="o">=</span>/dev/sdX
 </code></pre></div>
 <ol>
-  <li>Create a single partition on that disk</li>
+<li>Create a single partition on that disk</li>
 </ol>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>parted <span class="k">${</span><span class="nv">NEW_DISK</span><span class="k">}</span> mklabel msdos
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>parted <span class="k">${</span><span class="nv">NEW_DISK</span><span class="k">}</span> mklabel msdos
 <span class="nb">sudo </span>parted <span class="k">${</span><span class="nv">NEW_DISK</span><span class="k">}</span> mkpart primary 1 100%
-</code></pre></div>
-<p>We use <a href="https://wiki.ubuntu.com/Lvm">LVM</a> for disk management. Once a
+</code></pre></div><p>We use <a href="https://wiki.ubuntu.com/Lvm">LVM</a> for disk management. Once a
 partition exists as a device file (i.e. <code>/dev/sdX1</code>), Puppet will enable
 LVM, format the disk and tune the filesystem.</p>
-
-<h2 id="6-run-puppet">6) Run Puppet</h2>
-
+<h2 id='6-run-puppet'>6) Run Puppet</h2>
 <ol>
-  <li>Run Puppet, which will configure LVM and tune the filesystem:</li>
+<li>Run Puppet, which will configure LVM and tune the filesystem:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight shell"><code>govuk_puppet <span class="nt">--test</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>govuk_puppet <span class="nt">--test</span>
 </code></pre></div>
 <ol>
-  <li>Verify that the new disk has been created by checking the output of
+<li>Verify that the new disk has been created by checking the output of
 <code>sudo fdisk -l</code> which will no longer say the disk is unpartitioned. For a
 new logical volume, you can also check <code>mount</code> for its existence</li>
 </ol>
-
-<h2 id="7-extend-existing-logical-volume-and-filesystem">7) Extend existing logical volume and filesystem</h2>
-
-<p>You can skip this step if you're creating a new disk/machine.</p>
-
-<p>If you're adding an additional physical volume to an existing mount
-through Puppet's <code>govuk::lvm</code> resource then you'll need to manually
+<h2 id='7-extend-existing-logical-volume-and-filesystem'>7) Extend existing logical volume and filesystem</h2><p>You can skip this step if you&rsquo;re creating a new disk/machine.</p>
+<p>If you&rsquo;re adding an additional physical volume to an existing mount
+through Puppet&rsquo;s <code>govuk::lvm</code> resource then you&rsquo;ll need to manually
 extend the logical volume and filesystem. These are safe online
 operations.</p>
 
 <ol>
-  <li>Set environment variables for the VG and LV names. Replace <code>XXX</code>
+<li>Set environment variables for the VG and LV names. Replace <code>XXX</code>
 with the appropriate names from <code>sudo vgs</code> and <code>sudo lvs</code>:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">export </span><span class="nv">VG</span><span class="o">=</span>XXX
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">export </span><span class="nv">VG</span><span class="o">=</span>XXX
 <span class="nb">export </span><span class="nv">LV</span><span class="o">=</span>XXX
 </code></pre></div>
 <ol>
-  <li>Extend the logical volume to the full size of the volume group:</li>
+<li>Extend the logical volume to the full size of the volume group:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>lvextend <span class="nt">-l</span> +100%FREE /dev/<span class="k">${</span><span class="nv">VG</span><span class="k">}</span>/<span class="k">${</span><span class="nv">LV</span><span class="k">}</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>lvextend <span class="nt">-l</span> +100%FREE /dev/<span class="k">${</span><span class="nv">VG</span><span class="k">}</span>/<span class="k">${</span><span class="nv">LV</span><span class="k">}</span>
 </code></pre></div>
 <ol>
-  <li>Extend the filesystem to the full size of the logical volume:</li>
+<li>Extend the filesystem to the full size of the logical volume:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>resize2fs /dev/mapper/<span class="k">${</span><span class="nv">VG</span><span class="k">}</span>-<span class="k">${</span><span class="nv">LV</span><span class="k">}</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>resize2fs /dev/mapper/<span class="k">${</span><span class="nv">VG</span><span class="k">}</span>-<span class="k">${</span><span class="nv">LV</span><span class="k">}</span>
 </code></pre></div>
-
 
   <div class='related-content'>
 

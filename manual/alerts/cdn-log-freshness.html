@@ -174,34 +174,24 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/57d3fa788b329062f26ebaf4fe3d1d8d5b440ea9">17 Sep 2020</a>
 </div>
 
- <h1 id='header'>CDN logs from Fastly not appearing in S3</h1> <h2 id="meaning-and-impact">Meaning and impact</h2>
-
-<p>CDN logs from Fastly might not be getting uploaded to the
+ <h1 id='header'>CDN logs from Fastly not appearing in S3</h1> <h2 id='meaning-and-impact'>Meaning and impact</h2><p>CDN logs from Fastly might not be getting uploaded to the
 <code>govuk-{environment}-fastly-logs</code> S3 bucket.</p>
-
-<h2 id="possible-causes">Possible causes</h2>
-
+<h2 id='possible-causes'>Possible causes</h2>
 <ul>
-  <li>Configuration change to Fastly may have stopped the log upload from working.</li>
-  <li>Access controls might have changed on the S3 bucket.</li>
-  <li>There might be a problem with the alert itself. It was added in Feb 2020.</li>
+<li>Configuration change to Fastly may have stopped the log upload from working.</li>
+<li>Access controls might have changed on the S3 bucket.</li>
+<li>There might be a problem with the alert itself. It was added in Feb 2020.</li>
 </ul>
-
-<h2 id="investigation">Investigation</h2>
-
-<p>List the S3 bucket to see what log files are present for today's date.
+<h2 id='investigation'>Investigation</h2><p>List the S3 bucket to see what log files are present for today&rsquo;s date.
 Depending on your level of access, you might need to replace <code>admin</code> with
-<code>poweruser</code>. The S3 prefix is in the alert's Status Information in Icinga.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ gds aws govuk-production-admin -- aws s3 ls s3://govuk-production-fastly-logs/govuk_assets/year=2020/month=02/date=04/
+<code>poweruser</code>. The S3 prefix is in the alert&rsquo;s Status Information in Icinga.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ gds aws govuk-production-admin -- aws s3 ls s3://govuk-production-fastly-logs/govuk_assets/year=2020/month=02/date=04/
 ...
 2020-02-04 13:30:06      10565 2020-02-04T13:30:00.000-q0DyBS-uFj3pPKiRDsVz.log.gz
 2020-02-04 13:30:04       8833 2020-02-04T13:30:00.000-rx5n9t5ClzuVpEMb4Y8H.log.gz
 2020-02-04 13:30:04      12012 2020-02-04T13:30:00.000-sOjSZzfwbklh5BaLe2Wx.log.gz
-</code></pre></div>
-<p>Log files should appear in batches every 15 minutes and there should normally
-be only 30 minutes' lag between the current time and the latest batch of files.</p>
-
+</code></pre></div><p>Log files should appear in batches every 15 minutes and there should normally
+be only 30 minutes&rsquo; lag between the current time and the latest batch of files.</p>
 <p>If logs are missing, check any recent changes to the <a href="/manual/cdn.html#cdn-configuration">Fastly
 config</a>. The active Fastly config (and
 previous versions) can be inspected via the Fastly web interface. The login for

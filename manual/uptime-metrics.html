@@ -164,35 +164,29 @@
 <code>link-checker-api</code>, <code>manuals-publisher</code>, <code>publishing-api</code>, <code>specialist-publisher</code>,
 <code>travel-advice-publisher</code> and <code>whitehall-admin</code>, they are available as
 <a href="https://grafana.publishing.service.gov.uk/dashboard/file/application_uptime.json">a Grafana dashboard</a>.</p>
-
 <p>They are available broken down into a day by day view, highlighted in different
 colours representing the level of uptime. Green means 100%, orange means above
 99.31% (equivalent to 10 minutes of downtime) and red for everything else.</p>
 
 <blockquote>
-  <p><strong>Note</strong> These metrics aren't a true reflection of availability. Loadbalancing means that
+<p><strong>Note</strong> These metrics aren&rsquo;t a true reflection of availability. Loadbalancing means that
 even if a particular healthcheck fails, and the metrics change as a result, publishing is
 unlikely to be affected.</p>
 </blockquote>
-
-<h2 id="further-reading">Further Reading</h2>
-
-<p>The service which collects the uptime data runs on the monitoring machines and
+<h2 id='further-reading'>Further Reading</h2><p>The service which collects the uptime data runs on the monitoring machines and
 is available to see in <a href="https://github.com/alphagov/govuk-puppet/pull/6353/files#diff-ba6dc00b5f1aecfcf2fed71882089844">govuk-puppet</a>. It works by polling
 a given endpoint, such as<code>/healthcheck</code>, every 5 seconds and records an application
 is up if it receives a 2xx HTTP status code back. It uses statsd to send this data to Graphite under
 the names <code>stats.guages.uptime.&lt;application&gt;</code> which is the used in the Grafana
 dashboard.</p>
-
 <p>If you would like to add another app to the uptime collector, you should first
 make sure there is a <code>/healthcheck</code> endpoint available and then add your
 application to <a href="https://github.com/alphagov/govuk-puppet/pull/6353/files#diff-3c14b0dbebef6ce25a9e337b66b257fdR9">the end of the line in the service file</a>.</p>
 
 <blockquote>
-  <p><strong>Note</strong> If there is not an exposed <code>/healthcheck</code> endpoint available, an alternative
+<p><strong>Note</strong> If there is not an exposed <code>/healthcheck</code> endpoint available, an alternative
 can be given by using the format <code>service_name:alternative/endpoint</code>.</p>
 </blockquote>
-
 
 
   <div class='related-content'>

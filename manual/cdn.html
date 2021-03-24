@@ -151,7 +151,7 @@
         <a href="#access-controls-on-cache-clearing"><span>Access controls on cache clearing</span></a>
       </li>
       <li>
-        <a href="#fastlys-ip-ranges-and-our-access-controls-on-origin-servers"><span>Fastly's IP ranges and our access controls on origin servers</span></a>
+        <a href="#fastly39s-ip-ranges-and-our-access-controls-on-origin-servers"><span>Fastly’s IP ranges and our access controls on origin servers</span></a>
       </li>
       <li>
         <a href="#banning-ip-addresses-at-the-cdn-edge"><span>Banning IP addresses at the CDN edge</span></a>
@@ -160,7 +160,7 @@
         <a href="#blocking-problematic-traffic-at-the-cdn-edge"><span>Blocking problematic traffic at the CDN edge</span></a>
       </li>
       <li>
-        <a href="#bouncers-fastly-service"><span>Bouncer's Fastly service</span></a>
+        <a href="#bouncer39s-fastly-service"><span>Bouncer’s Fastly service</span></a>
         <ul>
           <li>
             <a href="#new-solution-for-bouncer-and-fastly"><span>New solution for Bouncer and Fastly</span></a>
@@ -184,65 +184,37 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/224ed4edc3b2e282a75981e55e1c7b5dcd7bfae1">4 Mar 2021</a>
 </div>
 
- <h1 id='header'>Our content delivery network (CDN)</h1> <p>GOV.UK uses Fastly as a CDN. Public users aren't accessing GOV.UK servers directly, they connect via the CDN. This is better because:</p>
+ <h1 id='header'>Our content delivery network (CDN)</h1> <p>GOV.UK uses Fastly as a CDN. Public users aren&rsquo;t accessing GOV.UK servers directly, they connect via the CDN. This is better because:</p>
 
 <ul>
-  <li>The CDN "edge nodes" (webservers) are closer to end users. Fastly has servers all around the world but our "origin" servers are only in the AWS eu-west-1 region (Ireland).</li>
-  <li>It reduces load on our origin. Fastly uses Varnish to cache responses.</li>
+<li>The CDN &ldquo;edge nodes&rdquo; (webservers) are closer to end users. Fastly has servers all around the world but our &ldquo;origin&rdquo; servers are only in the AWS eu-west-1 region (Ireland).</li>
+<li>It reduces load on our origin. Fastly uses Varnish to cache responses.</li>
 </ul>
-
 <p>The CDN is responsible for retrying requests against the <a href="/manual/fall-back-to-mirror.html">static mirror</a>.</p>
-
-<p><img src="/manual/images/cdn-mirror-configuration.png" alt="image" /></p>
-
-<h2 id="cdn-configuration">CDN configuration</h2>
-
-<p>Most of the CDN config is versioned and scripted:</p>
+<p><a href="images/cdn-mirror-configuration.png" rel="noopener noreferrer"><img src="/manual/images/cdn-mirror-configuration.png" alt="image" /></a></p>
+<h2 id='cdn-configuration'>CDN configuration</h2><p>Most of the CDN config is versioned and scripted:</p>
 
 <ul>
-  <li><a href="https://github.com/alphagov/govuk-cdn-config/">CDN configuration</a></li>
-  <li><a href="https://github.com/alphagov/govuk-cdn-config-secrets">CDN config secrets</a></li>
+<li><a href="https://github.com/alphagov/govuk-cdn-config/">CDN configuration</a></li>
+<li><a href="https://github.com/alphagov/govuk-cdn-config-secrets">CDN config secrets</a></li>
 </ul>
-
 <p>These are deployed to <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_CDN/">integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/Deploy_CDN/">staging</a> and <a href="https://deploy.blue.production.govuk.digital/job/Deploy_CDN/">production</a>.</p>
-
-<p>Some configuration isn't scripted, such as logging. The www, bouncer and assets services send logs to S3 which can be <a href="/manual/query-cdn-logs.html">queried</a>. These logging endpoints are configured directly in the Fastly UI.</p>
-
-<h2 id="fastly-caching">Fastly Caching</h2>
-
-<p>The main www.gov.uk cache is <a href="https://varnish-cache.org/docs/2.1/index.html">Varnish</a>, which Fastly runs for us.</p>
-
+<p>Some configuration isn&rsquo;t scripted, such as logging. The www, bouncer and assets services send logs to S3 which can be <a href="/manual/query-cdn-logs.html">queried</a>. These logging endpoints are configured directly in the Fastly UI.</p>
+<h2 id='fastly-caching'>Fastly Caching</h2><p>The main www.gov.uk cache is <a href="https://varnish-cache.org/docs/2.1/index.html">Varnish</a>, which Fastly runs for us.</p>
 <p>Varnish lets us configure our caching logic with VCL (Varnish config language).</p>
-
 <p>It also lets us do fancy things, like <a href="https://github.com/alphagov/govuk-cdn-config/blob/f6cf15e9155f7c2ea89970741d3e03851a00013d/vcl_templates/www.vcl.erb#L202">only allowing connections to staging from permitted IPs</a>, <a href="https://github.com/alphagov/govuk-cdn-config/blob/f6cf15e9155f7c2ea89970741d3e03851a00013d/vcl_templates/www.vcl.erb#L222">forcing SSL</a> and <a href="https://github.com/alphagov/govuk-cdn-config/blob/f6cf15e9155f7c2ea89970741d3e03851a00013d/vcl_templates/www.vcl.erb#L208">blocking IP addresses</a>, among other things.</p>
-
 <p>We set a default TTL of 3600s on cached objects. This means that pages such as the GOV.UK homepage will be cached for 1 hour. 5XX responses get cached for 1s; mirror responses get cached for 15 minutes.</p>
-
-<p>We also set a grace period of 24 hours. So if the homepage server is down, we'll continue to serve a stale homepage for 24 hours.</p>
-
+<p>We also set a grace period of 24 hours. So if the homepage server is down, we&rsquo;ll continue to serve a stale homepage for 24 hours.</p>
 <p>These are the GET request status codes that Varnish caches automatically: 200, 203, 300, 301, 302, 404 or 410. (See the <a href="https://varnish-cache.org/docs/2.1/reference/vcl.html#variables">Varnish docs</a> for more detail.)</p>
-
-<p>We have added to these - see the <a href="https://github.com/alphagov/govuk-cdn-config/">GOV.UK CDN Config repo</a> VCL for <a href="https://github.com/alphagov/govuk-cdn-config/blob/c37856f5cb463d204ef3926828f35204721eb7e9/vcl_templates/www.vcl.erb#L408-L416">special handling of certain status codes</a>, and for the most up-to-date version of what we're running in Fastly. Refer to the Varnish 2.1 documentation when looking at the VCL code.</p>
-
-<h3 id="conditional-request-caching">Conditional request caching</h3>
-
-<p>Fastly will cache HTTP responses that include cache validation headers (such as ETag or Last-Modified) indefinitely. GOV.UK typically serves these headers with <a href="/manual/assets.html#uploaded-assets">assets uploaded to Asset Manager</a>.</p>
-
+<p>We have added to these - see the <a href="https://github.com/alphagov/govuk-cdn-config/">GOV.UK CDN Config repo</a> VCL for <a href="https://github.com/alphagov/govuk-cdn-config/blob/c37856f5cb463d204ef3926828f35204721eb7e9/vcl_templates/www.vcl.erb#L408-L416">special handling of certain status codes</a>, and for the most up-to-date version of what we&rsquo;re running in Fastly. Refer to the Varnish 2.1 documentation when looking at the VCL code.</p>
+<h3 id='conditional-request-caching'>Conditional request caching</h3><p>Fastly will cache HTTP responses that include cache validation headers (such as ETag or Last-Modified) indefinitely. GOV.UK typically serves these headers with <a href="/manual/assets.html#uploaded-assets">assets uploaded to Asset Manager</a>.</p>
 <p>When Fastly has a conditional response cached it will modify subsequent requests that it passes to origin to include <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests#conditional_headers">conditional HTTP headers</a>. This allows origin applications to return a 304 Not Modified status code to indicate the resource is unchanged and avoid an unnecessary data transfer. As Fastly, not the end user, has the resource cached a 304 response will need to be modified by Fastly into a 200 response with the cached resource attached.</p>
-
 <p>If we mistakenly serve invalid responses with cache validation headers we will need to change the validation headers or manually <a href="/manual/purge-cache.html">purge the resource from the Fastly cache</a>, otherwise the incorrect resource could be served for a long time.</p>
-
-<h3 id="testing-vcl">Testing VCL</h3>
-
-<p>VCL can be tricky to get right. When making changes to the VCL, add smoke tests <a href="https://github.com/alphagov/smokey/blob/master/features/caching.feature">to smokey</a> and check that they don't fail in staging.</p>
-
-<p>You can also use Fastly's <a href="https://fiddle.fastlydemo.net/">Fiddle tool</a> to manually test, and you can also test your changes with cURL by including a debug header:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>curl <span class="nt">-svo</span> /dev/null <span class="nt">-H</span> <span class="s2">"Fastly-Debug: 1"</span> https://www.gov.uk/
-</code></pre></div>
-<p>This will give you various debugging headers that may be useful:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>&lt; Fastly-Debug-Path: &lt;nodes you hit&gt;
+<h3 id='testing-vcl'>Testing VCL</h3><p>VCL can be tricky to get right. When making changes to the VCL, add smoke tests <a href="https://github.com/alphagov/smokey/blob/master/features/caching.feature">to smokey</a> and check that they don&rsquo;t fail in staging.</p>
+<p>You can also use Fastly&rsquo;s <a href="https://fiddle.fastlydemo.net/">Fiddle tool</a> to manually test, and you can also test your changes with cURL by including a debug header:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>curl <span class="nt">-svo</span> /dev/null <span class="nt">-H</span> <span class="s2">"Fastly-Debug: 1"</span> https://www.gov.uk/
+</code></pre></div><p>This will give you various debugging headers that may be useful:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>&lt; Fastly-Debug-Path: &lt;nodes you hit&gt;
 &lt; Fastly-Debug-TTL: &lt;nodes with TTL&gt;
 &lt; Fastly-Debug-Digest: &lt;hash&gt;
 &lt; X-Served-By: &lt;node that responded&gt;
@@ -250,39 +222,28 @@
 &lt; X-Cache-Hits: 1
 &lt; X-Timer: &lt;time it took&gt;
 &lt; Vary: Accept-Encoding, Accept-Encoding
-</code></pre></div>
-<p>See the Varnish/Fastly docs for what these mean. Check out the Fastly <a href="https://docs.fastly.com/guides/debugging/checking-cache#using-curl">debugging guide</a> for more details on testing.</p>
-
-<h2 id="access-controls-on-cache-clearing">Access controls on cache clearing</h2>
-
-<p>Our <a href="https://github.com/alphagov/govuk-cdn-config/">Fastly Varnish config</a> restricts HTTP purges to specific IP addresses (otherwise anyone would be able to purge the cache).</p>
-
-<h2 id="fastlys-ip-ranges-and-our-access-controls-on-origin-servers">Fastly's IP ranges and our access controls on origin servers</h2>
-
-<p>Fastly publish their cache node <a href="https://api.fastly.com/public-ip-list">IP address ranges as JSON from their API</a>. We use these IP addresses in two places:</p>
+</code></pre></div><p>See the Varnish/Fastly docs for what these mean. Check out the Fastly <a href="https://docs.fastly.com/guides/debugging/checking-cache#using-curl">debugging guide</a> for more details on testing.</p>
+<h2 id='access-controls-on-cache-clearing'>Access controls on cache clearing</h2><p>Our <a href="https://github.com/alphagov/govuk-cdn-config/">Fastly Varnish config</a> restricts HTTP purges to specific IP addresses (otherwise anyone would be able to purge the cache).</p>
+<h2 id='fastly39s-ip-ranges-and-our-access-controls-on-origin-servers'>Fastly&rsquo;s IP ranges and our access controls on origin servers</h2><p>Fastly publish their cache node <a href="https://api.fastly.com/public-ip-list">IP address ranges as JSON from their API</a>. We use these IP addresses in two places:</p>
 
 <ul>
-  <li>Origin has <a href="https://github.com/alphagov/govuk-provisioning/blob/master/vcloud-edge_gateway/vars/production_carrenza_vars.yaml">firewall rules</a> in place so that only our office and Fastly can connect. This is updated automatically using the <a href="https://registry.terraform.io/providers/fastly/fastly/latest/docs">Fastly Terraform provider</a> when the <a href="https://github.com/alphagov/govuk-aws/tree/master/terraform/projects/infra-security-groups">infra-security-groups</a> module is deployed. Triggering the deployment is still a manual step though.</li>
-  <li>Performance Platform, which is still hosted in Carrenza/6degrees, has similar restrictions in place but this list is updated manually - see below.</li>
+<li>Origin has <a href="https://github.com/alphagov/govuk-provisioning/blob/master/vcloud-edge_gateway/vars/production_carrenza_vars.yaml">firewall rules</a> in place so that only our office and Fastly can connect. This is updated automatically using the <a href="https://registry.terraform.io/providers/fastly/fastly/latest/docs">Fastly Terraform provider</a> when the <a href="https://github.com/alphagov/govuk-aws/tree/master/terraform/projects/infra-security-groups">infra-security-groups</a> module is deployed. Triggering the deployment is still a manual step though.</li>
+<li>Performance Platform, which is still hosted in Carrenza/6degrees, has similar restrictions in place but this list is updated manually - see below.</li>
 </ul>
-
-<p>We have <a href="https://deploy.publishing.service.gov.uk/job/Check_CDN_IP_Ranges/">a Jenkins job "Check CDN IP Ranges"</a> which will start to fail if the Fastly IPs in our Carrenza/6degrees firewall rules don't match the ones returned from the Fastly API. This check is only relevant for Carrenza/6degrees, which hosts Performance Platform. It does not apply to the rest of GOV.UK.</p>
-
+<p>We have <a href="https://deploy.publishing.service.gov.uk/job/Check_CDN_IP_Ranges/">a Jenkins job &ldquo;Check CDN IP Ranges&rdquo;</a> which will start to fail if the Fastly IPs in our Carrenza/6degrees firewall rules don&rsquo;t match the ones returned from the Fastly API. This check is only relevant for Carrenza/6degrees, which hosts Performance Platform. It does not apply to the rest of GOV.UK.</p>
 <p>Updating the firewall rules in Carrenza with new Fastly IPs is a manual process. The <a href="/manual/raising-issues-with-reliability-engineering.html">SREs currently in Replatforming team</a> can help with this:</p>
 
 <ol>
-  <li>You will need to install <a href="https://github.com/vmware/vcd-cli">vcd-cli</a> to use the following scripts.</li>
-  <li>Connect to the <a href="/manual/connect-to-vcloud-director.html#connecting-with-cisco-anyconnect">Carrenza VPN</a></li>
-  <li>Login to Vcloud director, you can find the organisation name and the credentials attached to it in the password store.</li>
+<li>You will need to install <a href="https://github.com/vmware/vcd-cli">vcd-cli</a> to use the following scripts.</li>
+<li>Connect to the <a href="/manual/connect-to-vcloud-director.html#connecting-with-cisco-anyconnect">Carrenza VPN</a></li>
+<li>Login to Vcloud director, you can find the organisation name and the credentials attached to it in the password store.</li>
 </ol>
-
-<div class="highlight"><pre class="highlight shell"><code>vcd login vcloud.carrenza.com <span class="o">{</span>organisation<span class="o">}</span> 2nd-line-support@digital.cabinet-office.gov.uk <span class="nt">-V</span> 32.0
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>vcd login vcloud.carrenza.com <span class="o">{</span>organisation<span class="o">}</span> 2nd-line-support@digital.cabinet-office.gov.uk <span class="nt">-V</span> 32.0
 </code></pre></div>
 <ol>
-  <li>Find the correct values for $stag_prefix and $prod_prefix in Carrenza and run this script, setting env to either staging or production and put the list of new Fastly IP ranges into fastly_ips as an array</li>
+<li>Find the correct values for $stag_prefix and $prod_prefix in Carrenza and run this script, setting env to either staging or production and put the list of new Fastly IP ranges into fastly_ips as an array</li>
 </ol>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">env</span><span class="o">=</span><span class="nv">$1</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">env</span><span class="o">=</span><span class="nv">$1</span>
 <span class="nv">fastly_ips</span><span class="o">=()</span>
 
 <span class="k">case</span> <span class="nv">$env</span> <span class="k">in</span>
@@ -321,58 +282,38 @@
                 <span class="nb">seq</span><span class="o">=</span><span class="k">$((</span><span class="nb">seq</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
         <span class="k">done
 done</span>
-</code></pre></div>
-<h2 id="banning-ip-addresses-at-the-cdn-edge">Banning IP addresses at the CDN edge</h2>
-
-<p>We occasionally decide to ban an IP address at our CDN edge if they exhibit the following behaviour:</p>
+</code></pre></div><h2 id='banning-ip-addresses-at-the-cdn-edge'>Banning IP addresses at the CDN edge</h2><p>We occasionally decide to ban an IP address at our CDN edge if they exhibit the following behaviour:</p>
 
 <ul>
-  <li>not respecting <a href="https://www.gov.uk/robots.txt">our robots.txt directives</a></li>
-  <li>repeatedly receiving 429 (rate limit) error responses from origin and not slowing down</li>
-  <li>making suspicious requests like attempting SQL injection queries</li>
+<li>not respecting <a href="https://www.gov.uk/robots.txt">our robots.txt directives</a></li>
+<li>repeatedly receiving 429 (rate limit) error responses from origin and not slowing down</li>
+<li>making suspicious requests like attempting SQL injection queries</li>
 </ul>
-
-<p>Banning IPs shouldn't be taken lightly because many users can share the same IP address and the user behind an IP address can change over time, so there's always a chance that we may block legitimate users.</p>
-
+<p>Banning IPs shouldn&rsquo;t be taken lightly because many users can share the same IP address and the user behind an IP address can change over time, so there&rsquo;s always a chance that we may block legitimate users.</p>
 <p>You can change the list of banned IP addresses by modifying the <a href="https://github.com/alphagov/govuk-cdn-config-secrets/blob/master/fastly/dictionaries/config/ip_address_denylist.yaml">YAML config file</a> and <a href="https://deploy.blue.production.govuk.digital/job/Update_CDN_Dictionaries/build">deploying the configuration</a>.</p>
-
-<h2 id="blocking-problematic-traffic-at-the-cdn-edge">Blocking problematic traffic at the CDN edge</h2>
-
-<p>As well as blocking based on source IP address, we can also block abusive traffic based on headers, URL paths or any arbitrary criteria about the request that we can specify using VCL. This requires care and testing, but can be nonetheless a valueable incident response tool for mitigating DoS and spam attacks.</p>
-
+<h2 id='blocking-problematic-traffic-at-the-cdn-edge'>Blocking problematic traffic at the CDN edge</h2><p>As well as blocking based on source IP address, we can also block abusive traffic based on headers, URL paths or any arbitrary criteria about the request that we can specify using VCL. This requires care and testing, but can be nonetheless a valueable incident response tool for mitigating DoS and spam attacks.</p>
 <p>We have a mechanism for including VCL code from the private <code>govuk-cdn-config-secrets</code> repo into the Fastly config, so that mitigations we make during an attack are not published to the public repo for the attacker to see and work around. An example of this is <a href="https://github.com/alphagov/govuk-cdn-config-secrets/pull/133/files">alphagov/govuk-cdn-secrets#133</a>.</p>
-
-<h2 id="bouncers-fastly-service">Bouncer's Fastly service</h2>
-
-<p>A Fastly CDN service can normally handle up to 1000 domains - this limit is currently undocumented.</p>
-
-<p>We have asked them to increase this limit for Bouncer's service a few times as the number of domains it handled grew, and the limit is <a href="https://fastly.zendesk.com/requests/7356">currently 3500</a>. We have <a href="https://transition.publishing.service.gov.uk/hosts">about 2000 domains</a> so shouldn't need to increase it again for a while.</p>
-
-<p>If we reach the limit then the <a href="https://deploy.blue.production.govuk.digital/job/Bouncer_CDN/">Jenkins job to update Bouncer's CDN config</a> should fail and new domains won't be added to the service.</p>
-
+<h2 id='bouncer39s-fastly-service'>Bouncer&rsquo;s Fastly service</h2><p>A Fastly CDN service can normally handle up to 1000 domains - this limit is currently undocumented.</p>
+<p>We have asked them to increase this limit for Bouncer&rsquo;s service a few times as the number of domains it handled grew, and the limit is <a href="https://fastly.zendesk.com/requests/7356">currently 3500</a>. We have <a href="https://transition.publishing.service.gov.uk/hosts">about 2000 domains</a> so shouldn&rsquo;t need to increase it again for a while.</p>
+<p>If we reach the limit then the <a href="https://deploy.blue.production.govuk.digital/job/Bouncer_CDN/">Jenkins job to update Bouncer&rsquo;s CDN config</a> should fail and new domains won&rsquo;t be added to the service.</p>
 <p>Configuring a new site in Transition generally adds at least 4 domains to the service, including the <code>aka</code> domain for each real domain. For example:</p>
 
 <ul>
-  <li><code>www.foo.gov.uk</code></li>
-  <li><code>aka.foo.gov.uk</code></li>
-  <li><code>foo.gov.uk</code></li>
-  <li><code>aka-foo.gov.uk</code></li>
+<li><code>www.foo.gov.uk</code></li>
+<li><code>aka.foo.gov.uk</code></li>
+<li><code>foo.gov.uk</code></li>
+<li><code>aka-foo.gov.uk</code></li>
 </ul>
-
-<h3 id="new-solution-for-bouncer-and-fastly">New solution for Bouncer and Fastly</h3>
-
-<p>Fastly's new solution to get around the domain limit is a "service pinned map".</p>
-
+<h3 id='new-solution-for-bouncer-and-fastly'>New solution for Bouncer and Fastly</h3><p>Fastly&rsquo;s new solution to get around the domain limit is a &ldquo;service pinned map&rdquo;.</p>
 <p>They have created a map which we access using <code>bouncer-cdn.production.govuk.service.gov.uk</code>. Domains that need to be transitioned can <code>CNAME</code> to this domain. It also has 4 IP addresses assigned, which at the time of writing are the same as the <code>A</code> records at that hostname:</p>
 
 <ul>
-  <li><code>151.101.2.30</code></li>
-  <li><code>151.101.66.30</code></li>
-  <li><code>151.101.130.30</code></li>
-  <li><code>151.101.194.30</code></li>
+<li><code>151.101.2.30</code></li>
+<li><code>151.101.66.30</code></li>
+<li><code>151.101.130.30</code></li>
+<li><code>151.101.194.30</code></li>
 </ul>
-
-<p>Domains do not need to be added to the "Production Bouncer" Fastly service like they used to be.</p>
+<p>Domains do not need to be added to the &ldquo;Production Bouncer&rdquo; Fastly service like they used to be.</p>
 
 
   <div class='related-content'>

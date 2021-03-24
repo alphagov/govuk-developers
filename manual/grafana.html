@@ -164,77 +164,50 @@ It does not store data, but consumes data sources to create real-time
 graphs displayed on custom dashboards. Data sources include Prometheus,
 <a href="/manual/graphite-and-deployment-dashboards.html">Graphite</a>, <a href="/manual/logit.html">Logit</a> and CloudWatch. The query language of the data
 store, such as PromQL for Prometheus, is used to construct the graphs.</p>
-
-<h2 id="grafana-dashboards">Grafana dashboards</h2>
-
+<h2 id='grafana-dashboards'>Grafana dashboards</h2>
 <ul>
-  <li><a href="https://grafana.blue.production.govuk.digital">Production (AWS)</a></li>
-  <li><a href="https://grafana.blue.staging.govuk.digital">Staging (AWS)</a></li>
-  <li><a href="https://grafana.integration.publishing.service.gov.uk">Integration (AWS)</a></li>
-  <li><a href="https://ci-grafana.integration.publishing.service.gov.uk">CI (Carrenza)</a></li>
+<li><a href="https://grafana.blue.production.govuk.digital">Production (AWS)</a></li>
+<li><a href="https://grafana.blue.staging.govuk.digital">Staging (AWS)</a></li>
+<li><a href="https://grafana.integration.publishing.service.gov.uk">Integration (AWS)</a></li>
+<li><a href="https://ci-grafana.integration.publishing.service.gov.uk">CI (Carrenza)</a></li>
 </ul>
-
 <p>Useful Grafana dashboards:</p>
 
 <ul>
-  <li><a href="https://grafana.publishing.service.gov.uk/dashboard/file/origin_health.json">Origin health</a></li>
-  <li><a href="https://grafana.publishing.service.gov.uk/dashboard/file/edge_health.json">Edge health</a></li>
-  <li><a href="/manual/deployment-dashboards.html">Application deployment dashboards</a></li>
+<li><a href="https://grafana.publishing.service.gov.uk/dashboard/file/origin_health.json">Origin health</a></li>
+<li><a href="https://grafana.publishing.service.gov.uk/dashboard/file/edge_health.json">Edge health</a></li>
+<li><a href="/manual/deployment-dashboards.html">Application deployment dashboards</a></li>
 </ul>
-
 <p>The full list of Grafana dashboards is <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/grafana/manifests/dashboards.pp">stored in the Puppet repo</a>.
 For details on how to create a new dashboard, read the
 <a href="/manual/alerts/grafana-dashboards.html">Grafana dashboards alert documentation</a>.</p>
-
-<h2 id="grafana-tips">Grafana tips</h2>
-
-<p>You can use regexes to filter for relevant information. For example,
+<h2 id='grafana-tips'>Grafana tips</h2><p>You can use regexes to filter for relevant information. For example,
 <a href="https://grafana.production.govuk.digital/dashboard/file/processes.json?refresh=1m&amp;orgId=1&amp;var-host=All&amp;var-processes=*frontend*&amp;from=now-15m&amp;to=now"><code>*frontend*</code> on the processes dashboard</a>
-to see all processes that have 'frontend' in them.</p>
-
+to see all processes that have &lsquo;frontend&rsquo; in them.</p>
 <p>We often show multiple metrics on the same graph. The position of the
 key shows which Y-axis each metric corresponds to:</p>
-
-<p><img src="/manual/images/grafana-y-axis.png" alt="screenshot of multiple metrics selected" /></p>
-
+<p><a href="/manual/images/grafana-y-axis.png" rel="noopener noreferrer"><img src="/manual/images/grafana-y-axis.png" alt="screenshot of multiple metrics selected" /></a></p>
 <p>You can click on a metric in a graph to show only that metric, or you
 can <code>CMD + click</code> to select multiple:</p>
-
-<p><img src="/manual/images/grafana-select-multiple.png" alt="screenshot of multiple metrics selected" /></p>
-
+<p><a href="/manual/images/grafana-select-multiple.png" rel="noopener noreferrer"><img src="/manual/images/grafana-select-multiple.png" alt="screenshot of multiple metrics selected" /></a></p>
 <p>Annotations on charts show events such as deploys:</p>
-
-<p><img src="/manual/images/grafana-annotations.png" alt="screenshot of annotations" /></p>
-
+<p><a href="/manual/images/grafana-annotations.png" rel="noopener noreferrer"><img src="/manual/images/grafana-annotations.png" alt="screenshot of annotations" /></a></p>
 <p>For more tips, see the <a href="https://docs.google.com/presentation/d/1jza62bRUt8BnyIqKkGP0oaP2X26pI-rooU6ri3YCm5w/edit">Introduction to Grafana slides</a>.</p>
-
-<h2 id="fixing-na-in-dashboards">Fixing N/A in dashboards</h2>
-
-<p>When a request for data times out, Grafana will render an "N/A" in the panel.
+<h2 id='fixing-na-in-dashboards'>Fixing N/A in dashboards</h2><p>When a request for data times out, Grafana will render an &ldquo;N/A&rdquo; in the panel.
 Usually refreshing the page or choosing a shorter time range fixes the issue.</p>
-
-<p>If a dashboard consistently returns "N/A", then there may be an underlying issue.</p>
-
+<p>If a dashboard consistently returns &ldquo;N/A&rdquo;, then there may be an underlying issue.</p>
 <p>In the failing panel, open Query Inspector, and read the error message for clues:</p>
-
-<p><img src="https://trello-attachments.s3.amazonaws.com/5acb8d0387ff12f600df0a13/5fa2aabcd3c6a14f183a4864/67fefdfd06aaaeca84977dcc32abc27f/Screenshot_2020-11-30_at_10.53.20.png" alt="screenshot of query inspector" /></p>
-
+<p><a href="https://trello-attachments.s3.amazonaws.com/5acb8d0387ff12f600df0a13/5fa2aabcd3c6a14f183a4864/67fefdfd06aaaeca84977dcc32abc27f/Screenshot_2020-11-30_at_10.53.20.png" rel="noopener noreferrer"><img src="https://trello-attachments.s3.amazonaws.com/5acb8d0387ff12f600df0a13/5fa2aabcd3c6a14f183a4864/67fefdfd06aaaeca84977dcc32abc27f/Screenshot_2020-11-30_at_10.53.20.png" alt="screenshot of query inspector" /></a></p>
 <p>If you see the following error:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>raise CorruptWhisperFile(&amp;quot;Unable to read header&amp;quot;, fh.name) CorruptWhisperFile: Unable to read header (/opt/graphite/storage/whisper/stats/govuk/app/collections-publisher/ip-10-1-5-36/errors_occurred.wsp)
-</code></pre></div>
-<p>…that suggests the <a href="https://github.com/graphite-project/carbon/issues/327">disk was full at the time of writing to Graphite</a>.
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>raise CorruptWhisperFile(&amp;quot;Unable to read header&amp;quot;, fh.name) CorruptWhisperFile: Unable to read header (/opt/graphite/storage/whisper/stats/govuk/app/collections-publisher/ip-10-1-5-36/errors_occurred.wsp)
+</code></pre></div><p>&hellip;that suggests the <a href="https://github.com/graphite-project/carbon/issues/327">disk was full at the time of writing to Graphite</a>.
 The solution is to remove the corrupt file, and ensure there is space on the disk.</p>
-
 <p>SSH into the relevant machine and <code>more errors_occurred.wsp</code> to see the file contents,
 or <code>ls -lsa</code> in the directory to see the file sizes. This should confirm a file size of
 zero.</p>
-
 <p>Delete all empty (corrupt) WSP files with:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>find /opt/graphite/storage/whisper/ <span class="nt">-type</span> f <span class="nt">-empty</span> <span class="nt">-delete</span>
-</code></pre></div>
-<p>You should now find the dashboard panels load properly.</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>find /opt/graphite/storage/whisper/ <span class="nt">-type</span> f <span class="nt">-empty</span> <span class="nt">-delete</span>
+</code></pre></div><p>You should now find the dashboard panels load properly.</p>
 
 
   <div class='related-content'>

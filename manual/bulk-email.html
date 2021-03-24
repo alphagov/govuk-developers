@@ -164,34 +164,17 @@
 
  <h1 id='header'>Send a bulk email</h1> <p>Sometimes it may be necessary to send a bulk email to many subscribers at once.
 There is <a href="https://github.com/alphagov/email-alert-api/blob/3a3eaaa59e71e03427021ba730c626ecdf107ccd/lib/tasks/bulk.rake#L2-L9">a Rake task in email-alert-api</a> to peform this task and
-it's <a href="https://deploy.blue.production.govuk.digital/job/send-bulk-email/">available as a job in Jenkins</a>.</p>
-
-<h2 id="1-prepare-the-content">1. Prepare the content</h2>
-
-<p>The format for the body text is <a href="https://www.notifications.service.gov.uk/using-notify/guidance/edit-and-format-messages">a limited subset of markdown</a>. A footer will be automatically appended to the specified body text. The footer will have links to unsubscribe and manage subscriptions. We should always provide users with these options, to help avoid our emails being marked as spam.</p>
-
-<p>Any occurrence of <code>%LISTURL%</code> in the body text will be substituted with the URL of the subscriber list, or an empty string if it has none. This is useful when sending the same email across many lists, where the content of the email needs to link to the specific page on GOV.UK associated with the list. You should check the lists you want to send a bulk email for, to see if they have a URL populated (it's a recent addition).</p>
-
-<h2 id="2-get-the-subscriber-lists">2. Get the subscriber lists</h2>
-
-<p>Next you'll need to get the IDs of all the subscriber lists to send the email
+it&rsquo;s <a href="https://deploy.blue.production.govuk.digital/job/send-bulk-email/">available as a job in Jenkins</a>.</p>
+<h2 id='1-prepare-the-content'>1. Prepare the content</h2><p>The format for the body text is <a href="https://www.notifications.service.gov.uk/using-notify/guidance/edit-and-format-messages">a limited subset of markdown</a>. A footer will be automatically appended to the specified body text. The footer will have links to unsubscribe and manage subscriptions. We should always provide users with these options, to help avoid our emails being marked as spam.</p>
+<p>Any occurrence of <code>%LISTURL%</code> in the body text will be substituted with the URL of the subscriber list, or an empty string if it has none. This is useful when sending the same email across many lists, where the content of the email needs to link to the specific page on GOV.UK associated with the list. You should check the lists you want to send a bulk email for, to see if they have a URL populated (it&rsquo;s a recent addition).</p>
+<h2 id='2-get-the-subscriber-lists'>2. Get the subscriber lists</h2><p>Next you&rsquo;ll need to get the IDs of all the subscriber lists to send the email
 out to. This will require querying the email-alert-api <code>SubscriberList</code> model.</p>
-
 <p>For example, to get the IDs of all the subscriber lists for travel advice, you
 could use the following query:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="no">SubscriberList</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"links-&gt;'countries' IS NOT NULL"</span><span class="p">).</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="3-send-a-test-email">3. Send a test email</h2>
-
-<p>Use <a href="https://deploy.blue.staging.govuk.digital/job/send-bulk-email/">the Send bulk emails job in Staging</a> to send the email.</p>
-
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="o">&gt;</span> <span class="no">SubscriberList</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"links-&gt;'countries' IS NOT NULL"</span><span class="p">).</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span>
+</code></pre></div><h2 id='3-send-a-test-email'>3. Send a test email</h2><p>Use <a href="https://deploy.blue.staging.govuk.digital/job/send-bulk-email/">the Send bulk emails job in Staging</a> to send the email.</p>
 <p><strong>Make sure you know <a href="/manual/receiving-emails-from-email-alert-api-in-integration-and-staging.html">how to receive emails in Staging</a>.</strong></p>
-
-<h2 id="4-send-the-real-email">4. Send the real email</h2>
-
-<p>Use <a href="https://deploy.blue.production.govuk.digital/job/send-bulk-email/">the Send bulk emails job in Production</a> to send the email.</p>
-
+<h2 id='4-send-the-real-email'>4. Send the real email</h2><p>Use <a href="https://deploy.blue.production.govuk.digital/job/send-bulk-email/">the Send bulk emails job in Production</a> to send the email.</p>
 
 
   <div class='related-content'>

@@ -178,61 +178,47 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0f3fb63c978d4b63123dae544c80235fc71fca29">17 Sep 2020</a>
 </div>
 
- <h1 id='header'>MongoDB rollback</h1> <h3 id="what-is-a-rollback">What is a rollback</h3>
-
-<p>Explanation from the <a href="http://docs.mongodb.org/manual/core/replication/#replica-set-rollbacks">MongoDB
+ <h1 id='header'>MongoDB rollback</h1> <h3 id='what-is-a-rollback'>What is a rollback</h3><p>Explanation from the <a href="http://docs.mongodb.org/manual/core/replication/#replica-set-rollbacks">MongoDB
 documentation</a>:</p>
 
 <blockquote>
-  <p>In some failover situations primaries will have accepted write
+<p>In some failover situations primaries will have accepted write
 operations that have not replicated to the secondaries after a
 failover occurs. This case is rare and typically occurs as a result of
 a network partition with replication lag. When this member (the former
 primary) rejoins the replica set and attempts to continue replication
 as a secondary the former primary must revert these operations or
-"roll back" these operations to maintain database consistency across
+&ldquo;roll back&rdquo; these operations to maintain database consistency across
 the replica set.</p>
 </blockquote>
-
-<h3 id="how-to-investigate">How to investigate</h3>
-
-<p>The rolled-back records can be viewed with
+<h3 id='how-to-investigate'>How to investigate</h3><p>The rolled-back records can be viewed with
 <a href="http://docs.mongodb.org/manual/reference/program/bsondump/">bsondump</a>
 which will output human readable JSON.</p>
-
 <p>Some judgement is required to determine whether it is necessary to
 recover the rolled-back data. In one example, we found that the user had
 resubmitted the affected record(s) a few minutes later, presumably in
 response to a UI error. Therefore recovery was not necessary.</p>
-
-<h3 id="how-to-recover">How to recover</h3>
-
-<p>If you are happy that the rolled-back data should be restored and
-doesn't conflict with any existing records, then you can use
+<h3 id='how-to-recover'>How to recover</h3><p>If you are happy that the rolled-back data should be restored and
+doesn&rsquo;t conflict with any existing records, then you can use
 <a href="http://docs.mongodb.org/manual/reference/program/mongorestore/">mongorestore</a>.</p>
-
 <p>The following arguments are necessary:</p>
 
 <ul>
-  <li><code>-h</code>: Hostname of the current <code>PRIMARY</code> node, from <code>rs.status()</code>.</li>
-  <li><code>-d</code>: Name of the database, from the BSON filename.</li>
-  <li><code>-c</code>: Name of the collection, from the BSON filename.</li>
-  <li><code>--objcheck</code>: Validate BSON. Not the default in MongoDB 2.2</li>
+<li><code>-h</code>: Hostname of the current <code>PRIMARY</code> node, from <code>rs.status()</code>.</li>
+<li><code>-d</code>: Name of the database, from the BSON filename.</li>
+<li><code>-c</code>: Name of the collection, from the BSON filename.</li>
+<li><code>--objcheck</code>: Validate BSON. Not the default in MongoDB 2.2</li>
 </ul>
-
 <p>For example:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>dcarley@production-licensing-mongo-1:/var/lib/mongodb/rollback$ mongorestore -h licensing-mongo-2 -d licensify-audit -c audit --objcheck licensify-audit.audit.2013-05-30T12-45-42.1.bson
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>dcarley@production-licensing-mongo-1:/var/lib/mongodb/rollback$ mongorestore -h licensing-mongo-2 -d licensify-audit -c audit --objcheck licensify-audit.audit.2013-05-30T12-45-42.1.bson
 connected to: licensing-mongo-2
 Thu May 30 13:56:52 licensify-audit.audit.2013-05-30T12-45-42.1.bson
 Thu May 30 13:56:52 going into namespace [licensify-audit.audit]
 1 objects found
-</code></pre></div>
-<p>Unfortunately <code>mongorestore</code> may not give any feedback about whether the
+</code></pre></div><p>Unfortunately <code>mongorestore</code> may not give any feedback about whether the
 restore was successful. It is advisable to check the logs on the host
 you referenced, and query MongoDB for the <code>_id</code> of the records you
 expect.</p>
-
 <p>When satisfied, the BSON files and rollback directory can be deleted.
 This will resolve the Nagios alert.</p>
 

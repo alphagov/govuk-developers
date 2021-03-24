@@ -171,170 +171,98 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/14bf16cb3654437e337282a86b6034cdb7eaad66">18 May 2020</a>
 </div>
 
- <h1 id='header'>Deploy when GitHub is unavailable</h1> <h2 id="public-github-application-code">Public GitHub (application code)</h2>
-
-<p>Many of the git repositories which make up GOV.UK are hosted on public GitHub. We may need to deploy changes at any time, and GitHub is a Software as a Service (SaaS) product which is not guaranteed to be available.</p>
-
+ <h1 id='header'>Deploy when GitHub is unavailable</h1> <h2 id='public-github-application-code'>Public GitHub (application code)</h2><p>Many of the git repositories which make up GOV.UK are hosted on public GitHub. We may need to deploy changes at any time, and GitHub is a Software as a Service (SaaS) product which is not guaranteed to be available.</p>
 <p>If GitHub is unavailable, we lose:</p>
 
 <ul>
-  <li>Access to our primary code repository</li>
-  <li>The ability to authenticate with Jenkins, as it makes use of GitHub groups</li>
+<li>Access to our primary code repository</li>
+<li>The ability to authenticate with Jenkins, as it makes use of GitHub groups</li>
 </ul>
-
 <p>We <a href="/manual/repository-mirroring.html">mirror all GitHub repositories</a> tagged with <code>govuk</code> to AWS CodeCommit every 2 hours. In the event of GitHub being down, we can deploy from AWS CodeCommit repos. This requires help from a GOV.UK AWS admin.</p>
-
-<h3 id="deploying-from-aws-codecommit">Deploying from AWS CodeCommit</h3>
-
-<p>Use the normal deployment Jenkins job but check the box to deploy from AWS CodeCommit.</p>
-
-<h4 id="making-changes-to-code-in-aws-codecommit-before-deployment">Making changes to code in AWS CodeCommit before deployment</h4>
-
-<p>GOV.UK AWS admin users can give access to developers who need to make changes to the code before deployment.</p>
+<h3 id='deploying-from-aws-codecommit'>Deploying from AWS CodeCommit</h3><p>Use the normal deployment Jenkins job but check the box to deploy from AWS CodeCommit.</p>
+<h4 id='making-changes-to-code-in-aws-codecommit-before-deployment'>Making changes to code in AWS CodeCommit before deployment</h4><p>GOV.UK AWS admin users can give access to developers who need to make changes to the code before deployment.</p>
 
 <ol>
-  <li>
-    <p>In the root of the local repo, run the following commands to install the AWS
-credential helper and add CodeCommit as a remote:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>git config credential.helper '!aws codecommit credential-helper $@'
-git config credential.UseHttpPath true
-git remote add aws https://git-codecommit.eu-west-2.amazonaws.com/v1/repos/&lt;app&gt;
-</code></pre></div>  </li>
-  <li>
-    <p>Get some credentials for the GOV.UK Tools AWS account:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>gds aws govuk-tools-poweruser -e
-</code></pre></div>  </li>
-  <li>
-    <p>Fetch the AWS upstream by running <code>git fetch aws</code></p>
-  </li>
-  <li>
-    <p>Checkout a new branch on the upstream by running <code>git checkout -b aws/my-super-secret-fix</code></p>
-  </li>
-  <li>
-    <p>Make and commit your changes to this branch, and make sure all tests run successfully
-locally (since CodeCommit does not run tests)</p>
-  </li>
-  <li>
-    <p>Push your changes to CodeCommit by running <code>git push</code></p>
-  </li>
-  <li>
-    <p>Tag your changes by running <code>git tag release_XYZ</code>, where XYZ is one more that the latest
-release tag for the application you're working on, as reported by the Release app</p>
-  </li>
-  <li>
-    <p>Push your new tag to CodeCommit by running <code>git push aws release_XYZ</code></p>
-  </li>
+<li>In the root of the local repo, run the following commands to install the AWS
+credential helper and add CodeCommit as a remote:</li>
 </ol>
-
-<h4 id="deploying-the-code-change">Deploying the code change</h4>
-
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   git config credential.helper '!aws codecommit credential-helper $@'
+   git config credential.UseHttpPath true
+   git remote add aws https://git-codecommit.eu-west-2.amazonaws.com/v1/repos/&lt;app&gt;
+</code></pre></div>
 <ol>
-  <li>
-    <p>Review the pull request on AWS CodeCommit through the <a href="https://eu-west-1.console.aws.amazon.com/codesuite/codecommit/repositories?region=eu-west-1#">AWS Console</a> (access to GOV.UK repos must be granted by a GDS AWS administrator).</p>
-  </li>
-  <li>
-    <p>Create a release tag manually in git. This should follow the standard format
-<code>release_X</code>. Tag the branch directly instead of merging it.</p>
-  </li>
-  <li>
-    <p>Don't use the release app. Go directly to the <code>Deploy_App</code> Jenkins job, and
-check <code>DEPLOY_FROM_AWS_CODECOMMIT</code>.</p>
-  </li>
+<li>Get some credentials for the GOV.UK Tools AWS account:</li>
 </ol>
-
-<h4 id="after-deploying-the-change">After deploying the change</h4>
-
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   gds aws govuk-tools-poweruser -e
+</code></pre></div>
 <ol>
-  <li>
-    <p>Push the branch and tag to GitHub.</p>
-  </li>
-  <li>
-    <p>Merge the branch into master.</p>
-  </li>
-  <li>
-    <p>Record the missing deployment in the Release app.</p>
-  </li>
+<li><p>Fetch the AWS upstream by running <code>git fetch aws</code></p></li>
+<li><p>Checkout a new branch on the upstream by running <code>git checkout -b aws/my-super-secret-fix</code></p></li>
+<li><p>Make and commit your changes to this branch, and make sure all tests run successfully
+locally (since CodeCommit does not run tests)</p></li>
+<li><p>Push your changes to CodeCommit by running <code>git push</code></p></li>
+<li><p>Tag your changes by running <code>git tag release_XYZ</code>, where XYZ is one more that the latest
+release tag for the application you&rsquo;re working on, as reported by the Release app</p></li>
+<li><p>Push your new tag to CodeCommit by running <code>git push aws release_XYZ</code></p></li>
 </ol>
-
-<h4 id="troubleshooting">Troubleshooting</h4>
-
-<p>If running any <code>git</code> commands against CodeCommit returns you a 403, you probably
+<h4 id='deploying-the-code-change'>Deploying the code change</h4>
+<ol>
+<li><p>Review the pull request on AWS CodeCommit through the <a href="https://eu-west-1.console.aws.amazon.com/codesuite/codecommit/repositories?region=eu-west-1#">AWS Console</a> (access to GOV.UK repos must be granted by a GDS AWS administrator).</p></li>
+<li><p>Create a release tag manually in git. This should follow the standard format
+<code>release_X</code>. Tag the branch directly instead of merging it.</p></li>
+<li><p>Don&rsquo;t use the release app. Go directly to the <code>Deploy_App</code> Jenkins job, and
+check <code>DEPLOY_FROM_AWS_CODECOMMIT</code>.</p></li>
+</ol>
+<h4 id='after-deploying-the-change'>After deploying the change</h4>
+<ol>
+<li><p>Push the branch and tag to GitHub.</p></li>
+<li><p>Merge the branch into master.</p></li>
+<li><p>Record the missing deployment in the Release app.</p></li>
+</ol>
+<h4 id='troubleshooting'>Troubleshooting</h4><p>If running any <code>git</code> commands against CodeCommit returns you a 403, you probably
 have expired credentials stored in your macOS keychain from a previous attempt.
 Apparently macOS stores these the first time you use it and subsequently tries
 to use them again despite you setting new AWS credentials.</p>
-
 <p>To fix this:</p>
 
 <ol>
-  <li>
-    <p>Open Keychain Access (use cmd-space to search for it).</p>
-  </li>
-  <li>
-    <p>Select "Passwords" from the "Category" on the left.</p>
-  </li>
-  <li>
-    <p>Search for <code>git-codecommit</code>.</p>
-  </li>
-  <li>
-    <p>Right click on the item and select "Get Info".</p>
-  </li>
-  <li>
-    <p>Click "Access Control" on the modal that pops up.</p>
-  </li>
-  <li>
-    <p>Select "git-credential-osxkeychain" from the list.</p>
-  </li>
-  <li>
-    <p>Hit the minus key.</p>
-  </li>
-  <li>
-    <p>Try your terminal commands again.</p>
-  </li>
-  <li>
-    <p>If you are prompted to add the item to keychain, deny.</p>
-  </li>
+<li><p>Open Keychain Access (use cmd-space to search for it).</p></li>
+<li><p>Select &ldquo;Passwords&rdquo; from the &ldquo;Category&rdquo; on the left.</p></li>
+<li><p>Search for <code>git-codecommit</code>.</p></li>
+<li><p>Right click on the item and select &ldquo;Get Info&rdquo;.</p></li>
+<li><p>Click &ldquo;Access Control&rdquo; on the modal that pops up.</p></li>
+<li><p>Select &ldquo;git-credential-osxkeychain&rdquo; from the list.</p></li>
+<li><p>Hit the minus key.</p></li>
+<li><p>Try your terminal commands again.</p></li>
+<li><p>If you are prompted to add the item to keychain, deny.</p></li>
 </ol>
-
 <p>There is more information about setting up your access key in the <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-unixes.html">AWS guide</a></p>
-
-<h3 id="authenticating-with-jenkins">Authenticating with Jenkins</h3>
-
-<p>If GitHub.com is down, we will not be able to log in to Jenkins.</p>
-
+<h3 id='authenticating-with-jenkins'>Authenticating with Jenkins</h3><p>If GitHub.com is down, we will not be able to log in to Jenkins.</p>
 <p>In this scenario, Jenkins security should be disabled to enable deployment:</p>
 
 <ol>
-  <li>SSH to the Jenkins deploy instance:</li>
+<li>SSH to the Jenkins deploy instance:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight console"><code><span class="go">gds govuk connect -e production ssh carrenza/jenkins
+<div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="go">gds govuk connect -e production ssh carrenza/jenkins
 gds govuk connect -e production ssh aws/jenkins
 </span></code></pre></div>
 <ol>
-  <li>Disable Puppet: <code>govuk_puppet -r "Emergency Jenkins deploy" --disable</code></li>
-  <li>Edit the Jenkins configuration file: <code>sudo vim /var/lib/jenkins/config.xml</code></li>
-  <li>Replace <code>&lt;useSecurity&gt;true&lt;/useSecurity&gt;</code> with <code>&lt;useSecurity&gt;false&lt;/useSecurity&gt;</code> and save</li>
-  <li>Restart Jenkins: <code>sudo service jenkins restart</code></li>
-  <li>Browse to the Jenkins UI and begin the deployment process</li>
-  <li>When completed, enable and run Puppet on the instance: <code>govuk_puppet --enable &amp;&amp; govuk_puppet --test</code></li>
+<li>Disable Puppet: <code>govuk_puppet -r &quot;Emergency Jenkins deploy&quot; --disable</code></li>
+<li>Edit the Jenkins configuration file: <code>sudo vim /var/lib/jenkins/config.xml</code></li>
+<li>Replace <code>&lt;useSecurity&gt;true&lt;/useSecurity&gt;</code> with <code>&lt;useSecurity&gt;false&lt;/useSecurity&gt;</code> and save</li>
+<li>Restart Jenkins: <code>sudo service jenkins restart</code></li>
+<li>Browse to the Jenkins UI and begin the deployment process</li>
+<li>When completed, enable and run Puppet on the instance: <code>govuk_puppet --enable &amp;&amp; govuk_puppet --test</code></li>
 </ol>
-
 <p>Note that once security is disabled, anyone on GDS trusted IPs will be able to deploy to that environment. This will bypass protection for Production - do not leave Production without security for any longer than necessary.</p>
-
 <p>See the <a href="https://jenkins.io/doc/book/system-administration/security/#disabling-security">Jenkins documentation</a> for further details.</p>
-
-<h3 id="simulating-a-github-outage-on-2nd-line">Simulating a GitHub outage on 2nd line</h3>
-
-<p>You can simulate an outage of GitHub.com by modifying your local hosts file.</p>
+<h3 id='simulating-a-github-outage-on-2nd-line'>Simulating a GitHub outage on 2nd line</h3><p>You can simulate an outage of GitHub.com by modifying your local hosts file.</p>
 
 <ol>
-  <li><code>sudo vi /etc/hosts</code></li>
-  <li>Add <code>127.0.0.1       github.com</code></li>
+<li><code>sudo vi /etc/hosts</code></li>
+<li>Add <code>127.0.0.1       github.com</code></li>
 </ol>
-
-<p>Don't forget to remove it afterwards!</p>
+<p>Don&rsquo;t forget to remove it afterwards!</p>
 
 
   <div class='related-content'>

@@ -170,120 +170,84 @@
 
  <h1 id='header'>Manually resize ASGs (auto scaling groups)</h1> <p>In AWS, <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html">we use auto scaling groups</a> to ensure we have the right number of
 machines available to handle incoming traffic.</p>
-
 <p>Unfortunately there are a number of limitations with the system currently which
-means we can't use it to automatically scale up the number of machines.
+means we can&rsquo;t use it to automatically scale up the number of machines.
 However, we can manually scale up the number of machines in advance if we
 anticipate an increase in traffic. This was used effectively after we deployed
-the <a href="https://www.gov.uk/get-ready-brexit-check">"Get ready for Brexit" tool</a> to ensure we would cope with
+the <a href="https://www.gov.uk/get-ready-brexit-check">&ldquo;Get ready for Brexit&rdquo; tool</a> to ensure we would cope with
 the load.</p>
-
-<h2 id="manually-scaling-updown">Manually scaling up/down</h2>
-
+<h2 id='manually-scaling-updown'>Manually scaling up/down</h2>
 <ol>
-  <li>
-    <p>Scaling up/down machines in AWS will trigger <a href="icinga">Icinga alerts</a> so let
-developers in <code>#govuk-2ndline</code> know you are about to do this.</p>
-  </li>
-  <li>
-    <p><a href="/manual/access-aws-console.html">Access the AWS Console</a> and <a href="https://eu-west-1.console.aws.amazon.com/ec2/home?region=eu-west-1">go to the EC2 service</a>.</p>
-  </li>
-  <li>
-    <p>Select "Auto Scaling Groups" from the bottom of the menu on the left hand
+<li><p>Scaling up/down machines in AWS will trigger <a href="icinga">Icinga alerts</a> so let
+developers in <code>#govuk-2ndline</code> know you are about to do this.</p></li>
+<li><p><a href="/manual/access-aws-console.html">Access the AWS Console</a> and <a href="https://eu-west-1.console.aws.amazon.com/ec2/home?region=eu-west-1">go to the EC2 service</a>.</p></li>
+<li><p>Select &ldquo;Auto Scaling Groups&rdquo; from the bottom of the menu on the left hand
 side and find the right machine class in the list (you can filter on the
-name).</p>
-
-    <p><img src="/manual/images/auto-scaling-groups-filter.png" alt="Filtering auto-scaling groups" /></p>
-  </li>
+name).</p></li>
 </ol>
-
-<h3 id="changing-the-size-of-the-asg">Changing the size of the ASG</h3>
-
+<p><a href="images/auto-scaling-groups-filter.png" rel="noopener noreferrer"><img src="/manual/images/auto-scaling-groups-filter.png" alt="Filtering auto-scaling groups" /></a></p>
+<h3 id='changing-the-size-of-the-asg'>Changing the size of the ASG</h3>
 <blockquote>
-  <p><strong>Note:</strong> If you anticipate this change being permanent, you <a href="https://github.com/alphagov/govuk-aws-data/pull/562">should make
-sure to raise a PR against govuk-aws-data</a> once it's all working to
-ensure the number doesn't get put back to the old value if Terraform gets
+<p><strong>Note:</strong> If you anticipate this change being permanent, you <a href="https://github.com/alphagov/govuk-aws-data/pull/562">should make
+sure to raise a PR against govuk-aws-data</a> once it&rsquo;s all working to
+ensure the number doesn&rsquo;t get put back to the old value if Terraform gets
 deployed.</p>
 </blockquote>
 
 <ol>
-  <li>
-    <p>In the "Details" tab at the bottom, you will see "Desired Capacity", "Min"
-and "Max" which shows the existing configuration. Scroll right and then
-click on the "Edit" button.</p>
-  </li>
-  <li>
-    <p>In the box that appears, change the numbers as required. To ensure you get
-the right number of machines you want, it's best to change all three numbers
-to the same value.</p>
-
-    <p><img src="/manual/images/auto-scaling-groups-edit.png" alt="Editing auto-scaling groups" /></p>
-  </li>
-  <li>
-    <p>Click "Save".</p>
-  </li>
-  <li>
-    <p>If you have:</p>
-
-    <ol>
-      <li>
-        <p>increased the number of instances (a.k.a scale out):</p>
-
-        <p>This should trigger the creation of new machines and
-  automatically run the appropriate <a href="https://deploy.blue.production.govuk.digital/job/Deploy_Node_Apps/"><code>Deploy_Node_Apps</code></a>
-  jobs.</p>
-
-        <p>To check the machines are recognised, you can <a href="/manual/howto-ssh-to-machines.html">use
-  <code>govuk_node_list -c &lt;class&gt;</code> on the jumpbox</a> and check the IP
-  addresses printed match those in the <a href="https://eu-west-1.console.aws.amazon.com/ec2/v2/home?region=eu-west-1#Instances:sort=tag:Name">EC2 machine listing</a>
-  (you can filter the listing by machine class and sort by the date created).</p>
-
-        <p>If any of the machines aren't recognised by <code>govuk_node_list</code> you can
-  <a href="/manual/reprovision.html#aws">destroy the machine</a> and wait for a new one to spawn.</p>
-      </li>
-      <li>
-        <p>decreased the number of instances (a.k.a scale in):</p>
-
-        <p>The number of instances to be terminated will be equally distributed
-  among the 3 availability zones.</p>
-
-        <p>Before any instance is terminated, any active connection through the
-  load balancer(s) associated with the instance will be drained so that
-  the instance can be terminated without negative impact on user traffic.
-  For e.g. there should be no HTTP 5xx errors when an instance is terminated
-  via autoscaling scale in.</p>
-
-        <p>You may want to speed up the removal of terminated instances in Icinga
-  by following the documentation
-  <a href="https://docs.publishing.service.gov.uk/manual/remove-machines.html">here</a></p>
-      </li>
-    </ol>
-  </li>
+<li><p>In the &ldquo;Details&rdquo; tab at the bottom, you will see &ldquo;Desired Capacity&rdquo;, &ldquo;Min&rdquo;
+and &ldquo;Max&rdquo; which shows the existing configuration. Scroll right and then
+click on the &ldquo;Edit&rdquo; button.</p></li>
+<li><p>In the box that appears, change the numbers as required. To ensure you get
+the right number of machines you want, it&rsquo;s best to change all three numbers
+to the same value.</p></li>
 </ol>
+<p><a href="images/auto-scaling-groups-edit.png" rel="noopener noreferrer"><img src="/manual/images/auto-scaling-groups-edit.png" alt="Editing auto-scaling groups" /></a></p>
 
-<h3 id="removing-a-specific-instance">Removing a specific instance</h3>
+<ol>
+<li><p>Click &ldquo;Save&rdquo;.</p></li>
+<li><p>If you have:</p>
 
-<p>You may want to remove a specific instance from the ASG if it is
+<ol>
+<li><p>increased the number of instances (a.k.a scale out):</p>
+<p>This should trigger the creation of new machines and
+automatically run the appropriate <a href="https://deploy.blue.production.govuk.digital/job/Deploy_Node_Apps/"><code>Deploy_Node_Apps</code></a>
+jobs.</p>
+<p>To check the machines are recognised, you can <a href="/manual/howto-ssh-to-machines.html">use
+<code>govuk_node_list -c &lt;class&gt;</code> on the jumpbox</a> and check the IP
+addresses printed match those in the <a href="https://eu-west-1.console.aws.amazon.com/ec2/v2/home?region=eu-west-1#Instances:sort=tag:Name">EC2 machine listing</a>
+(you can filter the listing by machine class and sort by the date created).</p>
+<p>If any of the machines aren&rsquo;t recognised by <code>govuk_node_list</code> you can
+<a href="/manual/reprovision.html#aws">destroy the machine</a> and wait for a new one to spawn.</p></li>
+<li><p>decreased the number of instances (a.k.a scale in):</p>
+<p>The number of instances to be terminated will be equally distributed
+among the 3 availability zones.</p>
+<p>Before any instance is terminated, any active connection through the
+load balancer(s) associated with the instance will be drained so that
+the instance can be terminated without negative impact on user traffic.
+For e.g. there should be no HTTP 5xx errors when an instance is terminated
+via autoscaling scale in.</p>
+<p>You may want to speed up the removal of terminated instances in Icinga
+by following the documentation
+<a href="https://docs.publishing.service.gov.uk/manual/remove-machines.html">here</a></p></li>
+</ol></li>
+</ol>
+<h3 id='removing-a-specific-instance'>Removing a specific instance</h3><p>You may want to remove a specific instance from the ASG if it is
 having problems.</p>
 
 <ol>
-  <li>
-    <p>In the "Instances" tab at the bottom, you will see a list of
+<li><p>In the &ldquo;Instances&rdquo; tab at the bottom, you will see a list of
 instances.  Select the instance you want to remove, and click
-"Detach" in the "Actions" drop-down.</p>
-  </li>
-  <li>
-    <p>In the box that appears, check "Add a new instance to the Auto
-Scaling group to balance the load" and confirm that you want to
-detach the instance.</p>
-  </li>
+&ldquo;Detach&rdquo; in the &ldquo;Actions&rdquo; drop-down.</p></li>
+<li><p>In the box that appears, check &ldquo;Add a new instance to the Auto
+Scaling group to balance the load&rdquo; and confirm that you want to
+detach the instance.</p></li>
 </ol>
 
 <blockquote>
-  <p><strong>Note:</strong> The removed instance will stick around, so make sure to
+<p><strong>Note:</strong> The removed instance will stick around, so make sure to
 terminate it when you no longer need it.</p>
 </blockquote>
-
 
 
   <div class='related-content'>

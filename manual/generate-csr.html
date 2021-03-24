@@ -164,44 +164,28 @@
 </div>
 
  <h1 id='header'>Generate a Certificate Signing Request (CSR) for GOV.UK</h1> <p>A certificate signing request is required when buying or renewing a TLS certificate for a GOV.UK domain.</p>
-
-<h2 id="buying-a-new-certificate">Buying a new certificate</h2>
-
-<p>Execute the following on a POSIX-compliant machine, for example your
+<h2 id='buying-a-new-certificate'>Buying a new certificate</h2><p>Execute the following on a POSIX-compliant machine, for example your
 Mac:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>DOMAIN_NAME=example.service.gov.uk sh -c 'openssl req -nodes -newkey rsa:2048 -keyout ${DOMAIN_NAME//[^a-zA-Z0-9]/_}.key -out ${DOMAIN_NAME//[^a-zA-Z0-9]/_}.csr -subj "/C=GB/ST=England/L=London/O=UK government/OU=Government Digital Service/CN=${DOMAIN_NAME}/"'
-</code></pre></div>
-<p>Be sure to replace the value 'example.service.gov.uk' set in the
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>DOMAIN_NAME=example.service.gov.uk sh -c 'openssl req -nodes -newkey rsa:2048 -keyout ${DOMAIN_NAME//[^a-zA-Z0-9]/_}.key -out ${DOMAIN_NAME//[^a-zA-Z0-9]/_}.csr -subj "/C=GB/ST=England/L=London/O=UK government/OU=Government Digital Service/CN=${DOMAIN_NAME}/"'
+</code></pre></div><p>Be sure to replace the value &lsquo;example.service.gov.uk&rsquo; set in the
 <code>DOMAIN_NAME</code> environment variable to the domain name the TLS
 certificate is intended for.</p>
-
 <p>The contents of the .key file must be kept secret. It should be stored encrypted
 in the <a href="https://github.com/alphagov/govuk-secrets">govuk-secrets</a> repository.</p>
-
 <p>The contents of the CSR should be shared with the TLS certificate
 provider. This allows them to generate the TLS certificate.</p>
-
-<h2 id="renewing-a-certificate">Renewing a certificate</h2>
-
-<p>This is different from generating a new certificate in that we don't want to
+<h2 id='renewing-a-certificate'>Renewing a certificate</h2><p>This is different from generating a new certificate in that we don&rsquo;t want to
 have a whole new key, we want to generate a CSR against an existing key.</p>
-
 <p>To find the existing key, decrypt Puppet hiera data for the required environment
 and find the <code>wildcard_publishing</code> key. Save this to a file, for the next step.</p>
-
 <p>Execute the following on a POSIX-compliant machine, for example your
 Mac:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>DOMAIN_NAME=*.publishing.service.gov.uk sh -c 'openssl req -nodes -new -key /path/to/wildcard_publishing.key -out ${DOMAIN_NAME//[^a-zA-Z0-9]/_}.csr -subj "/C=GB/ST=England/L=London/O=UK government/OU=Government Digital Service/CN=${DOMAIN_NAME}/"'
-</code></pre></div>
-<p>Be sure to replace the value 'example.service.gov.uk' set in the
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>DOMAIN_NAME=*.publishing.service.gov.uk sh -c 'openssl req -nodes -new -key /path/to/wildcard_publishing.key -out ${DOMAIN_NAME//[^a-zA-Z0-9]/_}.csr -subj "/C=GB/ST=England/L=London/O=UK government/OU=Government Digital Service/CN=${DOMAIN_NAME}/"'
+</code></pre></div><p>Be sure to replace the value &lsquo;example.service.gov.uk&rsquo; set in the
 <code>DOMAIN_NAME</code> environment variable to the domain name the TLS
 certificate is intended for.</p>
-
 <p>The contents of the CSR should be shared with the TLS certificate
 provider. This allows them to generate the TLS certificate.</p>
-
 <p>Now delete the key file you saved.</p>
 
 

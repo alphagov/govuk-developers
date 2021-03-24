@@ -167,34 +167,27 @@
 in the MySQL documentation:</p>
 
 <blockquote>
-  <p>Seconds_Behind_Master: The number of seconds that the slave SQL
+<p>Seconds_Behind_Master: The number of seconds that the slave SQL
 thread is behind processing the master binary log. A high number (or
 an increasing one) can indicate that the slave is unable to handle
 events from the master in a timely fashion.</p>
 </blockquote>
-
 <p>This is unable to reliably detect when replication is completely stopped
 or broken. In such an event, it will return a NULL value and raise an
-UNKNOWN alert. This should correlate with a CRITICAL alert for 'mysql
-replication running'.</p>
-
+UNKNOWN alert. This should correlate with a CRITICAL alert for &lsquo;mysql
+replication running&rsquo;.</p>
 <p>If <code>Seconds_Behind_Master</code> shows as <code>NULL</code>, you may be able to fix
 replication by running the <code>mysql.reset_slave</code> Fabric task:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fab $environment -H &lt;mysql_slave_hostname&gt; mysql.reset_slave
-</code></pre></div>
-<p>An alert for 'MySQL replication lag' on mysql-backup-* machines may be
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>fab $environment -H &lt;mysql_slave_hostname&gt; mysql.reset_slave
+</code></pre></div><p>An alert for &lsquo;MySQL replication lag&rsquo; on mysql-backup-* machines may be
 caused by a database backup or a Jenkins data synchronisation job. You can
 verify this by checking for a running mysqldump process on the
 affected host, e.g.:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>ps auxwww | grep mysqldump
-</code></pre></div>
-<p>In such cases, the alert should return to normal once the backup
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>ps auxwww | grep mysqldump
+</code></pre></div><p>In such cases, the alert should return to normal once the backup
 completes.</p>
-
 <p>If replication is completely broken and the <code>mysql.reset_slave</code> Fabric
-task didn't help, there is a
+task didn&rsquo;t help, there is a
 <a href="https://github.com/alphagov/fabric-scripts/search?q=replicate_slave_from_master"><code>mysql.replicate_slave_from_master</code></a>
 Fabric task which reinitialises the replica from scratch by running a dump/restore.</p>
 

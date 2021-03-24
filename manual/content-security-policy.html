@@ -170,59 +170,44 @@
 injection attacks resulting from execution of malicious content in the context of another website. A policy, determining
 which stylesheets, scripts and other assets are allowed to run, is sent with every request and is parsed and enacted by
 the browser.</p>
-
 <p>CSP can be run in two modes - <em>report only</em>, where violations of the policy are reported to a given endpoint but
 allowed to execute, and <em>enforcement</em>, where violations are blocked.</p>
-
-<h2 id="how-the-policy-is-set">How the policy is set</h2>
-
-<p>The specific policy that is sent with a request to the browser as an HTTP header is defined in the
+<h2 id='how-the-policy-is-set'>How the policy is set</h2><p>The specific policy that is sent with a request to the browser as an HTTP header is defined in the
 <a href="https://github.com/alphagov/govuk_app_config/blob/master/lib/govuk_app_config/govuk_content_security_policy.rb"><code>govuk_app_config</code> gem</a>
 which is included in all frontend apps. This central definition means the entire site has a single policy,
 and changes can be rolled out more easily.</p>
-
 <p>Each frontend app has an <a href="https://github.com/alphagov/government-frontend/blob/master/config/initializers/csp.rb">initialiser</a>
 which invokes the CSP setting code in the gem.</p>
-
-<h2 id="how-violations-are-reported">How violations are reported</h2>
-
-<p>In all production-like environments (production, staging, integration), CSP is running in report only mode while more
+<h2 id='how-violations-are-reported'>How violations are reported</h2><p>In all production-like environments (production, staging, integration), CSP is running in report only mode while more
 information is gathered about which parts of the site currently rely on behaviour that would be blocked by an enforced
 CSP.</p>
-
 <p>In other environments such as development and test, CSP is running in enforcement mode to allow errors to be captured
 at an early stage.</p>
-
 <p>In report only mode, all violations are reported to an endpoint defined in the policy. This endpoint URL points to an
 AWS Lambda function running <a href="https://github.com/alphagov/govuk-csp-forwarder"><code>govuk-csp-forwarder</code></a>. This is a Go
 app that receives CSP violation reports from browsers, performs some filtering, and forwards all other reports to
 <a href="https://sentry.io/govuk/">Sentry</a> where they are further filtered on the way in, and then logged.</p>
-
 <p>The aim of the filtering steps is to remove a large amount of false positive reports that are generated when browser
 extensions modify GOV.UK pages to inject custom scripts or other assets which violate the policy.</p>
-
-<h2 id="how-the-csp-forwarder-is-built-and-deployed">How the CSP forwarder is built and deployed</h2>
-
-<p>Whenever a branch is merged into <code>master</code>, CI Jenkins runs the <code>Jenkinsfile</code> to build an artefact by compiling the
+<h2 id='how-the-csp-forwarder-is-built-and-deployed'>How the CSP forwarder is built and deployed</h2><p>Whenever a branch is merged into <code>master</code>, CI Jenkins runs the <code>Jenkinsfile</code> to build an artefact by compiling the
 Go source code and compressing it into a zip file. This zip file is then uploaded to the
 <code>govuk-integration-artefact-replication-destination</code> S3 bucket, which is in the <code>govuk-infrastructure-integration</code> AWS
 account. The Lambda function itself runs in the <code>govuk-tools</code> AWS account.</p>
-
 <p>This zip file can be uploaded to Lambda using the AWS console:</p>
 
 <ol>
-  <li>Log in to the AWS console</li>
-  <li>Select "Lambda" from the Services menu</li>
-  <li>Select the "EU (London)" region</li>
-  <li>Select the <code>govuk-csp-forwarder</code> function from the list</li>
-  <li>Scroll down to the "Function code" section</li>
-  <li>Select "Upload a file from Amazon S3" from the drop down menu</li>
-  <li>Paste the S3 URL in the text box - <code>s3://govuk-integration-artefact-replication-destination/govuk-csp-forwarder/release/csp_forwarder.zip</code>
-<img src="/manual/images/govuk-csp-forwarder-function-code.png" alt="Function code section of the Lambda function page" /></li>
-  <li>Click the orange "Save" button on the top right-hand side
-<img src="/manual/images/govuk-csp-forwarder-function-save.png" alt="Top bar of the Lambda function page" /></li>
-  <li>You should see a green "saved" text and tick on the Lambda function
-<img src="/manual/images/govuk-csp-forwarder-function-saved.png" alt="Lambda function saved" /></li>
+<li>Log in to the AWS console</li>
+<li>Select &ldquo;Lambda&rdquo; from the Services menu</li>
+<li>Select the &ldquo;EU (London)&rdquo; region</li>
+<li>Select the <code>govuk-csp-forwarder</code> function from the list</li>
+<li>Scroll down to the &ldquo;Function code&rdquo; section</li>
+<li>Select &ldquo;Upload a file from Amazon S3&rdquo; from the drop down menu</li>
+<li>Paste the S3 URL in the text box - <code>s3://govuk-integration-artefact-replication-destination/govuk-csp-forwarder/release/csp_forwarder.zip</code>
+<a href="images/govuk-csp-forwarder-function-code.png" rel="noopener noreferrer"><img src="/manual/images/govuk-csp-forwarder-function-code.png" alt="Function code section of the Lambda function page" /></a></li>
+<li>Click the orange &ldquo;Save&rdquo; button on the top right-hand side
+<a href="images/govuk-csp-forwarder-function-save.png" rel="noopener noreferrer"><img src="/manual/images/govuk-csp-forwarder-function-save.png" alt="Top bar of the Lambda function page" /></a></li>
+<li>You should see a green &ldquo;saved&rdquo; text and tick on the Lambda function
+<a href="images/govuk-csp-forwarder-function-saved.png" rel="noopener noreferrer"><img src="/manual/images/govuk-csp-forwarder-function-saved.png" alt="Lambda function saved" /></a></li>
 </ol>
 
 

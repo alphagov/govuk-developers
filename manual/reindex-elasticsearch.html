@@ -164,159 +164,108 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/06b2cbfb6513626ddce20ac2962810b1d8fd6fcd">5 Feb 2021</a>
 </div>
 
- <h1 id='header'>Reindex an Elasticsearch index</h1> <p>After updating an Elasticsearch index's schema by <a href="/apis/search/add-new-fields-or-document-types.html">changing the fields or
+ <h1 id='header'>Reindex an Elasticsearch index</h1> <p>After updating an Elasticsearch index&rsquo;s schema by <a href="/apis/search/add-new-fields-or-document-types.html">changing the fields or
 document types</a>, you need to reindex the affected
 index before the new fields and types can be used.</p>
-
 <p>The reindexing process:</p>
 
 <ol>
-  <li>Locks the Elasticsearch index to prevent writes to the index while data is
+<li>Locks the Elasticsearch index to prevent writes to the index while data is
 being copied</li>
-  <li>Creates a new index using the schema defined in the deployed version of
+<li>Creates a new index using the schema defined in the deployed version of
 search-api</li>
-  <li>Copies all the data from the old to the new index</li>
-  <li>Compares the old and new data to check for inconsistencies</li>
-  <li>If everything looks the same, switches the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html">alias</a> to the new
+<li>Copies all the data from the old to the new index</li>
+<li>Compares the old and new data to check for inconsistencies</li>
+<li>If everything looks the same, switches the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html">alias</a> to the new
 index</li>
 </ol>
-
-<p><strong>You don't need to do this if you have changed the
+<p><strong>You don&rsquo;t need to do this if you have changed the
 govuk_document_types gem,</strong> instead run the rake task
 <code>search:update_supertypes</code> to update documents in-place.  This can be
 done during working hours.</p>
-
-<h2 id="how-to-reindex-an-elasticsearch-index">How to reindex an Elasticsearch index</h2>
-
-<p><strong>Do not reindex on production during working hours except in an
+<h2 id='how-to-reindex-an-elasticsearch-index'>How to reindex an Elasticsearch index</h2><p><strong>Do not reindex on production during working hours except in an
 emergency.</strong> Reindexing locks the index for writes, so content is not
 updated in the search index. See the <a href="#out-of-date-search-indices">out-of-date search
 indices</a> section below if you need to run
 a reindexing during working hours. Reindexing takes around 2 hours to
 complete.</p>
-
 <p>To reindex, you have two options:</p>
-
 <p>a) If you need to reindex every index you can use the <a href="https://deploy.integration.publishing.service.gov.uk/job/search_api_reindex_with_new_schema/">Search API reindex with new schema</a> job.</p>
-
 <p>b) If you only need to reindex one specific index you can run a <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/">rake task
 manually</a>, using:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>search:migrate_schema SEARCH_INDEX=alias_of_index_to_migrate
-</code></pre></div>
-<p>Current index aliases (<code>alias_of_index_to_migrate</code>) available to reindex include:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>search:migrate_schema SEARCH_INDEX=alias_of_index_to_migrate
+</code></pre></div><p>Current index aliases (<code>alias_of_index_to_migrate</code>) available to reindex include:</p>
 
 <ul>
-  <li><code>govuk</code></li>
-  <li><code>government</code></li>
-  <li><code>detailed</code></li>
-  <li><code>metasearch</code></li>
-  <li><code>page-traffic</code></li>
-  <li><code>licence-finder</code></li>
+<li><code>govuk</code></li>
+<li><code>government</code></li>
+<li><code>detailed</code></li>
+<li><code>metasearch</code></li>
+<li><code>page-traffic</code></li>
+<li><code>licence-finder</code></li>
 </ul>
-
 <p>To monitor progress, SSH to a search box and check how many documents
 have been copied to the new index:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>gds govuk connect ssh <span class="nt">-e</span> integration search
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds govuk connect ssh <span class="nt">-e</span> integration search
 govuk_setenv search-api <span class="se">\</span>
 bash <span class="nt">-c</span> <span class="s1">'curl "$ELASTICSEARCH_URI/_cat/indices?v"'</span>
-</code></pre></div>
-<h3 id="out-of-date-search-indices">Out-of-date search indices</h3>
-
-<p>This step is only necessary if you ran reindexing job during working hours,
+</code></pre></div><h3 id='out-of-date-search-indices'>Out-of-date search indices</h3><p>This step is only necessary if you ran reindexing job during working hours,
 which means that content updated in whitehall will be missing from search.</p>
-
 <p>See <a href="/manual/fix-out-of-date-search-indices.html">Fix out-of-date search indices</a>
 for details.</p>
-
-<h3 id="cleanup">Cleanup</h3>
-
-<p>Reindexing does not delete the old index. This lets us switch back to the old
+<h3 id='cleanup'>Cleanup</h3><p>Reindexing does not delete the old index. This lets us switch back to the old
 index if there is a serious problem with the new one.</p>
-
-<p>Once you're confident that the reindexing was successful, delete the old
+<p>Once you&rsquo;re confident that the reindexing was successful, delete the old
 (unaliased) index using the search-api rake task:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>govuk_setenv search-api bundle exec \
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api bundle exec \
 rake search:clean SEARCH_INDEX=alias_of_index_to_clean_up
-</code></pre></div>
-<p>You can also run this task from Jenkins.</p>
-
+</code></pre></div><p>You can also run this task from Jenkins.</p>
 <p>Avoid leaving old indices around for more than a few days. If enough
 old indices hang around, we may hit space limitations and be unable to
 index new documents.</p>
-
-<h4 id="automatic-cleanup">Automatic Cleanup</h4>
-
-<p>However,
+<h4 id='automatic-cleanup'>Automatic Cleanup</h4><p>However,
 in the case wherein we end up with multiple copies of the same index left behind,
 we have an automated clean up task that removes any extra indexes over a given
 age:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>rake search:timed_clean MAX_INDEX_AGE=number_of_days SEARCH_INDEX=alias_of_index_to_clean_up
-</code></pre></div>
-<p>This is running in a Jenkins job that clears any index over 7 days old, and will always leave at least one inactive index available (typically the
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>rake search:timed_clean MAX_INDEX_AGE=number_of_days SEARCH_INDEX=alias_of_index_to_clean_up
+</code></pre></div><p>This is running in a Jenkins job that clears any index over 7 days old, and will always leave at least one inactive index available (typically the
   newest one created) alongside the active index for backup purposes.</p>
-
-<h3 id="troubleshooting">Troubleshooting</h3>
-
-<h4 id="to-stop-the-reindexing-job">To stop the reindexing job</h4>
-
-<p>If you need to cancel the reindexing while it's in progress:</p>
+<h3 id='troubleshooting'>Troubleshooting</h3><h4 id='to-stop-the-reindexing-job'>To stop the reindexing job</h4><p>If you need to cancel the reindexing while it&rsquo;s in progress:</p>
 
 <ol>
-  <li>Stop the reindexing rake task</li>
-  <li>
-    <p>Unlock the old index by running the search-api rake task:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> govuk_setenv search-api bundle exec \
- rake search:unlock SEARCH_INDEX=alias_of_index_to_unlock
-</code></pre></div>
-    <p>You can also run this task from Jenkins.</p>
-  </li>
+<li>Stop the reindexing rake task</li>
+<li><p>Unlock the old index by running the search-api rake task:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api bundle exec \
+rake search:unlock SEARCH_INDEX=alias_of_index_to_unlock
+</code></pre></div><p>You can also run this task from Jenkins.</p></li>
 </ol>
-
-<p>This doesn't actually stop the reindexing, because reindexing is an internal
+<p>This doesn&rsquo;t actually stop the reindexing, because reindexing is an internal
 Elasticsearch progress triggered by the rake task. It will stop the rake task
 from switching the alias over to the new index once it has copied all the data,
 which is normally good enough.</p>
-
 <p>If you need to stop the reindexing process itself, for example because
 Elasticsearch is about to run out of disk space, connect to the
 search box (see above) then:</p>
 
 <ol>
-  <li>
-    <p>Find the ID of the reindexing task:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> govuk_setenv search-api \
- bash -c 'curl "$ELASTICSEARCH_URI/_tasks?actions=%2Areindex&amp;pretty"'
-</code></pre></div>  </li>
-  <li>
-    <p>Stop the task:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> govuk_setenv search-api \
- bash -c 'curl -XPOST "$ELASTICSEARCH_URI/_tasks/&lt;task_id&gt;/_cancel"'
-</code></pre></div>  </li>
+<li><p>Find the ID of the reindexing task:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api \
+bash -c 'curl "$ELASTICSEARCH_URI/_tasks?actions=%2Areindex&amp;pretty"'
+</code></pre></div></li>
+<li><p>Stop the task:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api \
+bash -c 'curl -XPOST "$ELASTICSEARCH_URI/_tasks/&lt;task_id&gt;/_cancel"'
+</code></pre></div></li>
 </ol>
-
-<h4 id="to-switch-back-to-the-old-index">To switch back to the old index</h4>
-
-<p>If you discover a problem after reindexing and need to switch back to the old
+<h4 id='to-switch-back-to-the-old-index'>To switch back to the old index</h4><p>If you discover a problem after reindexing and need to switch back to the old
 index, run this search-api rake task:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>govuk_setenv search-api bundle exec \
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api bundle exec \
 rake search:switch_to_named_index[full_index_name] SEARCH_INDEX=index_alias
-</code></pre></div>
-<p>You can also run this task on Jenkins.</p>
-
+</code></pre></div><p>You can also run this task on Jenkins.</p>
 <p>where <code>full_index_name</code> is the full name of the new index, including the date
 and UUID, e.g. <code>govuk-2018-01-29t17:08:21z-31f39bdb-c62b-4607-8081-19ea87fb1498</code>.</p>
-
-<p>Switching back to an old index means that you'll <strong>lose any content updates</strong>
+<p>Switching back to an old index means that you&rsquo;ll <strong>lose any content updates</strong>
 that were published while the new index was live. To fix this, <a href="/manual/fix-out-of-date-search-indices.html">replay traffic</a> from both publishing-api and Whitehall.</p>
-
 
 
   <div class='related-content'>

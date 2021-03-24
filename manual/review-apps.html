@@ -173,51 +173,35 @@
 allow us to automatically deploy application changes into a brand
 new Heroku app so that each Pull Request reviewer has a chance to see how it
 looks with live data.</p>
-
 <p>These are examples of GOV.UK apps that have review apps enabled:</p>
 
 <ul>
-  <li><a href="https://github.com/alphagov/collections">collections</a></li>
-  <li><a href="https://github.com/alphagov/government-frontend">government-frontend</a></li>
-  <li><a href="https://github.com/alphagov/govuk-developer-docs">govuk-developer-docs</a> - this project</li>
-  <li><a href="https://github.com/alphagov/smart-answers">smart-answers</a></li>
+<li><a href="https://github.com/alphagov/collections">collections</a></li>
+<li><a href="https://github.com/alphagov/government-frontend">government-frontend</a></li>
+<li><a href="https://github.com/alphagov/govuk-developer-docs">govuk-developer-docs</a> - this project</li>
+<li><a href="https://github.com/alphagov/smart-answers">smart-answers</a></li>
 </ul>
-
 <p>Follow the steps below in order to enable review apps for your GOV.UK
 application.</p>
-
-<h2 id="use-the-shared-heroku-account">Use the shared Heroku account</h2>
-
-<p>GOV.UK has a <a href="/manual/heroku.html">shared Heroku account</a>. This can be the owner of the review apps, as well as the associated pipelines for deploying the review apps.</p>
-
-<h2 id="create-a-new-heroku-app-via-the-ui">Create a new Heroku app via the UI</h2>
-
-<p>Login to Heroku and create a new application in the European availability zone.
+<h2 id='use-the-shared-heroku-account'>Use the shared Heroku account</h2><p>GOV.UK has a <a href="/manual/heroku.html">shared Heroku account</a>. This can be the owner of the review apps, as well as the associated pipelines for deploying the review apps.</p>
+<h2 id='create-a-new-heroku-app-via-the-ui'>Create a new Heroku app via the UI</h2><p>Login to Heroku and create a new application in the European availability zone.
 Give the app a meaningful name to closely match the application name on GitHub.</p>
-
-<h2 id="enable-your-app-to-work-on-heroku">Enable your app to work on Heroku</h2>
-
-<p>There are 3 things needed to be configured before you can deploy your app to
+<h2 id='enable-your-app-to-work-on-heroku'>Enable your app to work on Heroku</h2><p>There are 3 things needed to be configured before you can deploy your app to
 Heroku:</p>
 
 <ul>
-  <li>Add a <a href="https://devcenter.heroku.com/articles/procfile">Procfile</a> that tells
+<li>Add a <a href="https://devcenter.heroku.com/articles/procfile">Procfile</a> that tells
 Heroku how to run your application;</li>
-  <li>Add a file called <code>app.json</code> with the expected app configuration.</li>
-  <li>Ensure the Gemfile references the correct Ruby version</li>
+<li>Add a file called <code>app.json</code> with the expected app configuration.</li>
+<li>Ensure the Gemfile references the correct Ruby version</li>
 </ul>
-
 <p>An example Procfile for a standard Rails application will look something like
 this:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>web: bin/rails server -p $PORT -e $RAILS_ENV
-</code></pre></div>
-<p>This is telling Heroku to run the standard Rails server on the given port and
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>web: bin/rails server -p $PORT -e $RAILS_ENV
+</code></pre></div><p>This is telling Heroku to run the standard Rails server on the given port and
 environment, both set in the Heroku environment.</p>
-
 <p>A standard <code>app.json</code> file for a Rails project will look somewhat like this:</p>
-
-<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight json" tabindex="0"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"govuk-app"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"repository"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/alphagov/govuk-app"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -254,46 +238,32 @@ environment, both set in the Heroku environment.</p>
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"addons"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>There is more information about it on the
+</span></code></pre></div><p>There is more information about it on the
 <a href="https://devcenter.heroku.com/articles/app-json-schema">Heroku Dev Center</a>.</p>
-
 <p>Each GOV.UK application will have a set of dependencies, so the level of
 configuration will vary. However, for most apps, you will need a number of
 environment variables configured before you can successfully deploy the app to
 Heroku.</p>
-
 <p>Check out the <code>app.json</code> files on both
 <a href="https://github.com/alphagov/collections/blob/master/app.json">collections</a> and
 <a href="https://github.com/alphagov/government-frontend/blob/master/app.json">government-frontend</a>
 for examples of necessary environment variables.</p>
-
 <p>You can create the application via the <code>app.json</code> file.</p>
-
 <p>You will need a successful deploy with a correct configuration before you can
 deploy review apps.</p>
-
-<p>Your Gemfile should contain logic to ensure it's using the same Ruby version as our infrastructure:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">ruby</span> <span class="no">File</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s1">'.ruby-version'</span><span class="p">).</span><span class="nf">chomp</span>
-</code></pre></div>
-<p>See <a href="https://github.com/alphagov/smart-answers/blob/release_3739/Gemfile#L3">smart-answers</a> for an example of this.</p>
-
+<p>Your Gemfile should contain logic to ensure it&rsquo;s using the same Ruby version as our infrastructure:</p>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">ruby</span> <span class="no">File</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s1">'.ruby-version'</span><span class="p">).</span><span class="nf">chomp</span>
+</code></pre></div><p>See <a href="https://github.com/alphagov/smart-answers/blob/release_3739/Gemfile#L3">smart-answers</a> for an example of this.</p>
 <p>If all goes well, you will be able to see your app on:
 <a href="https://govuk-app.herokuapp.com">https://govuk-app.herokuapp.com</a></p>
-
-<h2 id="create-a-new-pipeline-on-heroku">Create a new pipeline on Heroku</h2>
-
-<p>Once you have a successful deployment of your app into Heroku and the <code>app.json</code>
+<h2 id='create-a-new-pipeline-on-heroku'>Create a new pipeline on Heroku</h2><p>Once you have a successful deployment of your app into Heroku and the <code>app.json</code>
 file commited to the repository and in your master branch, you will now be able
 to start using review apps.</p>
-
 <p>On Heroku, create a new pipeline and enable automatic review apps when prompted.
 At this point, every new Pull Request being opened on the GOV.UK application
 will have a new review app being created from the <code>app.json</code> template and the
 link will automatically be posted into the GitHub Pull Request.</p>
-
-<p>That's it! Now try to create a new test Pull Request and verify that the
+<p>That&rsquo;s it! Now try to create a new test Pull Request and verify that the
 application is being deployed to a new review app.</p>
 
 

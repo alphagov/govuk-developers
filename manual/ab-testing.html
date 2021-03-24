@@ -140,7 +140,7 @@
             <a href="#fastly-receives-the-request"><span>Fastly receives the request</span></a>
           </li>
           <li>
-            <a href="#govuk-varnish-caching-layer"><span>GOV.UK (Varnish caching layer)</span></a>
+            <a href="#gov-uk-varnish-caching-layer"><span>GOV.UK (Varnish caching layer)</span></a>
           </li>
           <li>
             <a href="#application-layer"><span>Application layer</span></a>
@@ -181,61 +181,31 @@
 </div>
 
  <h1 id='header'>How A/B testing works</h1> <p>GOV.UK uses our <a href="https://docs.publishing.service.gov.uk/manual/cdn.html">Content Delivery Network (Fastly)</a> to run A/B and multivariate tests.</p>
-
 <p>For a general introduction to A/B testing from a content design perspective, see the <a href="https://bit.ly/AB-testing-GOVUK">Confluence Wiki</a>.</p>
-
-<p><img src="https://docs.google.com/drawings/d/e/2PACX-1vR67bcDfNDaa4buyKGKQev0xUsjcD9RzjNCjWGhr0HJtXRmSNaltPJotXjwmKUmZj0ZH_B2xAymEYbV/pub?w=1330&amp;h=517" alt="" /></p>
-
+<p><a href="https://docs.google.com/drawings/d/e/2PACX-1vR67bcDfNDaa4buyKGKQev0xUsjcD9RzjNCjWGhr0HJtXRmSNaltPJotXjwmKUmZj0ZH_B2xAymEYbV/pub?w=1330&h=517" rel="noopener noreferrer"><img src="https://docs.google.com/drawings/d/e/2PACX-1vR67bcDfNDaa4buyKGKQev0xUsjcD9RzjNCjWGhr0HJtXRmSNaltPJotXjwmKUmZj0ZH_B2xAymEYbV/pub?w=1330&amp;h=517" alt="" /></a></p>
 <p>Source: <a href="https://docs.google.com/drawings/d/1rx4brKZBzj-9q3evkiUw2MbqwqTYWkc0Lku6u3cLXqU/edit">GOV.UK Architecture Google Drive</a></p>
-
-<h2 id="how-ab-testing-works">How A/B testing works</h2>
-
-<p><strong>A/B tests are only enabled for users who have opted in to analytics cookies.</strong></p>
-
-<h3 id="fastly-receives-the-request">Fastly receives the request</h3>
-
-<p>When the user requests a GOV.UK page that has A/B testing enabled, they will reach Fastly first.</p>
-
+<h2 id='how-ab-testing-works'>How A/B testing works</h2><p><strong>A/B tests are only enabled for users who have opted in to analytics cookies.</strong></p>
+<h3 id='fastly-receives-the-request'>Fastly receives the request</h3><p>When the user requests a GOV.UK page that has A/B testing enabled, they will reach Fastly first.</p>
 <p>Fastly appends the <code>GOVUK-ABTest-Example</code> header to the request for downstream apps:</p>
 
 <ul>
-  <li>If the request already has a cookie, use the value of that</li>
-  <li>If not, randomly assign the user to a test variant and set it value based on that</li>
+<li>If the request already has a cookie, use the value of that</li>
+<li>If not, randomly assign the user to a test variant and set it value based on that</li>
 </ul>
-
 <p>Fastly looks up the weighting for the random assignment in a <a href="https://docs.fastly.com/guides/edge-dictionaries/">Fastly dictionary</a> configured for our A/B tests.</p>
-
 <p>Fastly will then try to get a response from its cache. The <code>Vary: GOVUK-ABTest-Example</code> header on previously cached responses will ensure that the right version is returned to the user.</p>
-
-<p>If there's nothing in Fastly's cache, it'll send the request down the stack to GOV.UK.</p>
-
-<h3 id="govuk-varnish-caching-layer">GOV.UK (Varnish caching layer)</h3>
-
-<p>Varnish tries to get a response from the cache. Because Fastly has sent the <code>GOVUK-ABTest-Example</code> header, it knows whether to return the <code>A</code> or <code>B</code> version from the cache. If there's nothing in the cache, Varnish forwards the request to the application server.</p>
-
-<h3 id="application-layer">Application layer</h3>
-
-<p>The application (for example, <a href="/apps/government-frontend.html">government-frontend</a> or <a href="/apps/collections.html">collections</a>) inspects the <code>GOVUK-ABTest-Example</code> header to determine which version of the content to return.</p>
-
+<p>If there&rsquo;s nothing in Fastly&rsquo;s cache, it&rsquo;ll send the request down the stack to GOV.UK.</p>
+<h3 id='gov-uk-varnish-caching-layer'>GOV.UK (Varnish caching layer)</h3><p>Varnish tries to get a response from the cache. Because Fastly has sent the <code>GOVUK-ABTest-Example</code> header, it knows whether to return the <code>A</code> or <code>B</code> version from the cache. If there&rsquo;s nothing in the cache, Varnish forwards the request to the application server.</p>
+<h3 id='application-layer'>Application layer</h3><p>The application (for example, <a href="/apps/government-frontend.html">government-frontend</a> or <a href="/apps/collections.html">collections</a>) inspects the <code>GOVUK-ABTest-Example</code> header to determine which version of the content to return.</p>
 <p>It also adds an extra response header: <code>Vary: GOVUK-ABTest-Example</code>. This instructs Fastly and Varnish to cache both versions of the page separately.</p>
-
-<h3 id="varnish-response">Varnish (response)</h3>
-
-<p>Varnish saves the response in the cache. The <code>Vary: GOVUK-ABTest-Example</code> response header will ensure that <code>A</code> and <code>B</code> are cached separately.</p>
-
-<h3 id="fastly-responds">Fastly responds</h3>
-
-<p>Fastly also saves the response in the cache. The <code>Vary: GOVUK-ABTest-Example</code> response header will ensure that <code>A</code> and <code>B</code> are cached separately.</p>
-
+<h3 id='varnish-response'>Varnish (response)</h3><p>Varnish saves the response in the cache. The <code>Vary: GOVUK-ABTest-Example</code> response header will ensure that <code>A</code> and <code>B</code> are cached separately.</p>
+<h3 id='fastly-responds'>Fastly responds</h3><p>Fastly also saves the response in the cache. The <code>Vary: GOVUK-ABTest-Example</code> response header will ensure that <code>A</code> and <code>B</code> are cached separately.</p>
 <p>If the original request did not have the <code>ABTest-Example</code> cookie, Fastly will set a <code>Set-Cookie</code> header to the response based on the value of the <code>GOVUK-ABTest-Example</code> header.</p>
-
-<h2 id="further-reading">Further reading</h2>
-
+<h2 id='further-reading'>Further reading</h2>
 <ul>
-  <li><a href="https://www.fastly.com/blog/ab-testing-edge">"A/B testing at the edge" - Fastly blog</a></li>
-  <li><a href="https://www.fastly.com/blog/best-practices-for-using-the-vary-header">"Best Practices for Using the Vary Header" - Fastly blog</a></li>
+<li><a href="https://www.fastly.com/blog/ab-testing-edge">&ldquo;A/B testing at the edge&rdquo; - Fastly blog</a></li>
+<li><a href="https://www.fastly.com/blog/best-practices-for-using-the-vary-header">&ldquo;Best Practices for Using the Vary Header&rdquo; - Fastly blog</a></li>
 </ul>
-
 
 
   <div class='related-content'>

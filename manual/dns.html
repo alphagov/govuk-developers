@@ -137,24 +137,24 @@
         <a href="#amazon-route-53-and-google-cloud-dns"><span>Amazon Route 53 and Google Cloud DNS</span></a>
       </li>
       <li>
-        <a href="#records-for-govuk-systems"><span>Records for GOV.UK systems</span></a>
+        <a href="#records-for-gov-uk-systems"><span>Records for GOV.UK systems</span></a>
       </li>
       <li>
-        <a href="#making-changes-to-publishingservicegovuk"><span>Making changes to publishing.service.gov.uk</span></a>
+        <a href="#making-changes-to-publishing-service-gov-uk"><span>Making changes to publishing.service.gov.uk</span></a>
         <ul>
           <li>
             <a href="#deployment"><span>Deployment</span></a>
           </li>
           <li>
-            <a href="#making-changes-to-internal-dns-govukdigital-and-govuk-internaldigital"><span>Making changes to internal DNS (govuk.digital and govuk-internal.digital)</span></a>
+            <a href="#making-changes-to-internal-dns-govuk-digital-and-govuk-internal-digital"><span>Making changes to internal DNS (govuk.digital and govuk-internal.digital)</span></a>
           </li>
         </ul>
       </li>
       <li>
-        <a href="#dns-for-the-govuk-top-level-domain"><span>DNS for the gov.uk top level domain</span></a>
+        <a href="#dns-for-the-gov-uk-top-level-domain"><span>DNS for the gov.uk top level domain</span></a>
       </li>
       <li>
-        <a href="#delegating-servicegovuk-domains"><span>Delegating service.gov.uk domains</span></a>
+        <a href="#delegating-service-gov-uk-domains"><span>Delegating service.gov.uk domains</span></a>
       </li>
       <li>
         <a href="#requests-for-domain-names-and-other-dns-changes"><span>Requests for domain names and other DNS changes</span></a>
@@ -177,170 +177,123 @@
 </div>
 
  <h1 id='header'>Domain Name System (DNS) records</h1> <p>The GOV.UK Replatforming team is responsible for managing several DNS zones.</p>
-
 <p>By default, zones are hosted by AWS (Route 53) and Google Cloud Platform (Cloud DNS)</p>
-
 <p>As of Feb 2020, there are 40 hosted zones. A list is retrievable from a terminal using:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>  gds aws govuk-production-admin -- aws route53 list-hosted-zones | grep Name
-</code></pre></div>
-<p>Some individual records within these zones are managed by other teams.</p>
-
-<h2 id="amazon-route-53-and-google-cloud-dns">Amazon Route 53 and Google Cloud DNS</h2>
-
-<p>Use the "production" account. <a href="/manual/raising-issues-with-reliability-engineering.html">Speak to Infrastructure if you require access</a>.</p>
-
-<h2 id="records-for-govuk-systems">Records for GOV.UK systems</h2>
-
-<p>We use a few domains:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  gds aws govuk-production-admin -- aws route53 list-hosted-zones | grep Name
+</code></pre></div><p>Some individual records within these zones are managed by other teams.</p>
+<h2 id='amazon-route-53-and-google-cloud-dns'>Amazon Route 53 and Google Cloud DNS</h2><p>Use the &ldquo;production&rdquo; account. <a href="/manual/raising-issues-with-reliability-engineering.html">Speak to Infrastructure if you require access</a>.</p>
+<h2 id='records-for-gov-uk-systems'>Records for GOV.UK systems</h2><p>We use a few domains:</p>
 
 <ul>
-  <li><code>alphagov.co.uk</code> is the old domain name GOV.UK publishing used to live on.
+<li><code>alphagov.co.uk</code> is the old domain name GOV.UK publishing used to live on.
 We maintain records which point to Bouncer so that these URLs redirect.</li>
-  <li><code>publishing.service.gov.uk</code> and <code>govuk.service.gov.uk</code> are where GOV.UK lives.</li>
+<li><code>publishing.service.gov.uk</code> and <code>govuk.service.gov.uk</code> are where GOV.UK lives.</li>
 </ul>
-
-<h2 id="making-changes-to-publishingservicegovuk">Making changes to publishing.service.gov.uk</h2>
-
-<p>To make a change to this zone, begin by adding the records to the yaml file for
+<h2 id='making-changes-to-publishing-service-gov-uk'>Making changes to publishing.service.gov.uk</h2><p>To make a change to this zone, begin by adding the records to the yaml file for
 the zone held in the <a href="https://github.com/alphagov/govuk-dns-config">DNS config repo</a>.</p>
-
 <p>We use a Jenkins job that publishes changes to <code>publishing.service.gov.uk</code>. The
 job uses <a href="https://www.terraform.io/">Terraform</a> and pushes changes to the
 selected provider.</p>
-
-<h3 id="deployment">Deployment</h3>
-
-<p><strong>Always <code>plan</code> first, check that the output is what you expect, then <code>apply</code>.</strong></p>
-
+<h3 id='deployment'>Deployment</h3><p><strong>Always <code>plan</code> first, check that the output is what you expect, then <code>apply</code>.</strong></p>
 <p>When the changes have been reviewed and merged, you can deploy them in your terminal
 by using at least version <code>v2.15.0</code> of <a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a>.</p>
-
 <p><strong>You MUST deploy to BOTH DNS providers. We use both for redundancy.</strong></p>
-
 <p>You should <strong>always</strong>:</p>
 
 <ol>
-  <li><code>plan</code> in each DNS provider and check the console output is what you expect.</li>
-  <li><code>apply</code> in each DNS provider until you see that your changes has been applied.
- There are <a href="#google-based-caveats">circumstances where terraform is not able to apply the changes</a>
- in 1 run and need <strong>multiple</strong> runs.</li>
+<li><code>plan</code> in each DNS provider and check the console output is what you expect.</li>
+<li><code>apply</code> in each DNS provider until you see that your changes has been applied.
+There are <a href="#google-based-caveats">circumstances where terraform is not able to apply the changes</a>
+in 1 run and need <strong>multiple</strong> runs.</li>
 </ol>
-
 <p>Deployment is done by first obtaining (first time set up) your GitHub credentials
 by creating a read-only GitHub personal access token. This <a href="https://github.com/settings/tokens">GitHub personal access token</a> should be created with the <code>read:org</code>
 scope only.</p>
 
 <blockquote>
-  <p>Take care to store and handle the token securely. If you accidentally share your token,
+<p>Take care to store and handle the token securely. If you accidentally share your token,
   <a href="https://github.com/settings/tokens">revoke it immediately</a> and follow the
   <a href="https://sites.google.com/a/digital.cabinet-office.gov.uk/gds/working-at-the-white-chapel-building/security/security-incidents">instructions for reporting a potential data security incident</a>.</p>
 </blockquote>
-
 <p>You can then run <a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a>:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">GITHUB_USERNAME</span><span class="o">=</span>&lt;github_username&gt; <span class="nv">GITHUB_TOKEN</span><span class="o">=</span>&lt;github_token&gt; <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">GITHUB_USERNAME</span><span class="o">=</span>&lt;github_username&gt; <span class="nv">GITHUB_TOKEN</span><span class="o">=</span>&lt;github_token&gt; <span class="se">\</span>
 gds govuk dns <span class="nt">-p</span> &lt;dns_provider&gt; <span class="nt">-z</span> &lt;dns_zone&gt; <span class="nt">-a</span> &lt;action&gt; <span class="nt">-r</span> &lt;aws_role&gt;
-</code></pre></div>
-<p>Where:</p>
+</code></pre></div><p>Where:</p>
 
 <ol>
-  <li><code>&lt;github_username&gt;</code> is the name of your GitHub account</li>
-  <li><code>&lt;github_token&gt;</code> is the GitHub token that you created as described above</li>
-  <li><code>&lt;dns_provider&gt;</code> is one of the 2 DNS provider of govuk, i.e. <code>gcp</code> or <code>aws</code></li>
-  <li><code>&lt;dns_zone&gt;</code> is the govuk DNS zone to be deployed. E.g. <code>direct.gov.uk</code></li>
-  <li><code>&lt;action&gt;</code> is the terraform action you want to perform. i.e. <code>plan</code> or <code>apply</code></li>
-  <li><code>&lt;aws_role&gt;</code> is the govuk aws role you want to use for terraforming. i.e. <code>govuk-production-admin</code> or <code>govuk-production-poweruser</code></li>
+<li><code>&lt;github_username&gt;</code> is the name of your GitHub account</li>
+<li><code>&lt;github_token&gt;</code> is the GitHub token that you created as described above</li>
+<li><code>&lt;dns_provider&gt;</code> is one of the 2 DNS provider of govuk, i.e. <code>gcp</code> or <code>aws</code></li>
+<li><code>&lt;dns_zone&gt;</code> is the govuk DNS zone to be deployed. E.g. <code>direct.gov.uk</code></li>
+<li><code>&lt;action&gt;</code> is the terraform action you want to perform. i.e. <code>plan</code> or <code>apply</code></li>
+<li><code>&lt;aws_role&gt;</code> is the govuk aws role you want to use for terraforming. i.e. <code>govuk-production-admin</code> or <code>govuk-production-poweruser</code></li>
 </ol>
-
 <p>After you deploy, you can visit the <a href="https://deploy.blue.production.govuk.digital/job/Deploy_DNS/">Jenkins job</a> to see the job running or queued.</p>
 
 <blockquote>
-  <p><strong>Note</strong></p>
+<p><strong>Note</strong></p>
 
-  <ul>
-    <li>Due to the Terraform state being held in an S3 bucket, you
-will require access to the GOV.UK AWS "production" account to roll changes for
+<ul>
+<li>Due to the Terraform state being held in an S3 bucket, you
+will require access to the GOV.UK AWS &ldquo;production&rdquo; account to roll changes for
 both Amazon and Google.</li>
-    <li>The order in which you deploy to providers is not important.</li>
-    <li>You will not require credentials for Google Cloud. These credentials are stored
+<li>The order in which you deploy to providers is not important.</li>
+<li>You will not require credentials for Google Cloud. These credentials are stored
 in Jenkins itself.</li>
-  </ul>
+</ul>
 </blockquote>
-
-<h4 id="google-based-caveats">Google-based caveats</h4>
-
+<h4 id='google-based-caveats'>Google-based caveats</h4>
 <blockquote>
-  <ul>
-    <li>When deploying to Google it's normal to see changes in TXT records
+<ul>
+<li>When deploying to Google it&rsquo;s normal to see changes in TXT records
 relating to escaping of quotes. You can safely ignore these if
-they don't change any of the content of the record. This is a bug
+they don&rsquo;t change any of the content of the record. This is a bug
 in the way we handle splitting long TXT records between AWS and
 GCP in our <a href="https://github.com/alphagov/govuk-dns">YAML -&gt; Ruby -&gt; Terraform process</a>.</li>
-    <li>To change a DNS record, the Google provider deletes and
+<li>To change a DNS record, the Google provider deletes and
 re-adds that record. This can sometimes cause a <a href="https://github.com/alphagov/govuk-dns/issues/67">race
 condition</a> where
 Google tries to create the new one before it has sucessfully deleted
 the old one. In this case, the build will fail, and you need to
 re-run the GCP <code>apply</code> job.</li>
-  </ul>
+</ul>
 </blockquote>
-
-<h3 id="making-changes-to-internal-dns-govukdigital-and-govuk-internaldigital">Making changes to internal DNS (govuk.digital and govuk-internal.digital)</h3>
-
-<p>Currently these zones are only used in environments running on AWS.</p>
-
+<h3 id='making-changes-to-internal-dns-govuk-digital-and-govuk-internal-digital'>Making changes to internal DNS (govuk.digital and govuk-internal.digital)</h3><p>Currently these zones are only used in environments running on AWS.</p>
 <p>These DNS zones are hosted in Route53 and managed by Terraform. Changes can be
 made in the <a href="https://github.com/alphagov/govuk-aws/">govuk-aws</a> and
 <a href="https://github.com/alphagov/govuk-aws-data/">govuk-aws-data</a> repositories.
 While GOV.UK migrates to AWS speak with GOV.UK Replatforming for support
 making your changes.</p>
-
-<h2 id="dns-for-the-govuk-top-level-domain">DNS for the <code>gov.uk</code> top level domain</h2>
-
-<p><a href="https://www.jisc.ac.uk/">Jisc</a> is a non-profit which provides networking to
+<h2 id='dns-for-the-gov-uk-top-level-domain'>DNS for the <code>gov.uk</code> top level domain</h2><p><a href="https://www.jisc.ac.uk/">Jisc</a> is a non-profit which provides networking to
 UK education and government. They control the <code>gov.uk.</code> top-level domain.</p>
-
 <p>Requests to modify the DNS records for <code>gov.uk.</code> should be sent by
-email to <code>naming@ja.net</code> from someone on Jisc's approved contacts
+email to <code>naming@ja.net</code> from someone on Jisc&rsquo;s approved contacts
 list. Speak to a senior technologist member of GOV.UK or someone in
-GOV.UK Replatforming if you need to make a change and don't have
+GOV.UK Replatforming if you need to make a change and don&rsquo;t have
 access.</p>
-
 <p>2nd line should be notified of any planned changes via email.</p>
 
 <ul>
-  <li><code>gov.uk.</code> is a top-level domain so it cannot contain a CNAME record
+<li><code>gov.uk.</code> is a top-level domain so it cannot contain a CNAME record
 (see <a href="https://tools.ietf.org/html/rfc1912#section-2.4">RFC 1912 section 2.4</a>).
 Instead, it contains A records that point to anycast IP addresses for our CDN provider.</li>
-  <li><code>www.gov.uk.</code> is a CNAME to <code>www-cdn.production.govuk.service.gov.uk.</code>, which means we
+<li><code>www.gov.uk.</code> is a CNAME to <code>www-cdn.production.govuk.service.gov.uk.</code>, which means we
 do not need to make a request to Jisc if we want to change CDN providers. Just change where
 the CNAME points to.</li>
 </ul>
-
-<h2 id="delegating-servicegovuk-domains">Delegating <code>service.gov.uk</code> domains</h2>
-
-<p>At the moment GOV.UK Replatforming are also responsible for delegating DNS
+<h2 id='delegating-service-gov-uk-domains'>Delegating <code>service.gov.uk</code> domains</h2><p>At the moment GOV.UK Replatforming are also responsible for delegating DNS
 to other government services.</p>
-
 <p>The request will arrive by email or Zendesk from a member of the GOV.UK Proposition
 team. The request will contain the service domain name that needs to be delegated and
 more than one nameserver hostname (usually <code>ns0.example.com</code>, <code>ns1.example.com</code>).</p>
-
 <p>In Route 53, create a new node for the service domain underneath <code>service.gov.uk</code>
 and add <code>NS</code> records for that node.</p>
-
 <p>We <strong>do not</strong> manage DNS for service domains. If you get a request asking you to add
-anything other than <code>NS</code> records, it should be rejected. This is so we're not
+anything other than <code>NS</code> records, it should be rejected. This is so we&rsquo;re not
 the single point of DNS for government.</p>
-
 <p>There are ongoing plans to move this responsibility to a different part of GDS.</p>
-
-<h2 id="requests-for-domain-names-and-other-dns-changes">Requests for domain names and other DNS changes</h2>
-
-<p>If you receive a request to change any other DNS that hasn't come from the GOV.UK
-Proposition team, send it to them using the Zendesk group "3rd Line–GOV.UK Policy and Engagement".</p>
-
+<h2 id='requests-for-domain-names-and-other-dns-changes'>Requests for domain names and other DNS changes</h2><p>If you receive a request to change any other DNS that hasn&rsquo;t come from the GOV.UK
+Proposition team, send it to them using the Zendesk group &ldquo;3rd Line&ndash;GOV.UK Policy and Engagement&rdquo;.</p>
 
 
   <div class='related-content'>

@@ -159,48 +159,36 @@
 the cluster as part of the managed service.  These are stored in a S3
 bucket that is not made available to us.  Restoration is done by
 making HTTP requests to the <code>_snapshot</code> endpoint.</p>
-
 <p>To restore a snapshot, follow these steps:</p>
 
 <ol>
-  <li>
-    <p>SSH to a <code>search</code> box:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> gds govuk connect ssh -e integration search
-</code></pre></div>  </li>
-  <li>
-    <p>Query the <code>_snapshot</code> endpoint of Elasticsearch to get the snapshot
+<li><p>SSH to a <code>search</code> box:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>gds govuk connect ssh -e integration search
+</code></pre></div></li>
+<li><p>Query the <code>_snapshot</code> endpoint of Elasticsearch to get the snapshot
 repository name:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> govuk_setenv search-api \
- bash -c 'curl "$ELASTICSEARCH_URI/_snapshot?pretty"'
-</code></pre></div>  </li>
-  <li>
-    <p>Query the <code>_all</code> endpoint to identify the available snapshots in
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api \
+bash -c 'curl "$ELASTICSEARCH_URI/_snapshot?pretty"'
+</code></pre></div></li>
+<li><p>Query the <code>_all</code> endpoint to identify the available snapshots in
 the named repository:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> govuk_setenv search-api \
- bash -c 'curl "$ELASTICSEARCH_URI/_snapshot/&lt;repository-name&gt;/_all?pretty"'
-</code></pre></div>  </li>
-  <li>
-    <p>If an index already exists with the same name as the one being
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api \
+bash -c 'curl "$ELASTICSEARCH_URI/_snapshot/&lt;repository-name&gt;/_all?pretty"'
+</code></pre></div></li>
+<li><p>If an index already exists with the same name as the one being
 restored, delete the existing index:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> govuk_setenv search-api \
- bash -c 'curl -XDELETE "$ELASTICSEARCH_URI/&lt;index-name&gt;"'
-</code></pre></div>  </li>
-  <li>
-    <p>Restore the index from the snapshot:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> govuk_setenv search-api \
- bash -c 'curl -XPOST -H 'Content-Type: application/json' "$ELASTICSEARCH_URI/_snapshot/&lt;repository-name&gt;/&lt;snapshot-id&gt;/_restore"  -d "{\"indices\": \"&lt;index-name&gt;\"}"'
-</code></pre></div>  </li>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api \
+bash -c 'curl -XDELETE "$ELASTICSEARCH_URI/&lt;index-name&gt;"'
+</code></pre></div></li>
+<li><p>Restore the index from the snapshot:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api \
+bash -c 'curl -XPOST -H 'Content-Type: application/json' "$ELASTICSEARCH_URI/_snapshot/&lt;repository-name&gt;/&lt;snapshot-id&gt;/_restore"  -d "{\"indices\": \"&lt;index-name&gt;\"}"'
+</code></pre></div></li>
 </ol>
 
 <blockquote>
-  <p>Further information about Elasticsearch snapshots can be found in the <a href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-snapshots.html">AWS documentation</a></p>
+<p>Further information about Elasticsearch snapshots can be found in the <a href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-snapshots.html">AWS documentation</a></p>
 </blockquote>
-
 <p>After a restore has taken place, you will need to <a href="/manual/fix-out-of-date-search-indices.html">fix the out-of-date search indices</a>
 following the restore, since any changes made in publishing apps since the backup was taken will be missing.</p>
 

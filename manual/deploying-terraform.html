@@ -154,7 +154,7 @@
             <a href="#1-gds-cli"><span>1. gds-cli</span></a>
           </li>
           <li>
-            <a href="#2-deployrb-script-in-govuk-aws"><span>2. deploy.rb script in govuk-aws</span></a>
+            <a href="#2-deploy-rb-script-in-govuk-aws"><span>2. deploy.rb script in govuk-aws</span></a>
           </li>
         </ul>
       </li>
@@ -176,98 +176,66 @@
 </div>
 
  <h1 id='header'>Deploy Terraform</h1> <p>We use <a href="https://terraform.io">Terraform</a> for configuring GOV.UK infrastructure in AWS.</p>
-
-<h2 id="one-time-setup">One-time setup</h2>
-
-<h3 id="1-check-that-you-have-sufficient-access">1. Check that you have sufficient access</h3>
-
-<p>Which changes you can deploy depends on the role you have assumed
+<h2 id='one-time-setup'>One-time setup</h2><h3 id='1-check-that-you-have-sufficient-access'>1. Check that you have sufficient access</h3><p>Which changes you can deploy depends on the role you have assumed
 in our AWS environments.</p>
 
 <ul>
-  <li><code>govuk-users</code> can only assume readonly roles, so cannot apply terraform</li>
-  <li>people with production access can assume <code>poweruser</code> roles, which can deploy anything except IAM</li>
-  <li>people with production access can assume <code>administrator</code> roles, which can deploy anything</li>
+<li><code>govuk-users</code> can only assume readonly roles, so cannot apply terraform</li>
+<li>people with production access can assume <code>poweruser</code> roles, which can deploy anything except IAM</li>
+<li>people with production access can assume <code>administrator</code> roles, which can deploy anything</li>
 </ul>
-
 <p>You should always use the least privileged role that will let you accomplish
 your task.</p>
-
 <p>Unless your terraform plan needs to make changes to IAM resources, use a
 poweruser role.</p>
-
-<h3 id="2-install-gds-cli">2. Install <code>gds-cli</code></h3>
-
-<p><a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a> is the <a href="/manual/get-started.html">preferred way</a> of obtaining
+<h3 id='2-install-gds-cli'>2. Install <code>gds-cli</code></h3><p><a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a> is the <a href="/manual/get-started.html">preferred way</a> of obtaining
 AWS credentials.</p>
-
 <p>As of version <code>v2.15.0</code> of <code>gds-cli</code>, you can use it to deploy terraform via Jenkins.</p>
-
-<h3 id="3-get-github-credentials">3. Get GitHub Credentials</h3>
-
-<p>You need to obtain your GitHub credentials by creating a read-only GitHub personal access token. This <a href="https://github.com/settings/tokens">GitHub personal access token</a> should be
+<h3 id='3-get-github-credentials'>3. Get GitHub Credentials</h3><p>You need to obtain your GitHub credentials by creating a read-only GitHub personal access token. This <a href="https://github.com/settings/tokens">GitHub personal access token</a> should be
 created with the <code>read:org</code> scope only.</p>
 
 <blockquote>
-  <p>Take care to store and handle the token securely. If you accidentally share your token,
+<p>Take care to store and handle the token securely. If you accidentally share your token,
   <a href="https://github.com/settings/tokens">revoke it immediately</a> and follow the
   <a href="https://sites.google.com/a/digital.cabinet-office.gov.uk/gds/working-at-the-white-chapel-building/security/security-incidents">instructions for reporting a potential data security incident</a>.</p>
 </blockquote>
-
-<h2 id="deploying-terraform">Deploying Terraform</h2>
-
-<p><strong>Always <code>plan</code> first, check that the output is what you expect, then <code>apply</code>.</strong></p>
-
+<h2 id='deploying-terraform'>Deploying Terraform</h2><p><strong>Always <code>plan</code> first, check that the output is what you expect, then <code>apply</code>.</strong></p>
 <p>There are 2 ways of deploying terraform:</p>
 
 <ol>
-  <li><a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a> as of version <code>v2.15.0</code></li>
-  <li><code>deploy.rb</code> script in <a href="https://github.com/alphagov/govuk-aws/blob/master/tools/deploy.rb">govuk-aws</a> repository</li>
+<li><a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a> as of version <code>v2.15.0</code></li>
+<li><code>deploy.rb</code> script in <a href="https://github.com/alphagov/govuk-aws/blob/master/tools/deploy.rb">govuk-aws</a> repository</li>
 </ol>
-
-<h3 id="1-gds-cli">1. gds-cli</h3>
-
-<p>To deploy terraform using <a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a>, you should run:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">GITHUB_USERNAME</span><span class="o">=</span>&lt;github_username&gt; <span class="nv">GITHUB_TOKEN</span><span class="o">=</span>&lt;github_token&gt; <span class="se">\</span>
+<h3 id='1-gds-cli'>1. gds-cli</h3><p>To deploy terraform using <a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a>, you should run:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">GITHUB_USERNAME</span><span class="o">=</span>&lt;github_username&gt; <span class="nv">GITHUB_TOKEN</span><span class="o">=</span>&lt;github_token&gt; <span class="se">\</span>
 gds govuk terraform <span class="nt">-e</span> &lt;environment&gt; <span class="nt">-p</span> &lt;project&gt; <span class="nt">-s</span> &lt;stack&gt; <span class="nt">-a</span> &lt;action&gt; <span class="nt">-r</span> &lt;aws_role&gt;
-</code></pre></div>
-<p>Where:</p>
+</code></pre></div><p>Where:</p>
 
 <ol>
-  <li><code>&lt;github_username&gt;</code> is the name of your GitHub account</li>
-  <li><code>&lt;github_token&gt;</code> is the GitHub token that you created as described <a href="#3-get-github-credentials">above</a></li>
-  <li><code>&lt;environment&gt;</code> is the govuk environment you want to deploy to. E.g. <code>integration</code>,<code>staging</code></li>
-  <li><code>&lt;project&gt;</code> is the terraform project that you want to deploy. E.g. <code>app-gatling</code></li>
-  <li><code>&lt;stack&gt;</code> is the govuk stack you want to deploy to. E.g. <code>blue</code> (which is usually for <code>app-</code> projects), <code>govuk</code> (which is usually for <code>infra-</code> projects)</li>
-  <li><code>&lt;action&gt;</code> is the terraform action you want to perform. E.g. <code>plan</code>, <code>apply</code></li>
-  <li><code>&lt;aws_role&gt;</code> is the govuk aws role you want to use for terraforming. E.g. <code>govuk-integration-admin</code></li>
+<li><code>&lt;github_username&gt;</code> is the name of your GitHub account</li>
+<li><code>&lt;github_token&gt;</code> is the GitHub token that you created as described <a href="#3-get-github-credentials">above</a></li>
+<li><code>&lt;environment&gt;</code> is the govuk environment you want to deploy to. E.g. <code>integration</code>,<code>staging</code></li>
+<li><code>&lt;project&gt;</code> is the terraform project that you want to deploy. E.g. <code>app-gatling</code></li>
+<li><code>&lt;stack&gt;</code> is the govuk stack you want to deploy to. E.g. <code>blue</code> (which is usually for <code>app-</code> projects), <code>govuk</code> (which is usually for <code>infra-</code> projects)</li>
+<li><code>&lt;action&gt;</code> is the terraform action you want to perform. E.g. <code>plan</code>, <code>apply</code></li>
+<li><code>&lt;aws_role&gt;</code> is the govuk aws role you want to use for terraforming. E.g. <code>govuk-integration-admin</code></li>
 </ol>
-
 <p>After you deploy, you can visit the <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_Terraform_GOVUK_AWS"><code>deploy</code> Jenkins job</a> to see the job running or queued.</p>
-
-<h3 id="2-deployrb-script-in-govuk-aws">2. <code>deploy.rb</code> script in govuk-aws</h3>
-
-<p>The Ruby script <a href="https://github.com/alphagov/govuk-aws/blob/master/tools/deploy.rb"><code>tools/deploy.rb</code></a> in the <code>govuk-aws</code> repository takes care of requesting temporary
+<h3 id='2-deploy-rb-script-in-govuk-aws'>2. <code>deploy.rb</code> script in govuk-aws</h3><p>The Ruby script <a href="https://github.com/alphagov/govuk-aws/blob/master/tools/deploy.rb"><code>tools/deploy.rb</code></a> in the <code>govuk-aws</code> repository takes care of requesting temporary
 AWS credentials with an assumed role and queuing the deployment Jenkins job.</p>
-
 <p>You can use it by running:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">GITHUB_USERNAME</span><span class="o">=</span>&lt;your GitHub username&gt; <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">GITHUB_USERNAME</span><span class="o">=</span>&lt;your GitHub username&gt; <span class="se">\</span>
   <span class="nv">GITHUB_TOKEN</span><span class="o">=</span>&lt;your GitHub personal access token&gt; <span class="se">\</span>
   gds aws &lt;your role e.g. govuk-integration-admin&gt; <span class="nt">--</span> <span class="se">\</span>
   ~/govuk/govuk-aws/tools/deploy.rb blue app-backend integration plan
-</code></pre></div>
-<p>You will need to change the arguments to the <code>deploy.rb</code> script. E.g.</p>
+</code></pre></div><p>You will need to change the arguments to the <code>deploy.rb</code> script. E.g.</p>
 
 <ul>
-  <li><code>app-backend</code> should be the name of the project you want to deploy</li>
-  <li><code>blue</code> is for <code>app-</code> projects, <code>govuk</code> is for <code>infra-</code> projects usually</li>
-  <li><code>integration</code> is the starting point, then <code>staging</code>, etc.</li>
+<li><code>app-backend</code> should be the name of the project you want to deploy</li>
+<li><code>blue</code> is for <code>app-</code> projects, <code>govuk</code> is for <code>infra-</code> projects usually</li>
+<li><code>integration</code> is the starting point, then <code>staging</code>, etc.</li>
 </ul>
-
 <p>Once the script has run, visit the <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_Terraform_GOVUK_AWS"><code>deploy</code> Jenkins job</a> to see the job running or queued.</p>
-
 
 
   <div class='related-content'>

@@ -172,30 +172,18 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/a457b9b278c65ef0b5c5b51554ed3f695b88e451">16 Jul 2020</a>
 </div>
 
- <h1 id='header'>Puppet last run errors</h1> <p>This alert triggers when there's an error while running Puppet on a machine.</p>
-
+ <h1 id='header'>Puppet last run errors</h1> <p>This alert triggers when there&rsquo;s an error while running Puppet on a machine.</p>
 <p>To view the errors in Kibana, first login to <a href="/manual/logit.html">Logit</a>, and then
 run the following query (where <code>$hostname</code> is the short name of the machine
 linked to the alert, for example <code>backend-1</code> in Carrenza or <code>ip-10-1-2-3</code> in AWS):</p>
-
-<p><code>syslog_program:"puppet-agent" AND host:$hostname</code></p>
-
+<p><code>syslog_program:&quot;puppet-agent&quot; AND host:$hostname</code></p>
 <p>You may also SSH into the machine and look at <code>syslog</code>:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>tail /var/log/syslog
-</code></pre></div>
-<p>You can also try running Puppet again and check the output:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>govuk_puppet --test
-</code></pre></div>
-<p>Sometimes this alert means that there is a puppet lock on the machine, so puppet won't be run. You can list current locks by running:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>govuk_puppet -l
-</code></pre></div>
-<h3 id="could-not-parse-puppet-summary-file">Could not parse puppet summary file</h3>
-
-<p>This usually means the Puppet client is unable to retrieve the catalogue from the master.</p>
-
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>tail /var/log/syslog
+</code></pre></div><p>You can also try running Puppet again and check the output:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_puppet --test
+</code></pre></div><p>Sometimes this alert means that there is a puppet lock on the machine, so puppet won&rsquo;t be run. You can list current locks by running:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_puppet -l
+</code></pre></div><h3 id='could-not-parse-puppet-summary-file'>Could not parse puppet summary file</h3><p>This usually means the Puppet client is unable to retrieve the catalogue from the master.</p>
 <p>The file that the check uses is <code>/var/lib/puppet/state/last_run_summary.yaml</code>. If it is only a few lines long, check logs for the error as above.</p>
 
 

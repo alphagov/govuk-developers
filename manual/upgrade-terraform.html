@@ -175,84 +175,59 @@
 
  <h1 id='header'>Upgrade Terraform</h1> <p>Terraform should be regularly upgraded. New releases happen very often, with bug fixes and improvements.
 Also, being too far behind the latest versions can make future upgrades and support for new provider services much harder to perform.</p>
-
 <p>In our platform we need to update the version of Terraform and AWS provider enforced in the <a href="https://github.com/alphagov/govuk-aws">govuk-aws</a> code repo,
 and update the Terraform package that runs the <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_Terraform_GOVUK_AWS">Deploy_Terraform_GOVUK_AWS</a>
 Jenkins job in the CI machines.</p>
-
 <p>The Terraform version of a client that updated a state file is represented in the state. Once a client with a new
 version of Terraform updates a remote state file, the rest of clients will be forced to use that same version of Terraform. It is
 important to update both the package in CI and the version required in the code more or less at the same time to avoid errors in the clients/jobs.</p>
-
 <p>Currently we are also enforcing the version of the <a href="https://github.com/terraform-providers/terraform-provider-aws">Terraform AWS provider</a> in our code.
 We should also keep an eye on new versions and update regularly in a similar way.</p>
-
 <p>Before/during the upgrade:</p>
 
 <ul>
-  <li>Read the Terraform <a href="https://github.com/terraform-providers/terraform-provider-aws/blob/master/CHANGELOG.md">CHANGELOG</a> carefully, make sure there aren't backwards incompatible changes, or the code is updated if required.</li>
-  <li>If you are planning a Terraform AWS provider upgrade, also read the CHANGELOG carefully. This provider is updated very often.</li>
-  <li>Test the new versions in a local branch first. Probably a <code>terraform plan</code> of the <code>infra-*</code> and a few <code>app-*</code> projects can provide enough test coverage.</li>
-  <li>Check for DEPRECATION messages and try to fix them.</li>
-  <li>Inform people of the upgrade so they can install the new binary in their laptops for code development.</li>
+<li>Read the Terraform <a href="https://github.com/terraform-providers/terraform-provider-aws/blob/master/CHANGELOG.md">CHANGELOG</a> carefully, make sure there aren&rsquo;t backwards incompatible changes, or the code is updated if required.</li>
+<li>If you are planning a Terraform AWS provider upgrade, also read the CHANGELOG carefully. This provider is updated very often.</li>
+<li>Test the new versions in a local branch first. Probably a <code>terraform plan</code> of the <code>infra-*</code> and a few <code>app-*</code> projects can provide enough test coverage.</li>
+<li>Check for DEPRECATION messages and try to fix them.</li>
+<li>Inform people of the upgrade so they can install the new binary in their laptops for code development.</li>
 </ul>
-
-<h3 id="build-a-new-terraform-package">Build a new Terraform package</h3>
-
-<p>The Terraform package is built with a recipe in the <a href="https://github.com/alphagov/packager">packager</a> repository.
+<h3 id='build-a-new-terraform-package'>Build a new Terraform package</h3><p>The Terraform package is built with a recipe in the <a href="https://github.com/alphagov/packager">packager</a> repository.
 Follow the general instructions in <a href="https://docs.publishing.service.gov.uk/manual/debian-packaging.html">Debian packaging</a>
 to create a new package and upload it to our Apt repository.</p>
-
 <p>For instance, this pull request creates a recipe for <a href="https://github.com/alphagov/packager/pull/172">Terraform 0.11.14</a>
 After merging to master, execute the <a href="https://ci.integration.publishing.service.gov.uk/job/build_fpm_package/">build_fpm_package</a>
 job to build a new Terraform package. The new package will appear in the job artefacts section. Download it to your machine
 and upload it to <code>apt-1.management</code> in Production.</p>
-
 <p>Run the following commands to add it to the Terraform repo:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>sudo -i aptly repo add terraform /home/your_user_name/terraform_0.11.14_amd64.deb
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo -i aptly repo add terraform /home/your_user_name/terraform_0.11.14_amd64.deb
 sudo aptly snapshot create terraform-$(date +%Y%m%d) from repo terraform
 sudo -i aptly publish switch trusty terraform terraform-$(date +%Y%m%d)
-</code></pre></div>
-<p>The <code>aptly publish</code> command requires the apt passphrase that can be found in the <a href="https://github.com/alphagov/govuk-secrets/tree/master/pass">password store</a></p>
-
-<h3 id="update-the-terraform-package-in-the-ci-machines">Update the Terraform package in the CI machines</h3>
-
-<p>The version of the Terraform package that is installed in CI is managed in Puppet. Update the <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk_jenkins/manifests/packages/terraform.pp">govuk_jenkins::packages::terraform::version</a> parameter with the new version, after the package is available in Aptly.</p>
-
-<h3 id="update-the-terraform-version-in-govuk-aws">Update the Terraform version in govuk-aws</h3>
-
-<p>In <a href="https://github.com/alphagov/govuk-aws">govuk-aws</a>:</p>
+</code></pre></div><p>The <code>aptly publish</code> command requires the apt passphrase that can be found in the <a href="https://github.com/alphagov/govuk-secrets/tree/master/pass">password store</a></p>
+<h3 id='update-the-terraform-package-in-the-ci-machines'>Update the Terraform package in the CI machines</h3><p>The version of the Terraform package that is installed in CI is managed in Puppet. Update the <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk_jenkins/manifests/packages/terraform.pp">govuk_jenkins::packages::terraform::version</a> parameter with the new version, after the package is available in Aptly.</p>
+<h3 id='update-the-terraform-version-in-govuk-aws'>Update the Terraform version in govuk-aws</h3><p>In <a href="https://github.com/alphagov/govuk-aws">govuk-aws</a>:</p>
 
 <ul>
-  <li>Replace the version requirement in the <code>.tf</code> files to match the new version:</li>
+<li>Replace the version requirement in the <code>.tf</code> files to match the new version:</li>
 </ul>
-
-<div class="highlight"><pre class="highlight plaintext"><code>terraform {
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>terraform {
   backend          "s3"             {}
   required_version = "= 0.11.7"
 }
-</code></pre></div>
-<p>For instance, to upgrade from 0.11.7 to 0.11.14 you can run:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>find . -name *.tf | xargs sed -i '' -e "s/0.11.7/0.11.14/g"
+</code></pre></div><p>For instance, to upgrade from 0.11.7 to 0.11.14 you can run:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>find . -name *.tf | xargs sed -i '' -e "s/0.11.7/0.11.14/g"
 </code></pre></div>
 <ul>
-  <li>Update the version managed by tfenv in the <code>.terraform-version</code> file</li>
-  <li>Update any other reference in the docs</li>
+<li>Update the version managed by tfenv in the <code>.terraform-version</code> file</li>
+<li>Update any other reference in the docs</li>
 </ul>
-
-<h3 id="upgrade-the-terraform-aws-provider">Upgrade the Terraform AWS provider</h3>
-
-<p>Currently we set the version of the <a href="https://github.com/terraform-providers/terraform-provider-aws">Terraform AWS provider</a> in our code, for instance:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>provider "aws" {
+<h3 id='upgrade-the-terraform-aws-provider'>Upgrade the Terraform AWS provider</h3><p>Currently we set the version of the <a href="https://github.com/terraform-providers/terraform-provider-aws">Terraform AWS provider</a> in our code, for instance:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>provider "aws" {
   region  = "${var.aws_region}"
   version = "1.60.0"
 }
 
-</code></pre></div>
-<p>Upgrading the provider only requires a change of this version parameter in the <code>.tf</code> files. This version is downloaded to the client
+</code></pre></div><p>Upgrading the provider only requires a change of this version parameter in the <code>.tf</code> files. This version is downloaded to the client
 when the <code>terraform init</code> command runs, which happens automatically when we deploy Terraform with the Jenkins job or the <code>tools/build-terraform-project.sh</code> script.</p>
 
 

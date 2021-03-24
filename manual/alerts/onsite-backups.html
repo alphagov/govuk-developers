@@ -164,21 +164,15 @@
 </div>
 
  <h1 id='header'>Onsite backups failed</h1> <p>The backup machine (e.g. <code>backup-1.management.integration</code>) collects backups from the various data stores at 9am every morning.</p>
-
 <p>The location of the backups is defined in <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/node/s_backup.pp">govuk-puppet</a>.</p>
-
-<p>It's likely that this is failing because one of the backups it's trying to collect is not ready yet when the process runs. We have an example of <a href="https://github.com/alphagov/govuk-puppet/pull/7619">running the PostgreSQL backup earlier</a> to deal with this situation.</p>
-
+<p>It&rsquo;s likely that this is failing because one of the backups it&rsquo;s trying to collect is not ready yet when the process runs. We have an example of <a href="https://github.com/alphagov/govuk-puppet/pull/7619">running the PostgreSQL backup earlier</a> to deal with this situation.</p>
 <p>To rerun an individual backup:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>gds govuk connect ssh -e production &lt;backup-hostname-from-alert&gt; (for example, ip-1-2-3-4.eu-west-1.compute.internal)
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>gds govuk connect ssh -e production &lt;backup-hostname-from-alert&gt; (for example, ip-1-2-3-4.eu-west-1.compute.internal)
 sudo su - govuk-backup
 cd /etc/backup/
 ./001_directory_backup_postgresql_backups_postgresql_primary_1 # Or whichever script is relevant
-</code></pre></div>
-<p>There will be no output whilst the script is running. You should see a backup being created in the backup location, e.g. if the graphite backup is being re-run, check: <code>/data/backups/graphite-1.management.publishing.service.gov.uk/opt/graphite/storage/backups</code></p>
-
-<p>If after running the script you find that you get some "Permission denied" errors on the files that the script is trying to copy, this probably means that the backup on the machine that the script is trying to copy from hasn't finished yet. Only after that has finished will it change permissions to the <code>govuk-backup</code> user.</p>
+</code></pre></div><p>There will be no output whilst the script is running. You should see a backup being created in the backup location, e.g. if the graphite backup is being re-run, check: <code>/data/backups/graphite-1.management.publishing.service.gov.uk/opt/graphite/storage/backups</code></p>
+<p>If after running the script you find that you get some &ldquo;Permission denied&rdquo; errors on the files that the script is trying to copy, this probably means that the backup on the machine that the script is trying to copy from hasn&rsquo;t finished yet. Only after that has finished will it change permissions to the <code>govuk-backup</code> user.</p>
 
 
   <div class='related-content'>

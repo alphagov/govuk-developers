@@ -140,7 +140,7 @@
             <a href="#hitcount"><span>hitcount</span></a>
           </li>
           <li>
-            <a href="#integral--hitcount"><span>integral + hitcount</span></a>
+            <a href="#integral-hitcount"><span>integral + hitcount</span></a>
           </li>
           <li>
             <a href="#aliasbynode"><span>aliasByNode</span></a>
@@ -174,33 +174,15 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/10741663cadc6b9d8bded00a9795a2e9ad668112">17 Aug 2020</a>
 </div>
 
- <h1 id='header'>Graphite and deployment dashboards</h1> <h2 id="how-graphite-is-used-with-deployment-dashboards">How Graphite is used with deployment dashboards</h2>
-
-<p>Graphite is a data storage application for time stream data that is used to store data performance data, error counts and other statistics about our servers.</p>
-
+ <h1 id='header'>Graphite and deployment dashboards</h1> <h2 id='how-graphite-is-used-with-deployment-dashboards'>How Graphite is used with deployment dashboards</h2><p>Graphite is a data storage application for time stream data that is used to store data performance data, error counts and other statistics about our servers.</p>
 <p>All data is stored with a key which is made up of multiple nodes which each node in the key representing a particular aspect of the data item, eg. server name or metric type.</p>
-
 <p>In addition to data storage, is it possible to use Graphite functions to manipulate the data streams. Below is a list of the most used functions/combinations of functions used in the dashboards. Full Graphite documentation can be found <a href="https://graphite.readthedocs.io/en/latest/">here</a>.</p>
-
-<h3 id="hitcount"><a href="https://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.hitcount">hitcount</a></h3>
-
-<p>This is helpful when trying to get actual volumes out of Graphite as data is events per second for the time interval (usually but not always 5 seconds). This means that a value of 0.2 represents a single event in a 5 second interval, and means that summing the data in Grafana results in not integer values. Wrapping the data in <code>hitcount</code> will convert it back to the expected count value.</p>
-
+<h3 id='hitcount'><a href="https://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.hitcount">hitcount</a></h3><p>This is helpful when trying to get actual volumes out of Graphite as data is events per second for the time interval (usually but not always 5 seconds). This means that a value of 0.2 represents a single event in a 5 second interval, and means that summing the data in Grafana results in not integer values. Wrapping the data in <code>hitcount</code> will convert it back to the expected count value.</p>
 <p>The second parameter is the interval size that is summed together. Care must be taken with this value as data can be lost when a large time period is queried with a small interval. Increasing the number of data points returned can ensure accurate data at the cost of performance.</p>
-
-<h3 id="integral--hitcount"><a href="https://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.integral">integral</a> + hitcount</h3>
-
-<p>Integral returns the sum of values for the time period, or if graphing, the sum of values up until that point in time. Used with <code>hitcount</code>, it can help by ensuring no data is lost as a result of using a small interval with a large time period.</p>
-
+<h3 id='integral-hitcount'><a href="https://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.integral">integral</a> + hitcount</h3><p>Integral returns the sum of values for the time period, or if graphing, the sum of values up until that point in time. Used with <code>hitcount</code>, it can help by ensuring no data is lost as a result of using a small interval with a large time period.</p>
 <p>The resulting data should not be graphed in most cases, unless it is to compare to similar data with a time offset.</p>
-
-<h3 id="aliasbynode"><a href="https://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.aliasByNode">aliasByNode</a></h3>
-
-<p>Used to extract one node out of the key and then use that as the name of the data column. This is particularly helpful when needing to group summary data.</p>
-
-<h3 id="sumseries"><a href="https://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.sumSeries">sumSeries</a></h3>
-
-<p>Sum series data together. Can be used by itself to return a single stream of data or with <code>aliasByNode</code> to return grouped sets of data.</p>
+<h3 id='aliasbynode'><a href="https://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.aliasByNode">aliasByNode</a></h3><p>Used to extract one node out of the key and then use that as the name of the data column. This is particularly helpful when needing to group summary data.</p>
+<h3 id='sumseries'><a href="https://graphite.readthedocs.io/en/latest/functions.html#graphite.render.functions.sumSeries">sumSeries</a></h3><p>Sum series data together. Can be used by itself to return a single stream of data or with <code>aliasByNode</code> to return grouped sets of data.</p>
 
 
   <div class='related-content'>

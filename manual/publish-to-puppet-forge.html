@@ -167,53 +167,38 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/cda543d076d3b157b74e1a1c4200585faa11fe7a">24 Jan 2021</a>
 </div>
 
- <h1 id='header'>Publish to Puppet Forge</h1> <h2 id="logging-in-to-the-forge">Logging in to the Forge</h2>
-
-<p>Credentials for the GDS Operations account can be found in <code>packages/puppet_forge</code>
+ <h1 id='header'>Publish to Puppet Forge</h1> <h2 id='logging-in-to-the-forge'>Logging in to the Forge</h2><p>Credentials for the GDS Operations account can be found in <code>packages/puppet_forge</code>
 in the 2ndline password store.</p>
-
 <p>The URL for our account is <a href="http://forge.puppetlabs.com/gdsoperations">http://forge.puppetlabs.com/gdsoperations</a>.</p>
-
-<h2 id="checks-before-releasing-a-new-or-updated-module">Checks before releasing a new or updated module</h2>
-
+<h2 id='checks-before-releasing-a-new-or-updated-module'>Checks before releasing a new or updated module</h2>
 <ol>
-  <li>Ensure that all tests pass and that the project conforms to our
+<li>Ensure that all tests pass and that the project conforms to our
 <a href="https://gds-operations.github.io/guidelines/">Open Source Guidelines</a>.</li>
-  <li>Choose a new version number in accordance with <a href="http://semver.org/">Semantic Versioning</a>.</li>
-  <li>Add a new release entry to the <code>CHANGELOG</code>.</li>
-  <li>Update the <code>version</code> field in <code>metadata.json</code>. If this file is not present, but <code>Modulefile</code> is, address this before progressing with the release.</li>
-  <li>Create a pull request with these changes.</li>
+<li>Choose a new version number in accordance with <a href="http://semver.org/">Semantic Versioning</a>.</li>
+<li>Add a new release entry to the <code>CHANGELOG</code>.</li>
+<li>Update the <code>version</code> field in <code>metadata.json</code>. If this file is not present, but <code>Modulefile</code> is, address this before progressing with the release.</li>
+<li>Create a pull request with these changes.</li>
 </ol>
-
-<h2 id="releasing-a-new-or-updated-module">Releasing a new or updated module</h2>
-
-<h3 id="via-the-forge-website">Via the Forge website</h3>
-
+<h2 id='releasing-a-new-or-updated-module'>Releasing a new or updated module</h2><h3 id='via-the-forge-website'>Via the Forge website</h3>
 <ol>
-  <li>Build the new version with <code>bundle exec puppet module build</code></li>
-  <li>Click <a href="https://forge.puppetlabs.com/upload">Publish</a></li>
-  <li>Submit the tarball you just built from the <code>pkg/</code> directory</li>
+<li>Build the new version with <code>bundle exec puppet module build</code></li>
+<li>Click <a href="https://forge.puppetlabs.com/upload">Publish</a></li>
+<li>Submit the tarball you just built from the <code>pkg/</code> directory</li>
 </ol>
-
-<p>If you get the "this action has been replaced by Puppet Development
-Kit" error, run these commands instead:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>brew <span class="nb">install </span>puppetlabs/puppet/pdk
+<p>If you get the &ldquo;this action has been replaced by Puppet Development
+Kit&rdquo; error, run these commands instead:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>brew <span class="nb">install </span>puppetlabs/puppet/pdk
 <span class="nv">$ </span>pdk build
-</code></pre></div>
-<h3 id="via-the-command-line">Via the command line</h3>
-
-<p>The web UI is the preferred method, but it is also possible to use the
+</code></pre></div><h3 id='via-the-command-line'>Via the command line</h3><p>The web UI is the preferred method, but it is also possible to use the
 <a href="https://github.com/maestrodev/puppet-blacksmith">puppet-blacksmith</a> gem
 to push from the command line.</p>
-
 <p>If publishing to the Forge was successful, create a tag on the
 repository:</p>
 
 <ol>
-  <li>Tag the release prefixed with a <code>v</code>, eg: <code>git tag v0.1.2</code>. Ensure
+<li>Tag the release prefixed with a <code>v</code>, eg: <code>git tag v0.1.2</code>. Ensure
 you tag the merge commit, not the branch commit.</li>
-  <li>Push the commit and tag to the repo: <code>git push --tags origin master</code>.</li>
+<li>Push the commit and tag to the repo: <code>git push --tags origin master</code>.</li>
 </ol>
 
 

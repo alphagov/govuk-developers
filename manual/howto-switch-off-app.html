@@ -157,14 +157,10 @@
 
  <h1 id='header'>Switch an app off temporarily</h1> <p>In the event of a security incident an app may need to be switched off until it
 can be patched.</p>
-
 <p>Stop Puppet from running on the relevant machines:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> node_type:frontend puppet.disable:<span class="s2">"Reason for disabling Puppet"</span>
-</code></pre></div>
-<p>Stop the app on the relevant machines:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> node_type:frontend app.stop:frontend
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> node_type:frontend puppet.disable:<span class="s2">"Reason for disabling Puppet"</span>
+</code></pre></div><p>Stop the app on the relevant machines:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> node_type:frontend app.stop:frontend
 </code></pre></div>
 
   <div class='related-content'>

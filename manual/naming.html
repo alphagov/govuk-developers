@@ -181,137 +181,103 @@
 </div>
 
  <h1 id='header'>Name a new application or gem</h1> <p>This describes how you should name an application or gem on GOV.UK. It was first proposed in <a href="https://github.com/alphagov/govuk-rfcs/blob/master/rfc-063-naming-new-apps-gems-on-gov-uk.md">RFC 63</a>.</p>
-
 <p>Of course, break any of these rules sooner than <a href="https://en.wikipedia.org/wiki/Politics_and_the_English_Language#Remedy_of_Six_Rules">say anything outright barbarous</a>.</p>
-
-<h2 id="naming-applications">Naming applications</h2>
-
-<p>Firstly, the <a href="https://www.gov.uk/service-manual/design/naming-your-service">service manual has good guidance on naming things</a>.</p>
-
+<h2 id='naming-applications'>Naming applications</h2><p>Firstly, the <a href="https://www.gov.uk/service-manual/design/naming-your-service">service manual has good guidance on naming things</a>.</p>
 <p>The most important rules:</p>
 
 <ul>
-  <li>The name should be self-descriptive. No branding or puns.</li>
-  <li>Use dashes for the URL and GitHub repo</li>
-  <li>The name of the app should be the same on GitHub, Puppet and hostname</li>
+<li>The name should be self-descriptive. No branding or puns.</li>
+<li>Use dashes for the URL and GitHub repo</li>
+<li>The name of the app should be the same on GitHub, Puppet and hostname</li>
 </ul>
-
-<h3 id="publishing-applications">Publishing applications</h3>
-
-<p>Applications that publish things are named <strong>x-publisher</strong>.</p>
-
+<h3 id='publishing-applications'>Publishing applications</h3><p>Applications that publish things are named <strong>x-publisher</strong>.</p>
 <p>Good:</p>
 
 <ul>
-  <li>specialist-publisher</li>
-  <li>manuals-publisher</li>
+<li>specialist-publisher</li>
+<li>manuals-publisher</li>
 </ul>
-
 <p>Not so good:</p>
 
 <ul>
-  <li>publisher (too generic)</li>
-  <li>contacts-admin (could be contacts-publisher)</li>
+<li>publisher (too generic)</li>
+<li>contacts-admin (could be contacts-publisher)</li>
 </ul>
-
-<h3 id="frontend-applications">Frontend applications</h3>
-
-<p>Applications that render content to end users on GOV.UK are named
+<h3 id='frontend-applications'>Frontend applications</h3><p>Applications that render content to end users on GOV.UK are named
 <strong>x-frontend</strong></p>
-
 <p>Good:</p>
 
 <ul>
-  <li>government-frontend</li>
-  <li>email-alert-frontend</li>
+<li>government-frontend</li>
+<li>email-alert-frontend</li>
 </ul>
-
 <p>Not so good:</p>
 
 <ul>
-  <li>collections (could be collections-frontend)</li>
-  <li>frontend (too generic)</li>
+<li>collections (could be collections-frontend)</li>
+<li>frontend (too generic)</li>
 </ul>
-
-<h3 id="apis">APIs</h3>
-
-<p>Applications that just expose an API are named <strong>x-api</strong>.</p>
-
+<h3 id='apis'>APIs</h3><p>Applications that just expose an API are named <strong>x-api</strong>.</p>
 <p>Good:</p>
 
 <ul>
-  <li>publishing-api</li>
-  <li>email-alert-api</li>
-  <li>router-api</li>
+<li>publishing-api</li>
+<li>email-alert-api</li>
+<li>router-api</li>
 </ul>
-
 <p>Not so good:</p>
 
 <ul>
-  <li>rummager (renamed to search-api)</li>
+<li>rummager (renamed to search-api)</li>
 </ul>
-
-<h3 id="admin-applications">Admin applications</h3>
-
-<p>Applications that "manage" things can be called <strong>x-manager</strong> or <strong>x-admin</strong> or
+<h3 id='admin-applications'>Admin applications</h3><p>Applications that &ldquo;manage&rdquo; things can be called <strong>x-manager</strong> or <strong>x-admin</strong> or
 <strong>thing-doer</strong>.</p>
-
 <p>Good:</p>
 
 <ul>
-  <li>search-admin</li>
-  <li>local-links-manager</li>
-  <li>content-tagger</li>
+<li>search-admin</li>
+<li>local-links-manager</li>
+<li>content-tagger</li>
 </ul>
-
 <p>Not so good:</p>
 
 <ul>
-  <li>signonotron2000</li>
-  <li>maslow (needs-manager)</li>
+<li>signonotron2000</li>
+<li>maslow (needs-manager)</li>
 </ul>
-
-<h3 id="service-applications">Service applications</h3>
-
-<p>Applications which (probably) listen to the publishing queue and do a thing,
+<h3 id='service-applications'>Service applications</h3><p>Applications which (probably) listen to the publishing queue and do a thing,
 with no API or web interface.</p>
-
 <p>Good:</p>
 
 <ul>
-  <li>email-alert-service</li>
-  <li>cache-clearing-service</li>
+<li>email-alert-service</li>
+<li>cache-clearing-service</li>
 </ul>
-
 <p>Not so good:</p>
 
 <ul>
-  <li>cache-clearer</li>
+<li>cache-clearer</li>
 </ul>
-
-<h2 id="naming-gems">Naming gems</h2>
-
+<h2 id='naming-gems'>Naming gems</h2>
 <ul>
-  <li>Use the official <a href="http://guides.rubygems.org/name-your-gem/">Rubygems naming convention</a></li>
-  <li>Use underscores for multiple words</li>
-  <li>Use <code>govuk_</code> prefix if the gem is only interesting to projects within GOV.UK</li>
+<li>Use the official <a href="http://guides.rubygems.org/name-your-gem/">Rubygems naming convention</a></li>
+<li>Use underscores for multiple words</li>
+<li>Use <code>govuk_</code> prefix if the gem is only interesting to projects within GOV.UK</li>
 </ul>
-
 <p>Good:</p>
 
 <ul>
-  <li><code>govuk_sidekiq</code></li>
-  <li><code>govuk_content_models</code></li>
-  <li><code>govuk_admin_template</code></li>
-  <li><code>vcloud-edge_gateway</code></li>
+<li><code>govuk_sidekiq</code></li>
+<li><code>govuk_content_models</code></li>
+<li><code>govuk_admin_template</code></li>
+<li><code>vcloud-edge_gateway</code></li>
 </ul>
-
 <p>Not so good:</p>
 
 <ul>
-  <li><code>slimmer</code></li>
-  <li><code>plek</code></li>
-  <li><code>gds-sso</code> (should be <code>gds_sso</code>, or <code>govuk_sso</code>)</li>
+<li><code>slimmer</code></li>
+<li><code>plek</code></li>
+<li><code>gds-sso</code> (should be <code>gds_sso</code>, or <code>govuk_sso</code>)</li>
 </ul>
 
 

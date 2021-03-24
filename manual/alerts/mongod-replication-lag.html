@@ -175,50 +175,38 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6898370fdfdb732959965422ef28941737ca9c88">17 Sep 2020</a>
 </div>
 
- <h1 id='header'>mongod replication lag</h1> <h3 id="investigating-the-problem">Investigating the problem</h3>
-
-<p>There is a Fabric task to show various MongoDB replication status
+ <h1 id='header'>mongod replication lag</h1> <h3 id='investigating-the-problem'>Investigating the problem</h3><p>There is a Fabric task to show various MongoDB replication status
 information.:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>  fab &lt;environment&gt; -H api-mongo-[n].api mongo.status
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  fab &lt;environment&gt; -H api-mongo-[n].api mongo.status
 </code></pre></div>
 <ul>
-  <li>The <code>db.printReplicationInfo()</code> section shows where the primary
-node's <a href="http://docs.mongodb.org/manual/core/replica-set-oplog/">oplog</a>
+<li>The <code>db.printReplicationInfo()</code> section shows where the primary
+node&rsquo;s <a href="http://docs.mongodb.org/manual/core/replica-set-oplog/">oplog</a>
 is up to.</li>
-  <li>The <code>db.printSlaveReplicationInfo()</code> section shows where each
+<li>The <code>db.printSlaveReplicationInfo()</code> section shows where each
 secondary is synced to and how far behind the master it is.</li>
-  <li>The <code>rs.status()</code> section shows the current status of each node and
+<li>The <code>rs.status()</code> section shows the current status of each node and
 the last heartbeat error message for the secondaries.</li>
 </ul>
-
-<h3 id="possible-fixes">Possible fixes</h3>
-
+<h3 id='possible-fixes'>Possible fixes</h3>
 <blockquote>
-  <p>Be mindful that load on the primary mongo node may be increased by
+<p>Be mindful that load on the primary mongo node may be increased by
 the replication and consider to limit restarts to one node at a time.</p>
 </blockquote>
 
 <ul>
-  <li>
-    <p>Try restarting one of the lagging mongod secondaries:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fab &lt;environment&gt; -H api-mongo-[n].api app.restart:mongodb
-</code></pre></div>  </li>
+<li>Try restarting one of the lagging mongod secondaries:</li>
 </ul>
-
-<p>This may restart replication on that node, and also cause the other
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  fab &lt;environment&gt; -H api-mongo-[n].api app.restart:mongodb
+</code></pre></div><p>This may restart replication on that node, and also cause the other
 lagging node to resync with the primary node and restart its own
 replication.</p>
 
 <ul>
-  <li>
-    <p>If restarting doesn't solve the problem force a resync with Fabric:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fab &lt;environment&gt; -H api-mongo-[n].api mongo.force_resync
-</code></pre></div>  </li>
+<li>If restarting doesn&rsquo;t solve the problem force a resync with Fabric:</li>
 </ul>
-
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  fab &lt;environment&gt; -H api-mongo-[n].api mongo.force_resync
+</code></pre></div>
 
   <div class='related-content'>
 

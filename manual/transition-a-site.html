@@ -194,189 +194,127 @@
  <h1 id='header'>Transition a site to GOV.UK</h1> <p>When a site is going to move to GOV.UK, there are two ways that the old site
 can be redirected. They can do it themselves, or they can repoint the domain at
 us. This page is about the latter.</p>
-
 <p>The <a href="/apps/transition.html">Transition</a> app exists to allow editing of mapping of old URLs to pages
 on GOV.UK. These mappings are stored in a database and used by <a href="/apps/bouncer.html">Bouncer</a> to
 handle requests to those old domains.</p>
-
 <p>This page covers adding a site so that we can handle traffic to
 it, or changing the configuration of an existing site in the Transition app.</p>
-
-<h2 id="changing-the-configuration-of-a-site-that-is-already-in-the-transition-app">Changing the configuration of a site that is already in the Transition app</h2>
-
-<p>The <a href="https://github.com/alphagov/transition-config/blob/master/README.md">transition-config README</a> gives more details on how to
+<h2 id='changing-the-configuration-of-a-site-that-is-already-in-the-transition-app'>Changing the configuration of a site that is already in the Transition app</h2><p>The <a href="https://github.com/alphagov/transition-config/blob/master/README.md">transition-config README</a> gives more details on how to
 edit the relevant <a href="https://github.com/alphagov/transition-config/tree/master/data/transition-sites">transition configuration file</a>.</p>
-
-<h2 id="checklist-for-transitioning-a-new-site">Checklist for transitioning a new site</h2>
-
-<h3 id="1-ensure-the-department-is-aware-of-the-technical-limitation-of-https-enabled-sites">1) Ensure the department is aware of the technical limitation of HTTPS enabled sites</h3>
-
-<p>Unless the domain being transitioned is a subdomain of one of our wildcard
+<h2 id='checklist-for-transitioning-a-new-site'>Checklist for transitioning a new site</h2><h3 id='1-ensure-the-department-is-aware-of-the-technical-limitation-of-https-enabled-sites'>1) Ensure the department is aware of the technical limitation of HTTPS enabled sites</h3><p>Unless the domain being transitioned is a subdomain of one of our wildcard
 <a href="https://en.wikipedia.org/wiki/Subject_Alternative_Name">SANs</a>, we <a href="/manual/transition-architecture.html#https-support-for-transitioned-sites">do not support HTTPS</a> for transitioned sites.</p>
-
 <p>If a domain is not in our SAN but wants to keep HTTPS integrity, the best
 alternative is to set up redirects on their own server.</p>
-
 <p>The content team might ask a developer to offer the department some guidance
 around this.</p>
-
-<h3 id="2-add-a-site-to-the-transition-app">2) Add a site to the Transition app</h3>
-
-<p>Follow the instructions in the <a href="https://github.com/alphagov/transition-config/blob/master/README.md">transition-config README</a>.</p>
-
-<h3 id="3-consider-aka-domains">3) Consider AKA domains</h3>
-
-<p>If the department want to use the side-by-side browser to preview how their
+<h3 id='2-add-a-site-to-the-transition-app'>2) Add a site to the Transition app</h3><p>Follow the instructions in the <a href="https://github.com/alphagov/transition-config/blob/master/README.md">transition-config README</a>.</p>
+<h3 id='3-consider-aka-domains'>3) Consider AKA domains</h3><p>If the department want to use the side-by-side browser to preview how their
 redirects will appear after transitioning they will need to set up AKA domains.</p>
-
 <p>They will need one new CNAME DNS entry for each domain/subdomain they wish to
 preview according to the following pattern:</p>
 
 <ul>
-  <li>www.domain.gov.uk → aka.domain.gov.uk</li>
-  <li>sub.domain.gov.uk → aka-sub.domain.gov.uk</li>
+<li>www.domain.gov.uk → aka.domain.gov.uk</li>
+<li>sub.domain.gov.uk → aka-sub.domain.gov.uk</li>
 </ul>
-
 <p>There are lots of examples of these in <a href="https://transition.publishing.service.gov.uk/hosts">hosts currently configured in
 Transition</a>.</p>
-
 <p>These AKA domains should be CNAMEd to: <code>bouncer-cdn.production.govuk.service.gov.uk</code></p>
-
 <p>Previously we used a <code>redirector-cdn</code> address which reached its capacity and will now fail if added as the
 CNAME record for any new domains.</p>
-
-<h3 id="4-get-a-list-of-old-urls">4) Get a list of old URLs</h3>
-
-<p>In order for us to redirect anything but the homepage, we need a list of URLs
+<h3 id='4-get-a-list-of-old-urls'>4) Get a list of old URLs</h3><p>In order for us to redirect anything but the homepage, we need a list of URLs
 for the old site so that they can be mapped. In the past, this is something
 GDS did for the organisation as it requires some technical skill and
 experience.</p>
-
 <p>Getting traffic logs from a transitioning organisation is the best option, as
-we can get a list of URLs we know are actively used. If we can't get this then
+we can get a list of URLs we know are actively used. If we can&rsquo;t get this then
 there are other options.</p>
-
 <p>One option is to get a list of the URLs from the Internet Archive. The
 <a href="https://github.com/rgarner/archive_lister">archive_lister</a> gem can do this for
-you. Sometimes the Internet Archive doesn't have any data, so try the domain
+you. Sometimes the Internet Archive doesn&rsquo;t have any data, so try the domain
 name with <code>http</code> or <code>https</code>, or with and without the <code>www.</code>.</p>
-
 <p>An alternative is to crawl the site with a crawler like
 <a href="https://github.com/chriskite/anemone">Anemone</a>, though for a large site this
 might take several hours. This will give you a list of URLs for a domain:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>anemone url-list <span class="s1">'transitioning-site.gov.uk'</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>anemone url-list <span class="s1">'transitioning-site.gov.uk'</span>
 </code></pre></div>
 <blockquote>
-  <p><strong>Note:</strong> This will include 404s, 301s, etc.</p>
+<p><strong>Note:</strong> This will include 404s, 301s, etc.</p>
 </blockquote>
-
-<h3 id="5-clean-up-urls">5) Clean up URLs</h3>
-
-<h4 id="strip-paths-and-pattern">Strip paths and pattern</h4>
-
-<p>There are lots of file formats we don't want to provide mappings for, like
+<h3 id='5-clean-up-urls'>5) Clean up URLs</h3><h4 id='strip-paths-and-pattern'>Strip paths and pattern</h4><p>There are lots of file formats we don&rsquo;t want to provide mappings for, like
 static assets, images, or common spammy/malicious crawlers. These can be
 stripped using the <a href="https://github.com/alphagov/transition-config/blob/master/tools/strip_mappings.sh">strip_mappings.sh</a> script.</p>
-
-<h4 id="query-parameter-analysis">Query parameter analysis</h4>
-
-<p>From your set of URLs, you can attempt to identify significant query string
+<h4 id='query-parameter-analysis'>Query parameter analysis</h4><p>From your set of URLs, you can attempt to identify significant query string
 parameter names and then add them to the site configuration file in
 <code>transition-config</code>. A query string parameter is considered significant if it
 significantly changes the content seen on the old site and/or it would be
 mapped to a different new URL.</p>
-
 <p>There are some transition-config scripts to help analyse query param usage:</p>
 
 <ul>
-  <li><a href="https://github.com/alphagov/transition-config/blob/master/tools/analyse_query_params.sh">analyse_query_params.sh</a></li>
-  <li><a href="https://github.com/alphagov/transition-config/blob/master/tools/analyse_query_usage.sh">analyse_query_usage.sh</a></li>
+<li><a href="https://github.com/alphagov/transition-config/blob/master/tools/analyse_query_params.sh">analyse_query_params.sh</a></li>
+<li><a href="https://github.com/alphagov/transition-config/blob/master/tools/analyse_query_usage.sh">analyse_query_usage.sh</a></li>
 </ul>
-
 <p>Some common examples of significant parameters:</p>
 
 <ul>
-  <li>article ID</li>
-  <li>attachment ID</li>
-  <li>document ID</li>
+<li>article ID</li>
+<li>attachment ID</li>
+<li>document ID</li>
 </ul>
-
 <p>Some common examples of non-significant parameters:</p>
 
 <ul>
-  <li>pagination</li>
-  <li>analytics</li>
-  <li>search queries</li>
+<li>pagination</li>
+<li>analytics</li>
+<li>search queries</li>
 </ul>
-
-<h3 id="6-add-the-old-urls-as-mappings">6) Add the old URLs as mappings</h3>
-
-<p>Ideally, any significant query string parameters should be identified and
+<h3 id='6-add-the-old-urls-as-mappings'>6) Add the old URLs as mappings</h3><p>Ideally, any significant query string parameters should be identified and
 added to the site before adding the mappings. This is because URLs are
 canonicalised and then deduplicated before being saved and part of
 canonicalisation is to remove non-significant parameters. However,
 significant query string parameters can be added later; after they have
 been imported adding old URLs which include the parameters will be
 canonicalised using the new list of significant parameters. Note that mappings
-created under the previous list won't be removed and in some (complicated)
-situations won't be used by Bouncer.</p>
-
-<p>To add or edit mappings, you will need the "GDS Editor" permission in
+created under the previous list won&rsquo;t be removed and in some (complicated)
+situations won&rsquo;t be used by Bouncer.</p>
+<p>To add or edit mappings, you will need the &ldquo;GDS Editor&rdquo; permission in
 GOV.UK Signon for the Transition app. This lets you edit any site,
 rather than just ones belonging to your organisation. You can then go
 the <a href="https://transition.publishing.service.gov.uk">transition app</a>, find
 the site and click <code>Add mappings</code> to add them in bulk.</p>
-
-<h3 id="7-get-the-organisation-to-do-the-mapping-work">7) Get the organisation to do the mapping work</h3>
-
-<p>By default, the mappings will present an archive page to users visiting
+<h3 id='7-get-the-organisation-to-do-the-mapping-work'>7) Get the organisation to do the mapping work</h3><p>By default, the mappings will present an archive page to users visiting
 the old URL. The objective is to get users to somewhere that best serves
 the need fulfilled by the old page. Usually this means redirecting them
 to the page on GOV.UK or elsewhere. It is really important that this is
 done by people who understand the users and content.</p>
-
-<h3 id="8-get-the-organisation-to-lower-the-ttl-on-the-dns-records-a-day-ahead">8) Get the organisation to lower the TTL on the DNS records a day ahead</h3>
-
-<p>In order to cleanly switch the domain from the old site, the TTL needs
-to be low enough that there isn't a significant period where some users
+<h3 id='8-get-the-organisation-to-lower-the-ttl-on-the-dns-records-a-day-ahead'>8) Get the organisation to lower the TTL on the DNS records a day ahead</h3><p>In order to cleanly switch the domain from the old site, the TTL needs
+to be low enough that there isn&rsquo;t a significant period where some users
 will get the old site and some get the new one. This is important for
 several reasons, including user experience and giving a professional
 impression to stakeholders. We normally ask for this to be done a day in
 advance, and to be lowered to 300 seconds (5 minutes). It can be raised
 again once everyone is happy there is no need to switch back - normally
 the day after.</p>
-
-<h3 id="9-point-the-domain-at-us">9) Point the domain at us</h3>
-
-<p>Once the site has been imported successfully, the domain can be pointed
+<h3 id='9-point-the-domain-at-us'>9) Point the domain at us</h3><p>Once the site has been imported successfully, the domain can be pointed
 at us by the organisation. For hostnames which can have a <code>CNAME</code>
 record, this is <code>bouncer-cdn.production.govuk.service.gov.uk</code>.
-Domains at the root of their zone can't use <code>CNAME</code> records, so must use
+Domains at the root of their zone can&rsquo;t use <code>CNAME</code> records, so must use
 an <code>A</code> record and point at one of the <a href="https://github.com/alphagov/transition/blob/016c3d30e190c41eaa912ed554384a49f3418a91/app/models/host.rb#L22">Fastly GOV.UK IP
 addresses</a>.</p>
-
 <p>If the site is one that was <a href="https://github.com/alphagov/gds-dns-config/tree/master/zones">administered by GDS</a>
 (e.g. theorytest.direct.gov.uk), you will need to <a href="/manual/dns.html#making-changes-to-publishing-service-gov-uk">update and re-deploy the DNS config</a>.</p>
-
-<p>You'll need to create a TLS certificate in Fastly for HTTPS domains, otherwise
+<p>You&rsquo;ll need to create a TLS certificate in Fastly for HTTPS domains, otherwise
 users will see a certificate error when being redirected from an external
 HTTPS URL to GOV.UK via Bouncer. Read how to <a href="/manual/request-fastly-tls-certificate.html">request a Fastly TLS certificate</a></p>
-
-<h3 id="10-get-the-organisation-to-monitor-the-traffic-data-in-the-transition-app">10) Get the organisation to monitor the traffic data in the Transition app</h3>
-
-<p>There are two things that need to be responded to:</p>
+<h3 id='10-get-the-organisation-to-monitor-the-traffic-data-in-the-transition-app'>10) Get the organisation to monitor the traffic data in the Transition app</h3><p>There are two things that need to be responded to:</p>
 
 <ul>
-  <li>high numbers of 404s - this means a mapping is missing</li>
-  <li>high numbers hitting 410s - this means the old page is popular and
+<li>high numbers of 404s - this means a mapping is missing</li>
+<li>high numbers hitting 410s - this means the old page is popular and
 should perhaps be redirected instead</li>
 </ul>
-
-<h2 id="further-reading">Further reading</h2>
-
-<p>The transition checklist covers the whole process of transitioning a site from the technical side. There’s a <a href="https://docs.google.com/document/d/1SiBwYtV_d_D9pPcqzpqvRWs0kscUtB7yqxN8Ub_uRSA/edit">full version for complex sites</a> and a <a href="https://docs.google.com/document/d/1gIJBUuPaZqtYsrgwqMBSrU4lpr2e93tuhQcgylnSHb4/edit">slightly simplified one</a> - we probably only need the simpler one for upcoming transitions.</p>
-
+<h2 id='further-reading'>Further reading</h2><p>The transition checklist covers the whole process of transitioning a site from the technical side. There’s a <a href="https://docs.google.com/document/d/1SiBwYtV_d_D9pPcqzpqvRWs0kscUtB7yqxN8Ub_uRSA/edit">full version for complex sites</a> and a <a href="https://docs.google.com/document/d/1gIJBUuPaZqtYsrgwqMBSrU4lpr2e93tuhQcgylnSHb4/edit">slightly simplified one</a> - we probably only need the simpler one for upcoming transitions.</p>
 
 
   <div class='related-content'>

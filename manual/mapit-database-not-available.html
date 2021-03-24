@@ -156,65 +156,56 @@
  <h1 id='header'>Fix Mapit database not available</h1> <p>Each Mapit machine has its own PostgreSQL database which powers the Mapit
 application. When the machine is first created by AWS, the latest data is
 <a href="https://github.com/alphagov/govuk-puppet/pull/9657">supposed to be imported into the database</a>.</p>
-
 <p>This feature is currently not working which means that new Mapit machines are
 not added to the load balancer until the data has been imported manually. There
 will also be numerous errors in Icinga related to 5xx errors and events in
 Sentry:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>OperationalError: could not connect to server: Connection refused
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>OperationalError: could not connect to server: Connection refused
         Is the server running on host "127.0.0.1" and accepting
         TCP/IP connections on port 5432?
 </code></pre></div>
 <blockquote>
-  <p>RE are aware that the automatic import process doesn't work.</p>
+<p>RE are aware that the automatic import process doesn&rsquo;t work.</p>
 </blockquote>
-
-<h2 id="manual-process">Manual process</h2>
-
-<p>SSH onto the machine which is experiencing the problem and run the following
+<h2 id='manual-process'>Manual process</h2><p>SSH onto the machine which is experiencing the problem and run the following
 comments:</p>
 
 <ol>
-  <li>
-    <p>Stop any running PostgreSQL instance</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>ps aux | <span class="nb">grep </span>postgresql
-<span class="nv">$ </span><span class="nb">sudo kill</span> <span class="nt">-9</span> &lt;pid&gt;
-</code></pre></div>  </li>
-  <li>
-    <p>Recreate the PostgreSQL cluster</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>pg_dropcluster <span class="nt">--stop</span> 9.6 main<span class="p">;</span> <span class="nb">sudo </span>pg_createcluster 9.6 main
-</code></pre></div>  </li>
-  <li>
-    <p>Run Puppet</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>govuk_puppet <span class="nt">--test</span>
-</code></pre></div>  </li>
-  <li>
-    <p>Check that PostgreSQL is up and running correctly</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>service postgresql status
-</code></pre></div>  </li>
-  <li>
-    <p>Make the import script available</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>wget https://raw.githubusercontent.com/alphagov/govuk-puppet/master/modules/govuk/files/etc/govuk/import_mapit_data.sh
-<span class="nv">$ </span><span class="nb">chmod</span> +x import_mapit_data.sh
-</code></pre></div>  </li>
-  <li>
-    <p>Run the import script</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo</span> ./import_mapit_data.sh
-</code></pre></div>
-    <p>The import script will take about 10 minutes to run. Sometimes your SSH
-connection might time out while the script runs, it's worth checking on the
-terminal every few minutes to check that hasn't happened. Once Mapit is
-healthy, the AWS load balancer will automatically detect this and add the
-machine into the rotation.</p>
-  </li>
+<li>Stop any running PostgreSQL instance</li>
 </ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>ps aux | <span class="nb">grep </span>postgresql
+   <span class="nv">$ </span><span class="nb">sudo kill</span> <span class="nt">-9</span> &lt;pid&gt;
+</code></pre></div>
+<ol>
+<li>Recreate the PostgreSQL cluster</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">sudo </span>pg_dropcluster <span class="nt">--stop</span> 9.6 main<span class="p">;</span> <span class="nb">sudo </span>pg_createcluster 9.6 main
+</code></pre></div>
+<ol>
+<li>Run Puppet</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>govuk_puppet <span class="nt">--test</span>
+</code></pre></div>
+<ol>
+<li>Check that PostgreSQL is up and running correctly</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">sudo </span>service postgresql status
+</code></pre></div>
+<ol>
+<li>Make the import script available</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>wget https://raw.githubusercontent.com/alphagov/govuk-puppet/master/modules/govuk/files/etc/govuk/import_mapit_data.sh
+   <span class="nv">$ </span><span class="nb">chmod</span> +x import_mapit_data.sh
+</code></pre></div>
+<ol>
+<li>Run the import script</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">sudo</span> ./import_mapit_data.sh
+</code></pre></div><p>The import script will take about 10 minutes to run. Sometimes your SSH
+   connection might time out while the script runs, it&rsquo;s worth checking on the
+   terminal every few minutes to check that hasn&rsquo;t happened. Once Mapit is
+   healthy, the AWS load balancer will automatically detect this and add the
+   machine into the rotation.</p>
 
 
   <div class='related-content'>

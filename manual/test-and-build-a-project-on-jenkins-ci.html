@@ -181,72 +181,40 @@
 </div>
 
  <h1 id='header'>Test & build a project on Jenkins CI</h1> <p>Application tests run in a continuous integration (CI) environment.</p>
-
 <p><a href="https://ci.integration.publishing.service.gov.uk/">https://ci.integration.publishing.service.gov.uk/</a></p>
-
 <p><a href="/manual/jenkins-ci.html">Read here about the CI infrastructure</a>.</p>
-
-<h2 id="setting-up">Setting up</h2>
-
-<h3 id="1-create-the-job-in-jenkins">1. Create the job in Jenkins</h3>
-
-<p>You need to add your repo to the <code>govuk_ci::master::pipeline_jobs</code> in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/common.yaml">govuk-puppet</a>. This will create the job in Jenkins.</p>
-
-<h3 id="2-add-a-jenkinsfile">2. Add a Jenkinsfile</h3>
-
-<p>Your repo needs to contain a <code>Jenkinsfile</code> in the root which has
+<h2 id='setting-up'>Setting up</h2><h3 id='1-create-the-job-in-jenkins'>1. Create the job in Jenkins</h3><p>You need to add your repo to the <code>govuk_ci::master::pipeline_jobs</code> in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/common.yaml">govuk-puppet</a>. This will create the job in Jenkins.</p>
+<h3 id='2-add-a-jenkinsfile'>2. Add a Jenkinsfile</h3><p>Your repo needs to contain a <code>Jenkinsfile</code> in the root which has
 details of how the application is built. In most cases the <code>Jenkinsfile</code> will need to run the tests for your project. For applications the build process includes <a href="/manual/development-pipeline.html">creating a release tag</a>. For gems the build process includes releasing the packaged gem to <a href="https://rubygems.org">rubygems.org</a>.</p>
-
 <p>The following <code>Jenkinsfile</code> should be sufficient for most projects:</p>
-
-<div class="highlight"><pre class="highlight groovy"><code><span class="err">#</span><span class="o">!</span><span class="s">/usr/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="n">groovy</span>
+<div class="highlight"><pre class="highlight groovy" tabindex="0"><code><span class="err">#</span><span class="o">!</span><span class="s">/usr/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="n">groovy</span>
 
 <span class="n">library</span><span class="o">(</span><span class="s2">"govuk"</span><span class="o">)</span>
 
 <span class="n">node</span> <span class="o">{</span>
   <span class="n">govuk</span><span class="o">.</span><span class="na">buildProject</span><span class="o">()</span>
 <span class="o">}</span>
-</code></pre></div>
-<p><a href="https://github.com/alphagov/govuk-jenkinslib">Read the documentation for this in alphagov/govuk-jenkinslib</a></p>
-
-<h3 id="3-trigger-builds-from-github">3. Trigger builds from GitHub</h3>
-
-<p>Builds are triggered using a GitHub "service". From a project's GitHub
-settings, add the "Jenkins (GitHub plugin)" service to point to:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>https://ci.integration.publishing.service.gov.uk/github-webhook/
-</code></pre></div>
-<p>See <a href="https://github.com/alphagov/content-store/settings/hooks/1995352">content-store's configuration for an example</a>.</p>
-
-<h3 id="4-branch-indexing">4. Branch indexing</h3>
-
-<p>Once your Jenkinsfile is on a branch, you can go to your job in new Jenkins and
-run "Branch Indexing" from the menu. This should trigger a build of all branches
-with a Jenkinsfile, which should be your new branch. Any open branches need to be rebased after you've merged your <code>Jenkinsfile</code> into <code>master</code>.</p>
-
-<h3 id="5-set-up-schema-testing">5. Set up schema testing</h3>
-
-<p>Many GOV.UK applications test against the
+</code></pre></div><p><a href="https://github.com/alphagov/govuk-jenkinslib">Read the documentation for this in alphagov/govuk-jenkinslib</a></p>
+<h3 id='3-trigger-builds-from-github'>3. Trigger builds from GitHub</h3><p>Builds are triggered using a GitHub &ldquo;service&rdquo;. From a project&rsquo;s GitHub
+settings, add the &ldquo;Jenkins (GitHub plugin)&rdquo; service to point to:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>https://ci.integration.publishing.service.gov.uk/github-webhook/
+</code></pre></div><p>See <a href="https://github.com/alphagov/content-store/settings/hooks/1995352">content-store&rsquo;s configuration for an example</a>.</p>
+<h3 id='4-branch-indexing'>4. Branch indexing</h3><p>Once your Jenkinsfile is on a branch, you can go to your job in new Jenkins and
+run &ldquo;Branch Indexing&rdquo; from the menu. This should trigger a build of all branches
+with a Jenkinsfile, which should be your new branch. Any open branches need to be rebased after you&rsquo;ve merged your <code>Jenkinsfile</code> into <code>master</code>.</p>
+<h3 id='5-set-up-schema-testing'>5. Set up schema testing</h3><p>Many GOV.UK applications test against the
 <a href="https://github.com/alphagov/govuk-content-schemas/">content schemas</a>.</p>
-
 <p>To test your application for each PR on govuk-content-schemas, add it to the <a href="https://github.com/alphagov/govuk-content-schemas/blob/master/Jenkinsfile">govuk-content-schemas
 Jenkinsfile</a>.</p>
-
-<h2 id="fixing-the-build-number">Fixing the build number</h2>
-
-<p>Master branch builds are often tagged with the Jenkins build number so that a
+<h2 id='fixing-the-build-number'>Fixing the build number</h2><p>Master branch builds are often tagged with the Jenkins build number so that a
 specific version can be deployed to each environment.</p>
-
 <p>This can fail if the build number is reset, for example if all the old builds
 are deleted or if a job is migrated from a different CI server. The error will
 be something like this:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fatal: tag 'release_1' already exists
-</code></pre></div>
-<p>To fix this, set the build number to the next release number using the <a href="https://ci.integration.publishing.service.gov.uk/script">Jenkins
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>fatal: tag 'release_1' already exists
+</code></pre></div><p>To fix this, set the build number to the next release number using the <a href="https://ci.integration.publishing.service.gov.uk/script">Jenkins
 script console</a>:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>def job = Jenkins.instance.getItemByFullName("your-project-name/master")
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>def job = Jenkins.instance.getItemByFullName("your-project-name/master")
 job.nextBuildNumber = 1234
 job.save()
 </code></pre></div>

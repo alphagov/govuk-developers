@@ -164,49 +164,38 @@
 </div>
 
  <h1 id='header'>Frontend architecture</h1> <p>GOV.UK currently uses multiple systems to build frontends (HTML/CSS/JS).</p>
-
-<h2 id="current-state">Current state</h2>
-
-<p><img src="https://docs.google.com/drawings/d/e/2PACX-1vQX7w1JT5zboAhKv2jssLPrO39KiWj4SL3T7MfSdigGlS1bjGR6UT_AqKHBKbif0VuRivIPD70WfpCQ/pub?w=1208&amp;amp;h=470" alt="Current state of libraries" /></p>
-
+<h2 id='current-state'>Current state</h2><p><a href="https://docs.google.com/drawings/d/e/2PACX-1vQX7w1JT5zboAhKv2jssLPrO39KiWj4SL3T7MfSdigGlS1bjGR6UT_AqKHBKbif0VuRivIPD70WfpCQ/pub?w=1208&amp;h=470" rel="noopener noreferrer"><img src="https://docs.google.com/drawings/d/e/2PACX-1vQX7w1JT5zboAhKv2jssLPrO39KiWj4SL3T7MfSdigGlS1bjGR6UT_AqKHBKbif0VuRivIPD70WfpCQ/pub?w=1208&amp;amp;h=470" alt="Current state of libraries" /></a></p>
 <p><em><a href="https://docs.google.com/drawings/d/1L7pqFrHB2IQCnr0w3ticqBuR4U12b8psZQanZTvF098/edit">Source</a></em></p>
-
 <p>Applications that serve pages for the public (everything on www.gov.uk) use:</p>
 
 <ul>
-  <li><a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components</a>, the preferred way to share HTML, CSS and JS</li>
-  <li><a href="https://github.com/alphagov/static">Static</a> and <a href="https://github.com/alphagov/slimmer">Slimmer</a> for layouts</li>
-  <li>Static uses <a href="https://github.com/alphagov/govuk_frontend_toolkit">govuk_frontend_toolkit</a> and <a href="https://github.com/alphagov/govuk_template">govuk_template</a>, two deprecated projects built by GDS (not GOV.UK)</li>
-  <li><a href="https://github.com/alphagov/licence-finder">licence-finder</a> is the only frontend application that still relies on <a href="https://github.com/alphagov/govuk_frontend_toolkit">govuk_frontend_toolkit</a></li>
+<li><a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components</a>, the preferred way to share HTML, CSS and JS</li>
+<li><a href="https://github.com/alphagov/static">Static</a> and <a href="https://github.com/alphagov/slimmer">Slimmer</a> for layouts</li>
+<li>Static uses <a href="https://github.com/alphagov/govuk_frontend_toolkit">govuk_frontend_toolkit</a> and <a href="https://github.com/alphagov/govuk_template">govuk_template</a>, two deprecated projects built by GDS (not GOV.UK)</li>
+<li><a href="https://github.com/alphagov/licence-finder">licence-finder</a> is the only frontend application that still relies on <a href="https://github.com/alphagov/govuk_frontend_toolkit">govuk_frontend_toolkit</a></li>
 </ul>
-
 <p>Most admin applications use:</p>
 
 <ul>
-  <li><a href="https://github.com/alphagov/govuk_admin_template">govuk_admin_template</a>, built by GOV.UK, which uses <a href="https://getbootstrap.com/">Bootstrap</a></li>
+<li><a href="https://github.com/alphagov/govuk_admin_template">govuk_admin_template</a>, built by GOV.UK, which uses <a href="https://getbootstrap.com/">Bootstrap</a></li>
 </ul>
-
 <p>New admin applications and some legacy admin applications that have been updated use:</p>
 
 <ul>
-  <li><a href="https://govuk-publishing-components.herokuapp.com/component-guide/layout_for_admin">layout_for_admin</a> which is available as a component in <a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components</a></li>
+<li><a href="https://govuk-publishing-components.herokuapp.com/component-guide/layout_for_admin">layout_for_admin</a> which is available as a component in <a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components</a></li>
 </ul>
-
-<h2 id="long-term-vision">Long term vision</h2>
-
-<p>We have 2 <a href="https://docs.google.com/presentation/d/1q51pPWl4uaVM2PxFRmPUNu0wJvYfC-lO7GPLsRvyxtQ/edit">long term goals</a> for the frontend:</p>
+<h2 id='long-term-vision'>Long term vision</h2><p>We have 2 <a href="https://docs.google.com/presentation/d/1q51pPWl4uaVM2PxFRmPUNu0wJvYfC-lO7GPLsRvyxtQ/edit">long term goals</a> for the frontend:</p>
 
 <ul>
-  <li>Use the same tech for the public and admin apps</li>
-  <li>Use as much of the <a href="https://design-system.service.gov.uk/">GOV.UK Design System</a> as possible</li>
+<li>Use the same tech for the public and admin apps</li>
+<li>Use as much of the <a href="https://design-system.service.gov.uk/">GOV.UK Design System</a> as possible</li>
 </ul>
-
-<p><img src="https://docs.google.com/drawings/d/e/2PACX-1vS5rtPYUJBvl2Th3JaT7WQQHu4KTDuYMdOiHCzUgyifG9ewuEyim_fC5VjmH8gjZg33o8E7TOcWn0sN/pub?w=873&amp;amp;h=475" alt="" />
+<p><a href="https://docs.google.com/drawings/d/e/2PACX-1vS5rtPYUJBvl2Th3JaT7WQQHu4KTDuYMdOiHCzUgyifG9ewuEyim_fC5VjmH8gjZg33o8E7TOcWn0sN/pub?w=873&amp;h=475" rel="noopener noreferrer"><img src="https://docs.google.com/drawings/d/e/2PACX-1vS5rtPYUJBvl2Th3JaT7WQQHu4KTDuYMdOiHCzUgyifG9ewuEyim_fC5VjmH8gjZg33o8E7TOcWn0sN/pub?w=873&amp;amp;h=475" alt="" /></a>
 <em><a href="https://docs.google.com/drawings/d/1R5s5lHyeDmPFfqXn17Lz3Z2MXoxhJcuSnnmdN327z9g/edit">Source</a></em></p>
 
 <ul>
-  <li>Public and admin apps use <a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components</a></li>
-  <li><a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components</a> consumes the <a href="https://design-system.service.gov.uk/">GOV.UK Design System</a></li>
+<li>Public and admin apps use <a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components</a></li>
+<li><a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components</a> consumes the <a href="https://design-system.service.gov.uk/">GOV.UK Design System</a></li>
 </ul>
 
 

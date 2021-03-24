@@ -142,7 +142,7 @@
         </ul>
       </li>
       <li>
-        <a href="#purging-a-page-from-fastly-manually-eg-if-govuk-production-is-dead"><span>Purging a page from Fastly manually (e.g. if GOV.UK Production is dead)</span></a>
+        <a href="#purging-a-page-from-fastly-manually-e-g-if-gov-uk-production-is-dead"><span>Purging a page from Fastly manually (e.g. if GOV.UK Production is dead)</span></a>
       </li>
       <li>
         <a href="#full-edge-flush-on-fastly"><span>Full Edge Flush on Fastly</span></a>
@@ -175,62 +175,41 @@
 cache control headers sent by Varnish. When new content is published, the
 <a href="https://github.com/alphagov/cache-clearing-service">Cache Clearing Service</a> should take care of purging
 the page from Varnish and Fastly.</p>
-
-<p>If, for whatever reason, this hasn't worked properly content already seen by
+<p>If, for whatever reason, this hasn&rsquo;t worked properly content already seen by
 Fastly may be cached for up to an hour (depending on the Varnish cache
 headers). In this case, you may need to manually purge a page from the two
 caches.</p>
-
-<h2 id="purging-a-page-from-the-cache">Purging a page from the cache</h2>
-
-<p>Cache Clearing Service provides three Rake tasks which can be used to clear
+<h2 id='purging-a-page-from-the-cache'>Purging a page from the cache</h2><p>Cache Clearing Service provides three Rake tasks which can be used to clear
 the various caches manually:</p>
 
 <ul>
-  <li><strong>Varnish</strong>: <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=cache-clearing-service&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=cache:clear_varnish[/your-path-here]"><code>rake cache:clear_varnish[/your-path-here]</code></a></li>
-  <li><strong>Fastly</strong>: <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=cache-clearing-service&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=cache:clear_fastly[/your-path-here]"><code>rake cache:clear_fastly[/your-path-here]</code></a></li>
-  <li><strong>Both</strong>: <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=cache-clearing-service&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=cache:clear[/your-path-here]"><code>rake cache:clear[/your-path-here]</code></a></li>
+<li><strong>Varnish</strong>: <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=cache-clearing-service&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=cache:clear_varnish[/your-path-here]"><code>rake cache:clear_varnish[/your-path-here]</code></a></li>
+<li><strong>Fastly</strong>: <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=cache-clearing-service&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=cache:clear_fastly[/your-path-here]"><code>rake cache:clear_fastly[/your-path-here]</code></a></li>
+<li><strong>Both</strong>: <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=cache-clearing-service&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=cache:clear[/your-path-here]"><code>rake cache:clear[/your-path-here]</code></a></li>
 </ul>
-
-<h3 id="assets">Assets</h3>
-
-<p>If you need to clear the Fastly cache for a URL which is not <code>www.gov.uk</code> (e.g. for assets),
+<h3 id='assets'>Assets</h3><p>If you need to clear the Fastly cache for a URL which is not <code>www.gov.uk</code> (e.g. for assets),
 you can provide a full URL to the <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=cache-clearing-service&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=cache:clear_fastly[%22https://assets.example.gov.uk/your-path-here%22]">Fastly cache clearing rake task</a>.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>rake cache:clear_fastly[<span class="s2">"https://assets.example.gov.uk/your-path-here"</span><span class="o">]</span>
-</code></pre></div>
-<h2 id="purging-a-page-from-fastly-manually-eg-if-govuk-production-is-dead">Purging a page from Fastly manually (e.g. if GOV.UK Production is dead)</h2>
-
-<p>To purge content on the Fastly cache nodes, SSH onto a <code>cache</code> machine and use the
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>rake cache:clear_fastly[<span class="s2">"https://assets.example.gov.uk/your-path-here"</span><span class="o">]</span>
+</code></pre></div><h2 id='purging-a-page-from-fastly-manually-e-g-if-gov-uk-production-is-dead'>Purging a page from Fastly manually (e.g. if GOV.UK Production is dead)</h2><p>To purge content on the Fastly cache nodes, SSH onto a <code>cache</code> machine and use the
 PURGE method against the URL you wish to purge. For instance:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>curl <span class="nt">-XPURGE</span> https://www.gov.uk/bank-holidays
-</code></pre></div>
-<p>You should receive <code>ok</code> returned as a response. If not, you may wish to request
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>curl <span class="nt">-XPURGE</span> https://www.gov.uk/bank-holidays
+</code></pre></div><p>You should receive <code>ok</code> returned as a response. If not, you may wish to request
 more verbose output using the <code>-i</code> switch:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>curl <span class="nt">-i</span> <span class="nt">-XPURGE</span> https://www.gov.uk/bank-holidays
-</code></pre></div>
-<h2 id="full-edge-flush-on-fastly">Full Edge Flush on Fastly</h2>
-
-<p>There are two steps involved in flushing <em>everything</em>; our origin (the cache
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>curl <span class="nt">-i</span> <span class="nt">-XPURGE</span> https://www.gov.uk/bank-holidays
+</code></pre></div><h2 id='full-edge-flush-on-fastly'>Full Edge Flush on Fastly</h2><p>There are two steps involved in flushing <em>everything</em>; our origin (the cache
 servers) followed by Fastly.</p>
-
 <p>To flush our origin run the following Fabric command:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> class:cache class:draft_cache cache.ban_all
-</code></pre></div>
-<p>Once this is done move on to Fastly. This can only be done through the Fastly
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> class:cache class:draft_cache cache.ban_all
+</code></pre></div><p>Once this is done move on to Fastly. This can only be done through the Fastly
 UI - the credentials are in the 2nd line store. If possible, speak to a member
 of the senior tech team before doing this, to evaluate the risk.</p>
-
 <p>Within the UI you reach the purge all functionality.</p>
 
 <ul>
-  <li>Click "Configure"</li>
-  <li>Choose the correct service in the service drop down</li>
-  <li>Click on the "Purge" drop down</li>
-  <li>Click on "Purge All"</li>
+<li>Click &ldquo;Configure&rdquo;</li>
+<li>Choose the correct service in the service drop down</li>
+<li>Click on the &ldquo;Purge&rdquo; drop down</li>
+<li>Click on &ldquo;Purge All&rdquo;</li>
 </ul>
 
 

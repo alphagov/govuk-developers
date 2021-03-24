@@ -134,7 +134,7 @@
     <a href="#header"><span>How we handle errors</span></a>
     <ul>
       <li>
-        <a href="#how-we-serve-errors-on-govuk"><span>How we serve errors on GOV.UK</span></a>
+        <a href="#how-we-serve-errors-on-gov-uk"><span>How we serve errors on GOV.UK</span></a>
       </li>
       <li>
         <a href="#how-we-handle-errors-in-our-apps"><span>How we handle errors in our apps</span></a>
@@ -171,129 +171,77 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/30d680a30755f09705ed806db9e80302f709fc3e">3 Aug 2020</a>
 </div>
 
- <h1 id='header'>How we handle errors</h1> <h2 id="how-we-serve-errors-on-govuk">How we serve errors on GOV.UK</h2>
-
-<p>When a request to GOV.UK fails, we need to handle the error in some way, so that GOV.UK does not look completely broken. Rather than embedding this into every app, we have multiple layers of error handling.</p>
+ <h1 id='header'>How we handle errors</h1> <h2 id='how-we-serve-errors-on-gov-uk'>How we serve errors on GOV.UK</h2><p>When a request to GOV.UK fails, we need to handle the error in some way, so that GOV.UK does not look completely broken. Rather than embedding this into every app, we have multiple layers of error handling.</p>
 
 <blockquote>
-  <p>Note that publishing apps do not have these same layers of error handling; they are not behind a CDN. A publishing app is expected to handle all errors itself, according to the policy in the next section.</p>
+<p>Note that publishing apps do not have these same layers of error handling; they are not behind a CDN. A publishing app is expected to handle all errors itself, according to the policy in the next section.</p>
 </blockquote>
 
 <ul>
-  <li><strong>CDN</strong>. There are a few scenarios here:
-    <ul>
-      <li>When the origin servers are offline, we:
-        <ul>
-          <li><a href="https://varnish-cache.org/docs/trunk/users-guide/vcl-built-in-subs.html#vcl-backend-error">Skip normal request handling and begin error handling</a></li>
-          <li>Try to <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L274">serve the page from a sequence of static mirrors</a></li>
-          <li>Serve <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L531">a basic inline error page</a> if <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L363">all the mirrors fail</a> (uh oh!)</li>
-        </ul>
-      </li>
-      <li>When the origin servers are online but return a 5xx response:
-        <ul>
-          <li>For <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L339">GET or HEAD requests</a>, we try the mirrors, or else serve an error (as above)</li>
-          <li>For <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L367">other requests</a>, we <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L374">serve the response as-is from the origin</a> (see below)</li>
-        </ul>
-      </li>
-      <li>When the origin servers return a 4xx response, we:
-        <ul>
-          <li>Serve the response as-is from the origin (no special handling)</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><strong>Origin</strong>. When a request fails in an upstream app, we:
-    <ul>
-      <li><a href="https://github.com/alphagov/govuk-puppet/blob/7dafec7cccd8308ec90c28835de70243d79b323b/modules/router/templates/router_include.conf.erb#L81">Intercept the response in Nginx</a></li>
-      <li>Replace the response with <a href="https://github.com/alphagov/govuk-puppet/blob/7dafec7cccd8308ec90c28835de70243d79b323b/modules/router/manifests/errorpage.pp#L14">a pre-rendered one from Static</a></li>
-    </ul>
-  </li>
-  <li><strong>App</strong>. When an app raises an exception:
-    <ul>
-      <li>If we have chosen to handle it, we:
-        <ul>
-          <li><a href="https://github.com/alphagov/email-alert-frontend/blob/a2bd35b5b17b7da40cd43df9c2756b564597b66e/app/controllers/application_controller.rb#L10">Catch it and return a more helpful error response page</a>*</li>
-        </ul>
-      </li>
-      <li>Otherwise, we:
-        <ul>
-          <li>Let Rails return a "500 Internal Server Error" (by default)</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
+<li><p><strong>CDN</strong>. There are a few scenarios here:</p>
+
+<ul>
+<li>When the origin servers are offline, we:</li>
+<li><a href="https://varnish-cache.org/docs/trunk/users-guide/vcl-built-in-subs.html#vcl-backend-error">Skip normal request handling and begin error handling</a></li>
+<li>Try to <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L274">serve the page from a sequence of static mirrors</a></li>
+<li>Serve <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L531">a basic inline error page</a> if <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L363">all the mirrors fail</a> (uh oh!)</li>
+<li>When the origin servers are online but return a 5xx response:</li>
+<li>For <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L339">GET or HEAD requests</a>, we try the mirrors, or else serve an error (as above)</li>
+<li>For <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L367">other requests</a>, we <a href="https://github.com/alphagov/govuk-cdn-config/blob/d77313abdb5098e2b350de7a0992375e50ff03a3/vcl_templates/www.vcl.erb#L374">serve the response as-is from the origin</a> (see below)</li>
+<li>When the origin servers return a 4xx response, we:</li>
+<li>Serve the response as-is from the origin (no special handling)</li>
+</ul></li>
+<li><p><strong>Origin</strong>. When a request fails in an upstream app, we:</p>
+
+<ul>
+<li><a href="https://github.com/alphagov/govuk-puppet/blob/7dafec7cccd8308ec90c28835de70243d79b323b/modules/router/templates/router_include.conf.erb#L81">Intercept the response in Nginx</a></li>
+<li>Replace the response with <a href="https://github.com/alphagov/govuk-puppet/blob/7dafec7cccd8308ec90c28835de70243d79b323b/modules/router/manifests/errorpage.pp#L14">a pre-rendered one from Static</a></li>
+</ul></li>
+<li><p><strong>App</strong>. When an app raises an exception:</p>
+
+<ul>
+<li>If we have chosen to handle it, we:</li>
+<li><a href="https://github.com/alphagov/email-alert-frontend/blob/a2bd35b5b17b7da40cd43df9c2756b564597b66e/app/controllers/application_controller.rb#L10">Catch it and return a more helpful error response page</a>*</li>
+<li>Otherwise, we:</li>
+<li>Let Rails return a &ldquo;500 Internal Server Error&rdquo; (by default)</li>
+</ul></li>
 </ul>
-
-<p>* Due to the way errors are handled by the origin servers, it's not currently possible for a frontend app to render a contextual error page for an error response. One option to get around this is to deviate from normal web semantics, and <a href="https://github.com/alphagov/email-alert-frontend/blob/a2bd35b5b17b7da40cd43df9c2756b564597b66e/app/controllers/email_alert_signups_controller.rb#L10">return a 200 response</a>. This should be avoided because such responses are cacheable, indexable (by search engines), and surprising for anyone trying to look for errors in logs.</p>
-
-<h2 id="how-we-handle-errors-in-our-apps">How we handle errors in our apps</h2>
-
-<p>This policy describes what we should do for different types of errors. It applies to all apps, irrespective of other error handling by downstream servers. This policy was first proposed in <a href="https://github.com/alphagov/govuk-rfcs/blob/master/rfc-087-dealing-with-errors.md">RFC 87</a>.</p>
-
-<h3 id="high-priority-errors">High priority errors</h3>
-
+<p>* Due to the way errors are handled by the origin servers, it&rsquo;s not currently possible for a frontend app to render a contextual error page for an error response. One option to get around this is to deviate from normal web semantics, and <a href="https://github.com/alphagov/email-alert-frontend/blob/a2bd35b5b17b7da40cd43df9c2756b564597b66e/app/controllers/email_alert_signups_controller.rb#L10">return a 200 response</a>. This should be avoided because such responses are cacheable, indexable (by search engines), and surprising for anyone trying to look for errors in logs.</p>
+<h2 id='how-we-handle-errors-in-our-apps'>How we handle errors in our apps</h2><p>This policy describes what we should do for different types of errors. It applies to all apps, irrespective of other error handling by downstream servers. This policy was first proposed in <a href="https://github.com/alphagov/govuk-rfcs/blob/master/rfc-087-dealing-with-errors.md">RFC 87</a>.</p>
+<h3 id='high-priority-errors'>High priority errors</h3>
 <ol>
-  <li>
-    <p><strong>When something goes wrong, we should be notified</strong>. Applications should <a href="/manual/error-reporting.html">report exceptions to Sentry</a>. Applications must not swallow errors.</p>
-  </li>
-  <li>
-    <p><strong>Notifications should be actionable</strong>. Sentry notifications should be something that requires a developer of the app to do something about it. Not just a piece of information.</p>
-  </li>
-  <li>
-    <p><strong>Applications should not continue to have these errors</strong>. The goal of GOV.UK is that applications should not error. When something goes wrong it should be fixed.</p>
-  </li>
+<li><p><strong>When something goes wrong, we should be notified</strong>. Applications should <a href="/manual/error-reporting.html">report exceptions to Sentry</a>. Applications must not swallow errors.</p></li>
+<li><p><strong>Notifications should be actionable</strong>. Sentry notifications should be something that requires a developer of the app to do something about it. Not just a piece of information.</p></li>
+<li><p><strong>Applications should not continue to have these errors</strong>. The goal of GOV.UK is that applications should not error. When something goes wrong it should be fixed.</p></li>
 </ol>
-
 <p>Example of high-priority errors:</p>
 
 <ul>
-  <li>
-    <p><strong>Bugs</strong>, where the application crashes unexpectedly</p>
-  </li>
-  <li>
-    <p><strong>Sidekiq non-retryable errors</strong> (or retries exhausted)</p>
-  </li>
+<li><p><strong>Bugs</strong>, where the application crashes unexpectedly</p></li>
+<li><p><strong>Sidekiq non-retryable errors</strong> (or retries exhausted)</p></li>
 </ul>
-
-<h3 id="low-priority-errors">Low priority errors</h3>
-
+<h3 id='low-priority-errors'>Low priority errors</h3>
 <ol>
-  <li><strong>When something goes wrong, the error should be recorded in Kibana logs and/or application metrics.</strong> A team can then monitor these errors over time, and prioritise ones to fix.</li>
+<li><strong>When something goes wrong, the error should be recorded in Kibana logs and/or application metrics.</strong> A team can then monitor these errors over time, and prioritise ones to fix.</li>
 </ol>
-
 <p>Examples of low-priority errors:</p>
 
 <ul>
-  <li>
-    <p><strong>Intermittent errors without user impact</strong> e.g. user sees a cached version of a page, due to an upstream API timeout, such as a request to the Content Store.</p>
-  </li>
-  <li>
-    <p><strong>Intermittent errors with user impact</strong> e.g. an API request timeout occurs when a publisher tries to publish a document in one of our publishing apps.</p>
+<li><p><strong>Intermittent errors without user impact</strong> e.g. user sees a cached version of a page, due to an upstream API timeout, such as a request to the Content Store.</p></li>
+<li><p><strong>Intermittent errors with user impact</strong> e.g. an API request timeout occurs when a publisher tries to publish a document in one of our publishing apps.</p>
 
-    <ul>
-      <li>When such errors are expected, we should show the user an error page that gives instructions for how to correct the issue, whether by taking action themselves, or submitting a request for support.</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>User input errors</strong> e.g. user submits a form with invalid data.</p>
+<ul>
+<li>When such errors are expected, we should show the user an error page that gives instructions for how to correct the issue, whether by taking action themselves, or submitting a request for support.</li>
+</ul></li>
+<li><p><strong>User input errors</strong> e.g. user submits a form with invalid data.</p>
 
-    <ul>
-      <li>
-        <p>For all 422 "unprocessable entity" errors, we should show the user an error page that gives instructions for how to correct the issue, whether by taking action themselves, or submitting a request for support.</p>
-      </li>
-      <li>
-        <p>For all 404 "not found" errors, we should show the user an error page that gives instructions for how to proceed. Note that 404 responses are returned by default if using <a href="https://stackoverflow.com/questions/27925282/activerecordrecordnotfound-raises-404-instead-of-500">Rails' ActiveRecord #find or similar</a>.</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>IP spoof errors (HTTP 400)</strong>. Rails reports <code>ActionDispatch::RemoteIp::IpSpoofAttackError</code>.</p>
-  </li>
-  <li>
-    <p><strong>Environmental errors</strong> e.g. errors due to data sync.</p>
-  </li>
+<ul>
+<li>For all 422 &ldquo;unprocessable entity&rdquo; errors, we should show the user an error page that gives instructions for how to correct the issue, whether by taking action themselves, or submitting a request for support.</li>
+<li>For all 404 &ldquo;not found&rdquo; errors, we should show the user an error page that gives instructions for how to proceed. Note that 404 responses are returned by default if using <a href="https://stackoverflow.com/questions/27925282/activerecordrecordnotfound-raises-404-instead-of-500">Rails&rsquo; ActiveRecord #find or similar</a>.</li>
+</ul></li>
+<li><p><strong>IP spoof errors (HTTP 400)</strong>. Rails reports <code>ActionDispatch::RemoteIp::IpSpoofAttackError</code>.</p></li>
+<li><p><strong>Environmental errors</strong> e.g. errors due to data sync.</p></li>
 </ul>
-
 
 
   <div class='related-content'>

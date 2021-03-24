@@ -156,20 +156,16 @@
 </div>
 
  <h1 id='header'>Change a specialist document base path</h1> <p>In <a href="https://specialist-publisher.publishing.service.gov.uk/">Specialist Publisher</a>, the base path is automatically generated based on the title when the specialist document is first created. We sometimes receive Zendesk tickets to change a base path when the title has been updated, as the publisher does not have the ability to do this.</p>
-
 <p>You can use the Jenkins rake task runner to run the task:</p>
-
 <p><a href="https://deploy.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=specialist-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=base_path:edit[content_id,/new_base_path]"><code>base_path:edit[content_id,/new_base_path]</code></a></p>
 
 <blockquote>
-  <p>You can find the <code>content_id</code> of the document using the <a href="https://github.com/alphagov/govuk-browser-extension">govuk-toolkit</a> browser extension.</p>
+<p>You can find the <code>content_id</code> of the document using the <a href="https://github.com/alphagov/govuk-browser-extension">govuk-toolkit</a> browser extension.</p>
 </blockquote>
-
 <p><strong>NOTE</strong>: the rake task will only change the slug for the latest draft (creating a new draft
 if necessary). For the change to be permanent, you need to publish the draft, which you can
 either do in the Specialist Publisher UI or by using the CLI:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">local</span><span class="nv">$ </span>     gds govuk connect <span class="nt">-e</span> production ssh backend
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">local</span><span class="nv">$ </span>     gds govuk connect <span class="nt">-e</span> production ssh backend
 
 production<span class="nv">$ </span>govuk_app_console specialist-publisher
 

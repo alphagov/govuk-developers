@@ -317,91 +317,82 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: router</h1>
 
-  
-<p>Router in front on GOV.UK to proxy to backend servers on the single domain</p>
+  <p>Router in front on GOV.UK to proxy to backend servers on the single domain</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/router">router</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/router"&gt;router&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>cache</strong> machine class</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-platform-health&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Rake tasks</dt>
-            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=router&amp;MACHINE_CLASS=cache&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=router&amp;MACHINE_CLASS=cache&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=router&amp;MACHINE_CLASS=cache&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;AWS&lt;/strong&gt;, on the &lt;strong&gt;cache&lt;/strong&gt; machine class&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/govuk/app-router" class="govuk-link">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/router.pp" class="govuk-link">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/router/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/router.json" class="govuk-link">Deployment dashboard</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Rake tasks&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;span aria-hidden='true'&gt;Run a Rake task on&lt;/span&gt; &lt;a
+  href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=router&amp;MACHINE_CLASS=cache&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Integration"&gt;Integration&lt;/a&gt;, &lt;a
+  href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=router&amp;MACHINE_CLASS=cache&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Staging"&gt;Staging&lt;/a&gt; or &lt;a
+  href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=router&amp;MACHINE_CLASS=cache&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Production"&gt;⚠️ Production ⚠️&lt;/a&gt;&lt;/dd&gt;
 
 
-</ul>
-</dd>
+
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://sentry.io/govuk/app-router" class="govuk-link"&gt;Sentry (error tracking)&lt;/a&gt;&lt;/li&gt;
 
 
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/router.pp" class="govuk-link"&gt;Puppet configuration&lt;/a&gt;&lt;/li&gt;
 
-              <dd class="govuk-summary-list__actions">
-</dd>
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-app-deployment/blob/master/router/config/deploy.rb" class="govuk-link"&gt;Deploy scripts&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://grafana.production.govuk.digital/dashboard/file/router.json" class="govuk-link"&gt;Deployment dashboard&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
+</div></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>This is a HTTP reverse proxy router built on top of <a href="https://github.com/alphagov/router/tree/master/triemux"><code>triemux</code></a>. It
 loads a routing table into memory from a MongoDB database and acts as a:</p>
+
 <ul>
 <li>Reverse proxy, forwarding requests to and serving responses from multiple
 backend servers on a single domain.</li>
@@ -409,17 +400,25 @@ backend servers on a single domain.</li>
 <li>Gone responder, serving HTTP <code>410</code> responses for resources that used to
 but no longer exist.</li>
 </ul>
+
 <p>The sister project <a href="https://github.com/alphagov/router-api"><code>router-api</code></a> provides a read/write
 interface to the underlying database and route reloading.</p>
+
 <p>Some of the thinking behind the router is documented in <a href="https://gdstechnology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/">this 2013 blog post</a>.</p>
+
 <h2 id="environment-assumptions">Environment assumptions</h2>
+
 <p>Our usage of <code>router</code> places it behind and in front of Nginx and/or Varnish.</p>
+
 <p>As such, there are some things that we are guarded against:</p>
+
 <ul>
 <li>Response buffering for slow clients</li>
 <li>Basic request sanitisation</li>
 </ul>
+
 <p>And some features that we have no need to implement:</p>
+
 <ul>
 <li>Access logging (but error logging is implemented)</li>
 <li>SSL</li>
@@ -428,41 +427,62 @@ interface to the underlying database and route reloading.</p>
 <li>Response rewriting</li>
 <li>Authentication</li>
 </ul>
+
 <h2 id="local-setup-build">Local Setup &amp; Build</h2>
+
 <p>The router needs to be built from within a Go <a href="https://golang.org/doc/code.html#Workspaces">workspace</a> for it to
 correctly identify the vendored dependencies.  Assuming you already have Go and
 a <code>$GOPATH</code> set up, you can simply run <code>go get github.com/alphagov/router</code> to
 pull the source into your workspace.</p>
+
 <p>Once you have the code set up correctly, building and running the application
 is simple:</p>
+
 <pre><code>make
 ./router -h
 </code></pre>
+
 <h2 id="tests">Tests</h2>
+
 <p>You can run all tests by running:</p>
+
 <pre><code>make test
 </code></pre>
+
 <p>The <code>trie</code> and <code>triemux</code> sub-packages have unit tests and benchmarks written
-in Go's own testing framework. To run them individually:</p>
+in Go&rsquo;s own testing framework. To run them individually:</p>
+
 <pre><code>go test -bench=. ./trie ./triemux
 </code></pre>
-<p>The <code>router</code> itself doesn't really benefit from having unit tests around
+
+<p>The <code>router</code> itself doesn&rsquo;t really benefit from having unit tests around
 individual functions. Instead it has a comprehensive set of integration
-tests to exercise it's HTTP handling, error reporting, and performance.</p>
+tests to exercise it&rsquo;s HTTP handling, error reporting, and performance.</p>
+
 <p>These require a local MongoDB instance and can be run with:</p>
+
 <pre><code>go test ./integration_tests
 </code></pre>
+
 <p>Some of the integration tests are optional because they have certain
 environment requirements that make them unfeasible to run within CI.</p>
+
 <h2 id="dependencies">Dependencies</h2>
+
 <p>This project uses <a href="https://github.com/golang/go/wiki/Modules">Go Modules</a> to vendor its dependencies.
 If you have a working [Go][go] development setup, you should be able to update the dependencies via:</p>
+
 <pre><code>go mod vendor
 </code></pre>
+
 <h2 id="data-structure">Data structure</h2>
+
 <p>The Router requires two MongoDB collections: <code>routes</code> and <code>backends</code>.</p>
+
 <h3 id="routes">Routes</h3>
+
 <p>The <code>routes</code> collection uses the following data structure:</p>
+
 <pre lang="json"><code>{
   "_id"           : ObjectId(),
   "route_type"    : ["prefix","exact"],
@@ -471,55 +491,75 @@ If you have a working [Go][go] development setup, you should be able to update t
   "disabled"      : false
 }
 </code></pre>
+
 <p>Incoming paths with special characters must be in their % encoded form in the
 database (eg spaces must be stored as <code>%20</code>).</p>
+
 <p>The behaviour of an enabled route is determined by <code>handler</code>. See below for
 extra fields corresponding to <code>handler</code> types.</p>
+
 <p>If a route is disabled, the router will return a 503 for all matching requests.
 This is typically used if a service needs to be taken offline for maintenance
 etc.</p>
+
 <h4 id="backend-handler">
 <code>backend</code> handler</h4>
+
 <p>The <code>backend</code> handler causes the Router to reverse proxy to a named
 <code>backend</code>. The following extra fields are supported:</p>
+
 <pre lang="json"><code>{
   "backend_id" : "backend-id-corresponding-to-backends-collection"
 }
 </code></pre>
+
 <h4 id="redirect-handler">
 <code>redirect</code> handler</h4>
+
 <p>The <code>redirect</code> handler causes the Router to redirect the given
 <code>incoming_path</code> to the path stored in <code>redirect_to</code>. The following
 extra fields are supported:</p>
+
 <pre lang="json"><code>{
   "redirect_to"   : "/target-of-redirect",
   "redirect_type" : ["permanent", "temporary"]
 }
 </code></pre>
+
 <h4 id="gone-handler">
 <code>gone</code> handler</h4>
+
 <p>The <code>gone</code> handler causes the Router to return a 410 response.</p>
+
 <h3 id="backends">Backends</h3>
+
 <p>The <code>backends</code> collection uses the following data structure:</p>
+
 <pre lang="json"><code>{
   "_id"         : ObjectId(),
   "backend_id"  : "arbitrary-slug-or-name",
   "backend_url" : "https://example.com:port/"
 }
 </code></pre>
+
 <h2 id="error-logging">Error logging</h2>
+
 <p>The logger package stores errors in logfiles and reports them to Sentry.</p>
+
 <h2 id="metrics">Metrics</h2>
+
 <p>Router exposes metrics in <a href="https://prometheus.io">Prometheus</a> format using the
 <a href="https://godoc.org/github.com/dnesting/client_golang/prometheus">Go prometheus client
 library</a>.</p>
+
 <p>See commit b443d3dd9cf776143eed270d01bd98d2233caea6 as an example for how to
 add a metric.</p>
+
 <h2 id="license">License</h2>
+
 <p><code>router</code> is released under the MIT license, a copy of which can be found in
 <code>LICENSE</code>.</p>
-  </div>
-
+<p></div></p>
 
 
             

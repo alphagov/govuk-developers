@@ -163,60 +163,44 @@ unavailable or large quantities of error pages being served. We use <a href="htt
 to escalate to these people (in order):</p>
 
 <ol>
-  <li>Primary Engineer</li>
-  <li>Secondary Engineer</li>
-  <li>Programme Team member (might not be technical)</li>
+<li>Primary Engineer</li>
+<li>Secondary Engineer</li>
+<li>Programme Team member (might not be technical)</li>
 </ol>
-
 <p>It is the responsibility of the people above to make sure their details are up to date in PagerDuty
-and that they're correctly scheduled in.</p>
-
+and that they&rsquo;re correctly scheduled in.</p>
 <p>When an alert that triggers PagerDuty goes off, someone on the escalation schedule must acknowledge
 them, otherwise they will be escalated further. NB, 2nd line shadowers are not required to be on PagerDuty.</p>
-
-<h2 id="pagerduty-drill">PagerDuty drill</h2>
-
-<p>Every week we test PagerDuty to make sure it can phone to alert us to
+<h2 id='pagerduty-drill'>PagerDuty drill</h2><p>Every week we test PagerDuty to make sure it can phone to alert us to
 any issues. This happens every Wednesday morning at 10am UTC.</p>
-
 <p>Cron creates a file on disk. Icinga raises a critical alert when that
 file exists with an Icinga contact group set so that PagerDuty is
 notified. After a short amount of time, cron will remove the file to
 resolve the alert. The <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/monitoring/manifests/pagerduty_drill.pp">code that does this is in
 Puppet</a>.</p>
-
-<p>You don't need to take any action for this alert. The primary in-office
+<p>You don&rsquo;t need to take any action for this alert. The primary in-office
 2nd line should escalate the call to the secondary who should escalate
-it to "escalations" to ensure that phone redirection is working. The
-person on "escalations" will resolve the PagerDuty alert to prevent
+it to &ldquo;escalations&rdquo; to ensure that phone redirection is working. The
+person on &ldquo;escalations&rdquo; will resolve the PagerDuty alert to prevent
 anyone else being phoned.</p>
-
-<h3 id="triggering-the-drill-manually">Triggering the drill manually</h3>
-
+<h3 id='triggering-the-drill-manually'>Triggering the drill manually</h3>
 <blockquote>
-  <p><strong>Note</strong>: The drill runs within the AWS environment while we migrate
+<p><strong>Note</strong>: The drill runs within the AWS environment while we migrate
 our apps to AWS. If you need to trigger the drill manually, make sure
-you're logged in to the AWS monitoring instance.</p>
+you&rsquo;re logged in to the AWS monitoring instance.</p>
 </blockquote>
-
 <p>To trigger the drill manually, follow these steps:</p>
 
 <ol>
-  <li>
-    <p>SSH onto the monitoring box:</p>
-
-<div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> production ssh aws/monitoring
-</code></pre></div>  </li>
-  <li>
-    <p>Generate the file that the Icinga monitor looks for which triggers the alert:</p>
-
-<div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ </span><span class="nb">sudo touch</span> /var/run/pagerduty_drill
-</code></pre></div>  </li>
-  <li>
-    <p>Delete the file once the test drill is triggered:</p>
-
-<div class="highlight"><pre class="highlight shell"><code> <span class="nb">sudo rm</span> /var/run/pagerduty_drill
-</code></pre></div>  </li>
+<li><p>SSH onto the monitoring box:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> production ssh aws/monitoring
+</code></pre></div></li>
+<li><p>Generate the file that the Icinga monitor looks for which triggers the alert:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo touch</span> /var/run/pagerduty_drill
+</code></pre></div></li>
+<li><p>Delete the file once the test drill is triggered:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo rm</span> /var/run/pagerduty_drill
+</code></pre></div></li>
 </ol>
 
 

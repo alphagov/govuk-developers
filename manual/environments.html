@@ -163,40 +163,22 @@
 </div>
 
  <h1 id='header'>GOV.UK's environments (integration, staging, production)</h1> <p>GOV.UK has several environments with different purposes.</p>
-
-<p>For a quick view of what's where, you can use the <a href="https://release.publishing.service.gov.uk">release app</a>.</p>
-
-<h2 id="continuous-integration-ci">Continuous integration (CI)</h2>
-
-<p>Runs tests for applications. Hosted on Carrenza.</p>
-
-<h2 id="integration">Integration</h2>
-
-<p>Used by GOV.UK product teams to test changes to software.</p>
-
+<p>For a quick view of what&rsquo;s where, you can use the <a href="https://release.publishing.service.gov.uk">release app</a>.</p>
+<h2 id='continuous-integration-ci'>Continuous integration (CI)</h2><p>Runs tests for applications. Hosted on Carrenza.</p>
+<h2 id='integration'>Integration</h2><p>Used by GOV.UK product teams to test changes to software.</p>
 <p>Right now this environment is also used by content editors at GDS and in other departments
 to preview their content changes. This functionality should be replaced by draft preview
 functionality as part of the publishing platform.</p>
-
 <p>Integration is hosted on <a href="/manual/govuk-in-aws.html">AWS</a>.</p>
-
-<h2 id="staging">Staging</h2>
-
-<p>Used by GOV.UK product teams while deploying changes to ensure that they behave correctly
+<h2 id='staging'>Staging</h2><p>Used by GOV.UK product teams while deploying changes to ensure that they behave correctly
 in a production-like environment. This means that staging must be similar to production
-so that we're able to test things like the performance impact of changes.</p>
-
+so that we&rsquo;re able to test things like the performance impact of changes.</p>
 <p>Staging is hosted on <a href="/manual/govuk-in-aws.html">AWS</a>.</p>
-
-<p>Access to Staging is restricted to office IPs, so you'll need to <a href="manual/get-started.html#4-connecting-to-the-gds-vpn">be
+<p>Access to Staging is restricted to office IPs, so you&rsquo;ll need to <a href="manual/get-started.html#4-connecting-to-the-gds-vpn">be
 on the VPN</a>.
 AWS configuration can be found in
 <a href="https://github.com/alphagov/govuk-aws/blob/master/terraform/projects/infra-security-groups/cache.tf">govuk-aws-data</a>.</p>
-
-<h2 id="production">Production</h2>
-
-<p>The thing that runs the website for real people.</p>
-
+<h2 id='production'>Production</h2><p>The thing that runs the website for real people.</p>
 <p>Production is hosted on <a href="/manual/govuk-in-aws.html">AWS</a>.</p>
 
 

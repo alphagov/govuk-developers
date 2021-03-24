@@ -168,30 +168,24 @@
 the MySQL documentation:</p>
 
 <blockquote>
-  <p><code>Slave_IO_Running</code>: Whether the I/O thread for reading the master's
+<p><code>Slave_IO_Running</code>: Whether the I/O thread for reading the master&rsquo;s
 binary log is running. Normally, you want this to be Yes unless you
 have not yet started replication or have explicitly stopped it with
 STOP SLAVE.</p>
-
-  <p><code>Slave_SQL_Running</code>: Whether the SQL thread for executing events in
+<p><code>Slave_SQL_Running</code>: Whether the SQL thread for executing events in
 the relay log is running. As with the I/O thread, this should normally
 be Yes.</p>
 </blockquote>
-
 <p>To check the status of the slave,</p>
 
 <ol>
-  <li>Log onto the server (e.g. <code>mysql-backup-1.backend.integration</code>)</li>
-  <li>
-    <p>Open a MySQL shell:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> sudo -i mysql
-</code></pre></div>  </li>
-  <li>
-    <p>Run:</p>
-
-<div class="highlight"><pre class="highlight sql"><code> <span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SHOW</span> <span class="n">SLAVE</span> <span class="n">STATUS</span> <span class="err">\</span><span class="k">G</span>
-</code></pre></div>  </li>
+<li>Log onto the server (e.g. <code>mysql-backup-1.backend.integration</code>)</li>
+<li><p>Open a MySQL shell:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo -i mysql
+</code></pre></div></li>
+<li><p>Run:</p>
+<div class="highlight"><pre class="highlight sql" tabindex="0"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SHOW</span> <span class="n">SLAVE</span> <span class="n">STATUS</span> <span class="err">\</span><span class="k">G</span>
+</code></pre></div></li>
 </ol>
 
 

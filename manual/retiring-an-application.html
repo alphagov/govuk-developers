@@ -152,7 +152,7 @@
         <a href="#6-update-signon"><span>6. Update Signon</span></a>
       </li>
       <li>
-        <a href="#7-remove-from-govuk-docker"><span>7. Remove from GOV.UK Docker</span></a>
+        <a href="#7-remove-from-gov-uk-docker"><span>7. Remove from GOV.UK Docker</span></a>
       </li>
       <li>
         <a href="#8-check-replication-script"><span>8. Check replication script</span></a>
@@ -201,111 +201,55 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/59915b476a3d23c02a6000bda58344a9cbe14f52">16 Dec 2020</a>
 </div>
 
- <h1 id='header'>Retire an application</h1> <h2 id="1-remove-app-from-puppet">1. Remove app from puppet</h2>
-
-<p>Configure Puppet to remove the app from all servers. Change the app resource,
+ <h1 id='header'>Retire an application</h1> <h2 id='1-remove-app-from-puppet'>1. Remove app from puppet</h2><p>Configure Puppet to remove the app from all servers. Change the app resource,
 and any database resources to <code>ensure =&gt; absent</code>, remove any host and
 load-balancer entries, but leave the hieradata entries.</p>
-
 <p>See this pull request for an example:</p>
 
 <ul>
-  <li><a href="https://github.com/alphagov/govuk-puppet/pull/5496">https://github.com/alphagov/govuk-puppet/pull/5496</a></li>
+<li><a href="https://github.com/alphagov/govuk-puppet/pull/5496">https://github.com/alphagov/govuk-puppet/pull/5496</a></li>
 </ul>
-
 <p>After this has been deployed, remove it entirely. For example:</p>
 
 <ul>
-  <li><a href="https://github.com/alphagov/govuk-puppet/pull/5507">https://github.com/alphagov/govuk-puppet/pull/5507</a></li>
+<li><a href="https://github.com/alphagov/govuk-puppet/pull/5507">https://github.com/alphagov/govuk-puppet/pull/5507</a></li>
 </ul>
-
-<h2 id="2-remove-smoke-tests">2. Remove smoke tests</h2>
-
-<p>Remove any <a href="https://github.com/alphagov/smokey">smokey tests</a> specific to the application.</p>
-
-<h2 id="3-remove-deploy-scripts">3. Remove deploy scripts</h2>
-
-<p>Remove necessary scripts from the <a href="https://github.com/alphagov/alphagov-deployment">alphagov-deployment</a>
+<h2 id='2-remove-smoke-tests'>2. Remove smoke tests</h2><p>Remove any <a href="https://github.com/alphagov/smokey">smokey tests</a> specific to the application.</p>
+<h2 id='3-remove-deploy-scripts'>3. Remove deploy scripts</h2><p>Remove necessary scripts from the <a href="https://github.com/alphagov/alphagov-deployment">alphagov-deployment</a>
 (private repo) and <a href="https://github.com/alphagov/govuk-app-deployment">govuk-app-deployment</a> repos.</p>
-
-<h2 id="4-update-release-app">4. Update Release app</h2>
-
-<p>Mark the application as archived in the Release app.</p>
-
-<p>Edit the application in the release app (you'll need the <code>deploy</code> permission to
+<h2 id='4-update-release-app'>4. Update Release app</h2><p>Mark the application as archived in the Release app.</p>
+<p>Edit the application in the release app (you&rsquo;ll need the <code>deploy</code> permission to
 do this), and check the <code>archived</code> checkbox. This will hide it from the UI.</p>
-
-<h2 id="5-remove-from-deploy-jenkins">5. Remove from deploy Jenkins</h2>
-
-<p>Remove entry from the deploy Jenkinses. This is managed
+<h2 id='5-remove-from-deploy-jenkins'>5. Remove from deploy Jenkins</h2><p>Remove entry from the deploy Jenkinses. This is managed
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/common.yaml">through govuk-puppet</a> in the <code>common.yml</code>.</p>
-
-<h2 id="6-update-signon">6. Update Signon</h2>
-
-<p>Mark the application as "retired" in signon, if it used it.</p>
-
+<h2 id='6-update-signon'>6. Update Signon</h2><p>Mark the application as &ldquo;retired&rdquo; in signon, if it used it.</p>
 <p>Click on the Applications tab. Find the application that is being retired and
-click the "edit" button. Tick the box that says "This application is being
-retired", then save your changes.</p>
-
-<h2 id="7-remove-from-govuk-docker">7. Remove from GOV.UK Docker</h2>
-
-<p>Remove from the <a href="https://github.com/alphagov/govuk-docker/tree/master/projects">projects directory</a> and any references
+click the &ldquo;edit&rdquo; button. Tick the box that says &ldquo;This application is being
+retired&rdquo;, then save your changes.</p>
+<h2 id='7-remove-from-gov-uk-docker'>7. Remove from GOV.UK Docker</h2><p>Remove from the <a href="https://github.com/alphagov/govuk-docker/tree/master/projects">projects directory</a> and any references
 in <a href="https://github.com/alphagov/govuk-docker/blob/master/docker-compose.yml">docker compose</a> or throughout the repo.</p>
-
-<h2 id="8-check-replication-script">8. Check replication script</h2>
-
-<p>Check the data replication scripts for anything specific to this application.</p>
-
+<h2 id='8-check-replication-script'>8. Check replication script</h2><p>Check the data replication scripts for anything specific to this application.</p>
 <p>Some applications have special case details in
 <a href="https://github.com/alphagov/env-sync-and-backup/">https://github.com/alphagov/env-sync-and-backup/</a>. Any relating
 to the application should be removed.</p>
-
-<h2 id="9-update-dns">9. Update DNS</h2>
-
-<p>Request any public DNS entries be removed. If the app had an admin UI, it will
+<h2 id='9-update-dns'>9. Update DNS</h2><p>Request any public DNS entries be removed. If the app had an admin UI, it will
 have had public DNS entries in the <code>publishing.service.gov.uk</code> domain.</p>
-
 <p>Follow the <a href="https://docs.publishing.service.gov.uk/manual/dns.html#making-changes-to-publishingservicegovuk">instructions for DNS changes</a> in order to remove
 these, and ask the GOV.UK Replatforming team to approve any necessary Pull
 Requests.</p>
-
-<h2 id="10-update-docs">10. Update docs</h2>
-
-<p>Mark the application as <code>retired</code> in <a href="https://github.com/alphagov/govuk-developer-docs">govuk-developer-docs</a>.</p>
-
-<h2 id="11-remove-credentials">11. Remove credentials</h2>
-
-<p>Remove any hieradata credential entries for the app in <a href="https://github.com/alphagov/govuk-secrets">govuk-secrets</a>
+<h2 id='10-update-docs'>10. Update docs</h2><p>Mark the application as <code>retired</code> in <a href="https://github.com/alphagov/govuk-developer-docs">govuk-developer-docs</a>.</p>
+<h2 id='11-remove-credentials'>11. Remove credentials</h2><p>Remove any hieradata credential entries for the app in <a href="https://github.com/alphagov/govuk-secrets">govuk-secrets</a>
 (private repo).</p>
-
-<h2 id="12-drop-database">12. Drop database</h2>
-
-<p>If Puppet hasn't done it (eg for MongoDB databases), drop the database.</p>
-
-<h2 id="13-remove-jobs-in-ci">13. Remove jobs in CI</h2>
-
-<p>If tests were set up, go to <a href="https://ci.integration.publishing.service.gov.uk/">CI</a> and choose "Delete Repository" for your
+<h2 id='12-drop-database'>12. Drop database</h2><p>If Puppet hasn&rsquo;t done it (eg for MongoDB databases), drop the database.</p>
+<h2 id='13-remove-jobs-in-ci'>13. Remove jobs in CI</h2><p>If tests were set up, go to <a href="https://ci.integration.publishing.service.gov.uk/">CI</a> and choose &ldquo;Delete Repository&rdquo; for your
 project.</p>
-
-<h2 id="14-remove-other-references">14. Remove other references</h2>
-
-<p>Do a <a href="https://github.com/search?q=org%3Aalphagov+panopticon&amp;type=Code">code search on GitHub</a> to find any references to the application
+<h2 id='14-remove-other-references'>14. Remove other references</h2><p>Do a <a href="https://github.com/search?q=org%3Aalphagov+panopticon&amp;type=Code">code search on GitHub</a> to find any references to the application
 and update or remove them.</p>
-
-<h2 id="15-unpublish-routes">15. Unpublish routes</h2>
-
-<p>Some applications are responsible for publishing certain routes. If you're
+<h2 id='15-unpublish-routes'>15. Unpublish routes</h2><p>Some applications are responsible for publishing certain routes. If you&rsquo;re
 retiring a publishing application, make sure you check if any of its content
 items need to be unpublished and do it via the Publishing API.</p>
-
-<h2 id="16-remove-from-sentry">16. Remove from Sentry</h2>
-
-<p>Since the application has been retired, it shouldn't be tracked in Sentry.</p>
-
-<h2 id="17-archive-the-repo">17. Archive the repo</h2>
-
-<p>Go into the repository settings in GitHub, and
+<h2 id='16-remove-from-sentry'>16. Remove from Sentry</h2><p>Since the application has been retired, it shouldn&rsquo;t be tracked in Sentry.</p>
+<h2 id='17-archive-the-repo'>17. Archive the repo</h2><p>Go into the repository settings in GitHub, and
 <a href="https://github.com/blog/2460-archiving-repositories">archive the repo</a>.</p>
 
 

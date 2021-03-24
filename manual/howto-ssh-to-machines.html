@@ -165,79 +165,49 @@
 </div>
 
  <h1 id='header'>SSH into machines</h1> <p>This document explains how to SSH into machines, and what commands exist to navigate machines and applications quickly. We use a tool called <a href="https://github.com/alphagov/govuk-connect">GOV.UK Connect</a> to make this easier.</p>
-
-<h2 id="usage">Usage</h2>
-
-<p>If you know the class of machine you want, you can SSH straight from the command line:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh cache
-</code></pre></div>
-<p>This will automatically SSH into a random <code>cache</code> machine on AWS.</p>
-
+<h2 id='usage'>Usage</h2><p>If you know the class of machine you want, you can SSH straight from the command line:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh cache
+</code></pre></div><p>This will automatically SSH into a random <code>cache</code> machine on AWS.</p>
 <p>To see all classes, run:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh <span class="k">*</span>
-</code></pre></div>
-<p>You can connect to specific machines if you know their internal IP address:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect ssh <span class="nt">-e</span> integration ip-10-1-6-234.eu-west-1.compute.internal
-</code></pre></div>
-<p>You can also start a Rails Console on a remote server, from your local machine:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging app-console publishing-api
-</code></pre></div>
-<p>For a full list of commands, run <code>gds govuk connect --help</code>.</p>
-
-<h2 id="troubleshooting">Troubleshooting</h2>
-
-<h3 id="ssh-key">SSH Key</h3>
-
-<p>Sometimes you might try to ssh into a server and nothing happens. Double-check that you
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh <span class="k">*</span>
+</code></pre></div><p>You can connect to specific machines if you know their internal IP address:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect ssh <span class="nt">-e</span> integration ip-10-1-6-234.eu-west-1.compute.internal
+</code></pre></div><p>You can also start a Rails Console on a remote server, from your local machine:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging app-console publishing-api
+</code></pre></div><p>For a full list of commands, run <code>gds govuk connect --help</code>.</p>
+<h2 id='troubleshooting'>Troubleshooting</h2><h3 id='ssh-key'>SSH Key</h3><p>Sometimes you might try to ssh into a server and nothing happens. Double-check that you
 have added the key into the keychain like so: <code>ssh-add -K ~/.ssh/id_rsa</code>.</p>
-
 <p>Make sure you have been granted access. For example, if you have yet to be granted access
 to production, your attempt to SSH into a production node will fail silently.</p>
-
-<h3 id="cli-problems">CLI Problems</h3>
-
-<p><a href="https://github.com/alphagov/govuk-connect">GOV.UK Connect</a> is a tool we use to make working with our machines quicker and easier. If
-it's not working, you can try manually running the commands it normally runs for you.</p>
+<h3 id='cli-problems'>CLI Problems</h3><p><a href="https://github.com/alphagov/govuk-connect">GOV.UK Connect</a> is a tool we use to make working with our machines quicker and easier. If
+it&rsquo;s not working, you can try manually running the commands it normally runs for you.</p>
 
 <ul>
-  <li>
-    <p><a href="https://docs.publishing.service.gov.uk/apps.html">Find the class of machine you need (and which cloud it lives in)</a>.</p>
-  </li>
-  <li>
-    <p>Find <a href="https://github.com/alphagov/govuk-connect/blob/fcbe054874c84968b6af97e45005b00bc5aa285a/lib/govuk_connect/cli.rb#L81">the jumpbox for the environment you need</a>.</p>
-  </li>
-  <li>
-    <p>SSH to the jumpbox.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>ssh <span class="nt">-A</span> jumpbox.staging.govuk.digital
-</code></pre></div>  </li>
-  <li>
-    <p>On the jumpbox, run <code>govuk_node_list</code> to find the machine you want.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>govuk_node_list <span class="nt">-c</span> backend
-ip-10-12-4-106.eu-west-1.compute.internal
-ip-10-12-5-205.eu-west-1.compute.internal
-ip-10-12-6-44.eu-west-1.compute.internal
-</code></pre></div>  </li>
-  <li>
-    <p>Still on the jumpbox, SSH to one of the machines in the list.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>ssh ip-10-12-4-106.eu-west-1.compute.internal
-</code></pre></div>  </li>
-  <li>
-    <p>Once you're on the machine you need, you can start a Rails console.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>govuk_app_console publishing-api
-</code></pre></div>  </li>
+<li><p><a href="https://docs.publishing.service.gov.uk/apps.html">Find the class of machine you need (and which cloud it lives in)</a>.</p></li>
+<li><p>Find <a href="https://github.com/alphagov/govuk-connect/blob/fcbe054874c84968b6af97e45005b00bc5aa285a/lib/govuk_connect/cli.rb#L81">the jumpbox for the environment you need</a>.</p></li>
+<li><p>SSH to the jumpbox.</p></li>
 </ul>
-
-<p>These common commands, along with <code>govuk_node_list</code>, live in
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>ssh <span class="nt">-A</span> jumpbox.staging.govuk.digital
+</code></pre></div>
+<ul>
+<li>On the jumpbox, run <code>govuk_node_list</code> to find the machine you want.</li>
+</ul>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>govuk_node_list <span class="nt">-c</span> backend
+  ip-10-12-4-106.eu-west-1.compute.internal
+  ip-10-12-5-205.eu-west-1.compute.internal
+  ip-10-12-6-44.eu-west-1.compute.internal
+</code></pre></div>
+<ul>
+<li>Still on the jumpbox, SSH to one of the machines in the list.</li>
+</ul>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>ssh ip-10-12-4-106.eu-west-1.compute.internal
+</code></pre></div>
+<ul>
+<li>Once you&rsquo;re on the machine you need, you can start a Rails console.</li>
+</ul>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>govuk_app_console publishing-api
+</code></pre></div><p>These common commands, along with <code>govuk_node_list</code>, live in
 <a href="https://github.com/alphagov/govuk-puppet/tree/master/modules/govuk_scripts">govuk-puppet</a>.</p>
-
 
 
   <div class='related-content'>

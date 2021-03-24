@@ -179,47 +179,30 @@
  <h1 id='header'>Redis alerts</h1> <p>We have a few monitoring checks for Redis:</p>
 
 <ul>
-  <li>memory usage</li>
-  <li>number of connected clients</li>
+<li>memory usage</li>
+<li>number of connected clients</li>
 </ul>
-
 <p>Redis is configured to use 75% of the system memory. If Redis memory usage
 reaches this limit it will stop accepting data input. Redis is also unable to
-write its RDB data dumps when it's out of memory, so data loss is possible.</p>
-
+write its RDB data dumps when it&rsquo;s out of memory, so data loss is possible.</p>
 <p>Since version 2.6, Redis <a href="https://redis.io/topics/clients">dynamically sets the maximum allowed number of
 clients</a> to 32 less than the number of file
 descriptors that can be opened at a time.</p>
-
-<h2 id="general-redis-investigation-tips">General Redis investigation tips</h2>
-
-<p>If Redis is using large amounts of memory you can use <code>redis-cli --bigkeys</code>
+<h2 id='general-redis-investigation-tips'>General Redis investigation tips</h2><p>If Redis is using large amounts of memory you can use <code>redis-cli --bigkeys</code>
 to find out what those things might be. If any of the returned keys are new, try and speak to the team responsible.</p>
-
 <p>If there is an associated graph, it may also be worth checking as the alert could be a temporary spike, for example: due to running a rake task.</p>
-
-<h3 id="uniquejobs-hash">Uniquejobs hash</h3>
-
-<p>We use a <a href="https://github.com/alphagov/sidekiq-unique-jobs">custom fork</a> of a gem called <code>sidekiq-unique-jobs</code> in some of our applications. This gem creates a key in Redis called <code>uniquejobs</code></p>
-
+<h3 id='uniquejobs-hash'>Uniquejobs hash</h3><p>We use a <a href="https://github.com/alphagov/sidekiq-unique-jobs">custom fork</a> of a gem called <code>sidekiq-unique-jobs</code> in some of our applications. This gem creates a key in Redis called <code>uniquejobs</code></p>
 <p>We have had an incident where the <code>uniquejobs</code> key has grown to the point that it caused high memory alerts for Redis. You can delete this key safely by runnning the following command on the associated Redis box:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>redis-cli DEL uniquejobs
-</code></pre></div>
-<p>We have noticed that when this key grows on the redis box used by the Publishing
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>redis-cli DEL uniquejobs
+</code></pre></div><p>We have noticed that when this key grows on the redis box used by the Publishing
 Api (currently <code>redis-1</code>), it can be accompanied by high Sidekiq queue latency
-for Whitehall's queues. You can check the queue latency on the <a href="https://grafana.publishing.service.gov.uk/dashboard/file/sidekiq.json?refresh=1m&amp;orgId=1&amp;var-Application=whitehall&amp;var-Queues=All">Grafana
+for Whitehall&rsquo;s queues. You can check the queue latency on the <a href="https://grafana.publishing.service.gov.uk/dashboard/file/sidekiq.json?refresh=1m&amp;orgId=1&amp;var-Application=whitehall&amp;var-Queues=All">Grafana
 dashboard</a>.</p>
-
-<h3 id="redis-in-aws">Redis in AWS</h3>
-
-<p>In AWS we are using a hosted Redis cluster <code>blue-backend-redis</code> , provided by AWS ElastiCache.
+<h3 id='redis-in-aws'>Redis in AWS</h3><p>In AWS we are using a hosted Redis cluster <code>blue-backend-redis</code> , provided by AWS ElastiCache.
 Monitoring information on the nodes can be obtained via the <a href="https://eu-west-1.console.aws.amazon.com/elasticache/home?region=eu-west-1#redis-group-nodes:id=blue-backend-redis;clusters=blue-backend-redis-001!blue-backend-redis-002">AWS Console</a>.</p>
-
 <p>In order to access the Redis command line interface in AWS, it is required to log in to the
 <code>db-admin</code> machine via the <a href="https://eu-west-1.console.aws.amazon.com/elasticache/home?region=eu-west-1#redis-group-detail:id=blue-backend-redis">primary endpoint url of the cluster</a>.</p>
-
-<div class="highlight"><pre class="highlight shell"><code>redis-cli <span class="nt">-h</span> &lt;primary_endpoint url&gt;
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>redis-cli <span class="nt">-h</span> &lt;primary_endpoint url&gt;
 </code></pre></div>
 
   <div class='related-content'>

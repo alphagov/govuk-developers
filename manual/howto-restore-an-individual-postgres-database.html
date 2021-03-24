@@ -165,68 +165,47 @@
 </div>
 
  <h1 id='header'>Restore an Individual Postgres Production Database in AWS RDS</h1> <blockquote>
-  <p>If you need to restore an entire RDS instance please see <a href="https://docs.publishing.service.gov.uk/manual/howto-backup-and-restore-in-aws-rds.html">this manual page</a> instead.</p>
+<p>If you need to restore an entire RDS instance please see <a href="https://docs.publishing.service.gov.uk/manual/howto-backup-and-restore-in-aws-rds.html">this manual page</a> instead.</p>
 </blockquote>
-
-<h3 id="restoring-from-s3-backups">Restoring From S3 Backups</h3>
-
-<p>We take nightly database backups and save them to the <code>govuk-production-database-backups</code> S3 bucket inside the <code>postgresql-backend</code> folder.</p>
-
+<h3 id='restoring-from-s3-backups'>Restoring From S3 Backups</h3><p>We take nightly database backups and save them to the <code>govuk-production-database-backups</code> S3 bucket inside the <code>postgresql-backend</code> folder.</p>
 <p>To restore a backup from the most recent copy follow the steps below:</p>
-
-<h4 id="restoring-to-production">Restoring to Production</h4>
-
-<p>If you are restoring a database in the production environment, you will need to perform some additional steps first. You will need to ensure the Production db_admin machine has permission to read the Production PostgreSQL backups from S3 before you run the commands on db_admin (this is disabled by default as a safe guard). To do so, attach the govuk-production-s3-sync and blue-db-admin users to the  govuk-production-dbadmin_database_backups-reader-policy. You can do this by following the steps below:</p>
+<h4 id='restoring-to-production'>Restoring to Production</h4><p>If you are restoring a database in the production environment, you will need to perform some additional steps first. You will need to ensure the Production db_admin machine has permission to read the Production PostgreSQL backups from S3 before you run the commands on db_admin (this is disabled by default as a safe guard). To do so, attach the govuk-production-s3-sync and blue-db-admin users to the  govuk-production-dbadmin_database_backups-reader-policy. You can do this by following the steps below:</p>
 
 <ol>
-  <li>Login to AWS Console and select the Production environment</li>
-  <li>Go <a href="https://console.aws.amazon.com/iam/home?region=eu-west-1#/policies/arn:aws:iam::172025368201:policy/govuk-production-dbadmin_database_backups-reader-policy$serviceLevelSummary?section=permissions">here</a></li>
-  <li>Select the tab "Policy Usage"</li>
-  <li>Click "Attach" then filter for and select the <code>govuk-production-s3-sync</code> and <code>blue-db-admin users</code>.</li>
-  <li>Click "Attach Policy"</li>
+<li>Login to AWS Console and select the Production environment</li>
+<li>Go <a href="https://console.aws.amazon.com/iam/home?region=eu-west-1#/policies/arn:aws:iam::172025368201:policy/govuk-production-dbadmin_database_backups-reader-policy$serviceLevelSummary?section=permissions">here</a></li>
+<li>Select the tab &ldquo;Policy Usage&rdquo;</li>
+<li>Click &ldquo;Attach&rdquo; then filter for and select the <code>govuk-production-s3-sync</code> and <code>blue-db-admin users</code>.</li>
+<li>Click &ldquo;Attach Policy&rdquo;</li>
 </ol>
-
 <p>Now follow the steps below to restore the database using the data sync script.</p>
-
-<h4 id="how-to-run-the-dsync-script">How To Run the DSync Script</h4>
-
+<h4 id='how-to-run-the-dsync-script'>How To Run the DSync Script</h4>
 <ol>
-  <li>SSH into the db_admin machine. If you are using GDS CLI you can run the following command to ssh into the correct machine:</li>
+<li>SSH into the db_admin machine. If you are using GDS CLI you can run the following command to ssh into the correct machine:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight plaintext"><code>gds govuk connect ssh -e &lt;environment&gt; db_admin
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>gds govuk connect ssh -e &lt;environment&gt; db_admin
 </code></pre></div>
 <ol>
-  <li>To find the command you need to run to restore a specific database, list the govuk-backup user's cronjobs, then grep for the database name you need:</li>
+<li>To find the command you need to run to restore a specific database, list the govuk-backup user&rsquo;s cronjobs, then grep for the database name you need:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight plaintext"><code>  sudo -iu govuk-backup crontab -l | grep &lt;database_name&gt;
-</code></pre></div>
-<p>E.g.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>  sudo -iu govuk-backup crontab -l | grep publishing_api
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  sudo -iu govuk-backup crontab -l | grep &lt;database_name&gt;
+</code></pre></div><p>E.g.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  sudo -iu govuk-backup crontab -l | grep publishing_api
 </code></pre></div>
 <ol>
-  <li>Copy the command that starts with "pull". For example, if you were restoring the publishing_api database you'd need this line:</li>
+<li>Copy the command that starts with &ldquo;pull&rdquo;. For example, if you were restoring the publishing_api database you&rsquo;d need this line:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight plaintext"><code>/usr/bin/ionice -c 2 -n 6 /usr/local/bin/with_reboot_lock /usr/bin/envdir /etc/govuk_env_sync/env.d /usr/local/bin/govuk_env_sync.sh -f /etc/govuk_env_sync/pull_publishing_api_production_daily.cfg
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>/usr/bin/ionice -c 2 -n 6 /usr/local/bin/with_reboot_lock /usr/bin/envdir /etc/govuk_env_sync/env.d /usr/local/bin/govuk_env_sync.sh -f /etc/govuk_env_sync/pull_publishing_api_production_daily.cfg
 </code></pre></div>
 <ol>
-  <li>Start a tmux session as the govuk-backup user:</li>
+<li>Start a tmux session as the govuk-backup user:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight plaintext"><code>sudo -iu govuk-backup tmux
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo -iu govuk-backup tmux
 </code></pre></div>
 <ol>
-  <li>
-    <p>Then run the command you copied previously.</p>
-  </li>
-  <li>
-    <p>The script will inform you when it's complete. To switch between tmux windows, press <code>Control-B</code> then <code>n</code>. To disconnect from tmux, press <code>Control-B</code> then press <code>d</code>. To reconnect, run <code>sudo -iu govuk-backup tmux a</code></p>
-  </li>
+<li><p>Then run the command you copied previously.</p></li>
+<li><p>The script will inform you when it&rsquo;s complete. To switch between tmux windows, press <code>Control-B</code> then <code>n</code>. To disconnect from tmux, press <code>Control-B</code> then press <code>d</code>. To reconnect, run <code>sudo -iu govuk-backup tmux a</code></p></li>
 </ol>
-
 <p>See the <a href="https://docs.publishing.service.gov.uk/manual/govuk-env-sync.html"><code>govuk-env-sync</code> manual page</a> for more information.</p>
 
 

@@ -165,14 +165,12 @@
 
  <h1 id='header'>App isn't running the expected Ruby version</h1> <p>We have checks to ensure that the version of Ruby the application is using is
 the same as the version specified in its <code>.ruby-version</code> file.</p>
-
 <p>The standard reload that happens when an application is deployed is not enough
 to move between Ruby versions, so the application will continue to run under
 the old version.</p>
-
 <p>A hard restart of the application is required before the application will run
 under the new version. You can do this by running the <code>app:hard_restart</code> deploy
-task within the 'Deploy App' job in Jenkins.</p>
+task within the &lsquo;Deploy App&rsquo; job in Jenkins.</p>
 
 
   <div class='related-content'>

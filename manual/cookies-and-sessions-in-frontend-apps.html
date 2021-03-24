@@ -164,36 +164,24 @@
 </div>
 
  <h1 id='header'>Cookies and sessions in GOV.UK frontend apps</h1> <p>GOV.UK frontend applications, with the exception of Licensing and Email Alert Frontend, do not currently require cookies.</p>
-
 <p>We configure Varnish to strip cookies for
 <a href="https://github.com/alphagov/govuk-puppet/blob/a6c51d887a6501f02766b7279127b60f02037a7f/modules/varnish/templates/default.vcl.erb#L83">inbound</a> and <a href="https://github.com/alphagov/govuk-puppet/blob/a6c51d887a6501f02766b7279127b60f02037a7f/modules/varnish/templates/default.vcl.erb#L119">outbound</a> requests.</p>
-
 <p>This means any features in frontend application relying on sessions/cookies will not work.</p>
-
-<h2 id="csrf-protection">CSRF protection</h2>
-
-<p>By default, Rails enforces CSRF protection by adding a hidden <code>athenticity_token</code>
+<h2 id='csrf-protection'>CSRF protection</h2><p>By default, Rails enforces CSRF protection by adding a hidden <code>athenticity_token</code>
 to forms. This is verified by Rails on the subsequent POST. In order to
 verify the <code>authenticity_token</code>, Rails needs to set and access a session cookie.</p>
-
 <p>Because we strip cookies, verifying the CSRF <code>authenticity_token</code> causes an error
-and displays a Rails based "The change you wanted was rejected" error.</p>
-
+and displays a Rails based &ldquo;The change you wanted was rejected&rdquo; error.</p>
 <p>If your front end application does not need CSRF protection, you can disable it
 on a per-application basis or per-method basis. A per-method basis is preferred
 because it exposes the smallest unit of risk from a security perspective. To
 disable CSRF protection, you can add an exception to your controller:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>protect_from_forgery except: [:a_method_or_two]
-</code></pre></div>
-<h2 id="enabling-cookies-and-sessions">Enabling cookies and sessions</h2>
-
-<p>Email Alert Frontend uses cookies to enable sessions for subscribing,
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>protect_from_forgery except: [:a_method_or_two]
+</code></pre></div><h2 id='enabling-cookies-and-sessions'>Enabling cookies and sessions</h2><p>Email Alert Frontend uses cookies to enable sessions for subscribing,
 unsubscribing and managing subscriptions. It sets the <code>Cache-Control</code>
 HTTP header to <code>private</code> for these routes to ensure the pages are
 not cached by browsers, the CDN or other intermediate caches.</p>
-
-<p><a href="https://docs.fastly.com/guides/tutorials/cache-control-tutorial">Fastly's cache-control
+<p><a href="https://docs.fastly.com/guides/tutorials/cache-control-tutorial">Fastly&rsquo;s cache-control
 documentation</a> notes that you should set your <code>Cache-Control</code> to
 <code>private</code> if you want to ensure Fastly does not cache the resource (note that
 <code>no-cache</code> and <code>no-store</code> apparently are not respected by Fastly). You will

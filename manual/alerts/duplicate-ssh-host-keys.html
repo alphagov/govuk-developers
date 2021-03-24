@@ -164,31 +164,25 @@
 </div>
 
  <h1 id='header'>Duplicate SSH host keys</h1> <p>This check indicates that more than one machine in an environment is
-using the same SSH host key. This is bad because it means that we can't
+using the same SSH host key. This is bad because it means that we can&rsquo;t
 verify the authenticity of a particular host and it could be used in a
 <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack">MITM attack</a>.</p>
-
 <p>The check will list the affected machines and key fingerprints. To
 determine which key the fingerprint belongs to (RSA, DSA or ECDSA) you
 can run the following command on the host:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>for file in /etc/ssh/ssh_host_*.pub; do sudo ssh-keygen -lf $file; done
-</code></pre></div>
-<p>The immediate problem can be resolved by deleting the host keys and
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>for file in /etc/ssh/ssh_host_*.pub; do sudo ssh-keygen -lf $file; done
+</code></pre></div><p>The immediate problem can be resolved by deleting the host keys and
 regenerating them with <code>dpkg-reconfigure openssh-server</code>.</p>
-
 <p>However, bear in mind that the:</p>
 
 <ul>
-  <li>root cause in templating/provisioning also needs to be fixed</li>
-  <li>key change should be communicated to all people with login accounts</li>
+<li>root cause in templating/provisioning also needs to be fixed</li>
+<li>key change should be communicated to all people with login accounts</li>
 </ul>
-
 <p>It is also important to keep in mind that this check uses Puppetdb to query
-the facts 'sshdsakey', 'sshecdsakey' and 'sshrsakey' and find duplicated values.
+the facts &lsquo;sshdsakey&rsquo;, &lsquo;sshecdsakey&rsquo; and &lsquo;sshrsakey&rsquo; and find duplicated values.
 The check assumes some default values that might change with the time, or there
 could be a problem with Puppetdb itself.</p>
-
 <p>For more information, check the source of the check <a href="https://github.com/alphagov/nagios-plugins/blob/master/plugins/command/check_puppetdb_ssh_host_keys.py">here</a></p>
 
 

@@ -317,83 +317,62 @@
 
   <p>The publishing platform of GOV.UK consists of at least 75
 separate applications. Most of them are built using <a href="http://rubyonrails.org/">Ruby on Rails</a>.</p>
-
-<h2 id="hosting">Hosting</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Hosting</th>
-      <th>Count</th>
-      <th>Applications</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>AWS</td>
-      <td>51</td>
-      <td><a href="/apps/account-api.html">account-api</a>, <a href="/apps/asset-manager.html">asset-manager</a>, <a href="/apps/authenticating-proxy.html">authenticating-proxy</a>, <a href="/apps/bouncer.html">bouncer</a>, <a href="/apps/cache-clearing-service.html">cache-clearing-service</a>, <a href="/apps/ckanext-datagovuk.html">ckanext-datagovuk</a>, <a href="/apps/collections.html">collections</a>, <a href="/apps/collections-publisher.html">collections-publisher</a>, <a href="/apps/contacts-admin.html">contacts-admin</a>, <a href="/apps/content-data-admin.html">content-data-admin</a>, <a href="/apps/content-data-api.html">content-data-api</a>, <a href="/apps/content-publisher.html">content-publisher</a>, <a href="/apps/content-store.html">content-store</a>, <a href="/apps/content-tagger.html">content-tagger</a>, <a href="/apps/email-alert-api.html">email-alert-api</a>, <a href="/apps/email-alert-frontend.html">email-alert-frontend</a>, <a href="/apps/email-alert-service.html">email-alert-service</a>, <a href="/apps/feedback.html">feedback</a>, <a href="/apps/finder-frontend.html">finder-frontend</a>, <a href="/apps/frontend.html">frontend</a>, <a href="/apps/government-frontend.html">government-frontend</a>, <a href="/apps/hmrc-manuals-api.html">hmrc-manuals-api</a>, <a href="/apps/imminence.html">imminence</a>, <a href="/apps/info-frontend.html">info-frontend</a>, <a href="/apps/licence-finder.html">licence-finder</a>, <a href="/apps/licensify.html">licensify</a>, <a href="/apps/link-checker-api.html">link-checker-api</a>, <a href="/apps/local-links-manager.html">local-links-manager</a>, <a href="/apps/manuals-frontend.html">manuals-frontend</a>, <a href="/apps/manuals-publisher.html">manuals-publisher</a>, <a href="/apps/mapit.html">mapit</a>, <a href="/apps/maslow.html">maslow</a>, <a href="/apps/publisher.html">publisher</a>, <a href="/apps/publishing-api.html">publishing-api</a>, <a href="/apps/release.html">release</a>, <a href="/apps/router.html">router</a>, <a href="/apps/router-api.html">router-api</a>, <a href="/apps/search-admin.html">search-admin</a>, <a href="/apps/search-api.html">search-api</a>, <a href="/apps/service-manual-frontend.html">service-manual-frontend</a>, <a href="/apps/service-manual-publisher.html">service-manual-publisher</a>, <a href="/apps/short-url-manager.html">short-url-manager</a>, <a href="/apps/signon.html">signon</a>, <a href="/apps/smart-answers.html">smart-answers</a>, <a href="/apps/specialist-publisher.html">specialist-publisher</a>, <a href="/apps/static.html">static</a>, <a href="/apps/support.html">support</a>, <a href="/apps/support-api.html">support-api</a>, <a href="/apps/transition.html">transition</a>, <a href="/apps/travel-advice-publisher.html">travel-advice-publisher</a>, <a href="/apps/whitehall.html">whitehall</a></td>
-    </tr>
-    <tr>
-      <td>Heroku</td>
-      <td>11</td>
-      <td><a href="/apps/datagovuk_reference.html">datagovuk_reference</a>, <a href="/apps/govuk-alert-tracker.html">govuk-alert-tracker</a>, <a href="/apps/govuk-content-store-examples.html">govuk-content-store-examples</a>, <a href="/apps/govuk-dependencies.html">govuk-dependencies</a>, <a href="/apps/govuk-display-screen.html">govuk-display-screen</a>, <a href="/apps/govuk-secondline-blinken.html">govuk-secondline-blinken</a>, <a href="/apps/govuk-zendesk-display-screen.html">govuk-zendesk-display-screen</a>, <a href="/apps/seal.html">seal</a>, <a href="/apps/search-performance-explorer.html">search-performance-explorer</a>, <a href="/apps/side-by-side-browser.html">side-by-side-browser</a>, <a href="/apps/tech-docs-monitor.html">tech-docs-monitor</a></td>
-    </tr>
-    <tr>
-      <td>None</td>
-      <td>8</td>
-      <td><a href="/apps/govuk-docker.html">govuk-docker</a>, <a href="/apps/govuk-knowledge-graph.html">govuk-knowledge-graph</a>, <a href="/apps/govuk-load-testing.html">govuk-load-testing</a>, <a href="/apps/govuk-puppet.html">govuk-puppet</a>, <a href="/apps/govuk-related-links-recommender.html">govuk-related-links-recommender</a>, <a href="/apps/govuk_app_config.html">govuk_app_config</a>, <a href="/apps/search-analytics.html">search-analytics</a>, <a href="/apps/side-by-side-browser.html">side-by-side-browser</a></td>
-    </tr>
-    <tr>
-      <td>GOV.UK PaaS</td>
-      <td>5</td>
-      <td><a href="/apps/datagovuk_find.html">datagovuk_find</a>, <a href="/apps/datagovuk_publish.html">datagovuk_publish</a>, <a href="/apps/govuk-account-manager-prototype.html">govuk-account-manager-prototype</a>, <a href="/apps/govuk-attribute-service-prototype.html">govuk-attribute-service-prototype</a>, <a href="/apps/govuk-pact-broker.html">govuk-pact-broker</a></td>
-    </tr>
-    <tr>
-      <td>Carrenza</td>
-      <td>0</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>UK Cloud</td>
-      <td>0</td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="reuse-this-data">Reuse this data</h2>
-
-<p>You can <a href="/apps.json">download this data as JSON</a>, or <a href="/apps.csv">download this data as CSV</a>.
+<h2 id='hosting'>Hosting</h2><div class="table-container">
+        <table>
+          <tr>
+<th>Hosting</th>
+<th>Count</th>
+<th>Applications</th>
+</tr><tr>
+<td>AWS</td>
+<td>51</td>
+<td>
+<a href="/apps/account-api.html">account-api</a>, <a href="/apps/asset-manager.html">asset-manager</a>, <a href="/apps/authenticating-proxy.html">authenticating-proxy</a>, <a href="/apps/bouncer.html">bouncer</a>, <a href="/apps/cache-clearing-service.html">cache-clearing-service</a>, <a href="/apps/ckanext-datagovuk.html">ckanext-datagovuk</a>, <a href="/apps/collections.html">collections</a>, <a href="/apps/collections-publisher.html">collections-publisher</a>, <a href="/apps/contacts-admin.html">contacts-admin</a>, <a href="/apps/content-data-admin.html">content-data-admin</a>, <a href="/apps/content-data-api.html">content-data-api</a>, <a href="/apps/content-publisher.html">content-publisher</a>, <a href="/apps/content-store.html">content-store</a>, <a href="/apps/content-tagger.html">content-tagger</a>, <a href="/apps/email-alert-api.html">email-alert-api</a>, <a href="/apps/email-alert-frontend.html">email-alert-frontend</a>, <a href="/apps/email-alert-service.html">email-alert-service</a>, <a href="/apps/feedback.html">feedback</a>, <a href="/apps/finder-frontend.html">finder-frontend</a>, <a href="/apps/frontend.html">frontend</a>, <a href="/apps/government-frontend.html">government-frontend</a>, <a href="/apps/hmrc-manuals-api.html">hmrc-manuals-api</a>, <a href="/apps/imminence.html">imminence</a>, <a href="/apps/info-frontend.html">info-frontend</a>, <a href="/apps/licence-finder.html">licence-finder</a>, <a href="/apps/licensify.html">licensify</a>, <a href="/apps/link-checker-api.html">link-checker-api</a>, <a href="/apps/local-links-manager.html">local-links-manager</a>, <a href="/apps/manuals-frontend.html">manuals-frontend</a>, <a href="/apps/manuals-publisher.html">manuals-publisher</a>, <a href="/apps/mapit.html">mapit</a>, <a href="/apps/maslow.html">maslow</a>, <a href="/apps/publisher.html">publisher</a>, <a href="/apps/publishing-api.html">publishing-api</a>, <a href="/apps/release.html">release</a>, <a href="/apps/router.html">router</a>, <a href="/apps/router-api.html">router-api</a>, <a href="/apps/search-admin.html">search-admin</a>, <a href="/apps/search-api.html">search-api</a>, <a href="/apps/service-manual-frontend.html">service-manual-frontend</a>, <a href="/apps/service-manual-publisher.html">service-manual-publisher</a>, <a href="/apps/short-url-manager.html">short-url-manager</a>, <a href="/apps/signon.html">signon</a>, <a href="/apps/smart-answers.html">smart-answers</a>, <a href="/apps/specialist-publisher.html">specialist-publisher</a>, <a href="/apps/static.html">static</a>, <a href="/apps/support.html">support</a>, <a href="/apps/support-api.html">support-api</a>, <a href="/apps/transition.html">transition</a>, <a href="/apps/travel-advice-publisher.html">travel-advice-publisher</a>, <a href="/apps/whitehall.html">whitehall</a>
+</td>
+</tr><tr>
+<td>Heroku</td>
+<td>11</td>
+<td>
+<a href="/apps/datagovuk_reference.html">datagovuk_reference</a>, <a href="/apps/govuk-alert-tracker.html">govuk-alert-tracker</a>, <a href="/apps/govuk-content-store-examples.html">govuk-content-store-examples</a>, <a href="/apps/govuk-dependencies.html">govuk-dependencies</a>, <a href="/apps/govuk-display-screen.html">govuk-display-screen</a>, <a href="/apps/govuk-secondline-blinken.html">govuk-secondline-blinken</a>, <a href="/apps/govuk-zendesk-display-screen.html">govuk-zendesk-display-screen</a>, <a href="/apps/seal.html">seal</a>, <a href="/apps/search-performance-explorer.html">search-performance-explorer</a>, <a href="/apps/side-by-side-browser.html">side-by-side-browser</a>, <a href="/apps/tech-docs-monitor.html">tech-docs-monitor</a>
+</td>
+</tr><tr>
+<td>None</td>
+<td>8</td>
+<td>
+<a href="/apps/govuk-docker.html">govuk-docker</a>, <a href="/apps/govuk-knowledge-graph.html">govuk-knowledge-graph</a>, <a href="/apps/govuk-load-testing.html">govuk-load-testing</a>, <a href="/apps/govuk-puppet.html">govuk-puppet</a>, <a href="/apps/govuk-related-links-recommender.html">govuk-related-links-recommender</a>, <a href="/apps/govuk_app_config.html">govuk_app_config</a>, <a href="/apps/search-analytics.html">search-analytics</a>, <a href="/apps/side-by-side-browser.html">side-by-side-browser</a>
+</td>
+</tr><tr>
+<td>GOV.UK PaaS</td>
+<td>5</td>
+<td>
+<a href="/apps/datagovuk_find.html">datagovuk_find</a>, <a href="/apps/datagovuk_publish.html">datagovuk_publish</a>, <a href="/apps/govuk-account-manager-prototype.html">govuk-account-manager-prototype</a>, <a href="/apps/govuk-attribute-service-prototype.html">govuk-attribute-service-prototype</a>, <a href="/apps/govuk-pact-broker.html">govuk-pact-broker</a>
+</td>
+</tr><tr>
+<td>Carrenza</td>
+<td>0</td>
+<td></td>
+</tr><tr>
+<td>UK Cloud</td>
+<td>0</td>
+<td></td>
+</tr>
+        </table>
+      </div><h2 id='reuse-this-data'>Reuse this data</h2><p>You can <a href="/apps.json">download this data as JSON</a>, or <a href="/apps.csv">download this data as CSV</a>.
 In Google Spreadsheets, use the following formula to import all of the data:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>=importData("https://docs.publishing.service.gov.uk/apps.csv")
-</code></pre></div>
-<h2 id="infrastructure">Infrastructure</h2>
-
-<p>Applications are hosted on an infrastructure <a href="https://github.com/alphagov/govuk-puppet">configured using puppet</a>.
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>=importData("https://docs.publishing.service.gov.uk/apps.csv")
+</code></pre></div><h2 id='infrastructure'>Infrastructure</h2><p>Applications are hosted on an infrastructure <a href="https://github.com/alphagov/govuk-puppet">configured using puppet</a>.
 They are deployed using <a href="https://github.com/alphagov/govuk-app-deployment">capistrano scripts</a>.</p>
-
-<h2 id="frontend-apps">Frontend apps</h2>
-
-<p>Frontend apps render content to visitors to <a href="https://www.gov.uk/">www.gov.uk</a>.
+<h2 id='frontend-apps'>Frontend apps</h2><p>Frontend apps render content to visitors to <a href="https://www.gov.uk/">www.gov.uk</a>.
 For example, a <a href="https://www.gov.uk/hmrc-internal-manuals/vat-clothing/vclothing1100">HMRC manual page</a> is rendered by an application called
 <a href="/apps/manuals-frontend.html">manuals-frontend</a>.</p>
-
 <p>You can use the <a href="https://github.com/alphagov/govuk-browser-extension">chrome extension</a> to find out which application
 is rendering any given page.</p>
-
 <p>You can <a href="/manual/frontend-architecture.html">read more about the frontend architecture on GOV.UK</a>.</p>
-
-<h2 id="publishing-apps">Publishing apps</h2>
-
-<p>Publishing apps are used by editors to publish content to GOV.UK. For example,
+<h2 id='publishing-apps'>Publishing apps</h2><p>Publishing apps are used by editors to publish content to GOV.UK. For example,
 <a href="/apps/specialist-publisher.html">specialist-publisher</a> publishes
 <a href="https://www.gov.uk/cma-cases/legal-services-market-study">specialist documents</a>.</p>
-
 <p>The apps are secured by behind a <a href="/apps/signon.html">single signon system</a>. They use an
 <a href="https://github.com/alphagov/gds-sso">omniauth adapter called gds-sso</a> to authenticate the user.</p>
-
 
 
             

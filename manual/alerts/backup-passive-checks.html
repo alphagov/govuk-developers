@@ -170,15 +170,11 @@
 
  <h1 id='header'>Backup passive checks</h1> <p>These checks ensure that the backups have run within the last day (specifically
 within the last 28 hours).</p>
-
-<h2 id="mongodb">MongoDB</h2>
-
-<p>If the backup has failed, you can try re-running it on the associated machine.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>su - govuk-backup <span class="nt">-c</span> <span class="s1">'/usr/bin/setlock /etc/unattended-reboot/no-reboot/mongodb-s3backup /usr/local/bin/mongodb-backup-s3 daily'</span>
+<h2 id='mongodb'>MongoDB</h2><p>If the backup has failed, you can try re-running it on the associated machine.</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>su - govuk-backup <span class="nt">-c</span> <span class="s1">'/usr/bin/setlock /etc/unattended-reboot/no-reboot/mongodb-s3backup /usr/local/bin/mongodb-backup-s3 daily'</span>
 </code></pre></div>
 <blockquote>
-  <p><strong>NOTE</strong>: You might want to run this in a <code>screen</code> session, as it can take a while.</p>
+<p><strong>NOTE</strong>: You might want to run this in a <code>screen</code> session, as it can take a while.</p>
 </blockquote>
 
 

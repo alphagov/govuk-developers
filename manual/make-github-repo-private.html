@@ -181,104 +181,68 @@
 </div>
 
  <h1 id='header'>Make a GitHub repo private</h1> <p>In cases of an ongoing security incident, or when working on politically sensitive changes, we may want to work in private rather than public. We do this by creating a private fork of the application.</p>
-
-<h2 id="creating-a-private-fork">Creating a private fork</h2>
-
-<p>To fork an existing GOV.UK repository and make it private perform the following steps:</p>
+<h2 id='creating-a-private-fork'>Creating a private fork</h2><p>To fork an existing GOV.UK repository and make it private perform the following steps:</p>
 
 <ol>
-  <li>Visit <a href="https://github.com/alphagov">https://github.com/alphagov</a> and click the green 'New' button to create a new repository.</li>
-  <li>Click on the 'import repository' link to import the existing repository.</li>
-  <li>Change the owner to <code>alphagov</code>.</li>
-  <li>Set the repository name to the new private name.</li>
-  <li>Set the 'Privacy' setting to 'Private'.</li>
-  <li>Start the import. This may take a while to complete.</li>
-  <li>Click on 'Settings' and then 'Collaborators' to set the permissions on the repository.</li>
-  <li>Add the 'GOV.UK - CI Bots' team so that Jenkins can access the repository for deployment. Make sure it is set to 'write' access because Jenkins needs to access the repository and set the release tag.</li>
-  <li>Add the 'gov-uk' team and set it 'write' access so that developers can create and merge pull requests.</li>
-  <li>Consider adding <a href="https://github.com/search?q=org%3Aalphagov+%22Use+GitHub+Actions%22&amp;type=Issues">a GitHub action</a> to replace Jenkins CI that will not be running on this new repo.</li>
-  <li>Add a branch protection rule against the master branch. You can <a href="https://github.com/alphagov/government-frontend/settings/branches">use the settings in another repo</a> as a template.</li>
+<li>Visit <a href="https://github.com/alphagov">https://github.com/alphagov</a> and click the green &lsquo;New&rsquo; button to create a new repository.</li>
+<li>Click on the &lsquo;import repository&rsquo; link to import the existing repository.</li>
+<li>Change the owner to <code>alphagov</code>.</li>
+<li>Set the repository name to the new private name.</li>
+<li>Set the &lsquo;Privacy&rsquo; setting to &lsquo;Private&rsquo;.</li>
+<li>Start the import. This may take a while to complete.</li>
+<li>Click on &lsquo;Settings&rsquo; and then &lsquo;Collaborators&rsquo; to set the permissions on the repository.</li>
+<li>Add the &lsquo;GOV.UK - CI Bots&rsquo; team so that Jenkins can access the repository for deployment. Make sure it is set to &lsquo;write&rsquo; access because Jenkins needs to access the repository and set the release tag.</li>
+<li>Add the &lsquo;gov-uk&rsquo; team and set it &lsquo;write&rsquo; access so that developers can create and merge pull requests.</li>
+<li>Consider adding <a href="https://github.com/search?q=org%3Aalphagov+%22Use+GitHub+Actions%22&amp;type=Issues">a GitHub action</a> to replace Jenkins CI that will not be running on this new repo.</li>
+<li>Add a branch protection rule against the master branch. You can <a href="https://github.com/alphagov/government-frontend/settings/branches">use the settings in another repo</a> as a template.</li>
 </ol>
-
-<h2 id="deploying-the-private-repository">Deploying the private repository</h2>
-
-<h3 id="update-govuk-app-deployment">Update govuk-app-deployment</h3>
-
-<p>To deploy a private repository, first create a private fork of the <code>govuk-app-deployment</code> repository named <code>govuk-app-deployment-private</code>.</p>
-
+<h2 id='deploying-the-private-repository'>Deploying the private repository</h2><h3 id='update-govuk-app-deployment'>Update govuk-app-deployment</h3><p>To deploy a private repository, first create a private fork of the <code>govuk-app-deployment</code> repository named <code>govuk-app-deployment-private</code>.</p>
 <p>In the <code>govuk-app-deployment-private</code> repository there is a directory for each app in GOV.UK that can be deployed. Find the directory of the app you want to make private and edit the file <code>&lt;app&gt;/config/deploy.rb</code> to add a line to set the name of the private repository. For example, for ‘frontend’ add line 2:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s2">"frontend"</span>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s2">"frontend"</span>
 <span class="n">set</span> <span class="ss">:repo_name</span><span class="p">,</span> <span class="s2">"frontend-private"</span>
-</code></pre></div>
-<h3 id="update-jenkins">Update Jenkins</h3>
-
-<p>Perform these actions on staging first, before rolling out to production.</p>
-
+</code></pre></div><h3 id='update-jenkins'>Update Jenkins</h3><p>Perform these actions on staging first, before rolling out to production.</p>
 <p>In the relevant environment, disable Puppet on the Jenkins machine, otherwise Puppet will overwrite your changes.  This can be done by SSHing into the Jenkins machine:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ gds govuk connect -e &lt;environment&gt; ssh jenkins
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ gds govuk connect -e &lt;environment&gt; ssh jenkins
 $ govuk_puppet --disable
-</code></pre></div>
-<p>Jenkins must be updated to use the private version of <code>govuk-app-deployment</code> so the private version of the app is deployed.  This is done by navigating to the Jenkins UI in your web browser, clicking the 'Configure' link and changing the 'Build' section:</p>
-
+</code></pre></div><p>Jenkins must be updated to use the private version of <code>govuk-app-deployment</code> so the private version of the app is deployed.  This is done by navigating to the Jenkins UI in your web browser, clicking the &lsquo;Configure&rsquo; link and changing the &lsquo;Build&rsquo; section:</p>
 <p>From:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>export APP_DEPLOYMENT_GIT_URL="git@github.com:alphagov/govuk-app-deployment.git"
-</code></pre></div>
-<p>To:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>export APP_DEPLOYMENT_GIT_URL="git@github.com:alphagov/govuk-app-deployment-private.git"
-</code></pre></div>
-<p>The app can now be deployed as normal.</p>
-
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>export APP_DEPLOYMENT_GIT_URL="git@github.com:alphagov/govuk-app-deployment.git"
+</code></pre></div><p>To:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>export APP_DEPLOYMENT_GIT_URL="git@github.com:alphagov/govuk-app-deployment-private.git"
+</code></pre></div><p>The app can now be deployed as normal.</p>
 <p>After deployment is complete, Puppet can be re-enabled:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ gds govuk connect -e &lt;environment&gt; ssh jenkins
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ gds govuk connect -e &lt;environment&gt; ssh jenkins
 $ govuk_puppet --enable
-</code></pre></div>
-<h3 id="testing-in-private">Testing in private</h3>
-
-<p>We do not have CI builds on our private repos by default. To mitigate the risks of this, you can either:</p>
+</code></pre></div><h3 id='testing-in-private'>Testing in private</h3><p>We do not have CI builds on our private repos by default. To mitigate the risks of this, you can either:</p>
 
 <ul>
-  <li>Add <a href="/manual/test-and-build-a-project-with-github-actions.html">a GitHub Action</a> to do these things for you</li>
-  <li>Or, run the following manual steps locally before pushing:</li>
+<li>Add <a href="/manual/test-and-build-a-project-with-github-actions.html">a GitHub Action</a> to do these things for you</li>
+<li>Or, run the following manual steps locally before pushing:</li>
 </ul>
-
-<div class="highlight"><pre class="highlight plaintext"><code>bundle exec rubocop # run the linter
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>bundle exec rubocop # run the linter
 RAILS_ENV=production bundle exec rake assets:precompile # make sure production assets compilation works
 bundle exec rake # run all the tests
-</code></pre></div>
-<h2 id="keeping-repositories-in-sync">Keeping repositories in sync</h2>
-
-<p>As part of our workflow we will need to keep our private repositories in sync with the public ones. To do this we need to open a terminal, enter the directory of the private repository we want to sync up and add an ‘upstream’ remote.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ git remote add upstream https://github.com/alphagov/frontend.git
-</code></pre></div>
-<p>We can now fetch commits from the upstream public repository and pull them in a new branch which can be merged into master through the usual Pull Request workflow.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ git fetch upstream
+</code></pre></div><h2 id='keeping-repositories-in-sync'>Keeping repositories in sync</h2><p>As part of our workflow we will need to keep our private repositories in sync with the public ones. To do this we need to open a terminal, enter the directory of the private repository we want to sync up and add an ‘upstream’ remote.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ git remote add upstream https://github.com/alphagov/frontend.git
+</code></pre></div><p>We can now fetch commits from the upstream public repository and pull them in a new branch which can be merged into master through the usual Pull Request workflow.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ git fetch upstream
 $ git diff upstream/master master # check if we need to rebase at all
 $ git checkout -b update
 $ git pull upstream master
 $ git push origin update
-</code></pre></div>
-<h2 id="reverting-to-public">Reverting to public</h2>
-
-<p>In order to make our private changes public, we need to incorporate them into the public repo.</p>
+</code></pre></div><h2 id='reverting-to-public'>Reverting to public</h2><p>In order to make our private changes public, we need to incorporate them into the public repo.</p>
 
 <ol>
-  <li>Make sure you have pulled in the latest changes from the public repo into the private repo (detailed in 'Keeping repositories in sync').</li>
-  <li>Merge any pending pull requests into the master branch of the private repo.</li>
-  <li>On the public repo, add the private repo as a new upstream remote: e.g. <code>git remote add upstream https://github.com/alphagov/frontend-private.git</code></li>
-  <li>Create a new branch on the public repo.</li>
-  <li>Rebase the master branch of the private repo onto the new branch:</li>
-  <li><code>git fetch upstream</code></li>
-  <li><code>git rebase upstream/master</code></li>
-  <li><code>git rebase master</code></li>
-  <li>Raise a PR on the public repo for the new branch.</li>
-  <li>Delete the private fork, once the changes have been merged into the public repo.</li>
+<li>Make sure you have pulled in the latest changes from the public repo into the private repo (detailed in &lsquo;Keeping repositories in sync&rsquo;).</li>
+<li>Merge any pending pull requests into the master branch of the private repo.</li>
+<li>On the public repo, add the private repo as a new upstream remote: e.g. <code>git remote add upstream https://github.com/alphagov/frontend-private.git</code></li>
+<li>Create a new branch on the public repo.</li>
+<li>Rebase the master branch of the private repo onto the new branch:</li>
+<li><code>git fetch upstream</code></li>
+<li><code>git rebase upstream/master</code></li>
+<li><code>git rebase master</code></li>
+<li>Raise a PR on the public repo for the new branch.</li>
+<li>Delete the private fork, once the changes have been merged into the public repo.</li>
 </ol>
 
 

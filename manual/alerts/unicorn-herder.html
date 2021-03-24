@@ -136,7 +136,7 @@
       <li>
         <ul>
           <li>
-            <a href="#app-unicornherder-running"><span>'app unicornherder running'</span></a>
+            <a href="#39app-unicornherder-running39"><span>‘app unicornherder running’</span></a>
           </li>
         </ul>
       </li>
@@ -172,28 +172,21 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0e5735093bf71404f22e7c7e537bbdc2664b2b84">20 Apr 2020</a>
 </div>
 
- <h1 id='header'>Unicorn Herder</h1> <h3 id="app-unicornherder-running">'app unicornherder running'</h3>
-
-<p>This alert means the Unicorn Herder process has disappeared for the
-named app, so the app is still running but we don't know about it and
-can't control it.</p>
-
+ <h1 id='header'>Unicorn Herder</h1> <h3 id='39app-unicornherder-running39'>&lsquo;app unicornherder running&rsquo;</h3><p>This alert means the Unicorn Herder process has disappeared for the
+named app, so the app is still running but we don&rsquo;t know about it and
+can&rsquo;t control it.</p>
 <p>At the moment, the fix is to run the <a href="/manual/tools.html#fabric-scripts">Fabric</a>
 task <code>vm.bodge_unicorn</code> for that app. (The name of the task should give a clue
-as to why I say "At the moment".)</p>
-
+as to why I say &ldquo;At the moment&rdquo;.)</p>
 <p>Configure and activate your fabric environment as described in the
 <a href="https://github.com/alphagov/fabric-scripts/blob/master/README.md">fabric-scripts README</a>.</p>
-
 <p>Then run the <code>vm.bodge_unicorn</code> task for the affected machine and application:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="c"># Replace the machine_ip with the host IP of the machine that is showing the</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="c"># Replace the machine_ip with the host IP of the machine that is showing the</span>
 <span class="c"># error in Icinga - e.g. ip-10-1-4-159.eu-west-1.compute.internal</span>
 
 <span class="c"># Replace the app_name with the relevant app  - e.g whitehall</span>
 fab <span class="nv">$environment</span> <span class="nt">-H</span> <span class="nv">$machine_ip</span> vm.bodge_unicorn:<span class="nv">$app_name</span>
-</code></pre></div>
-<p>Job done. The Nagios alert should clear within a few minutes.</p>
+</code></pre></div><p>Job done. The Nagios alert should clear within a few minutes.</p>
 
 
   <div class='related-content'>

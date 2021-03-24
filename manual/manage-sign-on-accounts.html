@@ -173,81 +173,55 @@
  <h1 id='header'>Manage Signon user/API accounts and access tokens</h1> <p><a href="https://docs.publishing.service.gov.uk/apps/signon.html">Signon</a> is the
 single sign-on service for our admin applications. We also use it for
 creating API accounts for GOV.UK applications.</p>
-
-<h2 id="differences-between-environments">Differences between environments</h2>
-
-<p>User accounts from production are synced to staging every morning, so any
+<h2 id='differences-between-environments'>Differences between environments</h2><p>User accounts from production are synced to staging every morning, so any
 changes made in production will be reflected in staging the next day.</p>
-
 <p>User accounts in integration are completely separate.</p>
-
-<h2 id="how-to-create-an-account">How to create an account</h2>
-
-<p>User accounts should be created by the tech lead on the user's team. In
+<h2 id='how-to-create-an-account'>How to create an account</h2><p>User accounts should be created by the tech lead on the user&rsquo;s team. In
 usual circumstances, 2nd line should not have to do this, although there
 are exceptions such as when the tech lead has no admin access, or if the
 user has no obvious tech lead.</p>
-
-<h3 id="user-accounts">User accounts</h3>
-
-<p>Determine which environment the account is needed in:</p>
+<h3 id='user-accounts'>User accounts</h3><p>Determine which environment the account is needed in:</p>
 
 <ul>
-  <li><a href="https://signon.integration.publishing.service.gov.uk/users">integration signon 'users'</a></li>
-  <li><a href="https://signon.staging.publishing.service.gov.uk/users">staging signon 'users'</a></li>
-  <li><a href="https://signon.publishing.service.gov.uk/users">production signon 'users'</a></li>
+<li><a href="https://signon.integration.publishing.service.gov.uk/users">integration signon &lsquo;users&rsquo;</a></li>
+<li><a href="https://signon.staging.publishing.service.gov.uk/users">staging signon &lsquo;users&rsquo;</a></li>
+<li><a href="https://signon.publishing.service.gov.uk/users">production signon &lsquo;users&rsquo;</a></li>
 </ul>
-
-<p>Click 'Create user' and fill in the details. 2FA is encouraged for all,
+<p>Click &lsquo;Create user&rsquo; and fill in the details. 2FA is encouraged for all,
 including editors, however it is only <a href="https://github.com/alphagov/signon/commit/83cb90132831441fa4fb10027a03aa122a18502f#diff-4676c008b11a5480d73d4a6de01e45b9R233">mandatory for admins and superadmins</a>.</p>
-
-<h3 id="api-user-accounts">API user accounts</h3>
-
-<p>Determine which environment the account is needed in:</p>
+<h3 id='api-user-accounts'>API user accounts</h3><p>Determine which environment the account is needed in:</p>
 
 <ul>
-  <li><a href="https://signon.integration.publishing.service.gov.uk/api_users">integration signon 'api_users'</a></li>
-  <li><a href="https://signon.staging.publishing.service.gov.uk/api_users">staging signon 'api_users'</a></li>
-  <li><a href="https://signon.publishing.service.gov.uk/api_users">production signon 'api_users'</a></li>
+<li><a href="https://signon.integration.publishing.service.gov.uk/api_users">integration signon &lsquo;api_users&rsquo;</a></li>
+<li><a href="https://signon.staging.publishing.service.gov.uk/api_users">staging signon &lsquo;api_users&rsquo;</a></li>
+<li><a href="https://signon.publishing.service.gov.uk/api_users">production signon &lsquo;api_users&rsquo;</a></li>
 </ul>
-
 <p>Then create the account:</p>
 
 <ul>
-  <li>Click 'Create API user'</li>
-  <li>Fill in the name and email address of the team requesting the account</li>
-  <li>An account will be created associated with their email address</li>
+<li>Click &lsquo;Create API user&rsquo;</li>
+<li>Fill in the name and email address of the team requesting the account</li>
+<li>An account will be created associated with their email address</li>
 </ul>
-
-<h3 id="create-application-token-for-the-api-user">Create application token for the API user</h3>
-
+<h3 id='create-application-token-for-the-api-user'>Create application token for the API user</h3>
 <ul>
-  <li>From the API user's account page, click 'Add application token'</li>
-  <li>Select the 'Application' for which you need a token, and click 'Create access token'</li>
-  <li>A token will be generated. Copy it to your clipboard and then manually email it to the team email address</li>
+<li>From the API user&rsquo;s account page, click &lsquo;Add application token&rsquo;</li>
+<li>Select the &lsquo;Application&rsquo; for which you need a token, and click &lsquo;Create access token&rsquo;</li>
+<li>A token will be generated. Copy it to your clipboard and then manually email it to the team email address</li>
 </ul>
-
 <p>An account can have API tokens for multiple applications.</p>
-
-<h2 id="organisations-with-multiple-parents">Organisations with multiple parents</h2>
-
-<p>This <a href="https://github.com/alphagov/signon/issues/1572">structure cannot currently be modelled in Signon</a>
+<h2 id='organisations-with-multiple-parents'>Organisations with multiple parents</h2><p>This <a href="https://github.com/alphagov/signon/issues/1572">structure cannot currently be modelled in Signon</a>
 which sometimes leads to Zendesk tickets where users cannot access things they should
 be able to.</p>
-
 <p>This can be applied manually for the day (it will reset when the organisations are
 imported from Whitehall):</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">parent</span> <span class="o">=</span> <span class="no">Organisation</span><span class="p">.</span><span class="nf">find_by!</span><span class="p">(</span><span class="ss">slug: </span><span class="s2">"..."</span><span class="p">)</span>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="o">&gt;</span> <span class="n">parent</span> <span class="o">=</span> <span class="no">Organisation</span><span class="p">.</span><span class="nf">find_by!</span><span class="p">(</span><span class="ss">slug: </span><span class="s2">"..."</span><span class="p">)</span>
 <span class="o">&gt;</span> <span class="n">child</span> <span class="o">=</span> <span class="no">Organisation</span><span class="p">.</span><span class="nf">find_by!</span><span class="p">(</span><span class="ss">slug: </span><span class="s2">"..."</span><span class="p">)</span>
 <span class="o">&gt;</span> <span class="n">child</span><span class="p">.</span><span class="nf">update!</span><span class="p">(</span><span class="ss">parent: </span><span class="n">parent</span><span class="p">)</span>
-</code></pre></div>
-<p>Or if you think it makes sense to apply this permanently,
+</code></pre></div><p>Or if you think it makes sense to apply this permanently,
 <a href="https://github.com/alphagov/signon/commit/31066d931c073250f0c5d83b0312a489b12c870c">it can be added to the <code>OrganisationFetcher</code></a>.</p>
-
 <p>The decision of whether this should be applied for the day or permanently depends on
 which parent organisation is more likely to need access to the child organisation.</p>
-
 
 
   <div class='related-content'>

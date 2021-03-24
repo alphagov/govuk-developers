@@ -317,116 +317,106 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: govuk-display-screen</h1>
 
-  
-<p>Display screen for GOV.UK search &amp; content</p>
+  <p>Display screen for GOV.UK search &amp; content</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/govuk-display-screen">govuk-display-screen</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/govuk-display-screen"&gt;govuk-display-screen&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">N/A</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>Heroku</strong></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;N/A&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-
-    <li><a href="https://dashboard.heroku.com/apps/govuk-display-screen" class="govuk-link">Manage application</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;Heroku&lt;/strong&gt;&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
 
-
-</ul>
-</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
+&lt;li&gt;&lt;a href="https://dashboard.heroku.com/apps/govuk-display-screen" class="govuk-link"&gt;Manage application&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
+</div></p>
+<h2 id='imported-documents'>Imported documents</h2><h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="imported-documents">Imported documents</h2>
-
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>Screen to display live data from GOV.UK. Includes number of people on GOV.UK,
 latest searches, trending and recent content. Not publicly accessible because
-there's sometimes personal data in the latest searches.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/govuk-display-screen/master/docs/screenshot.png" alt="screenshot" /></p>
+there&rsquo;s sometimes personal data in the latest searches.</p>
+
+<p><img src="https://raw.githubusercontent.com/alphagov/govuk-display-screen/master/docs/screenshot.png" alt="screenshot"></p>
+
 <p><a href="http://govuk-display-screen.herokuapp.com/">http://govuk-display-screen.herokuapp.com/</a></p>
+
 <h2 id="running-locally">Running locally</h2>
+
 <p>To run the server you will need the following <code>ENV</code> variables set:</p>
+
 <pre><code>CLIENT_ID
 CLIENT_SECRET
 REFRESH_TOKEN
 </code></pre>
+
 <p>You can create the client id and client secret using the <a href="https://developer.google.com/console">Google developer
 console</a>. You need to generate the refresh token, there is a <a href="https://gist.github.com/edds/9363713">short Ruby
 script to create one for you</a>.</p>
+
 <p>Once you have them you can start the server running:</p>
+
 <pre><code>CLIENT_ID=... CLIENT_SECRET=... REFRESH_TOKEN=... ruby ./server.rb
 </code></pre>
+
 <p>You can then browse to the server in your browser.</p>
+
 <h1 id="licence">Licence</h1>
-<p>Copyright (C) 2013 Edd Sowden</p>
+
+<p>Copyright &copy; 2013 Edd Sowden</p>
+
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
+this software and associated documentation files (the &ldquo;Software&rdquo;), to deal in
 the Software without restriction, including without limitation the rights to
 use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
 of the Software, and to permit persons to whom the Software is furnished to do
 so, subject to the following conditions:</p>
+
 <p>The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+
+<p>THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</p>
-  </div>
-
+<p></div></p>
 
 
             

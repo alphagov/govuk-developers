@@ -164,53 +164,42 @@
 </div>
 
  <h1 id='header'>Icinga</h1> <ul>
-  <li><a href="https://alert.blue.production.govuk.digital">Production (AWS)</a></li>
-  <li><a href="https://alert.blue.staging.govuk.digital">Staging (AWS)</a></li>
-  <li><a href="https://alert.integration.publishing.service.gov.uk">Integration (AWS)</a></li>
-  <li><a href="https://ci-alert.integration.publishing.service.gov.uk">CI (Carrenza)</a></li>
+<li><a href="https://alert.blue.production.govuk.digital">Production (AWS)</a></li>
+<li><a href="https://alert.blue.staging.govuk.digital">Staging (AWS)</a></li>
+<li><a href="https://alert.integration.publishing.service.gov.uk">Integration (AWS)</a></li>
+<li><a href="https://ci-alert.integration.publishing.service.gov.uk">CI (Carrenza)</a></li>
 </ul>
-
 <p>Icinga is used to monitor alerts that we have set up. It can be a bit hard to
 navigate but there are only a few views you need to know about (listed in the left-hand
 navigation):</p>
 
 <ul>
-  <li>Unhandled Services</li>
-  <li>Alert History</li>
+<li>Unhandled Services</li>
+<li>Alert History</li>
 </ul>
-
 <p>Alternatively, you can pull these into one local dashboard by <a href="/manual/nagstamon.html">setting up Nagstamon</a>.</p>
-
-<h3 id="scanning-alerts">Scanning alerts</h3>
-
+<h3 id='scanning-alerts'>Scanning alerts</h3>
 <ul>
-  <li>If an alert is red or has a <img src="/manual/images/icinga/critical.png" alt="critical" /> icon it is critical</li>
-  <li>If an alert is yellow or has a <img src="/manual/images/icinga/warning.png" alt="warning" /> icon it is a warning</li>
-  <li>If an alert is green or has a <img src="/manual/images/icinga/recovery.png" alt="recovery" /> icon it has recently recovered</li>
-  <li>If an alert is purple or has a <img src="/manual/images/icinga/unknown.png" alt="unknown" /> icon Icinga cannot retrieve data for it</li>
-  <li>If an alert has a <img src="/manual/images/icinga/flapping.gif" alt="flapping" /> icon the alert is coming on and off or 'flapping'</li>
+<li>If an alert is red or has a <a href="images/icinga/critical.png" rel="noopener noreferrer"><img src="/manual/images/icinga/critical.png" alt="critical" /></a> icon it is critical</li>
+<li>If an alert is yellow or has a <a href="images/icinga/warning.png" rel="noopener noreferrer"><img src="/manual/images/icinga/warning.png" alt="warning" /></a> icon it is a warning</li>
+<li>If an alert is green or has a <a href="images/icinga/recovery.png" rel="noopener noreferrer"><img src="/manual/images/icinga/recovery.png" alt="recovery" /></a> icon it has recently recovered</li>
+<li>If an alert is purple or has a <a href="images/icinga/unknown.png" rel="noopener noreferrer"><img src="/manual/images/icinga/unknown.png" alt="unknown" /></a> icon Icinga cannot retrieve data for it</li>
+<li>If an alert has a <a href="images/icinga/flapping.gif" rel="noopener noreferrer"><img src="/manual/images/icinga/flapping.gif" alt="flapping" /></a> icon the alert is coming on and off or &lsquo;flapping&rsquo;</li>
 </ul>
-
-<h3 id="external-urls">External URLs</h3>
-
-<p>A service may have two additional URLs associated with it which will assist
+<h3 id='external-urls'>External URLs</h3><p>A service may have two additional URLs associated with it which will assist
 in investigating alerts. These are included in the Icinga interface with
 these icons:</p>
 
 <ul>
-  <li>Action URL (<img src="/manual/images/icinga/action.gif" alt="action" />) typically links to a graph. If the check uses
+<li>Action URL (<a href="images/icinga/action.gif" rel="noopener noreferrer"><img src="/manual/images/icinga/action.gif" alt="action" /></a>) typically links to a graph. If the check uses
 Graphite for its source of data then the graph will also include the
 warning and critical threshold bands.</li>
-  <li>Notes URL (<img src="/manual/images/icinga/notes.gif" alt="notes" />) links to a page in this manual describing why a given check
+<li>Notes URL (<a href="images/icinga/notes.gif" rel="noopener noreferrer"><img src="/manual/images/icinga/notes.gif" alt="notes" /></a>) links to a page in this manual describing why a given check
 exists and/or how to go about resolving it.</li>
 </ul>
-
 <p>They will appear next to the service name in the service overview page or on
 the top-right of the page when viewing a specific service.</p>
-
-<h3 id="digging-deeper">Digging deeper</h3>
-
-<p>If you want to dig a little deeper into the history of a specific alert click on it in the "Unhandled Services" view. In the top left of the main window there a few links. "View Alert Histogram For This Service" and "View Trends For This Service" are particularly useful.</p>
+<h3 id='digging-deeper'>Digging deeper</h3><p>If you want to dig a little deeper into the history of a specific alert click on it in the &ldquo;Unhandled Services&rdquo; view. In the top left of the main window there a few links. &ldquo;View Alert Histogram For This Service&rdquo; and &ldquo;View Trends For This Service&rdquo; are particularly useful.</p>
 
 
   <div class='related-content'>

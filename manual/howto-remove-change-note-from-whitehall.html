@@ -169,76 +169,44 @@ have multiple editorial remarks and they are visible only in Whitehall
 Admin. However, an Edition in the Publishing API can only have one <code>change_note</code>, which is public-facing. The Publishing API creates a list of all the change notes
 from all versions of the edition and presents them to the Content Store.
 You can read more about this in the Publishing API <a href="https://docs.publishing.service.gov.uk/apis/publishing-api/model.html#changenote">docs</a>.</p>
-
-<h3 id="remove-a-change-note">Remove a change note</h3>
-
-<p>You need to determine whether the request is referring to an <code>editorial_remark</code> in Whitehall Admin, or to a public-facing <code>change_note</code> in Publishing API.</p>
-
-<h4 id="editorial-remark">Editorial Remark</h4>
-
+<h3 id='remove-a-change-note'>Remove a change note</h3><p>You need to determine whether the request is referring to an <code>editorial_remark</code> in Whitehall Admin, or to a public-facing <code>change_note</code> in Publishing API.</p>
+<h4 id='editorial-remark'>Editorial Remark</h4>
 <ol>
-  <li>Obtain the content ID of the document on which the change note was created.
+<li>Obtain the content ID of the document on which the change note was created.
 This document will contain multiple editions. You need to extract the
 <code>editorial_remark</code> from these editions.</li>
-  <li>Create a data migration in Whitehall <a href="https://github.com/alphagov/whitehall/blob/19cd7d72de32454d532c195f35b027fa1b3ba6ac/db/data_migration/README.md">docs here</a></li>
-  <li>In the data migration, search for the document by the content ID and
+<li>Create a data migration in Whitehall <a href="https://github.com/alphagov/whitehall/blob/19cd7d72de32454d532c195f35b027fa1b3ba6ac/db/data_migration/README.md">docs here</a></li>
+<li>In the data migration, search for the document by the content ID and
 extract the <code>editorial_remark</code> that contains the text you are looking to delete.</li>
-  <li>If such an editorial remark is present, then destroy the <code>editorial_remark</code>
+<li>If such an editorial remark is present, then destroy the <code>editorial_remark</code>
 and check that it is no longer displayed.</li>
 </ol>
-
-<h4 id="change-note">Change Note</h4>
-
-<p>Rake Tasks exist in both Publishing API and Whitehall to quickly remove change notes for a document. The tasks take a content id, content locale and the text of the change note.
+<h4 id='change-note'>Change Note</h4><p>Rake Tasks exist in both Publishing API and Whitehall to quickly remove change notes for a document. The tasks take a content id, content locale and the text of the change note.
 There are two interfaces for dry and real runs, to ensure the correct change note is being targetted before removing it.</p>
-
 <p><strong>Note</strong></p>
+
 <blockquote>
-  <p>It performs a fuzzy-search of the change note text, and will return the first best match. So searching for
-generic words such as "Update" may not return the exact ChangeNote you desire. It is advised to use the
+<p>It performs a fuzzy-search of the change note text, and will return the first best match. So searching for
+generic words such as &ldquo;Update&rdquo; may not return the exact ChangeNote you desire. It is advised to use the
 dry run first to ensure the correct ChangeNote will be deleted.</p>
 </blockquote>
+<h5 id='publishing-api'>Publishing API</h5><p><strong>Note</strong></p>
 
-<h5 id="publishing-api">Publishing API</h5>
-
-<p><strong>Note</strong></p>
 <blockquote>
-  <p>Individual publishing apps may have their own equivalent of this task. If possible, remove change notes in the
+<p>Individual publishing apps may have their own equivalent of this task. If possible, remove change notes in the
 specific publishing application: use this Publishing API task as a last resort!</p>
 </blockquote>
-
-<h6 id="dry-run">Dry run</h6>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>bundle <span class="nb">exec</span> <span class="s1">'data_hygiene:remove_change_note:dry[content_id,locale,change note text]'</span>
-</code></pre></div>
-<p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?delay=0sec&amp;TARGET_APPLICATION=publishing-api&amp;MACHINE_CLASS=publishing_api&amp;RAKE_TASK=%27data_hygiene:remove_change_note:dry[CONTENT_ID,en,CHOSEN%20CHANGE%20NOTE%20TEXT]%27">Jenkins - integration</a></p>
-
+<h6 id='dry-run'>Dry run</h6><div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>bundle <span class="nb">exec</span> <span class="s1">'data_hygiene:remove_change_note:dry[content_id,locale,change note text]'</span>
+</code></pre></div><p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?delay=0sec&amp;TARGET_APPLICATION=publishing-api&amp;MACHINE_CLASS=publishing_api&amp;RAKE_TASK=%27data_hygiene:remove_change_note:dry[CONTENT_ID,en,CHOSEN%20CHANGE%20NOTE%20TEXT]%27">Jenkins - integration</a></p>
 <p>This attempts to locate the selected change note for the content, and if found, report to the user the change note object that would have been removed.</p>
-
-<h6 id="real-run">Real run</h6>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>bundle <span class="nb">exec</span> <span class="s1">'data_hygiene:remove_change_note:real[content_id,locale,change note text]'</span>
-</code></pre></div>
-<p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?delay=0sec&amp;TARGET_APPLICATION=publishing-api&amp;MACHINE_CLASS=publishing_api&amp;RAKE_TASK=%27data_hygiene:remove_change_note:real[CONTENT_ID,en,CHOSEN%20CHANGE%20NOTE%20TEXT]%27">Jenkins - integration</a></p>
-
+<h6 id='real-run'>Real run</h6><div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>bundle <span class="nb">exec</span> <span class="s1">'data_hygiene:remove_change_note:real[content_id,locale,change note text]'</span>
+</code></pre></div><p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?delay=0sec&amp;TARGET_APPLICATION=publishing-api&amp;MACHINE_CLASS=publishing_api&amp;RAKE_TASK=%27data_hygiene:remove_change_note:real[CONTENT_ID,en,CHOSEN%20CHANGE%20NOTE%20TEXT]%27">Jenkins - integration</a></p>
 <p>This will actually <em>delete</em> the selected change note and re-represent to the content store, also updating the edition history.</p>
-
-<h5 id="whitehall">Whitehall</h5>
-
-<h6 id="dry-run-1">Dry run</h6>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>bundle <span class="nb">exec</span> <span class="s1">'data_hygiene:remove_change_note:dry[content_id,locale,change note text]'</span>
-</code></pre></div>
-<p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?delay=0sec&amp;TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=%27data_hygiene:remove_change_note:dry[CONTENT_ID,en,CHOSEN%20CHANGE%20NOTE%20TEXT]%27">Jenkins - integration</a></p>
-
+<h5 id='whitehall'>Whitehall</h5><h6 id='dry-run'>Dry run</h6><div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>bundle <span class="nb">exec</span> <span class="s1">'data_hygiene:remove_change_note:dry[content_id,locale,change note text]'</span>
+</code></pre></div><p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?delay=0sec&amp;TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=%27data_hygiene:remove_change_note:dry[CONTENT_ID,en,CHOSEN%20CHANGE%20NOTE%20TEXT]%27">Jenkins - integration</a></p>
 <p>This attempts to locate the selected change note for the content, and if found, report to the user the change note text that would have been removed.</p>
-
-<h6 id="real-run-1">Real run</h6>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>bundle <span class="nb">exec</span> <span class="s1">'data_hygiene:remove_change_note:real[content_id,locale,change note text]'</span>
-</code></pre></div>
-<p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?delay=0sec&amp;TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=%27data_hygiene:remove_change_note:real[CONTENT_ID,en,CHOSEN%20CHANGE%20NOTE%20TEXT]%27">Jenkins - integration</a></p>
-
+<h6 id='real-run'>Real run</h6><div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>bundle <span class="nb">exec</span> <span class="s1">'data_hygiene:remove_change_note:real[content_id,locale,change note text]'</span>
+</code></pre></div><p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?delay=0sec&amp;TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=%27data_hygiene:remove_change_note:real[CONTENT_ID,en,CHOSEN%20CHANGE%20NOTE%20TEXT]%27">Jenkins - integration</a></p>
 <p>This will downgrade the edition to a <code>minor change</code>, set the change note text to <code>nil</code> and the <code>major_change_published_at</code> to the previous major change. It then re-represents to the content store with the updated edition history.</p>
 
 

@@ -145,7 +145,7 @@
         <a href="#mongodumps-to-s3"><span>mongodumps to S3</span></a>
         <ul>
           <li>
-            <a href="#restoring-1"><span>Restoring</span></a>
+            <a href="#restoring"><span>Restoring</span></a>
           </li>
           <li>
             <a href="#mongodumps-via-govuk_env_sync-in-aws"><span>mongodumps via govuk_env_sync in AWS</span></a>
@@ -170,45 +170,23 @@
 </div>
 
  <h1 id='header'>MongoDB backups</h1> <p>There are two ways of taking MongoDB backups.</p>
-
-<h2 id="automongodbbackup">automongodbbackup</h2>
-
-<p>This is how MongoDB backups have traditionally been taken on the GOV.UK Infrastructure.</p>
-
-<p>A third-party script, <a href="https://github.com/micahwedemeyer/automongobackup">automongodbbackup</a>, takes a nightly <code>mongodump</code> and stores it on one of the MongoDB machines' dedicated mount points (likely <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/mongodb/manifests/backup.pp#L40-L44">the first machine in the replicaset as defined in the Puppet manifest</a>).</p>
-
+<h2 id='automongodbbackup'>automongodbbackup</h2><p>This is how MongoDB backups have traditionally been taken on the GOV.UK Infrastructure.</p>
+<p>A third-party script, <a href="https://github.com/micahwedemeyer/automongobackup">automongodbbackup</a>, takes a nightly <code>mongodump</code> and stores it on one of the MongoDB machines&rsquo; dedicated mount points (likely <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/mongodb/manifests/backup.pp#L40-L44">the first machine in the replicaset as defined in the Puppet manifest</a>).</p>
 <p>The on-site backup machine (<code>backup-1.management</code>) pulls the latest backup and stores it on disk. <a href="http://duplicity.nongnu.org/">Duplicity</a> runs nightly and sends encrypted backups to an AWS S3 bucket.</p>
-
-<h3 id="restoring">Restoring</h3>
-
+<h3 id='restoring'>Restoring</h3>
 <ul>
-  <li>Fetch a backup from either the dedicated mount point, the on-site machine, or the S3 bucket <a href="/manual/restore-from-offsite-backups.html">using Duplicity</a> (you may need a password kept in the encrypted <a href="https://github.com/alphagov/govuk-secrets">hieradata</a>).</li>
-  <li>Unzip the file. This will produce a directory of data.</li>
-  <li>Run the command: <code>mongo restore --drop &lt;directory&gt;</code></li>
+<li>Fetch a backup from either the dedicated mount point, the on-site machine, or the S3 bucket <a href="/manual/restore-from-offsite-backups.html">using Duplicity</a> (you may need a password kept in the encrypted <a href="https://github.com/alphagov/govuk-secrets">hieradata</a>).</li>
+<li>Unzip the file. This will produce a directory of data.</li>
+<li>Run the command: <code>mongo restore --drop &lt;directory&gt;</code></li>
 </ul>
-
-<h2 id="mongodumps-to-s3">mongodumps to S3</h2>
-
-<p>We also backup to an AWS S3 bucket.</p>
-
+<h2 id='mongodumps-to-s3'>mongodumps to S3</h2><p>We also backup to an AWS S3 bucket.</p>
 <p>The timings are defined by parameters <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/mongodb/manifests/s3backup/cron.pp">set in the manifest</a>, but for important MongoDB clusters these may be taken every 15 minutes. The machines which take the backups are defined in hiera node classes.</p>
-
 <p>These backups are encrypted using GPG, but the functionality is similar to mongodump.</p>
-
-<h3 id="restoring-1">Restoring</h3>
-
-<p>Use the <code>/usr/local/bin/mongodb-restore-s3</code> script available on MongoDB machines which have S3 backup enabled.</p>
-
+<h3 id='restoring'>Restoring</h3><p>Use the <code>/usr/local/bin/mongodb-restore-s3</code> script available on MongoDB machines which have S3 backup enabled.</p>
 <p>This script grabs the latest backup from the S3 bucket, decrypts and unpacks it, and does a <code>mongo restore</code>.</p>
-
 <p>Machines which have enabled S3 backups and contain the script will have <code>mongodb::backup::s3_backups</code> set to <code>true</code> in their yaml configuration (see <a href="https://github.com/alphagov/govuk-puppet"><code>govuk-puppet</code></a>).</p>
-
-<h3 id="mongodumps-via-govuk_env_sync-in-aws">mongodumps via <code>govuk_env_sync</code> in AWS</h3>
-
-<p>In AWS environments, the mongodump to S3 has been replaced by a very similar mechanism as part of the <a href="/manual/govuk-env-sync.html">govuk-env-sync</a>.</p>
-
+<h3 id='mongodumps-via-govuk_env_sync-in-aws'>mongodumps via <code>govuk_env_sync</code> in AWS</h3><p>In AWS environments, the mongodump to S3 has been replaced by a very similar mechanism as part of the <a href="/manual/govuk-env-sync.html">govuk-env-sync</a>.</p>
 <p>The dump is not GPG encrypted anymore, instead we rely on S3 for encryption at rest.</p>
-
 
 
   <div class='related-content'>

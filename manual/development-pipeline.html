@@ -185,180 +185,136 @@
 </div>
 
  <h1 id='header'>The development and deployment pipeline</h1> <blockquote>
-  <p>When responding to a security incident, you should make any code changes in private, so that you don't accidentally disclose the vulnerability. To do this, follow the instructions for <a href="/manual/make-github-repo-private.html">making a repo private</a>.</p>
+<p>When responding to a security incident, you should make any code changes in private, so that you don&rsquo;t accidentally disclose the vulnerability. To do this, follow the instructions for <a href="/manual/make-github-repo-private.html">making a repo private</a>.</p>
 </blockquote>
-
 <p>Our development and deployment pipeline looks like this:</p>
 
 <ol>
-  <li>Open a Pull Request (PR)</li>
-  <li><a href="#wait-for-continuous-integration-to-pass">Wait for Continuous Integration to pass</a></li>
-  <li><a href="#review-your-own-changes">Review your own changes</a></li>
-  <li><a href="#get-someone-to-review-your-pull-request">Get someone to review your Pull Request</a></li>
-  <li><a href="#check-for-or-implement-a-deploy-freeze">Check for or implement a deploy freeze</a></li>
-  <li><a href="#merge-your-own-pull-request">Merge your own Pull Request</a></li>
-  <li><a href="#deployment">Deploy through each of the environments</a></li>
+<li>Open a Pull Request (PR)</li>
+<li><a href="#wait-for-continuous-integration-to-pass">Wait for Continuous Integration to pass</a></li>
+<li><a href="#review-your-own-changes">Review your own changes</a></li>
+<li><a href="#get-someone-to-review-your-pull-request">Get someone to review your Pull Request</a></li>
+<li><a href="#check-for-or-implement-a-deploy-freeze">Check for or implement a deploy freeze</a></li>
+<li><a href="#merge-your-own-pull-request">Merge your own Pull Request</a></li>
+<li><a href="#deployment">Deploy through each of the environments</a></li>
 </ol>
-
-<h2 id="wait-for-continuous-integration-to-pass">Wait for Continuous Integration to pass</h2>
-
-<p>When a Pull Request (PR) is opened, it often triggers an automated
+<h2 id='wait-for-continuous-integration-to-pass'>Wait for Continuous Integration to pass</h2><p>When a Pull Request (PR) is opened, it often triggers an automated
 job, which typically lints the code and runs the tests.</p>
-
-<p>Increasingly we're using <a href="/manual/test-and-build-a-project-with-github-actions.html">GitHub Actions</a>
-to perform these checks, but historically we've run these jobs on
+<p>Increasingly we&rsquo;re using <a href="/manual/test-and-build-a-project-with-github-actions.html">GitHub Actions</a>
+to perform these checks, but historically we&rsquo;ve run these jobs on
 <a href="/manual/test-and-build-a-project-on-jenkins-ci.html">our CI infrastructure</a>.
 Some applications also trigger a run of the <a href="/manual/publishing-e2e-tests.html">end-to-end tests</a>.</p>
-
-<h2 id="review-your-own-changes">Review your own changes</h2>
-
-<p>As well as double-checking your code and commits, you may refer
+<h2 id='review-your-own-changes'>Review your own changes</h2><p>As well as double-checking your code and commits, you may refer
 to the following:</p>
-
-<h3 id="heroku-app-review">Heroku App Review</h3>
-
-<p>Sometimes you may need to demo a running version of your change.
+<h3 id='heroku-app-review'>Heroku App Review</h3><p>Sometimes you may need to demo a running version of your change.
 All frontend applications and some publishing apps have
 <a href="/manual/review-apps.html">Heroku Review Apps</a> enabled, with a
 link near the bottom of each PR.</p>
-
-<h3 id="branch-deploy-review">Branch Deploy Review</h3>
-
-<p>Sometimes you may need to deploy your change in Integration in
+<h3 id='branch-deploy-review'>Branch Deploy Review</h3><p>Sometimes you may need to deploy your change in Integration in
 order to test it works on real infrastructure. Go to
 <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_App/">the <code>Deploy_App</code> job in Jenkins</a>
-and click 'Build with Parameters':</p>
+and click &lsquo;Build with Parameters&rsquo;:</p>
 
 <ul>
-  <li><code>TARGET_APPLICATION</code> - the name of the repository you want to deploy</li>
-  <li><code>DEPLOY_TASK</code> - usually 'deploy' is most appropriate</li>
-  <li><code>TAG</code> - put the name of your branch</li>
-  <li>Typically you can leave the checkboxes as they are</li>
+<li><code>TARGET_APPLICATION</code> - the name of the repository you want to deploy</li>
+<li><code>DEPLOY_TASK</code> - usually &lsquo;deploy&rsquo; is most appropriate</li>
+<li><code>TAG</code> - put the name of your branch</li>
+<li>Typically you can leave the checkboxes as they are</li>
 </ul>
-
-<h2 id="get-someone-to-review-your-pull-request">Get someone to review your Pull Request</h2>
-
-<p>The GDS Way has guidelines on <a href="https://gds-way.cloudapps.digital/manuals/code-review-guidelines.html">how to review code</a>.</p>
-
-<p>Only when the tests pass and the code has been approved the Pull Request can be merged, since we've
+<h2 id='get-someone-to-review-your-pull-request'>Get someone to review your Pull Request</h2><p>The GDS Way has guidelines on <a href="https://gds-way.cloudapps.digital/manuals/code-review-guidelines.html">how to review code</a>.</p>
+<p>Only when the tests pass and the code has been approved the Pull Request can be merged, since we&rsquo;ve
 <a href="/manual/configure-github-repo.html">configured GitHub to prevent merges</a> otherwise.</p>
-
-<h2 id="check-for-or-implement-a-deploy-freeze">Check for or implement a deploy freeze</h2>
-
-<p>In exceptional circumstances, we may wish to block or <em>freeze</em>
+<h2 id='check-for-or-implement-a-deploy-freeze'>Check for or implement a deploy freeze</h2><p>In exceptional circumstances, we may wish to block or <em>freeze</em>
 deployments for a short period of time. This should be done by
-checking "Freeze deployments?" and adding an explanatory note
+checking &ldquo;Freeze deployments?&rdquo; and adding an explanatory note
 to the application in the <a href="https://release.publishing.service.gov.uk">Release app</a>.</p>
 
 <blockquote>
-  <p>Checking "Freeze deployments?" will turn off all automatic
+<p>Checking &ldquo;Freeze deployments?&rdquo; will turn off all automatic
 deployments for the application. You can still deploy urgent
 changes manually if necessary.</p>
 </blockquote>
-
 <p>It is important to ensure people are aware of a code freeze.</p>
 
 <blockquote>
-  <p>Send a message to #govuk-developers on slack with the @channel
+<p>Send a message to #govuk-developers on slack with the @channel
 prefix (to ensure people who are offline are notified) and email
-<a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#103;&#111;&#118;&#117;&#107;&#045;&#116;&#101;&#099;&#104;&#045;&#109;&#101;&#109;&#098;&#101;&#114;&#115;&#064;&#100;&#105;&#103;&#105;&#116;&#097;&#108;&#046;&#099;&#097;&#098;&#105;&#110;&#101;&#116;&#045;&#111;&#102;&#102;&#105;&#099;&#101;&#046;&#103;&#111;&#118;&#046;&#117;&#107;">&#103;&#111;&#118;&#117;&#107;&#045;&#116;&#101;&#099;&#104;&#045;&#109;&#101;&#109;&#098;&#101;&#114;&#115;&#064;&#100;&#105;&#103;&#105;&#116;&#097;&#108;&#046;&#099;&#097;&#098;&#105;&#110;&#101;&#116;&#045;&#111;&#102;&#102;&#105;&#099;&#101;&#046;&#103;&#111;&#118;&#046;&#117;&#107;</a>. Your message
+<a href="mailto:govuk-tech-members@digital.cabinet-office.gov.uk">govuk-tech-members@digital.cabinet-office.gov.uk</a>. Your message
 should include the repo you are freezing, the reason why, and the
 expected duration. Follow up to let people know when the freeze
 is lifted.</p>
 </blockquote>
-
 <p>When a deploy freeze is in effect, you should avoid merging any PRs.
 This is because your changes may block other, urgent changes related
 to the deploy freeze. Your changes will also remain undeployed for a
 long time.</p>
-
-<h2 id="merge-your-own-pull-request">Merge your own Pull Request</h2>
-
-<p>We've got <a href="/manual/merge-pr.html">guidelines on merging of Pull Requests</a>.</p>
-
+<h2 id='merge-your-own-pull-request'>Merge your own Pull Request</h2><p>We&rsquo;ve got <a href="/manual/merge-pr.html">guidelines on merging of Pull Requests</a>.</p>
 <p>Some applications <a href="https://github.com/alphagov/govuk-saas-config/blob/master/github/repo_overrides.yml">have restrictions on who can merge PRs</a>.
 If you are unable to merge your own PR, you should ask
 <a href="https://github.com/orgs/alphagov/teams/gov-uk-production/members">someone else</a>
 to merge (and deploy) it for you.</p>
-
 <p>Code that is merged to <code>master</code> is tested again on CI. This is because
 the <code>master</code> branch may have changed since the tests last ran on the PR.
 If the tests on <code>master</code> pass, Jenkins pushes a <code>release_123</code> git tag to
 GitHub.</p>
 
 <blockquote>
-  <p><strong>WARNING</strong>: some applications have Continuous Deployment enabled,
+<p><strong>WARNING</strong>: some applications have Continuous Deployment enabled,
 which means the deployment process is fully automated. You should do
 any manual testing with <a href="#branch-deploy-review">a temporary, branch deployment</a>
 before you merge.</p>
 </blockquote>
-
-<h2 id="deployment">Deployment</h2>
-
-<p>Teams are responsible for deploying their own work. We believe that
+<h2 id='deployment'>Deployment</h2><p>Teams are responsible for deploying their own work. We believe that
 <a href="https://gds.blog.gov.uk/2012/11/02/regular-releases-reduce-risk">regular releases minimise the risk of major problems</a>
 and improve recovery time. The <a href="/manual/welcome-to-2nd-line.html">2nd line team</a>
-is responsible for providing access to deploy software for teams who can't deploy it themselves.</p>
-
-<h3 id="continuous-deployment">Continuous Deployment</h3>
+is responsible for providing access to deploy software for teams who can&rsquo;t deploy it themselves.</p>
+<h3 id='continuous-deployment'>Continuous Deployment</h3>
+<ul>
+<li>Check the notes in the <a href="https://release.publishing.service.gov.uk">Release app</a> to see if Continuous Deployment is enabled.</li>
+<li>If so, after merging, you should check the Release app to see if the deployment succeeds.</li>
+<li>If the latest release is not on Production within about 15 minutes, something went wrong:
 
 <ul>
-  <li>Check the notes in the <a href="https://release.publishing.service.gov.uk">Release app</a> to see if Continuous Deployment is enabled.</li>
-  <li>If so, after merging, you should check the Release app to see if the deployment succeeds.</li>
-  <li>If the latest release is not on Production within about 15 minutes, something went wrong:
-    <ul>
-      <li>Refer to the <a href="https://docs.google.com/presentation/d/1A0zdYHwOxV2jO_0YVsKplySXvd777pXDwn1YnETXSh8/edit">Continuous Deployment Demo slides</a> for details of the deployment process so you can pinpoint where in the pipeline it failed.</li>
-      <li>You can manually deploy your change if the automation fails e.g. due to a flakey <a href="https://github.com/alphagov/smokey">Smokey test</a>.</li>
-    </ul>
-  </li>
+<li>Refer to the <a href="https://docs.google.com/presentation/d/1A0zdYHwOxV2jO_0YVsKplySXvd777pXDwn1YnETXSh8/edit">Continuous Deployment Demo slides</a> for details of the deployment process so you can pinpoint where in the pipeline it failed.</li>
+<li>You can manually deploy your change if the automation fails e.g. due to a flakey <a href="https://github.com/alphagov/smokey">Smokey test</a>.</li>
+</ul></li>
 </ul>
-
-<h3 id="manual-deployment">Manual Deployment</h3>
-
-<h4 id="wait-for-the-release-to-deploy-to-integration">Wait for the release to deploy to Integration</h4>
-
-<p>When a new release is created, CI sends a message to Integration Deploy
+<h3 id='manual-deployment'>Manual Deployment</h3><h4 id='wait-for-the-release-to-deploy-to-integration'>Wait for the release to deploy to Integration</h4><p>When a new release is created, CI sends a message to Integration Deploy
 Jenkins to deploy the tag and run <a href="https://github.com/alphagov/smokey">Smokey</a>. You should verify
 your changes work in Integration before deploying downstream:</p>
 
 <ul>
-  <li>Check the results of the <a href="https://github.com/alphagov/smokey">smoke tests</a>.</li>
-  <li>Look for any Icinga alerts related to your application.</li>
+<li>Check the results of the <a href="https://github.com/alphagov/smokey">smoke tests</a>.</li>
+<li>Look for any Icinga alerts related to your application.</li>
 </ul>
-
 <p>Our apps should always be in a state where <code>master</code> is deployable. You
 should raise a PR to revert your changes if they cause a problem and
-you're unable to resolve that problem straight away.</p>
-
-<h4 id="manually-deploy-to-staging-then-production">Manually deploy to Staging, then Production</h4>
-
-<p>Deployments to these environments are manual and require
+you&rsquo;re unable to resolve that problem straight away.</p>
+<h4 id='manually-deploy-to-staging-then-production'>Manually deploy to Staging, then Production</h4><p>Deployments to these environments are manual and require
 <a href="/manual/rules-for-getting-production-access.html">production access</a>.
 Go to the <a href="https://release.publishing.service.gov.uk">Release application</a> and find the application you
 want to deploy, then select the release tag you want to deploy.
 Follow these rules:</p>
 
 <ul>
-  <li>Deployments should generally take place between 9.30am and 5pm
+<li>Deployments should generally take place between 9.30am and 5pm
 (4pm on Fridays), the core hours when most people are in the office.</li>
-  <li>If there's other people's code to deploy, ask them whether they're
+<li>If there&rsquo;s other people&rsquo;s code to deploy, ask them whether they&rsquo;re
 okay for the changes to go out.</li>
-  <li>Announce in <code>#govuk-2ndline</code> if you anticipate your release causing
+<li>Announce in <code>#govuk-2ndline</code> if you anticipate your release causing
 any issues. Stay around for a while just in case something goes wrong.</li>
-  <li>Check the <a href="https://release.publishing.service.gov.uk">Release app</a> for a deploy note for the application,
+<li>Check the <a href="https://release.publishing.service.gov.uk">Release app</a> for a deploy note for the application,
 to see if there are any special instructions or reasons not to deploy.
 Individual app deploy freezes are usually announced here.</li>
 </ul>
-
 <p>After a deployment:</p>
 
 <ul>
-  <li><a href="/manual/error-reporting.html">Check Sentry for any new errors</a>.</li>
-  <li>Look for <a href="/manual/icinga.html">any Icinga alerts</a> related to your application.</li>
-  <li>Check the <a href="/manual/deployment-dashboards.html">Deployment Dashboard</a> for any issues.</li>
-  <li>Check the results of the <a href="https://github.com/alphagov/smokey">smoke tests</a>.</li>
+<li><a href="/manual/error-reporting.html">Check Sentry for any new errors</a>.</li>
+<li>Look for <a href="/manual/icinga.html">any Icinga alerts</a> related to your application.</li>
+<li>Check the <a href="/manual/deployment-dashboards.html">Deployment Dashboard</a> for any issues.</li>
+<li>Check the results of the <a href="https://github.com/alphagov/smokey">smoke tests</a>.</li>
 </ul>
-
 
 
   <div class='related-content'>

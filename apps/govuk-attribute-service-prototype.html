@@ -317,87 +317,69 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: govuk-attribute-service-prototype</h1>
 
-  
-<p>Prototype store of user data &amp; OIDC UserInfo endpoint</p>
+  <p>Prototype store of user data &amp; OIDC UserInfo endpoint</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/govuk-attribute-service-prototype">govuk-attribute-service-prototype</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/govuk-attribute-service-prototype"&gt;govuk-attribute-service-prototype&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-accounts-tech</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>GOV.UK PaaS</strong></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-accounts-tech&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/organizations/govuk/issues/?project=5371008" class="govuk-link">Sentry (error tracking)</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;GOV.UK PaaS&lt;/strong&gt;&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
-
-
-
-</ul>
-</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://sentry.io/organizations/govuk/issues/?project=5371008" class="govuk-link"&gt;Sentry (error tracking)&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
+</div></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>A prototype to store personal data connected with a GOV.UK account, with consents managed with OAuth tokens issued by the <a href="https://github.com/alphagov/govuk-account-manager-prototype">Account Manager</a>.</p>
+
 <h2 id="developer-setup">Developer setup</h2>
+
 <p>If you are a GOV.UK developer you can use <a href="https://github.com/alphagov/govuk-docker">govuk-docker</a> to run this app with the account manager.</p>
-<p>For the GOV.UK Account team discovery, we are running the app alongside  <a href="https://github.com/alphagov/finder-frontend">finder-frontend's</a> transition checker.
+
+<p>For the GOV.UK Account team discovery, we are running the app alongside  <a href="https://github.com/alphagov/finder-frontend">finder-frontend&rsquo;s</a> transition checker.
 Until our prototype is live you will need <a href="https://github.com/alphagov/govuk-docker/tree/enable-account-finder-frontend">a branch</a> of govuk-docker <code>enable-account-finder-frontend</code>, which has the required environment variables to spin up the service.</p>
+
 <p>If you are on a mac, running finder-frontend will spin up a large number of apps and require many resources.
 Ensure you have read <a href="https://github.com/alphagov/govuk-docker/blob/master/docs/installation.md#docker-settings">the installation guide</a> about increasing system resources to docker, or you may see errors transitioning between apps.</p>
-<p>We also maintain <a href="https://github.com/alphagov/govuk-accounts-docker">govuk-accounts-docker</a> which is intended to help government services outside GOV.UK set up a development environment.</p>
-  </div>
 
+<p>We also maintain <a href="https://github.com/alphagov/govuk-accounts-docker">govuk-accounts-docker</a> which is intended to help government services outside GOV.UK set up a development environment.</p>
+<p></div></p>
 
 
             

@@ -171,57 +171,41 @@
  <h1 id='header'>Metrics</h1> <p>Metrics are measurements of something. GOV.UK use metrics to monitor
 the service in realtime, and store these metrics over time, which can
 help to understand changes that are occurring.</p>
-
 <p>Graphite is the service used on GOV.UK to store metrics. Normally,
 metrics are sent by applications to another service called statsd,
 which will run on the local machine, and then the statsd service will
 forward the metrics to Graphite.</p>
-
 <p>Once metrics are stored, the Graphite web interface can then be used
 to query the metrics. There is another service, Grafana, which
-doesn't store any data, but can access Graphite, and is another way in
+doesn&rsquo;t store any data, but can access Graphite, and is another way in
 which you can view metrics about GOV.UK.</p>
-
 <p>One important difference when comparing Graphite and Grafana for
 visualising metrics is that Grafana can present data Elasticsearch and
 Graphite, even on the same dashboard, whereas Graphite can only
 present data from Graphite.</p>
-
-<h2 id="graphite">Graphite</h2>
-
-<p>Graphite (<a href="https://graphite.publishing.service.gov.uk/">Carrenza</a>, <a href="https://graphite.production.govuk.digital/">AWS</a>) stores
+<h2 id='graphite'>Graphite</h2><p>Graphite (<a href="https://graphite.publishing.service.gov.uk/">Carrenza</a>, <a href="https://graphite.production.govuk.digital/">AWS</a>) stores
 metrics in a hierarchy, and the time intervals, retention periods and
 aggregation methods it uses are configurable.</p>
-
 <p>Graphite metrics are <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/files/node/s_graphite/storage-schemas.conf">stored for 5 years</a>,
 but smaller intervals are <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/files/node/s_graphite/storage-aggregation.conf">aggregated in to larger
 intervals</a> over time.</p>
-
-<h3 id="statsd-gauges-in-graphite">StatsD Gauges in Graphite</h3>
-
-<p>A gauge is one of the <a href="https://github.com/etsy/statsd/blob/master/docs/metric_types.md">types of metrics</a> that
+<h3 id='statsd-gauges-in-graphite'>StatsD Gauges in Graphite</h3><p>A gauge is one of the <a href="https://github.com/etsy/statsd/blob/master/docs/metric_types.md">types of metrics</a> that
 statsd can handle. In general, a gauge normally refers to a number
 that can go up or down.</p>
-
 <p>On GOV.UK, <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/statsd/templates/etc/statsd.conf.erb">StatsD is configured</a> to delete gauges. By
 default, when a metric is sent to StatsD, statsd will continually send
 it to Graphite. However, for gauges, it will only send it one time.</p>
-
-<h2 id="grafana">Grafana</h2>
-
-<p>Grafana (<a href="https://grafana.publishing.service.gov.uk/">Carrenza</a>, <a href="https://grafana.production.govuk.digital/">AWS</a>) on GOV.UK
+<h2 id='grafana'>Grafana</h2><p>Grafana (<a href="https://grafana.publishing.service.gov.uk/">Carrenza</a>, <a href="https://grafana.production.govuk.digital/">AWS</a>) on GOV.UK
 is used for dashboards. Dashboards can be created directly in the web
 interface (first you must login using the credentials username: admin
 password: admin), or added through govuk-puppet. If a dashboard is
 only created through the web interface it will be lost when puppet is
 next run on the machine.</p>
-
 <p>Usually you would want to develop dashboards in Grafana by editing
 them through the web interface, and then export them and add them to
 govuk-puppet once you are happy with it. Adding the dashboard to
 govuk-puppet means that it can be easily kept in sync between
 environments.</p>
-
 
 
   <div class='related-content'>

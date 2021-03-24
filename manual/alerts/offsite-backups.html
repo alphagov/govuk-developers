@@ -164,43 +164,30 @@
 </div>
 
  <h1 id='header'>Offsite backups</h1> <p>All of our offsite backups use duplicity. Most, but not all, are encrypted using GPG.</p>
-
-<p>If a backup fails then start by looking at any output captured by cron and sent to the "machine email" list. This is linked from the Nagios alert under "extra actions".</p>
-
-<p>If the backup hasn't failed but is flagged with a freshness warning, it may still be in progress. The asset stores are large and backups can take a long time. Check whether the duplicity process is still running using <code>htop</code> or <code>ps aux | grep duplicity</code>.</p>
-
+<p>If a backup fails then start by looking at any output captured by cron and sent to the &ldquo;machine email&rdquo; list. This is linked from the Nagios alert under &ldquo;extra actions&rdquo;.</p>
+<p>If the backup hasn&rsquo;t failed but is flagged with a freshness warning, it may still be in progress. The asset stores are large and backups can take a long time. Check whether the duplicity process is still running using <code>htop</code> or <code>ps aux | grep duplicity</code>.</p>
 <p>To proceed further you will need to know a few things which you can determine either from the job configuration in Puppet or by listing crontabs for users (<code>sudo crontab -lu govuk-backup</code>).</p>
-
-<p>You'll need to know:</p>
+<p>You&rsquo;ll need to know:</p>
 
 <ol>
-  <li>The user that the backup normally runs as - for example <code>govuk-backup</code> or <code>root</code></li>
-  <li>The script that is run - for example <code>/var/spool/duplicity/&lt;job&gt;.sh</code></li>
-  <li>The destination for the backup - for example <code>rsync://&lt;user&gt;@&lt;host&gt;:/&lt;path&gt;</code></li>
-  <li>The archive directory used as a local cache - for example <code>/data/backups/.cache/duplicity</code></li>
+<li>The user that the backup normally runs as - for example <code>govuk-backup</code> or <code>root</code></li>
+<li>The script that is run - for example <code>/var/spool/duplicity/&lt;job&gt;.sh</code></li>
+<li>The destination for the backup - for example <code>rsync://&lt;user&gt;@&lt;host&gt;:/&lt;path&gt;</code></li>
+<li>The archive directory used as a local cache - for example <code>/data/backups/.cache/duplicity</code></li>
 </ol>
 
 <blockquote>
-  <p><strong>Important!</strong> The <code>sudo -i</code> in the following commands is important because it prevents GPG from using keyrings in your user's home directory.</p>
+<p><strong>Important!</strong> The <code>sudo -i</code> in the following commands is important because it prevents GPG from using keyrings in your user&rsquo;s home directory.</p>
 </blockquote>
-
 <p>Start by checking the status of the destination to see what backups succeeded recently:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo</span> <span class="nt">-iu</span> &lt;user&gt; duplicity collection-status <span class="nt">--archive-dir</span> &lt;archive_directory&gt; &lt;destination&gt;
-</code></pre></div>
-<p>You can try running the backup again manually. This may take some time - so it's recommended to use <code>tmux</code> or <code>screen</code>:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo</span> <span class="nt">-iu</span> &lt;user&gt; /var/spool/duplicity/&lt;script&gt;
-</code></pre></div>
-<p>You can look for output of the backup jobs in the "machine email carrenza" google group. If the log contains the line
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo</span> <span class="nt">-iu</span> &lt;user&gt; duplicity collection-status <span class="nt">--archive-dir</span> &lt;archive_directory&gt; &lt;destination&gt;
+</code></pre></div><p>You can try running the backup again manually. This may take some time - so it&rsquo;s recommended to use <code>tmux</code> or <code>screen</code>:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo</span> <span class="nt">-iu</span> &lt;user&gt; /var/spool/duplicity/&lt;script&gt;
+</code></pre></div><p>You can look for output of the backup jobs in the &ldquo;machine email carrenza&rdquo; google group. If the log contains the line
 <code>Warning, found the following orphaned backup files</code> then try running the command</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo</span> <span class="nt">-iugovuk-backup</span> duplicity cleanup &lt;destination&gt;  <span class="nt">--no-encryption</span> <span class="nt">--force</span>
-</code></pre></div>
-<p>If a backup fails part way through - for example, this will happen when the disk runs out of space - then subsequent backups will also fail since duplicity will attempt to ask for a GPG passphrase interactively and fail.</p>
-
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo</span> <span class="nt">-iugovuk-backup</span> duplicity cleanup &lt;destination&gt;  <span class="nt">--no-encryption</span> <span class="nt">--force</span>
+</code></pre></div><p>If a backup fails part way through - for example, this will happen when the disk runs out of space - then subsequent backups will also fail since duplicity will attempt to ask for a GPG passphrase interactively and fail.</p>
 <p>The output of jobs that have failed for this reason will end with an <code>EOFError</code> message. In these cases, you will need to run the backup again manually, and provide the passphrase when asked.</p>
-
 <p>The passphrase is contained in the <code>backup::assets::backup_private_gpg_key_passphrase</code> key in <a href="https://github.com/alphagov/govuk-secrets/blob/master/puppet/hieradata/production_credentials.yaml">govuk-secrets</a>.</p>
 
 

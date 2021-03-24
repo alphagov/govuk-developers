@@ -137,7 +137,7 @@
         <a href="#nomenclature"><span>Nomenclature</span></a>
       </li>
       <li>
-        <a href="#how-sentry-is-integrated-on-govuk"><span>How Sentry is integrated on GOV.UK</span></a>
+        <a href="#how-sentry-is-integrated-on-gov-uk"><span>How Sentry is integrated on GOV.UK</span></a>
       </li>
       <li>
         <a href="#sentry-roles"><span>Sentry roles</span></a>
@@ -208,238 +208,169 @@
 place, regardless of which application, what environment or what machine
 the error occurred on. It is far more convenient than logging on to
 individual machines and querying their logs.</p>
-
 <p>Useful links:</p>
 
 <ul>
-  <li><a href="https://sentry.io/organizations/govuk/stats/">Sentry Organization Stats</a>
+<li><a href="https://sentry.io/organizations/govuk/stats/">Sentry Organization Stats</a>
 for an overview of how many errors are being sent/rate-limited site-wide.</li>
-  <li><a href="https://sentry.io/organizations/govuk/projects/">Sentry Projects</a>
+<li><a href="https://sentry.io/organizations/govuk/projects/">Sentry Projects</a>
 for a per-project view, enabling you to see which ones are causing the
 most errors right now.</li>
-  <li>Sentry Grafana dashboards:
+<li>Sentry Grafana dashboards:
 <a href="https://grafana.production.govuk.digital/dashboard/file/sentry_errors_across_all_environments.json">Production</a>,
 <a href="https://grafana.staging.govuk.digital/dashboard/file/sentry_errors_across_all_environments.json">Staging</a>
 and <a href="https://grafana.integration.publishing.service.gov.uk/dashboard/file/sentry_errors_across_all_environments.json">Integration</a>
 (all require VPN), for a per-environment breakdown of Sentry errors.</li>
 </ul>
-
-<h2 id="nomenclature">Nomenclature</h2>
-
+<h2 id='nomenclature'>Nomenclature</h2>
 <ul>
-  <li><strong>Project</strong>: each GOV.UK application has its own project on Sentry, where
+<li><strong>Project</strong>: each GOV.UK application has its own project on Sentry, where
 errors originating from that application are consolidated. Example:
 <a href="https://sentry.io/organizations/govuk/issues/?project=202242">publishing-api</a></li>
-  <li><strong>Issue</strong>: a group of similar errors. For example, multiple instances of
+<li><strong>Issue</strong>: a group of similar errors. For example, multiple instances of
 <code>NoMethodError</code> from the same app are likely to be logged under the same
 issue (see <a href="https://sentry.io/organizations/govuk/issues/2150349125/?project=202259&amp;query=is%3Aunresolved">example</a>) in the project in Sentry. In practice,
 there are a <a href="#fingerprinting">variety of factors</a> that determine
 whether errors are grouped under the same issue.</li>
-  <li><strong>Error/Exception</strong>: a single occurrence of an Issue, containing details
+<li><strong>Error/Exception</strong>: a single occurrence of an Issue, containing details
 such as stack trace, arguments, server IP and error message.
 See <a href="https://sentry.io/organizations/govuk/issues/2155210524/events/aa4edd05a94c4d14b07d4c754a13c788/">example</a>.</li>
 </ul>
-
-<h2 id="how-sentry-is-integrated-on-govuk">How Sentry is integrated on GOV.UK</h2>
-
-<p>Projects can be created and edited in the Sentry UI, but this risks creating
+<h2 id='how-sentry-is-integrated-on-gov-uk'>How Sentry is integrated on GOV.UK</h2><p>Projects can be created and edited in the Sentry UI, but this risks creating
 inconsistencies or missing apps. We therefore configure projects using
 <a href="https://github.com/alphagov/govuk-saas-config/blob/5171b2803a7e211fff9536909b7d27c7fa5a4840/sentry/Rakefile#L1-L12">govuk-saas-config</a> (and its <a href="https://github.com/alphagov/govuk-saas-config/blob/5171b2803a7e211fff9536909b7d27c7fa5a4840/sentry/Rakefile#L26-L87">associated rake tasks</a>), which
 read a <a href="https://docs.publishing.service.gov.uk/apps.json">list of apps</a> from govuk-developer-docs and make sure that
 all configuration is set up correctly.</p>
-
 <p>Apps are configured to talk to Sentry using the <a href="https://github.com/alphagov/govuk_app_config">govuk_app_config</a> gem,
 which interfaces with Sentry via its <a href="https://github.com/alphagov/govuk_app_config/blob/master/lib/govuk_app_config/govuk_error.rb"><code>GovukError</code> class</a>. Apps
 call <code>GovukError.configure</code> - see <a href="https://github.com/alphagov/email-alert-api/blob/master/config/initializers/govuk_error.rb">example</a>. This
 <a href="https://github.com/alphagov/govuk_app_config/pull/160">delegates</a> to the <a href="https://github.com/getsentry/sentry-ruby/tree/master/sentry-raven">sentry-raven</a> gem under the hood,
 though the gem is now superseded by sentry-ruby, which we have
 <a href="https://trello.com/c/1zVPYfTR/1979-replace-sentry-raven-with-sentry-ruby">plans to migrate to</a> in the future.</p>
-
 <p>Unhandled exceptions are automatically logged to Sentry, but you can also
 <a href="https://github.com/alphagov/govuk_app_config/blob/073c9b2312a4893b040c9225b713ac880c69f5b8/README.md#manual-error-reporting">manually report something to Sentry using <code>GovukError.notify</code></a>.</p>
-
-<h2 id="sentry-roles">Sentry roles</h2>
-
-<p>There are different 'roles' in Sentry, with different permissions:</p>
+<h2 id='sentry-roles'>Sentry roles</h2><p>There are different &lsquo;roles&rsquo; in Sentry, with different permissions:</p>
 
 <ul>
-  <li>Most people with access to Sentry have the "Member" role, which lets them
+<li>Most people with access to Sentry have the &ldquo;Member&rdquo; role, which lets them
 view errors, issues and projects.</li>
-  <li>Those with the "Admin" role can configure teams and projects.</li>
-  <li>Those with the "Manager" role can edit organisation settings and set things
+<li>Those with the &ldquo;Admin&rdquo; role can configure teams and projects.</li>
+<li>Those with the &ldquo;Manager&rdquo; role can edit organisation settings and set things
 like global rate limits.</li>
-  <li>Those with the "Owner" role have unrestricted access to the system and can
+<li>Those with the &ldquo;Owner&rdquo; role have unrestricted access to the system and can
 make billing and plan changes.</li>
 </ul>
-
 <p>Some links in this documentation will only be visible to those with the
 right permissions. If you need a higher permission than you already have, the
 senior tech team can apply this for you.</p>
-
-<h2 id="deciding-whether-to-log-errors-in-sentry">Deciding whether to log errors in Sentry</h2>
-
-<p>We should only capture actionable errors in Sentry, i.e. errors representing
+<h2 id='deciding-whether-to-log-errors-in-sentry'>Deciding whether to log errors in Sentry</h2><p>We should only capture actionable errors in Sentry, i.e. errors representing
 an underlying issue that developers can fix. We should not capture 4XX
 responses, for example, as these indicate a client issue. In fact, sentry-raven
 ignores several exception types by default - see below.</p>
-
-<h3 id="ignoring-exception-types">Ignoring exception types</h3>
-
-<p>govuk_app_config has a list of ignorable exceptions (
+<h3 id='ignoring-exception-types'>Ignoring exception types</h3><p>govuk_app_config has a list of ignorable exceptions (
 <a href="https://github.com/alphagov/govuk_app_config/blob/b911c5bbef9bd1df6a92cf31eb5a8e0d3a91d851/lib/govuk_app_config/govuk_error/configure.rb#L20-L50"><code>excluded_exceptions</code></a>). If your
 application raises an exception on this list, it will not be logged in Sentry.
 Note that sentry-raven also has a
 <a href="https://github.com/getsentry/sentry-ruby/blob/fec3fe012adfe80af63d54df1dfa8a0bdc0415b2/sentry-raven/lib/raven/configuration.rb#L199-L221">default list of exceptions to ignore</a>, but
 these are <a href="https://github.com/getsentry/sentry-ruby/blob/fec3fe012adfe80af63d54df1dfa8a0bdc0415b2/sentry-raven/lib/raven/configuration.rb#L35-L37">overwritten, rather than appended</a> by
 govuk_app_config, so have no meaning on GOV.UK.</p>
-
 <p>Then there is a list of exceptions to ignore if they occur during the nightly
 data sync: <a href="https://github.com/alphagov/govuk_app_config/blob/b911c5bbef9bd1df6a92cf31eb5a8e0d3a91d851/lib/govuk_app_config/govuk_error/configure.rb#L57-L65"><code>data_sync_excluded_exceptions</code></a>.
 These are exceptions that are commonly raised while the databases and content
 store are periodically unavailable.</p>
-
 <p>When determining whether or not to ignore an exception, the exception chain is
-inspected. This means if an exception isn't on the ignore list, but its
+inspected. This means if an exception isn&rsquo;t on the ignore list, but its
 underlying cause is an exception on the ignore list, then it will be ignored.
 This <a href="https://github.com/getsentry/sentry-ruby/blob/82e1ffe711af287ddc23e8517bdb8275beff94d5/sentry-raven/lib/raven/configuration.rb#L449-L455">applies to <code>excluded_exceptions</code></a> and
 <a href="https://github.com/alphagov/govuk_app_config/blob/b911c5bbef9bd1df6a92cf31eb5a8e0d3a91d851/lib/govuk_app_config/govuk_error/configuration.rb#L43">to <code>data_sync_excluded_exceptions</code></a>.</p>
-
-<h3 id="ignoring-environments">Ignoring environments</h3>
-
-<p>There is a hardcoded list of environments in which Sentry is
+<h3 id='ignoring-environments'>Ignoring environments</h3><p>There is a hardcoded list of environments in which Sentry is
 considered to be active. If the <code>SENTRY_CURRENT_ENV</code> environment variable
 available to your app is not on the
 <a href="https://github.com/alphagov/govuk_app_config/blob/b911c5bbef9bd1df6a92cf31eb5a8e0d3a91d851/lib/govuk_app_config/govuk_error/configure.rb#L14-L18"><code>active_sentry_environments</code></a> list, then none of
 its errors will be logged to Sentry.</p>
-
-<h3 id="advanced-sentry-customisation">Advanced Sentry customisation</h3>
-
-<p>For all of the above, you can easily
+<h3 id='advanced-sentry-customisation'>Advanced Sentry customisation</h3><p>For all of the above, you can easily
 <a href="https://github.com/alphagov/govuk_app_config/blob/master/README.md#error-reporting">configure any of these properties by appending to them</a>.</p>
-
 <p>You can also run arbitrary code to decide whether or not an error should be
 logged in Sentry, using the <code>should_capture</code> lambda. Your custom code will be
 <a href="https://github.com/alphagov/govuk_app_config/blob/b911c5bbef9bd1df6a92cf31eb5a8e0d3a91d851/lib/govuk_app_config/govuk_error/configuration.rb#L18-L24">lazily combined with the default evaluators</a> such that if an
-exception is on any of the 'excluded exceptions' lists, it will be excluded
+exception is on any of the &lsquo;excluded exceptions&rsquo; lists, it will be excluded
 (even if your custom <code>should_capture</code> callback returns true).</p>
-
-<h2 id="when-errors-are-received-by-sentry">When errors are received by Sentry</h2>
-
-<p>Sentry first fingerprints the error to decide what Issue to group it under.
+<h2 id='when-errors-are-received-by-sentry'>When errors are received by Sentry</h2><p>Sentry first fingerprints the error to decide what Issue to group it under.
 It then checks how many occurrences of that Issue have happened recently,
 and rate-limits (i.e. ignores) this occurrence if it is happening too
 frequently. More details below.</p>
-
-<h3 id="fingerprinting">Fingerprinting</h3>
-
-<p>Errors are grouped into Issues automatically by Sentry. By default, Sentry
+<h3 id='fingerprinting'>Fingerprinting</h3><p>Errors are grouped into Issues automatically by Sentry. By default, Sentry
 <a href="https://docs.sentry.io/platforms/ruby/data-management/event-grouping/#grouping-by-stack-trace">groups based on stack trace</a>. If no stack trace is
 available, it will <a href="https://docs.sentry.io/platforms/ruby/data-management/event-grouping/#grouping-by-exception">group by exception type</a> instead.
 Failing that, it will group by error message.</p>
-
 <p>Fingerprint rules can be applied at the project level by editing the
-"Issue Grouping" page under a project (see <a href="https://sentry.io/settings/govuk/projects/app-asset-manager/issue-grouping/">example</a>).
+&ldquo;Issue Grouping&rdquo; page under a project (see <a href="https://sentry.io/settings/govuk/projects/app-asset-manager/issue-grouping/">example</a>).
 For example, you can force all errors of the same exception type to have the
 same fingerprint. On the same screen, you can set stack trace rules, to
-remove or rename certain 'frames' in the trace. In practice, we don't
+remove or rename certain &lsquo;frames&rsquo; in the trace. In practice, we don&rsquo;t
 currently apply any custom rules, after an in-depth <a href="https://trello.com/c/NZNjFHWO/284-5-improve-sentrys-grouping-of-exceptions-8">investigation</a>
-found that Sentry's default grouping was already very accurate (despite it
+found that Sentry&rsquo;s default grouping was already very accurate (despite it
 often looking like the same exception is spread across multiple issues).</p>
-
-<h4 id="stack-trace-cleaning">Stack trace cleaning</h4>
-
-<p>Note that sentry-raven automatically cleans up stack traces for the purposes
+<h4 id='stack-trace-cleaning'>Stack trace cleaning</h4><p>Note that sentry-raven automatically cleans up stack traces for the purposes
 of fingerprinting, so that stack trace frames like:</p>
-
 <p><code>app/views/welcome/view_error.html.erb in _app_views_welcome_view_error_html_erb__2807287320172182514_65600 at line 1</code></p>
-
-<p>…get normalised to:</p>
-
+<p>&hellip;get normalised to:</p>
 <p><code>app/views/welcome/view_error.html.erb at line 1</code></p>
-
 <p>This means if the same <code>ActionView::Template::Error</code> error happens twice, it
 is grouped into the same issue instead of erroneously treated as separate issues.</p>
-
 <p>sentry-raven uses a <a href="https://github.com/getsentry/sentry-ruby/pull/1011/files#diff-c01d5cbc846720e47a4185cb501a55225247ec698aa169b0a2773ca9b65ae35dR1-R29">customised version</a> of
 <code>Rails::BacktraceCleaner</code> to do this. The
 <a href="https://github.com/rails/rails/blob/b66235d432d0505857ff667e0a1ddecfb5640a56/railties/lib/rails/backtrace_cleaner.rb">original <code>BacktraceCleaner</code></a> would do this, but also
-remove any "framework trace" from the stacktrace, leaving only the "application
-trace" behind. The original <code>BacktraceCleaner</code> would actually be beneficial for
+remove any &ldquo;framework trace&rdquo; from the stacktrace, leaving only the &ldquo;application
+trace&rdquo; behind. The original <code>BacktraceCleaner</code> would actually be beneficial for
 grouping, as Sentry is very sensitive to stack traces that differ only slightly
 (which can happen when a dependency is updated or a Ruby version is upgraded).
 However, removing the framework traces entirely means losing key diagnostic
 information, so the customised, less aggressive <code>BacktraceCleaner</code> is a better
 choice.</p>
-
-<h3 id="rate-limiting">Rate limiting</h3>
-
-<p>GOV.UK is on a legacy billing plan with an account limit of 1000 events per hour.
+<h3 id='rate-limiting'>Rate limiting</h3><p>GOV.UK is on a legacy billing plan with an account limit of 1000 events per hour.
 When this limit is reached, subsequent events get discarded, meaning that noisy
 issues can prevent other, more important issues from being logged.</p>
-
-<p>In practice, it's more complicated than that. We have a per-project limit of 50%,
+<p>In practice, it&rsquo;s more complicated than that. We have a per-project limit of 50%,
 the lowest that Sentry allows. This means that any one project on Sentry cannot
 log more than 500 events before it is rate limited. This is a protection
 mechanism, ensuring that we would need two projects to be recording high-volume
 errors to risk breaching our account limit. These limits are configured on the
 <a href="https://sentry.io/settings/govuk/rate-limits/">Rate Limits</a> page.</p>
-
-<p>In addition, we've set up alerting so that any issue which records 100 or more
+<p>In addition, we&rsquo;ve set up alerting so that any issue which records 100 or more
 errors in an hour period gets alerted to <code>#govuk-platform-health</code>. These alerts
 are configured in the <a href="https://sentry.io/organizations/govuk/alerts/rules/">Alerts panel</a>.</p>
-
-<h2 id="sentry-issue-actions">Sentry issue actions</h2>
-
-<p>In the Sentry UI, you can merge related issues together, resolve issues, or
+<h2 id='sentry-issue-actions'>Sentry issue actions</h2><p>In the Sentry UI, you can merge related issues together, resolve issues, or
 ignore issues (permanently or for a set time period).</p>
-
-<h3 id="merging-sentry-issues">Merging Sentry issues</h3>
-
-<p>Duplicate issues can be merged by going into the project view, checking the
-boxes associated with each issue, and clicking "Merge". This should be done very
+<h3 id='merging-sentry-issues'>Merging Sentry issues</h3><p>Duplicate issues can be merged by going into the project view, checking the
+boxes associated with each issue, and clicking &ldquo;Merge&rdquo;. This should be done very
 carefully, as issues cannot be unmerged once they are merged, and the issues are
 often subtly different and warrant being separate issues. For example, they may
 have the same exception type but occur in different transactions, so require two
 separate fixes.</p>
-
 <p>To find out why Sentry has treated two issues as separate, visit each issue and
-scroll to the bottom of the page to see the "Event grouping information".</p>
-
-<h3 id="resolving-an-issue">Resolving an issue</h3>
-
-<p>When you know you've fixed the underlying issue, you should
-<a href="#commenting-on-an-issue">comment on the issue</a> explaining what you've done, and then
-click the "Resolve" button. This removes it from the default Sentry UI, making it
+scroll to the bottom of the page to see the &ldquo;Event grouping information&rdquo;.</p>
+<h3 id='resolving-an-issue'>Resolving an issue</h3><p>When you know you&rsquo;ve fixed the underlying issue, you should
+<a href="#commenting-on-an-issue">comment on the issue</a> explaining what you&rsquo;ve done, and then
+click the &ldquo;Resolve&rdquo; button. This removes it from the default Sentry UI, making it
 less noisy, but also has the advantage of marking it as a regression and emailing
 you if the issue occurs again.</p>
-
-<h3 id="ignoring-an-issue">Ignoring an issue</h3>
-
-<p>When you've identified an issue and written it up as a Trello card, or are
+<h3 id='ignoring-an-issue'>Ignoring an issue</h3><p>When you&rsquo;ve identified an issue and written it up as a Trello card, or are
 actively working on fixing it, it can be unhelpful for the issue to keep
 accumulating events (and potentially spamming your Slack channel). In these cases,
 you should <a href="#commenting-on-an-issue">comment on the issue</a> with a link to your card or PR,
-then ignore the issue. You should also set the "Assignee" to yourself.</p>
-
-<p>You can either click "Ignore" to ignore it permanently, or click the arrow next to
+then ignore the issue. You should also set the &ldquo;Assignee&rdquo; to yourself.</p>
+<p>You can either click &ldquo;Ignore&rdquo; to ignore it permanently, or click the arrow next to
 it to ignore for a set time, e.g. 1 week. You can also un-ignore an issue later.</p>
-
-<h3 id="commenting-on-an-issue">Commenting on an issue</h3>
-
-<p>Click on the issue, then on the "Activity" tab, where you can leave a comment.
+<h3 id='commenting-on-an-issue'>Commenting on an issue</h3><p>Click on the issue, then on the &ldquo;Activity&rdquo; tab, where you can leave a comment.
 Comments support markdown.</p>
-
-<h3 id="deleting-and-discarding-an-issue">Deleting and discarding an issue</h3>
-
-<p>If you've identified an issue that is high-volume, but is unlikely to be fixed any
+<h3 id='deleting-and-discarding-an-issue'>Deleting and discarding an issue</h3><p>If you&rsquo;ve identified an issue that is high-volume, but is unlikely to be fixed any
 time soon, you can <a href="https://blog.sentry.io/2018/01/03/delete-and-discard">Delete and Discard</a> the issue by clicking the arrow next to
-the trash can and selecting "Delete and discard future events".</p>
-
+the trash can and selecting &ldquo;Delete and discard future events&rdquo;.</p>
 <p>This should only be used when the issue is likely to have a significant impact on
-our <a href="#rate-limiting">Sentry quota</a>. It is possible to "undiscard" the issue later,
-but this will only capture new events. Any events prior to the "undiscard" action
+our <a href="#rate-limiting">Sentry quota</a>. It is possible to &ldquo;undiscard&rdquo; the issue later,
+but this will only capture new events. Any events prior to the &ldquo;undiscard&rdquo; action
 are lost.</p>
-
 
 
   <div class='related-content'>

@@ -170,61 +170,39 @@
  <h1 id='header'>Content that doesn't show up correctly in search or list pages</h1> <p>The Elasticsearch cluster utilised by <a href="/apps/search-api.html">Search API</a> can
 get out of sync with publishing applications. This affects any part of the site
 using it, including navigation pages and related links.</p>
-
-<h3 id="check-if-search-is-the-problem">Check if search is the problem</h3>
-
-<p>A page with URL <a href="https://www.gov.uk/council-tax">/council-tax</a> can be queried using <a href="https://www.gov.uk/api/search.json?filter_link=/council-tax">/api/search.json?filter_link=/council-tax</a>. You can quickly
+<h3 id='check-if-search-is-the-problem'>Check if search is the problem</h3><p>A page with URL <a href="https://www.gov.uk/council-tax">/council-tax</a> can be queried using <a href="https://www.gov.uk/api/search.json?filter_link=/council-tax">/api/search.json?filter_link=/council-tax</a>. You can quickly
 switch between the two using the <a href="https://github.com/alphagov/govuk-browser-extension">GOV.UK browser extension</a>.</p>
-
-<p>You can compare the data returned with the publishing app to check if it's up
+<p>You can compare the data returned with the publishing app to check if it&rsquo;s up
 to date. An empty response means search has never received the content.</p>
-
 <p>You can also request <a href="/apis/search/fields.html">different fields</a>, for example
 <a href="https://www.gov.uk/api/search.json?filter_link=/council-tax&amp;fields=format,content_id">/api/search.json?filter_link=/council-tax&amp;fields=format,content_id</a>.</p>
-
 <p>If the document is missing from the search API, check the search index itself to
 see if it is present and has the expected fields:</p>
 
 <ol>
-  <li>
-    <p>SSH to a search box:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> gds govuk connect ssh -e integration search
-</code></pre></div>  </li>
-  <li>
-    <p>Send a request to elasticsearch:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> govuk_setenv search-api \
- bash -c 'curl "$ELASTICSEARCH_URI/detailed,government,govuk/_search" -H "content-type: application/json" -d "
- {
-   \"post_filter\": {
-     \"term\": {
-       \"link\": \"/the/path/to/the/page\"
-     }
-   }
- }"' | json_pp
-</code></pre></div>
-    <p>To search by content ID use <code>\"content_id\": \"...\"</code> instead.</p>
-  </li>
+<li><p>SSH to a search box:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>gds govuk connect ssh -e integration search
+</code></pre></div></li>
+<li><p>Send a request to elasticsearch:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv search-api \
+bash -c 'curl "$ELASTICSEARCH_URI/detailed,government,govuk/_search" -H "content-type: application/json" -d "
+{
+  \"post_filter\": {
+    \"term\": {
+      \"link\": \"/the/path/to/the/page\"
+    }
+  }
+}"' | json_pp
+</code></pre></div><p>To search by content ID use <code>\&quot;content_id\&quot;: \&quot;...\&quot;</code> instead.</p></li>
 </ol>
-
 <p>If the document is present and looks correct, it suggests that the problem is
 that the document does not match the search query. You can debug the query by
 adding the parameter <code>debug=show_query</code> to the search API URL, e.g.
-<a href="https://www.gov.uk/api/search.json?q=badgers&amp;debug=show_query">https://www.gov.uk/api/search.json?q=badgers&amp;debug=show_query</a>.</p>
-
-<h3 id="correct-the-search-data">Correct the search data</h3>
-
-<p>Most search issues can be fixed by either republishing the content, or manually
+<a href="https://www.gov.uk/api/search.json?q=badgers&debug=show_query">https://www.gov.uk/api/search.json?q=badgers&amp;debug=show_query</a>.</p>
+<h3 id='correct-the-search-data'>Correct the search data</h3><p>Most search issues can be fixed by either republishing the content, or manually
 reindexing via a rake task in the publishing app.</p>
-
-<h4 id="published-content-is-missing-from-searchfindersnavigation">Published content is missing from search/finders/navigation</h4>
-
-<p>Try republishing the content.</p>
-
-<h4 id="unpublished-deleted-or-redirected-content-is-still-showing-up-in-search">Unpublished, deleted, or redirected content is still showing up in search</h4>
-
-<p>Unpublished, deleted, or redirected content can be removed from search manually
+<h4 id='published-content-is-missing-from-searchfindersnavigation'>Published content is missing from search/finders/navigation</h4><p>Try republishing the content.</p>
+<h4 id='unpublished-deleted-or-redirected-content-is-still-showing-up-in-search'>Unpublished, deleted, or redirected content is still showing up in search</h4><p>Unpublished, deleted, or redirected content can be removed from search manually
 using <a href="https://search-admin.publishing.service.gov.uk/">search admin</a>.</p>
 
 

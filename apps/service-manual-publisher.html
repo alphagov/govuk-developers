@@ -317,90 +317,80 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: service-manual-publisher</h1>
 
-  
-<p>Publishes the Service Manual on GOV.UK</p>
+  <p>Publishes the Service Manual on GOV.UK</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/service-manual-publisher">service-manual-publisher</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/service-manual-publisher"&gt;service-manual-publisher&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>backend</strong> machine class</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-platform-health&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">Yes</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Rake tasks</dt>
-            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=service-manual-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=service-manual-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=service-manual-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;AWS&lt;/strong&gt;, on the &lt;strong&gt;backend&lt;/strong&gt; machine class&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/govuk/app-service-manual-publisher" class="govuk-link">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/service_manual_publisher.pp" class="govuk-link">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/service-manual-publisher/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/service-manual-publisher.json" class="govuk-link">Deployment dashboard</a></li>
-
-    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22service_manual_publisher%3A+true%22+path%3A%2Fspec%2F" class="govuk-link">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;Yes&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Rake tasks&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;span aria-hidden='true'&gt;Run a Rake task on&lt;/span&gt; &lt;a
+  href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=service-manual-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Integration"&gt;Integration&lt;/a&gt;, &lt;a
+  href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=service-manual-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Staging"&gt;Staging&lt;/a&gt; or &lt;a
+  href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=service-manual-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Production"&gt;⚠️ Production ⚠️&lt;/a&gt;&lt;/dd&gt;
 
-</ul>
-</dd>
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://sentry.io/govuk/app-service-manual-publisher" class="govuk-link"&gt;Sentry (error tracking)&lt;/a&gt;&lt;/li&gt;
 
-              <dd class="govuk-summary-list__actions">
-</dd>
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/service_manual_publisher.pp" class="govuk-link"&gt;Puppet configuration&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-app-deployment/blob/master/service-manual-publisher/config/deploy.rb" class="govuk-link"&gt;Deploy scripts&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://grafana.production.govuk.digital/dashboard/file/service-manual-publisher.json" class="govuk-link"&gt;Deployment dashboard&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22service_manual_publisher%3A+true%22+path%3A%2Fspec%2F" class="govuk-link"&gt;Publishing E2E scenarios&lt;/a&gt; (warning: not all apps have E2E tests)&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
-
-<h2 id="imported-documents">Imported documents</h2>
-
-<h2 id="example-pages-published-by-service-manual-publisher">Example pages published by service-manual-publisher</h2>
-<ul class="gem-c-list govuk-list">
+</div></p>
+<h2 id='imported-documents'>Imported documents</h2><h2 id='example-pages-published-by-service-manual-publisher'>Example pages published by service-manual-publisher</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="https://www.gov.uk/service-manual/service-standard" class="govuk-link">Service Standard</a></li>
       <li><a href="https://www.gov.uk/service-manual" class="govuk-link">Service Manual</a></li>
       <li><a href="https://www.gov.uk/service-manual/agile-delivery" class="govuk-link">Agile delivery</a></li>
@@ -411,14 +401,13 @@
       <li><a href="https://www.gov.uk/service-toolkit" class="govuk-link">Service Toolkit</a></li>
       <li><a href="https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works" class="govuk-link">How the beta phase works</a></li>
       <li><a href="https://www.gov.uk/service-manual/user-research" class="govuk-link">User research</a></li>
-</ul>
+</ul></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>Service Manual Publisher is used for publishing and maintaining <a href="https://www.gov.uk/service-manual">https://www.gov.uk/service-manual</a>. This application, together with <a href="https://github.com/alphagov/service-manual-frontend">Service Manual Frontend</a> replaced the previous <a href="https://github.com/alphagov/government-service-design-manual">Jekyll-based service manual</a>.</p>
+
 <h2 id="nomenclature">Nomenclature</h2>
+
 <ul>
 <li>
 <strong>Guide</strong>: A guide is the main document format used for manuals.</li>
@@ -429,20 +418,30 @@
 <li>
 <strong>Point</strong>: A point from the service standard.</li>
 </ul>
+
 <h2 id="technical-documentation">Technical documentation</h2>
+
 <p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+
 <p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+
 <p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
+
 <h3 id="running-the-test-suite">Running the test suite</h3>
+
 <pre lang="sh"><code>bundle exec rake
 </code></pre>
-<h2 id="further-documentation">Further documentation</h2>
-<p>There is some <a href="https://github.com/alphagov/service-manual-publisher/blob/master/docs/arch/002-disparity-between-database-and-publishing-api.md">disparity between the content as it appears in the database, and the content as it appears in the publishing api</a>. This will need to be addressed if we switch to using the Publishing API as our main data store in the future.</p>
-<p>The Service manual's guide pages have a nested URL structure which is unusual for GOV.UK. The pros and cons to the nested URL structure are <a href="https://github.com/alphagov/service-manual-publisher/blob/master/docs/arch/001-nested-url-structure.md">retrospectively documented</a>.</p>
-<h2 id="licence">Licence</h2>
-<p><a href="https://github.com/alphagov/service-manual-publisher/blob/master/LICENCE">MIT License</a></p>
-  </div>
 
+<h2 id="further-documentation">Further documentation</h2>
+
+<p>There is some <a href="https://github.com/alphagov/service-manual-publisher/blob/master/docs/arch/002-disparity-between-database-and-publishing-api.md">disparity between the content as it appears in the database, and the content as it appears in the publishing api</a>. This will need to be addressed if we switch to using the Publishing API as our main data store in the future.</p>
+
+<p>The Service manual&rsquo;s guide pages have a nested URL structure which is unusual for GOV.UK. The pros and cons to the nested URL structure are <a href="https://github.com/alphagov/service-manual-publisher/blob/master/docs/arch/001-nested-url-structure.md">retrospectively documented</a>.</p>
+
+<h2 id="licence">Licence</h2>
+
+<p><a href="https://github.com/alphagov/service-manual-publisher/blob/master/LICENCE">MIT License</a></p>
+<p></div></p>
 
 
             

@@ -172,20 +172,16 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/d83df1cb7e159f63f667ce1dc36c2f21ef0f56f4">3 Aug 2020</a>
 </div>
 
- <h1 id='header'>Running out of space for automongodbbackup</h1> <h3 id="running-out-of-space-for-automongodbbackup">Running out of space for <code>automongodbbackup</code></h3>
-
-<p>The box where the backups are stored by <code>automongodbbackup</code> can sometimes run out of space.
-The <code>automongodbbackup</code> script can fail ungracefully when zipping the backup if it runs out of space. If it does, it will fail to clean up after itself so it will leave the half-zipped backup lying around. In addition to this, if it fails it won't clear older backups. You will have to remove an older backup manually as well as re-zip the latest backup.
+ <h1 id='header'>Running out of space for automongodbbackup</h1> <h3 id='running-out-of-space-for-automongodbbackup'>Running out of space for <code>automongodbbackup</code></h3><p>The box where the backups are stored by <code>automongodbbackup</code> can sometimes run out of space.
+The <code>automongodbbackup</code> script can fail ungracefully when zipping the backup if it runs out of space. If it does, it will fail to clean up after itself so it will leave the half-zipped backup lying around. In addition to this, if it fails it won&rsquo;t clear older backups. You will have to remove an older backup manually as well as re-zip the latest backup.
 Another cause of us running out of space is that we keep backups around for the past 7 days which can occupy a lot of space.</p>
-
 <p>In order to clear some space you have to do the following steps:</p>
 
 <ol>
-  <li>SSH into the box</li>
-  <li>Run <code>df -h</code>. The output should look something like this:</li>
+<li>SSH into the box</li>
+<li>Run <code>df -h</code>. The output should look something like this:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight plaintext"><code>Filesystem                   Size  Used Avail Use% Mounted on                                                                  │
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>Filesystem                   Size  Used Avail Use% Mounted on                                                                  │
 /dev/mapper/os-root           47G  2.7G   42G   6% /                                                                           │
 none                         4.0K     0  4.0K   0% /sys/fs/cgroup                                                              │
 udev                         3.9G   12K  3.9G   1% /dev                                                                        │
@@ -199,12 +195,11 @@ none                         100M     0  100M   0% /run/user                    
 /dev/mapper/mongo-s3backups   50G   52M   50G   1% /var/lib/s3backup
 </code></pre></div>
 <ol>
-  <li>The number next to <code>/var/lib/automongodbbackup</code> is probably 100% if you're getting out of space alerts in Icinga.</li>
-  <li>Go to <code>/var/lib/automongodbbackup</code> and visit the <code>daily</code> folder</li>
-  <li>Check the size of the backups in that folder: <code>ls -ls</code>. The latest zipped backup should be smaller than the rest. You should also have an unzipped version of the backup lying around. Remove the zipped version and start zipping again. In order to be sure you are doing the compression the right way, you need to check what the script currently does and respect the <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/mongodb/templates/automongodbbackup#L364">naming convention</a>.</li>
-  <li>You can also remove an older backup to clear some space.</li>
+<li>The number next to <code>/var/lib/automongodbbackup</code> is probably 100% if you&rsquo;re getting out of space alerts in Icinga.</li>
+<li>Go to <code>/var/lib/automongodbbackup</code> and visit the <code>daily</code> folder</li>
+<li>Check the size of the backups in that folder: <code>ls -ls</code>. The latest zipped backup should be smaller than the rest. You should also have an unzipped version of the backup lying around. Remove the zipped version and start zipping again. In order to be sure you are doing the compression the right way, you need to check what the script currently does and respect the <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/mongodb/templates/automongodbbackup#L364">naming convention</a>.</li>
+<li>You can also remove an older backup to clear some space.</li>
 </ol>
-
 
 
   <div class='related-content'>

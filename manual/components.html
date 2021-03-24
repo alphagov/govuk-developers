@@ -157,36 +157,25 @@
 </div>
 
  <h1 id='header'>The component system</h1> <p>Components are packages of template, style, behaviour and documentation. Components live in your application unless needed by multiple applications, then they are shared using the <a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components gem</a>.</p>
-
-<h2 id="component-guides">Component guides</h2>
-
-<p>Components in applications are documented in component guides using the <a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components gem</a>. It mounts a component guide at the path <code>/component-guide</code>.</p>
-
+<h2 id='component-guides'>Component guides</h2><p>Components in applications are documented in component guides using the <a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components gem</a>. It mounts a component guide at the path <code>/component-guide</code>.</p>
 <p>Find components in these guides:</p>
 
 <ul>
-  <li><a href="https://components.publishing.service.gov.uk/component-guide">govuk_publishing_components component guide</a></li>
-  <li><a href="https://government-frontend.herokuapp.com/component-guide/">government-frontend component guide</a></li>
-  <li><a href="https://govuk-collections.herokuapp.com/component-guide/">collections component guide</a></li>
-  <li><a href="https://finder-frontend.herokuapp.com/component-guide/">finder-frontend component guide</a></li>
+<li><a href="https://components.publishing.service.gov.uk/component-guide">govuk_publishing_components component guide</a></li>
+<li><a href="https://government-frontend.herokuapp.com/component-guide/">government-frontend component guide</a></li>
+<li><a href="https://govuk-collections.herokuapp.com/component-guide/">collections component guide</a></li>
+<li><a href="https://finder-frontend.herokuapp.com/component-guide/">finder-frontend component guide</a></li>
 </ul>
-
-<h2 id="building-components">Building components</h2>
-
-<p>A component must:</p>
+<h2 id='building-components'>Building components</h2><p>A component must:</p>
 
 <ul>
-  <li><a href="https://github.com/alphagov/govuk_publishing_components/blob/master/docs/component_principles.md">meet the component principles</a></li>
-  <li><a href="https://github.com/alphagov/govuk_publishing_components/blob/master/docs/component_conventions.md">follow component conventions</a></li>
+<li><a href="https://github.com/alphagov/govuk_publishing_components/blob/master/docs/component_principles.md">meet the component principles</a></li>
+<li><a href="https://github.com/alphagov/govuk_publishing_components/blob/master/docs/component_conventions.md">follow component conventions</a></li>
 </ul>
-
 <p>The <a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components gem</a> provides a generator to stub the files you’ll need in each component:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>bundle exec rails generate govuk_publishing_components:component [component_name]
-</code></pre></div>
-<p>For example, a lead paragraph component would be included in a template like this:</p>
-
-<div class="highlight"><pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'components/lead-paragraph'</span><span class="p">,</span> <span class="ss">text: </span><span class="s2">"A description is one or two leading sentences"</span> <span class="cp">%&gt;</span>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>bundle exec rails generate govuk_publishing_components:component [component_name]
+</code></pre></div><p>For example, a lead paragraph component would be included in a template like this:</p>
+<div class="highlight"><pre class="highlight erb" tabindex="0"><code><span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'components/lead-paragraph'</span><span class="p">,</span> <span class="ss">text: </span><span class="s2">"A description is one or two leading sentences"</span> <span class="cp">%&gt;</span>
 </code></pre></div>
 
   <div class='related-content'>

@@ -174,31 +174,21 @@
  <h1 id='header'>Grafana Dashboards</h1> <p>This alert means there are dashboards that exist only in the database of a single Grafana instance.</p>
 
 <blockquote>
-  <p>Sometimes a temporary dashboard is necessary to deal with an incident. In this case, you can acknowledge the alert temporarily until the incident concludes and we're confident we won't need it again.</p>
+<p>Sometimes a temporary dashboard is necessary to deal with an incident. In this case, you can acknowledge the alert temporarily until the incident concludes and we&rsquo;re confident we won&rsquo;t need it again.</p>
 </blockquote>
-
-<p>First you need to find out who 'owns' the dashboard. The best place to do this is Slack. Once you've found an owner, you can point them to this documentation and acknowledge the alert temporarily.</p>
-
-<h2 id="keeping-dashboards-temporarily">Keeping dashboards temporarily</h2>
-
-<p>Having too many temporary dashboards makes it harder to find the ones we need. <strong>If the dashboard was temporary or experimental, you should include the word <code>TEMPORARY</code> in the title.</strong></p>
-
+<p>First you need to find out who &lsquo;owns&rsquo; the dashboard. The best place to do this is Slack. Once you&rsquo;ve found an owner, you can point them to this documentation and acknowledge the alert temporarily.</p>
+<h2 id='keeping-dashboards-temporarily'>Keeping dashboards temporarily</h2><p>Having too many temporary dashboards makes it harder to find the ones we need. <strong>If the dashboard was temporary or experimental, you should include the word <code>TEMPORARY</code> in the title.</strong></p>
 <p>Alternatively, you can <a href="https://grafana.com/docs/grafana/latest/reference/export_import/#exporting-a-dashboard">export your dashboard</a> and delete the original. This means you can import it again in the future and continue editing, ideally in a non-production environment.</p>
-
-<h2 id="keeping-dashboards-permanently">Keeping dashboards permanently</h2>
-
-<p>Dashboards that have longterm value should be moved into version control. We don't store backups of the Grafana database, so we risk losing them if the Grafana instance is destroyed.</p>
+<h2 id='keeping-dashboards-permanently'>Keeping dashboards permanently</h2><p>Dashboards that have longterm value should be moved into version control. We don&rsquo;t store backups of the Grafana database, so we risk losing them if the Grafana instance is destroyed.</p>
 
 <blockquote>
-  <p>Before adding a new dashboard, think about whether you could improve an existing one.</p>
+<p>Before adding a new dashboard, think about whether you could improve an existing one.</p>
 </blockquote>
-
 <p>We use <a href="https://github.com/alphagov/govuk-puppet/tree/master/modules/grafana/files/dashboards">Puppet to provision dashboards</a> consistently across all environments. <a href="https://grafana.com/docs/grafana/latest/reference/export_import/#exporting-a-dashboard">Export your dashboard</a> and make a PR in govuk-puppet to add it alongside the existing ones.</p>
 
 <blockquote>
-  <p>Use the 'View JSON' method to export your dashboard. Exporting the dashboard as a JSON file introduces placeholders that are not compatible with Puppet provisioning it automatically.</p>
+<p>Use the &lsquo;View JSON&rsquo; method to export your dashboard. Exporting the dashboard as a JSON file introduces placeholders that are not compatible with Puppet provisioning it automatically.</p>
 </blockquote>
-
 
 
   <div class='related-content'>

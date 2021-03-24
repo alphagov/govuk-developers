@@ -182,143 +182,83 @@
 </div>
 
  <h1 id='header'>Clone a MySQL instance from one slave to another (Carrenza only)</h1> <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>This process is only applicable to Carrenza environments. As such it should
+<p><strong>Note</strong></p>
+<p>This process is only applicable to Carrenza environments. As such it should
 be removed when the migration to AWS is fully completed.</p>
 </blockquote>
-
 <p>This tutorial documents the process behind adding a new slave to a MySQL environment where an existing slave may or may not already exist. The process involves cloning data from an existing replication slave on to a new slave, thus keeping the replication configuration intact.</p>
-
 <p>After the initial synchronisation from the existing to the new slave, both the new and existing slaves will replicate directly from the master.</p>
-
-<h2 id="conventions">Conventions</h2>
-
-<p>In this how-to, we're using…</p>
+<h2 id='conventions'>Conventions</h2><p>In this how-to, we&rsquo;re using&hellip;</p>
 
 <ul>
-  <li><code>slave$</code> to denote commands to be run on the existing slave</li>
-  <li><code>slave:mysql&gt;</code> to denote commands to be run in the original slave's MySQL CLI</li>
-  <li><code>backup$</code> to denote commands to be run on the new slave</li>
-  <li><code>backup:mysql&gt;</code> to denote commands to be run in the new slave's MySQL CLI</li>
+<li><code>slave$</code> to denote commands to be run on the existing slave</li>
+<li><code>slave:mysql&gt;</code> to denote commands to be run in the original slave&rsquo;s MySQL CLI</li>
+<li><code>backup$</code> to denote commands to be run on the new slave</li>
+<li><code>backup:mysql&gt;</code> to denote commands to be run in the new slave&rsquo;s MySQL CLI</li>
 </ul>
-
-<h2 id="overview">Overview</h2>
-
+<h2 id='overview'>Overview</h2>
 <ol>
-  <li>Lock the original slave, preventing writes to it</li>
-  <li>Copy the data from original slave to your folder on the new slave</li>
-  <li>Unlock the original slave and tidy up</li>
-  <li>Move the data on the new slave</li>
-  <li>Start the new slave</li>
+<li>Lock the original slave, preventing writes to it</li>
+<li>Copy the data from original slave to your folder on the new slave</li>
+<li>Unlock the original slave and tidy up</li>
+<li>Move the data on the new slave</li>
+<li>Start the new slave</li>
 </ol>
-
-<h2 id="1-lock-the-original-slave-to-prevent-writes">1. Lock the original slave to prevent writes</h2>
-
-<p>First, find out the MySQL root password. This is in hieradata in the govuk-secrets repo (look for the <code>mysql_root</code> key).</p>
-
+<h2 id='1-lock-the-original-slave-to-prevent-writes'>1. Lock the original slave to prevent writes</h2><p>First, find out the MySQL root password. This is in hieradata in the govuk-secrets repo (look for the <code>mysql_root</code> key).</p>
 <p>Open an SSH connection to slave (this connection will remain open for the duration of the operation so it makes sense to do it in screen or tmux):</p>
-
-<div class="highlight"><pre class="highlight shell"><code>slave<span class="nv">$:</span> mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>slave<span class="nv">$:</span> mysql <span class="nt">-u</span> root <span class="nt">-p</span>
 Password:
-</code></pre></div>
-<p>We need to stop MySQL slaving on the original slave - the master host need not be touched as we are replicating data from existing to new slave.</p>
-
+</code></pre></div><p>We need to stop MySQL slaving on the original slave - the master host need not be touched as we are replicating data from existing to new slave.</p>
 <p>Once done, we need to then flush the tables and apply a read lock to ensure no new data is written during the period we are copying data from the existing to the new slave.</p>
-
 <p>Issue the following commands to MySQL:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>slave:mysql&gt; SLAVE STOP;
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>slave:mysql&gt; SLAVE STOP;
 slave:mysql&gt; FLUSH TABLES WITH READ LOCK;
-</code></pre></div>
-<p>At this point, the connection _must_ remain open and in MySQL, so switch to a new console and login to the slave again via SSH.</p>
-
-<h2 id="2-copy-the-data-from-the-original-slave-to-your-directory-on-the-new-slave">2. Copy the data from the original slave to your directory on the new slave</h2>
-
-<p>On your second terminal run the following command:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>ssh <span class="nt">-A</span> mysql-slave-1.backend.integration <span class="se">\</span>
+</code></pre></div><p>At this point, the connection _must_ remain open and in MySQL, so switch to a new console and login to the slave again via SSH.</p>
+<h2 id='2-copy-the-data-from-the-original-slave-to-your-directory-on-the-new-slave'>2. Copy the data from the original slave to your directory on the new slave</h2><p>On your second terminal run the following command:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>ssh <span class="nt">-A</span> mysql-slave-1.backend.integration <span class="se">\</span>
     <span class="nb">sudo</span> <span class="nt">-E</span> rsync <span class="nt">--delete</span> <span class="se">\</span>
                   <span class="nt">--exclude</span> <span class="s1">'relay-log.info'</span> <span class="se">\</span>
                   <span class="nt">--exclude</span> <span class="s1">'mysql-bin*'</span> <span class="se">\</span>
                   <span class="nt">--exclude</span> <span class="s1">'mysql-slave*'</span> <span class="se">\</span>
                   <span class="nt">-Wavz</span> /var/lib/mysql/ &lt;username&gt;@mysql-backup-1:mysql
-</code></pre></div>
-<p>You should set <code>&lt;username&gt;</code> to your short name as set in puppet (e.g. 'bobwalker').</p>
+</code></pre></div><p>You should set <code>&lt;username&gt;</code> to your short name as set in puppet (e.g. &lsquo;bobwalker&rsquo;).</p>
 
 <blockquote>
-  <p><strong>WARNING</strong></p>
-
-  <p>Forwarding your ssh-agent (<code>-A</code>) means that anyone with sufficient access on the remote server can authenticate as you. Do not use it on un-trusted servers.</p>
-
-  <p><strong>Note</strong></p>
-
-  <p>This forwards your ssh-agent to slave (<code>-A</code>) then, passing that agent to sudo's environment (<code>-E</code>), rsyncs the mysql files to backup.</p>
-
-  <dl>
-    <dt>-a is archive mode, which is - in essence - a shortcut to using '-r -l -p -t -g -o -D', which are common switches used during backups.</dt>
-    <dd>
-      <p>-v is versbose -P shows progress during the transfer -h makes the output from rsync human-readable –stats tells rsync to report on the connection speed and such. Progress is already reported using -P.</p>
-    </dd>
-  </dl>
+<p><strong>WARNING</strong></p>
+<p>Forwarding your ssh-agent (<code>-A</code>) means that anyone with sufficient access on the remote server can authenticate as you. Do not use it on un-trusted servers.</p>
+<p><strong>Note</strong></p>
+<p>This forwards your ssh-agent to slave (<code>-A</code>) then, passing that agent to sudo&rsquo;s environment (<code>-E</code>), rsyncs the mysql files to backup.</p>
+<p>-a is archive mode, which is - in essence - a shortcut to using &lsquo;-r -l -p -t -g -o -D&rsquo;, which are common switches used during backups.</p>
+<p>:   -v is versbose -P shows progress during the transfer -h makes the output from rsync human-readable &ndash;stats tells rsync to report on the connection speed and such. Progress is already reported using -P.</p>
 </blockquote>
-
 <p>Sometimes, for some unknown reason, rsync will fail to copy across all of the data. This manifests itself as MySQL complaining when you run <code>SHOW SLAVE STATUS\G</code> in a MySQL prompt that it could not find certain tables.</p>
-
 <p>Both rsync and tarball/scp methods take some time - possibly a number of hours.</p>
-
-<h2 id="3-unlock-the-original-slave-and-tidy-up">3. Unlock the original slave and tidy up</h2>
-
-<p>When it is finished, switch back to your first terminal. You should still be at the MySQL prompt. Unlock it:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>slave:mysql&gt; UNLOCK TABLES;
+<h2 id='3-unlock-the-original-slave-and-tidy-up'>3. Unlock the original slave and tidy up</h2><p>When it is finished, switch back to your first terminal. You should still be at the MySQL prompt. Unlock it:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>slave:mysql&gt; UNLOCK TABLES;
 slave:mysql&gt; SLAVE START;
-</code></pre></div>
-<p>The original slave should then begin to catch up with master. You can monitor this with:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>slave:mysql&gt; SHOW SLAVE STATUS\G
-</code></pre></div>
-<p>You should see that seconds_behind_master drops to 0.</p>
-
-<h2 id="4-move-the-data-on-the-new-slave">4. Move the data on the new slave</h2>
-
-<p>Login to the new slave server via SSH and stop MySQL:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>backup<span class="nv">$:</span> govuk_puppet <span class="nt">--disable</span>
+</code></pre></div><p>The original slave should then begin to catch up with master. You can monitor this with:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>slave:mysql&gt; SHOW SLAVE STATUS\G
+</code></pre></div><p>You should see that seconds_behind_master drops to 0.</p>
+<h2 id='4-move-the-data-on-the-new-slave'>4. Move the data on the new slave</h2><p>Login to the new slave server via SSH and stop MySQL:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>backup<span class="nv">$:</span> govuk_puppet <span class="nt">--disable</span>
 backup<span class="nv">$:</span> <span class="nb">sudo </span>service mysql stop
-</code></pre></div>
-<p>Delete the original MySQL data:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>backup<span class="nv">$:</span> <span class="nb">sudo rm</span> <span class="nt">-rf</span> /var/lib/mysql
-</code></pre></div>
-<p>Move the MySQL directory from your Home Directory to /var/lib:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>backup<span class="nv">$:</span> <span class="nb">sudo mv</span> ~/mysql /var/lib/
+</code></pre></div><p>Delete the original MySQL data:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>backup<span class="nv">$:</span> <span class="nb">sudo rm</span> <span class="nt">-rf</span> /var/lib/mysql
+</code></pre></div><p>Move the MySQL directory from your Home Directory to /var/lib:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>backup<span class="nv">$:</span> <span class="nb">sudo mv</span> ~/mysql /var/lib/
 backup<span class="nv">$:</span> <span class="nb">sudo chown</span> <span class="nt">-R</span> mysql:mysql /var/lib/mysql
-</code></pre></div>
-<h2 id="5-start-the-new-slave">5. Start the new slave</h2>
-
-<p>Start MySQL and Puppet:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>backup<span class="nv">$:</span> <span class="nb">sudo </span>service mysql start
+</code></pre></div><h2 id='5-start-the-new-slave'>5. Start the new slave</h2><p>Start MySQL and Puppet:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>backup<span class="nv">$:</span> <span class="nb">sudo </span>service mysql start
 backup<span class="nv">$:</span> govuk_puppet <span class="nt">--enable</span>
-</code></pre></div>
-<p>Login to MySQL:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>backup<span class="nv">$:</span> mysql <span class="nt">-uroot</span> <span class="nt">-p</span>
+</code></pre></div><p>Login to MySQL:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>backup<span class="nv">$:</span> mysql <span class="nt">-uroot</span> <span class="nt">-p</span>
 Password: &lt;the root password from the original slave&gt;
 backup:mysql&gt; SHOW SLAVE STATUS<span class="se">\G</span>
-</code></pre></div>
-<p>You should see:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>Slave_IO_Running: yes
+</code></pre></div><p>You should see:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>Slave_IO_Running: yes
 Slave_SQL_Running: yes
 Seconds_Behind_Master: &lt;should be decreasing to 0&gt;
-</code></pre></div>
-<h2 id="6-conclusion">6. Conclusion</h2>
-
-<p>You should now have two replication slaves, both with data, replicating the master. The process above can be used for any new replication slaves you wish to add in future.</p>
-
+</code></pre></div><h2 id='6-conclusion'>6. Conclusion</h2><p>You should now have two replication slaves, both with data, replicating the master. The process above can be used for any new replication slaves you wish to add in future.</p>
 <p>As you are copying the <code>/var/lib/mysql</code> dir from an existing replication slave, there are no configuration amendments required. The slave will simply use the configuration copied from the existing slave to replicate from the master.</p>
 
 

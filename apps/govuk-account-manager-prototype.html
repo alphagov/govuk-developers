@@ -317,97 +317,87 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: govuk-account-manager-prototype</h1>
 
-  
-<p>Prototype OIDC IDP &amp; user-facing account manager</p>
+  <p>Prototype OIDC IDP &amp; user-facing account manager</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/govuk-account-manager-prototype">govuk-account-manager-prototype</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/govuk-account-manager-prototype"&gt;govuk-account-manager-prototype&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-accounts-tech</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>GOV.UK PaaS</strong></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-accounts-tech&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/organizations/govuk/issues/?project=5370953" class="govuk-link">Sentry (error tracking)</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;GOV.UK PaaS&lt;/strong&gt;&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
-
-
-
-</ul>
-</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://sentry.io/organizations/govuk/issues/?project=5370953" class="govuk-link"&gt;Sentry (error tracking)&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
+</div></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>See further howtos in <a href="https://team-manual.account.publishing.service.gov.uk/">Team Manual</a>.</p>
+
 <h1 id="set-up-the-gov-uk-account-manager-prototype">Set up the GOV.UK account manager prototype</h1>
+
 <p>The GOV.UK account manager prototype is an application to test how users:</p>
+
 <ul>
 <li>authenticate their data</li>
 <li>authorise their data for exchange</li>
 <li>stay informed of the use of their data</li>
 <li>manage consent for use of their data</li>
 </ul>
+
 <p>This content tells you how to:</p>
+
 <ul>
 <li>set up and run the GOV.UK account manager prototype</li>
 <li>integrate the <code>finder-frontend</code> Brexit transition checker with the GOV.UK account manager</li>
 </ul>
+
 <p>This content is for GOV.UK developers working on Macs or Linux. If you are not a GOV.UK developer, you cannot use this prototype.</p>
+
 <h2 id="install-gov-uk-docker">Install GOV.UK Docker</h2>
+
 <p><a href="https://github.com/alphagov/govuk-docker">Install GOV.UK Docker</a>. Make sure that you allocate at least the minimum resources specified in the <a href="https://github.com/alphagov/govuk-docker/blob/master/README.md#installation">GOV.UK Docker installation guidance</a> as running the prototype on your local machine is resource-intensive.</p>
+
 <h2 id="clone-repositories-to-local-machine">Clone repositories to local machine</h2>
+
 <p>To set up GOV.UK account manager, ensure you have a <code>~/govuk</code> directory.</p>
+
 <p>Clone the following repositories (repos) to the <code>~/govuk</code> folder on your local machine:</p>
+
 <ul>
 <li>the <a href="https://github.com/alphagov/govuk-account-manager-prototype">GOV.UK account manager prototype</a>
 </li>
@@ -417,7 +407,9 @@
 <li>the <a href="https://github.com/alphagov/email-alert-api/">email alert API</a>
 </li>
 </ul>
+
 <p>Check out the following branches on the different repos:</p>
+
 <ul>
 <li>
 <code>master</code> branch on the GOV.UK Docker repo</li>
@@ -428,19 +420,28 @@
 <li>
 <code>master</code> branch on the Brexit transition checker repo</li>
 </ul>
+
 <h2 id="set-up-the-docker-image-and-database">Set up the docker image and database</h2>
+
 <p>In the command line, go to the <code>govuk/govuk-docker</code> repo folder and run the following commands:</p>
+
 <ul>
 <li><code>make govuk-attribute-service-prototype</code></li>
 <li><code>make govuk-account-manager-prototype</code></li>
 <li><code>make finder-frontend</code></li>
 <li><code>make email-alert-api</code></li>
 </ul>
+
 <p>These commands set up a docker image, build the required system and gem dependencies, and set up the database.</p>
+
 <h2 id="start-the-brexit-transition-checker-and-account-manager-prototype-apps">Start the Brexit transition checker and account manager prototype apps</h2>
+
 <p>In the command line, go to the <code>finder-frontend</code> repo folder and run <code>govuk-docker-up</code>. This starts the <code>finder-frontend</code> Brexit transition checker and its dependencies.</p>
+
 <p>Open up a web browser and go to <code>https://finder-frontend.dev.gov.uk</code>.</p>
+
 <p>If you have set up the apps correctly, you will be able to access the following links:</p>
+
 <ul>
 <li>the <a href="http://finder-frontend.dev.gov.uk/transition-check/questions">Brexit transition checker journey start page</a>
 </li>
@@ -448,54 +449,81 @@
 <li>select the subscribe banner or button to access the <a href="http://finder-frontend.dev.gov.uk/transition-check/save-your-results?c%5B%5D=living-ie">account sign up page</a>
 </li>
 </ul>
+
 <p>When you have set up your local account, you can <a href="http://www.login.service.dev.gov.uk/">sign into your account</a> and view the manage screens.</p>
+
 <p>You have now set up and run the GOV.UK account manager prototype, and integrated the <code>finder-frontend</code> Brexit transition checker with the GOV.UK account manager.</p>
+
 <h2 id="troubleshooting">Troubleshooting</h2>
+
 <p>If you are having issues setting up and running the GOV.UK account manager prototype, it might be because:</p>
+
 <ul>
 <li>you have not allocated enough resources to GOV.UK Docker</li>
 <li>there have been backend changes to the database or the prototypes</li>
 <li>there have been <a href="https://rubyonrails.org/">Ruby on Rails</a> configuration changes to the app</li>
 </ul>
+
 <h3 id="not-enough-resources-allocated-to-gov-uk-docker">Not enough resources allocated to GOV.UK Docker</h3>
+
 <p>To change the resource allocation for GOV.UK Docker, see the <a href="https://github.com/alphagov/govuk-docker/blob/master/README.md#installation">GOV.UK Docker readme</a>.</p>
+
 <h3 id="backend-changes-to-the-database-or-the-prototypes">Backend changes to the database or the prototypes</h3>
+
 <p>To account for recent backend changes, go to the main branch of your local GOV.UK Docker repo and run the following in the command line:</p>
+
 <pre><code>govuk-docker run govuk-account-manager-prototype-lite bundle exec rake db:migrate
 govuk-docker run govuk-account-manager-prototype-lite bundle exec rake db:migrate RAILS_ENV=test
 </code></pre>
+
 <p>Then <a href="#start-the-transition-checker-and-account-manager-prototype-apps">restart the Brexit transition checker and account manager prototype apps</a>.</p>
+
 <h3 id="ruby-on-rails-configuration-changes-to-the-app">Ruby on Rails configuration changes to the app</h3>
+
 <p>If there have been Ruby on Rails configuration changes to the app, you must restart the app to see these changes reflected.</p>
+
 <ol>
 <li>Run <code>govuk-docker down</code> in the command line to stop all GOV.UK Docker containers.</li>
 <li>Run <code>govuk-docker-up</code> in the folder of the app you want to run to restart the GOV.UK Docker containers.</li>
 </ol>
+
 <h2 id="creating-a-new-oauth-application">Creating a new OAuth application</h2>
+
 <p>First get a Rails console.  For example, when running locally in Docker Compose:</p>
+
 <pre><code>docker ps
 docker exec -it ${container_id} rails console
 </code></pre>
+
 <p>Then create a new <code>Doorkeeper::Application</code>:</p>
+
 <pre><code>a = Doorkeeper::Application.create!(name: "...", redirect_uri: "...", scopes: [...])
 puts "client id:     #{a.uid}"
 puts "client secret: #{a.secret}"
 </code></pre>
+
 <p>You will probably want <code>openid</code> in the list of scopes.</p>
+
 <h2 id="starting-an-ab-test">Starting an A/B test</h2>
+
 <p>A/B testing works similarly as on GOV.UK, but with two exceptions:</p>
+
 <ul>
-<li>We don't use Fastly, so the variant selection and persistence logic
+<li>We don&rsquo;t use Fastly, so the variant selection and persistence logic
 is done in the app.</li>
 <li>If a user is logged in, we persist the selected variant in their
 account, regardless of device.</li>
 </ul>
-<p>Before starting an A/B test you'll need:</p>
+
+<p>Before starting an A/B test you&rsquo;ll need:</p>
+
 <ul>
 <li>A custom dimension for Google Analytics from a performance analyst.</li>
 <li>A migration creating a field <code>ab_test_&lt;testname&gt;</code> on the user model.</li>
 </ul>
-<p>Here's an example of a controller with an A/B test:</p>
+
+<p>Here&rsquo;s an example of a controller with an A/B test:</p>
+
 <pre lang="ruby"><code># app/controllers/party_controller.rb
 class PartyController &lt; ApplicationController
   def show
@@ -520,12 +548,15 @@ class PartyController &lt; ApplicationController
   end
 end
 </code></pre>
+
 <p>In this example, we are running a multivariate test with 3 options
 being tested: the existing version (control) being shown 1/5th of the
 time, and two changes each being shown 2/5ths of the time.  The
 minimum number of variants in any test should be two.</p>
+
 <p>When first switching on this A/B test, make sure to also deploy a
 migration:</p>
+
 <pre lang="ruby"><code># db/migrations/xxxxxxxxxxxxxx_start_ab_test_your_test_name.rb
 class StartAbTestYourTestName &lt; ActiveRecord::Migration[6.0]
   def change
@@ -533,16 +564,20 @@ class StartAbTestYourTestName &lt; ActiveRecord::Migration[6.0]
   end
 end
 </code></pre>
+
 <p>Then, add this to your layouts, so that we have a meta tag that can be
 picked up by analytics:</p>
+
 <pre lang="html"><code>&lt;!-- application.html.erb --&gt;
 &lt;head&gt;
   &lt;%= @requested_variant.analytics_meta_tag.html_safe %&gt;
 &lt;/head&gt;
 </code></pre>
+
 <p>When switching off an A/B test, first remove the test from the
 controller and view, then deploy a migration removing the field from
 the users model:</p>
+
 <pre lang="ruby"><code># db/migrations/xxxxxxxxxxxxxx_stop_ab_test_your_test_name.rb
 class StopAbTestYourTestName &lt; ActiveRecord::Migration[6.0]
   def change
@@ -550,15 +585,20 @@ class StopAbTestYourTestName &lt; ActiveRecord::Migration[6.0]
   end
 end
 </code></pre>
+
 <p>See <a href="https://github.com/alphagov/govuk_ab_testing#govuk-ab-testing">the govuk_ab_testing README</a> for full documentation on usage
 and testing.</p>
-<h2 id="supporting-information">Supporting information</h2>
-<p>See the <a href="https://docs.account.publishing.service.gov.uk/">GOV.UK Account technical documentation</a> for more information on using the GOV.UK Account product.</p>
-<p>See the <a href="https://team-manual.account.publishing.service.gov.uk/">GOV.UK Account team manual</a> for more information on internal GOV.UK Account team processes such as handling Zendesk tickets or deploying a branch to the staging environment.</p>
-<p>You should check the GOV.UK Account technical documentation and team manual regularly as they are both currently under development and will change frequently.</p>
-<p>See the <a href="https://docs.publishing.service.gov.uk/">GOV.UK developer documentation</a> for more information on GOV.UK applications, infrastructure and tools.</p>
-  </div>
 
+<h2 id="supporting-information">Supporting information</h2>
+
+<p>See the <a href="https://docs.account.publishing.service.gov.uk/">GOV.UK Account technical documentation</a> for more information on using the GOV.UK Account product.</p>
+
+<p>See the <a href="https://team-manual.account.publishing.service.gov.uk/">GOV.UK Account team manual</a> for more information on internal GOV.UK Account team processes such as handling Zendesk tickets or deploying a branch to the staging environment.</p>
+
+<p>You should check the GOV.UK Account technical documentation and team manual regularly as they are both currently under development and will change frequently.</p>
+
+<p>See the <a href="https://docs.publishing.service.gov.uk/">GOV.UK developer documentation</a> for more information on GOV.UK applications, infrastructure and tools.</p>
+<p></div></p>
 
 
             

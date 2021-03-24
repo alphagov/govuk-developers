@@ -179,58 +179,33 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/2c7fc4373f0375e82be7988470f8386b8fc77105">17 Sep 2020</a>
 </div>
 
- <h1 id='header'>Check process running</h1> <p>This alert means that a process which should be running is not. It's highly likely that this process corresponds to a service.</p>
-
-<p>If the process doesn't correspond to a service then it will be necessary to find out more about how the process runs. Read <a href="#troubleshooting-the-process">troubleshooting the process</a> at the end of this page.</p>
-
-<h2 id="check-the-status-of-the-service">Check the status of the service</h2>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>service &lt;process&gt; status
-</code></pre></div>
-<p>If this doesn't work, you may need to do some digging to find out the name of the service. For example, the <code>postgresql</code> service runs the <code>postgres</code> process.</p>
-
-<h3 id="determining-the-name-of-the-service">Determining the name of the service</h3>
-
-<p>Look in <code>/etc/init</code> for services that may be in charge of the process.</p>
-
-<p>You can also list services with <code>sudo service --status-all</code>, though this doesn't show processes started with <a href="http://upstart.ubuntu.com/">upstart</a>.</p>
-
-<h2 id="fixing-the-issue">Fixing the issue</h2>
-
-<p>If the service isn't running, it can be enough to just restart the service by using:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>service &lt;service&gt; start
-</code></pre></div>
-<p>If the service is referring to a GOV.UK application, it may be necessary to also restart the Procfile worker:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>service &lt;service&gt;-procfile-worker restart
-</code></pre></div>
-<p>Sometimes, a process might appear to be running, but is actually stalled by a child process that has completed but not been garbage collected:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>ps <span class="nt">-ef</span> | <span class="nb">grep </span>defunct
+ <h1 id='header'>Check process running</h1> <p>This alert means that a process which should be running is not. It&rsquo;s highly likely that this process corresponds to a service.</p>
+<p>If the process doesn&rsquo;t correspond to a service then it will be necessary to find out more about how the process runs. Read <a href="#troubleshooting-the-process">troubleshooting the process</a> at the end of this page.</p>
+<h2 id='check-the-status-of-the-service'>Check the status of the service</h2><div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo </span>service &lt;process&gt; status
+</code></pre></div><p>If this doesn&rsquo;t work, you may need to do some digging to find out the name of the service. For example, the <code>postgresql</code> service runs the <code>postgres</code> process.</p>
+<h3 id='determining-the-name-of-the-service'>Determining the name of the service</h3><p>Look in <code>/etc/init</code> for services that may be in charge of the process.</p>
+<p>You can also list services with <code>sudo service --status-all</code>, though this doesn&rsquo;t show processes started with <a href="http://upstart.ubuntu.com/">upstart</a>.</p>
+<h2 id='fixing-the-issue'>Fixing the issue</h2><p>If the service isn&rsquo;t running, it can be enough to just restart the service by using:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service &lt;service&gt; start
+</code></pre></div><p>If the service is referring to a GOV.UK application, it may be necessary to also restart the Procfile worker:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service &lt;service&gt;-procfile-worker restart
+</code></pre></div><p>Sometimes, a process might appear to be running, but is actually stalled by a child process that has completed but not been garbage collected:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>ps <span class="nt">-ef</span> | <span class="nb">grep </span>defunct
 root      2735     1  0 Jun08 ?        00:02:09 <span class="o">[</span>prometheus] &lt;defunct&gt;
-</code></pre></div>
-<p>You can confirm this is a child process of the process in the alert by running <code>ps faux</code> to see where it is descended from.</p>
-
+</code></pre></div><p>You can confirm this is a child process of the process in the alert by running <code>ps faux</code> to see where it is descended from.</p>
 <p>Running <code>sudo service &lt;service&gt; restart</code> should bring the process down, kill of any child processes and start it up again, but if the defunct process is still hanging around (and especially if its parent process is now <code>init</code>/<code>1</code>), you may need to <a href="/manual/alerts/rebooting-machines.html">reboot the machine</a>.</p>
-
-<h2 id="troubleshooting-the-process">Troubleshooting the process</h2>
-
-<p>If the process doesn't come back, then it's more likely that there is something going wrong with it. You can start
+<h2 id='troubleshooting-the-process'>Troubleshooting the process</h2><p>If the process doesn&rsquo;t come back, then it&rsquo;s more likely that there is something going wrong with it. You can start
 investigating by looking in the log files which could be in one of the following places:</p>
 
 <ul>
-  <li><code>/var/log/upstart/&lt;process&gt;.log</code></li>
-  <li><code>/var/log/&lt;process&gt;/</code></li>
-  <li><code>/var/log/&lt;process&gt;.log</code></li>
+<li><code>/var/log/upstart/&lt;process&gt;.log</code></li>
+<li><code>/var/log/&lt;process&gt;/</code></li>
+<li><code>/var/log/&lt;process&gt;.log</code></li>
 </ul>
-
 <p>If you see something in the logs such as</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nt">---</span><span class="o">&gt;</span> Spinning up <span class="s1">'govuk_crawler_worker'</span> <span class="o">(</span><span class="nb">type </span>bare<span class="o">)</span> <span class="k">in</span> <span class="s1">'production'</span> environment
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nt">---</span><span class="o">&gt;</span> Spinning up <span class="s1">'govuk_crawler_worker'</span> <span class="o">(</span><span class="nb">type </span>bare<span class="o">)</span> <span class="k">in</span> <span class="s1">'production'</span> environment
 /usr/local/bin/govuk_spinup: 30: <span class="nb">cd</span>: can<span class="s1">'t cd to /var/apps/govuk_crawler_worker
-</span></code></pre></div>
-<p>This suggests that the crawler hasn't been deployed to the machine. You can try re-deploying
+</span></code></pre></div><p>This suggests that the crawler hasn&rsquo;t been deployed to the machine. You can try re-deploying
 via <a href="https://deploy.blue.staging.govuk.digital/">deploy jenkins</a>.</p>
 
 

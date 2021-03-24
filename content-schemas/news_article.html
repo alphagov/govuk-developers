@@ -370,91 +370,85 @@
               <h1 class="page-title">Schema: news_article</h1>
 
 
-  <h2 id="frontend-schema">Frontend schema</h2>
-
-<p>This schema describes the content item that is returned from the
+  <h2 id='frontend-schema'>Frontend schema</h2><p>This schema describes the content item that is returned from the
 <a href="https://github.com/alphagov/content-store">content store</a>.</p>
 
-<table class="schema-table"><tr><td><strong>analytics_identifier</strong><br /><code>string</code> or <code>null</code></td> <td>A short identifier we send to Google Analytics for multi-valued fields. This means we avoid the truncated values we would get if we sent the path or slug of eg organisations.<br /></td></tr>
-<tr><td><strong>base_path</strong><br /><code>string</code></td> <td>A path only. Query string and/or fragment are not allowed.<br /></td></tr>
-<tr><td><strong>content_id</strong><br /><code>string</code></td> <td><br /></td></tr>
-<tr><td><strong>description</strong><br /><code></code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>details</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>attachments</strong><br /><code>array</code></td> <td>An ordered list of asset links<br /></td></tr>
-<tr><td><strong>body</strong><br /><code>string</code></td> <td>The main content provided as HTML rendered from govspeak<br /></td></tr>
-<tr><td><strong>change_history</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>emphasised_organisations</strong><br /><code>array</code></td> <td>The content ids of the organisations that should be displayed first in the list of organisations related to the item, these content ids must be present in the item organisation links hash.<br /></td></tr>
-<tr><td><strong>first_public_at</strong><br /><code>string</code></td> <td>DEPRECATED. The date the content was first published. Used in details. Deprecated in favour of top level `first_published_at`.<br /></td></tr>
-<tr><td><strong>government</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>current</strong><br /><code>boolean</code></td> <td>Is the government that published this document still the current government.<br /></td></tr>
-<tr><td><strong>slug</strong><br /><code>string</code></td> <td>Government slug, used for analytics, eg '1970-to-1974-conservative-government'.<br /></td></tr>
-<tr><td><strong>title</strong><br /><code>string</code></td> <td>Name of the government that first published this document, eg '1970 to 1974 Conservative government'.<br /></td></tr></table></td></tr>
-<tr><td><strong>image</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>alt_text</strong><br /><code>string</code></td> <td><br /></td></tr>
-<tr><td><strong>caption</strong><br /><code>string</code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>credit</strong><br /><code>string</code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>high_resolution_url</strong><br /><code>string</code></td> <td>URL to a high resolution version of the image, for use by third parties such as Twitter, Facebook or Slack. Used by the machine readable metadata component. Don't use this on user-facing web pages, as it might be very large.<br /></td></tr>
-<tr><td><strong>url</strong><br /><code>string</code></td> <td>URL to the image. The image should be in a suitable resolution for display on the page.<br /></td></tr></table></td></tr>
-<tr><td><strong>political</strong><br /><code>boolean</code></td> <td>If the content is considered political in nature, reflecting views of the government it was published under.<br /></td></tr>
-<tr><td><strong>tags</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>additional_topics</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>browse_pages</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>policies</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>primary_topic</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>topics</strong><br /><code>array</code></td> <td><br /></td></tr></table></td></tr></table></td></tr>
-<tr><td><strong>document_type</strong><br /><code>string</code></td> <td><br />Allowed values: <code>press_release</code>, <code>news_story</code>, <code>government_response</code>, <code>world_news_story</code></td></tr>
-<tr><td><strong>first_published_at</strong><br /><code></code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>links</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>available_translations</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>child_taxons</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>children</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>document_collections</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>facet_groups</strong><br /></td> <td>Prototype-stage metadata tagging tree roots for this content item. A content item my belong to many facet groups without having any specific facet_values links.<br /></td></tr>
-<tr><td><strong>facet_values</strong><br /></td> <td>Prototype-stage metadata tagging values for this content item, a content item can be linked to many facet values from varying facet groups.<br /></td></tr>
-<tr><td><strong>finder</strong><br /></td> <td>Powers links from content back to finders the content is surfaced on<br /></td></tr>
-<tr><td><strong>government</strong><br /></td> <td>The government associated with this document<br /></td></tr>
-<tr><td><strong>lead_organisations</strong><br /></td> <td>DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.<br /></td></tr>
-<tr><td><strong>level_one_taxons</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>mainstream_browse_pages</strong><br /></td> <td>Powers the /browse section of the site. These are known as sections in some legacy apps.<br /></td></tr>
-<tr><td><strong>meets_user_needs</strong><br /></td> <td>The user needs this piece of content meets.<br /></td></tr>
-<tr><td><strong>ministers</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>ordered_related_items</strong><br /></td> <td>Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.<br /></td></tr>
-<tr><td><strong>ordered_related_items_overrides</strong><br /></td> <td>Related items, can be any page on GOV.UK. Overrides 'more like this' automatically generated links in the beta navigation.<br /></td></tr>
-<tr><td><strong>organisations</strong><br /></td> <td>All organisations linked to this content item. This should include lead organisations.<br /></td></tr>
-<tr><td><strong>original_primary_publishing_organisation</strong><br /></td> <td>The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.<br /></td></tr>
-<tr><td><strong>parent</strong><br /></td> <td>The parent content item.<br /></td></tr>
-<tr><td><strong>part_of_step_navs</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>people</strong><br /></td> <td>People that are associated with this document, typically the person part of a role association<br /></td></tr>
-<tr><td><strong>policies</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>policy_areas</strong><br /></td> <td>A largely deprecated tag currently only used to power email alerts.<br /></td></tr>
-<tr><td><strong>primary_publishing_organisation</strong><br /></td> <td>The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.<br /></td></tr>
-<tr><td><strong>related_policies</strong><br /></td> <td><br /></td></tr>
-<tr><td><strong>related_to_step_navs</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>role_appointments</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>roles</strong><br /></td> <td>Government roles that are associated with this document, typically the role part of a role association<br /></td></tr>
-<tr><td><strong>secondary_to_step_navs</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>suggested_ordered_related_items</strong><br /></td> <td>New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.<br /></td></tr>
-<tr><td><strong>taxons</strong><br /></td> <td>Prototype-stage taxonomy label for this content item<br /></td></tr>
-<tr><td><strong>topic_taxonomy_taxons</strong><br /></td> <td>Link type automatically added by Publishing API<br /></td></tr>
-<tr><td><strong>topical_events</strong><br /></td> <td>The topical events this content item relates to.<br /></td></tr>
-<tr><td><strong>topics</strong><br /></td> <td>Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.<br /></td></tr>
-<tr><td><strong>world_locations</strong><br /></td> <td>The world locations this content item is about.<br /></td></tr>
-<tr><td><strong>worldwide_organisations</strong><br /></td> <td>The worldwide organisations associated with this content item.<br /></td></tr></table></td></tr>
-<tr><td><strong>locale</strong><br /><code>string</code></td> <td><br />Allowed values: <code>ar</code>, <code>az</code>, <code>be</code>, <code>bg</code>, <code>bn</code>, <code>cs</code>, <code>cy</code>, <code>da</code>, <code>de</code>, <code>dr</code>, <code>el</code>, <code>en</code>, <code>es</code>, <code>es-419</code>, <code>et</code>, <code>fa</code>, <code>fi</code>, <code>fr</code>, <code>gd</code>, <code>gu</code>, <code>he</code>, <code>hi</code>, <code>hr</code>, <code>hu</code>, <code>hy</code>, <code>id</code>, <code>is</code>, <code>it</code>, <code>ja</code>, <code>ka</code>, <code>kk</code>, <code>ko</code>, <code>lt</code>, <code>lv</code>, <code>ms</code>, <code>mt</code>, <code>nl</code>, <code>no</code>, <code>pa</code>, <code>pa-pk</code>, <code>pl</code>, <code>ps</code>, <code>pt</code>, <code>ro</code>, <code>ru</code>, <code>si</code>, <code>sk</code>, <code>sl</code>, <code>so</code>, <code>sq</code>, <code>sr</code>, <code>sv</code>, <code>sw</code>, <code>ta</code>, <code>th</code>, <code>tk</code>, <code>tr</code>, <code>uk</code>, <code>ur</code>, <code>uz</code>, <code>vi</code>, <code>zh</code>, <code>zh-hk</code>, <code>zh-tw</code></td></tr>
-<tr><td><strong>need_ids</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>phase</strong><br /><code>string</code></td> <td>The service design phase of this content item - https://www.gov.uk/service-manual/phases<br />Allowed values: <code>alpha</code>, <code>beta</code>, <code>live</code></td></tr>
-<tr><td><strong>public_updated_at</strong><br /><code></code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>publishing_app</strong><br /><code>string</code></td> <td>The application that published this item.<br />Allowed values: <code>calculators</code>, <code>calendars</code>, <code>collections-publisher</code>, <code>contacts</code>, <code>content-publisher</code>, <code>content-tagger</code>, <code>email-alert-frontend</code>, <code>external-link-tracker</code>, <code>feedback</code>, <code>frontend</code>, <code>government-frontend</code>, <code>hmrc-manuals-api</code>, <code>info-frontend</code>, <code>licencefinder</code>, <code>local-links-manager</code>, <code>manuals-frontend</code>, <code>manuals-publisher</code>, <code>maslow</code>, <code>performanceplatform-big-screen-view</code>, <code>publisher</code>, <code>rummager</code>, <code>search-admin</code>, <code>search-api</code>, <code>service-manual-publisher</code>, <code>share-sale-publisher</code>, <code>short-url-manager</code>, <code>smartanswers</code>, <code>special-route-publisher</code>, <code>specialist-publisher</code>, <code>static</code>, <code>tariff</code>, <code>travel-advice-publisher</code>, <code>whitehall</code></td></tr>
-<tr><td><strong>publishing_request_id</strong><br /></td> <td>A unique identifier used to track publishing requests to rendered content<br /></td></tr>
-<tr><td><strong>publishing_scheduled_at</strong><br /><code></code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>rendering_app</strong><br /><code>string</code></td> <td>The application that renders this item.<br />Allowed values: <code>calculators</code>, <code>calendars</code>, <code>collections</code>, <code>content-store</code>, <code>email-alert-frontend</code>, <code>email-campaign-frontend</code>, <code>feedback</code>, <code>finder-frontend</code>, <code>frontend</code>, <code>government-frontend</code>, <code>info-frontend</code>, <code>licencefinder</code>, <code>manuals-frontend</code>, <code>performanceplatform-big-screen-view</code>, <code>rummager</code>, <code>search-api</code>, <code>service-manual-frontend</code>, <code>smartanswers</code>, <code>spotlight</code>, <code>static</code>, <code>tariff</code>, <code>whitehall-admin</code>, <code>whitehall-frontend</code></td></tr>
-<tr><td><strong>scheduled_publishing_delay_seconds</strong><br /><code></code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>schema_name</strong><br /><code>string</code></td> <td><br />Allowed values: <code>news_article</code></td></tr>
-<tr><td><strong>title</strong><br /><code>string</code></td> <td><br /></td></tr>
-<tr><td><strong>updated_at</strong><br /><code>string</code></td> <td><br /></td></tr>
-<tr><td><strong>withdrawn_notice</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>explanation</strong><br /><code>string</code></td> <td><br /></td></tr>
-<tr><td><strong>withdrawn_at</strong><br /></td> <td><br /></td></tr></table></td></tr></table>
-
+<table class='schema-table'><tr><td><strong>analytics_identifier</strong><br/><code>string</code> or <code>null</code></td> <td>A short identifier we send to Google Analytics for multi-valued fields. This means we avoid the truncated values we would get if we sent the path or slug of eg organisations.<br/></td></tr>
+<tr><td><strong>base_path</strong><br/><code>string</code></td> <td>A path only. Query string and/or fragment are not allowed.<br/></td></tr>
+<tr><td><strong>content_id</strong><br/><code>string</code></td> <td><br/></td></tr>
+<tr><td><strong>description</strong><br/><code></code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>details</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>attachments</strong><br/><code>array</code></td> <td>An ordered list of asset links<br/></td></tr>
+<tr><td><strong>body</strong><br/><code>string</code></td> <td>The main content provided as HTML rendered from govspeak<br/></td></tr>
+<tr><td><strong>change_history</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>emphasised_organisations</strong><br/><code>array</code></td> <td>The content ids of the organisations that should be displayed first in the list of organisations related to the item, these content ids must be present in the item organisation links hash.<br/></td></tr>
+<tr><td><strong>first_public_at</strong><br/><code>string</code></td> <td>DEPRECATED. The date the content was first published. Used in details. Deprecated in favour of top level `first_published_at`.<br/></td></tr>
+<tr><td><strong>government</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>current</strong><br/><code>boolean</code></td> <td>Is the government that published this document still the current government.<br/></td></tr>
+<tr><td><strong>slug</strong><br/><code>string</code></td> <td>Government slug, used for analytics, eg &lsquo;1970-to-1974-conservative-government&rsquo;.<br/></td></tr>
+<tr><td><strong>title</strong><br/><code>string</code></td> <td>Name of the government that first published this document, eg &lsquo;1970 to 1974 Conservative government&rsquo;.<br/></td></tr></table></td></tr>
+<tr><td><strong>image</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>alt_text</strong><br/><code>string</code></td> <td><br/></td></tr>
+<tr><td><strong>caption</strong><br/><code>string</code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>credit</strong><br/><code>string</code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>high_resolution_url</strong><br/><code>string</code></td> <td>URL to a high resolution version of the image, for use by third parties such as Twitter, Facebook or Slack. Used by the machine readable metadata component. Don&rsquo;t use this on user-facing web pages, as it might be very large.<br/></td></tr>
+<tr><td><strong>url</strong><br/><code>string</code></td> <td>URL to the image. The image should be in a suitable resolution for display on the page.<br/></td></tr></table></td></tr>
+<tr><td><strong>political</strong><br/><code>boolean</code></td> <td>If the content is considered political in nature, reflecting views of the government it was published under.<br/></td></tr>
+<tr><td><strong>tags</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>additional_topics</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>browse_pages</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>policies</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>primary_topic</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>topics</strong><br/><code>array</code></td> <td><br/></td></tr></table></td></tr></table></td></tr>
+<tr><td><strong>document_type</strong><br/><code>string</code></td> <td><br/>Allowed values: <code>press_release</code>, <code>news_story</code>, <code>government_response</code>, <code>world_news_story</code></td></tr>
+<tr><td><strong>first_published_at</strong><br/><code></code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>links</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>available_translations</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>child_taxons</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>children</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>document_collections</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>facet_groups</strong><br/></td> <td>Prototype-stage metadata tagging tree roots for this content item. A content item my belong to many facet groups without having any specific facet_values links.<br/></td></tr>
+<tr><td><strong>facet_values</strong><br/></td> <td>Prototype-stage metadata tagging values for this content item, a content item can be linked to many facet values from varying facet groups.<br/></td></tr>
+<tr><td><strong>finder</strong><br/></td> <td>Powers links from content back to finders the content is surfaced on<br/></td></tr>
+<tr><td><strong>government</strong><br/></td> <td>The government associated with this document<br/></td></tr>
+<tr><td><strong>lead_organisations</strong><br/></td> <td>DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.<br/></td></tr>
+<tr><td><strong>level_one_taxons</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>mainstream_browse_pages</strong><br/></td> <td>Powers the /browse section of the site. These are known as sections in some legacy apps.<br/></td></tr>
+<tr><td><strong>meets_user_needs</strong><br/></td> <td>The user needs this piece of content meets.<br/></td></tr>
+<tr><td><strong>ministers</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>ordered_related_items</strong><br/></td> <td>Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.<br/></td></tr>
+<tr><td><strong>ordered_related_items_overrides</strong><br/></td> <td>Related items, can be any page on GOV.UK. Overrides &lsquo;more like this&rsquo; automatically generated links in the beta navigation.<br/></td></tr>
+<tr><td><strong>organisations</strong><br/></td> <td>All organisations linked to this content item. This should include lead organisations.<br/></td></tr>
+<tr><td><strong>original_primary_publishing_organisation</strong><br/></td> <td>The organisation that published the original version of the page. Corresponds to the first of the &lsquo;Lead organisations&rsquo; in Whitehall for the first edition, and is empty for all other publishing applications.<br/></td></tr>
+<tr><td><strong>parent</strong><br/></td> <td>The parent content item.<br/></td></tr>
+<tr><td><strong>part_of_step_navs</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>people</strong><br/></td> <td>People that are associated with this document, typically the person part of a role association<br/></td></tr>
+<tr><td><strong>policies</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>policy_areas</strong><br/></td> <td>A largely deprecated tag currently only used to power email alerts.<br/></td></tr>
+<tr><td><strong>primary_publishing_organisation</strong><br/></td> <td>The organisation that published the page. Corresponds to the first of the &lsquo;Lead organisations&rsquo; in Whitehall, and is empty for all other publishing applications.<br/></td></tr>
+<tr><td><strong>related_policies</strong><br/></td> <td><br/></td></tr>
+<tr><td><strong>related_to_step_navs</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>role_appointments</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>roles</strong><br/></td> <td>Government roles that are associated with this document, typically the role part of a role association<br/></td></tr>
+<tr><td><strong>secondary_to_step_navs</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>suggested_ordered_related_items</strong><br/></td> <td>New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.<br/></td></tr>
+<tr><td><strong>taxons</strong><br/></td> <td>Prototype-stage taxonomy label for this content item<br/></td></tr>
+<tr><td><strong>topic_taxonomy_taxons</strong><br/></td> <td>Link type automatically added by Publishing API<br/></td></tr>
+<tr><td><strong>topical_events</strong><br/></td> <td>The topical events this content item relates to.<br/></td></tr>
+<tr><td><strong>topics</strong><br/></td> <td>Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.<br/></td></tr>
+<tr><td><strong>world_locations</strong><br/></td> <td>The world locations this content item is about.<br/></td></tr>
+<tr><td><strong>worldwide_organisations</strong><br/></td> <td>The worldwide organisations associated with this content item.<br/></td></tr></table></td></tr>
+<tr><td><strong>locale</strong><br/><code>string</code></td> <td><br/>Allowed values: <code>ar</code>, <code>az</code>, <code>be</code>, <code>bg</code>, <code>bn</code>, <code>cs</code>, <code>cy</code>, <code>da</code>, <code>de</code>, <code>dr</code>, <code>el</code>, <code>en</code>, <code>es</code>, <code>es-419</code>, <code>et</code>, <code>fa</code>, <code>fi</code>, <code>fr</code>, <code>gd</code>, <code>gu</code>, <code>he</code>, <code>hi</code>, <code>hr</code>, <code>hu</code>, <code>hy</code>, <code>id</code>, <code>is</code>, <code>it</code>, <code>ja</code>, <code>ka</code>, <code>kk</code>, <code>ko</code>, <code>lt</code>, <code>lv</code>, <code>ms</code>, <code>mt</code>, <code>nl</code>, <code>no</code>, <code>pa</code>, <code>pa-pk</code>, <code>pl</code>, <code>ps</code>, <code>pt</code>, <code>ro</code>, <code>ru</code>, <code>si</code>, <code>sk</code>, <code>sl</code>, <code>so</code>, <code>sq</code>, <code>sr</code>, <code>sv</code>, <code>sw</code>, <code>ta</code>, <code>th</code>, <code>tk</code>, <code>tr</code>, <code>uk</code>, <code>ur</code>, <code>uz</code>, <code>vi</code>, <code>zh</code>, <code>zh-hk</code>, <code>zh-tw</code></td></tr>
+<tr><td><strong>need_ids</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>phase</strong><br/><code>string</code></td> <td>The service design phase of this content item - https://www.gov.uk/service-manual/phases<br/>Allowed values: <code>alpha</code>, <code>beta</code>, <code>live</code></td></tr>
+<tr><td><strong>public_updated_at</strong><br/><code></code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>publishing_app</strong><br/><code>string</code></td> <td>The application that published this item.<br/>Allowed values: <code>calculators</code>, <code>calendars</code>, <code>collections-publisher</code>, <code>contacts</code>, <code>content-publisher</code>, <code>content-tagger</code>, <code>email-alert-frontend</code>, <code>external-link-tracker</code>, <code>feedback</code>, <code>frontend</code>, <code>government-frontend</code>, <code>hmrc-manuals-api</code>, <code>info-frontend</code>, <code>licencefinder</code>, <code>local-links-manager</code>, <code>manuals-frontend</code>, <code>manuals-publisher</code>, <code>maslow</code>, <code>performanceplatform-big-screen-view</code>, <code>publisher</code>, <code>rummager</code>, <code>search-admin</code>, <code>search-api</code>, <code>service-manual-publisher</code>, <code>share-sale-publisher</code>, <code>short-url-manager</code>, <code>smartanswers</code>, <code>special-route-publisher</code>, <code>specialist-publisher</code>, <code>static</code>, <code>tariff</code>, <code>travel-advice-publisher</code>, <code>whitehall</code></td></tr>
+<tr><td><strong>publishing_request_id</strong><br/></td> <td>A unique identifier used to track publishing requests to rendered content<br/></td></tr>
+<tr><td><strong>publishing_scheduled_at</strong><br/><code></code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>rendering_app</strong><br/><code>string</code></td> <td>The application that renders this item.<br/>Allowed values: <code>calculators</code>, <code>calendars</code>, <code>collections</code>, <code>content-store</code>, <code>email-alert-frontend</code>, <code>email-campaign-frontend</code>, <code>feedback</code>, <code>finder-frontend</code>, <code>frontend</code>, <code>government-frontend</code>, <code>info-frontend</code>, <code>licencefinder</code>, <code>manuals-frontend</code>, <code>performanceplatform-big-screen-view</code>, <code>rummager</code>, <code>search-api</code>, <code>service-manual-frontend</code>, <code>smartanswers</code>, <code>spotlight</code>, <code>static</code>, <code>tariff</code>, <code>whitehall-admin</code>, <code>whitehall-frontend</code></td></tr>
+<tr><td><strong>scheduled_publishing_delay_seconds</strong><br/><code></code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>schema_name</strong><br/><code>string</code></td> <td><br/>Allowed values: <code>news_article</code></td></tr>
+<tr><td><strong>title</strong><br/><code>string</code></td> <td><br/></td></tr>
+<tr><td><strong>updated_at</strong><br/><code>string</code></td> <td><br/></td></tr>
+<tr><td><strong>withdrawn_notice</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>explanation</strong><br/><code>string</code></td> <td><br/></td></tr>
+<tr><td><strong>withdrawn_at</strong><br/></td> <td><br/></td></tr></table></td></tr></table>
 <p><a href="https://github.com/alphagov/govuk-content-schemas/blob/master/dist/formats/news_article/frontend/schema.json">View this schema on GitHub</a></p>
-
-<h3 id="random-example">Random example</h3>
-
-<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+<h3 id='random-example'>Random example</h3><div class="highlight"><pre class="highlight json" tabindex="0"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"analytics_identifier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nl">"base_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/feb8cab4-bdc2-17e6-a7a8-c0fea6ef5174/495505b4-b90c-1df5-aa4b-3adeae7bad5e"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"content_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33cd8e6c-bd31-1c34-a50e-6dda3ce6e5d3"</span><span class="p">,</span><span class="w">
@@ -1426,74 +1420,65 @@
   </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-17T11:27:15+00:00"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<hr />
-
-<h2 id="publisher-content-schema">Publisher content schema</h2>
-
-<p>This is what publisher apps should send to the publishing-api in This is what
+<hr>
+<h2 id='publisher-content-schema'>Publisher content schema</h2><p>This is what publisher apps should send to the publishing-api in This is what
 a publishing application sends to the publishing-api in a
 <a href="http://www.rubydoc.info/github/alphagov/gds-api-adapters/GdsApi/PublishingApiV2#put_content-instance_method"><code>put_content</code></a> call.</p>
-
-<h3 id="attributes">Attributes</h3>
-
-<table class="schema-table"><tr><td><strong>access_limited</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>auth_bypass_ids</strong><br /></td> <td>Deprecated: auth_bypass_ids should be sent as a separate field<br /></td></tr>
-<tr><td><strong>organisations</strong><br /></td> <td>A list of organisation content ids permitted access to this item<br /></td></tr>
-<tr><td><strong>users</strong><br /><code>array</code></td> <td><br /></td></tr></table></td></tr>
-<tr><td><strong>analytics_identifier</strong><br /><code>string</code> or <code>null</code></td> <td>A short identifier we send to Google Analytics for multi-valued fields. This means we avoid the truncated values we would get if we sent the path or slug of eg organisations.<br /></td></tr>
-<tr><td><strong>auth_bypass_ids</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>base_path</strong><br /><code>string</code></td> <td>A path only. Query string and/or fragment are not allowed.<br /></td></tr>
-<tr><td><strong>bulk_publishing</strong><br /><code>boolean</code></td> <td><br /></td></tr>
-<tr><td><strong>change_note</strong><br /><code>["null", "string"]</code></td> <td><br /></td></tr>
-<tr><td><strong>description</strong><br /><code></code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>details</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>attachments</strong><br /><code>array</code></td> <td>An ordered list of asset links<br /></td></tr>
-<tr><td><strong>body</strong><br /><code>string</code></td> <td>The main content provided as HTML rendered from govspeak<br /></td></tr>
-<tr><td><strong>change_history</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>emphasised_organisations</strong><br /><code>array</code></td> <td>The content ids of the organisations that should be displayed first in the list of organisations related to the item, these content ids must be present in the item organisation links hash.<br /></td></tr>
-<tr><td><strong>first_public_at</strong><br /><code>string</code></td> <td>DEPRECATED. The date the content was first published. Used in details. Deprecated in favour of top level `first_published_at`.<br /></td></tr>
-<tr><td><strong>government</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>current</strong><br /><code>boolean</code></td> <td>Is the government that published this document still the current government.<br /></td></tr>
-<tr><td><strong>slug</strong><br /><code>string</code></td> <td>Government slug, used for analytics, eg '1970-to-1974-conservative-government'.<br /></td></tr>
-<tr><td><strong>title</strong><br /><code>string</code></td> <td>Name of the government that first published this document, eg '1970 to 1974 Conservative government'.<br /></td></tr></table></td></tr>
-<tr><td><strong>image</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>alt_text</strong><br /><code>string</code></td> <td><br /></td></tr>
-<tr><td><strong>caption</strong><br /><code>string</code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>credit</strong><br /><code>string</code> or <code>null</code></td> <td><br /></td></tr>
-<tr><td><strong>high_resolution_url</strong><br /><code>string</code></td> <td>URL to a high resolution version of the image, for use by third parties such as Twitter, Facebook or Slack. Used by the machine readable metadata component. Don't use this on user-facing web pages, as it might be very large.<br /></td></tr>
-<tr><td><strong>url</strong><br /><code>string</code></td> <td>URL to the image. The image should be in a suitable resolution for display on the page.<br /></td></tr></table></td></tr>
-<tr><td><strong>political</strong><br /><code>boolean</code></td> <td>If the content is considered political in nature, reflecting views of the government it was published under.<br /></td></tr>
-<tr><td><strong>tags</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>additional_topics</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>browse_pages</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>policies</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>primary_topic</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>topics</strong><br /><code>array</code></td> <td><br /></td></tr></table></td></tr></table></td></tr>
-<tr><td><strong>document_type</strong><br /><code>string</code></td> <td><br />Allowed values: <code>press_release</code>, <code>news_story</code>, <code>government_response</code>, <code>world_news_story</code></td></tr>
-<tr><td><strong>first_published_at</strong><br /><code>string</code></td> <td>The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.<br /></td></tr>
-<tr><td><strong>last_edited_at</strong><br /><code>string</code></td> <td>Last time when the content received a major or minor update.<br /></td></tr>
-<tr><td><strong>links</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>government</strong><br /></td> <td>The government associated with this document<br /></td></tr>
-<tr><td><strong>organisations</strong><br /></td> <td>All organisations linked to this content item. This should include lead organisations.<br /></td></tr>
-<tr><td><strong>people</strong><br /></td> <td>People that are associated with this document, typically the person part of a role association<br /></td></tr>
-<tr><td><strong>policy_areas</strong><br /></td> <td>A largely deprecated tag currently only used to power email alerts.<br /></td></tr>
-<tr><td><strong>primary_publishing_organisation</strong><br /></td> <td>The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.<br /></td></tr>
-<tr><td><strong>roles</strong><br /></td> <td>Government roles that are associated with this document, typically the role part of a role association<br /></td></tr>
-<tr><td><strong>topical_events</strong><br /></td> <td>The topical events this content item relates to.<br /></td></tr>
-<tr><td><strong>world_locations</strong><br /></td> <td>The world locations this content item is about.<br /></td></tr>
-<tr><td><strong>worldwide_organisations</strong><br /></td> <td>The worldwide organisations associated with this content item.<br /></td></tr></table></td></tr>
-<tr><td><strong>locale</strong><br /><code>string</code></td> <td><br />Allowed values: <code>ar</code>, <code>az</code>, <code>be</code>, <code>bg</code>, <code>bn</code>, <code>cs</code>, <code>cy</code>, <code>da</code>, <code>de</code>, <code>dr</code>, <code>el</code>, <code>en</code>, <code>es</code>, <code>es-419</code>, <code>et</code>, <code>fa</code>, <code>fi</code>, <code>fr</code>, <code>gd</code>, <code>gu</code>, <code>he</code>, <code>hi</code>, <code>hr</code>, <code>hu</code>, <code>hy</code>, <code>id</code>, <code>is</code>, <code>it</code>, <code>ja</code>, <code>ka</code>, <code>kk</code>, <code>ko</code>, <code>lt</code>, <code>lv</code>, <code>ms</code>, <code>mt</code>, <code>nl</code>, <code>no</code>, <code>pa</code>, <code>pa-pk</code>, <code>pl</code>, <code>ps</code>, <code>pt</code>, <code>ro</code>, <code>ru</code>, <code>si</code>, <code>sk</code>, <code>sl</code>, <code>so</code>, <code>sq</code>, <code>sr</code>, <code>sv</code>, <code>sw</code>, <code>ta</code>, <code>th</code>, <code>tk</code>, <code>tr</code>, <code>uk</code>, <code>ur</code>, <code>uz</code>, <code>vi</code>, <code>zh</code>, <code>zh-hk</code>, <code>zh-tw</code></td></tr>
-<tr><td><strong>need_ids</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>phase</strong><br /><code>string</code></td> <td>The service design phase of this content item - https://www.gov.uk/service-manual/phases<br />Allowed values: <code>alpha</code>, <code>beta</code>, <code>live</code></td></tr>
-<tr><td><strong>previous_version</strong><br /><code>string</code></td> <td><br /></td></tr>
-<tr><td><strong>public_updated_at</strong><br /><code>string</code></td> <td>When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.<br /></td></tr>
-<tr><td><strong>publishing_app</strong><br /><code>string</code></td> <td>The application that published this item.<br />Allowed values: <code>calculators</code>, <code>calendars</code>, <code>collections-publisher</code>, <code>contacts</code>, <code>content-publisher</code>, <code>content-tagger</code>, <code>email-alert-frontend</code>, <code>external-link-tracker</code>, <code>feedback</code>, <code>frontend</code>, <code>government-frontend</code>, <code>hmrc-manuals-api</code>, <code>info-frontend</code>, <code>licencefinder</code>, <code>local-links-manager</code>, <code>manuals-frontend</code>, <code>manuals-publisher</code>, <code>maslow</code>, <code>performanceplatform-big-screen-view</code>, <code>publisher</code>, <code>rummager</code>, <code>search-admin</code>, <code>search-api</code>, <code>service-manual-publisher</code>, <code>share-sale-publisher</code>, <code>short-url-manager</code>, <code>smartanswers</code>, <code>special-route-publisher</code>, <code>specialist-publisher</code>, <code>static</code>, <code>tariff</code>, <code>travel-advice-publisher</code>, <code>whitehall</code></td></tr>
-<tr><td><strong>redirects</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>rendering_app</strong><br /><code>string</code></td> <td>The application that renders this item.<br />Allowed values: <code>calculators</code>, <code>calendars</code>, <code>collections</code>, <code>content-store</code>, <code>email-alert-frontend</code>, <code>email-campaign-frontend</code>, <code>feedback</code>, <code>finder-frontend</code>, <code>frontend</code>, <code>government-frontend</code>, <code>info-frontend</code>, <code>licencefinder</code>, <code>manuals-frontend</code>, <code>performanceplatform-big-screen-view</code>, <code>rummager</code>, <code>search-api</code>, <code>service-manual-frontend</code>, <code>smartanswers</code>, <code>spotlight</code>, <code>static</code>, <code>tariff</code>, <code>whitehall-admin</code>, <code>whitehall-frontend</code></td></tr>
-<tr><td><strong>routes</strong><br /><code>array</code></td> <td><br /></td></tr>
-<tr><td><strong>schema_name</strong><br /><code>string</code></td> <td><br />Allowed values: <code>news_article</code></td></tr>
-<tr><td><strong>title</strong><br /><code>string</code></td> <td><br /></td></tr>
-<tr><td><strong>update_type</strong><br /></td> <td><br />Allowed values: <code>major</code>, <code>minor</code>, <code>republish</code></td></tr></table>
-
+<h3 id='attributes'>Attributes</h3>
+<table class='schema-table'><tr><td><strong>access_limited</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>auth_bypass_ids</strong><br/></td> <td>Deprecated: auth_bypass_ids should be sent as a separate field<br/></td></tr>
+<tr><td><strong>organisations</strong><br/></td> <td>A list of organisation content ids permitted access to this item<br/></td></tr>
+<tr><td><strong>users</strong><br/><code>array</code></td> <td><br/></td></tr></table></td></tr>
+<tr><td><strong>analytics_identifier</strong><br/><code>string</code> or <code>null</code></td> <td>A short identifier we send to Google Analytics for multi-valued fields. This means we avoid the truncated values we would get if we sent the path or slug of eg organisations.<br/></td></tr>
+<tr><td><strong>auth_bypass_ids</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>base_path</strong><br/><code>string</code></td> <td>A path only. Query string and/or fragment are not allowed.<br/></td></tr>
+<tr><td><strong>bulk_publishing</strong><br/><code>boolean</code></td> <td><br/></td></tr>
+<tr><td><strong>change_note</strong><br/><code>["null", "string"]</code></td> <td><br/></td></tr>
+<tr><td><strong>description</strong><br/><code></code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>details</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>attachments</strong><br/><code>array</code></td> <td>An ordered list of asset links<br/></td></tr>
+<tr><td><strong>body</strong><br/><code>string</code></td> <td>The main content provided as HTML rendered from govspeak<br/></td></tr>
+<tr><td><strong>change_history</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>emphasised_organisations</strong><br/><code>array</code></td> <td>The content ids of the organisations that should be displayed first in the list of organisations related to the item, these content ids must be present in the item organisation links hash.<br/></td></tr>
+<tr><td><strong>first_public_at</strong><br/><code>string</code></td> <td>DEPRECATED. The date the content was first published. Used in details. Deprecated in favour of top level `first_published_at`.<br/></td></tr>
+<tr><td><strong>government</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>current</strong><br/><code>boolean</code></td> <td>Is the government that published this document still the current government.<br/></td></tr>
+<tr><td><strong>slug</strong><br/><code>string</code></td> <td>Government slug, used for analytics, eg &lsquo;1970-to-1974-conservative-government&rsquo;.<br/></td></tr>
+<tr><td><strong>title</strong><br/><code>string</code></td> <td>Name of the government that first published this document, eg &lsquo;1970 to 1974 Conservative government&rsquo;.<br/></td></tr></table></td></tr>
+<tr><td><strong>image</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>alt_text</strong><br/><code>string</code></td> <td><br/></td></tr>
+<tr><td><strong>caption</strong><br/><code>string</code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>credit</strong><br/><code>string</code> or <code>null</code></td> <td><br/></td></tr>
+<tr><td><strong>high_resolution_url</strong><br/><code>string</code></td> <td>URL to a high resolution version of the image, for use by third parties such as Twitter, Facebook or Slack. Used by the machine readable metadata component. Don&rsquo;t use this on user-facing web pages, as it might be very large.<br/></td></tr>
+<tr><td><strong>url</strong><br/><code>string</code></td> <td>URL to the image. The image should be in a suitable resolution for display on the page.<br/></td></tr></table></td></tr>
+<tr><td><strong>political</strong><br/><code>boolean</code></td> <td>If the content is considered political in nature, reflecting views of the government it was published under.<br/></td></tr>
+<tr><td><strong>tags</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>additional_topics</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>browse_pages</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>policies</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>primary_topic</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>topics</strong><br/><code>array</code></td> <td><br/></td></tr></table></td></tr></table></td></tr>
+<tr><td><strong>document_type</strong><br/><code>string</code></td> <td><br/>Allowed values: <code>press_release</code>, <code>news_story</code>, <code>government_response</code>, <code>world_news_story</code></td></tr>
+<tr><td><strong>first_published_at</strong><br/><code>string</code></td> <td>The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.<br/></td></tr>
+<tr><td><strong>last_edited_at</strong><br/><code>string</code></td> <td>Last time when the content received a major or minor update.<br/></td></tr>
+<tr><td><strong>links</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>government</strong><br/></td> <td>The government associated with this document<br/></td></tr>
+<tr><td><strong>organisations</strong><br/></td> <td>All organisations linked to this content item. This should include lead organisations.<br/></td></tr>
+<tr><td><strong>people</strong><br/></td> <td>People that are associated with this document, typically the person part of a role association<br/></td></tr>
+<tr><td><strong>policy_areas</strong><br/></td> <td>A largely deprecated tag currently only used to power email alerts.<br/></td></tr>
+<tr><td><strong>primary_publishing_organisation</strong><br/></td> <td>The organisation that published the page. Corresponds to the first of the &lsquo;Lead organisations&rsquo; in Whitehall, and is empty for all other publishing applications.<br/></td></tr>
+<tr><td><strong>roles</strong><br/></td> <td>Government roles that are associated with this document, typically the role part of a role association<br/></td></tr>
+<tr><td><strong>topical_events</strong><br/></td> <td>The topical events this content item relates to.<br/></td></tr>
+<tr><td><strong>world_locations</strong><br/></td> <td>The world locations this content item is about.<br/></td></tr>
+<tr><td><strong>worldwide_organisations</strong><br/></td> <td>The worldwide organisations associated with this content item.<br/></td></tr></table></td></tr>
+<tr><td><strong>locale</strong><br/><code>string</code></td> <td><br/>Allowed values: <code>ar</code>, <code>az</code>, <code>be</code>, <code>bg</code>, <code>bn</code>, <code>cs</code>, <code>cy</code>, <code>da</code>, <code>de</code>, <code>dr</code>, <code>el</code>, <code>en</code>, <code>es</code>, <code>es-419</code>, <code>et</code>, <code>fa</code>, <code>fi</code>, <code>fr</code>, <code>gd</code>, <code>gu</code>, <code>he</code>, <code>hi</code>, <code>hr</code>, <code>hu</code>, <code>hy</code>, <code>id</code>, <code>is</code>, <code>it</code>, <code>ja</code>, <code>ka</code>, <code>kk</code>, <code>ko</code>, <code>lt</code>, <code>lv</code>, <code>ms</code>, <code>mt</code>, <code>nl</code>, <code>no</code>, <code>pa</code>, <code>pa-pk</code>, <code>pl</code>, <code>ps</code>, <code>pt</code>, <code>ro</code>, <code>ru</code>, <code>si</code>, <code>sk</code>, <code>sl</code>, <code>so</code>, <code>sq</code>, <code>sr</code>, <code>sv</code>, <code>sw</code>, <code>ta</code>, <code>th</code>, <code>tk</code>, <code>tr</code>, <code>uk</code>, <code>ur</code>, <code>uz</code>, <code>vi</code>, <code>zh</code>, <code>zh-hk</code>, <code>zh-tw</code></td></tr>
+<tr><td><strong>need_ids</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>phase</strong><br/><code>string</code></td> <td>The service design phase of this content item - https://www.gov.uk/service-manual/phases<br/>Allowed values: <code>alpha</code>, <code>beta</code>, <code>live</code></td></tr>
+<tr><td><strong>previous_version</strong><br/><code>string</code></td> <td><br/></td></tr>
+<tr><td><strong>public_updated_at</strong><br/><code>string</code></td> <td>When the content was last significantly changed (a major update). Shown to users.  Automatically determined by the publishing-api, unless overridden by the publishing application.<br/></td></tr>
+<tr><td><strong>publishing_app</strong><br/><code>string</code></td> <td>The application that published this item.<br/>Allowed values: <code>calculators</code>, <code>calendars</code>, <code>collections-publisher</code>, <code>contacts</code>, <code>content-publisher</code>, <code>content-tagger</code>, <code>email-alert-frontend</code>, <code>external-link-tracker</code>, <code>feedback</code>, <code>frontend</code>, <code>government-frontend</code>, <code>hmrc-manuals-api</code>, <code>info-frontend</code>, <code>licencefinder</code>, <code>local-links-manager</code>, <code>manuals-frontend</code>, <code>manuals-publisher</code>, <code>maslow</code>, <code>performanceplatform-big-screen-view</code>, <code>publisher</code>, <code>rummager</code>, <code>search-admin</code>, <code>search-api</code>, <code>service-manual-publisher</code>, <code>share-sale-publisher</code>, <code>short-url-manager</code>, <code>smartanswers</code>, <code>special-route-publisher</code>, <code>specialist-publisher</code>, <code>static</code>, <code>tariff</code>, <code>travel-advice-publisher</code>, <code>whitehall</code></td></tr>
+<tr><td><strong>redirects</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>rendering_app</strong><br/><code>string</code></td> <td>The application that renders this item.<br/>Allowed values: <code>calculators</code>, <code>calendars</code>, <code>collections</code>, <code>content-store</code>, <code>email-alert-frontend</code>, <code>email-campaign-frontend</code>, <code>feedback</code>, <code>finder-frontend</code>, <code>frontend</code>, <code>government-frontend</code>, <code>info-frontend</code>, <code>licencefinder</code>, <code>manuals-frontend</code>, <code>performanceplatform-big-screen-view</code>, <code>rummager</code>, <code>search-api</code>, <code>service-manual-frontend</code>, <code>smartanswers</code>, <code>spotlight</code>, <code>static</code>, <code>tariff</code>, <code>whitehall-admin</code>, <code>whitehall-frontend</code></td></tr>
+<tr><td><strong>routes</strong><br/><code>array</code></td> <td><br/></td></tr>
+<tr><td><strong>schema_name</strong><br/><code>string</code></td> <td><br/>Allowed values: <code>news_article</code></td></tr>
+<tr><td><strong>title</strong><br/><code>string</code></td> <td><br/></td></tr>
+<tr><td><strong>update_type</strong><br/></td> <td><br/>Allowed values: <code>major</code>, <code>minor</code>, <code>republish</code></td></tr></table>
 <p><a href="https://github.com/alphagov/govuk-content-schemas/blob/master/dist/formats/news_article/publisher/schema.json">View this schema on GitHub</a></p>
-
-<h3 id="random-example-1">Random example</h3>
-
-<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+<h3 id='random-example'>Random example</h3><div class="highlight"><pre class="highlight json" tabindex="0"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"access_limited"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"auth_bypass_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="s2">"bfeb8cab-4bdc-127e-a67a-8c0fea6ef517"</span><span class="p">,</span><span class="w">
@@ -1642,46 +1627,37 @@ a publishing application sends to the publishing-api in a
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"massa elit. sem eu aliquet. interdum. habitant Pellentesque ac eros. tristique est. non tempor nibh. Nam morbi Ut ipsum orci finibus sit Mauris senectus dolor ac Lorem ac Aenean vestibulum. Quisque purus nibh mauris vel imperdiet ultricies at pellentesque scelerisque. a Suspendisse hendrerit vel ac consectetur cursus suscipit Nam"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<hr />
-
-<h2 id="publisher-links-schema">Publisher links schema</h2>
-
-<p>The links for this item. This is what a publishing application sends in a
+<hr>
+<h2 id='publisher-links-schema'>Publisher links schema</h2><p>The links for this item. This is what a publishing application sends in a
 <a href="http://www.rubydoc.info/github/alphagov/gds-api-adapters/GdsApi/PublishingApiV2#patch_links-instance_method"><code>patch_links</code></a> call.</p>
-
-<h3 id="attributes-1">Attributes</h3>
-
-<table class="schema-table"><tr><td><strong>bulk_publishing</strong><br /><code>boolean</code></td> <td><br /></td></tr>
-<tr><td><strong>links</strong><br /><code>object</code></td> <td><table class="schema-table"><tr><td><strong>facet_groups</strong><br /></td> <td>Prototype-stage metadata tagging tree roots for this content item. A content item my belong to many facet groups without having any specific facet_values links.<br /></td></tr>
-<tr><td><strong>facet_values</strong><br /></td> <td>Prototype-stage metadata tagging values for this content item, a content item can be linked to many facet values from varying facet groups.<br /></td></tr>
-<tr><td><strong>finder</strong><br /></td> <td>Powers links from content back to finders the content is surfaced on<br /></td></tr>
-<tr><td><strong>government</strong><br /></td> <td>The government associated with this document<br /></td></tr>
-<tr><td><strong>lead_organisations</strong><br /></td> <td>DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.<br /></td></tr>
-<tr><td><strong>mainstream_browse_pages</strong><br /></td> <td>Powers the /browse section of the site. These are known as sections in some legacy apps.<br /></td></tr>
-<tr><td><strong>meets_user_needs</strong><br /></td> <td>The user needs this piece of content meets.<br /></td></tr>
-<tr><td><strong>ordered_related_items</strong><br /></td> <td>Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.<br /></td></tr>
-<tr><td><strong>ordered_related_items_overrides</strong><br /></td> <td>Related items, can be any page on GOV.UK. Overrides 'more like this' automatically generated links in the beta navigation.<br /></td></tr>
-<tr><td><strong>organisations</strong><br /></td> <td>All organisations linked to this content item. This should include lead organisations.<br /></td></tr>
-<tr><td><strong>original_primary_publishing_organisation</strong><br /></td> <td>The organisation that published the original version of the page. Corresponds to the first of the 'Lead organisations' in Whitehall for the first edition, and is empty for all other publishing applications.<br /></td></tr>
-<tr><td><strong>parent</strong><br /></td> <td>The parent content item.<br /></td></tr>
-<tr><td><strong>people</strong><br /></td> <td>People that are associated with this document, typically the person part of a role association<br /></td></tr>
-<tr><td><strong>policy_areas</strong><br /></td> <td>A largely deprecated tag currently only used to power email alerts.<br /></td></tr>
-<tr><td><strong>primary_publishing_organisation</strong><br /></td> <td>The organisation that published the page. Corresponds to the first of the 'Lead organisations' in Whitehall, and is empty for all other publishing applications.<br /></td></tr>
-<tr><td><strong>related_policies</strong><br /></td> <td><br /></td></tr>
-<tr><td><strong>roles</strong><br /></td> <td>Government roles that are associated with this document, typically the role part of a role association<br /></td></tr>
-<tr><td><strong>suggested_ordered_related_items</strong><br /></td> <td>New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.<br /></td></tr>
-<tr><td><strong>taxons</strong><br /></td> <td>Prototype-stage taxonomy label for this content item<br /></td></tr>
-<tr><td><strong>topical_events</strong><br /></td> <td>The topical events this content item relates to.<br /></td></tr>
-<tr><td><strong>topics</strong><br /></td> <td>Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.<br /></td></tr>
-<tr><td><strong>world_locations</strong><br /></td> <td>The world locations this content item is about.<br /></td></tr>
-<tr><td><strong>worldwide_organisations</strong><br /></td> <td>The worldwide organisations associated with this content item.<br /></td></tr></table></td></tr>
-<tr><td><strong>previous_version</strong><br /><code>string</code></td> <td><br /></td></tr></table>
-
+<h3 id='attributes'>Attributes</h3>
+<table class='schema-table'><tr><td><strong>bulk_publishing</strong><br/><code>boolean</code></td> <td><br/></td></tr>
+<tr><td><strong>links</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>facet_groups</strong><br/></td> <td>Prototype-stage metadata tagging tree roots for this content item. A content item my belong to many facet groups without having any specific facet_values links.<br/></td></tr>
+<tr><td><strong>facet_values</strong><br/></td> <td>Prototype-stage metadata tagging values for this content item, a content item can be linked to many facet values from varying facet groups.<br/></td></tr>
+<tr><td><strong>finder</strong><br/></td> <td>Powers links from content back to finders the content is surfaced on<br/></td></tr>
+<tr><td><strong>government</strong><br/></td> <td>The government associated with this document<br/></td></tr>
+<tr><td><strong>lead_organisations</strong><br/></td> <td>DEPRECATED: A subset of organisations that should be emphasised in relation to this content item. All organisations specified here should also be part of the organisations array.<br/></td></tr>
+<tr><td><strong>mainstream_browse_pages</strong><br/></td> <td>Powers the /browse section of the site. These are known as sections in some legacy apps.<br/></td></tr>
+<tr><td><strong>meets_user_needs</strong><br/></td> <td>The user needs this piece of content meets.<br/></td></tr>
+<tr><td><strong>ordered_related_items</strong><br/></td> <td>Related items, can be any page on GOV.UK. Mostly used for mainstream content to power the sidebar. Ordering of the links is determined by the editor in Content Tagger.<br/></td></tr>
+<tr><td><strong>ordered_related_items_overrides</strong><br/></td> <td>Related items, can be any page on GOV.UK. Overrides &lsquo;more like this&rsquo; automatically generated links in the beta navigation.<br/></td></tr>
+<tr><td><strong>organisations</strong><br/></td> <td>All organisations linked to this content item. This should include lead organisations.<br/></td></tr>
+<tr><td><strong>original_primary_publishing_organisation</strong><br/></td> <td>The organisation that published the original version of the page. Corresponds to the first of the &lsquo;Lead organisations&rsquo; in Whitehall for the first edition, and is empty for all other publishing applications.<br/></td></tr>
+<tr><td><strong>parent</strong><br/></td> <td>The parent content item.<br/></td></tr>
+<tr><td><strong>people</strong><br/></td> <td>People that are associated with this document, typically the person part of a role association<br/></td></tr>
+<tr><td><strong>policy_areas</strong><br/></td> <td>A largely deprecated tag currently only used to power email alerts.<br/></td></tr>
+<tr><td><strong>primary_publishing_organisation</strong><br/></td> <td>The organisation that published the page. Corresponds to the first of the &lsquo;Lead organisations&rsquo; in Whitehall, and is empty for all other publishing applications.<br/></td></tr>
+<tr><td><strong>related_policies</strong><br/></td> <td><br/></td></tr>
+<tr><td><strong>roles</strong><br/></td> <td>Government roles that are associated with this document, typically the role part of a role association<br/></td></tr>
+<tr><td><strong>suggested_ordered_related_items</strong><br/></td> <td>New A/B test suggestions for related items. Used for displaying related content on most pages, except for step-by-step and fatality notices. Links and their ordering are determined by the machine learning algorithms included in this A/B test.<br/></td></tr>
+<tr><td><strong>taxons</strong><br/></td> <td>Prototype-stage taxonomy label for this content item<br/></td></tr>
+<tr><td><strong>topical_events</strong><br/></td> <td>The topical events this content item relates to.<br/></td></tr>
+<tr><td><strong>topics</strong><br/></td> <td>Powers the /topic section of the site. These are known as specialist sectors in some legacy apps.<br/></td></tr>
+<tr><td><strong>world_locations</strong><br/></td> <td>The world locations this content item is about.<br/></td></tr>
+<tr><td><strong>worldwide_organisations</strong><br/></td> <td>The worldwide organisations associated with this content item.<br/></td></tr></table></td></tr>
+<tr><td><strong>previous_version</strong><br/><code>string</code></td> <td><br/></td></tr></table>
 <p><a href="https://github.com/alphagov/govuk-content-schemas/blob/master/dist/formats/news_article/publisher/links.json">View this schema on GitHub</a></p>
-
-<h3 id="random-example-2">Random example</h3>
-
-<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+<h3 id='random-example'>Random example</h3><div class="highlight"><pre class="highlight json" tabindex="0"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"bulk_publishing"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"facet_values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1761,7 +1737,6 @@ a publishing application sends to the publishing-api in a
   </span><span class="nl">"previous_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"massa ultricies mauris suscipit cursus Ut turpis adipiscing sagittis Mauris nibh eros. non tempor et tempor Nam netus sed Aenean scelerisque. ac imperdiet ac senectus Quisque nibh. vestibulum. interdum. malesuada"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 
   <style media="screen">
     .technical-documentation pre {

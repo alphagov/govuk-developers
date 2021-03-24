@@ -165,59 +165,42 @@
 </div>
 
  <h1 id='header'>Assets: how they work</h1> <p>There are three types of asset files.</p>
-
 <p><strong>Static assets</strong> are stylesheets (CSS), JavaScript (JS) and image files which
 make GOV.UK look the way it does.</p>
-
 <p><strong>Uploaded assets</strong> - also called attachments - are files like PDFs, CSVs and
 images which are uploaded via the publishing apps and attached to documents.</p>
-
 <p><strong>Static templates</strong> - these are HTML snippets served by the <a href="/apps/static.html">Static</a>
 application. These are used by applications to share common parts of the GOV.UK
 page layout (such as header and footer).</p>
-
-<h2 id="static-assets">Static assets</h2>
-
-<p>These assets are served from <code>https://www.gov.uk/assets</code> with a path associated
+<h2 id='static-assets'>Static assets</h2><p>These assets are served from <code>https://www.gov.uk/assets</code> with a path associated
 with the application that is serving them. For example files within
 <code>https://www.gov.uk/assets/government-frontend</code> are assets for the
 <a href="/apps/government-frontend.html">Government Frontend</a> application. These files
 are cached by <a href="/manual/cdn.html">the GOV.UK content delivery network</a>.</p>
-
 <p>These assets are served by the cache machines, these will proxy requests to
 the application based on the path. For example <code>/assets/government-frontend/</code>
 will proxy asset requests to Government Frontend</p>
-
-<h2 id="uploaded-assets">Uploaded assets</h2>
-
-<p><a href="apps/asset-manager.html">Asset Manager</a> is an API that is called internally
+<h2 id='uploaded-assets'>Uploaded assets</h2><p><a href="apps/asset-manager.html">Asset Manager</a> is an API that is called internally
 by <a href="/#publishing-apps">GOV.UK publishing applications</a> to manage
 their uploads. It serves the uploaded assets on
 <code>assets.publishing.service.gov.uk</code>.</p>
-
-<h3 id="how-uploaded-assets-are-stored-and-served">How uploaded assets are stored and served</h3>
-
-<p>Asset files are stored in an S3 bucket (e.g. <code>govuk-assets-production</code> in
+<h3 id='how-uploaded-assets-are-stored-and-served'>How uploaded assets are stored and served</h3><p>Asset files are stored in an S3 bucket (e.g. <code>govuk-assets-production</code> in
 production) and Asset Manager instructs nginx to proxy requests to them.
 Proxying was chosen, rather than linking directly to S3, to support the
 following features:</p>
 
 <ul>
-  <li>Assets are not served until they have been virus scanned; a placeholder image
+<li>Assets are not served until they have been virus scanned; a placeholder image
 or page is shown for assets that are not finished scanning.</li>
-  <li>Assets can be access-limited so that only authorised users can see them.</li>
-  <li>Asset files can be replaced, and a request to the original path redirects to
+<li>Assets can be access-limited so that only authorised users can see them.</li>
+<li>Asset files can be replaced, and a request to the original path redirects to
 the replacement. Currently only Whitehall and Specialist Publisher support
 this.</li>
 </ul>
-
-<h2 id="static-templates">Static templates</h2>
-
-<p>The templates that Static hosts are used by
+<h2 id='static-templates'>Static templates</h2><p>The templates that Static hosts are used by
 <a href="/#frontend-apps">GOV.UK frontend applications</a> to render consistent aspects
 of GOV.UK pages. Production instances of GOV.UK applications access these by
 internal communication with Static.</p>
-
 <p>These assets are also available publicly for development and preview versions
 of GOV.UK applications. They allow apps to utilise these production resources
 without needing to run an instance of Static manaul. Public access to Static

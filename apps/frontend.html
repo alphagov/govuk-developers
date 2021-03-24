@@ -317,97 +317,87 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: frontend</h1>
 
-  
-<p>Serves the homepage, transactions and some index pages on GOV.UK</p>
+  <p>Serves the homepage, transactions and some index pages on GOV.UK</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/frontend">frontend</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/frontend"&gt;frontend&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>draft_frontend</strong> machine class</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-platform-health&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">Yes</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Rake tasks</dt>
-            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;AWS&lt;/strong&gt;, on the &lt;strong&gt;draft_frontend&lt;/strong&gt; machine class&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/govuk/app-frontend" class="govuk-link">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/frontend.pp" class="govuk-link">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/frontend/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/frontend.json" class="govuk-link">Deployment dashboard</a></li>
-
-    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22frontend%3A+true%22+path%3A%2Fspec%2F" class="govuk-link">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;Yes&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Rake tasks&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;span aria-hidden='true'&gt;Run a Rake task on&lt;/span&gt; &lt;a
+  href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Integration"&gt;Integration&lt;/a&gt;, &lt;a
+  href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Staging"&gt;Staging&lt;/a&gt; or &lt;a
+  href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=frontend&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Production"&gt;⚠️ Production ⚠️&lt;/a&gt;&lt;/dd&gt;
 
-</ul>
-</dd>
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://sentry.io/govuk/app-frontend" class="govuk-link"&gt;Sentry (error tracking)&lt;/a&gt;&lt;/li&gt;
 
-              <dd class="govuk-summary-list__actions">
-</dd>
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/frontend.pp" class="govuk-link"&gt;Puppet configuration&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-app-deployment/blob/master/frontend/config/deploy.rb" class="govuk-link"&gt;Deploy scripts&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://grafana.production.govuk.digital/dashboard/file/frontend.json" class="govuk-link"&gt;Deployment dashboard&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22frontend%3A+true%22+path%3A%2Fspec%2F" class="govuk-link"&gt;Publishing E2E scenarios&lt;/a&gt; (warning: not all apps have E2E tests)&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
-
-<h2 id="example-pages-published-by-frontend">Example pages published by frontend</h2>
-<ul class="gem-c-list govuk-list">
+</div></p>
+<h2 id='example-pages-published-by-frontend'>Example pages published by frontend</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="https://www.gov.uk/bank-holidays" class="govuk-link">UK bank holidays</a></li>
       <li><a href="https://www.gov.uk/find-local-council" class="govuk-link">Find your local council</a></li>
       <li><a href="https://www.gov.uk/when-do-the-clocks-change" class="govuk-link">When do the clocks change?</a></li>
       <li><a href="https://www.gov.uk/help" class="govuk-link">Help using GOV.UK</a></li>
       <li><a href="https://www.gov.uk/help/cookies" class="govuk-link">Cookies on GOV.UK</a></li>
-</ul>
-
-<h2 id="example-pages-rendered-by-frontend">Example pages rendered by frontend</h2>
-<ul class="gem-c-list govuk-list">
+</ul></p>
+<h2 id='example-pages-rendered-by-frontend'>Example pages rendered by frontend</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="https://www.gov.uk/report-covid19-result" class="govuk-link">Report a COVID-19 rapid lateral flow test result</a></li>
       <li><a href="https://www.gov.uk/sign-in-universal-credit" class="govuk-link">Sign in to your Universal Credit account</a></li>
       <li><a href="https://www.gov.uk/check-mot-history" class="govuk-link">Check the MOT history of a vehicle</a></li>
@@ -418,13 +408,10 @@
       <li><a href="https://www.gov.uk/provide-journey-contact-details-before-travel-uk" class="govuk-link">Fill in your passenger locator form</a></li>
       <li><a href="https://www.gov.uk/check-mot-status" class="govuk-link">Check the MOT status of a vehicle</a></li>
       <li><a href="https://www.gov.uk/view-driving-licence" class="govuk-link">View or share your driving licence information</a></li>
-</ul>
-
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</ul></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme">
+    &lt;!&ndash; raw HTML omitted &ndash;&gt;
+&lt;!&ndash; raw HTML omitted &ndash;&gt;
 <h2 id="live-examples">Live examples</h2>
 <h3 id="formats">Formats</h3>
 <p>Simple smart answer</p>
@@ -503,17 +490,17 @@
 <p>Frontend is a Ruby on Rails application that renders the citizen-facing part of formats stored in the Content Store. It looks up the passed-in slug in the Content Store.</p>
 <p>It also serves the homepage as a hard-coded route.</p>
 <p>Calendar JSON data files are stored in <code>lib/data/&lt;scope&gt;.json</code>, with a <code>divisions</code> hash for separate data per region (<code>united-kingdom</code>, <code>england-and-wales</code>, <code>scotland</code> or <code>northern-ireland</code>).</p>
-<p>Each scope's data file contains a list of divisions, containing a list of years, each with a list of events:</p>
+<p>Each scope&rsquo;s data file contains a list of divisions, containing a list of years, each with a list of events:</p>
 <pre lang="json"><code>{
-  "title": "UK bank holidays",
-  "description": "UK bank holidays calendar - see UK bank holidays and public holidays for 2012 and 2013",
-  "divisions": {
-    "england-and-wales": {
-      "title": "England and Wales",
-      "2011": [{
-        "title": "New Year's Day",
-        "date": "02/01/2011",
-        "notes": "Substitute day"
+  &quot;title&quot;: &quot;UK bank holidays&quot;,
+  &quot;description&quot;: &quot;UK bank holidays calendar - see UK bank holidays and public holidays for 2012 and 2013&quot;,
+  &quot;divisions&quot;: {
+    &quot;england-and-wales&quot;: {
+      &quot;title&quot;: &quot;England and Wales&quot;,
+      &quot;2011&quot;: [{
+        &quot;title&quot;: &quot;New Year&#39;s Day&quot;,
+        &quot;date&quot;: &quot;02/01/2011&quot;,
+        &quot;notes&quot;: &quot;Substitute day&quot;
       }]
     }
   }
@@ -547,7 +534,7 @@
 <p>Send the calendars to the publishing-api:</p>
 <pre><code>bundle exec rake publishing_api:publish_calendars
 </code></pre>
-<p>If you're using govuk-docker, you may need to <code>govuk-docker-up</code> on <code>publishing-api</code> in a separate shell. You may also need to run the rake task a couple of times if you encounter timeouts.</p>
+<p>If you&rsquo;re using govuk-docker, you may need to <code>govuk-docker-up</code> on <code>publishing-api</code> in a separate shell. You may also need to run the rake task a couple of times if you encounter timeouts.</p>
 <p>Search indexing is performed automatically on data sent to publishing api.</p>
 <p>A rake task has been created to generate the bank holidays JSON for a given year. They need to be then inserted, and modified to take into account any additions/modifications made by proclamation.</p>
 <p>Run the rake task like this:</p>
@@ -560,7 +547,7 @@
 </li>
 <li>
 <p>Bank holidays are determined both by law and by proclamation. We use the following legislation: the <a href="http://www.legislation.gov.uk/ukpga/1971/80/schedule/1">Banking and Financial Dealings Act 1971</a>
-and the <a href="http://www.legislation.gov.uk/asp/2007/2/section/1">St Andrew's Day Bank Holiday Act</a>.</p>
+and the <a href="http://www.legislation.gov.uk/asp/2007/2/section/1">St Andrew&rsquo;s Day Bank Holiday Act</a>.</p>
 </li>
 <li>
 <p>The proclamations of holidays are published in <a href="https://www.thegazette.co.uk/all-notices/notice?noticetypes=1101&amp;sort-by=latest-date&amp;text=%22Banking+and+Financial%22">The Gazette</a>.
@@ -569,8 +556,7 @@ Holidays are announced there 6 months to one year in advance, usually between th
 </ul>
 <h2 id="licence">Licence</h2>
 <p><a href="https://github.com/alphagov/frontend/blob/master/LICENCE.txt">MIT Licence</a></p>
-  </div>
-
+  </div></p>
 
 
             

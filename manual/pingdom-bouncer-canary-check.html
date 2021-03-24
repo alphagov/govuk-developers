@@ -158,75 +158,72 @@
  <h1 id='header'>Pingdom Bouncer canary check</h1> <p>Bouncer has a canary route at <a href="https://www.direct.gov.uk/__canary__">https://www.direct.gov.uk/__canary__</a>
 which queries all the database tables which Bouncer uses to serve all
 responses to users and checks that those tables are not empty. The
-canary should return 200; if it doesn't then errors will be being served
+canary should return 200; if it doesn&rsquo;t then errors will be being served
 to users - see the table below for more details of the errors in each
 case.</p>
-
 <p>Possible causes of errors on the canary route include:</p>
 
 <ul>
-  <li>DNS problems for <code>www.direct.gov.uk</code> or
-<code>bouncer.publishing.service.gov.uk</code> - check Bouncer's Nginx
+<li>DNS problems for <code>www.direct.gov.uk</code> or
+<code>bouncer.publishing.service.gov.uk</code> - check Bouncer&rsquo;s Nginx
 logs via the <a href="https://logit.io">logit.io dashboard</a>
 to see which requests are getting through</li>
-  <li>CDN problems resulting in requests for <code>www.direct.gov.uk</code> not being
+<li>CDN problems resulting in requests for <code>www.direct.gov.uk</code> not being
 correctly passed to <code>https://bouncer.publishing.service.gov.uk</code></li>
-  <li><code>bouncer-*</code> or <code>transition-postgresql-slave-1</code> machines being
+<li><code>bouncer-*</code> or <code>transition-postgresql-slave-1</code> machines being
 unavailable</li>
-  <li>Bouncer's dependencies being missing or having errors in its
+<li>Bouncer&rsquo;s dependencies being missing or having errors in its
 configuration</li>
-  <li><a href="https://graphite.publishing.service.gov.uk/render/?width=600&amp;height=300&amp;target=alias(dashed(constantLine(6442450944)),%22critical%22)&amp;target=alias(dashed(constantLine(4294967296)),%22warning%22)&amp;target=bouncer-*_redirector.processes-app-bouncer.ps_rss&amp;from=-2days">memory leaks in Bouncer</a></li>
-  <li>the app being unable to connect or authorise to the database</li>
-  <li>the database or the required tables being missing or empty</li>
-  <li>the <code>bouncer</code> role not having <code>SELECT</code> privileges on the required tables</li>
+<li><a href="https://graphite.publishing.service.gov.uk/render/?width=600&amp;height=300&amp;target=alias(dashed(constantLine(6442450944)),%22critical%22)&amp;target=alias(dashed(constantLine(4294967296)),%22warning%22)&amp;target=bouncer-*_redirector.processes-app-bouncer.ps_rss&amp;from=-2days">memory leaks in Bouncer</a></li>
+<li>the app being unable to connect or authorise to the database</li>
+<li>the database or the required tables being missing or empty</li>
+<li>the <code>bouncer</code> role not having <code>SELECT</code> privileges on the required tables</li>
 </ul>
-
 <p>The database tables checked by the canary route (in order) and the
 effect on requests for transitioned sites of errors when querying them:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Database table</th>
-      <th>HTTP status codes for requests for transitioned sites</th>
-      <th> </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>table name</td>
-      <td>when table inaccessible</td>
-      <td>when table missing data</td>
-    </tr>
-    <tr>
-      <td><code>hosts</code></td>
-      <td><code>500</code> for all requests</td>
-      <td><code>404</code> for all requests</td>
-    </tr>
-    <tr>
-      <td><code>sites</code></td>
-      <td><code>500</code> for all requests</td>
-      <td><code>500</code> for all requests</td>
-    </tr>
-    <tr>
-      <td><code>mappings</code></td>
-      <td><code>500</code> for most requests</td>
-      <td><code>404</code> for most requests</td>
-    </tr>
-    <tr>
-      <td><code>whitelisted_hosts</code></td>
-      <td><code>500</code> for requests which should redirect to non-<code>*.gov.uk</code>/<code>*.mod.uk</code>/<code>*.nhs.uk</code> domains</td>
-      <td><code>501</code> for those requests</td>
-    </tr>
-    <tr>
-      <td><code>organisations</code></td>
-      <td><code>500</code> for most requests which should<br />serve a 404 or 410 page</td>
-      <td><code>500</code> for those requests</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>There are other tables in the <code>transition_production</code> database but they
+<div class="table-container">
+        <table>
+          <tr>
+<th>Database table</th>
+<th>HTTP status codes for requests for transitioned sites</th>
+<th></th>
+</tr><tr>
+<td>table name</td>
+<td>when table inaccessible</td>
+<td>when table missing data</td>
+</tr><tr>
+<td><code>hosts</code></td>
+<td>
+<code>500</code> for all requests</td>
+<td>
+<code>404</code> for all requests</td>
+</tr><tr>
+<td><code>sites</code></td>
+<td>
+<code>500</code> for all requests</td>
+<td>
+<code>500</code> for all requests</td>
+</tr><tr>
+<td><code>mappings</code></td>
+<td>
+<code>500</code> for most requests</td>
+<td>
+<code>404</code> for most requests</td>
+</tr><tr>
+<td><code>whitelisted_hosts</code></td>
+<td>
+<code>500</code> for requests which should redirect to non-<code>*.gov.uk</code>/<code>*.mod.uk</code>/<code>*.nhs.uk</code> domains</td>
+<td>
+<code>501</code> for those requests</td>
+</tr><tr>
+<td><code>organisations</code></td>
+<td>
+<code>500</code> for most requests which should<br>serve a 404 or 410 page</td>
+<td>
+<code>500</code> for those requests</td>
+</tr>
+        </table>
+      </div><p>There are other tables in the <code>transition_production</code> database but they
 are only used by Transition and not by Bouncer.</p>
 
 

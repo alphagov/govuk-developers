@@ -161,36 +161,31 @@ the Publishing API as this is the authoritative source of the data,
 however, it can be helpful to make short term changes to routes
 manually, when going through the Publishing API would take too long,
 for example during an incident.</p>
-
-<p>If there's a need to edit a route in the database:</p>
+<p>If there&rsquo;s a need to edit a route in the database:</p>
 
 <ol>
-  <li>Connect to a router-backend machine</li>
+<li>Connect to a router-backend machine</li>
 </ol>
-
-<div class="highlight"><pre class="highlight console"><code><span class="go">gds govuk connect -e production ssh aws/router_backend
+<div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="go">gds govuk connect -e production ssh aws/router_backend
 </span></code></pre></div>
 <ol>
-  <li>Connect to router-api and get the route</li>
+<li>Connect to router-api and get the route</li>
 </ol>
-
-<div class="highlight"><pre class="highlight console"><code><span class="go">govuk_app_console router-api
+<div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="go">govuk_app_console router-api
 </span><span class="gp">&gt;</span><span class="w"> </span>r <span class="o">=</span> Route.where<span class="o">(</span>incoming_path: <span class="s1">'/path-to-item'</span><span class="o">)</span>.first
 </code></pre></div>
 <ol>
-  <li>Manipulate the <code>r</code> object directly (see the
+<li>Manipulate the <code>r</code> object directly (see the
 <a href="https://github.com/alphagov/router#data-structure">documentation</a> for
 available options), for example:</li>
 </ol>
-
-<div class="highlight"><pre class="highlight console"><code><span class="gp">&gt;</span><span class="w"> </span>r.route_type <span class="o">=</span> <span class="s1">'exact'</span>
+<div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="gp">&gt;</span><span class="w"> </span>r.route_type <span class="o">=</span> <span class="s1">'exact'</span>
 <span class="gp">&gt;</span><span class="w"> </span>r.save!
 </code></pre></div>
 <ol>
-  <li>Once you've edited the route appropriately and saved it, reload the router</li>
+<li>Once you&rsquo;ve edited the route appropriately and saved it, reload the router</li>
 </ol>
-
-<div class="highlight"><pre class="highlight console"><code><span class="gp">&gt;</span><span class="w"> </span>RouterReloader.reload
+<div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="gp">&gt;</span><span class="w"> </span>RouterReloader.reload
 </code></pre></div>
 
   <div class='related-content'>

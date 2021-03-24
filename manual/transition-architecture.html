@@ -148,7 +148,7 @@
         <a href="#bouncer"><span>Bouncer</span></a>
         <ul>
           <li>
-            <a href="#bouncers-stack"><span>Bouncer's stack</span></a>
+            <a href="#bouncer39s-stack"><span>Bouncer’s stack</span></a>
           </li>
         </ul>
       </li>
@@ -171,130 +171,85 @@
 
  <h1 id='header'>Transition architecture</h1> <p>The Transition system is built to transition government websites to GOV.UK. The
 main work around this <a href="https://insidegovuk.blog.gov.uk/2014/12/19/300-websites-to-just-1-in-15-months">happened in 2014</a>, but we still take on websites.</p>
-
 <p>All the repositories involved in transition have been <a href="https://github.com/search?q=topic%3Agovuk-transition+org%3Aalphagov">tagged with govuk-transition
 on GitHub</a>.</p>
-
-<h2 id="high-level-overview">High level overview</h2>
-
-<p><img src="/manual/images/transition-architecture.png" alt="Overview of the elements involved in transition" /></p>
-
+<h2 id='high-level-overview'>High level overview</h2><p><a href="images/transition-architecture.png" rel="noopener noreferrer"><img src="/manual/images/transition-architecture.png" alt="Overview of the elements involved in transition" /></a></p>
 <p>Source diagram in the <a href="https://drive.google.com/drive/folders/0B7zRJZy-BNyUS2lMMzJHLUpYM00">GOV.UK architecture folder</a>.</p>
-
-<h3 id="components">Components</h3>
-
+<h3 id='components'>Components</h3>
 <ul>
-  <li><a href="/apps/transition.html">transition</a> is the admin app that departments use to transition.</li>
-  <li><a href="https://github.com/alphagov/transition-config">transition-config</a> contains YAML files to configure transitioning
-websites. It's imported into the Transition database by the
+<li><a href="/apps/transition.html">transition</a> is the admin app that departments use to transition.</li>
+<li><a href="https://github.com/alphagov/transition-config">transition-config</a> contains YAML files to configure transitioning
+websites. It&rsquo;s imported into the Transition database by the
 <a href="https://deploy.blue.production.govuk.digital/job/Transition_load_site_config">Transition_load_site_config job</a>.</li>
-  <li>The <a href="https://github.com/alphagov/govuk-aws/tree/master/terraform/projects/infra-fastly-logs">cloudwatch / athena / lambda</a> trio process the logs
+<li>The <a href="https://github.com/alphagov/govuk-aws/tree/master/terraform/projects/infra-fastly-logs">cloudwatch / athena / lambda</a> trio process the logs
 from Fastly to produce the statistics. Those are then loaded into Transition
 by the <a href="https://deploy.blue.production.govuk.digital/job/Transition_load_all_data/">Transition_load_all_data job</a>.</li>
-  <li><a href="/apps/bouncer.html">bouncer</a> is the application that does the actual redirecting.</li>
-  <li><a href="https://github.com/alphagov/govuk-cdn-config">govuk-cdn-config</a> contains the script that the <a href="https://deploy.blue.production.govuk.digital/job/Bouncer_CDN/">Bouncer_CDN job</a> uses
+<li><a href="/apps/bouncer.html">bouncer</a> is the application that does the actual redirecting.</li>
+<li><a href="https://github.com/alphagov/govuk-cdn-config">govuk-cdn-config</a> contains the script that the <a href="https://deploy.blue.production.govuk.digital/job/Bouncer_CDN/">Bouncer_CDN job</a> uses
 to send the <a href="https://transition.publishing.service.gov.uk/hosts.json">hosts from transition</a> to Fastly.</li>
 </ul>
-
-<h2 id="transition-data-sources">Transition data sources</h2>
-
-<p>Site configuration is automatically imported every hour via
+<h2 id='transition-data-sources'>Transition data sources</h2><p>Site configuration is automatically imported every hour via
 <a href="https://deploy.blue.production.govuk.digital/job/Transition_load_site_config">a Jenkins job</a> from <a href="https://github.com/alphagov/transition-config">transition-config</a>.</p>
-
 <p>Traffic data is automatically imported every day via <a href="https://deploy.blue.production.govuk.digital/job/Transition_load_all_data/">a Jenkins
 job</a>.  This import puts a high load on the database. CDN logs
-for the "Production Bouncer" Fastly service are sent (by Fastly) to the
+for the &ldquo;Production Bouncer&rdquo; Fastly service are sent (by Fastly) to the
 <code>govuk-production-fastly-logs</code> S3 bucket and processed by a lambda function
 defined in the <a href="https://github.com/alphagov/govuk-aws/tree/master/terraform/projects/infra-fastly-logs">infra-fastly-logs</a> Terraform project.</p>
-
-<h2 id="bouncer">Bouncer</h2>
-
-<p><a href="/apps/bouncer.html">Bouncer</a> is a Ruby/Rack web app that receives requests for the URLs of government
+<h2 id='bouncer'>Bouncer</h2><p><a href="/apps/bouncer.html">Bouncer</a> is a Ruby/Rack web app that receives requests for the URLs of government
 sites that have either been transitioned to GOV.UK, archived or removed. It queries
 the database it shares with Transition and replies with a redirect, an archive page
 or a 404 page. It also handles <code>/robots.txt</code> and <code>/sitemap.xml</code> requests.</p>
-
 <p>Transition is a Rails app that allows users in transitioning organisations and
 at GDS to view, add and edit the mappings used by Bouncer. It also presents
 traffic data sourced from CDN logs and logs provided by transitioning organisations
 (though this latter activity has now ended).</p>
-
-<h3 id="bouncers-stack">Bouncer's stack</h3>
-
-<h4 id="dns">DNS</h4>
-
-<p>When sites transition they are generally CNAMEd to a domain we control that
-points to our CDN (an A record is used for root domains which can't be CNAMEd).</p>
-
+<h3 id='bouncer39s-stack'>Bouncer&rsquo;s stack</h3><h4 id='dns'>DNS</h4><p>When sites transition they are generally CNAMEd to a domain we control that
+points to our CDN (an A record is used for root domains which can&rsquo;t be CNAMEd).</p>
 <p>Some sites partially transition, which means that they redirect some paths to
 their AKA domain, which is CNAMEd to us.</p>
-
-<p>GDS doesn't control the DNS for most transitioned domains, except for some domains such as
+<p>GDS doesn&rsquo;t control the DNS for most transitioned domains, except for some domains such as
 <code>*.direct.gov.uk</code>, <code>*.businesslink.co.uk</code>, <code>*.alphagov.co.uk</code>. If the DNS
-for a particular transitioned site isn't configured correctly we need to inform
+for a particular transitioned site isn&rsquo;t configured correctly we need to inform
 the responsible department so they can fix it themselves.</p>
-
-<h4 id="cdn">CDN</h4>
-
-<p>Bouncer has a separate CDN service at Fastly ("Production Bouncer") from the
-main GOV.UK one, and it's configured by a
+<h4 id='cdn'>CDN</h4><p>Bouncer has a separate CDN service at Fastly (&ldquo;Production Bouncer&rdquo;) from the
+main GOV.UK one, and it&rsquo;s configured by a
 <a href="/manual/cdn.html#bouncer39s-fastly-service">separate Jenkins job</a>
 which adds and removes domains to and from the service.
 That job fetches the list of domains which should be configured at the CDN from
-Transition's <a href="https://transition.publishing.service.gov.uk/hosts">hosts API</a>, so
+Transition&rsquo;s <a href="https://transition.publishing.service.gov.uk/hosts">hosts API</a>, so
 will fail if that is unavailable.</p>
-
-<p><a href="/manual/cdn.html#bouncer39s-fastly-service">More information about Bouncer's Fastly service</a></p>
-
-<h4 id="machines">Machines</h4>
-
-<p>Bouncer runs on 3 machines in the <code>redirector</code> vDC (<code>bouncer-[1-3].redirector</code>),
+<p><a href="/manual/cdn.html#bouncer39s-fastly-service">More information about Bouncer&rsquo;s Fastly service</a></p>
+<h4 id='machines'>Machines</h4><p>Bouncer runs on 3 machines in the <code>redirector</code> vDC (<code>bouncer-[1-3].redirector</code>),
 and they are load-balanced at the vShield Edge rather than by a separate machine.
-Bouncer's traffic does not go through the <code>cache-*</code> nodes - the CDN proxies all
+Bouncer&rsquo;s traffic does not go through the <code>cache-*</code> nodes - the CDN proxies all
 requests to <code>bouncer.publishing.service.gov.uk</code> which points to its vShield Edge.</p>
-
 <p>It uses an Nginx default vhost so that requests for all domains are passed on to
-the application; there's generally no Nginx configuration for individual
+the application; there&rsquo;s generally no Nginx configuration for individual
 transitioned sites (but see <a href="#special-cases">Special cases</a> below).</p>
-
 <p>In the case of a data centre failure, within the disaster recovery (DR) vCloud organisation we have:</p>
 
 <ul>
-  <li>Bouncer application servers which read from the DR database slave</li>
-  <li>a second PostgreSQL slave for the Transition database</li>
+<li>Bouncer application servers which read from the DR database slave</li>
+<li>a second PostgreSQL slave for the Transition database</li>
 </ul>
-
-<h4 id="application">Application</h4>
-
-<p>Bouncer is a small application, and so long as its dependencies are present the
-only thing to do if it's erroring is to restart it.</p>
-
-<h4 id="database">Database</h4>
-
-<p>Bouncer reads from the <code>transition_production</code> database by connecting to
+<h4 id='application'>Application</h4><p>Bouncer is a small application, and so long as its dependencies are present the
+only thing to do if it&rsquo;s erroring is to restart it.</p>
+<h4 id='database'>Database</h4><p>Bouncer reads from the <code>transition_production</code> database by connecting to
 <code>transition-postgresql-slave-1.backend</code>. It authenticates using its own
 postgresql role which is granted <code>SELECT</code> permissions on all tables
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/bouncer/postgresql_role.pp#L21-L33">by Puppet</a>,
 and that role is further restricted to connecting only to the slave because the
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/node/s_transition_postgresql_slave.pp#L24-L30">pg_hba.conf rule</a>
-to allow it isn't present on the master.</p>
-
-<h4 id="special-cases">Special cases</h4>
-
-<p>We serve some assets which were previously on directgov and businesslink
+to allow it isn&rsquo;t present on the master.</p>
+<h4 id='special-cases'>Special cases</h4><p>We serve some assets which were previously on directgov and businesslink
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/bouncer.pp#L56-L146">via Nginx</a>
 on the Bouncer machines. The assets live in <a href="https://github.com/alphagov/assets-directgov">two</a>
 <a href="https://github.com/alphagov/assets-businesslink">repos</a> which are <a href="https://github.com/alphagov/govuk-app-deployment/blob/master/bouncer/config/deploy.rb#L16-L41">fetched and
 rsynced</a>
 to the machines when Bouncer is deployed.</p>
-
-<h4 id="https-support-for-transitioned-sites">HTTPS support for transitioned sites</h4>
-
-<p>Bouncer in late 2020 began supporting HTTPS for transitioned sites, through
+<h4 id='https-support-for-transitioned-sites'>HTTPS support for transitioned sites</h4><p>Bouncer in late 2020 began supporting HTTPS for transitioned sites, through
 a new feature in Fastly.</p>
-
 <p>Follow the guidance to <a href="/manual/request-fastly-tls-certificate.html">request a Fastly TLS certificate</a>.</p>
-
 
 
   <div class='related-content'>

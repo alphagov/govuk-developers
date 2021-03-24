@@ -178,32 +178,19 @@
 alert triggers either with a warning or critical state then Icinga is
 configured to automatically restart the application, the command that is run is
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/monitoring/files/usr/local/bin/event_handlers/govuk_app_high_memory.sh">here</a>.</p>
-
 <p>For more info, you can also read <a href="/manual/alerts/free-memory-warning-on-backend.html">the page for the alert that triggers
 when a machine is out of memory</a>.</p>
-
-<h2 id="fix-memory-leaks">Fix memory leaks</h2>
-
-<p>A common cause of the alerts are memory leaks. For Rails applications you
+<h2 id='fix-memory-leaks'>Fix memory leaks</h2><p>A common cause of the alerts are memory leaks. For Rails applications you
 can try diagnosing the error with <a href="https://github.com/schneems/derailed_benchmarks">the derailed gem</a>.</p>
-
-<h2 id="restart-the-application">Restart the application</h2>
-
-<p>If you can't find the source of the memory leak you can
+<h2 id='restart-the-application'>Restart the application</h2><p>If you can&rsquo;t find the source of the memory leak you can
 <a href="/manual/restart-application.html">restart the application</a>.</p>
-
-<h2 id="increase-the-alerting-threshold">Increase the alerting threshold</h2>
-
-<p>Each application has it's own thresholds and sometimes these can be too low
+<h2 id='increase-the-alerting-threshold'>Increase the alerting threshold</h2><p>Each application has it&rsquo;s own thresholds and sometimes these can be too low
 which can cause an app getting into a cycle of constant restarting. You can
 change them in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata_aws/common.yaml">hieradata_aws/common.yaml</a> or
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/common.yaml">hieradata/common.yaml</a>.</p>
-
-<div class="highlight"><pre class="highlight yaml"><code><span class="s">govuk::apps::the_warning::nagios_memory_warning: </span><span class="m">2500</span>
+<div class="highlight"><pre class="highlight yaml" tabindex="0"><code><span class="s">govuk::apps::the_warning::nagios_memory_warning: </span><span class="m">2500</span>
 <span class="s">govuk::apps::the_warning::nagios_memory_critical: </span><span class="m">2500</span>
-</code></pre></div>
-<p>An example of upping the thresholds can be found <a href="https://github.com/alphagov/govuk-puppet/pull/8755">here</a>.</p>
-
+</code></pre></div><p>An example of upping the thresholds can be found <a href="https://github.com/alphagov/govuk-puppet/pull/8755">here</a>.</p>
 
 
   <div class='related-content'>

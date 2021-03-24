@@ -165,42 +165,30 @@
 
  <h1 id='header'>Provision machines for data science research</h1> <p>Data science research frequently requires high-powered machines for
 limited periods of time.</p>
-
 <p>Machines for this purpose are created in the <code>govuk-tools</code> AWS account
 using the <a href="https://github.com/alphagov/govuk-aws/tree/master/terraform/projects/app-data-science"><code>app-data-science</code></a> Terraform project.</p>
 
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>The machines provisioned using this method are usually high powered
+<p><strong>Note</strong></p>
+<p>The machines provisioned using this method are usually high powered
 and costly. Therefore, please ensure they are destroyed once the
 research has been completed.</p>
 </blockquote>
-
-<h2 id="autoscaling">Autoscaling</h2>
-
-<p>Machines created using this project are created in autoscaling groups
+<h2 id='autoscaling'>Autoscaling</h2><p>Machines created using this project are created in autoscaling groups
 that ensure at least 1 instance of each machine is running at all times.</p>
-
 <p>Once research is finished, machines should be destroyed by removing them
 from the project and re-deploying it. Alternatively, if the machine will be
 required again in a short period of time, the autoscaling group can be
 manually set to zero instances in the meantime.</p>
-
-<h2 id="ssh-access">SSH access</h2>
-
-<p>All machines have public IP addresses and can be accessed via SSH.
+<h2 id='ssh-access'>SSH access</h2><p>All machines have public IP addresses and can be accessed via SSH.
 The <a href="https://github.com/alphagov/govuk-aws/blob/master/terraform/userdata/90-data-science-base">userdata</a> for each machine is set up to add SSH keys for the people
 who will be accessing them.</p>
-
 <p>This userdata should be updated when people need to be added or removed.
 Existing machines will then need to be re-deployed (most quickly by
 destroying the existing instances and allowing the autoscaling group
 to re-create them).</p>
-
 <p>SSH access to data science machines is not controlled by Puppet or
 AWS access.</p>
-
 
 
   <div class='related-content'>

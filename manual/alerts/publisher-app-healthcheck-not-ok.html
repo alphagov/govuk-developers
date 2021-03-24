@@ -164,24 +164,18 @@
 </div>
 
  <h1 id='header'>publisher app healthcheck not ok</h1> <p>See also: <a href="/manual/alerts/app-healthcheck-not-ok.html">how healthcheck alerts work on GOV.UK</a></p>
-
-<p>If the message is a warning about <code>scheduled_queue</code>, eg '71 scheduled
-edition(s); 3 item(s) queued', this alert means that the number of editions in
+<p>If the message is a warning about <code>scheduled_queue</code>, eg &lsquo;71 scheduled
+edition(s); 3 item(s) queued&rsquo;, this alert means that the number of editions in
 the database which are scheduled to be published in the future is different
 from the number currently in the queue. This can happen in Staging and
 Integration as a result of the data sync from Production. Run this rake task to
 re-queue all scheduled editions:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">cd</span> /var/apps/publisher
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">cd</span> /var/apps/publisher
 <span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> deploy govuk_setenv publisher bundle <span class="nb">exec </span>rake editions:requeue_scheduled_for_publishing
 </code></pre></div>
 <ul>
-  <li>
-    <p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=editions:requeue_scheduled_for_publishing">Run in Integration Jenkins</a></p>
-  </li>
-  <li>
-    <p><a href="https://deploy.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=editions:requeue_scheduled_for_publishing">Run in Staging Jenkins</a></p>
-  </li>
+<li><p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=editions:requeue_scheduled_for_publishing">Run in Integration Jenkins</a></p></li>
+<li><p><a href="https://deploy.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=editions:requeue_scheduled_for_publishing">Run in Staging Jenkins</a></p></li>
 </ul>
 
 

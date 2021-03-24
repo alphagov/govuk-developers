@@ -317,74 +317,55 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: govuk_app_config</h1>
 
-  
-<p>Gem to configure GOV.UK Ruby applications</p>
+  <p>Gem to configure GOV.UK Ruby applications</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/govuk_app_config">govuk_app_config</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/govuk_app_config"&gt;govuk_app_config&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-developers</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value">N/A</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-developers&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-
-
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/govuk_app_config/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;N/A&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
 
 
 
-</ul>
-</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-app-deployment/blob/master/govuk_app_config/config/deploy.rb" class="govuk-link"&gt;Deploy scripts&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
-
-<h2 id="imported-documents">Imported documents</h2>
-<ul class="gem-c-list govuk-list">
+</div></p>
+<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="/apps/govuk_app_config/healthchecks.html" class="govuk-link">Health Checks</a></li>
-</ul>
+</ul></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>Adds the basics of a GOV.UK application:</p>
+
 <ul>
 <li>Unicorn as a web server</li>
 <li>Error reporting with Sentry</li>
@@ -392,44 +373,68 @@
 <li>Rails logging</li>
 <li>Content Security Policy generation for frontend apps</li>
 </ul>
+
 <h2 id="installation">Installation</h2>
-<p>Add this line to your application's Gemfile:</p>
+
+<p>Add this line to your application&rsquo;s Gemfile:</p>
+
 <pre lang="ruby"><code>gem "govuk_app_config"
 </code></pre>
+
 <p>And then execute:</p>
+
 <pre><code>$ bundle
 </code></pre>
+
 <h2 id="unicorn">Unicorn</h2>
+
 <h3 id="configuration">Configuration</h3>
+
 <p>Find or create a <code>config/unicorn.rb</code> in the app</p>
+
 <p>At the start of the file insert:</p>
+
 <pre lang="rb"><code>require "govuk_app_config/govuk_unicorn"
 GovukUnicorn.configure(self)
 </code></pre>
+
 <h3 id="usage">Usage</h3>
+
 <p>To serve an app with unicorn run:</p>
+
 <pre lang="sh"><code>$ bundle exec unicorn -c config/unicorn.rb
 </code></pre>
+
 <h2 id="error-reporting">Error reporting</h2>
+
 <h3 id="automatic-error-reporting">Automatic error reporting</h3>
-<p>If you include <code>govuk_app_config</code> in your <code>Gemfile</code>, Rails' autoloading mechanism will make sure that your application is configured to send errors to Sentry.</p>
+
+<p>If you include <code>govuk_app_config</code> in your <code>Gemfile</code>, Rails&rsquo; autoloading mechanism will make sure that your application is configured to send errors to Sentry.</p>
+
 <p>Your app will have to have the following environment variables set:</p>
+
 <ul>
 <li>
 <code>SENTRY_DSN</code> - the <a href="https://docs.sentry.io/quickstart/#about-the-dsn">Data Source Name (DSN)</a> for Sentry</li>
 <li>
-<code>SENTRY_CURRENT_ENV</code> - e.g. "production". Make sure it is <a href="#active-sentry-environments">configured to be active</a>.</li>
+<code>SENTRY_CURRENT_ENV</code> - e.g. &ldquo;production&rdquo;. Make sure it is <a href="#active-sentry-environments">configured to be active</a>.</li>
 <li>
 <code>GOVUK_STATSD_PREFIX</code> - a Statsd prefix like <code>govuk.apps.application-name.hostname</code>
 </li>
 </ul>
+
 <h3 id="manual-error-reporting">Manual error reporting</h3>
+
 <p>Report something to Sentry manually:</p>
+
 <pre lang="rb"><code>GovukError.notify("Something went terribly wrong")
 </code></pre>
+
 <pre lang="rb"><code>GovukError.notify(ArgumentError.new("Or some exception object"))
 </code></pre>
+
 <p>Extra parameters are:</p>
+
 <pre lang="rb"><code>GovukError.notify(
   "Oops",
   extra: { offending_content_id: "123" }, # Additional context for this event. Must be a hash. Children can be any native JSON type.
@@ -437,38 +442,54 @@ GovukUnicorn.configure(self)
   tags: { key: "value" } # Tags to index with this event. Must be a mapping of strings.
 )
 </code></pre>
+
 <h3 id="active-sentry-environments">Active Sentry environments</h3>
-<p>GovukError will only send errors to Sentry if your <code>SENTRY_CURRENT_ENV</code> matches one of the 'active environments' in the <a href="https://github.com/alphagov/govuk_app_config/blob/master/lib/govuk_app_config/govuk_error/configure.rb">default configuration</a>. This is to prevent temporary test environments from flooding our Sentry account with errors.</p>
+
+<p>GovukError will only send errors to Sentry if your <code>SENTRY_CURRENT_ENV</code> matches one of the &lsquo;active environments&rsquo; in the <a href="https://github.com/alphagov/govuk_app_config/blob/master/lib/govuk_app_config/govuk_error/configure.rb">default configuration</a>. This is to prevent temporary test environments from flooding our Sentry account with errors.</p>
+
 <p>You can add your environment to the list of active Sentry environments like so:</p>
+
 <pre lang="ruby"><code>GovukError.configure do |config|
   config.active_sentry_environments &lt;&lt; "my-test-environment"
 end
 </code></pre>
+
 <h3 id="error-configuration">Error configuration</h3>
+
 <p>You can exclude certain errors from being reported using this:</p>
+
 <pre lang="ruby"><code>GovukError.configure do |config|
   config.excluded_exceptions &lt;&lt; "RetryableError"
 end
 </code></pre>
+
 <p>And you can exclude errors from being reported if they occur during the nightly data sync (on integration and staging):</p>
+
 <pre lang="ruby"><code>GovukError.configure do |config|
   config.data_sync_excluded_exceptions &lt;&lt; "PG::Error"
 end
 </code></pre>
+
 <p>Finally, you can pass your own callback to evaluate whether or not to capture the exception.
 Note that if an exception is on the <code>excluded_exceptions</code> list, or on the <code>data_sync_excluded_exceptions</code>
 and occurs at the time of a data sync, then it will be excluded even if the custom
 <code>should_capture</code> callback returns <code>true</code>.</p>
+
 <pre lang="ruby"><code>GovukError.configure do |config|
   config.should_capture = lambda do |error_or_event|
     error_or_event == "do capture"
   end
 end
 </code></pre>
+
 <p><code>GovukError.configure</code> has the same options as the Sentry client, Raven. See <a href="https://docs.sentry.io/clients/ruby/config">the Raven docs for all configuration options</a>.</p>
+
 <h2 id="statsd">Statsd</h2>
+
 <p>Use <code>GovukStatsd</code> to send stats to graphite. It has the same interface as <a href="https://github.com/reinh/statsd">the Ruby Statsd client</a>.</p>
+
 <p>Examples:</p>
+
 <pre lang="ruby"><code>GovukStatsd.increment "garets"
 GovukStatsd.timing "glork", 320
 GovukStatsd.gauge "bork", 100
@@ -476,26 +497,37 @@ GovukStatsd.gauge "bork", 100
 # Use {#time} to time the execution of a block
 GovukStatsd.time("account.activate") { @account.activate! }
 </code></pre>
+
 <h2 id="health-checks">Health Checks</h2>
-<p>This Gem provides a common "health check" framework for apps. See <a href="/apps/govuk_app_config/healthchecks.html">the health
+
+<p>This Gem provides a common &ldquo;health check&rdquo; framework for apps. See <a href="/apps/govuk_app_config/healthchecks.html">the health
 check docs</a> for more information on how to use it.</p>
+
 <h2 id="rails-logging">Rails logging</h2>
+
 <p>In Rails applications, the application will be configured to send JSON-formatted
 logs to <code>STDOUT</code> and unstructed logs to <code>STDERR</code>.</p>
+
 <h2 id="content-security-policy-generation">Content Security Policy generation</h2>
+
 <p>For frontend apps, configuration can be added to generate and serve a
 content security policy header. The policy is report only when the
 environment variable <code>GOVUK_CSP_REPORT_ONLY</code> is set, and enforced otherwise.</p>
+
 <p>To enable this feature, create a file at <code>config/initializers/csp.rb</code> in the
 app with the following content:</p>
+
 <pre lang="ruby"><code>GovukContentSecurityPolicy.configure
 </code></pre>
-<h2 id="i18n-rules">i18n rules</h2>
-<p>Some frontend apps support languages that are not defined in the i18n gem. This provides them with our own custom rules for these languages.</p>
-<h2 id="license">License</h2>
-<p><a href="https://github.com/alphagov/govuk_app_config/blob/master/LICENSE.md">MIT License</a></p>
-  </div>
 
+<h2 id="i18n-rules">i18n rules</h2>
+
+<p>Some frontend apps support languages that are not defined in the i18n gem. This provides them with our own custom rules for these languages.</p>
+
+<h2 id="license">License</h2>
+
+<p><a href="https://github.com/alphagov/govuk_app_config/blob/master/LICENSE.md">MIT License</a></p>
+<p></div></p>
 
 
             

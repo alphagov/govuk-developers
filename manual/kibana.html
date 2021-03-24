@@ -155,7 +155,7 @@
             <a href="#application-upstart-logs"><span>Application upstart logs</span></a>
           </li>
           <li>
-            <a href="#application-productionlog-files"><span>Application production.log files</span></a>
+            <a href="#application-production-log-files"><span>Application production.log files</span></a>
           </li>
           <li>
             <a href="#mongodb-slow-queries"><span>MongoDB slow queries</span></a>
@@ -203,23 +203,12 @@
 
  <h1 id='header'>Query Kibana (includes useful queries)</h1> <p>All logs for GOV.UK on all environments are collected in Kibana, which you can
 access through <a href="/manual/logit.html">Logit</a>.</p>
-
 <p>Kibana can be <a href="https://www.elastic.co/guide/en/kibana/current/search.html">searched using the Lucene search syntax or full JSON-based
 Elasticsearch queries</a>.</p>
-
-<h2 id="examples">Examples</h2>
-
-<p>You can save and load queries using the buttons in the top right. You may want to use one of the existing queries as a starting point instead of writing a query from scratch.</p>
-
-<p><img src="/manual/images/kibana_saved_searches.png" alt="Kibana saved searches" /></p>
-
-<h3 id="5xx-errors-returned-from-cache-layer">5xx errors returned from cache layer</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">host</span><span class="ss">:cache</span><span class="o">*</span> <span class="no">AND</span> <span class="p">(</span><span class="vi">@fields</span><span class="p">.</span><span class="nf">status</span><span class="p">:[</span><span class="mi">500</span> <span class="no">TO</span> <span class="mi">504</span><span class="p">]</span> <span class="no">OR</span> <span class="n">status</span><span class="p">:[</span><span class="mi">500</span> <span class="no">TO</span> <span class="mi">504</span><span class="p">])</span>
-</code></pre></div>
-<h3 id="puppet-runs">Puppet runs</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="c1"># both agent and master</span>
+<h2 id='examples'>Examples</h2><p>You can save and load queries using the buttons in the top right. You may want to use one of the existing queries as a starting point instead of writing a query from scratch.</p>
+<p><a href="images/kibana_saved_searches.png" rel="noopener noreferrer"><img src="/manual/images/kibana_saved_searches.png" alt="Kibana saved searches" /></a></p>
+<h3 id='5xx-errors-returned-from-cache-layer'>5xx errors returned from cache layer</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">host</span><span class="ss">:cache</span><span class="o">*</span> <span class="no">AND</span> <span class="p">(</span><span class="vi">@fields</span><span class="p">.</span><span class="nf">status</span><span class="p">:[</span><span class="mi">500</span> <span class="no">TO</span> <span class="mi">504</span><span class="p">]</span> <span class="no">OR</span> <span class="n">status</span><span class="p">:[</span><span class="mi">500</span> <span class="no">TO</span> <span class="mi">504</span><span class="p">])</span>
+</code></pre></div><h3 id='puppet-runs'>Puppet runs</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="c1"># both agent and master</span>
 <span class="n">syslog_program</span><span class="ss">:puppet</span><span class="o">*</span>
 
 <span class="c1"># agent only</span>
@@ -227,84 +216,48 @@ Elasticsearch queries</a>.</p>
 
 <span class="c1"># master only</span>
 <span class="n">syslog_program</span><span class="ss">:"puppet-master"</span>
-</code></pre></div>
-<h3 id="syslog-logs">Syslog logs</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">application</span><span class="ss">:"syslog"</span>
-</code></pre></div>
-<h3 id="syslog-logs-filtered-by-program">Syslog logs filtered by program</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">application</span><span class="ss">:"syslog"</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:"rsync"</span>
-</code></pre></div>
-<h3 id="nginx-logs">Nginx logs</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">tags</span><span class="ss">:"nginx"</span>
-</code></pre></div>
-<p>Nginx logs for frontend:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">tags</span><span class="ss">:"nginx"</span> <span class="no">AND</span> <span class="n">application</span><span class="ss">:frontend</span><span class="o">*</span>
+</code></pre></div><h3 id='syslog-logs'>Syslog logs</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">application</span><span class="ss">:"syslog"</span>
+</code></pre></div><h3 id='syslog-logs-filtered-by-program'>Syslog logs filtered by program</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">application</span><span class="ss">:"syslog"</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:"rsync"</span>
+</code></pre></div><h3 id='nginx-logs'>Nginx logs</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">tags</span><span class="ss">:"nginx"</span>
+</code></pre></div><p>Nginx logs for frontend:</p>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">tags</span><span class="ss">:"nginx"</span> <span class="no">AND</span> <span class="n">application</span><span class="ss">:frontend</span><span class="o">*</span>
 </code></pre></div>
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>The <code>@timestamp</code> field records the request END time. To calculate request start time subtract <code>request_time</code>.</p>
+<p><strong>Note</strong></p>
+<p>The <code>@timestamp</code> field records the request END time. To calculate request start time subtract <code>request_time</code>.</p>
 </blockquote>
-
-<h3 id="application-upstart-logs">Application upstart logs</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">tags</span><span class="ss">:"upstart"</span>
+<h3 id='application-upstart-logs'>Application upstart logs</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">tags</span><span class="ss">:"upstart"</span>
 
 <span class="n">tags</span><span class="ss">:"upstart"</span> <span class="no">AND</span> <span class="n">tags</span><span class="ss">:"stdout"</span>
 
 <span class="n">tags</span><span class="ss">:"upstart"</span> <span class="no">AND</span> <span class="n">tags</span><span class="ss">:"stderr"</span>
 
 <span class="n">tags</span><span class="ss">:"upstart"</span> <span class="no">AND</span> <span class="n">application</span><span class="ss">:"licensify"</span>
-</code></pre></div>
-<h3 id="application-productionlog-files">Application production.log files</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">tags</span><span class="ss">:"application"</span>
+</code></pre></div><h3 id='application-production-log-files'>Application production.log files</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">tags</span><span class="ss">:"application"</span>
 
 <span class="n">tags</span><span class="ss">:"application"</span> <span class="no">AND</span> <span class="n">application</span><span class="ss">:"smartanswers"</span>
-</code></pre></div>
-<h3 id="mongodb-slow-queries">MongoDB slow queries</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">application</span><span class="ss">:"mongodb"</span> <span class="no">AND</span> <span class="n">message</span><span class="ss">:"command"</span>
-</code></pre></div>
-<h3 id="auditaccess-logs">Audit/access logs</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">application</span><span class="ss">:"syslog"</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:"audispd"</span>
-</code></pre></div>
-<h3 id="mirrorer-logs">Mirrorer logs</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">syslog_program</span><span class="ss">:"govuk_sync_mirror"</span>
-</code></pre></div>
-<h3 id="publishing-api-timeouts">Publishing API timeouts</h3>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">message</span><span class="ss">:"TimedOutException"</span> <span class="no">AND</span> <span class="p">(</span><span class="n">application</span><span class="ss">:"specialist-publisher"</span> <span class="no">OR</span> <span class="n">application</span><span class="ss">:"whitehall"</span> <span class="no">OR</span> <span class="n">application</span><span class="ss">:"content-tagger"</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="syslog-program-names">Syslog program names</h2>
-
-<p>If you're looking for specific program outputs, use <code>syslog_program:FOO</code>:</p>
+</code></pre></div><h3 id='mongodb-slow-queries'>MongoDB slow queries</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">application</span><span class="ss">:"mongodb"</span> <span class="no">AND</span> <span class="n">message</span><span class="ss">:"command"</span>
+</code></pre></div><h3 id='auditaccess-logs'>Audit/access logs</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">application</span><span class="ss">:"syslog"</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:"audispd"</span>
+</code></pre></div><h3 id='mirrorer-logs'>Mirrorer logs</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">syslog_program</span><span class="ss">:"govuk_sync_mirror"</span>
+</code></pre></div><h3 id='publishing-api-timeouts'>Publishing API timeouts</h3><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">message</span><span class="ss">:"TimedOutException"</span> <span class="no">AND</span> <span class="p">(</span><span class="n">application</span><span class="ss">:"specialist-publisher"</span> <span class="no">OR</span> <span class="n">application</span><span class="ss">:"whitehall"</span> <span class="no">OR</span> <span class="n">application</span><span class="ss">:"content-tagger"</span><span class="p">)</span>
+</code></pre></div><h2 id='syslog-program-names'>Syslog program names</h2><p>If you&rsquo;re looking for specific program outputs, use <code>syslog_program:FOO</code>:</p>
 
 <ul>
-  <li><code>audispd</code>: This is used to see all audit logs from various servers. You can refer to README for searching particular types of audit logs. The program name with combination of source_host and message can be helped for looking at various specific audit log lines on a server.</li>
-  <li><code>clamd</code></li>
-  <li><code>cron</code></li>
-  <li><code>govuk_sync_mirror</code>: Records information from govuk_sync_mirror script</li>
-  <li><code>puppet-agent</code>: Records output for govuk_puppet script on various servers</li>
-  <li><code>puppet-master</code></li>
-  <li><code>smokey</code></li>
+<li><code>audispd</code>: This is used to see all audit logs from various servers. You can refer to README for searching particular types of audit logs. The program name with combination of source_host and message can be helped for looking at various specific audit log lines on a server.</li>
+<li><code>clamd</code></li>
+<li><code>cron</code></li>
+<li><code>govuk_sync_mirror</code>: Records information from govuk_sync_mirror script</li>
+<li><code>puppet-agent</code>: Records output for govuk_puppet script on various servers</li>
+<li><code>puppet-master</code></li>
+<li><code>smokey</code></li>
 </ul>
-
-<h2 id="gotchas">Gotchas</h2>
-
+<h2 id='gotchas'>Gotchas</h2>
 <ul>
-  <li>Score: does a aggregation of field on last 2000 results</li>
-  <li>Terms is not an aggregation of field, it is an aggregation of terms in the field across 1 recent indices</li>
-  <li>For more elaborate searching, <a href="https://www.elastic.co/guide/en/kibana/current/search.html">read about the Lucene and Elasticsearch syntax</a></li>
-  <li><code>@timestamp</code> of nginx log entries records <a href="http://serverfault.com/questions/438880/what-does-nginxs-time-local-logging-variable-mean-specifically/438891#438891">request end time is sometimes confusing</a></li>
+<li>Score: does a aggregation of field on last 2000 results</li>
+<li>Terms is not an aggregation of field, it is an aggregation of terms in the field across 1 recent indices</li>
+<li>For more elaborate searching, <a href="https://www.elastic.co/guide/en/kibana/current/search.html">read about the Lucene and Elasticsearch syntax</a></li>
+<li><code>@timestamp</code> of nginx log entries records <a href="http://serverfault.com/questions/438880/what-does-nginxs-time-local-logging-variable-mean-specifically/438891#438891">request end time is sometimes confusing</a></li>
 </ul>
-
 
 
   <div class='related-content'>

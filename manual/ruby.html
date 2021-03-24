@@ -143,7 +143,7 @@
         <a href="#add-a-new-ruby-version-in-puppet"><span>Add a new Ruby version in puppet</span></a>
         <ul>
           <li>
-            <a href="#building-the-fpm-package"><span>Building the fpm package.</span></a>
+            <a href="#building-the-fpm-package-"><span>Building the fpm package.</span></a>
           </li>
           <li>
             <a href="#copying-to-aptly"><span>Copying to Aptly</span></a>
@@ -181,70 +181,43 @@
 </div>
 
  <h1 id='header'>Add a new Ruby version</h1> <p>The <a href="https://www.ruby-lang.org/en/">Ruby language</a> is a core part of GOV.UK - most of our applications are written in it.</p>
-
-<h2 id="managing-different-versions-of-ruby">Managing different versions of Ruby</h2>
-
-<p>Each app can use whatever version of Ruby it wants. We manage this with
+<h2 id='managing-different-versions-of-ruby'>Managing different versions of Ruby</h2><p>Each app can use whatever version of Ruby it wants. We manage this with
 <a href="https://github.com/rbenv/rbenv">rbenv</a>.</p>
-
-<h2 id="setting-up-rbenv">Setting up rbenv</h2>
-
-<p>We set up rbenv differently depending on what's going on:</p>
+<h2 id='setting-up-rbenv'>Setting up rbenv</h2><p>We set up rbenv differently depending on what&rsquo;s going on:</p>
 
 <ul>
-  <li>Interactive login shells: <code>/etc/profile.d/rbenv.sh</code> sets up rbenv</li>
-  <li>Applications: <code>govuk_setenv</code> and a <code>.ruby-version</code> in the app directory set up rbenv</li>
-  <li>Deployment: Capistrano uses a non -login shell so we <a href="https://github.com/alphagov/govuk-app-deployment/blob/master/recipes/ruby.rb#L4">set <code>default_environment</code></a>
+<li>Interactive login shells: <code>/etc/profile.d/rbenv.sh</code> sets up rbenv</li>
+<li>Applications: <code>govuk_setenv</code> and a <code>.ruby-version</code> in the app directory set up rbenv</li>
+<li>Deployment: Capistrano uses a non -login shell so we <a href="https://github.com/alphagov/govuk-app-deployment/blob/master/recipes/ruby.rb#L4">set <code>default_environment</code></a>
 (<a href="https://github.com/alphagov/alphagov-deployment/commit/b6404e33c354ef63f01c13b202ce0cf2ed2975fc">commit</a>)</li>
-  <li>Testing: Jenkins uses a non-login shell so we <a href="https://github.com/alphagov/govuk-secrets/blob/master/puppet/hieradata/integration_credentials.yaml">add <code>/usr/lib/rbenv/shims</code> to the <code>PATH</code></a></li>
-  <li>Cronjobs: some cronjobs start with <code>/bin/bash -l -c</code> which runs a login shell</li>
+<li>Testing: Jenkins uses a non-login shell so we <a href="https://github.com/alphagov/govuk-secrets/blob/master/puppet/hieradata/integration_credentials.yaml">add <code>/usr/lib/rbenv/shims</code> to the <code>PATH</code></a></li>
+<li>Cronjobs: some cronjobs start with <code>/bin/bash -l -c</code> which runs a login shell</li>
 </ul>
-
-<h2 id="add-a-new-ruby-version-in-puppet">Add a new Ruby version in puppet</h2>
-
-<p>You will need to build a new <a href="/manual/debian-packaging.html#fpm">fpm</a> package with the new Ruby version.
+<h2 id='add-a-new-ruby-version-in-puppet'>Add a new Ruby version in puppet</h2><p>You will need to build a new <a href="/manual/debian-packaging.html#fpm">fpm</a> package with the new Ruby version.
 This package can then be copied to Aptly machine, and the new version added to puppet.</p>
-
-<h3 id="building-the-fpm-package">Building the fpm package.</h3>
-
+<h3 id='building-the-fpm-package-'>Building the fpm package.</h3>
 <ul>
-  <li>
-    <p>Add a new recipe for the ruby version in <a href="https://github.com/alphagov/packager/tree/master/fpm/recipes">Packager</a>.
+<li><p>Add a new recipe for the ruby version in <a href="https://github.com/alphagov/packager/tree/master/fpm/recipes">Packager</a>.
 The folder name will be the Ruby version, and contain a <code>recipe.rb</code> file. See previous entries for examples.
-The recipe will require the <a href="https://emn178.github.io/online-tools/sha256_checksum.html">SHA256</a> of the version's <code>tar.gz</code>, available at <a href="https://cache.ruby-lang.org/pub/ruby/">Ruby cache</a>.</p>
-  </li>
-  <li>
-    <p>Once the Packager change is merged, <a href="https://ci.integration.publishing.service.gov.uk/job/build_fpm_package">build the package</a>.</p>
-  </li>
+The recipe will require the <a href="https://emn178.github.io/online-tools/sha256_checksum.html">SHA256</a> of the version&rsquo;s <code>tar.gz</code>, available at <a href="https://cache.ruby-lang.org/pub/ruby/">Ruby cache</a>.</p></li>
+<li><p>Once the Packager change is merged, <a href="https://ci.integration.publishing.service.gov.uk/job/build_fpm_package">build the package</a>.</p></li>
 </ul>
-
 <p>Use the VM to <a href="/manual/debian-packaging.html#test-the-recipe">test the recipe</a></p>
-
 <p>To make sure it has been successful:</p>
 
 <ul>
-  <li><code>rbenv versions</code> to make sure your version is available</li>
-  <li><code>rbenv local X.X.X</code> to use your new version</li>
-  <li><code>ruby -v</code> to make sure your version is in use</li>
+<li><code>rbenv versions</code> to make sure your version is available</li>
+<li><code>rbenv local X.X.X</code> to use your new version</li>
+<li><code>ruby -v</code> to make sure your version is in use</li>
 </ul>
-
-<h3 id="copying-to-aptly">Copying to Aptly</h3>
-
-<p>See <a href="/manual/debian-packaging.html#uploading-a-new-package">Uploading a new package</a></p>
-
-<h3 id="add-to-puppet">Add to Puppet</h3>
-
-<p>Once it's available as a package in Aptly you can
+<h3 id='copying-to-aptly'>Copying to Aptly</h3><p>See <a href="/manual/debian-packaging.html#uploading-a-new-package">Uploading a new package</a></p>
+<h3 id='add-to-puppet'>Add to Puppet</h3><p>Once it&rsquo;s available as a package in Aptly you can
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk_rbenv/manifests/all.pp">install it everywhere using Puppet</a>. Machines only run
 <code>apt-get update</code> periodically so it might take a little time for the package
 to become available.</p>
-
-<h2 id="testing-whether-a-version-of-ruby-is-in-use">Testing whether a version of Ruby is in use</h2>
-
-<p>You can use the Fabric task <code>rbenv.version_in_use</code> to find out which
+<h2 id='testing-whether-a-version-of-ruby-is-in-use'>Testing whether a version of Ruby is in use</h2><p>You can use the Fabric task <code>rbenv.version_in_use</code> to find out which
 applications are using a specific version of Ruby on GOV.UK. For example:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fab production puppet_class:govuk_rbenv::all rbenv.version_in_use:2.3.1
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>fab production puppet_class:govuk_rbenv::all rbenv.version_in_use:2.3.1
 </code></pre></div>
 
   <div class='related-content'>

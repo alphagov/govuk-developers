@@ -172,138 +172,100 @@
  <h1 id='header'>Connect to vCloud Director (Carrenza only)</h1> <p>vCloud Director is the interface we use to manage our infrastructure in
 Carrenza. This includes virtual machines, gateways, firewalls and VPNs between
 providers.</p>
-
 <p>To access vCloud Director, you will need to connect to a Carrenza-provided VPN.
 You can use either Cisco AnyConnect or OpenConnect as a VPN client for this.</p>
-
 <p><strong>Please ensure VPN certificates are renewed via Carrenza service portal before expiry:</strong></p>
 
 <ol>
-  <li>Expiry date of primary Carrenza VPN certificate is May 27 16:29:58 2021 GMT</li>
-  <li>Expiry date of backup Carrenza VPN certificate is Jun  4 12:14:47 2021 GMT</li>
+<li>Expiry date of primary Carrenza VPN certificate is May 27 16:29:58 2021 GMT</li>
+<li>Expiry date of backup Carrenza VPN certificate is Jun  4 12:14:47 2021 GMT</li>
 </ol>
-
-<h2 id="setting-up-the-cisco-anyconnect-vpn-profile-on-a-mac">Setting up the Cisco AnyConnect VPN profile on a Mac</h2>
-
+<h2 id='setting-up-the-cisco-anyconnect-vpn-profile-on-a-mac'>Setting up the Cisco AnyConnect VPN profile on a Mac</h2>
 <ol>
-  <li>
-    <p>Make sure you have the latest version of <a href="https://github.com/alphagov/govuk-secrets">govuk-secrets</a>.</p>
-  </li>
-  <li>
-    <p>Install <code>oathtool</code> (this will be used to generate one time passwords).</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>brew <span class="nb">install </span>oath-toolkit
-</code></pre></div>  </li>
-  <li>
-    <p>Get the VPN client certificate and private key from the 2nd line
+<li><p>Make sure you have the latest version of <a href="https://github.com/alphagov/govuk-secrets">govuk-secrets</a>.</p></li>
+<li><p>Install <code>oathtool</code> (this will be used to generate one time passwords).</p></li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>brew <span class="nb">install </span>oath-toolkit
+</code></pre></div>
+<ol>
+<li><p>Get the VPN client certificate and private key from the 2nd line
 <a href="https://github.com/alphagov/govuk-secrets/tree/master/pass">password store</a>
 and save the decrypted contents to a file on your machine (for example
-  <code>~/carrenza-vpn-cert-and-key.pem</code>).</p>
-
-<div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/2ndline pass carrenza/vpn-certificate <span class="o">&gt;</span> ~/carrenza-vpn-cert-and-key.pem
-</code></pre></div>  </li>
-  <li>
-    <p>Get the VPN credentials, also from the 2nd line password store.</p>
-
-<div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/2ndline pass carrenza/vpn-credentials
- Certificate passphrase: ...
- MFA key: ................
- Password: ...
- VPN gateway: ...
-</code></pre></div>  </li>
-  <li>
-    <p>Convert the VPN client certificate from PEM format to PFX format. You will
+ <code>~/carrenza-vpn-cert-and-key.pem</code>).</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/2ndline pass carrenza/vpn-certificate <span class="o">&gt;</span> ~/carrenza-vpn-cert-and-key.pem
+</code></pre></div></li>
+<li><p>Get the VPN credentials, also from the 2nd line password store.</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/2ndline pass carrenza/vpn-credentials
+Certificate passphrase: ...
+MFA key: ................
+Password: ...
+VPN gateway: ...
+</code></pre></div></li>
+<li><p>Convert the VPN client certificate from PEM format to PFX format. You will
 be asked for two passwords (one for decrypting the PEM and one for
 encrypting the PFX). The first password is the <code>Certificate passphrase</code>
 field from <code>carrenza/vpn-credentials</code>. The second password can be of your
-own choice. You will need it for the next few steps but you won't need to
+own choice. You will need it for the next few steps but you won&rsquo;t need to
 remember it after that.</p>
-
-<div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ </span>openssl pkcs12 <span class="nt">-export</span> <span class="nt">-in</span> ~/carrenza-vpn-cert-and-key.pem <span class="nt">-out</span> ~/carrenza-vpn-cert-and-key.pfx
- Enter pass phrase <span class="k">for</span> /Users/.../carrenza-vpn-cert-and-key.pem: &lt;Certificate passphrase from vpn-credentials&gt;
- Enter Export Password: &lt;Password from vpn-credentials&gt;
- Verifying - Enter Export Password:
-</code></pre></div>  </li>
-  <li>
-    <p>Import the PFX format certificate into your macOS login keychain. You'll be
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>openssl pkcs12 <span class="nt">-export</span> <span class="nt">-in</span> ~/carrenza-vpn-cert-and-key.pem <span class="nt">-out</span> ~/carrenza-vpn-cert-and-key.pfx
+Enter pass phrase <span class="k">for</span> /Users/.../carrenza-vpn-cert-and-key.pem: &lt;Certificate passphrase from vpn-credentials&gt;
+Enter Export Password: &lt;Password from vpn-credentials&gt;
+Verifying - Enter Export Password:
+</code></pre></div></li>
+<li><p>Import the PFX format certificate into your macOS login keychain. You&rsquo;ll be
 asked for a password. Enter the passphrase which you used to encrypt the PFX
-file (<code>Certificate passphrase</code> field from <code>carrenza/vpn-credentials</code>).</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>security import ~/carrenza-vpn-cert-and-key.pfx
-</code></pre></div>
-    <p>This allows you to use Cisco AnyConnect as VPN client.</p>
-  </li>
-  <li>
-    <p>Delete the PFX file as it is no longer needed.</p>
-
-<div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ </span><span class="nb">rm</span> ~/carrenza-vpn-cert-and-key.pfx
-</code></pre></div>  </li>
+file (<code>Certificate passphrase</code> field from <code>carrenza/vpn-credentials</code>).</p></li>
 </ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>security import ~/carrenza-vpn-cert-and-key.pfx
+</code></pre></div><p>This allows you to use Cisco AnyConnect as VPN client.</p>
 
-<h2 id="connecting-with-openconnect">Connecting with OpenConnect</h2>
-
-<p><strong>Make sure to read these instructions carefully before login on Carrenza VPN.
+<ol>
+<li><p>Delete the PFX file as it is no longer needed.</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">rm</span> ~/carrenza-vpn-cert-and-key.pfx
+</code></pre></div></li>
+</ol>
+<h2 id='connecting-with-openconnect'>Connecting with OpenConnect</h2><p><strong>Make sure to read these instructions carefully before login on Carrenza VPN.
 If you enter the wrong credentials too many times, we will be locked out!</strong></p>
 
 <ol>
-  <li>Install OpenConnect: <code>brew install openconnect</code></li>
-  <li>
-    <p>Run OpenConnect. Make sure you provide the correct path to where
-you've saved the VPN client certificate.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>openconnect https://secure.carrenza.com <span class="nt">-c</span> ~/carrenza-vpn-cert-and-key.pem
-</code></pre></div>  </li>
-  <li>The first password is your machine password (requested by sudo).</li>
-  <li>The second password (the PEM passphrase) is the certificate passphrase from
-the password store.</li>
-  <li>The third password is the 2FA code (use
-<code>oathtool -b &lt;MFA-key-from-password-store&gt; --totp</code>).</li>
-  <li>The fourth password is the password from the password store.</li>
+<li>Install OpenConnect: <code>brew install openconnect</code></li>
+<li>Run OpenConnect. Make sure you provide the correct path to where
+you&rsquo;ve saved the VPN client certificate.</li>
 </ol>
-
-<h2 id="accessing-vcloud-director">Accessing vCloud Director</h2>
-
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">sudo </span>openconnect https://secure.carrenza.com <span class="nt">-c</span> ~/carrenza-vpn-cert-and-key.pem
+</code></pre></div>
 <ol>
-  <li>
-    <p>Fetch the VCloud Director credentials for the environment which you want to
-connect to.</p>
-
-<div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/2ndline pass carrenza/vcloud-integration
- ......... &lt;a long string which is the VCloud Director password&gt;
- User: &lt;username <span class="k">for </span>logging into VCloud Director&gt;
- Org: &lt;this string goes <span class="k">in </span>the URL path <span class="k">for </span>accessing VCloud Director&gt;
-</code></pre></div>  </li>
-  <li>
-    <p>Ensure that you are connected to the Carrenza VPN (see above).</p>
-  </li>
-  <li>
-    <p>Visit https://vcloud.carrenza.com/tenant/{organisation}/ (replacing
-{organisation} with the value of the <code>Org</code> field from the password store
-entry.</p>
-  </li>
-  <li>
-    <p>Log in with the username and password from the password store entry.</p>
-  </li>
+<li>The first password is your machine password (requested by sudo).</li>
+<li>The second password (the PEM passphrase) is the certificate passphrase from
+the password store.</li>
+<li>The third password is the 2FA code (use
+<code>oathtool -b &lt;MFA-key-from-password-store&gt; --totp</code>).</li>
+<li>The fourth password is the password from the password store.</li>
 </ol>
-
-<h2 id="backup-vpn-account">Backup VPN account</h2>
-
-<p>There is a backup VPN account to be used primarily by reliability engineers.</p>
-
+<h2 id='accessing-vcloud-director'>Accessing vCloud Director</h2>
+<ol>
+<li><p>Fetch the VCloud Director credentials for the environment which you want to
+connect to.</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/2ndline pass carrenza/vcloud-integration
+......... &lt;a long string which is the VCloud Director password&gt;
+User: &lt;username <span class="k">for </span>logging into VCloud Director&gt;
+Org: &lt;this string goes <span class="k">in </span>the URL path <span class="k">for </span>accessing VCloud Director&gt;
+</code></pre></div></li>
+<li><p>Ensure that you are connected to the Carrenza VPN (see above).</p></li>
+<li><p>Visit https://vcloud.carrenza.com/tenant/{organisation}/ (replacing
+{organisation} with the value of the <code>Org</code> field from the password store
+entry.</p></li>
+<li><p>Log in with the username and password from the password store entry.</p></li>
+</ol>
+<h2 id='backup-vpn-account'>Backup VPN account</h2><p>There is a backup VPN account to be used primarily by reliability engineers.</p>
 <p>The VPN certificate can be obtained from the infra pass, e.g.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/infra pass carrenza/vpn-backup-certificate
-</code></pre></div>
-<p>The VPN credentials can be obtained from the infra pass, e.g.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/infra pass carrenza/vpn-backup-credentials
-</code></pre></div>
-<p>You should not import the certificate into your macOS login keychain because this
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/infra pass carrenza/vpn-backup-certificate
+</code></pre></div><p>The VPN credentials can be obtained from the infra pass, e.g.</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/infra pass carrenza/vpn-backup-credentials
+</code></pre></div><p>You should not import the certificate into your macOS login keychain because this
 can cause confusion for the Cisco AnyConnect VPN client. The certificate will
 work with OpenConnect VPN client without importing in your macOS keychain.</p>
-
 <p>The rest of the instructions remain the same as for the primary VPN account.</p>
-
 
 
   <div class='related-content'>

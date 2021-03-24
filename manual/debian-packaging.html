@@ -143,7 +143,7 @@
             <a href="#mirroring-packages-maintained-by-a-third-party"><span>Mirroring packages maintained by a third party</span></a>
           </li>
           <li>
-            <a href="#mirroring-or-importing-deb-packages-created-for-other-distributions-eg-debian-linux-mint-etc"><span>Mirroring or importing .deb packages created for other distributions (e.g. Debian, Linux Mint, etc)</span></a>
+            <a href="#mirroring-or-importing-deb-packages-created-for-other-distributions-e-g-debian-linux-mint-etc"><span>Mirroring or importing .deb packages created for other distributions (e.g. Debian, Linux Mint, etc)</span></a>
           </li>
         </ul>
       </li>
@@ -206,370 +206,249 @@
 </div>
 
  <h1 id='header'>Manage Debian packages</h1> <p>This page explains how we manage our Debian packaging.</p>
-
-<h2 id="considerations-before-creating-or-importing-a-package">Considerations before creating or importing a package</h2>
-
-<p>Due to limited availability of up-to-date packages in long term support (LTS)
+<h2 id='considerations-before-creating-or-importing-a-package'>Considerations before creating or importing a package</h2><p>Due to limited availability of up-to-date packages in long term support (LTS)
 distributions, requirements of software may make installation of a package
-outside of the distribution infrastructure (currently Ubuntu "Trusty" 14.04
+outside of the distribution infrastructure (currently Ubuntu &ldquo;Trusty&rdquo; 14.04
 LTS/Extended Security Maintenance) necessary.</p>
-
 <p>GDS developers may also choose to use the Debian packaging system as a means to
 distribute and maintain their locally developed software.</p>
-
 <p>As always when considering the addition of new software, the first question has to be:
-<strong>"Is this really necessary?"</strong></p>
-
+<strong>&ldquo;Is this really necessary?&rdquo;</strong></p>
 <p>Adding a package should be motivated by
 security or architecture requirements and aim to minimise unnecessary
 dependencies.</p>
-
 <p>Additional guidance can be found in the <a href="https://gds-way.cloudapps.digital/standards/tracking-dependencies.html#dependency-management-tools">GDS way</a>
 as well as the <a href="https://www.gov.uk/service-manual/technology/managing-software-dependencies#how-to-work-with-third-party-code">service manual</a>.</p>
-
 <p>If you are satisfied that adding a local or third party package via aptly is the
 optimal solution, there are a number of ways packages may be sourced and added,
 all carrying different advantages and disadvantages as well as security and
 maintenance implications.</p>
-
-<h3 id="creating-and-maintaining-packages-locally">Creating and maintaining packages locally</h3>
-
-<p>See section <a href="#creating-packages">Creating Packages</a> for details on implementation.</p>
+<h3 id='creating-and-maintaining-packages-locally'>Creating and maintaining packages locally</h3><p>See section <a href="#creating-packages">Creating Packages</a> for details on implementation.</p>
 
 <ul>
-  <li>
-    <p>Creating local packages allows for the greatest flexibility with respect to
-installation, default configuration and fullfilment of requirements.</p>
-  </li>
-  <li>
-    <p>Locally developed bug-fixes can be included and distributed independent of
-distribution services.</p>
-  </li>
-  <li>
-    <p>Distribution bug-fixes and updates are not available and the package has to
-be actively maintained by GOV.UK.</p>
-  </li>
-  <li>
-    <p>To minimise technical debt on future maintenance of packages, locally created
+<li><p>Creating local packages allows for the greatest flexibility with respect to
+installation, default configuration and fullfilment of requirements.</p></li>
+<li><p>Locally developed bug-fixes can be included and distributed independent of
+distribution services.</p></li>
+<li><p>Distribution bug-fixes and updates are not available and the package has to
+be actively maintained by GOV.UK.</p></li>
+<li><p>To minimise technical debt on future maintenance of packages, locally created
 packages should only be considered if there is no reliable and secure third
-party option available.</p>
-  </li>
+party option available.</p></li>
 </ul>
-
-<h3 id="mirroring-packages-maintained-by-a-third-party">Mirroring packages maintained by a third party</h3>
-
-<p>See section <a href="#mirroring">Mirroring</a>, in particular <a href="#third-party-repos">Third-party Repos</a>
+<h3 id='mirroring-packages-maintained-by-a-third-party'>Mirroring packages maintained by a third party</h3><p>See section <a href="#mirroring">Mirroring</a>, in particular <a href="#third-party-repos">Third-party Repos</a>
 for details on implementation.</p>
 
 <ul>
-  <li>
-    <p>If considering the use of a package created by a third party, the
-trustworthiness of said party is critical.</p>
-  </li>
-  <li>
-    <p>General Debian packages explicitly labelled as suitable for Ubuntu Trusty,
+<li><p>If considering the use of a package created by a third party, the
+trustworthiness of said party is critical.</p></li>
+<li><p>General Debian packages explicitly labelled as suitable for Ubuntu Trusty,
 such as <a href="https://www.postgresql.org/download/linux/ubuntu/">Ubuntu packages provided by PostgreSQL</a>
 or <a href="https://launchpad.net/~libreoffice/+archive/ubuntu/ppa">PPA packages by LibreOffice</a>
-can be considered safe.</p>
-  </li>
-  <li>
-    <p>With regard to packages provided by private contributors and/or smaller companies,
+can be considered safe.</p></li>
+<li><p>With regard to packages provided by private contributors and/or smaller companies,
 both the maturity of the software and trust for the source need to be evaluated.
 Comments on maturity as well as the number of users of a package may be an
-indicator of its suitability for use in production.</p>
-  </li>
-  <li>
-    <p>Development activity and update frequency are additional factors to consider.</p>
-  </li>
-  <li>
-    <p>When in doubt about the trustworthiness or stability of a third party package,
+indicator of its suitability for use in production.</p></li>
+<li><p>Development activity and update frequency are additional factors to consider.</p></li>
+<li><p>When in doubt about the trustworthiness or stability of a third party package,
 this option should be disregarded in favour of other solutions not
-compromising on reliability and security.</p>
-  </li>
+compromising on reliability and security.</p></li>
 </ul>
-
-<h3 id="mirroring-or-importing-deb-packages-created-for-other-distributions-eg-debian-linux-mint-etc">Mirroring or importing .deb packages created for other distributions (e.g. Debian, Linux Mint, etc)</h3>
-
-<p>See section <a href="#creating-packages">Creating Packages</a> for details on implementation.</p>
+<h3 id='mirroring-or-importing-deb-packages-created-for-other-distributions-e-g-debian-linux-mint-etc'>Mirroring or importing .deb packages created for other distributions (e.g. Debian, Linux Mint, etc)</h3><p>See section <a href="#creating-packages">Creating Packages</a> for details on implementation.</p>
 
 <ul>
-  <li>
-    <p>If great care is taken, it may be possible to make use of a software version
-which has been packaged for another Linux distribution, e.g. Debian.</p>
-  </li>
-  <li>
-    <p>Despite Ubuntu being based on Debian experimental, <strong>no Debian repository should ever
+<li><p>If great care is taken, it may be possible to make use of a software version
+which has been packaged for another Linux distribution, e.g. Debian.</p></li>
+<li><p>Despite Ubuntu being based on Debian experimental, <strong>no Debian repository should ever
 be directly mirrored and made available through aptly to a Ubuntu system</strong> <em>ever</em>.
 There will be severe complications including failing or erroneous package upgrades,
-broken dependencies and likely complete system failure.</p>
-  </li>
-  <li>
-    <p>The safest way to use packages of other distributions is to use source packages. See
-the note in <a href="#third-party-repos">Third-party Repos</a> for an idea of how to use them.</p>
-  </li>
-  <li>
-    <p>Please note that resolution of building dependencies in source packages may not be possible or
-require significant work.</p>
-  </li>
-  <li>
-    <p>The advantage of using source packages is that it ensures all library requirements of
-the created binaries are met by the original distribution (Ubuntu).</p>
-  </li>
-  <li>
-    <p>This use of (current) Debian packages ensures updates and bug-fixes are
+broken dependencies and likely complete system failure.</p></li>
+<li><p>The safest way to use packages of other distributions is to use source packages. See
+the note in <a href="#third-party-repos">Third-party Repos</a> for an idea of how to use them.</p></li>
+<li><p>Please note that resolution of building dependencies in source packages may not be possible or
+require significant work.</p></li>
+<li><p>The advantage of using source packages is that it ensures all library requirements of
+the created binaries are met by the original distribution (Ubuntu).</p></li>
+<li><p>This use of (current) Debian packages ensures updates and bug-fixes are
 readily available. However, the creation and  maintenance of the build
-environment may introduce significant overhead in itself.</p>
-  </li>
+environment may introduce significant overhead in itself.</p></li>
 </ul>
-
-<h2 id="creating-packages">Creating packages</h2>
-
-<p>In the past we've used
+<h2 id='creating-packages'>Creating packages</h2><p>In the past we&rsquo;ve used
 <a href="https://github.com/alphagov/packager">alphagov/packager</a> to push builds
 to <a href="https://launchpad.net/~gds/+archive/govuk">Launchpad</a>.</p>
-
 <p>The new way we prefer to build packages is using
 <a href="https://github.com/jordansissel/fpm">fpm</a> in the
 <a href="https://github.com/alphagov/packager">alphagov/packager</a> repo.</p>
-
-<h3 id="launchpad">Launchpad</h3>
-
-<p>We are using <a href="https://launchpad.net/~gds/+archive/govuk">Launchpad</a> as
+<h3 id='launchpad'>Launchpad</h3><p>We are using <a href="https://launchpad.net/~gds/+archive/govuk">Launchpad</a> as
 the source of all our Debian packages and
 <a href="https://github.com/alphagov/packager">alphagov/packager</a> which provides
 an easy interface to build packages.</p>
-
 <p><code>alphagov/packager</code> creates intermediate files
 (.changes/.dsc) which can be uploaded to Launchpad and which uses the files
 to build the Debian package. The README for the repository explains how
 to create packages for Launchpad.</p>
-
 <p>Once a package is imported (published) from a given source (e.g. the Nginx
 package is published from <code>nginx-stable-testing</code>) it cannot be
 republished/superseded (even if deleted and published again) from a
 different source on the same version number. To do so the version has to
 be bumped up.</p>
-
-<h3 id="fpm">fpm</h3>
-
-<p>Add an fpm recipe to packager and then use <a href="https://ci.integration.publishing.service.gov.uk/job/build_fpm_package/">the Jenkins
+<h3 id='fpm'>fpm</h3><p>Add an fpm recipe to packager and then use <a href="https://ci.integration.publishing.service.gov.uk/job/build_fpm_package/">the Jenkins
 job</a> to
 create a Debian package.</p>
-
-<h4 id="test-the-recipe">Test the recipe</h4>
-
+<h4 id='test-the-recipe'>Test the recipe</h4>
 <ul>
-  <li>The Jenkins job will produce a <code>.deb</code> package in the <code>Build Artifacts</code>.</li>
-  <li>With Packager cloned to your local <code>govuk</code> folder, download your new package to
+<li>The Jenkins job will produce a <code>.deb</code> package in the <code>Build Artifacts</code>.</li>
+<li>With Packager cloned to your local <code>govuk</code> folder, download your new package to
 the Packager root folder.</li>
-  <li>
-    <p>Start the VM, move to the Packager project and run:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>  $ sudo dpkg -i ./your_package_name.deb`
-</code></pre></div>  </li>
-  <li>Ensure your package has been successfully installed.</li>
+<li>Start the VM, move to the Packager project and run:</li>
 </ul>
-
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>    $ sudo dpkg -i ./your_package_name.deb`
+</code></pre></div>
+<ul>
+<li>Ensure your package has been successfully installed.</li>
+</ul>
 <p>If successful, you can copy this package to the aptly machine and then add the
 deb file to aptly.</p>
-
-<h2 id="uploading-a-new-package">Uploading a new package</h2>
-
+<h2 id='uploading-a-new-package'>Uploading a new package</h2>
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>The commands below should be run on the machine where aptly is
+<p><strong>Note</strong></p>
+<p>The commands below should be run on the machine where aptly is
 running.
 The example used is for upgrading Ruby by adding a new package to the <code>rbenv-ruby</code> repository</p>
 </blockquote>
 
 <ol>
-  <li>Download the package to your local machine</li>
-  <li>
-    <p>Upload the package to the aptly machine:</p>
+<li>Download the package to your local machine</li>
+<li><p>Upload the package to the aptly machine:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  $ gds govuk connect scp-push -e &lt;environment&gt; aws/apt ~/Downloads/rbenv-ruby-2.6.1_1_amd64.deb /tmp
+</code></pre></div></li>
+<li><p>In the machine, add the package to the repo:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  $ sudo -i aptly repo add rbenv-ruby /tmp/rbenv-ruby-2.6.1_1_amd64.deb
+    Loading packages...
+    [+] rbenv-ruby-2.6.1_1_amd64 added
+</code></pre></div></li>
+<li><p>Create a snapshot:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  $ snapshot="rbenv-ruby-$(date +%Y%m%d)"
+  $ sudo aptly snapshot create $snapshot from repo rbenv-ruby
+    Snapshot rbenv-ruby-20190212 successfully created.
 
-<div class="highlight"><pre class="highlight plaintext"><code>   $ gds govuk connect scp-push -e &lt;environment&gt; aws/apt ~/Downloads/rbenv-ruby-2.6.1_1_amd64.deb /tmp
-</code></pre></div>  </li>
-  <li>
-    <p>In the machine, add the package to the repo:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>   $ sudo -i aptly repo add rbenv-ruby /tmp/rbenv-ruby-2.6.1_1_amd64.deb
-     Loading packages...
-     [+] rbenv-ruby-2.6.1_1_amd64 added
-</code></pre></div>  </li>
-  <li>
-    <p>Create a snapshot:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>   $ snapshot="rbenv-ruby-$(date +%Y%m%d)"
-   $ sudo aptly snapshot create $snapshot from repo rbenv-ruby
-     Snapshot rbenv-ruby-20190212 successfully created.
-
-   $ sudo aptly snapshot show $snapshot
-     Name: rbenv-ruby-20190212
-     Created At: 2019-02-12 15:36:23 UTC
-     Description: Snapshot from local repo [rbenv-ruby]
-     Number of packages: 11
-</code></pre></div>  </li>
-  <li>
-    <p>Check the package doesn't remove or replace a version we are currently using
+  $ sudo aptly snapshot show $snapshot
+    Name: rbenv-ruby-20190212
+    Created At: 2019-02-12 15:36:23 UTC
+    Description: Snapshot from local repo [rbenv-ruby]
+    Number of packages: 11
+</code></pre></div></li>
+<li><p>Check the package doesn&rsquo;t remove or replace a version we are currently using
 by checking the diff. You can find the previous snapshot by running <code>sudo aptly snapshot list</code></p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>   $ sudo aptly snapshot diff rbenv-ruby-20181023 $snapshot
-     Arch   | Package          | Version in A  | Version in B
-   + amd64  | rbenv-ruby-2.6.1 | -             | 1
-</code></pre></div>  </li>
-  <li>
-    <p>Publish the new snapshot, you will be prompted to enter the passphrase for our
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  $ sudo aptly snapshot diff rbenv-ruby-20181023 $snapshot
+    Arch   | Package          | Version in A  | Version in B
+  + amd64  | rbenv-ruby-2.6.1 | -             | 1
+</code></pre></div></li>
+<li><p>Publish the new snapshot, you will be prompted to enter the passphrase for our
 APT account which is in <a href="https://github.com/alphagov/govuk-secrets/tree/master/pass">govuk-secrets</a> <code>./edit.sh 2ndline apt/passphrase</code></p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> $ sudo -i aptly publish switch trusty rbenv-ruby $snapshot
-   Loading packages...
-   Generating metadata files and linking package files...
-   Finalizing metadata files...
-   Publish for snapshot rbenv-ruby/trusty [amd64] publishes {main: [rbenv-ruby-20190212]: Snapshot from local repo [rbenv-ruby]} has been successfully switched to new snapshot.
-</code></pre></div>  </li>
-  <li>
-    <p>You can check it has been published by going to <a href="https://apt.publishing.service.gov.uk/">https://apt.publishing.service.gov.uk</a>.
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly publish switch trusty rbenv-ruby $snapshot
+  Loading packages...
+  Generating metadata files and linking package files...
+  Finalizing metadata files...
+  Publish for snapshot rbenv-ruby/trusty [amd64] publishes {main: [rbenv-ruby-20190212]: Snapshot from local repo [rbenv-ruby]} has been successfully switched to new snapshot.
+</code></pre></div></li>
+<li><p>You can check it has been published by going to <a href="https://apt.publishing.service.gov.uk/">https://apt.publishing.service.gov.uk</a>.
 For this example navigate to <a href="https://apt.publishing.service.gov.uk/rbenv-ruby/pool/main/r/">https://apt.publishing.service.gov.uk/rbenv-ruby/pool/main/r/</a>. You can also test it works by running <code>apt-get</code> in one of the integration boxes:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>   $ sudo apt-get install rbenv-ruby-2.6.1
-</code></pre></div>  </li>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  $ sudo apt-get install rbenv-ruby-2.6.1
+</code></pre></div></li>
 </ol>
-
-<h2 id="mirroring">Mirroring</h2>
-
-<p>We are using <a href="http://www.aptly.info">aptly</a> to mirror third-party
+<h2 id='mirroring'>Mirroring</h2><p>We are using <a href="http://www.aptly.info">aptly</a> to mirror third-party
 repositories. We do this for:</p>
-
 <p><strong>Availability</strong>: Our ability to provision new and deploy to existing machines
-shouldn't be affected by the availability/uptime of another vendor/project.
-This doesn't necessarily apply to Ubuntu upstream, who have a good network of
+shouldn&rsquo;t be affected by the availability/uptime of another vendor/project.
+This doesn&rsquo;t necessarily apply to Ubuntu upstream, who have a good network of
 mirrors.</p>
-
 <p><strong>Consistency</strong>:   We should be able to use a consistent set of package
 versions across all environments. New versions should be staged in
 when we choose to do so. This also guards us against some vendors/projects
 who remove old packages without warning.</p>
-
 <p><strong>Bandwidth</strong>:   This is the least important, but is good netizen practice. We
-shouldn't need to go out to the internet every time we install a package.
-Especially if we're doing it 40x for all hosts in an environment. We also
-shouldn't hit them with <code>apt-get update</code> every 30mins.</p>
-
+shouldn&rsquo;t need to go out to the internet every time we install a package.
+Especially if we&rsquo;re doing it 40x for all hosts in an environment. We also
+shouldn&rsquo;t hit them with <code>apt-get update</code> every 30mins.</p>
 <p>We will describe some common operations here and add to it as we do more
 complex things. However the upstream documentation and examples are also
 very good.</p>
 
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>The commands below should be run on the machine where aptly is
+<p><strong>Note</strong></p>
+<p>The commands below should be run on the machine where aptly is
 running. We publish to our preview mirror from our production aptly
 machine.</p>
 </blockquote>
-
-<h3 id="setting-up-new-machine">Setting up new machine</h3>
-
-<p>These instructions are only to be used when setting up a new machine to
+<h3 id='setting-up-new-machine'>Setting up new machine</h3><p>These instructions are only to be used when setting up a new machine to
 serve aptly repos.</p>
-
 <p>We only manage <em>some</em> parts of aptly using Puppet, because it requires
 GPG keys and passwords, and updating repositories is something that
 should be done ad-hoc rather than on a regular schedule.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>PASSWORD_STORE_DIR=~/govuk/deployment/pass/2ndline pass apt/key &gt; apt-1.management.key
-</code></pre></div>
-<p>Copy the <code>apt-1.management.key</code> file and import it on the aptly machine:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>sudo -i gpg --import apt-1.management.key
-</code></pre></div>
-<p>When doing any of the <code>publish</code> actions below you will be prompted for
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>PASSWORD_STORE_DIR=~/govuk/deployment/pass/2ndline pass apt/key &gt; apt-1.management.key
+</code></pre></div><p>Copy the <code>apt-1.management.key</code> file and import it on the aptly machine:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo -i gpg --import apt-1.management.key
+</code></pre></div><p>When doing any of the <code>publish</code> actions below you will be prompted for
 the password. This can be found in the same place. You will need to use
-<code>sudo -i</code> for such actions, in order to reference root's GPG files.</p>
+<code>sudo -i</code> for such actions, in order to reference root&rsquo;s GPG files.</p>
 
 <blockquote>
-  <p><strong>WARNING</strong></p>
-
-  <p>Please make sure that you use <code>sudo</code> and NOT a root shell so we
+<p><strong>WARNING</strong></p>
+<p>Please make sure that you use <code>sudo</code> and NOT a root shell so we
 have a record of the actions performed.</p>
 </blockquote>
-
-<h3 id="local-repos">Local repos</h3>
-
-<p>We maintain some local repos. These are typically used to manually
+<h3 id='local-repos'>Local repos</h3><p>We maintain some local repos. These are typically used to manually
 mirror an upstream repo where we need more than one version of a
 package, and the upstream mirror removes old versions (eg Jenkins).</p>
-
 <p>Recently the need to upgrade packages beyond versions maintained by the
 Linux distribution (Currently Ubuntu 14.04 LTS Trusty) has arisen (The shipped
 Python version 2.7.6 does not support current SSL anymore).</p>
-
 <p>To avoid impact of custom built versions on the existing environment we prefix
-these packages with "govuk-" (as in e.g. <code>govuk-python_2.7.14_amd64</code>) and aim
+these packages with &ldquo;govuk-&rdquo; (as in e.g. <code>govuk-python_2.7.14_amd64</code>) and aim
 for installation in /opt. For a single dependency tree a new local repository
 following the naming scheme, e.g. <code>govuk-python</code> to contain packages <code>govuk-python</code>
 , <code>govuk-python-pip</code>, <code>govuk-python-setuptools</code>, etc.) should be created.</p>
-
-<h4 id="initial-setup">Initial setup</h4>
-
-<p>After setting up a <code>aptly::repo</code> resource in Puppet (do not use
+<h4 id='initial-setup'>Initial setup</h4><p>After setting up a <code>aptly::repo</code> resource in Puppet (do not use
 <code>aptly repo create</code>) you configure it, add packages and publish it to a
 prefix with:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly repo edit -distribution="stable" govuk-jenkins
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly repo edit -distribution="stable" govuk-jenkins
 $ sudo -i aptly repo add govuk-jenkins /path/to/jenkins.deb
 $ sudo aptly snapshot create govuk-jenkins-$(date +%Y%m%d) from repo govuk-jenkins
 $ sudo -i aptly publish snapshot govuk-jenkins-$(date +%Y%m%d) govuk-jenkins
-</code></pre></div>
-<h4 id="updates">Updates</h4>
-
-<p>To add new packages download them, then add to the repo:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly repo add govuk-jenkins /path/to/jenkins_1.554.2_all.deb
-</code></pre></div>
-<p>To remove unused packages:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly repo remove govuk-jenkins 'jenkins (= 1.532.1)'
-</code></pre></div>
-<p>Create a new snapshot:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo aptly snapshot create govuk-jenkins-$(date +%Y%m%d) from repo govuk-jenkins
-</code></pre></div>
-<p>Confirm that the package changes look as expected and that it doesn't
+</code></pre></div><h4 id='updates'>Updates</h4><p>To add new packages download them, then add to the repo:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly repo add govuk-jenkins /path/to/jenkins_1.554.2_all.deb
+</code></pre></div><p>To remove unused packages:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly repo remove govuk-jenkins 'jenkins (= 1.532.1)'
+</code></pre></div><p>Create a new snapshot:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo aptly snapshot create govuk-jenkins-$(date +%Y%m%d) from repo govuk-jenkins
+</code></pre></div><p>Confirm that the package changes look as expected and that it doesn&rsquo;t
 remove/replace a version that we are currently using:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo aptly snapshot diff govuk-jenkins-20140101 govuk-jenkins-$(date +%Y%m%d)
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo aptly snapshot diff govuk-jenkins-20140101 govuk-jenkins-$(date +%Y%m%d)
   Arch   | Package     | Version in A  | Version in B
 - amd64  | jenkins     | 1.532.1       | -
 + amd64  | jenkins     | -             | 1.554.2
-</code></pre></div>
-<p>Publish the new snapshot:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly publish switch stable govuk-jenkins govuk-jenkins-$(date +%Y%m%d)
-</code></pre></div>
-<p>Finally, since we cache the mirror with Fastly, you'll need to purge the
+</code></pre></div><p>Publish the new snapshot:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly publish switch stable govuk-jenkins govuk-jenkins-$(date +%Y%m%d)
+</code></pre></div><p>Finally, since we cache the mirror with Fastly, you&rsquo;ll need to purge the
 content in the UI:</p>
 
 <blockquote>
-  <ol>
-    <li>Log in at <a href="https://app.fastly.com">https://app.fastly.com</a></li>
-    <li>Click the 'Configure' tab along the top</li>
-    <li>Choose the 'Production Apt' service from the dropdown</li>
-    <li>Click 'Purge', then 'Purge All'</li>
-  </ol>
+<ol>
+<li>Log in at <a href="https://app.fastly.com">https://app.fastly.com</a></li>
+<li>Click the &lsquo;Configure&rsquo; tab along the top</li>
+<li>Choose the &lsquo;Production Apt&rsquo; service from the dropdown</li>
+<li>Click &lsquo;Purge&rsquo;, then &lsquo;Purge All&rsquo;</li>
+</ol>
 </blockquote>
-
 <p>Note that whilst - typically - purging all is an expensive operation
 (because requests will then hit origin until Fastly warms back up again,
 which could take some time), in this case, the low amount, and type, of
-traffic this service receives means it's safe.</p>
-
-<h4 id="use-a-local-repo-in-an-app">Use a local repo in an app</h4>
-
-<p>To make a repository available on a machine it is necessary to include a class implementing
+traffic this service receives means it&rsquo;s safe.</p>
+<h4 id='use-a-local-repo-in-an-app'>Use a local repo in an app</h4><p>To make a repository available on a machine it is necessary to include a class implementing
 an <code>apt::source</code> object, e.g.:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>class govuk_python::repo (
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>class govuk_python::repo (
   $apt_mirror_hostname = undef,
 ) {
   apt::source { 'govuk-python':
@@ -579,135 +458,86 @@ an <code>apt::source</code> object, e.g.:</p>
     key          =&gt; 'DA1A4A13543B466853BAF164EB9B1D8886F44E2A';
   }
 }
-</code></pre></div>
-<p>After this, packages can be included in the form:</p>
-
-<div class="highlight"><pre class="highlight mosel"><code>  <span class="k">package</span> <span class="p">{</span> <span class="s1">'govuk-python'</span><span class="p">:</span>
+</code></pre></div><p>After this, packages can be included in the form:</p>
+<div class="highlight"><pre class="highlight mosel" tabindex="0"><code>  <span class="k">package</span> <span class="p">{</span> <span class="s1">'govuk-python'</span><span class="p">:</span>
     <span class="n">ensure</span>  <span class="p">=&gt;</span> <span class="p">$</span><span class="k">version</span><span class="p">,</span>
     <span class="n">require</span> <span class="p">=&gt;</span> <span class="n">Apt</span><span class="p">::</span><span class="n">Source</span><span class="p">[</span><span class="s1">'govuk-python'</span><span class="p">],</span>
   <span class="p">}</span>
-</code></pre></div>
-<h3 id="third-party-repos">Third-party repos</h3>
-
+</code></pre></div><h3 id='third-party-repos'>Third-party repos</h3>
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>Despite Ubuntu being based on Debian experimental, no Debian repository should ever
+<p><strong>Note</strong></p>
+<p>Despite Ubuntu being based on Debian experimental, no Debian repository should ever
 be directly mirrored and made available through aptly to a Ubuntu system <em>ever</em>.
 There will be severe complications including failing or erroneous package upgrades,
 broken dependencies and likely complete system failure.</p>
-
-  <p>The safest way to attempt to use a .deb package of another distro is to include its
+<p>The safest way to attempt to use a .deb package of another distro is to include its
 source repository and compile the package yourself. After adding e.g. the Debian source
 repository <code>deb-src http://deb.debian.org/debian/ experimental main contrib non-free</code>
 and executing <code>apt-get update</code>, compilation of the desired software can be
 attempted by invoking:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code> apt-get build-dep &lt;package&gt; # For build dependencies
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code> apt-get build-dep &lt;package&gt; # For build dependencies
  apt-get source --compile &lt;package&gt; # To download source and compile package
 </code></pre></div></blockquote>
-
-<h4 id="initial-setup-1">Initial setup</h4>
-
-<p>After setting up a <code>aptly::mirror</code> resource in Puppet (do not use
+<h4 id='initial-setup'>Initial setup</h4><p>After setting up a <code>aptly::mirror</code> resource in Puppet (do not use
 <code>aptly mirror create</code>) you can sync and publish it to a prefix with:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly mirror update puppetlabs
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly mirror update puppetlabs
 $ sudo aptly snapshot create puppetlabs-$(date +%Y%m%d) from mirror puppetlabs
 $ sudo -i aptly publish snapshot puppetlabs-$(date +%Y%m%d) puppetlabs
-</code></pre></div>
-<h4 id="updates-1">Updates</h4>
-
-<p>To pull new packages from an upstream repo, first sync:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly mirror update collectd
-</code></pre></div>
-<p>Assuming there are new packages then create a snapshot:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo aptly snapshot create collectd-$(date +%Y%m%d) from mirror collectd
-</code></pre></div>
-<p>Confirm that the package changes look as expected and that it doesn't
+</code></pre></div><h4 id='updates'>Updates</h4><p>To pull new packages from an upstream repo, first sync:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly mirror update collectd
+</code></pre></div><p>Assuming there are new packages then create a snapshot:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo aptly snapshot create collectd-$(date +%Y%m%d) from mirror collectd
+</code></pre></div><p>Confirm that the package changes look as expected and that it doesn&rsquo;t
 remove/replace a version that we are currently using:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo aptly snapshot diff collectd-20140101 collectd-20140102
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo aptly snapshot diff collectd-20140101 collectd-20140102
   Arch   | Package                                  | Version in A                             | Version in B
 ! amd64  | collectd                                 | 5.3.0-ppa8~precise1                      | 5.4.0-ppa1~precise1
 ! amd64  | collectd-core                            | 5.3.0-ppa8~precise1                      | 5.4.0-ppa1~precise1
 ! amd64  | collectd-utils                           | 5.3.0-ppa8~precise1                      | 5.4.0-ppa1~precise1
 ! amd64  | libcollectdclient-dev                    | 5.3.0-ppa8~precise1                      | 5.4.0-ppa1~precise1
 ! amd64  | libcollectdclient1                       | 5.3.0-ppa8~precise1                      | 5.4.0-ppa1~precise1
-</code></pre></div>
-<p>Publish the new snapshot:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly publish switch precise collectd collectd-20140102
-</code></pre></div>
-<p>Finally, since we cache the mirror with Fastly, you'll need to purge the
+</code></pre></div><p>Publish the new snapshot:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly publish switch precise collectd collectd-20140102
+</code></pre></div><p>Finally, since we cache the mirror with Fastly, you&rsquo;ll need to purge the
 content in the UI as described above under <a href="#local-repos">Local repos</a>.</p>
-
 <p>For more about aptly and aptly commands please see their <a href="https://www.aptly.info/doc/overview/">documentation</a>.</p>
-
-<h3 id="ppas">PPAs</h3>
-
-<p>We use Launchpad PPAs mostly for their good build pipeline; sand-boxed
+<h3 id='ppas'>PPAs</h3><p>We use Launchpad PPAs mostly for their good build pipeline; sand-boxed
 builds in well maintained environments. Even if they can be slow.</p>
-
 <p>However PPAs have a restriction that you can only have one active
 version of a package in a PPA at any one time, which makes it difficult
 to test and promote package changes through environments. We work around
 this by using snapshots.</p>
-
-<h4 id="initial-setup-2">Initial setup</h4>
-
-<p>Sync the repos created by Puppet's <code>aptly::mirror</code>. Mirrors are
+<h4 id='initial-setup'>Initial setup</h4><p>Sync the repos created by Puppet&rsquo;s <code>aptly::mirror</code>. Mirrors are
 distribution specific:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly mirror update govuk-ppa-precise
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly mirror update govuk-ppa-precise
 $ sudo -i aptly mirror update govuk-ppa-trusty
-</code></pre></div>
-<p>Create a snapshot of each distribution (just one currently):</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo aptly snapshot create govuk-ppa-precise-$(date +%Y%m%d) from mirror govuk-ppa-precise
+</code></pre></div><p>Create a snapshot of each distribution (just one currently):</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo aptly snapshot create govuk-ppa-precise-$(date +%Y%m%d) from mirror govuk-ppa-precise
 $ sudo aptly snapshot create govuk-ppa-trusty-$(date +%Y%m%d) from mirror govuk-ppa-trusty
-</code></pre></div>
-<p>Publish each of them using environment-specific prefixes. Production and
+</code></pre></div><p>Publish each of them using environment-specific prefixes. Production and
 Staging share the same prefix:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly publish snapshot govuk-ppa-precise-$(date +%Y%m%d) govuk/ppa/preview
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly publish snapshot govuk-ppa-precise-$(date +%Y%m%d) govuk/ppa/preview
 $ sudo -i aptly publish snapshot govuk-ppa-trusty-$(date +%Y%m%d) govuk/ppa/preview
 $ sudo -i aptly publish snapshot govuk-ppa-precise-$(date +%Y%m%d) govuk/ppa/production
 $ sudo -i aptly publish snapshot govuk-ppa-trusty-$(date +%Y%m%d) govuk/ppa/production
-</code></pre></div>
-<h4 id="updates-2">Updates</h4>
-
-<p>When you have pushed a new package to the PPA and want to try it out on
+</code></pre></div><h4 id='updates'>Updates</h4><p>When you have pushed a new package to the PPA and want to try it out on
 Preview, sync and create a new snapshot:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly mirror update govuk-ppa-precise
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly mirror update govuk-ppa-precise
 $ sudo -i aptly mirror update govuk-ppa-trusty
 $ sudo aptly snapshot create govuk-ppa-precise-$(date +%Y%m%d) from mirror govuk-ppa-precise
 $ sudo aptly snapshot create govuk-ppa-trusty-$(date +%Y%m%d) from mirror govuk-ppa-trusty
-</code></pre></div>
-<p>Confirm that the changes look as expected:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo aptly snapshot diff govuk-ppa-precise-YYYYMMDD govuk-ppa-precise-$(date +%Y%m%d)
+</code></pre></div><p>Confirm that the changes look as expected:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo aptly snapshot diff govuk-ppa-precise-YYYYMMDD govuk-ppa-precise-$(date +%Y%m%d)
 $ sudo aptly snapshot diff govuk-ppa-trusty-YYYYMMDD govuk-ppa-trusty-$(date +%Y%m%d)
-</code></pre></div>
-<p>Promote the snapshots to the Preview environment only:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo -i aptly publish switch precise govuk/ppa/preview govuk-ppa-precise-$(date +%Y%m%d)
+</code></pre></div><p>Promote the snapshots to the Preview environment only:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo -i aptly publish switch precise govuk/ppa/preview govuk-ppa-precise-$(date +%Y%m%d)
 $ sudo -i aptly publish switch trusty govuk/ppa/preview govuk-ppa-trusty-$(date +%Y%m%d)
-</code></pre></div>
-<p>If you're happy with the results on Preview then you can repeat the
+</code></pre></div><p>If you&rsquo;re happy with the results on Preview then you can repeat the
 publish step for Production (Staging uses the production mirror).</p>
-
-<p>Finally, since we cache the mirror with Fastly, you'll need to purge the
+<p>Finally, since we cache the mirror with Fastly, you&rsquo;ll need to purge the
 content in the UI as described above under <a href="#local-repos">Local repos</a>.</p>
-
-<h3 id="removing-mirrors-no-longer-in-use">Removing mirrors no longer in use</h3>
-
-<p>To remove a mirror that is no longer in use, run the following in order:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code># Remove published repository
+<h3 id='removing-mirrors-no-longer-in-use'>Removing mirrors no longer in use</h3><p>To remove a mirror that is no longer in use, run the following in order:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code># Remove published repository
 # Pay attention to the syntax, it's not &lt;repo&gt;/&lt;distribution&gt;
 # as per the output of `aptly publish list`.
 sudo aptly publish drop &lt;distribution&gt; &lt;repo&gt;

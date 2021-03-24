@@ -142,7 +142,7 @@
             <a href="#2-update-whitehall"><span>2. Update Whitehall</span></a>
           </li>
           <li>
-            <a href="#3-update-govuk-content-schemas"><span>3. Update GOV.UK Content Schemas</span></a>
+            <a href="#3-update-gov-uk-content-schemas"><span>3. Update GOV.UK Content Schemas</span></a>
           </li>
           <li>
             <a href="#4-update-content-store"><span>4. Update Content Store</span></a>
@@ -172,99 +172,71 @@
  <h1 id='header'>Add support for a new translation in Whitehall</h1> <p>Useful links:</p>
 
 <ul>
-  <li><a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">List of ISO 639-1 codes</a></li>
-  <li><a href="https://github.com/alphagov/rails_translation_manager">Rails Translation Manager</a></li>
-  <li><a href="https://github.com/alphagov/whitehall/blob/master/docs/internationalisation_guide.md">Internationalisation guide</a></li>
+<li><a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">List of ISO 639-1 codes</a></li>
+<li><a href="https://github.com/alphagov/rails_translation_manager">Rails Translation Manager</a></li>
+<li><a href="https://github.com/alphagov/whitehall/blob/master/docs/internationalisation_guide.md">Internationalisation guide</a></li>
 </ul>
-
-<h3 id="1-update-government-frontend">1. Update Government Frontend</h3>
-
-<p><a href="https://github.com/alphagov/government-frontend/pull/1382">Example PR</a></p>
-
+<h3 id='1-update-government-frontend'>1. Update Government Frontend</h3><p><a href="https://github.com/alphagov/government-frontend/pull/1382">Example PR</a></p>
 <p>In <a href="https://github.com/alphagov/government-frontend">Government Frontend</a>:</p>
 
 <ol>
-  <li>Add the new locale to <code>config/application.rb</code> and <code>config/locales/en.yml</code> in alphabetical order</li>
-  <li>
-    <p>Run the following commands to generate the locale files from the English template:</p>
-
-<div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ </span><span class="nb">export </span><span class="nv">LOCALE</span><span class="o">=</span>&lt;new_locale&gt;
- <span class="nv">$ </span>rake <span class="s2">"translation:export[tmp/locale_csv,en,</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">]"</span>
- <span class="nv">$ </span>rake <span class="s2">"translation:import[</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">,tmp/locale_csv/</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">.csv]"</span>
-</code></pre></div>  </li>
-  <li>
-    <p>In <code>config/locales/&lt;new_locale&gt;.yml</code> add the language translation under the <code>language_names</code> key.</p>
-
-    <p>For example:</p>
-
-<div class="highlight"><pre class="highlight yaml"><code>  <span class="na">it</span><span class="pi">:</span>
-    <span class="na">language_names</span><span class="pi">:</span>
-      <span class="na">it</span><span class="pi">:</span> <span class="s">italiano</span>
-</code></pre></div>  </li>
+<li>Add the new locale to <code>config/application.rb</code> and <code>config/locales/en.yml</code> in alphabetical order</li>
+<li><p>Run the following commands to generate the locale files from the English template:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">LOCALE</span><span class="o">=</span>&lt;new_locale&gt;
+<span class="nv">$ </span>rake <span class="s2">"translation:export[tmp/locale_csv,en,</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">]"</span>
+<span class="nv">$ </span>rake <span class="s2">"translation:import[</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">,tmp/locale_csv/</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">.csv]"</span>
+</code></pre></div></li>
+<li><p>In <code>config/locales/&lt;new_locale&gt;.yml</code> add the language translation under the <code>language_names</code> key.</p>
+<p>For example:</p>
+<div class="highlight"><pre class="highlight yaml" tabindex="0"><code> <span class="na">it</span><span class="pi">:</span>
+   <span class="na">language_names</span><span class="pi">:</span>
+     <span class="na">it</span><span class="pi">:</span> <span class="s">italiano</span>
+</code></pre></div></li>
 </ol>
-
-<h3 id="2-update-whitehall">2. Update Whitehall</h3>
-
-<p><a href="https://github.com/alphagov/whitehall/pull/4861">Example PR</a></p>
-
+<h3 id='2-update-whitehall'>2. Update Whitehall</h3><p><a href="https://github.com/alphagov/whitehall/pull/4861">Example PR</a></p>
 <p>In <a href="https://github.com/alphagov/whitehall">Whitehall</a>:</p>
 
 <ol>
-  <li>Add the new locale to <code>lib/whitehall.rb</code> and <code>config/locales/en.yml</code> in alphabetical order</li>
-  <li>
-    <p>Run the following commands to generate the locale files from the English template:</p>
+<li>Add the new locale to <code>lib/whitehall.rb</code> and <code>config/locales/en.yml</code> in alphabetical order</li>
+<li><p>Run the following commands to generate the locale files from the English template:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">LOCALE</span><span class="o">=</span>&lt;new_locale&gt;
+<span class="nv">$ </span>rake <span class="s2">"translation:export[tmp/locale_csv,en,</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">]"</span>
+<span class="nv">$ </span>rake <span class="s2">"translation:import[</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">,tmp/locale_csv/</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">.csv]"</span>
+</code></pre></div></li>
+<li><p>In <code>config/locales/&lt;new_locale&gt;.yml</code> add:</p>
 
-<div class="highlight"><pre class="highlight shell"><code> <span class="nv">$ </span><span class="nb">export </span><span class="nv">LOCALE</span><span class="o">=</span>&lt;new_locale&gt;
- <span class="nv">$ </span>rake <span class="s2">"translation:export[tmp/locale_csv,en,</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">]"</span>
- <span class="nv">$ </span>rake <span class="s2">"translation:import[</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">,tmp/locale_csv/</span><span class="k">${</span><span class="nv">LOCALE</span><span class="k">}</span><span class="s2">.csv]"</span>
-</code></pre></div>  </li>
-  <li>In <code>config/locales/&lt;new_locale&gt;.yml</code> add:
-    <ul>
-      <li>the language direction under the <code>i18n.direction</code> key</li>
-      <li>the appropriate boolean under the <code>i18n.latin_script?</code> key</li>
-      <li>the language translation under the <code>language_names</code> key</li>
-    </ul>
-
-    <p>For example:</p>
-
-<div class="highlight"><pre class="highlight yaml"><code>  <span class="na">it</span><span class="pi">:</span>
-    <span class="na">i18n</span><span class="pi">:</span>
-      <span class="na">direction</span><span class="pi">:</span> <span class="s">ltr</span>
-      <span class="s">latin_script?</span><span class="pi">:</span> <span class="no">true</span>
-    <span class="na">language_names</span><span class="pi">:</span>
-      <span class="na">it</span><span class="pi">:</span> <span class="s">Italiano</span>
+<ul>
+<li>the language direction under the <code>i18n.direction</code> key</li>
+<li>the appropriate boolean under the <code>i18n.latin_script?</code> key</li>
+<li>the language translation under the <code>language_names</code> key</li>
+</ul>
+<p>For example:</p>
+<div class="highlight"><pre class="highlight yaml" tabindex="0"><code> <span class="na">it</span><span class="pi">:</span>
+   <span class="na">i18n</span><span class="pi">:</span>
+     <span class="na">direction</span><span class="pi">:</span> <span class="s">ltr</span>
+     <span class="s">latin_script?</span><span class="pi">:</span> <span class="no">true</span>
+   <span class="na">language_names</span><span class="pi">:</span>
+     <span class="na">it</span><span class="pi">:</span> <span class="s">Italiano</span>
 </code></pre></div></li>
 </ol>
-
-<h3 id="3-update-govuk-content-schemas">3. Update GOV.UK Content Schemas</h3>
-
-<p><a href="https://github.com/alphagov/govuk-content-schemas/pull/906">Example PR</a></p>
-
+<h3 id='3-update-gov-uk-content-schemas'>3. Update GOV.UK Content Schemas</h3><p><a href="https://github.com/alphagov/govuk-content-schemas/pull/906">Example PR</a></p>
 <p>In <a href="https://github.com/alphagov/govuk-content-schemas">GOV.UK Content Schemas</a>:</p>
 
 <ol>
-  <li>Edit <code>formats/shared/definitions/locale.jsonnet</code> to include the new locale in alphabetical order</li>
-  <li>Run <code>rake</code> to generate all the schemas</li>
+<li>Edit <code>formats/shared/definitions/locale.jsonnet</code> to include the new locale in alphabetical order</li>
+<li>Run <code>rake</code> to generate all the schemas</li>
 </ol>
-
-<h3 id="4-update-content-store">4. Update Content Store</h3>
-
-<p><a href="https://github.com/alphagov/content-store/pull/580">Example PR</a></p>
-
+<h3 id='4-update-content-store'>4. Update Content Store</h3><p><a href="https://github.com/alphagov/content-store/pull/580">Example PR</a></p>
 <p>In <a href="https://github.com/alphagov/content-store">Content Store</a>:</p>
 
 <ul>
-  <li>Add the locale key to <code>config/application.rb</code> in alphabetical order</li>
+<li>Add the locale key to <code>config/application.rb</code> in alphabetical order</li>
 </ul>
-
-<h3 id="5-update-publishing-api">5. Update Publishing API</h3>
-
-<p><a href="https://github.com/alphagov/publishing-api/pull/1524">Example PR</a></p>
-
+<h3 id='5-update-publishing-api'>5. Update Publishing API</h3><p><a href="https://github.com/alphagov/publishing-api/pull/1524">Example PR</a></p>
 <p>In <a href="https://github.com/alphagov/publishing-api">Publishing API</a>:</p>
 
 <ul>
-  <li>Add the locale key to <code>config/application.rb</code> in alphabetical order</li>
+<li>Add the locale key to <code>config/application.rb</code> in alphabetical order</li>
 </ul>
 
 

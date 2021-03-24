@@ -171,94 +171,49 @@
 
  <h1 id='header'>Copy PostgreSQL dump from one machine to another</h1> <p>This document explains how to back up a PostgreSQL database from one machine
 and import it to another machine (or even another environment).</p>
-
-<h2 id="back-up-your-postgresql-database">Back up your PostgreSQL database</h2>
-
-<p>Firstly, SSH into the machine running the PostgreSQL instance you want to copy.
-Then become the PostgreSQL user (it shouldn't need a password):</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>su - postgres
-</code></pre></div>
-<p>This will change your directory to <code>/var/lib/postgresql</code>.</p>
-
+<h2 id='back-up-your-postgresql-database'>Back up your PostgreSQL database</h2><p>Firstly, SSH into the machine running the PostgreSQL instance you want to copy.
+Then become the PostgreSQL user (it shouldn&rsquo;t need a password):</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>su - postgres
+</code></pre></div><p>This will change your directory to <code>/var/lib/postgresql</code>.</p>
 <p>Find the name of the database you want to back up. Start the PostgreSQL console
-(<code>psql</code>), then list the databases (<code>\l</code>) if you're not sure.</p>
-
+(<code>psql</code>), then list the databases (<code>\l</code>) if you&rsquo;re not sure.</p>
 <p>Then create a dump:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>pg_dump name_of_database <span class="o">&gt;</span> /tmp/name_of_database.bak
-</code></pre></div>
-<p>Return to being a normal user on the instance:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">exit</span>
-</code></pre></div>
-<p>Now fix the permissions so that you own it:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo chown</span> <span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span>:<span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span> /tmp/name_of_database.bak
-</code></pre></div>
-<p>Now <code>exit</code> the instance and move on to the next step.</p>
-
-<h2 id="download-the-backup-to-your-local-machine">Download the backup to your local machine</h2>
-
-<p>Use <code>govuk-connect</code> to download the file. For example:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>gds govuk connect scp-pull <span class="nt">-e</span> &lt;environment&gt; &lt;ip&gt; /tmp/name_of_database.bak
-</code></pre></div>
-<h2 id="upload-your-backup-to-the-desired-machine">Upload your backup to the desired machine</h2>
-
-<p>Use <code>govuk-connect</code> to upload the file. For example:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>gds govuk connect scp-push <span class="nt">-e</span> &lt;environment&gt; &lt;ip&gt; name_of_database.bak /tmp
-</code></pre></div>
-<h2 id="import-the-backup-to-overwrite-your-postgresql-database">Import the backup to overwrite your PostgreSQL database</h2>
-
-<p>SSH into the machine, and then move the backup away from <code>/tmp</code>:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo mv</span> /tmp/name_of_database.bak /var/lib/postgresql/
-</code></pre></div>
-<p>Pass ownership over to the PostgreSQL user:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo chown </span>postgres:postgres /var/lib/postgresql/name_of_database.bak
-</code></pre></div>
-<p>Stop any services that are relying on the database, e.g.:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>service mapit stop
-</code></pre></div>
-<p>Assume the PostgreSQL user role:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>su - postgres
-</code></pre></div>
-<p>Remove active connections on the database:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>psql
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>pg_dump name_of_database <span class="o">&gt;</span> /tmp/name_of_database.bak
+</code></pre></div><p>Return to being a normal user on the instance:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">exit</span>
+</code></pre></div><p>Now fix the permissions so that you own it:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo chown</span> <span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span>:<span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span> /tmp/name_of_database.bak
+</code></pre></div><p>Now <code>exit</code> the instance and move on to the next step.</p>
+<h2 id='download-the-backup-to-your-local-machine'>Download the backup to your local machine</h2><p>Use <code>govuk-connect</code> to download the file. For example:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds govuk connect scp-pull <span class="nt">-e</span> &lt;environment&gt; &lt;ip&gt; /tmp/name_of_database.bak
+</code></pre></div><h2 id='upload-your-backup-to-the-desired-machine'>Upload your backup to the desired machine</h2><p>Use <code>govuk-connect</code> to upload the file. For example:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds govuk connect scp-push <span class="nt">-e</span> &lt;environment&gt; &lt;ip&gt; name_of_database.bak /tmp
+</code></pre></div><h2 id='import-the-backup-to-overwrite-your-postgresql-database'>Import the backup to overwrite your PostgreSQL database</h2><p>SSH into the machine, and then move the backup away from <code>/tmp</code>:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo mv</span> /tmp/name_of_database.bak /var/lib/postgresql/
+</code></pre></div><p>Pass ownership over to the PostgreSQL user:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo chown </span>postgres:postgres /var/lib/postgresql/name_of_database.bak
+</code></pre></div><p>Stop any services that are relying on the database, e.g.:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service mapit stop
+</code></pre></div><p>Assume the PostgreSQL user role:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>su - postgres
+</code></pre></div><p>Remove active connections on the database:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>psql
 <span class="nv">postgres</span><span class="o">=</span><span class="c"># REVOKE CONNECT ON DATABASE name_of_database FROM public;</span>
 <span class="nv">postgres</span><span class="o">=</span><span class="c"># SELECT pg_terminate_backend(pg_stat_activity.pid)</span>
            FROM pg_stat_activity
            WHERE pg_stat_activity.datname <span class="o">=</span> <span class="s1">'name_of_database'</span><span class="p">;</span>
-</code></pre></div>
-<p>Drop the database and create a new one in its place:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">postgres</span><span class="o">=</span><span class="c"># DROP DATABASE name_of_database; CREATE DATABASE name_of_database;</span>
-</code></pre></div>
-<p>Import new database:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>psql <span class="nt">-d</span> name_of_database <span class="nt">-f</span> name_of_database.bak
-</code></pre></div>
-<p>Return to being a normal user on the instance:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">exit</span>
-</code></pre></div>
-<p>Restart database (to re-allow public connections):</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>service postgresql restart
-</code></pre></div>
-<p>Restart whatever services you stopped, e.g.:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo </span>service mapit start
-</code></pre></div>
-<p>Tidy up after yourself:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo rm</span> /var/lib/postgresql/name_of_database.bak
+</code></pre></div><p>Drop the database and create a new one in its place:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">postgres</span><span class="o">=</span><span class="c"># DROP DATABASE name_of_database; CREATE DATABASE name_of_database;</span>
+</code></pre></div><p>Import new database:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>psql <span class="nt">-d</span> name_of_database <span class="nt">-f</span> name_of_database.bak
+</code></pre></div><p>Return to being a normal user on the instance:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">exit</span>
+</code></pre></div><p>Restart database (to re-allow public connections):</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service postgresql restart
+</code></pre></div><p>Restart whatever services you stopped, e.g.:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service mapit start
+</code></pre></div><p>Tidy up after yourself:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo rm</span> /var/lib/postgresql/name_of_database.bak
 </code></pre></div>
 
   <div class='related-content'>

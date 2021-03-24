@@ -175,121 +175,70 @@
  <h1 id='header'>Fall back to the static mirrors</h1> <p>We maintain a static copy of most of the site, which gets used by the content delivery
 network (CDN) whenever origin (the application server) times out or serves an error
 response.</p>
-
 <p>This process is handled by our CDN config and is entirely transparent to us and
 our users. It happens multiple times a day, for lots of different reasons.</p>
-
 <p>This is why we refer to switching off Nginx on the origin cache machines as
-"falling back to the mirrors".</p>
-
-<h2 id="hosting">Hosting</h2>
-
-<p>GOV.UK is mirrored to two cloud providers:</p>
+&ldquo;falling back to the mirrors&rdquo;.</p>
+<h2 id='hosting'>Hosting</h2><p>GOV.UK is mirrored to two cloud providers:</p>
 
 <ul>
-  <li>
-    <p>Amazon S3: the static mirror is hosted in a bucket <code>govuk-&lt;environment&gt;-mirror</code> and the
+<li><p>Amazon S3: the static mirror is hosted in a bucket <code>govuk-&lt;environment&gt;-mirror</code> and the
 content is retrieved by the CDN using an API.  This bucket is replicated to
-<code>govuk-&lt;environment&gt;-mirror-replica</code> in another AWS region.</p>
-  </li>
-  <li>
-    <p>Google GCS: the static mirror is hosted in a bucket <code>govuk-&lt;environment&gt;-mirror</code> and the
-content is retrieved by the CDN using an API.</p>
-  </li>
+<code>govuk-&lt;environment&gt;-mirror-replica</code> in another AWS region.</p></li>
+<li><p>Google GCS: the static mirror is hosted in a bucket <code>govuk-&lt;environment&gt;-mirror</code> and the
+content is retrieved by the CDN using an API.</p></li>
 </ul>
-
-<h2 id="access">Access</h2>
-
-<p>Access to the:</p>
+<h2 id='access'>Access</h2><p>Access to the:</p>
 
 <ol>
-  <li>
-    <p>Amazon S3 buckets are restricted to Fastly, Office and Pingdom IP addresses for read-only access
-and authenticated users in AWS web console.</p>
-  </li>
-  <li>
-    <p>Google GCS buckets are restricted by secret keys in <code>govuk-secrets</code> and authenticated users
-in Google GCP web console.</p>
-  </li>
+<li><p>Amazon S3 buckets are restricted to Fastly, Office and Pingdom IP addresses for read-only access
+and authenticated users in AWS web console.</p></li>
+<li><p>Google GCS buckets are restricted by secret keys in <code>govuk-secrets</code> and authenticated users
+in Google GCP web console.</p></li>
 </ol>
-
-<h2 id="updates-to-the-mirror">Updates to the mirror</h2>
-
-<p>Every day at 20:00, the <a href="https://github.com/alphagov/govuk_seed_crawler">govuk_seed_crawler</a> on the Mirrorer machine adds all GOV.UK URLs listed
+<h2 id='updates-to-the-mirror'>Updates to the mirror</h2><p>Every day at 20:00, the <a href="https://github.com/alphagov/govuk_seed_crawler">govuk_seed_crawler</a> on the Mirrorer machine adds all GOV.UK URLs listed
 within the sitemaps (in the magnitude of hundreds of thousands) to a message queue. The <a href="https://github.com/alphagov/govuk_crawler_worker">govuk_crawler_worker</a>
 on the Mirrorer machine consumes these URLs, retrieves the HTML returned by these URLs, saves the content
 to disk and adds any new URLs found on those pages to the back of the queue.</p>
-
 <p>Every hour, the static copy of the site is copied from the Mirrorer machine to the primary AWS S3 bucket
 <code>govuk-&lt;environment&gt;-mirror</code>. This primary bucket is automatically replicated to another S3 bucket
 (named <code>govuk-&lt;environment&gt;-mirror-replica</code>) in another region by AWS.</p>
-
 <p>In addition, the primary AWS S3 bucket <code>govuk-&lt;environment&gt;-mirror</code> is synced to the Google GCS bucket
 of the same name daily at 12:00.</p>
-
 <p>The crawler is entirely independent of the mirrors. Stopping the crawler means no new updates are made
 to the mirrors, but it will not stop the mirrors from working.</p>
-
 <p>To inspect the contents of the mirror:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>gds govuk connect <span class="nt">-e</span> production ssh mirrorer
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds govuk connect <span class="nt">-e</span> production ssh mirrorer
 <span class="nb">cd</span> /mnt/crawler_worker/www.gov.uk
-</code></pre></div>
-<h2 id="forcing-failover-to-the-static-mirrors">Forcing failover to the static mirrors</h2>
-
-<p>Because the CDN will retry every request against the mirrors automatically if origin is unavailable,
+</code></pre></div><h2 id='forcing-failover-to-the-static-mirrors'>Forcing failover to the static mirrors</h2><p>Because the CDN will retry every request against the mirrors automatically if origin is unavailable,
 <a href="https://github.com/alphagov/fabric-scripts/blob/master/incident.py">stopping Nginx on the cache machines with Fabric</a> will result in falling back to mirrors:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> class:cache incident.fail_to_mirror
-</code></pre></div>
-<p>To disable the fallback:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> class:cache incident.recover_origin
-</code></pre></div>
-<h2 id="emergency-publishing-using-the-static-mirror">Emergency publishing using the static mirror</h2>
-
-<p>If you need to make changes to the site while origin is unavailable, you'll have to
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> class:cache incident.fail_to_mirror
+</code></pre></div><p>To disable the fallback:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> class:cache incident.recover_origin
+</code></pre></div><h2 id='emergency-publishing-using-the-static-mirror'>Emergency publishing using the static mirror</h2><p>If you need to make changes to the site while origin is unavailable, you&rsquo;ll have to
 modify content on the static mirrors. Bear in mind that because the mirror is static
-HTML, it's hard to make broad changes to the site (like putting a banner on every page).</p>
-
-<p>You'll be notified by the escalation on-call contact that you need to edit the site.</p>
+HTML, it&rsquo;s hard to make broad changes to the site (like putting a banner on every page).</p>
+<p>You&rsquo;ll be notified by the escalation on-call contact that you need to edit the site.</p>
 
 <ol>
-  <li>
-    <p>If you're at home, connect to the <a href="https://sites.google.com/a/digital.cabinet-office.gov.uk/gds/working-at-the-white-chapel-building/it-the-white-chapel-building/how-to/gds-vpn">VPN</a>.</p>
-  </li>
-  <li>
-    <p>SSH to the mirrorer machine:</p>
-
-<div class="highlight"><pre class="highlight shell"><code> gds govuk connect <span class="nt">-e</span> production ssh mirrorer
-</code></pre></div>  </li>
-  <li>
-    <p>Disable puppet on the machine by running:</p>
-
-<div class="highlight"><pre class="highlight shell"><code> govuk_puppet <span class="nt">--disable</span> <span class="s2">"stopping crawling to avoid mirror changes"</span>
-</code></pre></div>  </li>
-  <li>
-    <p>Stop the govuk_crawler_worker by running:</p>
-
-<div class="highlight"><pre class="highlight shell"><code> initctl stop govuk_crawler_worker
-</code></pre></div>  </li>
-  <li>
-    <p>Modify the relevant file in the directory <code>/mnt/crawler_worker</code>.</p>
-  </li>
-  <li>
-    <p>Upload the file to the AWS S3 bucket via the AWS console.</p>
-  </li>
-  <li>
-    <p>Upload the file to Google Cloud Storage using the GCP
-console.  Credentials are located in the govuk-secrets password store, under <code>google-accounts</code>.</p>
-  </li>
+<li><p>If you&rsquo;re at home, connect to the <a href="https://sites.google.com/a/digital.cabinet-office.gov.uk/gds/working-at-the-white-chapel-building/it-the-white-chapel-building/how-to/gds-vpn">VPN</a>.</p></li>
+<li><p>SSH to the mirrorer machine:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds govuk connect <span class="nt">-e</span> production ssh mirrorer
+</code></pre></div></li>
+<li><p>Disable puppet on the machine by running:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>govuk_puppet <span class="nt">--disable</span> <span class="s2">"stopping crawling to avoid mirror changes"</span>
+</code></pre></div></li>
+<li><p>Stop the govuk_crawler_worker by running:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>initctl stop govuk_crawler_worker
+</code></pre></div></li>
+<li><p>Modify the relevant file in the directory <code>/mnt/crawler_worker</code>.</p></li>
+<li><p>Upload the file to the AWS S3 bucket via the AWS console.</p></li>
+<li><p>Upload the file to Google Cloud Storage using the GCP
+console.  Credentials are located in the govuk-secrets password store, under <code>google-accounts</code>.</p></li>
 </ol>
-
-<p>If you're notified that the edit you've made can be reverted, do that the same way.</p>
-
+<p>If you&rsquo;re notified that the edit you&rsquo;ve made can be reverted, do that the same way.</p>
 <p>Once origin becomes available again, somebody (maybe you) will have to ensure that
 origin has been updated to serve the change that you made.</p>
-
 
 
   <div class='related-content'>

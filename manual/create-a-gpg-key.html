@@ -182,101 +182,51 @@
 </div>
 
  <h1 id='header'>Create a GPG key</h1> <p>We use GPG keys to encrypt our secrets. Documentation for using your GPG key can be found <a href="/manual/encrypted-hiera-data.html#common-tasks-for-handling-encrypted-hiera-data">here</a>.</p>
-
-<h2 id="prerequisites">Prerequisites</h2>
-
-<p>Install <code>gpg</code> if you don't already have it. Use <code>brew install gpg-suite</code> to install the graphical <a href="https://gpgtools.org/">GPG Suite</a>.</p>
-
+<h2 id='prerequisites'>Prerequisites</h2><p>Install <code>gpg</code> if you don&rsquo;t already have it. Use <code>brew install gpg-suite</code> to install the graphical <a href="https://gpgtools.org/">GPG Suite</a>.</p>
 <p>Once installed, you will likely have both <code>gpg</code> and <code>gpg2</code> on your machine. Always use <code>gpg2</code>.</p>
-
-<h2 id="creating-a-gpg-key-using-the-gui">Creating a GPG key (using the GUI)</h2>
-
-<p><a href="https://gpgtools.org/">GPGtools</a> comes with a GUI which can perform most of the operations you need.</p>
-
-<p>To create a new key, click "New". The <code>Name</code> field should be your name. For <code>Length</code>, you should have at least 4096.</p>
-
+<h2 id='creating-a-gpg-key-using-the-gui'>Creating a GPG key (using the GUI)</h2><p><a href="https://gpgtools.org/">GPGtools</a> comes with a GUI which can perform most of the operations you need.</p>
+<p>To create a new key, click &ldquo;New&rdquo;. The <code>Name</code> field should be your name. For <code>Length</code>, you should have at least 4096.</p>
 <p>The creation process will give you the option to upload to a public server. Say yes. You can check your key has been uploaded using the Lookup Key button in the GUI.</p>
-
 <p>On the main page which lists all of your keys you can double click your key to get the required details (fingerprint and id).</p>
-
 <p>See below for checking your passphrase.</p>
-
-<h2 id="creating-a-gpg-key-using-the-command-line">Creating a GPG key (using the command line)</h2>
-
-<p>Create a gpg key with <code>gpg2 --gen-key</code> using your
+<h2 id='creating-a-gpg-key-using-the-command-line'>Creating a GPG key (using the command line)</h2><p>Create a gpg key with <code>gpg2 --gen-key</code> using your
 digital.cabinet-office.gov.uk email address. Defaults for the questions
 should be fine, although you should choose a 4096-bit key.</p>
 
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>You should also generate a <a href="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto-3.html#ss3.4">revocation
+<p><strong>Note</strong></p>
+<p>You should also generate a <a href="http://www.dewinter.com/gnupg_howto/english/GPGMiniHowto-3.html#ss3.4">revocation
 certificate</a>
 with <code>gpg2 --gen-revoke</code> and store it in a safe place (<em>not</em> on your
 laptop, maybe a USB stick in your locker).</p>
 </blockquote>
-
-<h3 id="working-out-your-key-id-and-fingerprint">Working out your key ID and fingerprint</h3>
-
-<div class="highlight"><pre class="highlight plaintext"><code>gpg2 --fingerprint firstname.lastname@digital.cabinet-office.gov.uk
-</code></pre></div>
-<p>Should look something like this.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>pub   2048R/90E65803 2013-02-08
+<h3 id='working-out-your-key-id-and-fingerprint'>Working out your key ID and fingerprint</h3><div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>gpg2 --fingerprint firstname.lastname@digital.cabinet-office.gov.uk
+</code></pre></div><p>Should look something like this.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>pub   2048R/90E65803 2013-02-08
       Key fingerprint = 37CC 021A C5C2 4E27 C4D9  5735 9B0E 9DD1 90E6 5803
       uid                  my name &lt;my.name@digital.cabinet-office.gov.uk&gt;
       sub   2048R/FDD27DBE 2013-02-08
-</code></pre></div>
-<p>The key ID is <code>90E65803</code>, and the fingerprint is <code>37CC 021A C5C2
+</code></pre></div><p>The key ID is <code>90E65803</code>, and the fingerprint is <code>37CC 021A C5C2
 4E27 C4D9 5735 9B0E 9DD1 90E6 5803</code></p>
-
-<h3 id="upload-your-gpg-key-to-a-keyserver">Upload your GPG key to a keyserver</h3>
-
-<p>Send your key to a keyserver by running:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>gpg2 --send-keys $KEYID
-</code></pre></div>
-<p>If you are having problems uploading your key, it's worth trying another keyserver. Those trying to receive your key may be connecting to a different keyserver than the one you sent your key to. This is fine, as the keyservers synchronise, but this may take some time to happen.</p>
-
+<h3 id='upload-your-gpg-key-to-a-keyserver'>Upload your GPG key to a keyserver</h3><p>Send your key to a keyserver by running:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>gpg2 --send-keys $KEYID
+</code></pre></div><p>If you are having problems uploading your key, it&rsquo;s worth trying another keyserver. Those trying to receive your key may be connecting to a different keyserver than the one you sent your key to. This is fine, as the keyservers synchronise, but this may take some time to happen.</p>
 <p>You now should be able to find your key on <a href="http://keys.gnupg.net:11371/">http://keys.gnupg.net:11371/</a>.</p>
-
 <p>It occasionally takes a while for the keyserver to display pushed keys due to caching.</p>
-
 <p>You can find an overview of the GPG keyserver pools <a href="https://sks-keyservers.net/overview-of-pools.php">here</a>.</p>
-
-<h2 id="make-sure-your-passphrase-works">Make sure your passphrase works</h2>
-
-<p>You can test your passphrase like this:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>echo "1234" | gpg2 -o /dev/null --local-user YOUR_FINGERPRINT_WITHOUT_SPACES -as - &amp;&amp; echo "The correct passphrase was entered for this key"
-</code></pre></div>
-<p>You will be prompted to enter your passphrase upon running this command then if you have entered your passphrase correctly you will see "The correct passphrase was entered for this key".</p>
-
-<h2 id="backup-a-gpg-key">Backup a GPG key</h2>
-
-<h3 id="backup-and-transfer-gpg-key-to-another-computer-using-the-gui">Backup and transfer GPG key to another computer (using the GUI)</h3>
-
-<p>To backup your key, select the key you want to backup in <a href="https://gpgtools.org/">GPG Keychain</a> and then click on "Export". This will download your key in the following format:</p>
-
+<h2 id='make-sure-your-passphrase-works'>Make sure your passphrase works</h2><p>You can test your passphrase like this:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>echo "1234" | gpg2 -o /dev/null --local-user YOUR_FINGERPRINT_WITHOUT_SPACES -as - &amp;&amp; echo "The correct passphrase was entered for this key"
+</code></pre></div><p>You will be prompted to enter your passphrase upon running this command then if you have entered your passphrase correctly you will see &ldquo;The correct passphrase was entered for this key&rdquo;.</p>
+<h2 id='backup-a-gpg-key'>Backup a GPG key</h2><h3 id='backup-and-transfer-gpg-key-to-another-computer-using-the-gui'>Backup and transfer GPG key to another computer (using the GUI)</h3><p>To backup your key, select the key you want to backup in <a href="https://gpgtools.org/">GPG Keychain</a> and then click on &ldquo;Export&rdquo;. This will download your key in the following format:</p>
 <p><code>Name (keyID) – Public.asc</code> or <code>Name (keyID) – Secret.asc</code></p>
-
 <p>Then add your key to an encrypted zip file (see below for how to do this) and store it somewhere else, for example your Google Drive.</p>
-
-<p>On your new machine, click on "Import" in GPG Keychain and select the <code>.asc</code> file your downloaded earlier.</p>
-
+<p>On your new machine, click on &ldquo;Import&rdquo; in GPG Keychain and select the <code>.asc</code> file your downloaded earlier.</p>
 <p>When your key has been imported you should see it listed on the main page.</p>
-
 <p>Instructions taken from <a href="https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys#transfer-keys-to-another-computer">GPG Tools FAQ</a></p>
-
-<h3 id="creating-an-encrypted-zip-file-using-the-terminal">Creating an encrypted zip file using the terminal</h3>
-
-<p>To zip one file, go to the directory containing the file and then do:</p>
-
+<h3 id='creating-an-encrypted-zip-file-using-the-terminal'>Creating an encrypted zip file using the terminal</h3><p>To zip one file, go to the directory containing the file and then do:</p>
 <p><code>zip -e {zipped filename} {original filename}</code></p>
-
-<p>so to encrypt your GPG key you'll use:</p>
-
-<p><code>zip -e "Name (keyID) – Public.asc.zip" "Name (keyID) – Public.asc"</code></p>
+<p>so to encrypt your GPG key you&rsquo;ll use:</p>
+<p><code>zip -e &quot;Name (keyID) – Public.asc.zip&quot; &quot;Name (keyID) – Public.asc&quot;</code></p>
 
 
   <div class='related-content'>

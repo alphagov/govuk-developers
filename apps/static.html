@@ -317,94 +317,84 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: static</h1>
 
-  
-<p>GOV.UK static files and resources</p>
+  <p>GOV.UK static files and resources</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/static">static</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/static"&gt;static&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>draft_frontend</strong> machine class</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-platform-health&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Rake tasks</dt>
-            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=static&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=static&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=static&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;AWS&lt;/strong&gt;, on the &lt;strong&gt;draft_frontend&lt;/strong&gt; machine class&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/govuk/app-static" class="govuk-link">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/static.pp" class="govuk-link">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/static/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/static.json" class="govuk-link">Deployment dashboard</a></li>
-
-    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22static%3A+true%22+path%3A%2Fspec%2F" class="govuk-link">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Rake tasks&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;span aria-hidden='true'&gt;Run a Rake task on&lt;/span&gt; &lt;a
+  href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=static&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Integration"&gt;Integration&lt;/a&gt;, &lt;a
+  href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=static&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Staging"&gt;Staging&lt;/a&gt; or &lt;a
+  href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=static&amp;MACHINE_CLASS=draft_frontend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Production"&gt;⚠️ Production ⚠️&lt;/a&gt;&lt;/dd&gt;
 
-</ul>
-</dd>
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://sentry.io/govuk/app-static" class="govuk-link"&gt;Sentry (error tracking)&lt;/a&gt;&lt;/li&gt;
 
-              <dd class="govuk-summary-list__actions">
-</dd>
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/static.pp" class="govuk-link"&gt;Puppet configuration&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-app-deployment/blob/master/static/config/deploy.rb" class="govuk-link"&gt;Deploy scripts&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://grafana.production.govuk.digital/dashboard/file/static.json" class="govuk-link"&gt;Deployment dashboard&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22static%3A+true%22+path%3A%2Fspec%2F" class="govuk-link"&gt;Publishing E2E scenarios&lt;/a&gt; (warning: not all apps have E2E tests)&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
-
-<h2 id="relevant-manual-pages">Relevant manual pages</h2>
-<ul class="gem-c-list govuk-list">
+</div></p>
+<h2 id='relevant-manual-pages'>Relevant manual pages</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="/manual/assets.html" class="govuk-link">Assets: how they work</a></li>
       <li><a href="/manual/frontend-architecture.html" class="govuk-link">Frontend architecture</a></li>
-</ul>
-
-<h2 id="imported-documents">Imported documents</h2>
-<ul class="gem-c-list govuk-list">
+</ul></p>
+<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="/apps/static/analytics.html" class="govuk-link">Analytics</a></li>
       <li><a href="/apps/static/emergency-banner.html" class="govuk-link">Emergency banner</a></li>
       <li><a href="/apps/static/global-banner.html" class="govuk-link"># Global banner</a></li>
@@ -413,21 +403,24 @@
       <li><a href="/apps/static/slimmer_templates.html" class="govuk-link">Slimmer Templates</a></li>
       <li><a href="/apps/static/surveys.html" class="govuk-link">Running test surveys on GOV.UK</a></li>
       <li><a href="/apps/static/test-ecommerce-changes-to-static.html" class="govuk-link">test-ecommerce-changes-to-static</a></li>
-</ul>
+</ul></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>This application defines global templates for <a href="https://www.gov.uk">GOV.UK</a> pages.</p>
+
 <h2 id="screenshots">Screenshots</h2>
-<p><img src="https://raw.githubusercontent.com/docs/screenshot.png?raw=true" alt="screenshot" /></p>
+
+<p><img src="https://raw.githubusercontent.com/docs/screenshot.png?raw=true" alt="screenshot"></p>
+
 <h2 id="nomenclature">Nomenclature</h2>
+
 <ul>
 <li>
 <a href="https://github.com/alphagov/slimmer">slimmer</a> - Rack middleware for wrapping Rack applications in shared templated layouts</li>
 </ul>
+
 <h2 id="technical-documentation">Technical documentation</h2>
+
 <ul>
 <li><a href="/apps/static/image-optimisation.html">Image optimisation</a></li>
 <li><a href="/apps/static/slimmer_templates.html">Slimmer templates</a></li>
@@ -435,37 +428,52 @@
 <li><a href="/apps/static/analytics.html">Analytics</a></li>
 <li><a href="/apps/static/humans.html"><code>humans.txt</code></a></li>
 </ul>
+
 <h3 id="running-the-application">Running the application</h3>
+
 <p><code>./startup.sh</code></p>
+
 <p>This will start the server running on <a href="http://0.0.0.0:3013">http://0.0.0.0:3013</a></p>
+
 <h4 id="running-locally">Running Locally</h4>
-<p>If you'd like to run static locally, and keep all its asset links pointing to
-the same local instance, you'll need to set <code>PLEK_SERVICE_STATIC_URI</code>, which is
+
+<p>If you&rsquo;d like to run static locally, and keep all its asset links pointing to
+the same local instance, you&rsquo;ll need to set <code>PLEK_SERVICE_STATIC_URI</code>, which is
 the host used for static assets (even on static).</p>
-<p>Otherwise it defaults to <code>static.dev.gov.uk</code>, which won't exist if you're
+
+<p>Otherwise it defaults to <code>static.dev.gov.uk</code>, which won&rsquo;t exist if you&rsquo;re
 just running this repo locally, without the rest of the GOV.UK stack.</p>
+
 <p>To run this app locally, and have it point at its own assets, run it like this:</p>
+
 <pre><code>PLEK_SERVICE_STATIC_URI=0.0.0.0:3013 ./startup.sh
 </code></pre>
-<p>If you're making front end changes to <code>static</code> and testing them out
+
+<p>If you&rsquo;re making front end changes to <code>static</code> and testing them out
 on your development VM, you may find that it takes several minutes for changes to
 appear due to caching in Slimmer. One approach to speed this up is to run all of the
-relevant app's dependencies (including static), then start that app separately.
+relevant app&rsquo;s dependencies (including static), then start that app separately.
 Restarting the app should pick up the changes.</p>
+
 <p>For example, to see changes made to static templates which
 are wrapped around feedback pages, run <code>bowl feedback --without=feedback</code> in one terminal and the <code>.startup.sh</code> script for <code>feedback</code>
 in a separate terminal. Following local edits to <code>static</code>, restarting just
 <code>feedback</code> should be sufficient.</p>
-<p>If you repeatedly see 504 Gateway Timeout errors when developing with static in your
-development VM it's possible to increase the <code>proxy_read_timeout</code> value in
-<code>/etc/nginx/sites-available/static.dev.gov.uk</code> and restart nginx on the VM.</p>
-<h3 id="running-the-test-suite">Running the test suite</h3>
-<p><code>bundle exec rake</code> runs the test suite.</p>
-<h4 id="javascript-unit-tests">Javascript unit tests</h4>
-<p>Tests can run in browser at <code>/specs</code></p>
-<p>Or in terminal to run only the jasmine tests you can use <code>RAILS_ENV=test bundle exec rake jasmine:ci</code></p>
-  </div>
 
+<p>If you repeatedly see 504 Gateway Timeout errors when developing with static in your
+development VM it&rsquo;s possible to increase the <code>proxy_read_timeout</code> value in
+<code>/etc/nginx/sites-available/static.dev.gov.uk</code> and restart nginx on the VM.</p>
+
+<h3 id="running-the-test-suite">Running the test suite</h3>
+
+<p><code>bundle exec rake</code> runs the test suite.</p>
+
+<h4 id="javascript-unit-tests">Javascript unit tests</h4>
+
+<p>Tests can run in browser at <code>/specs</code></p>
+
+<p>Or in terminal to run only the jasmine tests you can use <code>RAILS_ENV=test bundle exec rake jasmine:ci</code></p>
+<p></div></p>
 
 
             

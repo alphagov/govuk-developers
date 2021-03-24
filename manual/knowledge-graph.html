@@ -177,53 +177,28 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4804c484714a32333cf15958aad446272579c3b8">8 Jun 2020</a>
 </div>
 
- <h1 id='header'>Knowledge Graph</h1> <h2 id="overview">Overview</h2>
-
-<p>GOV.UK is currently experimenting with a graph database of GOV.UK content and the different ways this content is linked. This can be used to create associations between content, find unknown associations that already exist and run queries of our content in a performant way. Content items are represented as <em>nodes</em>, with relationships between these nodes represented as <em>edges</em> and facts about content items represented as <em>properties</em> of a node. Taken together, this is a <em>graph</em>, or <em>network</em>, of GOV.UK content.</p>
-
+ <h1 id='header'>Knowledge Graph</h1> <h2 id='overview'>Overview</h2><p>GOV.UK is currently experimenting with a graph database of GOV.UK content and the different ways this content is linked. This can be used to create associations between content, find unknown associations that already exist and run queries of our content in a performant way. Content items are represented as <em>nodes</em>, with relationships between these nodes represented as <em>edges</em> and facts about content items represented as <em>properties</em> of a node. Taken together, this is a <em>graph</em>, or <em>network</em>, of GOV.UK content.</p>
 <p>In the GOV.UK graph, we include a number of different types of data which together form what is called the <em>knowledge graph</em>. These different data types include the <em>structural network</em>, <em>functional network</em>, <em>semantic network</em>, <em>taxonomy</em> and <em>ontology</em> of content data, which are explained in more detail below.</p>
 
 <ul>
-  <li>The <em>structural network</em> represents how pages on GOV.UK link to each other, which is comprised further of the embedded links (from the main body) and the sidebar links (from related links)</li>
-  <li>The <em>functional network</em> represents user behaviour between pages on GOV.UK (i.e. how users navigate content on the site)</li>
-  <li>The <em>semantic network</em> is a representation of how similar content is, based on cosine similarity which is encoded as a 512-dimensional array and which can then be used to quickly compare different content</li>
-  <li>The <em>taxonomy</em> is the GOV.UK topic taxonomy, which is a tree representing the aboutness of content, with similar or related content being grouped together. For example, VAT is a topic within Business Tax, which is itself a topic within Money (the top-level taxon)</li>
-  <li>The <em>ontology</em> is a representation of how different people, roles and organisations within government link to each other (i.e. a minister is appointed to a ministerial department, which executes policies of the government)</li>
+<li>The <em>structural network</em> represents how pages on GOV.UK link to each other, which is comprised further of the embedded links (from the main body) and the sidebar links (from related links)</li>
+<li>The <em>functional network</em> represents user behaviour between pages on GOV.UK (i.e. how users navigate content on the site)</li>
+<li>The <em>semantic network</em> is a representation of how similar content is, based on cosine similarity which is encoded as a 512-dimensional array and which can then be used to quickly compare different content</li>
+<li>The <em>taxonomy</em> is the GOV.UK topic taxonomy, which is a tree representing the aboutness of content, with similar or related content being grouped together. For example, VAT is a topic within Business Tax, which is itself a topic within Money (the top-level taxon)</li>
+<li>The <em>ontology</em> is a representation of how different people, roles and organisations within government link to each other (i.e. a minister is appointed to a ministerial department, which executes policies of the government)</li>
 </ul>
-
 <p>The <em>knowledge graph</em> is a structured representation of GOV.UK content and related information which can be used for a number of different purposes. For example, you might use the knowledge graph to run a query to find all of the content produced during the time that a minister was in post at a department, or perhaps to understand how users are navigating a particular piece of content vs how that content is structurally linked together.</p>
-
-<h2 id="knowledge-graph-usage">Knowledge graph usage</h2>
-
-<p>The knowledge graph is currently in discovery whilst we gain better understanding of the types of problems it can solve and the value it can bring to GOV.UK.</p>
-
-<p>One of the ways we're currently using the knowledge graph is to help a number of teams quickly get the data they need relating to particular queries of GOV.UK content.</p>
-
-<p>We've also augmented the knowledge graph to easily find content related to EU Exit, adding labels to content so that content designers can easily find anything related to topics such as <em>farming</em>, <em>fisheries</em>, <em>hauliers</em> etc.</p>
-
-<p>In addition, we're continuing to iterate on the knowledge graph and apply it to new problems.</p>
-
-<h2 id="current-infrastructure">Current infrastructure</h2>
-
-<p>The knowledge graph is currently running solely within integration environment. It is available weekdays 9AM-6PM and uses data generated by the <code>data-science-data</code> EC2 instance. This uses the latest content backups when it spins up to ensure that it has current data for that day, which are ingested after all the pre-requisite data has either been downloaded or computed. As part of this, the <code>data-science-data</code> machine has some limited access to our databases, which it uses to compute the peoples, roles and organisations (the ontology as described previously) and is ingested into the graph.</p>
-
+<h2 id='knowledge-graph-usage'>Knowledge graph usage</h2><p>The knowledge graph is currently in discovery whilst we gain better understanding of the types of problems it can solve and the value it can bring to GOV.UK.</p>
+<p>One of the ways we&rsquo;re currently using the knowledge graph is to help a number of teams quickly get the data they need relating to particular queries of GOV.UK content.</p>
+<p>We&rsquo;ve also augmented the knowledge graph to easily find content related to EU Exit, adding labels to content so that content designers can easily find anything related to topics such as <em>farming</em>, <em>fisheries</em>, <em>hauliers</em> etc.</p>
+<p>In addition, we&rsquo;re continuing to iterate on the knowledge graph and apply it to new problems.</p>
+<h2 id='current-infrastructure'>Current infrastructure</h2><p>The knowledge graph is currently running solely within integration environment. It is available weekdays 9AM-6PM and uses data generated by the <code>data-science-data</code> EC2 instance. This uses the latest content backups when it spins up to ensure that it has current data for that day, which are ingested after all the pre-requisite data has either been downloaded or computed. As part of this, the <code>data-science-data</code> machine has some limited access to our databases, which it uses to compute the peoples, roles and organisations (the ontology as described previously) and is ingested into the graph.</p>
 <p>The data generation has been moved out of the knowledge graph provisioning as the data generated is used for other means, such as computing a list of Brexit and corona-related content which are saved as spreadsheets for content designers.</p>
-
 <p><a href="http://www.neo4j.com">Neo4j</a> is the graph database technology used to run the knowledge graph, which is a piece of software that data scientists are familiar with and provides many built-in algorithms that can be used for analysis of data. We are using the community edition, which can be accessed through a web browser or via the <a href="https://neo4j.com/developer/neo4j-desktop/">Neo4j Desktop application</a>, and provides a central source of truth of the graph.</p>
-
-<h3 id="rfcs-and-lifetime-of-the-knowledge-graph">RFCs and lifetime of the knowledge graph</h3>
-
-<p>At present, we are purely evaluating the benefits of the knowledge graph and have no plans to productionise. If and when the knowledge graph were to be productionised, there is likely to be a large difference between the current setup for testing and what might actually be put in place for a production environment. This, in combination with the current unknown long-term value the graph might provide, is the reason why no RFCs have yet been raised in relation to the knowledge graph.</p>
-
+<h3 id='rfcs-and-lifetime-of-the-knowledge-graph'>RFCs and lifetime of the knowledge graph</h3><p>At present, we are purely evaluating the benefits of the knowledge graph and have no plans to productionise. If and when the knowledge graph were to be productionised, there is likely to be a large difference between the current setup for testing and what might actually be put in place for a production environment. This, in combination with the current unknown long-term value the graph might provide, is the reason why no RFCs have yet been raised in relation to the knowledge graph.</p>
 <p>Once the long-term value of the knowledge graph has been evaluated, a decision will be made as to whether to  productionise <em>a</em> knowledge graph (whilst not presuming <em>this</em> graph to be the solution). At this point, regardless of the decision, the current integration-only knowledge graph will be retired.</p>
-
-<h2 id="using-the-knowledge-graph">Using the knowledge graph</h2>
-
-<p>To start using the knowledge graph, get in touch with the Data Labs team (#govuk-data-labs) and we'll provide you with the credentials to access the graph and some tips on how to get started querying the content.</p>
-
-<h2 id="questions">Questions</h2>
-
-<p>If you have any questions about the knowledge graph, get in touch with the Data Labs team (#govuk-data-labs) and we'll be happy to help.</p>
+<h2 id='using-the-knowledge-graph'>Using the knowledge graph</h2><p>To start using the knowledge graph, get in touch with the Data Labs team (#govuk-data-labs) and we&rsquo;ll provide you with the credentials to access the graph and some tips on how to get started querying the content.</p>
+<h2 id='questions'>Questions</h2><p>If you have any questions about the knowledge graph, get in touch with the Data Labs team (#govuk-data-labs) and we&rsquo;ll be happy to help.</p>
 
 
   <div class='related-content'>

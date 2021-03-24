@@ -178,44 +178,26 @@
  <h1 id='header'>Unknown error with postgresql in mapit</h1> <p>We have seen an error previously where postgresql services appear to have failed
 on the mapit server, yet calling a restart command for the service does not
 seem to fix the issue.</p>
-
 <p>This document is intended on pointing you in the right direction should this
 occur again.</p>
-
-<h3 id="are-you-sure-postgresql-is-running">Are you sure postgresql is running?</h3>
-
-<p>Check the status of the service with</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>service <span class="nt">--status-all</span>
-</code></pre></div>
-<p>If <code>postgresql</code> is not running, attempt</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>service postgresql start
-</code></pre></div>
-<p>Check the status again. If it's still not running…</p>
-
-<h3 id="using-puppet-to-find-errors">Using puppet to find errors</h3>
-
-<p>You can usually find if there is a bigger issue by running</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>govuk_puppet <span class="nt">--test</span>
-</code></pre></div>
-<p>Previously we have found that somehow, somewhen, postgresql was uninstalled (or
+<h3 id='are-you-sure-postgresql-is-running'>Are you sure postgresql is running?</h3><p>Check the status of the service with</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo </span>service <span class="nt">--status-all</span>
+</code></pre></div><p>If <code>postgresql</code> is not running, attempt</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo </span>service postgresql start
+</code></pre></div><p>Check the status again. If it&rsquo;s still not running&hellip;</p>
+<h3 id='using-puppet-to-find-errors'>Using puppet to find errors</h3><p>You can usually find if there is a bigger issue by running</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo </span>govuk_puppet <span class="nt">--test</span>
+</code></pre></div><p>Previously we have found that somehow, somewhen, postgresql was uninstalled (or
 perhaps not correctly initialised) on the mapit box, preventing some tests
 from completing (typically those relying on the database for items such as
 postcodes) with no clear reason.</p>
-
 <p>If you ensure that you follow any extra steps as needed upon running the above
 puppet command - such as installing dependencies manually to assist in govuk_puppet
 installing the correct gems - you may find the errors will disappear upon a
 subsequent run of the above command.</p>
-
-<h4 id="permissions">Permissions</h4>
-
-<p>You may find that there are permission errors on the <code>/var/run/postgresql/</code>
+<h4 id='permissions'>Permissions</h4><p>You may find that there are permission errors on the <code>/var/run/postgresql/</code>
 directory. You can solve this by calling</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo chown </span>postgres:postgres /var/run/postgresql/
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo chown </span>postgres:postgres /var/run/postgresql/
 </code></pre></div>
 
   <div class='related-content'>

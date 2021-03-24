@@ -169,71 +169,42 @@
 </div>
 
  <h1 id='header'>Patch Jenkins</h1> <p>Jenkins should be regularly patched when possible, including all plugins.</p>
-
-<h2 id="upgrading-plugins">Upgrading plugins</h2>
-
-<p>SSH to the Jenkins machine and take a copy of the plugins directory:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>tar -zcvf plugins.tgz /var/lib/jenkins/plugins
-</code></pre></div>
-<p>Disable Puppet on the host:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>govuk_puppet -n &lt;myname&gt; -r "patching jenkins" --disable
-</code></pre></div>
-<p>Log in to the Jenkins UI and go to "Manage Jenkins" -&gt; "Manage Plugins".</p>
-
+<h2 id='upgrading-plugins'>Upgrading plugins</h2><p>SSH to the Jenkins machine and take a copy of the plugins directory:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>tar -zcvf plugins.tgz /var/lib/jenkins/plugins
+</code></pre></div><p>Disable Puppet on the host:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_puppet -n &lt;myname&gt; -r "patching jenkins" --disable
+</code></pre></div><p>Log in to the Jenkins UI and go to &ldquo;Manage Jenkins&rdquo; -&gt; &ldquo;Manage Plugins&rdquo;.</p>
 <p>Select all outstanding updates and kick off the install. Wait for the downloads
 to complete, install and restart the service.</p>
-
 <p>Back on the machine terminal, run the following command to see the currently
 installed plugins in a hieradata like format:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>sudo jenkins-cli list-plugins |sort| awk '{ if ($NF ~ /\(.*\)/) print $1":\n  version:", "'\''" $(NF-1) "'\''"; else print $1":\n  version:", "'\''" $NF "'\''" }'
-</code></pre></div>
-<p>Update the class hieradata with the list of plugins. Check <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/class/ci_master.yaml">this example</a>.</p>
-
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo jenkins-cli list-plugins |sort| awk '{ if ($NF ~ /\(.*\)/) print $1":\n  version:", "'\''" $(NF-1) "'\''"; else print $1":\n  version:", "'\''" $NF "'\''" }'
+</code></pre></div><p>Update the class hieradata with the list of plugins. Check <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/class/ci_master.yaml">this example</a>.</p>
 <p>Use <code>git diff</code> to ensure version numbers are updated. If new plugins appear to be
 present, double-check with someone else.</p>
-
-<p><strong>Be aware that the "credentials" plugin is pulled in using the upstream Puppet
+<p><strong>Be aware that the &ldquo;credentials&rdquo; plugin is pulled in using the upstream Puppet
 module, so ensure that this not added to hiera</strong></p>
-
 <p>Re-enable Puppet on the machine when the PR has been merged and deployed.</p>
-
-<h2 id="upgrading-jenkins-base">Upgrading Jenkins base</h2>
-
-<p>Grab the latest Debian package from the <a href="https://pkg.jenkins.io/debian-stable/">Jenkins site</a>.</p>
-
+<h2 id='upgrading-jenkins-base'>Upgrading Jenkins base</h2><p>Grab the latest Debian package from the <a href="https://pkg.jenkins.io/debian-stable/">Jenkins site</a>.</p>
 <p>Upload it to <code>apt-1.management</code> in Production (we only use a single apt machine
 across all environments).</p>
-
 <p>Run the following commands to add it to the Jenkins repo:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>sudo -i aptly repo add govuk-jenkins /home/$USER/jenkins_2.46.1_all.deb
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo -i aptly repo add govuk-jenkins /home/$USER/jenkins_2.46.1_all.deb
 sudo aptly snapshot create govuk-jenkins-$(date +%Y%m%d) from repo govuk-jenkins
 sudo -i aptly publish switch stable govuk-jenkins govuk-jenkins-$(date +%Y%m%d)
-</code></pre></div>
-<p>You will require the apt passphrase found in the <a href="https://github.com/alphagov/govuk-secrets/tree/master/pass">password store</a>.</p>
-
-<p>Purge the cache for the "Production Apt" service in Fastly.</p>
-
-<p>Update Puppet with the version you've just added to aptly.</p>
-
-<h3 id="manual-test-upgrade">Manual test upgrade</h3>
-
-<p>You can manually test a new version before doing the steps outlined above to get
+</code></pre></div><p>You will require the apt passphrase found in the <a href="https://github.com/alphagov/govuk-secrets/tree/master/pass">password store</a>.</p>
+<p>Purge the cache for the &ldquo;Production Apt&rdquo; service in Fastly.</p>
+<p>Update Puppet with the version you&rsquo;ve just added to aptly.</p>
+<h3 id='manual-test-upgrade'>Manual test upgrade</h3><p>You can manually test a new version before doing the steps outlined above to get
 it officially into Puppet.</p>
-
 <p>Find the latest version on the Jenkins site and set appropriately below:
 <a href="https://jenkins.io/download/">https://jenkins.io/download/</a></p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>export VERSION='2.46.2'
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>export VERSION='2.46.2'
 wget http://updates.jenkins-ci.org/download/war/$VERSION/jenkins.war
 sudo cp /usr/share/jenkins/jenkins.war /usr/share/jenkins/jenkins.war-$(date +%F)
 sudo mv jenkins.war /usr/share/jenkins/jenkins.war
 sudo service jenkins restart
-</code></pre></div>
-<p>When this has completed, complete the Puppet and apt steps above. Remember to re-enable Puppet once the task is finished.</p>
+</code></pre></div><p>When this has completed, complete the Puppet and apt steps above. Remember to re-enable Puppet once the task is finished.</p>
 
 
   <div class='related-content'>

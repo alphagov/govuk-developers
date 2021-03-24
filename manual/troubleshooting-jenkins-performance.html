@@ -163,38 +163,28 @@
  <h1 id='header'>Troubleshoot CI Jenkins Performance</h1> <p>There are many reasons Jenkins could perform poorly, this document attempts to
 outline some common approaches to diagnosing/monitoring and outlines steps to
 resolve common issues.</p>
-
 <p>A useful link is <a href="https://ci.integration.publishing.service.gov.uk/monitoring">/monitoring</a> which shows a variety of diagnostic
 information. This can be used to identify which aspects of Jenkins
 performance/usage have changed over periods of time.</p>
-
-<h2 id="there-are-resources-jenkins-was-not-able-to-dispose-automatically">There are resources Jenkins was not able to dispose automatically</h2>
-
-<p>This is an error that can be seen on the <a href="https://ci.integration.publishing.service.gov.uk/manage">/manage</a> page in Jenkins and
+<h2 id='there-are-resources-jenkins-was-not-able-to-dispose-automatically'>There are resources Jenkins was not able to dispose automatically</h2><p>This is an error that can be seen on the <a href="https://ci.integration.publishing.service.gov.uk/manage">/manage</a> page in Jenkins and
 indicates that the jenkins user does not have sufficient permissions to delete
 items it is trying to. When lots of these build up the load can
 increase enormously and make Jenkins near unusuable.</p>
-
 <p>A common culprit in this problem is builds that make use of Docker. As Docker
 runs as a root user any files Docker creates on volumes that are mounted have
 a root owner. Jenkins then cannot delete these files as part of a workspace
 cleanup.</p>
-
 <p>To remove these manually you can log into each of the agent machines and
 perform the following commands:</p>
-
 <p><code>sudo find /var/lib/jenkins/workspace/*ws-cleanup*/ -user root</code> will show a
 list of files that will be deleted, you should scan these to check there is
 nothing surprising.</p>
-
 <p>Then <code>sudo find /var/lib/jenkins/workspace/*ws-cleanup*/ -user root -delete</code>
 can be run to delete everything that was found.</p>
-
 <p>You should then look to ensure that the build which is leaving these files is
 not doing it in the course of a regular build. However even if a job does
 clean up after itself some of these may still exist if a job is aborted
 prematurely.</p>
-
 
 
   <div class='related-content'>

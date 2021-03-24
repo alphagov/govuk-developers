@@ -196,21 +196,16 @@
 </div>
 
  <h1 id='header'>Write an incident report</h1> <p>This page is for reference only. Use the <a href="https://docs.google.com/document/d/1YDA13RU6wicXoKgDv5VucJe3o_Z0k_Qhug9EJC_XdSE/edit">incident report template</a> on Google Drive when drafting the report.</p>
-
-<h2 id="incident-report-checklist">Incident report checklist:</h2>
-
+<h2 id='incident-report-checklist'>Incident report checklist:</h2>
 <ul>
-  <li>Ensure you make a copy of this document and edit the copy.</li>
-  <li>Read the <a href="https://docs.google.com/document/d/1ty12B5eBWB9YSfnD9xY1mr5rtTQxdNxRdmEGgibilN0/edit">guidance for what to do if you are comms lead</a>.</li>
-  <li>Share this report with the GOV.UK Incident Google mailing list as soon as possible.</li>
-  <li>Make it clear that it’s a draft version.</li>
-  <li>Include as much information as possible and a draft root cause ahead of the review.  </li>
-  <li>Ensure this document is viewable to anyone with a GDS email account.</li>
+<li>Ensure you make a copy of this document and edit the copy.</li>
+<li>Read the <a href="https://docs.google.com/document/d/1ty12B5eBWB9YSfnD9xY1mr5rtTQxdNxRdmEGgibilN0/edit">guidance for what to do if you are comms lead</a>.</li>
+<li>Share this report with the GOV.UK Incident Google mailing list as soon as possible.</li>
+<li>Make it clear that it’s a draft version.</li>
+<li>Include as much information as possible and a draft root cause ahead of the review.  </li>
+<li>Ensure this document is viewable to anyone with a GDS email account.</li>
 </ul>
-
-<h2 id="incident-report">Incident report</h2>
-
-<div class="highlight"><pre class="highlight plaintext"><code>Start Date|YYYY-MM-DD
+<h2 id='incident-report'>Incident report</h2><div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>Start Date|YYYY-MM-DD
 ----------|----------
 End Date|YYYY-MM-DD
 Start Time|HH:MM (local time)
@@ -240,75 +235,49 @@ Time|Description
 HH:MM|
 Total duration of incident (time from when problem started to incident marked as resolved)|
 Time to fix (time from when incident declared to marked as resolved)|
-</code></pre></div>
-<h2 id="incident-review">Incident Review</h2>
-
-<h3 id="date">Date:</h3>
-
-<h3 id="time">Time:</h3>
-
-<h3 id="attendance">Attendance:</h3>
-
-<h3 id="root-cause-analysis">Root cause analysis</h3>
-
-<p>A root cause is an underlying factor why an incident occurred, which when fixed would prevent a recurrence. Identify and summarise all of the root causes that led to the incident in a short paragraph, aimed at a non-technical audience.</p>
-
+</code></pre></div><h2 id='incident-review'>Incident Review</h2><h3 id='date'>Date:</h3><h3 id='time'>Time:</h3><h3 id='attendance'>Attendance:</h3><h3 id='root-cause-analysis'>Root cause analysis</h3><p>A root cause is an underlying factor why an incident occurred, which when fixed would prevent a recurrence. Identify and summarise all of the root causes that led to the incident in a short paragraph, aimed at a non-technical audience.</p>
 <p>Reference all root cause categories that apply, for instance;</p>
 
 <ul>
-  <li>Unexpected effect of code change</li>
-  <li>Configuration fault (configuration change, pre-existing fault, etc)</li>
-  <li>Capacity issue (insufficient capacity to meet demand, implementation issue, etc)</li>
-  <li>Provider / third-party infrastructure failure (hardware, network failure, etc)</li>
-  <li>Workflow issue (usability issue, misoperation, etc)</li>
-  <li>Software design / architecture problem (i.e. worked as designed but led to a problem)</li>
-  <li>Other (please specify)</li>
+<li>Unexpected effect of code change</li>
+<li>Configuration fault (configuration change, pre-existing fault, etc)</li>
+<li>Capacity issue (insufficient capacity to meet demand, implementation issue, etc)</li>
+<li>Provider / third-party infrastructure failure (hardware, network failure, etc)</li>
+<li>Workflow issue (usability issue, misoperation, etc)</li>
+<li>Software design / architecture problem (i.e. worked as designed but led to a problem)</li>
+<li>Other (please specify)</li>
 </ul>
-
-<p>…</p>
-
-<h3 id="actions">Actions</h3>
-
-<p>Use this section to assign actions to individuals (not teams). These are actions to be taken to fix the root cause of the issue, for preventative measures and for any other improvements.</p>
+<p>&hellip;</p>
+<h3 id='actions'>Actions</h3><p>Use this section to assign actions to individuals (not teams). These are actions to be taken to fix the root cause of the issue, for preventative measures and for any other improvements.</p>
 
 <ul>
-  <li>…</li>
+<li>&hellip;</li>
 </ul>
-
-<h3 id="standing-actions">Standing actions</h3>
+<h3 id='standing-actions'>Standing actions</h3>
+<ul>
+<li>Update your incident log with incident title, priority, dates/times and a link to this report.</li>
+<li>Present a summary of this incident to your team to share learning.</li>
+<li>Coordinate a blogpost - if applicable</li>
+</ul>
+<h3 id='recommendations'>Recommendations</h3>
+<ul>
+<li>&hellip;</li>
+</ul>
+<h3 id='considerations'>Considerations</h3><p>Some questions to consider when writing the Incident Report and whilst working on RCA.</p>
 
 <ul>
-  <li>Update your incident log with incident title, priority, dates/times and a link to this report.</li>
-  <li>Present a summary of this incident to your team to share learning.</li>
-  <li>Coordinate a blogpost - if applicable</li>
+<li>What caused the original issue to occur?</li>
+<li>Why was this not caught before it reached production, if applicable?</li>
+<li>Were we alerted quickly?</li>
+<li>Were we able to diagnose and fix the immediate issue quickly?</li>
+<li>Has the underlying issue been fixed?, if not how do we prevent a recurrence?</li>
+<li>What other fixes/changes have been taken or need to take place as a result, if any?</li>
+<li>What things helped during the incident?</li>
+<li>What things hindered during the incident?</li>
+<li>Was the process followed well and were comms effective?</li>
+<li>What could we do to improve our response and comms process?</li>
 </ul>
-
-<h3 id="recommendations">Recommendations</h3>
-
-<ul>
-  <li>…</li>
-</ul>
-
-<h3 id="considerations">Considerations</h3>
-
-<p>Some questions to consider when writing the Incident Report and whilst working on RCA.</p>
-
-<ul>
-  <li>What caused the original issue to occur?</li>
-  <li>Why was this not caught before it reached production, if applicable?</li>
-  <li>Were we alerted quickly?</li>
-  <li>Were we able to diagnose and fix the immediate issue quickly?</li>
-  <li>Has the underlying issue been fixed?, if not how do we prevent a recurrence?</li>
-  <li>What other fixes/changes have been taken or need to take place as a result, if any?</li>
-  <li>What things helped during the incident?</li>
-  <li>What things hindered during the incident?</li>
-  <li>Was the process followed well and were comms effective?</li>
-  <li>What could we do to improve our response and comms process?</li>
-</ul>
-
-<h3 id="notes">Notes</h3>
-
-<p>Use this section to add notes during the incident management process.</p>
+<h3 id='notes'>Notes</h3><p>Use this section to add notes during the incident management process.</p>
 
 
   <div class='related-content'>

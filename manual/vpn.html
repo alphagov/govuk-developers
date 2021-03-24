@@ -148,7 +148,7 @@
         <a href="#vpn-between-live-organisation-in-carrenza-and-aws-during-aws-migration"><span>VPN between live organisation in Carrenza and AWS during AWS migration</span></a>
         <ul>
           <li>
-            <a href="#troubleshooting-steps-1"><span>Troubleshooting Steps</span></a>
+            <a href="#troubleshooting-steps"><span>Troubleshooting Steps</span></a>
           </li>
         </ul>
       </li>
@@ -171,168 +171,109 @@
 
  <h1 id='header'>GOV.UK and Virtual Private Networks (VPNs)</h1> <p>GOV.UK uses several VPNs to connect environments. This page explains what they
 are and what happens if they stop working.</p>
-
-<h2 id="vpn-between-live-organisation-and-disaster-recovery-organisation">VPN between live organisation and disaster recovery organisation</h2>
-
-<p>There's a VPN in each Carrenza environment (currently staging and production)
+<h2 id='vpn-between-live-organisation-and-disaster-recovery-organisation'>VPN between live organisation and disaster recovery organisation</h2><p>There&rsquo;s a VPN in each Carrenza environment (currently staging and production)
 which connects the live organisation to the disaster recovery organisation.
-It's used for monitoring the disaster recovery machines and for syncing data to
+It&rsquo;s used for monitoring the disaster recovery machines and for syncing data to
 them. The VPNs are managed by Carrenza.</p>
-
 <p>If it goes down, these things will happen:</p>
 
 <ol>
-  <li>The machines on the disaster recovery side of the connection will appear as
+<li>The machines on the disaster recovery side of the connection will appear as
 unreachable hosts in GOV.UK monitoring</li>
-  <li>Data replication will pause</li>
+<li>Data replication will pause</li>
 </ol>
-
-<h2 id="vpn-between-aws-and-ukcloud-for-licensify-civica-payment-status-requests">VPN between AWS and UKCloud for Licensify Civica payment status requests</h2>
-
-<p>There's a VPN between AWS Production (only) and UKCloud Production which exists
+<h2 id='vpn-between-aws-and-ukcloud-for-licensify-civica-payment-status-requests'>VPN between AWS and UKCloud for Licensify Civica payment status requests</h2><p>There&rsquo;s a VPN between AWS Production (only) and UKCloud Production which exists
 only as a workaround for routing certain requests from Licensify to Civica, one
-of Licensify's payment gateways. This is undesirable and <a href="https://trello.com/c/CG5mc7Zi/213-licensify-connection-to-civica-still-goes-via-uk-cloud-and-vpn-from-aws">recorded as
+of Licensify&rsquo;s payment gateways. This is undesirable and <a href="https://trello.com/c/CG5mc7Zi/213-licensify-connection-to-civica-still-goes-via-uk-cloud-and-vpn-from-aws">recorded as
 GOV.UK Tech Debt</a>.</p>
-
 <p>If this VPN is down:</p>
 
 <ul>
-  <li>The <a href="https://alert.production.govuk.digital/cgi-bin/icinga/status.cgi?search_string=vpn.*licensify">check_uk_cloud_vpn_up</a> alert will fire in Icinga.</li>
-  <li>Users who are paying for licence applications to certain licencing authorities will still be able to complete their application but the last step of their journey will display a message saying "We have received your application, but were unable to confirm payment with the authority." (<a href="https://github.com/alphagov/licensify/blob/master/frontend/app/views/licensing/payments/unknown.scala.html">source</a>)</li>
-  <li>The page still gives the user a reference number for their transaction and asks the user to contact the licencing authority to confirm that they have received the payment.</li>
-  <li>Payments will still be processed as normal. The only difference is that Licensify is unable to tell the user whether the payment went through or not.</li>
-  <li>Only those licencing authorities which use Civica as their payment processor are affected. This is a small but significant minority.</li>
-  <li>Licencing authorities who do not use Civica are not affected.</li>
+<li>The <a href="https://alert.production.govuk.digital/cgi-bin/icinga/status.cgi?search_string=vpn.*licensify">check_uk_cloud_vpn_up</a> alert will fire in Icinga.</li>
+<li>Users who are paying for licence applications to certain licencing authorities will still be able to complete their application but the last step of their journey will display a message saying &ldquo;We have received your application, but were unable to confirm payment with the authority.&rdquo; (<a href="https://github.com/alphagov/licensify/blob/master/frontend/app/views/licensing/payments/unknown.scala.html">source</a>)</li>
+<li>The page still gives the user a reference number for their transaction and asks the user to contact the licencing authority to confirm that they have received the payment.</li>
+<li>Payments will still be processed as normal. The only difference is that Licensify is unable to tell the user whether the payment went through or not.</li>
+<li>Only those licencing authorities which use Civica as their payment processor are affected. This is a small but significant minority.</li>
+<li>Licencing authorities who do not use Civica are not affected.</li>
 </ul>
-
-<h3 id="troubleshooting-steps">Troubleshooting Steps</h3>
-
-<p>Troubleshooting steps (aim is to switch off and on the VPN):</p>
+<h3 id='troubleshooting-steps'>Troubleshooting Steps</h3><p>Troubleshooting steps (aim is to switch off and on the VPN):</p>
 
 <ol>
-  <li>Go to Production Skyscape portal, the credentials are in GOV.UK 2ndline Pass under: <code>ukcloud/portal</code>.</li>
-  <li>Once you logged in, you have to log into the <code>Production</code> organization by selecting: <code>VMWARE CLOUD</code> and then <code>GOV.UK Production</code>. You will be asked for the password again.</li>
-  <li>In the <code>Production</code> organization, go to the <code>GOV.UK Management</code> virtual datacenter.</li>
-  <li>Click <code>edges</code> in the left column to bring the list of edges.</li>
-  <li>Click on the <code>GOV.UK Management</code> edges in the right main frame and <code>Configure Services</code> above it.</li>
-  <li>In the pop-up window, click on <code>VPN</code> in the menu bar and then <code>IPsec VPN Sites</code></li>
-  <li>In the list of VPN sites, select <code>UKC Licensify to AWS</code> VPN and click on the edit icon above.</li>
-  <li>In the new pop-up window, turn the VPN off by toggling the <code>enable</code> switch and clicking <code>KEEP</code></li>
-  <li>The pop-up window will disappear and you need to click <code>save changes</code> in put into effect the VPN being now disabled.</li>
-  <li>Wait a few minutes and repeat step 7-9 to re-enable the VPN again.</li>
+<li>Go to Production Skyscape portal, the credentials are in GOV.UK 2ndline Pass under: <code>ukcloud/portal</code>.</li>
+<li>Once you logged in, you have to log into the <code>Production</code> organization by selecting: <code>VMWARE CLOUD</code> and then <code>GOV.UK Production</code>. You will be asked for the password again.</li>
+<li>In the <code>Production</code> organization, go to the <code>GOV.UK Management</code> virtual datacenter.</li>
+<li>Click <code>edges</code> in the left column to bring the list of edges.</li>
+<li>Click on the <code>GOV.UK Management</code> edges in the right main frame and <code>Configure Services</code> above it.</li>
+<li>In the pop-up window, click on <code>VPN</code> in the menu bar and then <code>IPsec VPN Sites</code></li>
+<li>In the list of VPN sites, select <code>UKC Licensify to AWS</code> VPN and click on the edit icon above.</li>
+<li>In the new pop-up window, turn the VPN off by toggling the <code>enable</code> switch and clicking <code>KEEP</code></li>
+<li>The pop-up window will disappear and you need to click <code>save changes</code> in put into effect the VPN being now disabled.</li>
+<li>Wait a few minutes and repeat step 7-9 to re-enable the VPN again.</li>
 </ol>
-
-<h2 id="vpn-between-live-organisation-in-carrenza-and-aws-during-aws-migration">VPN between live organisation in Carrenza and AWS during AWS migration</h2>
-
-<p>During the staged migration of the GOV.UK from Carrenza to AWS, there is a VPN
+<h2 id='vpn-between-live-organisation-in-carrenza-and-aws-during-aws-migration'>VPN between live organisation in Carrenza and AWS during AWS migration</h2><p>During the staged migration of the GOV.UK from Carrenza to AWS, there is a VPN
 tunnel to connect the 2 private clouds so that migrated and un-migrated
 services can still access each other during the migration.</p>
-
 <p>If the VPN goes down, these things will happen:</p>
 
 <ol>
-  <li>
-    <p>the ping probes between certain virtual machines in AWS and Carrenza will
-fail and these will appear in the Icinga dashboard of GOV.UK</p>
-  </li>
-  <li>
-    <p>services which makes use of the VPN will fail and the relevant
-alerts will appear in Icinga</p>
-  </li>
+<li><p>the ping probes between certain virtual machines in AWS and Carrenza will
+fail and these will appear in the Icinga dashboard of GOV.UK</p></li>
+<li><p>services which makes use of the VPN will fail and the relevant
+alerts will appear in Icinga</p></li>
 </ol>
-
-<h3 id="troubleshooting-steps-1">Troubleshooting Steps</h3>
+<h3 id='troubleshooting-steps'>Troubleshooting Steps</h3>
+<ol>
+<li><p>Check that the VPN is <code>UP</code> in the AWS Console by:</p>
 
 <ol>
-  <li>
-    <p>Check that the VPN is <code>UP</code> in the AWS Console by:</p>
-
-    <ol>
-      <li>
-        <p>log in into the AWS console and assume your role for the given GOV.UK
-environment</p>
-      </li>
-      <li>
-        <p>go to the <code>VPC</code> service dashboard, as pictured in Figure 1.0
-<img src="/manual/images/aws_carrenza_vpn_aws_console.jpg" alt="Figure 1.0" />
-Figure 1.0: VPC dashboard in AWS showing the VPN site-to-site status.</p>
-      </li>
-      <li>
-        <p>scroll on the left pane of the dashboard and click
-<code>Site-to-Site VPN Connections</code> as shown in step 1 in Figure 1.0</p>
-      </li>
-      <li>
-        <p>select the <code>Staging AWS</code> VPN connection as shown in step 2 in Figure 1.0</p>
-      </li>
-      <li>
-        <p>select the tab <code>Tunnel Details</code> as shown in step 3 in Figure 1.0</p>
-      </li>
-      <li>
-        <p>check the status of the VPN tunnel, in the normal scenario, only <strong>one</strong>
+<li>log in into the AWS console and assume your role for the given GOV.UK
+environment</li>
+<li>go to the <code>VPC</code> service dashboard, as pictured in Figure 1.0
+<a href="images/aws_carrenza_vpn_aws_console.jpg" rel="noopener noreferrer"><img src="/manual/images/aws_carrenza_vpn_aws_console.jpg" alt="Figure 1.0" /></a>
+Figure 1.0: VPC dashboard in AWS showing the VPN site-to-site status.</li>
+<li>scroll on the left pane of the dashboard and click
+<code>Site-to-Site VPN Connections</code> as shown in step 1 in Figure 1.0</li>
+<li>select the <code>Staging AWS</code> VPN connection as shown in step 2 in Figure 1.0</li>
+<li>select the tab <code>Tunnel Details</code> as shown in step 3 in Figure 1.0</li>
+<li>check the status of the VPN tunnel, in the normal scenario, only <strong>one</strong>
 tunnel will be <code>UP</code> as shown in step 4 in Figure 1.0. The other tunnel is
-<code>DOWN</code> by default.</p>
+<code>DOWN</code> by default.</li>
+</ol>
+<p>If <strong>all</strong> tunnels are down this means there is a VPN issue and you may
+   have to swap to the secondary VPN tunnel.</p></li>
+<li><p>Switching to the secondary VPN tunnel:</p>
 
-        <p>If <strong>all</strong> tunnels are down this means there is a VPN issue and you may
-have to swap to the secondary VPN tunnel.</p>
-      </li>
-    </ol>
-  </li>
-  <li>
-    <p>Switching to the secondary VPN tunnel:</p>
-
-    <ol>
-      <li>
-        <p>log in the Carrenza vCloud interface as described
-<a href="/manual/connect-to-vcloud-director.html">here</a></p>
-      </li>
-      <li>
-        <p>click on the "Administration" button on the interface as shown in step 1
+<ol>
+<li>log in the Carrenza vCloud interface as described
+<a href="/manual/connect-to-vcloud-director.html">here</a></li>
+<li>click on the &ldquo;Administration&rdquo; button on the interface as shown in step 1
 in Figure 2.0
-<img src="/manual/images/carrenza_vcloud_mgmt_console.jpg" alt="Figure 2.0" />
-Figure 2.0: Carrenza vCloud interface showing the vEdge gateways list</p>
-      </li>
-      <li>
-        <p>select the <code>GOV.UK Management</code> virtual data centre and the data
-centre should appear as shown in step 2 in Figure 2.0</p>
-      </li>
-      <li>
-        <p>select the <code>Edge Gateways</code> tab as shown in step 3 in Figure 2.0</p>
-      </li>
-      <li>
-        <p>right-click the only edge gateway in the list as shown in step 4 in Figure
+<a href="images/carrenza_vcloud_mgmt_console.jpg" rel="noopener noreferrer"><img src="/manual/images/carrenza_vcloud_mgmt_console.jpg" alt="Figure 2.0" /></a>
+Figure 2.0: Carrenza vCloud interface showing the vEdge gateways list</li>
+<li>select the <code>GOV.UK Management</code> virtual data centre and the data
+centre should appear as shown in step 2 in Figure 2.0</li>
+<li>select the <code>Edge Gateways</code> tab as shown in step 3 in Figure 2.0</li>
+<li>right-click the only edge gateway in the list as shown in step 4 in Figure
 2.0 and select <code>Edge Gateway Service...</code>. A new pop-up window will appear
 as shown in Figure 2.1.
-<img src="/manual/images/carrenza_vpn_configuration.jpg" alt="Figure 2.1" /></p>
-      </li>
-      <li>
-        <p>select the <code>enabled</code> (shown by a green tick in the enabled column) AWS VPN
+<a href="images/carrenza_vpn_configuration.jpg" rel="noopener noreferrer"><img src="/manual/images/carrenza_vpn_configuration.jpg" alt="Figure 2.1" /></a></li>
+<li>select the <code>enabled</code> (shown by a green tick in the enabled column) AWS VPN
 as shown in step 1 in Figure 2.1. Make a note of it so you remember which
 VPN you are going to disable.
-<strong>Do not select the UKCloud VPN</strong></p>
-      </li>
-      <li>
-        <p>click on the <code>edit</code> button as shown in step 2 in Figure 2.1. A new pop-up
+<strong>Do not select the UKCloud VPN</strong></li>
+<li>click on the <code>edit</code> button as shown in step 2 in Figure 2.1. A new pop-up
 window will appear where you can <code>uncheck</code> the
 <code>Enable this VPN configuration</code> option so that this VPN is disabled. Finally
-select <code>ok</code> to return to the previous pop-up window.</p>
-      </li>
-      <li>
-        <p>in the list of VPN connections, select the second AWS VPN tunnel and click
+select <code>ok</code> to return to the previous pop-up window.</li>
+<li>in the list of VPN connections, select the second AWS VPN tunnel and click
 <code>edit</code> as in step 2 in Figure 2.1 and enable the VPN configuration in the
-new pop-up window.</p>
-      </li>
-      <li>
-        <p>finally click on <code>ok</code> as shown in step 3 in Figure 2.1.</p>
-      </li>
-      <li>
-        <p>go to the AWS console and check if the other VPN tunnel is now <code>UP</code> and
-the previously active VPN tunnel is <code>DOWN</code>.</p>
-
-        <p>In addition, check that the Icinga ping alerts across the Carrenza-AWS VPN
-has now been cleared.</p>
-      </li>
-    </ol>
-  </li>
+new pop-up window.</li>
+<li>finally click on <code>ok</code> as shown in step 3 in Figure 2.1.</li>
+<li>go to the AWS console and check if the other VPN tunnel is now <code>UP</code> and
+the previously active VPN tunnel is <code>DOWN</code>.</li>
+</ol>
+<p>In addition, check that the Icinga ping alerts across the Carrenza-AWS VPN
+   has now been cleared.</p></li>
 </ol>
 
 

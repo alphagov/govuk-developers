@@ -172,14 +172,11 @@
 averages out the last 15 minutes worth of 5xx errors. This is a useful
 supplementary metric to highlight low-level errors that occur over a longer
 period of time.</p>
-
 <p>The alert appears on <code>monitoring-1.management</code>.</p>
-
 <p>It is possible to <a href="/manual/query-cdn-logs.html">query the CDN logs using AWS Athena</a>.
 The following query gets a count of URLs where a 5xx error has been served
 between the given timestamps:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>SELECT url, status, COUNT(*) AS count
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>SELECT url, status, COUNT(*) AS count
 FROM fastly_logs.govuk_www
 WHERE status &gt;= 500 AND status &lt;= 599
 AND request_received &gt;= TIMESTAMP '2018-11-26 11:00'
@@ -187,31 +184,21 @@ AND request_received &lt; TIMESTAMP '2018-11-26 11:30'
 AND date = 26 AND month = 11 AND year = 2018
 GROUP BY url, status
 ORDER BY count DESC
-</code></pre></div>
-<p>It is also possible to examine the raw Fastly CDN logs:</p>
+</code></pre></div><p>It is also possible to examine the raw Fastly CDN logs:</p>
 
 <ul>
-  <li><code>ssh monitoring-1.management.production</code></li>
-  <li><code>cd /var/log/cdn</code> to access log files</li>
+<li><code>ssh monitoring-1.management.production</code></li>
+<li><code>cd /var/log/cdn</code> to access log files</li>
 </ul>
-
-<h2 id="unknown-alert"><code>Unknown</code> alert</h2>
-
-<p>The alert appears on <code>monitoring-1.management</code>. Collectd uses the Fastly
+<h2 id='unknown-alert'><code>Unknown</code> alert</h2><p>The alert appears on <code>monitoring-1.management</code>. Collectd uses the Fastly
 API to get statistics which it pushes to Graphite. If the alert is unknown,
 collectd likely cannot talk to Fastly so restart collectd.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>service collectd restart
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo </span>service collectd restart
+</code></pre></div><p>To prove collectd is the problem, use this query in Kibana:</p>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">syslog_hostname</span><span class="ss">:monitoring</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="nf">management</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:collectd</span>
+</code></pre></div><p>You will see many reports similar to:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cdn_fastly plugin: Failed to query service
 </code></pre></div>
-<p>To prove collectd is the problem, use this query in Kibana:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">syslog_hostname</span><span class="ss">:monitoring</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="nf">management</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:collectd</span>
-</code></pre></div>
-<p>You will see many reports similar to:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cdn_fastly plugin: Failed to query service
-</code></pre></div>
-
 
   <div class='related-content'>
 

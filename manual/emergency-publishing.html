@@ -165,7 +165,7 @@
             <a href="#background"><span>Background</span></a>
           </li>
           <li>
-            <a href="#the-banner-is-not-showing--not-clearing"><span>The banner is not showing / not clearing</span></a>
+            <a href="#the-banner-is-not-showing-not-clearing"><span>The banner is not showing / not clearing</span></a>
           </li>
           <li>
             <a href="#manually-testing-the-redis-key"><span>Manually testing the Redis key</span></a>
@@ -212,302 +212,198 @@
  <h1 id='header'>Deploy emergency publishing banners</h1> <p>There are three types of events that would lead GOV.UK to add an emergency
 banner to the top of each page on the web site; a notable death, a national
 emergency or a local emergency.</p>
-
 <p>The GOV.UK on-call escalations contact will tell you when you need to publish
 an emergency banner. They will ensure that the event is legitimate and provide
 you with the text for the emergency banner. They will also tell you what type
 of event it is; you do not need to determine the type of event yourself.</p>
-
 <p>If you need to publish the emergency banner out of hours, you will be
 instructed to do so either by the GOV.UK on-call escalations contact or the
 Head of GOV.UK.</p>
-
 <p>Contact numbers for those people are in the <a href="https://docs.google.com/document/d/17XUuPaZ5FufyXH00S9qukl6Kf3JbJtAqwHR3eOBVBpI/edit">legacy Ops manual</a>.</p>
-
-<h2 id="adding-emergency-publishing-banners">Adding emergency publishing banners</h2>
-
-<h3 id="1-get-the-content-you-will-need">1. Get the content you will need</h3>
-
-<p>The GOV.UK on-call escalations contact will supply you with:</p>
+<h2 id='adding-emergency-publishing-banners'>Adding emergency publishing banners</h2><h3 id='1-get-the-content-you-will-need'>1. Get the content you will need</h3><p>The GOV.UK on-call escalations contact will supply you with:</p>
 
 <ul>
-  <li>The emergency banner type or campaign class (one of <code>notable-death</code>,
+<li>The emergency banner type or campaign class (one of <code>notable-death</code>,
 <code>national-emergency</code> or <code>local-emergency</code>)</li>
-  <li>Text for the heading.</li>
-  <li>(Optional) Text for the 'short description', which is a sentence displayed under the heading. This is optional.</li>
-  <li>(Optional) A URL for users to find more information (it might not be provided at first).</li>
-  <li>(Optional) Link text that will be displayed for the more information URL (this will default to "More information" if you do not supply it).</li>
+<li>Text for the heading.</li>
+<li>(Optional) Text for the &lsquo;short description&rsquo;, which is a sentence displayed under the heading. This is optional.</li>
+<li>(Optional) A URL for users to find more information (it might not be provided at first).</li>
+<li>(Optional) Link text that will be displayed for the more information URL (this will default to &ldquo;More information&rdquo; if you do not supply it).</li>
 </ul>
-
-<h3 id="2-hide-the-brexit-link-from-the-global-bar">2. Hide the Brexit link from the global bar</h3>
-
-<p>Showing the emergency banner <em>and</em> a large global banner dominates too much of the top of our pages. We can hide the Brexit link to reduce the size of the global banner.</p>
+<h3 id='2-hide-the-brexit-link-from-the-global-bar'>2. Hide the Brexit link from the global bar</h3><p>Showing the emergency banner <em>and</em> a large global banner dominates too much of the top of our pages. We can hide the Brexit link to reduce the size of the global banner.</p>
 
 <ol>
-  <li>
-    <p>Open a PR on static to <a href="https://github.com/alphagov/static/blob/1d9f02889665615e62e287d1dc661441d2b668e5/app/views/notifications/_global_bar.html.erb#L14">hide the Brexit link</a> and get it approved.</p>
-  </li>
-  <li>
-    <p>Deploy the change and <a href="#some-example-pages-to-check">check that the link has disappeared</a>.</p>
-  </li>
+<li><p>Open a PR on static to <a href="https://github.com/alphagov/static/blob/1d9f02889665615e62e287d1dc661441d2b668e5/app/views/notifications/_global_bar.html.erb#L14">hide the Brexit link</a> and get it approved.</p></li>
+<li><p>Deploy the change and <a href="#some-example-pages-to-check">check that the link has disappeared</a>.</p></li>
 </ol>
-
-<h3 id="3-deploy-the-banner-using-jenkins">3. Deploy the banner using Jenkins</h3>
-
-<p>The data for the emergency banner is stored in Redis. Jenkins is used to set the variables.</p>
+<h3 id='3-deploy-the-banner-using-jenkins'>3. Deploy the banner using Jenkins</h3><p>The data for the emergency banner is stored in Redis. Jenkins is used to set the variables.</p>
 
 <ol>
-  <li>Go to the Jenkins task:
-    <ul>
-      <li><a href="https://deploy.integration.publishing.service.gov.uk/job/deploy-emergency-banner/">Deploy the emergency banner on Integration</a></li>
-      <li><a href="https://deploy.blue.staging.govuk.digital/job/deploy-emergency-banner/">Deploy the emergency banner on Staging</a></li>
-      <li><a href="https://deploy.blue.production.govuk.digital/job/deploy-emergency-banner/">⚠️ Deploy the emergency banner on Production ⚠️</a></li>
-    </ul>
-  </li>
-  <li>
-    <p>Click <code>Build with Parameters</code>.</p>
-  </li>
-  <li>
-    <p>Fill in the appropriate variables using the form presented by Jenkins.</p>
-  </li>
-  <li>Click <code>Build</code>.</li>
-</ol>
+<li><p>Go to the Jenkins task:</p>
 
-<p><img src="/manual/images/emergency_publishing/deploy_emergency_banner_job.png" alt="Jenkins Deploy Emergency Banner" /></p>
+<ul>
+<li><a href="https://deploy.integration.publishing.service.gov.uk/job/deploy-emergency-banner/">Deploy the emergency banner on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/deploy-emergency-banner/">Deploy the emergency banner on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/deploy-emergency-banner/">⚠️ Deploy the emergency banner on Production ⚠️</a></li>
+</ul></li>
+<li><p>Click <code>Build with Parameters</code>.</p></li>
+<li><p>Fill in the appropriate variables using the form presented by Jenkins.</p></li>
+<li><p>Click <code>Build</code>.</p></li>
+</ol>
+<p><a href="images/emergency_publishing/deploy_emergency_banner_job.png" rel="noopener noreferrer"><img src="/manual/images/emergency_publishing/deploy_emergency_banner_job.png" alt="Jenkins Deploy Emergency Banner" /></a></p>
 
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>The Jenkins job will also clear all caches. The main page updates immediately, however whitehall and travel advice can take a couple of minutes before the banner appears.</p>
+<p><strong>Note</strong></p>
+<p>The Jenkins job will also clear all caches. The main page updates immediately, however whitehall and travel advice can take a couple of minutes before the banner appears.</p>
 </blockquote>
-
-<h3 id="4-test-with-cache-bust-strings">4. Test with cache bust strings</h3>
-
-<p>Test the changes by visiting pages and adding a cache-bust string. Remember to change the URL based on the environment you are testing in (integration, staging, production).</p>
-
+<h3 id='4-test-with-cache-bust-strings'>4. Test with cache bust strings</h3><p>Test the changes by visiting pages and adding a cache-bust string. Remember to change the URL based on the environment you are testing in (integration, staging, production).</p>
 <p>For each page:</p>
 
 <ul>
-  <li>Check the banner displays as expected</li>
-  <li>Double-check the information for the header, short description and link are as they should be</li>
-  <li>Test the link, if it is present</li>
-  <li>Make sure the banner colour is appropriate - black for a notable death, red for a national emergency, green for a local emergency</li>
+<li>Check the banner displays as expected</li>
+<li>Double-check the information for the header, short description and link are as they should be</li>
+<li>Test the link, if it is present</li>
+<li>Make sure the banner colour is appropriate - black for a notable death, red for a national emergency, green for a local emergency</li>
 </ul>
-
-<h4 id="some-example-pages-to-check">Some example pages to check</h4>
-
+<h4 id='some-example-pages-to-check'>Some example pages to check</h4>
 <ul>
-  <li><a href="https://www.gov.uk/?ae00e491">https://www.gov.uk/?ae00e491</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/?ae00e491">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/?ae00e491">Staging</a>)</li>
-  <li><a href="https://www.gov.uk/financial-help-disabled?7f7992eb">https://www.gov.uk/financial-help-disabled?7f7992eb</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/financial-help-disabled?7f7992eb">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/financial-help-disabled?7f7992eb">Staging</a>)</li>
-  <li><a href="https://www.gov.uk/government/organisations/hm-revenue-customs?49854527">https://www.gov.uk/government/organisations/hm-revenue-customs?49854527</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/government/organisations/hm-revenue-customs?49854527">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/government/organisations/hm-revenue-customs?49854527">Staging</a>)</li>
-  <li><a href="https://www.gov.uk/search?q=69b197b8">https://www.gov.uk/search?q=69b197b8</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/search?q=69b197b8">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/search?q=69b197b8">Staging</a>)</li>
+<li><a href="https://www.gov.uk/?ae00e491">https://www.gov.uk/?ae00e491</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/?ae00e491">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/?ae00e491">Staging</a>)</li>
+<li><a href="https://www.gov.uk/financial-help-disabled?7f7992eb">https://www.gov.uk/financial-help-disabled?7f7992eb</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/financial-help-disabled?7f7992eb">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/financial-help-disabled?7f7992eb">Staging</a>)</li>
+<li><a href="https://www.gov.uk/government/organisations/hm-revenue-customs?49854527">https://www.gov.uk/government/organisations/hm-revenue-customs?49854527</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/government/organisations/hm-revenue-customs?49854527">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/government/organisations/hm-revenue-customs?49854527">Staging</a>)</li>
+<li><a href="https://www.gov.uk/search?q=69b197b8">https://www.gov.uk/search?q=69b197b8</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/search?q=69b197b8">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/search?q=69b197b8">Staging</a>)</li>
 </ul>
-
-<p>If the banner doesn't show, <a href="#the-banner-is-not-showing--not-clearing">look at the troubleshooting section</a>.</p>
-
+<p>If the banner doesn&rsquo;t show, <a href="#the-banner-is-not-showing--not-clearing">look at the troubleshooting section</a>.</p>
 <p>If you are in production environment, once the origin cache is purged the CDN cache will be purged automatically. This will clear cache for the top 10 most visited pages.</p>
-
 <p>Once all caches have had time to clear, check that the emergency banner is visible when accessing the same pages as before but without a cache-bust string.</p>
 
 <ul>
-  <li><a href="https://www.gov.uk/">https://www.gov.uk/</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/">Staging</a>)</li>
-  <li><a href="https://www.gov.uk/financial-help-disabled">https://www.gov.uk/financial-help-disabled</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/financial-help-disabled">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/financial-help-disabled">Staging</a>)</li>
-  <li><a href="https://www.gov.uk/government/organisations/hm-revenue-customs">https://www.gov.uk/government/organisations/hm-revenue-customs</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/government/organisations/hm-revenue-customs">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/government/organisations/hm-revenue-customs">Staging</a>)</li>
-  <li><a href="https://www.gov.uk/search">https://www.gov.uk/search</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/search">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/search">Staging</a>)</li>
+<li><a href="https://www.gov.uk/">https://www.gov.uk/</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/">Staging</a>)</li>
+<li><a href="https://www.gov.uk/financial-help-disabled">https://www.gov.uk/financial-help-disabled</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/financial-help-disabled">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/financial-help-disabled">Staging</a>)</li>
+<li><a href="https://www.gov.uk/government/organisations/hm-revenue-customs">https://www.gov.uk/government/organisations/hm-revenue-customs</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/government/organisations/hm-revenue-customs">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/government/organisations/hm-revenue-customs">Staging</a>)</li>
+<li><a href="https://www.gov.uk/search">https://www.gov.uk/search</a> (<a href="https://www-origin.integration.publishing.service.gov.uk/search">Integration</a>, <a href="https://www-origin.staging.publishing.service.gov.uk/search">Staging</a>)</li>
 </ul>
 
-<hr />
-
-<h2 id="removing-emergency-publishing-banners">Removing emergency publishing banners</h2>
-
-<h3 id="remove-the-banner-using-jenkins">Remove the banner using Jenkins</h3>
-
+<hr>
+<h2 id='removing-emergency-publishing-banners'>Removing emergency publishing banners</h2><h3 id='remove-the-banner-using-jenkins'>Remove the banner using Jenkins</h3>
 <ol>
-  <li>Navigate to the appropriate deploy Jenkins environment (integration, staging or production):
-    <ul>
-      <li><a href="https://deploy.integration.publishing.service.gov.uk/job/remove-emergency-banner/">Remove the emergency banner from Integration</a></li>
-      <li><a href="https://deploy.blue.staging.govuk.digital/job/remove-emergency-banner/">Remove the emergency banner from Staging</a></li>
-      <li><a href="https://deploy.blue.production.govuk.digital/job/remove-emergency-banner/">⚠️ Remove the emergency banner from Production ⚠️</a></li>
-    </ul>
-  </li>
-  <li>Click <code>Build now</code> in the left hand menu.</li>
+<li><p>Navigate to the appropriate deploy Jenkins environment (integration, staging or production):</p>
+
+<ul>
+<li><a href="https://deploy.integration.publishing.service.gov.uk/job/remove-emergency-banner/">Remove the emergency banner from Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/remove-emergency-banner/">Remove the emergency banner from Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/remove-emergency-banner/">⚠️ Remove the emergency banner from Production ⚠️</a></li>
+</ul></li>
+<li><p>Click <code>Build now</code> in the left hand menu.</p></li>
 </ol>
-
-<p><img src="/manual/images/emergency_publishing/remove_emergency_banner_job.png" alt="Jenkins Remove Emergency Banner" /></p>
-
+<p><a href="images/emergency_publishing/remove_emergency_banner_job.png" rel="noopener noreferrer"><img src="/manual/images/emergency_publishing/remove_emergency_banner_job.png" alt="Jenkins Remove Emergency Banner" /></a></p>
 <p>Caches will clear automatically.</p>
 
-<hr />
-
-<h2 id="troubleshooting">Troubleshooting</h2>
-
-<h3 id="background">Background</h3>
-
-<p>The information for the emergency banner is stored in Redis. <a href="https://github.com/alphagov/static">Static</a> is responsible for displaying the data and we use Jenkins to run <a href="https://github.com/alphagov/static/blob/master/lib/tasks/emergency_banner.rake">rake tasks in static</a> to set or delete the appropriate hash in Redis.</p>
-
-<h3 id="the-banner-is-not-showing--not-clearing">The banner is not showing / not clearing</h3>
-
-<p>Usually this is because the caching has not cleared properly. This can be at
+<hr>
+<h2 id='troubleshooting'>Troubleshooting</h2><h3 id='background'>Background</h3><p>The information for the emergency banner is stored in Redis. <a href="https://github.com/alphagov/static">Static</a> is responsible for displaying the data and we use Jenkins to run <a href="https://github.com/alphagov/static/blob/master/lib/tasks/emergency_banner.rake">rake tasks in static</a> to set or delete the appropriate hash in Redis.</p>
+<h3 id='the-banner-is-not-showing-not-clearing'>The banner is not showing / not clearing</h3><p>Usually this is because the caching has not cleared properly. This can be at
 various points in our stack as well as locally in your browser. Things to try:</p>
 
 <ul>
-  <li>Make sure you are actually looking at a page on the environment you released
+<li>Make sure you are actually looking at a page on the environment you released
 the banner. All the links in this document go to the production version of
 GOV.UK. Remember to use the equivalent page for the environment (often staging)
 on which you are testing/releasing the banner.</li>
-  <li>Test the page with <code>curl</code> to circumvent any browser-based caching.
+<li>Test the page with <code>curl</code> to circumvent any browser-based caching.
 Chrome seems to aggressively cache on occasion. You can also test in an
 private browser instance.</li>
-  <li>It is possible that the caching layers for the GOV.UK stack have evolved and
+<li>It is possible that the caching layers for the GOV.UK stack have evolved and
 we need to tweak the scripts to clear new caches that have been set up.</li>
 </ul>
-
-<h3 id="manually-testing-the-redis-key">Manually testing the Redis key</h3>
-
-<p>You can manually check whether the data has been stored in Redis by the Jenkins job on one of the frontend machines.</p>
+<h3 id='manually-testing-the-redis-key'>Manually testing the Redis key</h3><p>You can manually check whether the data has been stored in Redis by the Jenkins job on one of the frontend machines.</p>
 
 <ol>
-  <li>
-    <p>Load a Rails console for the static application on the frontend machine in the relevant environment.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging app-console frontend/static
-</code></pre></div>  </li>
-  <li>
-    <p>Check the Redis key exists:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Redis</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">hgetall</span><span class="p">(</span><span class="s2">"emergency_banner"</span><span class="p">)</span>
-<span class="c1">#&gt; {}</span>
-</code></pre></div>  </li>
+<li>Load a Rails console for the static application on the frontend machine in the relevant environment.</li>
 </ol>
-
-<p>In the above example, the key has not been set. A successfully set key would return a result similar to the following:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Redis</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">hgetall</span><span class="p">(</span><span class="s2">"emergency_banner"</span><span class="p">)</span>
-<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"campaign_class"</span><span class="o">=&gt;</span><span class="s2">"notable-death"</span><span class="p">,</span> <span class="s2">"heading"</span><span class="o">=&gt;</span><span class="s2">"The heading"</span><span class="p">,</span> <span class="s2">"short_description"</span><span class="o">=&gt;</span><span class="s2">"The short description"</span><span class="p">,</span> <span class="s2">"link"</span><span class="o">=&gt;</span><span class="s2">"https://www.gov.uk"</span><span class="p">,</span> <span class="s2">"link_text"</span><span class="o">=&gt;</span><span class="s2">"More information about the emergency"</span><span class="p">}</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging app-console frontend/static
 </code></pre></div>
-<h3 id="manually-running-the-rake-task-to-deploy-the-emergency-banner">Manually running the rake task to deploy the emergency banner</h3>
-
-<p>If you need to manually run the rake tasks to set the Redis keys, you can do so (remember to follow the instructions above to clear application template caches, restart Whitehall and purge origin caches afterwards):</p>
+<ol>
+<li>Check the Redis key exists:</li>
+</ol>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code>   <span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Redis</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">hgetall</span><span class="p">(</span><span class="s2">"emergency_banner"</span><span class="p">)</span>
+   <span class="c1">#&gt; {}</span>
+</code></pre></div><p>In the above example, the key has not been set. A successfully set key would return a result similar to the following:</p>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">Redis</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">hgetall</span><span class="p">(</span><span class="s2">"emergency_banner"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"campaign_class"</span><span class="o">=&gt;</span><span class="s2">"notable-death"</span><span class="p">,</span> <span class="s2">"heading"</span><span class="o">=&gt;</span><span class="s2">"The heading"</span><span class="p">,</span> <span class="s2">"short_description"</span><span class="o">=&gt;</span><span class="s2">"The short description"</span><span class="p">,</span> <span class="s2">"link"</span><span class="o">=&gt;</span><span class="s2">"https://www.gov.uk"</span><span class="p">,</span> <span class="s2">"link_text"</span><span class="o">=&gt;</span><span class="s2">"More information about the emergency"</span><span class="p">}</span>
+</code></pre></div><h3 id='manually-running-the-rake-task-to-deploy-the-emergency-banner'>Manually running the rake task to deploy the emergency banner</h3><p>If you need to manually run the rake tasks to set the Redis keys, you can do so (remember to follow the instructions above to clear application template caches, restart Whitehall and purge origin caches afterwards):</p>
 
 <ol>
-  <li>
-    <p>SSH into a <code>frontend</code> machine appropriate to the environment you are
-deploying the banner on. For example:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh frontend
-</code></pre></div>  </li>
-  <li>
-    <p>Change into the directory for <code>static</code>:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">cd</span> /var/apps/static
-</code></pre></div>  </li>
-  <li>
-    <p>Run the rake task to create the emergency banner hash in Redis, substituting
-the quoted data for the parameters:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> deploy govuk_setenv static bundle <span class="nb">exec </span>rake emergency_banner:deploy[campaign_class,heading,short_description,link,link_text]
-</code></pre></div>  </li>
+<li>SSH into a <code>frontend</code> machine appropriate to the environment you are
+deploying the banner on. For example:</li>
 </ol>
-
-<p>The <code>campaign_class</code> is directly injected into the HTML as a <code>class</code> and must be one of</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh frontend
+</code></pre></div>
+<ol>
+<li>Change into the directory for <code>static</code>:</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">cd</span> /var/apps/static
+</code></pre></div>
+<ol>
+<li>Run the rake task to create the emergency banner hash in Redis, substituting
+the quoted data for the parameters:</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> deploy govuk_setenv static bundle <span class="nb">exec </span>rake emergency_banner:deploy[campaign_class,heading,short_description,link,link_text]
+</code></pre></div><p>The <code>campaign_class</code> is directly injected into the HTML as a <code>class</code> and must be one of</p>
 
 <ul>
-  <li>notable-death</li>
-  <li>national-emergency</li>
-  <li>local-emergency</li>
+<li>notable-death</li>
+<li>national-emergency</li>
+<li>local-emergency</li>
 </ul>
-
 <p>For example, if you are deploying an emergency banner for which you have the
 following information:</p>
 
 <ul>
-  <li>Type: Death</li>
-  <li>Heading: Alas poor Yorick</li>
-  <li>Short description: I knew him Horatio</li>
-  <li>URL: <a href="https://www.gov.uk">https://www.gov.uk</a></li>
-  <li>Link text: Click for more information</li>
+<li>Type: Death</li>
+<li>Heading: Alas poor Yorick</li>
+<li>Short description: I knew him Horatio</li>
+<li>URL: <a href="https://www.gov.uk">https://www.gov.uk</a></li>
+<li>Link text: Click for more information</li>
 </ul>
-
 <p>You would enter the following command:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> deploy govuk_setenv static bundle <span class="nb">exec </span>rake emergency_banner:deploy[<span class="s2">"notable-death"</span>,<span class="s2">"Alas poor Yorick"</span>,<span class="s2">"I knew him Horatio"</span>,<span class="s2">"https://www.gov.uk"</span>,<span class="s2">"Click for more information"</span><span class="o">]</span>
-</code></pre></div>
-<p>Note there are no spaces after the commas between parameters to the rake task.</p>
-
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> deploy govuk_setenv static bundle <span class="nb">exec </span>rake emergency_banner:deploy[<span class="s2">"notable-death"</span>,<span class="s2">"Alas poor Yorick"</span>,<span class="s2">"I knew him Horatio"</span>,<span class="s2">"https://www.gov.uk"</span>,<span class="s2">"Click for more information"</span><span class="o">]</span>
+</code></pre></div><p>Note there are no spaces after the commas between parameters to the rake task.</p>
 <p>Quit your SSH session:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">exit</span>
-</code></pre></div>
-<h3 id="manually-running-the-rake-task-to-remove-an-emergency-banner">Manually running the rake task to remove an emergency banner</h3>
-
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">exit</span>
+</code></pre></div><h3 id='manually-running-the-rake-task-to-remove-an-emergency-banner'>Manually running the rake task to remove an emergency banner</h3>
 <ol>
-  <li>
-    <p>SSH into a frontend machine:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh frontend
-</code></pre></div>  </li>
-  <li>
-    <p>Change into the directory for <code>static</code>:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">cd</span> /var/apps/static
-</code></pre></div>  </li>
-  <li>
-    <p>Run the rake task to remove the emergency banner hash from Redis:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> deploy govuk_setenv static bundle <span class="nb">exec </span>rake emergency_banner:remove
-</code></pre></div>  </li>
-  <li>
-    <p>Quit your SSH session</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">exit</span>
-</code></pre></div>  </li>
+<li>SSH into a frontend machine:</li>
 </ol>
-
-<hr />
-
-<h2 id="types-of-emergency-banners">Types of emergency banners</h2>
-
-<h3 id="death-of-a-notable-person">Death of a notable person</h3>
-
-<p>A large <strong>black</strong> banner is displayed on all GOV.UK pages, including the homepage.</p>
-
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh frontend
+</code></pre></div>
+<ol>
+<li>Change into the directory for <code>static</code>:</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">cd</span> /var/apps/static
+</code></pre></div>
+<ol>
+<li>Run the rake task to remove the emergency banner hash from Redis:</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-u</span> deploy govuk_setenv static bundle <span class="nb">exec </span>rake emergency_banner:remove
+</code></pre></div>
+<ol>
+<li>Quit your SSH session</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">exit</span>
+</code></pre></div>
+<hr>
+<h2 id='types-of-emergency-banners'>Types of emergency banners</h2><h3 id='death-of-a-notable-person'>Death of a notable person</h3><p>A large <strong>black</strong> banner is displayed on all GOV.UK pages, including the homepage.</p>
 <p>The wording to use in the template will be the official title of the
-deceased and the years of their life, for example 'His Royal Highness Henry VIII
-1491 to 1547'. The text should link to their official biography.</p>
-
-<h4 id="govuk-homepage">GOV.UK Homepage</h4>
-
-<p><img src="/manual/images/emergency_publishing/notable-death-homepage.png" alt="GOV.UK Homepage" /></p>
-
-<h4 id="other-pages">Other pages</h4>
-
-<p><img src="/manual/images/emergency_publishing/notable-death.png" alt="" /></p>
-
-<h3 id="national-emergency-level-1-or-category-2">National emergency (level 1 or category 2)</h3>
-
-<p>A large <strong>red</strong> banner is displayed on all GOV.UK pages, including the homepage.</p>
-
-<h4 id="govuk-homepage-1">GOV.UK Homepage</h4>
-
-<p><img src="/manual/images/emergency_publishing/national-emergency-homepage.png" alt="GOV.UK Homepage" /></p>
-
-<h4 id="other-pages-1">Other pages</h4>
-
-<p><img src="/manual/images/emergency_publishing/national-emergency.png" alt="" /></p>
-
-<h3 id="localised-large-scale-emergency-level-2-or-category-1">Localised large-scale emergency (level 2 or category 1)</h3>
-
-<p>A large <strong>green</strong> banner is displayed on all GOV.UK pages, including the homepage.</p>
-
+deceased and the years of their life, for example &lsquo;His Royal Highness Henry VIII
+1491 to 1547&rsquo;. The text should link to their official biography.</p>
+<h4 id='gov-uk-homepage'>GOV.UK Homepage</h4><p><a href="images/emergency_publishing/notable-death-homepage.png" rel="noopener noreferrer"><img src="/manual/images/emergency_publishing/notable-death-homepage.png" alt="GOV.UK Homepage" /></a></p>
+<h4 id='other-pages'>Other pages</h4><p><a href="images/emergency_publishing/notable-death.png" rel="noopener noreferrer"><img src="/manual/images/emergency_publishing/notable-death.png" alt="" /></a></p>
+<h3 id='national-emergency-level-1-or-category-2'>National emergency (level 1 or category 2)</h3><p>A large <strong>red</strong> banner is displayed on all GOV.UK pages, including the homepage.</p>
+<h4 id='gov-uk-homepage'>GOV.UK Homepage</h4><p><a href="images/emergency_publishing/national-emergency-homepage.png" rel="noopener noreferrer"><img src="/manual/images/emergency_publishing/national-emergency-homepage.png" alt="GOV.UK Homepage" /></a></p>
+<h4 id='other-pages'>Other pages</h4><p><a href="images/emergency_publishing/national-emergency.png" rel="noopener noreferrer"><img src="/manual/images/emergency_publishing/national-emergency.png" alt="" /></a></p>
+<h3 id='localised-large-scale-emergency-level-2-or-category-1'>Localised large-scale emergency (level 2 or category 1)</h3><p>A large <strong>green</strong> banner is displayed on all GOV.UK pages, including the homepage.</p>
 <p>These incidents will not be processed outside of business hours.</p>
-
-<h4 id="govuk-homepage-2">GOV.UK Homepage</h4>
-
-<p><img src="/manual/images/emergency_publishing/local-emergency_homepage.png" alt="GOV.UK Homepage" /></p>
-
-<h4 id="other-pages-2">Other pages</h4>
-
-<p><img src="/manual/images/emergency_publishing/local-emergency.png" alt="" /></p>
+<h4 id='gov-uk-homepage'>GOV.UK Homepage</h4><p><a href="images/emergency_publishing/local-emergency_homepage.png" rel="noopener noreferrer"><img src="/manual/images/emergency_publishing/local-emergency_homepage.png" alt="GOV.UK Homepage" /></a></p>
+<h4 id='other-pages'>Other pages</h4><p><a href="images/emergency_publishing/local-emergency.png" rel="noopener noreferrer"><img src="/manual/images/emergency_publishing/local-emergency.png" alt="" /></a></p>
 
 
   <div class='related-content'>

@@ -156,13 +156,11 @@
 </div>
 
  <h1 id='header'>Debug Nagios NRPE connection failures</h1> <p>Nagios uses a protocol called NRPE (Nagios Remote Plugin Executor) to perform
-checks on remote machines. Monitored machines run an 'NRPE agent' which
+checks on remote machines. Monitored machines run an &lsquo;NRPE agent&rsquo; which
 listens for requests to execute monitoring checks.</p>
-
 <p>Occasionally the Nagios server is unable to connect to an NRPE agent on one of
 the monitored machines. In this case you will see an alert with a message such
-as 'connection to NRPE could not be established'.</p>
-
+as &lsquo;connection to NRPE could not be established&rsquo;.</p>
 <p>In some cases this may be a false alarm due to load on the monitored machine.
 In this case the NRPE errors usually disappear of their own accord when Nagios
 tries the check again (within a minute or two). If the errors persist for
@@ -170,36 +168,27 @@ longer than a few minutes there may be a genuine issue and you should
 investigate.</p>
 
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>This example uses hostnames for Carrenza, and will not work on AWS.
-For AWS you'll need to use the hosts from <code>govuk_node_list</code>.
+<p><strong>Note</strong></p>
+<p>This example uses hostnames for Carrenza, and will not work on AWS.
+For AWS you&rsquo;ll need to use the hosts from <code>govuk_node_list</code>.
 More information on hostnames in different environments is available here:
 <a href="https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html">https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html</a></p>
 </blockquote>
-
 <p>First verify that NRPE is running on the monitored machine:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ ssh broken-machine-1.broken.staging
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ ssh broken-machine-1.broken.staging
 $ nc -v localhost 5666
 Connection to localhost 5666 port [tcp/nrpe] succeeded!
-</code></pre></div>
-<p>If the connection succeeds then the NRPE agent is running on that machine.</p>
-
+</code></pre></div><p>If the connection succeeds then the NRPE agent is running on that machine.</p>
 <p>A failure indicates that the agent is not running, and you should
 investigate. Try running <code>govuk_puppet --test</code> on the machine, which should
 restart the service. If it fails check the output for errors.</p>
-
 <p>If the agent is running ok, next check that you can connect from the
 monitoring server:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ ssh monitoring-1.management.staging
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ ssh monitoring-1.management.staging
 $ nc -v broken-machine-1.broken 5666
 Connection to localhost 5666 port [tcp/nrpe] succeeded!
-</code></pre></div>
-<p>A failure indicates a networking issue between the monitoring server and the
+</code></pre></div><p>A failure indicates a networking issue between the monitoring server and the
 monitored machine.</p>
-
 <p>Note that the NRPE port is firewalled and only accessible from the
 monitoring machine and the box itself.</p>
 

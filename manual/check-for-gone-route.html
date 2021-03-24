@@ -164,23 +164,15 @@
 </div>
 
  <h1 id='header'>Check for a 'gone' route</h1> <p>When a Whitehall document fails to appear on the frontend, and the user
-is shown a 'Gone' page, follow these instructions:</p>
-
-<h2 id="connect-to-a-router-backend-machine">Connect to a router-backend machine</h2>
-
-<div class="highlight"><pre class="highlight shell"><code>gds govuk connect <span class="nt">-e</span> production ssh router_backend
-</code></pre></div>
-<h2 id="check-the-router-api-for-a-gone-route">Check the router API for a <code>gone</code> route</h2>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="err">$</span> <span class="n">govuk_app_console</span> <span class="n">router</span><span class="o">-</span><span class="n">api</span>
+is shown a &lsquo;Gone&rsquo; page, follow these instructions:</p>
+<h2 id='connect-to-a-router-backend-machine'>Connect to a router-backend machine</h2><div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds govuk connect <span class="nt">-e</span> production ssh router_backend
+</code></pre></div><h2 id='check-the-router-api-for-a-gone-route'>Check the router API for a <code>gone</code> route</h2><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="err">$</span> <span class="n">govuk_app_console</span> <span class="n">router</span><span class="o">-</span><span class="n">api</span>
 <span class="o">&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="no">Route</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">incoming_path: </span><span class="s1">'/path-to-item'</span><span class="p">).</span><span class="nf">first</span>
 <span class="o">&gt;</span> <span class="nb">puts</span> <span class="n">r</span><span class="p">.</span><span class="nf">handler</span>
-</code></pre></div>
-<p>If the result is <code>gone</code> and you want to unblock the URL then you need to
+</code></pre></div><p>If the result is <code>gone</code> and you want to unblock the URL then you need to
 remove the route (this works because <code>/government</code> is a <code>prefix</code> route
 to Whitehall):</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="n">r</span><span class="p">.</span><span class="nf">destroy</span>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="o">&gt;</span> <span class="n">r</span><span class="p">.</span><span class="nf">destroy</span>
 <span class="o">&gt;</span> <span class="no">RouterReloader</span><span class="p">.</span><span class="nf">reload</span>
 </code></pre></div>
 

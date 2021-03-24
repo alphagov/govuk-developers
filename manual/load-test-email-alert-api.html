@@ -152,19 +152,16 @@
 system performs when it has a large quantity of emails to create and send.
 This can be useful to provide data on where the system may have performance
 bottlenecks.</p>
-
 <p>To perform a load test you will need:</p>
 
 <ul>
-  <li>A mechanism to artificially create a quantity of work for Email Alert API to
+<li>A mechanism to artificially create a quantity of work for Email Alert API to
 do - we previously had a number of <a href="https://github.com/alphagov/email-alert-api/pull/1494">rake tasks</a> to allow this;</li>
-  <li>An approach to simulate the delay of an actual request to Notify - we
+<li>An approach to simulate the delay of an actual request to Notify - we
 previously used a <code>Kernel.sleep(0.1)</code> to apply this.</li>
 </ul>
-
 <p>When performing the test you should inform the <a href="https://gds.slack.com/archives/CADKZN519">#govuk-2ndline</a>
 channel as they may see alerts during it.</p>
-
 
 
   <div class='related-content'>

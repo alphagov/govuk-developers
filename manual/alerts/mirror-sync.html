@@ -134,7 +134,7 @@
     <a href="#header"><span>Mirror sync</span></a>
     <ul>
       <li>
-        <a href="#warning-govuk-mirror-synchronisation-failed"><span>WARNING: GOV.UK mirror synchronisation failed.</span></a>
+        <a href="#warning-gov-uk-mirror-synchronisation-failed-"><span>WARNING: GOV.UK mirror synchronisation failed.</span></a>
       </li>
     </ul>
   </li>
@@ -162,16 +162,10 @@
 </div>
 
  <h1 id='header'>Mirror sync</h1> <p>This is <a href="https://github.com/alphagov/govuk-puppet/blob/99486124689b198120800572b331b38b87a18a6c/modules/govuk_crawler/manifests/init.pp#L220-L227">a script that runs hourly</a> to sync the mirror contents to S3.</p>
-
-<h2 id="warning-govuk-mirror-synchronisation-failed">WARNING: GOV.UK mirror synchronisation failed.</h2>
-
-<p>Check the logs for any errors.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>grep govuk_sync_mirror /var/log/syslog
-</code></pre></div>
-<p>Try running the script manually. It doesn't normally produce any output; you will need to check <code>/var/log/syslog</code> for this. You may want to run the following in a <code>screen</code> session (can take ages).</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code># Switch to the right user
+<h2 id='warning-gov-uk-mirror-synchronisation-failed-'>WARNING: GOV.UK mirror synchronisation failed.</h2><p>Check the logs for any errors.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>grep govuk_sync_mirror /var/log/syslog
+</code></pre></div><p>Try running the script manually. It doesn&rsquo;t normally produce any output; you will need to check <code>/var/log/syslog</code> for this. You may want to run the following in a <code>screen</code> session (can take ages).</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code># Switch to the right user
 sudo su - govuk-crawler
 
 # Double check the command

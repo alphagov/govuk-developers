@@ -149,26 +149,19 @@
 </div>
 
  <h1 id='header'>Scale Mapit</h1> <p>Mapit has a scaling process that is different to other GOV.UK applications.</p>
-
 <p>To scale Mapit, follow these steps:</p>
 
 <ol>
-  <li>
-    <p>Edit the <a href="https://github.com/alphagov/govuk-aws/blob/a8217e42ee95b25da434fb27ab39788555a9448a/terraform/projects/app-mapit/main.tf#L157-L191">Mapit machine Terraform</a> to include a <code>module mapit-&lt;number&gt;</code>, <code>resource "aws_erb_volume" "mapit-&lt;number&gt;"</code> and <code>resource "aws_iam_role_policy_attachment" "mapit_&lt;number&gt;_iam_role_policy_attachment"</code> block for each instance, e.g. for 4 instances you would need a <code>mapit-1</code>, <code>mapit-2</code>, <code>mapit-3</code> and <code>mapit-4</code>. You can copy an existing block and change the numbers.</p>
-  </li>
-  <li>
-    <p><a href="/manual/deploying-terraform.html">Deploy the Terraform</a>.</p>
-  </li>
-  <li>
-    <p>Install the virtualenv by running the following on each new instance:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>sudo pip3.6 install setuptools virtualenv pip gunicorn --upgrade
-sudo rm -rf /data/apps/mapit/shared/venv3
-sudo -H -u deploy virtualenv /data/apps/mapit/shared/venv3 -p python3.6
-</code></pre></div>  </li>
-  <li>
-    <p><a href="/manual/mapit-database-not-available.html">Make the Mapit database available to each machine</a>.</p>
-  </li>
+<li><p>Edit the <a href="https://github.com/alphagov/govuk-aws/blob/a8217e42ee95b25da434fb27ab39788555a9448a/terraform/projects/app-mapit/main.tf#L157-L191">Mapit machine Terraform</a> to include a <code>module mapit-&lt;number&gt;</code>, <code>resource &quot;aws_erb_volume&quot; &quot;mapit-&lt;number&gt;&quot;</code> and <code>resource &quot;aws_iam_role_policy_attachment&quot; &quot;mapit_&lt;number&gt;_iam_role_policy_attachment&quot;</code> block for each instance, e.g. for 4 instances you would need a <code>mapit-1</code>, <code>mapit-2</code>, <code>mapit-3</code> and <code>mapit-4</code>. You can copy an existing block and change the numbers.</p></li>
+<li><p><a href="/manual/deploying-terraform.html">Deploy the Terraform</a>.</p></li>
+<li><p>Install the virtualenv by running the following on each new instance:</p></li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   sudo pip3.6 install setuptools virtualenv pip gunicorn --upgrade
+   sudo rm -rf /data/apps/mapit/shared/venv3
+   sudo -H -u deploy virtualenv /data/apps/mapit/shared/venv3 -p python3.6
+</code></pre></div>
+<ol>
+<li><a href="/manual/mapit-database-not-available.html">Make the Mapit database available to each machine</a>.</li>
 </ol>
 
 

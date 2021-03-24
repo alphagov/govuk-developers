@@ -174,85 +174,66 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0b0719bbc63aaec29b4343b25fea0699aacd9183">12 Aug 2020</a>
 </div>
 
- <h1 id='header'>Re-create an AWS mongo instance</h1> <h2 id="symptom">Symptom</h2>
-
-<p>Mongo log file error similar to the below text:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>can't get local.system.replset config from self or any seed (EMPTYCONFIG)
-</code></pre></div>
-<p>When you access the mongo shell and execute <code>rs.status()</code>, you can only see
+ <h1 id='header'>Re-create an AWS mongo instance</h1> <h2 id='symptom'>Symptom</h2><p>Mongo log file error similar to the below text:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>can't get local.system.replset config from self or any seed (EMPTYCONFIG)
+</code></pre></div><p>When you access the mongo shell and execute <code>rs.status()</code>, you can only see
 your instance and no other members of the cluster.</p>
-
-<h2 id="prognosis">Prognosis</h2>
-
-<p>There is a fault with the clustering and it might take a considerable amount of
+<h2 id='prognosis'>Prognosis</h2><p>There is a fault with the clustering and it might take a considerable amount of
 time to identify the root cause. It might be easier to re-create the instance.</p>
-
-<h2 id="solution">Solution</h2>
-
-<p>In this example we are looking at the <code>integration</code> environment.</p>
+<h2 id='solution'>Solution</h2><p>In this example we are looking at the <code>integration</code> environment.</p>
 
 <ol>
-  <li>
-    <p>You will need the following repositories:</p>
-
-    <ul>
-      <li><a href="https://github.com/alphagov/govuk-aws">https://github.com/alphagov/govuk-aws</a></li>
-      <li><a href="https://github.com/alphagov/govuk-aws-data">https://github.com/alphagov/govuk-aws-data</a></li>
-      <li><a href="https://github.com/alphagov/govuk-secrets">https://github.com/alphagov/govuk-secrets</a></li>
-    </ul>
-  </li>
-  <li>
-    <p>It is very useful to have access to the AWS console, to observe the changes
-as they happen.</p>
-  </li>
-  <li>
-    <p>You can now execute a <code>terraform plan</code> to view the actual module names.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">cd </span>govuk-aws
-<span class="nv">$ </span>tools/build-terraform-project.sh <span class="nt">-c</span> plan  <span class="nt">-p</span> app-mongo <span class="nt">-s</span> blue <span class="nt">-d</span> data <span class="nt">-e</span> integration <span class="c"># Please check the script to identify the keys</span>
-</code></pre></div>  </li>
-  <li>
-    <p>The output, will show you the components and how they are named by <code>terraform</code>.</p>
-  </li>
+<li>You will need the following repositories:</li>
 </ol>
 
-<div class="highlight"><pre class="highlight plaintext"><code>  Initializing modules...
+<ul>
+<li><a href="https://github.com/alphagov/govuk-aws">https://github.com/alphagov/govuk-aws</a></li>
+<li><a href="https://github.com/alphagov/govuk-aws-data">https://github.com/alphagov/govuk-aws-data</a></li>
+<li><a href="https://github.com/alphagov/govuk-secrets">https://github.com/alphagov/govuk-secrets</a></li>
+</ul>
+
+<ol>
+<li><p>It is very useful to have access to the AWS console, to observe the changes
+as they happen.</p></li>
+<li><p>You can now execute a <code>terraform plan</code> to view the actual module names.</p></li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span><span class="nb">cd </span>govuk-aws
+   <span class="nv">$ </span>tools/build-terraform-project.sh <span class="nt">-c</span> plan  <span class="nt">-p</span> app-mongo <span class="nt">-s</span> blue <span class="nt">-d</span> data <span class="nt">-e</span> integration <span class="c"># Please check the script to identify the keys</span>
+</code></pre></div>
+<ol>
+<li>The output, will show you the components and how they are named by <code>terraform</code>.</li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  Initializing modules...
   - module.mongo-1
   Getting source "../../modules/aws/node_group"
   ....
 </code></pre></div>
 <ol>
-  <li>
-    <p>The instance of interest to us at this point is <strong>mongo-1</strong>.</p>
-  </li>
-  <li>
-    <p>We can now execute a targeted plan to see details related to that specific
-component and make sure that we are working on the correct instance.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>tools/build-terraform-project.sh <span class="nt">-c</span> plan <span class="nt">-p</span> app-mongo <span class="nt">-s</span> blue <span class="nt">-d</span> data <span class="nt">-e</span> integration <span class="nt">--</span> <span class="nt">-target</span><span class="o">=</span>module.mongo-1
-
-data.terraform_remote_state.infra_monitoring: Refreshing state...
-data.terraform_remote_state.infra_security_groups: Refreshing state...
-data.terraform_remote_state.infra_networking: Refreshing state...
-null_resource.user_data[0]: Refreshing state... <span class="o">(</span>ID: 8732671785102119409<span class="o">)</span>
-null_resource.user_data[2]: Refreshing state... <span class="o">(</span>ID: 2147797089831867692<span class="o">)</span>
-...
-</code></pre></div>  </li>
-  <li>
-    <p>Once you are really sure that you have the correct instance, you can destroy
-the instance as below.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>tools/build-terraform-project.sh <span class="nt">-c</span> destroy <span class="nt">-p</span> app-mongo <span class="nt">-s</span> blue <span class="nt">-d</span> data <span class="nt">-e</span> integration <span class="nt">--</span> <span class="nt">-target</span><span class="o">=</span>module.mongo-1
-</code></pre></div>  </li>
-  <li>
-    <p>Once the command completes execution, we can execute a <code>terraform apply</code>.
-This will recreate the deleted instance.</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>tools/build-terraform-project.sh <span class="nt">-c</span> apply  <span class="nt">-p</span> app-mongo <span class="nt">-s</span> blue <span class="nt">-d</span> data <span class="nt">-e</span> integration <span class="c"># you can do a targeted apply but it is not necessary</span>
-</code></pre></div>  </li>
+<li><p>The instance of interest to us at this point is <strong>mongo-1</strong>.</p></li>
+<li><p>We can now execute a targeted plan to see details related to that specific
+component and make sure that we are working on the correct instance.</p></li>
 </ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>tools/build-terraform-project.sh <span class="nt">-c</span> plan <span class="nt">-p</span> app-mongo <span class="nt">-s</span> blue <span class="nt">-d</span> data <span class="nt">-e</span> integration <span class="nt">--</span> <span class="nt">-target</span><span class="o">=</span>module.mongo-1
 
+   data.terraform_remote_state.infra_monitoring: Refreshing state...
+   data.terraform_remote_state.infra_security_groups: Refreshing state...
+   data.terraform_remote_state.infra_networking: Refreshing state...
+   null_resource.user_data[0]: Refreshing state... <span class="o">(</span>ID: 8732671785102119409<span class="o">)</span>
+   null_resource.user_data[2]: Refreshing state... <span class="o">(</span>ID: 2147797089831867692<span class="o">)</span>
+   ...
+</code></pre></div>
+<ol>
+<li>Once you are really sure that you have the correct instance, you can destroy
+the instance as below.</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>tools/build-terraform-project.sh <span class="nt">-c</span> destroy <span class="nt">-p</span> app-mongo <span class="nt">-s</span> blue <span class="nt">-d</span> data <span class="nt">-e</span> integration <span class="nt">--</span> <span class="nt">-target</span><span class="o">=</span>module.mongo-1
+</code></pre></div>
+<ol>
+<li>Once the command completes execution, we can execute a <code>terraform apply</code>.
+This will recreate the deleted instance.</li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nv">$ </span>tools/build-terraform-project.sh <span class="nt">-c</span> apply  <span class="nt">-p</span> app-mongo <span class="nt">-s</span> blue <span class="nt">-d</span> data <span class="nt">-e</span> integration <span class="c"># you can do a targeted apply but it is not necessary</span>
+</code></pre></div>
 
   <div class='related-content'>
 

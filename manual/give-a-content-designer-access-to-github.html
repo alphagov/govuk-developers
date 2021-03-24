@@ -163,52 +163,42 @@ which is stored as code in an application, for example
 When added to this team a content designer can create a branch within a GOV.UK
 repository and open a pull request, however a developer will be required to
 merge the request into the master branch.</p>
-
 <p>Developers on 2nd Line may receive a ticket to add/remove content designers
 from this access.</p>
-
-<h2 id="adding-someone-to-the-github-team">Adding someone to the GitHub team</h2>
-
-<p>When a content designer joins they will need to be added to our monitoring
+<h2 id='adding-someone-to-the-github-team'>Adding someone to the GitHub team</h2><p>When a content designer joins they will need to be added to our monitoring
 software and then can be added to the GitHub team. These are the steps to
 follow:</p>
 
 <ol>
-  <li>Edit the <a href="https://github.com/alphagov/govuk-user-reviewer/blob/master/config/govuk_non_tech.yml">govuk_non_tech.yml</a> file in <a href="https://github.com/alphagov/govuk-user-reviewer">govuk-user-reviewer</a> with the
+<li>Edit the <a href="https://github.com/alphagov/govuk-user-reviewer/blob/master/config/govuk_non_tech.yml">govuk_non_tech.yml</a> file in <a href="https://github.com/alphagov/govuk-user-reviewer">govuk-user-reviewer</a> with the
 following details for each designer: their name, GitHub username and role in
 GOV.UK - <a href="https://github.com/alphagov/govuk-user-reviewer/commit/24fc52955ce1247966b6d2069028ff4189915fe1">example</a></li>
-  <li>Raise this as a pull request</li>
-  <li>Once PR is merged email
-<a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#103;&#111;&#118;&#117;&#107;&#045;&#103;&#105;&#116;&#104;&#117;&#098;&#045;&#111;&#119;&#110;&#101;&#114;&#115;&#064;&#100;&#105;&#103;&#105;&#116;&#097;&#108;&#046;&#099;&#097;&#098;&#105;&#110;&#101;&#116;&#045;&#111;&#102;&#102;&#105;&#099;&#101;&#046;&#103;&#111;&#118;&#046;&#117;&#107;"><code>govuk-github-owners@digital.cabinet-office.gov.uk</code></a>
+<li>Raise this as a pull request</li>
+<li>Once PR is merged email
+<a href="mailto:govuk-github-owners@digital.cabinet-office.gov.uk"><code>govuk-github-owners@digital.cabinet-office.gov.uk</code></a>
 with the GitHub usernames asking for the users to be added to <a href="https://github.com/orgs/alphagov/teams/gov-uk-content-designers">the <code>gov-uk-content-designers</code> team</a>
-which is the "GOV.UK Content Designers" GitHub team</li>
-  <li>Once added to the team the content designers will receive an invite that
+which is the &ldquo;GOV.UK Content Designers&rdquo; GitHub team</li>
+<li>Once added to the team the content designers will receive an invite that
 they will have to accept to join the team</li>
 </ol>
-
-<h2 id="removing-someone-from-the-github-team">Removing someone from the GitHub team</h2>
-
-<p>When a content designer leaves GOV.UK they need to be removed from the GitHub
+<h2 id='removing-someone-from-the-github-team'>Removing someone from the GitHub team</h2><p>When a content designer leaves GOV.UK they need to be removed from the GitHub
 team to revoke their access.</p>
-
 <p>First, check the <a href="https://github.com/alphagov/govuk-user-reviewer/blob/master/config/govuk_non_tech.yml">govuk_non_tech.yml</a> file in <a href="https://github.com/alphagov/govuk-user-reviewer">govuk-user-reviewer</a> to see
 if the users are listed as having access. If they are not listed you are done.</p>
-
 <p>If they are listed follow these steps:</p>
 
 <ol>
-  <li>Email
-<a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#103;&#111;&#118;&#117;&#107;&#045;&#103;&#105;&#116;&#104;&#117;&#098;&#045;&#111;&#119;&#110;&#101;&#114;&#115;&#064;&#100;&#105;&#103;&#105;&#116;&#097;&#108;&#046;&#099;&#097;&#098;&#105;&#110;&#101;&#116;&#045;&#111;&#102;&#102;&#105;&#099;&#101;&#046;&#103;&#111;&#118;&#046;&#117;&#107;">&#103;&#111;&#118;&#117;&#107;&#045;&#103;&#105;&#116;&#104;&#117;&#098;&#045;&#111;&#119;&#110;&#101;&#114;&#115;&#064;&#100;&#105;&#103;&#105;&#116;&#097;&#108;&#046;&#099;&#097;&#098;&#105;&#110;&#101;&#116;&#045;&#111;&#102;&#102;&#105;&#099;&#101;&#046;&#103;&#111;&#118;&#046;&#117;&#107;</a>
+<li>Email
+<a href="mailto:govuk-github-owners@digital.cabinet-office.gov.uk">govuk-github-owners@digital.cabinet-office.gov.uk</a>
 with the GitHub usernames asking for the users to be removed from
 <a href="https://github.com/orgs/alphagov/teams/gov-uk-content-designers">https://github.com/orgs/alphagov/teams/gov-uk-content-designers</a>
-which is the "GOV.UK Content Designers" GitHub team</li>
-  <li>Edit the <a href="https://github.com/alphagov/govuk-user-reviewer/blob/master/config/govuk_non_tech.yml">govuk_non_tech.yml</a> file in <a href="https://github.com/alphagov/govuk-user-reviewer">govuk-user-reviewer</a> to remove
+which is the &ldquo;GOV.UK Content Designers&rdquo; GitHub team</li>
+<li>Edit the <a href="https://github.com/alphagov/govuk-user-reviewer/blob/master/config/govuk_non_tech.yml">govuk_non_tech.yml</a> file in <a href="https://github.com/alphagov/govuk-user-reviewer">govuk-user-reviewer</a> to remove
 the users</li>
-  <li>Raise this as a pull request</li>
-  <li>Once merged 2nd Line will be alerted if the users continues to have
+<li>Raise this as a pull request</li>
+<li>Once merged 2nd Line will be alerted if the users continues to have
 access despite having left</li>
 </ol>
-
 
 
   <div class='related-content'>

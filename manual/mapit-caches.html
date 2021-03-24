@@ -159,36 +159,21 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6f0a7c9de79ce273637e253362912ac0d55f2b8d">2 Mar 2021</a>
 </div>
 
- <h1 id='header'>Mapit Caches</h1> <p>Mapit uses Django's <a href="https://docs.djangoproject.com/en/3.1/topics/cache/#the-per-site-cache">in-built middleware</a> to cache responses to memcached. Mapit instances use a shared memcached instance.</p>
-
-<h2 id="clear-the-shared-cache">Clear the shared cache</h2>
-
+ <h1 id='header'>Mapit Caches</h1> <p>Mapit uses Django&rsquo;s <a href="https://docs.djangoproject.com/en/3.1/topics/cache/#the-per-site-cache">in-built middleware</a> to cache responses to memcached. Mapit instances use a shared memcached instance.</p>
+<h2 id='clear-the-shared-cache'>Clear the shared cache</h2>
 <ol>
-  <li>
-    <p>SSH onto a mapit instance</p>
-  </li>
-  <li>
-    <p>Connect via Telnet to memcached instance:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>telnet mapit-memcached 11211
-</code></pre></div>  </li>
-  <li>
-    <p>Enter the following:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>flush_all
-</code></pre></div>  </li>
+<li><p>SSH onto a mapit instance</p></li>
+<li><p>Connect via Telnet to memcached instance:</p></li>
 </ol>
-
-<p>You may need to clear the cache after updating the Mapit database with new data. As each Mapit instance has it's own database, make sure to clear the cache after you've updated all Mapit instances.</p>
-
-<h2 id="limitations-of-caching">Limitations of caching</h2>
-
-<p>Currently Django will only caches responses from the <code>/postcode</code> endpoints and not <code>/area</code>. This is due to <code>/area</code> responses being streaming responses.</p>
-
-<h2 id="bypassing-the-cache">Bypassing the cache</h2>
-
-<p>Cache keys are based on the URI of the request, therefore you can avoid the cache by adding a unique query string. For example <code>/postcode/sw71ne?nocache=&lt;random&gt;</code>.</p>
-
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   telnet mapit-memcached 11211
+</code></pre></div>
+<ol>
+<li>Enter the following:</li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   flush_all
+</code></pre></div><p>You may need to clear the cache after updating the Mapit database with new data. As each Mapit instance has it&rsquo;s own database, make sure to clear the cache after you&rsquo;ve updated all Mapit instances.</p>
+<h2 id='limitations-of-caching'>Limitations of caching</h2><p>Currently Django will only caches responses from the <code>/postcode</code> endpoints and not <code>/area</code>. This is due to <code>/area</code> responses being streaming responses.</p>
+<h2 id='bypassing-the-cache'>Bypassing the cache</h2><p>Cache keys are based on the URI of the request, therefore you can avoid the cache by adding a unique query string. For example <code>/postcode/sw71ne?nocache=&lt;random&gt;</code>.</p>
 
 
   <div class='related-content'>

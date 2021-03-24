@@ -176,34 +176,21 @@
 </div>
 
  <h1 id='header'>MySQL Xtrabackups to S3</h1> <p>We send backups to an Amazon S3 bucket every 15 minutes. This is
-performed using a nightly "base" backup and "incremental" backups which
+performed using a nightly &ldquo;base&rdquo; backup and &ldquo;incremental&rdquo; backups which
 run every 15 minutes, which are linked to the base backup.</p>
-
 <p><a href="/manual/mysql.html">Further detail on the implementation can be found here.</a></p>
-
-<h3 id="mysql-xtrabackup-daily-base-push">MySQL Xtrabackup daily base push</h3>
-
-<p>If this alert triggers it means the nightly base backup has failed to
+<h3 id='mysql-xtrabackup-daily-base-push'>MySQL Xtrabackup daily base push</h3><p>If this alert triggers it means the nightly base backup has failed to
 run. Check the logs in Kibana using this query:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">host</span><span class="ss">:mysql</span><span class="o">-</span><span class="n">backup</span><span class="o">*</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:xtrabackup_s3_base</span>
-</code></pre></div>
-<p>As this runs on a slave, it is safe to rerun at anytime. Log into the
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">host</span><span class="ss">:mysql</span><span class="o">-</span><span class="n">backup</span><span class="o">*</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:xtrabackup_s3_base</span>
+</code></pre></div><p>As this runs on a slave, it is safe to rerun at anytime. Log into the
 machine and run:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nb">sudo</span> <span class="nt">-i</span> /usr/bin/timeout 1h /usr/bin/setlock <span class="nt">-N</span> /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_base
-</code></pre></div>
-<p>If it errors you should be able to find out what the issue is.</p>
-
-<h3 id="mysql-xtrabackup-incremental-push">MySQL Xtrabackup incremental-push</h3>
-
-<p>When this alert triggers it means the incremental backups, which run
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo</span> <span class="nt">-i</span> /usr/bin/timeout 1h /usr/bin/setlock <span class="nt">-N</span> /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_base
+</code></pre></div><p>If it errors you should be able to find out what the issue is.</p>
+<h3 id='mysql-xtrabackup-incremental-push'>MySQL Xtrabackup incremental-push</h3><p>When this alert triggers it means the incremental backups, which run
 every 15 minutes, have had a problem. Check Kibana with the following
 query:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">host</span><span class="ss">:mysql</span><span class="o">-</span><span class="n">backup</span><span class="o">*</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:xtrabackup_s3_incremental</span>
-</code></pre></div>
-<p>It is safe to run manually, though this will by nature run regularly so
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">host</span><span class="ss">:mysql</span><span class="o">-</span><span class="n">backup</span><span class="o">*</span> <span class="no">AND</span> <span class="n">syslog_program</span><span class="ss">:xtrabackup_s3_incremental</span>
+</code></pre></div><p>It is safe to run manually, though this will by nature run regularly so
 you should be able to view what the problem is in the logs. If the
 incremental backup is failing, it may be worth rerunning the base backup
 job, and then running the incremental job. Other possible problems could

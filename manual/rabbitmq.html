@@ -184,40 +184,24 @@
 
  <h1 id='header'>Manage RabbitMQ</h1> <p><a href="https://www.rabbitmq.com/">RabbitMQ</a> is a message broker based on the <a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html">Advanced Message Queuing
 Protocol</a> (AMQP).</p>
-
 <p><a href="https://www.rabbitmq.com/tutorials/tutorial-one-ruby.html">Learn more about RabbitMQ</a>.</p>
-
-<h2 id="connecting-to-the-rabbitmq-web-control-panel">Connecting to the RabbitMQ web control panel</h2>
-
-<p>Run <code>gds govuk connect rabbitmq -e integration aws/rabbitmq</code> and point your
+<h2 id='connecting-to-the-rabbitmq-web-control-panel'>Connecting to the RabbitMQ web control panel</h2><p>Run <code>gds govuk connect rabbitmq -e integration aws/rabbitmq</code> and point your
 browser at <a href="http://127.0.0.1:15672">http://127.0.0.1:15672</a>.</p>
-
-<h2 id="rabbitmq-metrics">RabbitMQ metrics</h2>
-
-<p>A <a href="https://grafana.blue.production.govuk.digital/dashboard/file/rabbitmq.json?refresh=10s&amp;orgId=1">generic RabbitMQ dashboard</a> shows metrics for queues and exchanges.</p>
-
-<h2 id="how-we-run-rabbitmq">How we run RabbitMQ</h2>
-
-<h3 id="overview">Overview</h3>
-
-<p><img src="/manual/images/rabbitmq_graph.png" alt="A graph showing the message flow" /></p>
-
+<h2 id='rabbitmq-metrics'>RabbitMQ metrics</h2><p>A <a href="https://grafana.blue.production.govuk.digital/dashboard/file/rabbitmq.json?refresh=10s&amp;orgId=1">generic RabbitMQ dashboard</a> shows metrics for queues and exchanges.</p>
+<h2 id='how-we-run-rabbitmq'>How we run RabbitMQ</h2><h3 id='overview'>Overview</h3><p><a href="images/rabbitmq_graph.png" rel="noopener noreferrer"><img src="/manual/images/rabbitmq_graph.png" alt="A graph showing the message flow" /></a></p>
 <p><strong>Producer</strong>: an application that publishes messages RabbitMQ. On GOV.UK this could
 be <a href="https://github.com/alphagov/publishing-api">publishing-api</a>.</p>
-
 <p><strong>Exchanges</strong> are AMQP entities where messages are sent. They take a message
 and route it into zero or more queues. The routing algorithm used depends on
 the exchange type and rules called <em>bindings</em>.  When a content change is made
 in a publishing application (e.g. Travel Advice Publisher), Publishing API
 <a href="https://github.com/alphagov/publishing-api/blob/1d6bf06fcb74519b5c379f803ae1df65f93f74f7/lib/queue_publisher.rb#L26">publishes a message</a> to our main exchange,
 <code>publishing_documents</code>.</p>
-
 <p><strong>Queues</strong> are very similar to queues in other message and task-queueing
 systems: they store messages that are consumed by applications. An example of a
 queue is <code>email_alert_service</code> which is used by
 <a href="https://github.com/alphagov/email-alert-service">email-alert-service</a> to forward publishing activity to
 email-alert-api. Queues are <a href="https://github.com/alphagov/email-alert-service/blob/f8485df2f0916285ade33a9cb1e4a7e73c2491ad/lib/tasks/message_queues.rake#L9">created by consumer applications</a>.</p>
-
 <p><strong>Bindings</strong> are rules that exchanges use (among other things) to route
 messages to queues. To instruct an exchange E to route messages to a queue Q, Q
 has to be bound to E. Bindings may have an optional routing key attribute. An
@@ -225,24 +209,20 @@ example of a binding is the <code>cache_clearing_service-high</code> queue is
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/cache_clearing_service/rabbitmq.pp#L42-L48">bound</a> to the <code>published_documents</code> exchange with a routing
 key matching of <code>*.major</code>. E.g messages sent to the exchange with a routing key
 of <code>guide.major</code> will be routed to that queue.</p>
-
 <p><strong>Messages</strong> consist of a JSON payload and publish options (we predominantly
 use content type, routing key and persistant).</p>
-
 <p>Options:</p>
 
 <ul>
-  <li>content_type (string) - tells the consumer the type of message. E.g
-<code>"application/json"</code></li>
-  <li>routing_key (string) - matches against bindings to filter messages to certain
-queues. E.g <code>"guide.major"</code></li>
-  <li>persistant (boolean) - tells RabbitMQ whether to save the message to disk.</li>
+<li>content_type (string) - tells the consumer the type of message. E.g
+<code>&quot;application/json&quot;</code></li>
+<li>routing_key (string) - matches against bindings to filter messages to certain
+queues. E.g <code>&quot;guide.major&quot;</code></li>
+<li>persistant (boolean) - tells RabbitMQ whether to save the message to disk.</li>
 </ul>
-
 <p>Message options are set when a message is published. In our use case, the
-message's payload is the content item in JSON format. The code in the
+message&rsquo;s payload is the content item in JSON format. The code in the
 publishing-api to publish a message is <a href="https://github.com/alphagov/publishing-api/blob/1d6bf06fcb74519b5c379f803ae1df65f93f74f7/lib/queue_publisher.rb#L73">here</a>.</p>
-
 <p><strong>Consumer applications</strong> are applications which consume messages from one or
 more queues. For email-alert-service this is done by <a href="https://github.com/alphagov/email-alert-service/blob/f8485df2f0916285ade33a9cb1e4a7e73c2491ad/lib/tasks/message_queues.rake#L21">running this rake
 task</a> and using the <a href="https://github.com/alphagov/email-alert-service/blob/2ba8ecd982c2226158b528e5442b012639797d41/email_alert_service/models/major_change_message_processor.rb#L35P">major change
@@ -250,56 +230,38 @@ processor</a> to do the processing of the consumed
 messages. All our consumer applications use the
 <a href="https://github.com/alphagov/govuk_message_queue_consumer">govuk_message_queue_consumer</a> gem to consume messages from
 RabbitMQ in a standardised way.</p>
-
 <p>You can see live examples of things like queues, exchanges, bindings etc by
 connecting to the RabbitMQ control panel.</p>
-
-<h2 id="federated-published_documents-exchange">Federated <code>published_documents</code> exchange</h2>
-
-<p>A federated exchange is connected to an upstream exchanges by AMQP and the
+<h2 id='federated-published_documents-exchange'>Federated <code>published_documents</code> exchange</h2><p>A federated exchange is connected to an upstream exchanges by AMQP and the
 messages published to the upstream exchanges are copied over to the federated
 exchange.</p>
-
 <p>While the migration of GOV.UK from Carrenza to AWS is ongoing, we run two
 RabbitMQ clusters, one in each environment. Each cluster has a list of private
-IP addresses of the other cluster's nodes (<a href="https://github.com/alphagov/govuk-puppet/blob/bc95f7041af4212e810c77e8a00c1349de3af0fa/hieradata_aws/class/production/rabbitmq.yaml#L6">Carrenza IPs</a> and
+IP addresses of the other cluster&rsquo;s nodes (<a href="https://github.com/alphagov/govuk-puppet/blob/bc95f7041af4212e810c77e8a00c1349de3af0fa/hieradata_aws/class/production/rabbitmq.yaml#L6">Carrenza IPs</a> and
 <a href="https://github.com/alphagov/govuk-puppet/blob/bc95f7041af4212e810c77e8a00c1349de3af0fa/hieradata/class/production/rabbitmq.yaml#L6">AWS IPs</a>). The connection between Carrenza and AWS travels through
 the VPN. Since the nodes in AWS use dynamic IP addresses, they are associated
 to network interfaces with fixed IPs.</p>
-
 <p>The <code>published_documents</code> exchange is <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk_rabbitmq/manifests/federate.pp">federated</a> in both
 directions, i.e. the RabbitMQ cluster from each provider connects as a client
 to the exchange in the other provider and forwards messages to its own
 exchange. There is no infinite loop because <code>max-hops</code> is set to <code>1</code>.</p>
-
-<h3 id="checking-if-the-federation-is-ok">Checking if the federation is ok</h3>
-
-<p>Connect to one of the cluster's nodes via:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect ssh <span class="nt">-e</span> production rabbitmq
-</code></pre></div>
-<p>and run:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>rabbitmqctl <span class="nb">eval</span> <span class="s1">'rabbit_federation_status:status().'</span>
-</code></pre></div>
-<p>On <strong>one</strong> of the nodes, you should get a load of data including:
+<h3 id='checking-if-the-federation-is-ok'>Checking if the federation is ok</h3><p>Connect to one of the cluster&rsquo;s nodes via:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect ssh <span class="nt">-e</span> production rabbitmq
+</code></pre></div><p>and run:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo </span>rabbitmqctl <span class="nb">eval</span> <span class="s1">'rabbit_federation_status:status().'</span>
+</code></pre></div><p>On <strong>one</strong> of the nodes, you should get a load of data including:
 <code>{status,running}</code></p>
-
 <p>If not, something is wrong and the federation is broken. Check the logs in
 <code>/var/log/rabbitmq</code> and verify that the credentials and IP address for the
 federation are correct, you can do this by running:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>rabbitmqctl list_parameters
-</code></pre></div>
-<h2 id="further-reading">Further reading</h2>
-
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span><span class="nb">sudo </span>rabbitmqctl list_parameters
+</code></pre></div><h2 id='further-reading'>Further reading</h2>
 <ul>
-  <li><a href="https://www.rabbitmq.com/getstarted.html">RabbitMQ Tutorials</a></li>
-  <li><a href="https://github.com/ruby-amqp/bunny">Bunny</a> is the RabbitMQ client we use.</li>
-  <li><a href="http://rubybunny.info/articles/guides.html">The Bunny Guides</a> explain all
+<li><a href="https://www.rabbitmq.com/getstarted.html">RabbitMQ Tutorials</a></li>
+<li><a href="https://github.com/ruby-amqp/bunny">Bunny</a> is the RabbitMQ client we use.</li>
+<li><a href="http://rubybunny.info/articles/guides.html">The Bunny Guides</a> explain all
 AMQP concepts really well.</li>
 </ul>
-
 
 
   <div class='related-content'>

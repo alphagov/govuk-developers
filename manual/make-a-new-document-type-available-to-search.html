@@ -139,7 +139,7 @@
             <a href="#1-decide-what-fields-you-want-to-make-available-to-search"><span>1. Decide what fields you want to make available to search</span></a>
           </li>
           <li>
-            <a href="#2-add-the-document-type-to-migrated_formatsyaml"><span>2. Add the document type to migrated_formats.yaml</span></a>
+            <a href="#2-add-the-document-type-to-migrated_formats-yaml"><span>2. Add the document type to migrated_formats.yaml</span></a>
           </li>
           <li>
             <a href="#3-reindex"><span>3. Reindex</span></a>
@@ -177,60 +177,40 @@
 internal search. By default, all document types in internal search also get
 included in the GOV.UK sitemap, which tells external search engines about our
 content.</p>
-
 <p>The app responsible for search is <a href="https://github.com/alphagov/search-api">Search API</a>. Search API listens
 to RabbitMQ messages about published documents to know when to index documents.
 For the new document type to be indexed, you need to add it to a whitelist.</p>
-
-<h3 id="1-decide-what-fields-you-want-to-make-available-to-search">1. Decide what fields you want to make available to search</h3>
-
-<p>Search API has its own concept of <a href="https://github.com/alphagov/search-api/blob/master/docs/schemas.md#elasticsearch-document-types">document type</a>, which represents
+<h3 id='1-decide-what-fields-you-want-to-make-available-to-search'>1. Decide what fields you want to make available to search</h3><p>Search API has its own concept of <a href="https://github.com/alphagov/search-api/blob/master/docs/schemas.md#elasticsearch-document-types">document type</a>, which represents
 the schema used to store documents in Elasticsearch (the search engine).
 Normally, you’ll map your document type to an existing Search API document type.
-If in doubt, use "<a href="https://github.com/alphagov/search-api/blob/master/config/schema/elasticsearch_types/edition.json">edition</a>", as this is used for most documents.
+If in doubt, use &ldquo;<a href="https://github.com/alphagov/search-api/blob/master/config/schema/elasticsearch_types/edition.json">edition</a>&rdquo;, as this is used for most documents.
 Then, modify <a href="https://github.com/alphagov/search-api/blob/master/config/govuk_index/mapped_document_types.yaml">mapped_document_types.yml</a> with the mapping
 from the publishing api document type.</p>
-
 <p>If you want search to be able to use metadata that isn’t defined in an any
 Search API document type, then you’ll need to add new fields to Search API.</p>
-
 <p>Search API knows how to handle most of the core fields from the publishing
 platform, like <code>title</code>, <code>description</code>, and <code>public_updated_at</code>. It looks at the
 <code>body</code> or <code>parts</code> fields to work out what text to make searchable. If your
 schema uses different fields to render the text of the page, update the
 <a href="https://github.com/alphagov/search-api/blob/master/lib/govuk_index/presenters/indexable_content_presenter.rb">IndexableContentPresenter</a> as well.</p>
-
 <p>The part of Search API that translates between Publishing API fields and search
 fields is <a href="https://github.com/alphagov/search-api/blob/master/lib/govuk_index/presenters/elasticsearch_presenter.rb">ElasticsearchPresenter</a>.
 Modify this if there is anything special you want search to do with your
 documents (for example: appending additional information to the title).</p>
-
-<h3 id="2-add-the-document-type-to-migrated_formatsyaml">2. Add the document type to migrated_formats.yaml</h3>
-
-<p>Add the document_type name to the <a href="https://github.com/alphagov/search-api/blob/master/config/govuk_index/migrated_formats.yaml"><code>migrated</code> list</a> in Search
+<h3 id='2-add-the-document-type-to-migrated_formats-yaml'>2. Add the document type to migrated_formats.yaml</h3><p>Add the document_type name to the <a href="https://github.com/alphagov/search-api/blob/master/config/govuk_index/migrated_formats.yaml"><code>migrated</code> list</a> in Search
 API.</p>
-
-<h3 id="3-reindex">3. Reindex</h3>
-
-<p>If your new document uses an existing schema, <strong>this is not necessary</strong>.</p>
-
+<h3 id='3-reindex'>3. Reindex</h3><p>If your new document uses an existing schema, <strong>this is not necessary</strong>.</p>
 <p>Reindex the <code>govuk</code> index following the instructions in
 <a href="/manual/reindex-elasticsearch.html">Reindex an Elasticsearch index</a>.</p>
-
-<h3 id="4-republish-all-the-documents">4. Republish all the documents</h3>
-
-<p>Republish all the documents. If they have been published already, you can
+<h3 id='4-republish-all-the-documents'>4. Republish all the documents</h3><p>Republish all the documents. If they have been published already, you can
 republish them with the <a href="https://github.com/alphagov/publishing-api/blob/master/lib/tasks/represent_downstream.rake">Publishing API represent_downstream</a> rake task:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>rake represent_downstream:document_type[new_document_type]
-</code></pre></div>
-<p>You can test that the documents appear in search through the API using a query such as:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>rake represent_downstream:document_type[new_document_type]
+</code></pre></div><p>You can test that the documents appear in search through the API using a query such as:</p>
 
 <ul>
-  <li><a href="https://www.gov.uk/api/search.json?count=0&amp;filter_content_store_document_type=guide">https://www.gov.uk/api/search.json?count=0&amp;filter_content_store_document_type=guide</a></li>
-  <li><a href="https://www-origin.integration.publishing.service.gov.uk/api/search.json?count=0&amp;filter_content_store_document_type=guide">https://www-origin.integration.publishing.service.gov.uk/api/search.json?count=0&amp;filter_content_store_document_type=guide</a></li>
+<li><a href="https://www.gov.uk/api/search.json?count=0&amp;filter_content_store_document_type=guide">https://www.gov.uk/api/search.json?count=0&amp;filter_content_store_document_type=guide</a></li>
+<li><a href="https://www-origin.integration.publishing.service.gov.uk/api/search.json?count=0&amp;filter_content_store_document_type=guide">https://www-origin.integration.publishing.service.gov.uk/api/search.json?count=0&amp;filter_content_store_document_type=guide</a></li>
 </ul>
-
 
 
   <div class='related-content'>

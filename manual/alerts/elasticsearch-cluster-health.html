@@ -179,46 +179,32 @@
 the state of its <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/_basic_concepts.html#_shards_amp_replicas">primary and replica shards</a>.</p>
 
 <ul>
-  <li><code>green</code> - all primary and secondary (replica) shards are allocated. There are
+<li><code>green</code> - all primary and secondary (replica) shards are allocated. There are
 two (or more) copies of all shards across the nodes on the cluster.</li>
-  <li><code>yellow</code> - all primary shards are allocated, but at least one replica shard
+<li><code>yellow</code> - all primary shards are allocated, but at least one replica shard
 is not allocated. Any shards that only exist as a primary are at risk of data
 loss <em>should another node in the cluster fail</em>.</li>
-  <li><code>red</code> - at least one primary shard is not allocated. This can happen when an
-entire cluster is cold started, before it's initially allocated the primary
+<li><code>red</code> - at least one primary shard is not allocated. This can happen when an
+entire cluster is cold started, before it&rsquo;s initially allocated the primary
 shards. If it happens at other times this may be a sign of data loss.</li>
 </ul>
-
 <p>More <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster-health.html">comprehensive documentation on cluster health</a>
 can be found in the Elasticsearch documentation.</p>
-
 <p>Make sure you understand the consequences of the problem before jumping to a
 solution.</p>
-
 <p>Icinga uses the <code>check_elasticsearch_aws</code> check from <a href="https://github.com/alphagov/nagios-plugins/">nagios-plugins</a> to
 monitor the health of the AWS managed Elasticsearch cluster. This plugin uses
 various endpoints of the Elasticsearch API, but also extrapolates additional
 information to help you diagnose any problems.</p>
-
-<h3 id="investigating-problems">Investigating problems</h3>
-
-<h4 id="view-a-live-dashboard">View a live dashboard</h4>
-
-<p>Follow the <a href="/manual/access-aws-console.html">instructions to login to the AWS Console UI</a>.</p>
-
-<p>There are tabs for 'Cluster health' and 'Instance health'.  The graphs in the
+<h3 id='investigating-problems'>Investigating problems</h3><h4 id='view-a-live-dashboard'>View a live dashboard</h4><p>Follow the <a href="/manual/access-aws-console.html">instructions to login to the AWS Console UI</a>.</p>
+<p>There are tabs for &lsquo;Cluster health&rsquo; and &lsquo;Instance health&rsquo;.  The graphs in the
 console link to AWS Cloudwatch, where historic metrics can be viewed over custom
 time periods.</p>
-
-<h4 id="use-the-elasticsearch-api">Use the Elasticsearch API</h4>
-
-<p>An alternative to using the dashboard is accessing the Elasticsearch health API
+<h4 id='use-the-elasticsearch-api'>Use the Elasticsearch API</h4><p>An alternative to using the dashboard is accessing the Elasticsearch health API
 yourself. Start with the <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/cluster-health.html"><code>/_cluster/health</code> endpoint</a>
 and go from there.</p>
-
 <p>Response JSON from the <code>/_cluster/health</code> endpoint looks like:</p>
-
-<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight json" tabindex="0"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"cluster_name"</span><span class="p">:</span><span class="s2">"logging"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="s2">"green"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"timed_out"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
@@ -230,35 +216,24 @@ and go from there.</p>
   </span><span class="nl">"initializing_shards"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"unassigned_shards"</span><span class="p">:</span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>A tunnel to Elasticsearch in a specific environment (e.g staging) can be created
+</span></code></pre></div><p>A tunnel to Elasticsearch in a specific environment (e.g staging) can be created
 using the following:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>ssh -At jumpbox.staging.govuk.digital -L 9200:localhost:9200 "ssh -q \`govuk_node_list --single-node -c search\` -L 9200:elasticsearch6.blue.staging.govuk-internal.digital:80"
-</code></pre></div>
-<p>Elasticsearch will then be available at <a href="http://localhost:9200">http://localhost:9200</a>.</p>
-
-<h4 id="logging">Logging</h4>
-
-<p>Access to logs is detailed in the <a href="/manual/logging.html#elasticsearch">logging documentation</a>.</p>
-
-<h3 id="fixing-issues-with-the-cluster">Fixing issues with the cluster</h3>
-
-<p>GOV.UK have a Enterprise level support plan with AWS for staging and
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>ssh -At jumpbox.staging.govuk.digital -L 9200:localhost:9200 "ssh -q \`govuk_node_list --single-node -c search\` -L 9200:elasticsearch6.blue.staging.govuk-internal.digital:80"
+</code></pre></div><p>Elasticsearch will then be available at <a href="http://localhost:9200">http://localhost:9200</a>.</p>
+<h4 id='logging'>Logging</h4><p>Access to logs is detailed in the <a href="/manual/logging.html#elasticsearch">logging documentation</a>.</p>
+<h3 id='fixing-issues-with-the-cluster'>Fixing issues with the cluster</h3><p>GOV.UK have a Enterprise level support plan with AWS for staging and
 production. Since we are using a managed service, AWS should be the first point
 of contact for fixing issues with the Elasticsearch cluster.  They can be
 contacted by telephone, live chat or support request.</p>
-
 <p>Response times are:</p>
 
 <ul>
-  <li>General guidance: 24 hours</li>
-  <li>System impaired: 12 hours</li>
-  <li>Production system impaired: 4 hours</li>
-  <li>Production system down: 1 hour</li>
-  <li>Business-critical system down: 15 minutes</li>
+<li>General guidance: 24 hours</li>
+<li>System impaired: 12 hours</li>
+<li>Production system impaired: 4 hours</li>
+<li>Production system down: 1 hour</li>
+<li>Business-critical system down: 15 minutes</li>
 </ul>
-
 <p>All requests are created through the <a href="https://console.aws.amazon.com/support/home">AWS Console</a>.
 Be sure to assume the correct role first, for the environment in question.</p>
 

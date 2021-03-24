@@ -156,36 +156,29 @@
  <h1 id='header'>Configure a GitHub repo</h1> <p>Repositories in GOV.UK must:</p>
 
 <ul>
-  <li>Have the <a href="https://github.com/orgs/alphagov/teams/gov-uk-ci-bots">GOV.UK CI Bots</a> and <a href="https://github.com/orgs/alphagov/teams/gov-uk-production">GOV.UK Production</a> teams as <code>Admin</code></li>
-  <li>Have a good description</li>
-  <li>Link to relevant documentation</li>
-  <li>Have the <a href="https://github.com/search?q=topic:govuk"><code>govuk</code></a> topic</li>
-  <li>Have a <a href="/manual/readmes.html">good README</a></li>
+<li>Have the <a href="https://github.com/orgs/alphagov/teams/gov-uk-ci-bots">GOV.UK CI Bots</a> and <a href="https://github.com/orgs/alphagov/teams/gov-uk-production">GOV.UK Production</a> teams as <code>Admin</code></li>
+<li>Have a good description</li>
+<li>Link to relevant documentation</li>
+<li>Have the <a href="https://github.com/search?q=topic:govuk"><code>govuk</code></a> topic</li>
+<li>Have a <a href="/manual/readmes.html">good README</a></li>
 </ul>
-
 <p>Almost all repos should:</p>
 
 <ul>
-  <li>Have <a href="https://help.github.com/articles/about-protected-branches">branch protection</a> on master</li>
-  <li>Have <a href="/manual/test-and-build-a-project-on-jenkins-ci.html">Jenkins CI</a> configured, if the repo uses Jenkins</li>
-  <li>Have <a href="/manual/github-trello-poster.html">GitHub Trello Poster</a> enabled</li>
+<li>Have <a href="https://help.github.com/articles/about-protected-branches">branch protection</a> on master</li>
+<li>Have <a href="/manual/test-and-build-a-project-on-jenkins-ci.html">Jenkins CI</a> configured, if the repo uses Jenkins</li>
+<li>Have <a href="/manual/github-trello-poster.html">GitHub Trello Poster</a> enabled</li>
 </ul>
-
-<h2 id="auto-configuration">Auto configuration</h2>
-
-<p>When your repo is tagged with <code>govuk</code>, it will be auto-configured by <a href="https://github.com/alphagov/govuk-saas-config">govuk-saas-config</a>. This will take care of the settings, branch protection and web hooks.</p>
-
+<h2 id='auto-configuration'>Auto configuration</h2><p>When your repo is tagged with <code>govuk</code>, it will be auto-configured by <a href="https://github.com/alphagov/govuk-saas-config">govuk-saas-config</a>. This will take care of the settings, branch protection and web hooks.</p>
 <p>When you create a new repo:</p>
 
 <ul>
-  <li>Give the <a href="https://github.com/orgs/alphagov/teams/gov-uk-ci-bots">GOV.UK CI Bots</a> and <a href="https://github.com/orgs/alphagov/teams/gov-uk-production">GOV.UK Production</a> teams <code>Admin</code> access</li>
-  <li>Give the <a href="https://github.com/orgs/alphagov/teams/gov-uk">GOV.UK</a> <code>Write</code> access</li>
-  <li>Tag it with the <a href="https://github.com/search?q=topic:govuk"><code>govuk</code></a> topic</li>
-  <li><a href="https://deploy.production.govuk.digital/job/configure-github-repos">Kick off a build of the Jenkins job</a> to automate the rest</li>
+<li>Give the <a href="https://github.com/orgs/alphagov/teams/gov-uk-ci-bots">GOV.UK CI Bots</a> and <a href="https://github.com/orgs/alphagov/teams/gov-uk-production">GOV.UK Production</a> teams <code>Admin</code> access</li>
+<li>Give the <a href="https://github.com/orgs/alphagov/teams/gov-uk">GOV.UK</a> <code>Write</code> access</li>
+<li>Tag it with the <a href="https://github.com/search?q=topic:govuk"><code>govuk</code></a> topic</li>
+<li><a href="https://deploy.production.govuk.digital/job/configure-github-repos">Kick off a build of the Jenkins job</a> to automate the rest</li>
 </ul>
-
 <p>If your repo will be continuously deployed, restrict merge access to users with production access with <a href="https://github.com/alphagov/govuk-saas-config/blob/master/github/repo_overrides.yml">the <code>repo_overrides.yml</code> file</a>.</p>
-
 
 
   <div class='related-content'>

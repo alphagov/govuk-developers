@@ -317,100 +317,90 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: tech-docs-monitor</h1>
 
-  
-<p>Part of alphagov/tech-docs-template (issues 👉<a href="https://github.com/alphagov/tech-docs-template/issues">https://github.com/alphagov/tech-docs-template/issues</a>)</p>
+  <p>Part of alphagov/tech-docs-template (issues 👉<a href="https://github.com/alphagov/tech-docs-template/issues">https://github.com/alphagov/tech-docs-template/issues</a>)</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/tech-docs-monitor">tech-docs-monitor</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/tech-docs-monitor"&gt;tech-docs-monitor&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">N/A</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>Heroku</strong></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;N/A&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-
-    <li><a href="https://dashboard.heroku.com/apps/govuk-tech-docs-monitor" class="govuk-link">Manage application</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;Heroku&lt;/strong&gt;&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
 
-
-</ul>
-</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
+&lt;li&gt;&lt;a href="https://dashboard.heroku.com/apps/govuk-tech-docs-monitor" class="govuk-link"&gt;Manage application&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
+</div></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>This repo is part of the <a href="https://github.com/alphagov/tech-docs-template">tech-docs-template</a>, and is used in
 conjunction with the <a href="https://alphagov.github.io/tech-docs-manual/#last-reviewed-on-and-review-in">page expiry feature</a> that is part of the
 <a href="https://github.com/alphagov/tech-docs-gem">tech-docs-gem</a></p>
+
 <p>Concourse CI will run the script once a day during weekdays.
 It will look at the pages API for your site, find all pages that have expired, and post a Slack message to the owner of each page to let them know that it needs reviewing.</p>
+
 <h2 id="usage">Usage</h2>
+
 <h3 id="alphagov-users">
 <code>alphagov</code> users</h3>
+
 <p>If you are part of the <code>alphagov</code> GitHub organisation you can enable the notifier by raising a PR to add your published documentation to the <a href="https://github.com/alphagov/tech-docs-monitor/blob/master/Rakefile"><code>Rakefile</code></a>:</p>
+
 <pre><code>pages_urls = [
   "https://gds-way.cloudapps.digital/api/pages.json",
   "https://docs.publishing.service.gov.uk/api/pages.json",
   "your-docs-site.cloudapps.digital"
 ]
 </code></pre>
+
 <p>If you want to limit the number of links that are posted to Slack after a single run, add this to  <code>limits</code> in the <a href="https://github.com/alphagov/tech-docs-monitor/blob/master/Rakefile"><code>Rakefile</code></a></p>
+
 <pre><code>limits = {
   "your-docs-site.cloudapps.digital" =&gt; 3
 }
 </code></pre>
+
 <p>The default behaviour is no limit, and the Slack message will contain all pages discovered.</p>
+
 <h3 id="general-configuration">General configuration</h3>
+
 <p>The following environment variables are necessary:</p>
+
 <ul>
 <li>
 <code>SLACK_WEBHOOK_URL</code>: The Slack webhook URL to allow messages to be posted.</li>
@@ -418,10 +408,11 @@ It will look at the pages API for your site, find all pages that have expired, a
 <code>REALLY_POST_TO_SLACK</code>: Messages will only be posted to Slack if the value of
 this var is <code>1</code>.</li>
 </ul>
-<h2 id="licence">Licence</h2>
-<p>The gem is available as open source under the terms of the <a href="https://github.com/alphagov/tech-docs-monitor/blob/master/LICENCE">MIT License</a>.</p>
-  </div>
 
+<h2 id="licence">Licence</h2>
+
+<p>The gem is available as open source under the terms of the <a href="https://github.com/alphagov/tech-docs-monitor/blob/master/LICENCE">MIT License</a>.</p>
+<p></div></p>
 
 
             

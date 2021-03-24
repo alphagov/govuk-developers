@@ -173,159 +173,132 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/e5a172f79bae009499c1a7ca64f1f8e9df5577db">26 Jan 2021</a>
 </div>
 
- <h1 id='header'>Jenkins CI infrastructure</h1> <h2 id="introduction">Introduction</h2>
-
-<p>Our CI environment provides the infrastructure and services to cover the
+ <h1 id='header'>Jenkins CI infrastructure</h1> <h2 id='introduction'>Introduction</h2><p>Our CI environment provides the infrastructure and services to cover the
 first stages of our build and continuous deployment pipeline:</p>
 
 <ul>
-  <li>Build application, Puppet and infrastructure projects from our GitHub organisation</li>
-  <li>Run unit, functional, performance tests</li>
-  <li>Update the status of the build in GitHub</li>
-  <li>Trigger deployment jobs on our Deployment infrastructure</li>
+<li>Build application, Puppet and infrastructure projects from our GitHub organisation</li>
+<li>Run unit, functional, performance tests</li>
+<li>Update the status of the build in GitHub</li>
+<li>Trigger deployment jobs on our Deployment infrastructure</li>
 </ul>
-
-<h2 id="systems-diagram">Systems diagram</h2>
-
-<p>Components:</p>
+<h2 id='systems-diagram'>Systems diagram</h2><p>Components:</p>
 
 <ul>
-  <li>The CI environment runs in the Integration environment in the "CI" vDC</li>
-  <li>Jenkins master:
-    <ul>
-      <li>Nginx, listening on port 443, serves <a href="https://ci.integration.publishing.service.gov.uk">https://ci.integration.publishing.service.gov.uk</a>
+<li>The CI environment runs in the Integration environment in the &ldquo;CI&rdquo; vDC</li>
+<li>Jenkins master:
+
+<ul>
+<li>Nginx, listening on port 443, serves <a href="https://ci.integration.publishing.service.gov.uk">https://ci.integration.publishing.service.gov.uk</a>
 and proxies requests to Jenkins. It is also running on port 80 to serve a monitoring page.</li>
-      <li>Jenkins master, listening on port 8080</li>
-    </ul>
-  </li>
-  <li>Jenkins agents:
-    <ul>
-      <li>The master instance connects with the agent box via SSH to manage the process</li>
-      <li>The agent machines run a set of services for application tests. Not all the boxes run
+<li>Jenkins master, listening on port 8080</li>
+</ul></li>
+<li>Jenkins agents:
+
+<ul>
+<li>The master instance connects with the agent box via SSH to manage the process</li>
+<li>The agent machines run a set of services for application tests. Not all the boxes run
 the same services, this is managed with Puppet. Check the <code>govuk_ci::master::ci_agents</code> label keys in
 <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/common.yaml">Hiera</a> for more information.</li>
-    </ul>
-  </li>
-  <li>Supporting services:
-    <ul>
-      <li>An <a href="https://ci-alert.integration.publishing.service.gov.uk">Icinga instance</a> to monitor the
+</ul></li>
+<li>Supporting services:
+
+<ul>
+<li>An <a href="https://ci-alert.integration.publishing.service.gov.uk">Icinga instance</a> to monitor the
 status of CI and the supporting infrastructure.</li>
-      <li>A <a href="https://deploy.integration.publishing.service.gov.uk">Deploy Jenkins instance</a> to deploy Puppet
+<li>A <a href="https://deploy.integration.publishing.service.gov.uk">Deploy Jenkins instance</a> to deploy Puppet
 in to the environment and run any other adhoc tasks.</li>
-      <li><a href="https://ci-graphite.integration.publishing.service.gov.uk">Graphite</a> and <a href="https://ci-grafana.integration.publishing.service.gov.uk">Grafana</a>
+<li><a href="https://ci-graphite.integration.publishing.service.gov.uk">Graphite</a> and <a href="https://ci-grafana.integration.publishing.service.gov.uk">Grafana</a>
 for metrics in the environment.</li>
-      <li>Puppetmaster which deploys the latest version of <a href="https://github.com/alphagov/govuk-puppet">https://github.com/alphagov/govuk-puppet</a>.</li>
-      <li>Apt instance for Gemstash</li>
-    </ul>
-  </li>
+<li>Puppetmaster which deploys the latest version of <a href="https://github.com/alphagov/govuk-puppet">https://github.com/alphagov/govuk-puppet</a>.</li>
+<li>Apt instance for Gemstash</li>
+</ul></li>
 </ul>
-
-<p><img src="/manual/images/ci_infrastructure.png" alt="image" /></p>
-
-<h2 id="access">Access</h2>
-
-<p>SSH to a random CI machine with <code>gds govuk connect ssh -e integration ci_agent</code>.
+<p><a href="images/ci_infrastructure.png" rel="noopener noreferrer"><img src="/manual/images/ci_infrastructure.png" alt="image" /></a></p>
+<h2 id='access'>Access</h2><p>SSH to a random CI machine with <code>gds govuk connect ssh -e integration ci_agent</code>.
 If you know the agent you want, append <code>:number</code> to the end of
 <code>ci_agent</code> to go straight to that machine.</p>
-
-<h2 id="configuration">Configuration</h2>
-
-<h3 id="configuration-management">Configuration Management</h3>
-
-<p>The configuration for CI resides in <a href="https://github.com/alphagov/govuk-puppet/tree/master/modules/govuk_ci">govuk-puppet</a>.</p>
-
-<h3 id="manual-configuration">Manual configuration</h3>
-
-<h4 id="set-up-jenkins-credentials">Set up Jenkins credentials</h4>
-
-<p>The credentials plugin allows us to store credentials in Jenkins that can be retrieved later by other plugins
+<h2 id='configuration'>Configuration</h2><h3 id='configuration-management'>Configuration Management</h3><p>The configuration for CI resides in <a href="https://github.com/alphagov/govuk-puppet/tree/master/modules/govuk_ci">govuk-puppet</a>.</p>
+<h3 id='manual-configuration'>Manual configuration</h3><h4 id='set-up-jenkins-credentials'>Set up Jenkins credentials</h4><p>The credentials plugin allows us to store credentials in Jenkins that can be retrieved later by other plugins
 via API. At the moment these credentials are configured manually because Jenkins encrypts the secrets in a
-credentials.xml file, so we can't replicate the encryption with Puppet. The <a href="https://forge.puppet.com/rtyler/jenkins">Jenkins Puppet module</a>
+credentials.xml file, so we can&rsquo;t replicate the encryption with Puppet. The <a href="https://forge.puppet.com/rtyler/jenkins">Jenkins Puppet module</a>
 can manage credentials via Jenkins CLI, but currently not all types of credentials are supported.</p>
-
 <p>To configure our credentials manually, from the Jenkins Credentials section add the following entries:</p>
 
 <ul>
-  <li>GitHub token for govuk-ci
-    <ul>
-      <li>ID: github-token-govuk-ci</li>
-      <li>Type: Secret text</li>
-      <li>Description: GitHub token for govuk-ci</li>
-      <li>Scope: Global</li>
-      <li>Secret: <em>&lt;personal access token for govuk-ci user on GitHub&gt;</em></li>
-    </ul>
-  </li>
-  <li>GitHub token for govuk-ci with username
-    <ul>
-      <li>ID: github-token-govuk-ci-username</li>
-      <li>Type: Username with password</li>
-      <li>Description: GitHub token for govuk-ci with username</li>
-      <li>Scope: Global</li>
-      <li>Username: govuk-ci</li>
-      <li>Password: <em>&lt;personal access token for govuk-ci user on GitHub&gt;</em></li>
-    </ul>
-  </li>
-  <li>govuk-ci SSH key
-    <ul>
-      <li>ID: govuk-ci-ssh-key</li>
-      <li>Type: SSH Username with private key</li>
-      <li>Description: govuk-ci SSH key</li>
-      <li>Scope: Global</li>
-      <li>Username: govuk-ci</li>
-      <li>Private Key: From the Jenkins master ~/.ssh</li>
-      <li>Passphrase: <em>&lt;private key passphrase&gt;</em></li>
-    </ul>
-  </li>
-  <li>Pact broker creds for ci.dev.publishing.service.gov.uk
-    <ul>
-      <li>ID: pact-broker-ci-dev</li>
-      <li>Type: Username with password</li>
-      <li>Description: Pact broker creds for ci.dev.publishing.service.gov.uk</li>
-      <li>Scope: Global</li>
-      <li>Username: pact_ci</li>
-      <li>Password: <em>&lt;pact_ci user password on ci.dev.publishing.service.gov.uk&gt;</em></li>
-    </ul>
-  </li>
-  <li>Jenkins user that connects to SSH slaves
-    <ul>
-      <li>ID: jenkins-ssh-slave</li>
-      <li>Type: SSH Username with private key</li>
-      <li>Description: Jenkins user that connects to SSH slaves</li>
-      <li>Scope: Global</li>
-      <li>Username: jenkins</li>
-      <li>Private Key: From the Jenkins master ~/.ssh</li>
-      <li>Passphrase: <em>&lt;private key passphrase&gt;</em></li>
-    </ul>
-  </li>
+<li>GitHub token for govuk-ci
+
+<ul>
+<li>ID: github-token-govuk-ci</li>
+<li>Type: Secret text</li>
+<li>Description: GitHub token for govuk-ci</li>
+<li>Scope: Global</li>
+<li>Secret: <em>&lt;personal access token for govuk-ci user on GitHub&gt;</em></li>
+</ul></li>
+<li>GitHub token for govuk-ci with username
+
+<ul>
+<li>ID: github-token-govuk-ci-username</li>
+<li>Type: Username with password</li>
+<li>Description: GitHub token for govuk-ci with username</li>
+<li>Scope: Global</li>
+<li>Username: govuk-ci</li>
+<li>Password: <em>&lt;personal access token for govuk-ci user on GitHub&gt;</em></li>
+</ul></li>
+<li>govuk-ci SSH key
+
+<ul>
+<li>ID: govuk-ci-ssh-key</li>
+<li>Type: SSH Username with private key</li>
+<li>Description: govuk-ci SSH key</li>
+<li>Scope: Global</li>
+<li>Username: govuk-ci</li>
+<li>Private Key: From the Jenkins master ~/.ssh</li>
+<li>Passphrase: <em>&lt;private key passphrase&gt;</em></li>
+</ul></li>
+<li>Pact broker creds for ci.dev.publishing.service.gov.uk
+
+<ul>
+<li>ID: pact-broker-ci-dev</li>
+<li>Type: Username with password</li>
+<li>Description: Pact broker creds for ci.dev.publishing.service.gov.uk</li>
+<li>Scope: Global</li>
+<li>Username: pact_ci</li>
+<li>Password: <em>&lt;pact_ci user password on ci.dev.publishing.service.gov.uk&gt;</em></li>
+</ul></li>
+<li>Jenkins user that connects to SSH slaves
+
+<ul>
+<li>ID: jenkins-ssh-slave</li>
+<li>Type: SSH Username with private key</li>
+<li>Description: Jenkins user that connects to SSH slaves</li>
+<li>Scope: Global</li>
+<li>Username: jenkins</li>
+<li>Private Key: From the Jenkins master ~/.ssh</li>
+<li>Passphrase: <em>&lt;private key passphrase&gt;</em></li>
+</ul></li>
 </ul>
-
-<p>The credential IDs are referenced in our Puppet code, we shouldn't update this field without checking first.</p>
-
-<h4 id="set-up-github-repositories">Set up GitHub repositories</h4>
-
-<p>We use this with the GitHub and GitHub Branch Source plugins to define the source code repositories of
+<p>The credential IDs are referenced in our Puppet code, we shouldn&rsquo;t update this field without checking first.</p>
+<h4 id='set-up-github-repositories'>Set up GitHub repositories</h4><p>We use this with the GitHub and GitHub Branch Source plugins to define the source code repositories of
 our jobs.</p>
 
 <ul>
-  <li>Manage Jenkins -&gt; Configure Global Security
-    <ul>
-      <li>GitHub -&gt; Add GitHub Server</li>
-      <li>API URL: 'https://api.github.com'</li>
-      <li>Credentials: select 'GitHub token for govuk-ci'</li>
-      <li>Untick 'Manage hooks'</li>
-      <li>Click 'Test connection' to confirm the settings</li>
-    </ul>
-  </li>
-</ul>
-
-<p>With this configuration, in our jobs we can use 'GitHub' API endpoints to
-access the source code repository. The API endpoint name is referenced in
-Puppet to configure jobs automatically so we shouldn't update it.</p>
-
-<h2 id="on-the-blog">On the blog</h2>
+<li>Manage Jenkins -&gt; Configure Global Security
 
 <ul>
-  <li><a href="https://gdstechnology.blog.gov.uk/2017/02/10/updating-the-gov-uk-continuous-integration-environment/">Updating the GOV.UK Continuous Integration environment</a></li>
+<li>GitHub -&gt; Add GitHub Server</li>
+<li>API URL: &lsquo;https://api.github.com&rsquo;</li>
+<li>Credentials: select &lsquo;GitHub token for govuk-ci&rsquo;</li>
+<li>Untick &lsquo;Manage hooks&rsquo;</li>
+<li>Click &lsquo;Test connection&rsquo; to confirm the settings</li>
+</ul></li>
+</ul>
+<p>With this configuration, in our jobs we can use &lsquo;GitHub&rsquo; API endpoints to
+access the source code repository. The API endpoint name is referenced in
+Puppet to configure jobs automatically so we shouldn&rsquo;t update it.</p>
+<h2 id='on-the-blog'>On the blog</h2>
+<ul>
+<li><a href="https://gdstechnology.blog.gov.uk/2017/02/10/updating-the-gov-uk-continuous-integration-environment/">Updating the GOV.UK Continuous Integration environment</a></li>
 </ul>
 
 

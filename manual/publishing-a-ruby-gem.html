@@ -172,62 +172,42 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/cbd165cc227b8d64cc06f102ce7b7f12b2f7b2d7">3 Aug 2020</a>
 </div>
 
- <h1 id='header'>Publish a Ruby gem</h1> <h2 id="naming">Naming</h2>
-
-<p>In general, the gem name should be the same as the thing you require when using
+ <h1 id='header'>Publish a Ruby gem</h1> <h2 id='naming'>Naming</h2><p>In general, the gem name should be the same as the thing you require when using
 it. This means using <code>_</code>, and not <code>-</code> to separate multi-word gem names.  See the
 <a href="http://guides.rubygems.org/name-your-gem/">name your gem guide</a> for more detailed
 guidance.</p>
-
 <p>Also <a href="/manual/naming.html#naming-gems">see the general policy on naming</a>.</p>
-
-<h2 id="versioning">Versioning</h2>
-
-<p>Follow the guidelines on <a href="http://semver.org/">semver.org</a> for assigning version
+<h2 id='versioning'>Versioning</h2><p>Follow the guidelines on <a href="http://semver.org/">semver.org</a> for assigning version
 numbers.</p>
-
 <p>Versions should only be changed in a commit of their own, in a pull request of
 their own.</p>
-
 <p>This alerts team members to the new version and allows for last-minute scrutiny
 before the new version is released. Also, by raising a separate pull request,
 we avoid version number conflicts between feature branches.</p>
-
-<h2 id="file-layout">File layout</h2>
-
-<p>We should follow the scheme used by Bundler when creating gems (see <a href="http://railscasts.com/episodes/245-new-gem-with-bundler?view=asciicast">this
+<h2 id='file-layout'>File layout</h2><p>We should follow the scheme used by Bundler when creating gems (see <a href="http://railscasts.com/episodes/245-new-gem-with-bundler?view=asciicast">this
 railscast</a>).</p>
 
 <blockquote>
-  <p><strong>Note</strong></p>
+<p><strong>Note</strong></p>
 
-  <ul>
-    <li>The version is stored in a file by itself in <code>lib/&lt;gem_name&gt;/version.rb</code>.</li>
-    <li>The Gemfile references the gemspec for gem dependencies.  All gem
+<ul>
+<li>The version is stored in a file by itself in <code>lib/&lt;gem_name&gt;/version.rb</code>.</li>
+<li>The Gemfile references the gemspec for gem dependencies.  All gem
 dependencies should be specified in the gemspec.</li>
-    <li>The Gemfile.lock is <strong>never</strong> committed (it should be in the <code>.gitignore</code>
+<li>The Gemfile.lock is <strong>never</strong> committed (it should be in the <code>.gitignore</code>
 file).</li>
-  </ul>
+</ul>
 </blockquote>
-
-<h2 id="releasing-gem-versions">Releasing gem versions</h2>
-
-<p>The default Jenkins build script will automatically detect the presence of a
+<h2 id='releasing-gem-versions'>Releasing gem versions</h2><p>The default Jenkins build script will automatically detect the presence of a
 <code>gemspec</code> file and publish the gem to rubygems.org. See the
 <a href="https://github.com/alphagov/govuk_app_config/blob/master/Jenkinsfile">Jenkinsfile for govuk_app_config</a>
 for an example.</p>
-
-<h2 id="clearing-the-gemstash-cache">Clearing the gemstash cache</h2>
-
-<p>When a new gem version is released, it may not be available immediately on Jenkins.
+<h2 id='clearing-the-gemstash-cache'>Clearing the gemstash cache</h2><p>When a new gem version is released, it may not be available immediately on Jenkins.
 This is due to <a href="https://github.com/bundler/gemstash/">gemstash</a>, our gem mirror. It caches versions for up to 30
 minutes. To force it to clear, run this on <code>apt-1.management</code> in the relevant
 environment:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo docker restart gemstash
-</code></pre></div>
-<p>To clear the cache for the CI Jenkins instance, run this in integration.</p>
-
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo docker restart gemstash
+</code></pre></div><p>To clear the cache for the CI Jenkins instance, run this in integration.</p>
 
 
   <div class='related-content'>

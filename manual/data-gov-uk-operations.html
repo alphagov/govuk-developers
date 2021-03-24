@@ -134,7 +134,7 @@
     <a href="#header"><span>Operation of data.gov.uk</span></a>
     <ul>
       <li>
-        <a href="#accessing-datagovuk"><span>Accessing data.gov.uk</span></a>
+        <a href="#accessing-data-gov-uk"><span>Accessing data.gov.uk</span></a>
         <ul>
           <li>
             <a href="#paas"><span>PaaS</span></a>
@@ -158,67 +158,40 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c4001db534dceebb9b663c8d5a6772e55d4c2bf6">10 Nov 2020</a>
 </div>
 
- <h1 id='header'>Operation of data.gov.uk</h1> 
-<h2 id="accessing-datagovuk">Accessing data.gov.uk</h2>
-
-<h3 id="paas">PaaS</h3>
-
+ <h1 id='header'>Operation of data.gov.uk</h1> <h2 id='accessing-data-gov-uk'>Accessing data.gov.uk</h2><h3 id='paas'>PaaS</h3>
 <ol>
-  <li>
-    <p>Download and install <a href="https://github.com/cloudfoundry/cli#downloads">Cloud Foundry CLI</a></p>
-  </li>
-  <li>
-    <p>Sign into the PaaS. You can either do this via username and password, or single sign-on. After authenticating, a list of your accessible spaces will be shown, select <code>data-gov-uk</code>.</p>
-  </li>
+<li><p>Download and install <a href="https://github.com/cloudfoundry/cli#downloads">Cloud Foundry CLI</a></p></li>
+<li><p>Sign into the PaaS. You can either do this via username and password, or single sign-on. After authenticating, a list of your accessible spaces will be shown, select <code>data-gov-uk</code>.</p></li>
 </ol>
-
-<div class="highlight"><pre class="highlight plaintext"><code># To sign in using username and password
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code># To sign in using username and password
 cf login -a api.cloud.service.gov.uk
 
 # To sign in using SSO
 cf login -a api.cloud.service.gov.uk --sso
 </code></pre></div>
 <blockquote>
-  <p><strong>Don't have an account?</strong>
-If you don't have an account or if your account isn't recognised ask on #govuk-2ndline for an account.</p>
-
-  <p><strong>Forgot your password?</strong>
+<p><strong>Don&rsquo;t have an account?</strong>
+If you don&rsquo;t have an account or if your account isn&rsquo;t recognised ask on #govuk-2ndline for an account.</p>
+<p><strong>Forgot your password?</strong>
 If you forgot your password, read the <a href="https://docs.cloud.service.gov.uk/troubleshooting.html#forgotten-passwords">PaaS documentation on forgotten passwords</a></p>
-
-  <p>For more details, see the <a href="https://docs.cloud.service.gov.uk/get_started.html#sign-in-to-cloud-foundry">PaaS documentation on signing in</a>.</p>
+<p>For more details, see the <a href="https://docs.cloud.service.gov.uk/get_started.html#sign-in-to-cloud-foundry">PaaS documentation on signing in</a>.</p>
 </blockquote>
 
 <ol>
-  <li>SSH into the relevant machine, e.g. <code>publish-data-beta-production-worker</code>.</li>
+<li>SSH into the relevant machine, e.g. <code>publish-data-beta-production-worker</code>.</li>
 </ol>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf ssh publish-data-beta-production-worker
-</code></pre></div>
-<p>There are <a href="https://docs.cloud.service.gov.uk/get_started.html#set-up-command-line">detailed instructions</a> in the PaaS documentation.</p>
-
-<h4 id="accessing-a-rails-console">Accessing a Rails Console</h4>
-
-<p>The following can be used on any PaaS machine to access a Rails console.  The example is for the Find production instance.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf ssh find-data-beta
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf ssh publish-data-beta-production-worker
+</code></pre></div><p>There are <a href="https://docs.cloud.service.gov.uk/get_started.html#set-up-command-line">detailed instructions</a> in the PaaS documentation.</p>
+<h4 id='accessing-a-rails-console'>Accessing a Rails Console</h4><p>The following can be used on any PaaS machine to access a Rails console.  The example is for the Find production instance.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf ssh find-data-beta
 /tmp/lifecycle/launcher /home/vcap/app 'rails console' ''
-</code></pre></div>
-<h4 id="reindexing-find">Reindexing <a href="/apps/datagovuk_find.html">Find</a></h4>
-
-<p>This is done using the <code>search:reindex</code> rake task in <a href="/apps/datagovuk_publish.html">Publish</a> and will not cause any app downtime.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf ssh publish-data-beta-staging
+</code></pre></div><h4 id='reindexing-find'>Reindexing <a href="/apps/datagovuk_find.html">Find</a></h4><p>This is done using the <code>search:reindex</code> rake task in <a href="/apps/datagovuk_publish.html">Publish</a> and will not cause any app downtime.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf ssh publish-data-beta-staging
 /tmp/lifecycle/launcher /home/vcap/app 'rails search:reindex[500]' ''
-</code></pre></div>
-<p>This will populate a new index and rotate the <code>dataset-staging</code> alias to point to it when it's ready.</p>
-
-<h4 id="perform-a-full-re-sync-from-ckan">Perform a full re-sync from <a href="/apps/ckanext-datagovuk.html">CKAN</a></h4>
-
-<p>The sync is normally done automatically using Sidekiq Scheduler. There may be times when you need to throw away the existing Postgres database, sync all datasets from CKAN and reindex.</p>
-
+</code></pre></div><p>This will populate a new index and rotate the <code>dataset-staging</code> alias to point to it when it&rsquo;s ready.</p>
+<h4 id='perform-a-full-re-sync-from-ckan'>Perform a full re-sync from <a href="/apps/ckanext-datagovuk.html">CKAN</a></h4><p>The sync is normally done automatically using Sidekiq Scheduler. There may be times when you need to throw away the existing Postgres database, sync all datasets from CKAN and reindex.</p>
 <p>This will not make any changes to the content on Find until the reindex has completed and the Elastic index is updated.  This will affect data served on Publish, however this service is not currently used for publishing or editing datasets.  In most cases, you should never need to do this as the sync performs incremental updates.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>### connect to staging
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>### connect to staging
 cf ssh publish-data-beta-staging
 ### connect to production
 cf ssh publish-data-beta-production
@@ -232,37 +205,23 @@ cf ssh publish-data-beta-production
 ## sync datasets or update orgs
 /tmp/lifecycle/launcher /home/vcap/app 'rails runner CKAN::V26::PackageSyncWorker.new.perform' ''
 /tmp/lifecycle/launcher /home/vcap/app 'rails runner CKAN::V26::CKANOrgSyncWorker.new.perform' ''
-</code></pre></div>
-<p>Now run <code>bundle exec sidekiq</code> and <code>rails s</code> and monitor the resulting jobs in the <a href="/manual/data-gov-uk-monitoring.html#sidekiq-publish">Sidekiq Web UI</a>.</p>
-
-<h4 id="updating-zendesk-password-for-find">Updating Zendesk password for Find</h4>
-
-<p>The contact form on Find uses the Zendesk API to create new tickets.  If the account password expires, it will need updating in secrets on the PaaS.</p>
-
+</code></pre></div><p>Now run <code>bundle exec sidekiq</code> and <code>rails s</code> and monitor the resulting jobs in the <a href="/manual/data-gov-uk-monitoring.html#sidekiq-publish">Sidekiq Web UI</a>.</p>
+<h4 id='updating-zendesk-password-for-find'>Updating Zendesk password for Find</h4><p>The contact form on Find uses the Zendesk API to create new tickets.  If the account password expires, it will need updating in secrets on the PaaS.</p>
 <p>The following example is for staging.</p>
-
 <p>Get the existing credentials (username and password):</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf ssh find-data-beta-staging
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf ssh find-data-beta-staging
 echo $VCAP_SERVICES
-</code></pre></div>
-<p>Log into the Zendesk using the username and password obtained from the previous step.  Reset the password through the UI.</p>
-
+</code></pre></div><p>Log into the Zendesk using the username and password obtained from the previous step.  Reset the password through the UI.</p>
 <p>Update the password in secrets using <a href="http://cli.cloudfoundry.org/en-US/cf/update-user-provided-service.html">uups</a>:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf uups find-staging-secrets -p '{"key1": "value1", "key2": "value2"}'
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf uups find-staging-secrets -p '{"key1": "value1", "key2": "value2"}'
 </code></pre></div>
 <blockquote>
-  <p>Updating the credentials will overwrite any existing credentials, not just the one you are updating.  Therefore you must copy the entirety of the credentials from <code>echo $VCAP_SERVICES</code>, update the password then paste this into the <code>uups</code> command.  Otherwise other credentials will be lost.</p>
+<p>Updating the credentials will overwrite any existing credentials, not just the one you are updating.  Therefore you must copy the entirety of the credentials from <code>echo $VCAP_SERVICES</code>, update the password then paste this into the <code>uups</code> command.  Otherwise other credentials will be lost.</p>
 </blockquote>
-
 <p>Restage the application to update the environment variables:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf restage find-data-beta-staging
-</code></pre></div>
-<p>Verify the new password is being used:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf ssh find-data-beta-staging
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf restage find-data-beta-staging
+</code></pre></div><p>Verify the new password is being used:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf ssh find-data-beta-staging
 echo $VCAP_SERVICES
 </code></pre></div>
 

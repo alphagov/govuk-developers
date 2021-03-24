@@ -317,109 +317,106 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: bouncer</h1>
 
-  
-<p>Handles traffic for sites that have transitioned to GOV.UK</p>
+  <p>Handles traffic for sites that have transitioned to GOV.UK</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/bouncer">bouncer</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/bouncer"&gt;bouncer&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>bouncer</strong> machine class</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-platform-health&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Rake tasks</dt>
-            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=bouncer&amp;MACHINE_CLASS=bouncer&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=bouncer&amp;MACHINE_CLASS=bouncer&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=bouncer&amp;MACHINE_CLASS=bouncer&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;AWS&lt;/strong&gt;, on the &lt;strong&gt;bouncer&lt;/strong&gt; machine class&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/govuk/app-bouncer" class="govuk-link">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/bouncer.pp" class="govuk-link">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/bouncer/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/bouncer.json" class="govuk-link">Deployment dashboard</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Rake tasks&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;span aria-hidden='true'&gt;Run a Rake task on&lt;/span&gt; &lt;a
+  href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=bouncer&amp;MACHINE_CLASS=bouncer&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Integration"&gt;Integration&lt;/a&gt;, &lt;a
+  href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=bouncer&amp;MACHINE_CLASS=bouncer&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Staging"&gt;Staging&lt;/a&gt; or &lt;a
+  href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=bouncer&amp;MACHINE_CLASS=bouncer&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Production"&gt;⚠️ Production ⚠️&lt;/a&gt;&lt;/dd&gt;
 
 
-</ul>
-</dd>
+
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://sentry.io/govuk/app-bouncer" class="govuk-link"&gt;Sentry (error tracking)&lt;/a&gt;&lt;/li&gt;
 
 
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/bouncer.pp" class="govuk-link"&gt;Puppet configuration&lt;/a&gt;&lt;/li&gt;
 
-              <dd class="govuk-summary-list__actions">
-</dd>
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-app-deployment/blob/master/bouncer/config/deploy.rb" class="govuk-link"&gt;Deploy scripts&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://grafana.production.govuk.digital/dashboard/file/bouncer.json" class="govuk-link"&gt;Deployment dashboard&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
-
-<h2 id="relevant-manual-pages">Relevant manual pages</h2>
-<ul class="gem-c-list govuk-list">
+</div></p>
+<h2 id='relevant-manual-pages'>Relevant manual pages</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="/manual/request-fastly-tls-certificate.html" class="govuk-link">Request Fastly TLS certificate</a></li>
       <li><a href="/manual/transition-a-site.html" class="govuk-link">Transition a site to GOV.UK</a></li>
       <li><a href="/manual/transition-architecture.html" class="govuk-link">Transition architecture</a></li>
-</ul>
+</ul></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>This is a Rack-based redirector. It serves 301s and 410s from mappings created by <a href="https://github.com/alphagov/transition">Transition</a>.</p>
+
 <h2 id="testing-in-a-browser-in-development">Testing in a browser in development</h2>
+
 <p>These instructions assume you use the Dev VM, that Bouncer is running,
 and that you have some data in your Transition/Bouncer database.</p>
-<p>Let's say you want to test <code>bis.gov.uk</code>.</p>
+
+<p>Let&rsquo;s say you want to test <code>bis.gov.uk</code>.</p>
+
 <p>Get the IP address of your VM:</p>
+
 <pre><code>mac$ ping transition.dev.gov.uk
 </code></pre>
+
 <p>Then, add to hosts file on your Mac:</p>
+
 <pre><code>mac$ cat /etc/hosts
 10.1.1.254 dev.bis.gov.uk
 </code></pre>
+
 <p>Then on your VM, as root, add this file:</p>
+
 <pre><code>dev$ cat /etc/nginx/sites-available/bis.gov.uk
 server {
   server_name dev.bis.gov.uk;
@@ -431,15 +428,19 @@ server {
   }
 }
 </code></pre>
+
 <p>Then link the file:</p>
+
 <pre><code>dev$ sudo ln -s /etc/nginx/sites-available/bis.gov.uk /etc/nginx/sites-enabled/bis.gov.uk
 </code></pre>
+
 <p>And restart nginx:</p>
+
 <pre><code>dev$ sudo service nginx restart
 </code></pre>
-<p>Now browse to <a href="http://dev.bis.gov.uk/410">http://dev.bis.gov.uk/410</a> and bask in the glory.</p>
-  </div>
 
+<p>Now browse to <a href="http://dev.bis.gov.uk/410">http://dev.bis.gov.uk/410</a> and bask in the glory.</p>
+<p></div></p>
 
 
             

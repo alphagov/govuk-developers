@@ -170,67 +170,41 @@
 </div>
 
  <h1 id='header'>Publisher: Unprocessed fact-check emails</h1> <p>As part of the <a href="https://github.com/alphagov/publisher/blob/master/doc/fact-checking.md">Publisher fact checking process</a>, this alert appears if emails
-have arrived in the inbox but weren't able to be processed. This is usually
-because they're missing the identification for the edition they relate to
+have arrived in the inbox but weren&rsquo;t able to be processed. This is usually
+because they&rsquo;re missing the identification for the edition they relate to
 (which is currently stored in the subject line).</p>
-
-<h2 id="dealing-with-the-alert">Dealing with the alert</h2>
-
-<h3 id="log-in-to-the-inbox">Log in to the inbox</h3>
-
-<p>To investigate the emails we first need to <a href="https://support.google.com/accounts/answer/1721977?co=GENIE.Platform%3DDesktop&amp;hl=en">log in to the inbox</a>.</p>
-
+<h2 id='dealing-with-the-alert'>Dealing with the alert</h2><h3 id='log-in-to-the-inbox'>Log in to the inbox</h3><p>To investigate the emails we first need to <a href="https://support.google.com/accounts/answer/1721977?co=GENIE.Platform%3DDesktop&amp;hl=en">log in to the inbox</a>.</p>
 <p>The current email addresses used for the fact checking process are:</p>
 
 <ul>
-  <li>govuk-fact-check@digital.cabinet-office.gov.uk</li>
-  <li>govuk-fact-check-staging@digital.cabinet-office.gov.uk</li>
-  <li>govuk-fact-check-integration@digital.cabinet-office.gov.uk</li>
+<li>govuk-fact-check@digital.cabinet-office.gov.uk</li>
+<li>govuk-fact-check-staging@digital.cabinet-office.gov.uk</li>
+<li>govuk-fact-check-integration@digital.cabinet-office.gov.uk</li>
 </ul>
-
-<h4 id="retrieving-credentials">Retrieving credentials</h4>
-
-<p>The passwords for the @digital.cabinet-office.gov.uk addresses are found in
+<h4 id='retrieving-credentials'>Retrieving credentials</h4><p>The passwords for the @digital.cabinet-office.gov.uk addresses are found in
 <a href="https://github.com/alphagov/govuk-secrets">govuk-secrets</a>:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/2ndline pass google-accounts/govuk-fact-check@digital.cabinet-office.gov.uk
-</code></pre></div>
-<p>The password for the factcheck@alphagov.co.uk address can be found by logging
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">PASSWORD_STORE_DIR</span><span class="o">=</span>~/govuk/govuk-secrets/pass/2ndline pass google-accounts/govuk-fact-check@digital.cabinet-office.gov.uk
+</code></pre></div><p>The password for the factcheck@alphagov.co.uk address can be found by logging
 into the Publisher console:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>gds govuk connect app-console <span class="nt">-e</span> production publisher
-</code></pre></div>
-<div class="highlight"><pre class="highlight ruby"><code><span class="o">&gt;</span> <span class="no">Publisher</span><span class="o">::</span><span class="no">Application</span><span class="p">.</span><span class="nf">mail_fetcher_config</span>
-</code></pre></div>
-<h3 id="investigate-the-unprocessed-emails">Investigate the unprocessed emails</h3>
-
-<p>There are a number of different ways of proceeding here based on why the email
-wasn't able to be processed:</p>
-
-<h4 id="spamout-of-office">Spam/out of office</h4>
-
-<p>If the email is clearly spam or not relevant for other reasons,
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect app-console <span class="nt">-e</span> production publisher
+</code></pre></div><div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="o">&gt;</span> <span class="no">Publisher</span><span class="o">::</span><span class="no">Application</span><span class="p">.</span><span class="nf">mail_fetcher_config</span>
+</code></pre></div><h3 id='investigate-the-unprocessed-emails'>Investigate the unprocessed emails</h3><p>There are a number of different ways of proceeding here based on why the email
+wasn&rsquo;t able to be processed:</p>
+<h4 id='spamout-of-office'>Spam/out of office</h4><p>If the email is clearly spam or not relevant for other reasons,
 <strong>it can be deleted</strong>.</p>
-
-<h4 id="missing-edition-identification">Missing edition identification</h4>
-
-<p>If the subject line is missing the edition identification but is clearly a
+<h4 id='missing-edition-identification'>Missing edition identification</h4><p>If the subject line is missing the edition identification but is clearly a
 valid fact check response, the first thing to check is if a follow up
 email was sent with the correct subject.</p>
-
 <p>This can be checked by <a href="https://publisher.publishing.service.gov.uk/">logging in to Publisher</a> and finding the
-relevant edition by using the title. Usually you'll need to filter on editions
-with the state of "Published" or "Out for fact check".</p>
-
-<p>Once you've found the edition, you can check in the "History and notes" tab
+relevant edition by using the title. Usually you&rsquo;ll need to filter on editions
+with the state of &ldquo;Published&rdquo; or &ldquo;Out for fact check&rdquo;.</p>
+<p>Once you&rsquo;ve found the edition, you can check in the &ldquo;History and notes&rdquo; tab
 to see if the fact check was eventually re-sent with the correct subject line.
 If this is the case, <strong>the duplicate email can be deleted</strong>.</p>
-
 <p>If the fact check email never made it, you should forward the email to
 govuk-fact-check@digital.cabinet-office.gov.uk with the edition ID added to the
 subject line in square brackets. Check this appears in publisher (usually within
 10 minutes) then delete the original unprocessed email from the inbox.</p>
-
 
 
   <div class='related-content'>

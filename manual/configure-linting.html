@@ -163,16 +163,11 @@
 written with the expectation that you are configuring a
 <a href="/manual/conventions-for-rails-applications.html">conventional GOV.UK Rails application</a> although the approaches
 can be applied to non-Rails applications by minor adjustments to the steps.</p>
-
-<h2 id="linting-ruby">Linting Ruby</h2>
-
-<p>We use <a href="https://github.com/alphagov/rubocop-govuk">rubocop-govuk</a> to lint Ruby
+<h2 id='linting-ruby'>Linting Ruby</h2><p>We use <a href="https://github.com/alphagov/rubocop-govuk">rubocop-govuk</a> to lint Ruby
 projects.</p>
-
-<p>This is installed by adding <code>gem "rubocop"</code> to your Gemfile and then creating a
+<p>This is installed by adding <code>gem &quot;rubocop&quot;</code> to your Gemfile and then creating a
 <code>.rubocop.yml</code> file in the root of your project:</p>
-
-<div class="highlight"><pre class="highlight yaml"><code><span class="na">inherit_gem</span><span class="pi">:</span>
+<div class="highlight"><pre class="highlight yaml" tabindex="0"><code><span class="na">inherit_gem</span><span class="pi">:</span>
   <span class="na">rubocop-govuk</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="s">config/default.yml</span>
     <span class="pi">-</span> <span class="s">config/rails.yml</span>
@@ -182,21 +177,15 @@ projects.</p>
 <span class="na">inherit_mode</span><span class="pi">:</span>
   <span class="na">merge</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="s">Exclude</span>
-</code></pre></div>
-<p>After running <code>bundle install</code> you can test the linting by running
+</code></pre></div><p>After running <code>bundle install</code> you can test the linting by running
 <code>bundle exec rubocop</code>.</p>
-
-<h2 id="linting-javascript-and-scss">Linting JavaScript and SCSS</h2>
-
-<p>We follow the <a href="https://gds-way.cloudapps.digital/">GDS Way</a> guidance
+<h2 id='linting-javascript-and-scss'>Linting JavaScript and SCSS</h2><p>We follow the <a href="https://gds-way.cloudapps.digital/">GDS Way</a> guidance
 on linting <a href="https://gds-way.cloudapps.digital/manuals/programming-languages/js.html#linting">Javascript</a> and <a href="https://gds-way.cloudapps.digital/manuals/programming-languages/css.html#linting">CSS</a>.</p>
-
 <p>To configure this for a Rails application you will need to install
 <a href="https://github.com/standard/standardx">standardx</a> and <a href="https://github.com/alphagov/stylelint-config-gds">stylelint-config-gds</a>. To do this you will first need to
 <a href="https://classic.yarnpkg.com/en/docs/install/">install Yarn</a> and then you should create a <code>package.json</code> file
 in your project root. You can use the following template:</p>
-
-<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+<div class="highlight"><pre class="highlight json" tabindex="0"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My application"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A brief description of the application's purpose"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
@@ -221,38 +210,26 @@ in your project root. You can use the following template:</p>
     </span><span class="nl">"extends"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stylelint-config-gds/scss"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>The dependencies can then be installed:</p>
-
-<div class="highlight"><pre class="highlight shell"><code>yarn add <span class="nt">--dev</span> standard stylelint stylelint-config-gds
-</code></pre></div>
-<p>You can now test the linting by running <code>yarn run lint</code>.</p>
-
+</span></code></pre></div><p>The dependencies can then be installed:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>yarn add <span class="nt">--dev</span> standard stylelint stylelint-config-gds
+</code></pre></div><p>You can now test the linting by running <code>yarn run lint</code>.</p>
 <p>To finish up you should add <code>node_modules</code> and <code>yarn-error.log</code> to
 your <code>.gitignore</code> file.</p>
-
-<h2 id="configuring-rails">Configuring Rails</h2>
-
-<p>To configure this linting in Rails you should create a <a href="https://github.com/ruby/rake">rake</a> task for this
+<h2 id='configuring-rails'>Configuring Rails</h2><p>To configure this linting in Rails you should create a <a href="https://github.com/ruby/rake">rake</a> task for this
 in <code>lib/tasks/lint.rake</code>:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="n">desc</span> <span class="s2">"Run all linters"</span>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">desc</span> <span class="s2">"Run all linters"</span>
 <span class="n">task</span> <span class="ss">lint: :environment</span> <span class="k">do</span>
   <span class="n">sh</span> <span class="s2">"bundle exec rubocop"</span>
   <span class="n">sh</span> <span class="s2">"yarn run lint"</span> <span class="c1"># lint JS and SCSS</span>
 <span class="k">end</span>
-</code></pre></div>
-<p>You should then configure the default rake task for the application to include
+</code></pre></div><p>You should then configure the default rake task for the application to include
 linting. For example to run linting and RSpec as the default task add the
 following code to your <code>Rakefile</code>:</p>
-
-<div class="highlight"><pre class="highlight ruby"><code><span class="c1"># Undo any existing default tasks added by depenencies so we can redefine the task</span>
+<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="c1"># Undo any existing default tasks added by depenencies so we can redefine the task</span>
 <span class="no">Rake</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:default</span><span class="p">].</span><span class="nf">clear</span> <span class="k">if</span> <span class="no">Rake</span><span class="o">::</span><span class="no">Task</span><span class="p">.</span><span class="nf">task_defined?</span><span class="p">(</span><span class="ss">:default</span><span class="p">)</span>
 <span class="n">task</span> <span class="ss">default: </span><span class="sx">%i[lint spec]</span>
-</code></pre></div>
-<p>You can confirm this works by running <code>bundle exec rake</code> and seeing your
+</code></pre></div><p>You can confirm this works by running <code>bundle exec rake</code> and seeing your
 linting run followed by specs.</p>
-
 
 
   <div class='related-content'>

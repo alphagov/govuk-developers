@@ -155,60 +155,39 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/85a759e5aa68165cda2af12a33a6004d4b5b080a">21 Aug 2020</a>
 </div>
 
- <h1 id='header'>Debug underperforming search</h1> <p>Search is one of the more load-sensitive parts of GOV.UK, as it can't
+ <h1 id='header'>Debug underperforming search</h1> <p>Search is one of the more load-sensitive parts of GOV.UK, as it can&rsquo;t
 be cached as effectively as more static pages.  There are two
 significant components involved in search: the search-api application,
 and the AWS-managed Elasticsearch cluster powering it.</p>
-
 <p>Useful metrics to look at are:</p>
 
 <ul>
-  <li>
-    <p>Request duration from finder-frontend to search-api, on the <a href="https://grafana.blue.production.govuk.digital/dashboard/file/finder-frontend.json?refresh=5s&amp;orgId=1">finder-frontend app dashboard</a></p>
+<li><p>Request duration from finder-frontend to search-api, on the <a href="https://grafana.blue.production.govuk.digital/dashboard/file/finder-frontend.json?refresh=5s&amp;orgId=1">finder-frontend app dashboard</a></p>
+<p>If this has increased then there may be a capacity issue with
+search-api.</p></li>
+<li><p>Request duration from search-api to Elasticsearch and SageMaker, on the <a href="https://grafana.blue.production.govuk.digital/dashboard/file/search-api.json?refresh=5s&amp;orgId=1">search-api app dashboard</a></p>
+<p>See the &ldquo;<code>&lt;thing&gt;</code> req count vs latency&rdquo; graphs:</p>
 
-    <p>If this has increased then there may be a capacity issue with
-  search-api.</p>
-  </li>
-  <li>
-    <p>Request duration from search-api to Elasticsearch and SageMaker, on the <a href="https://grafana.blue.production.govuk.digital/dashboard/file/search-api.json?refresh=5s&amp;orgId=1">search-api app dashboard</a></p>
-
-    <p>See the "<code>&lt;thing&gt;</code> req count vs latency" graphs:</p>
-
-    <ul>
-      <li>
-        <p><strong>Reranker:</strong> if this has increased, queries sorted by relevance
+<ul>
+<li><strong>Reranker:</strong> if this has increased, queries sorted by relevance
 (keyword searches) will be slower.  This could indicate a
-performance issue with SageMaker.</p>
-      </li>
-      <li>
-        <p><strong>Search:</strong> if this has increased, all queries will be slower.
-This could indicate a performance issue with Elasticsearch.</p>
-      </li>
-      <li>
-        <p><strong>Spelling suggestion:</strong> if this has increased, finder-frontend
+performance issue with SageMaker.</li>
+<li><strong>Search:</strong> if this has increased, all queries will be slower.
+This could indicate a performance issue with Elasticsearch.</li>
+<li><strong>Spelling suggestion:</strong> if this has increased, finder-frontend
 pages will be slower.  Other search-powered pages, like taxon
 pages, would not be affected.  This could indicate a performance
-issue with Elasticsearch.</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>The <a href="https://grafana.blue.production.govuk.digital/dashboard/file/machine.json?refresh=1m&amp;orgId=1">machine dashboard</a> for search.</p>
-  </li>
-  <li>
-    <p>The <a href="https://eu-west-1.console.aws.amazon.com/es/home?region=eu-west-1#domain:resource=blue-elasticsearch6-domain;action=dashboard">AWS dashboard for Elasticsearch</a> in the AWS console.</p>
-
-    <p>There are a lot of metrics here.  A capacity issue could be
-  suggested by the "Index thread pool" or "Search thread pool"
-  graphs being consistently above the red dashed line, which means
-  that requests are queueing.  Talk to RE in that case.</p>
-  </li>
-  <li>
-    <p>The <a href="https://eu-west-1.console.aws.amazon.com/sagemaker/home?region=eu-west-1#/endpoints/govuk-production-search-ltr-endpoint">AWS dashboard for SageMaker</a> in the AWS console.</p>
-
-    <p>A capacity issue could be suggested by the CPU utilisation graph
-  being constantly close to 100%.</p>
-  </li>
+issue with Elasticsearch.</li>
+</ul></li>
+<li><p>The <a href="https://grafana.blue.production.govuk.digital/dashboard/file/machine.json?refresh=1m&amp;orgId=1">machine dashboard</a> for search.</p></li>
+<li><p>The <a href="https://eu-west-1.console.aws.amazon.com/es/home?region=eu-west-1#domain:resource=blue-elasticsearch6-domain;action=dashboard">AWS dashboard for Elasticsearch</a> in the AWS console.</p>
+<p>There are a lot of metrics here.  A capacity issue could be
+suggested by the &ldquo;Index thread pool&rdquo; or &ldquo;Search thread pool&rdquo;
+graphs being consistently above the red dashed line, which means
+that requests are queueing.  Talk to RE in that case.</p></li>
+<li><p>The <a href="https://eu-west-1.console.aws.amazon.com/sagemaker/home?region=eu-west-1#/endpoints/govuk-production-search-ltr-endpoint">AWS dashboard for SageMaker</a> in the AWS console.</p>
+<p>A capacity issue could be suggested by the CPU utilisation graph
+being constantly close to 100%.</p></li>
 </ul>
 
 

@@ -179,47 +179,31 @@
 connections will timeout on the healthcheck from the parent. If that happens
 and the replacement child process also fails to start, Varnish can get in a
 state where it is not responsive.</p>
-
-<p>The 'varnish port not responding' check attempts to contact
-<a href="http://localhost:7999/">http://localhost:7999/</a> and get a response. If it doesn't, then it will raise
+<p>The &lsquo;varnish port not responding&rsquo; check attempts to contact
+<a href="http://localhost:7999/">http://localhost:7999/</a> and get a response. If it doesn&rsquo;t, then it will raise
 an urgent alert as this might lead to 1/3 of user requests failing.</p>
-
 <p>To diagnose, check for messages like this:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> cache-3.router sdo:<span class="s1">'grep varnishd /var/log/messages'</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> cache-3.router sdo:<span class="s1">'grep varnishd /var/log/messages'</span>
 <span class="o">[</span>cache-3.router] out: Jul  7 00:17:02 cache-3 varnishd[1620]: Child <span class="o">(</span>1630<span class="o">)</span> died <span class="nv">signal</span><span class="o">=</span>3
 <span class="o">[</span>cache-3.router] out: Jul  7 00:17:03 cache-3 varnishd[1620]: child <span class="o">(</span>27973<span class="o">)</span> Started
 <span class="o">[</span>cache-3.router] out: Jul  7 00:17:25 cache-3 varnishd[1620]: Child <span class="o">(</span>27973<span class="o">)</span> said Child starts
 <span class="o">[</span>cache-3.router] out: Jul  7 00:17:25 cache-3 varnishd[1620]: Child <span class="o">(</span>27973<span class="o">)</span> said Child dies
 <span class="o">[</span>cache-3.router] out: Jul  7 00:17:25 cache-3 varnishd[1620]: Child <span class="o">(</span>27973<span class="o">)</span> died <span class="nv">status</span><span class="o">=</span>1
-</code></pre></div>
-<p>You may see only one process called <code>/usr/sbin/varnishd</code> in the process table,
+</code></pre></div><p>You may see only one process called <code>/usr/sbin/varnishd</code> in the process table,
 with owner root. The child process if it exists will be owned by nobody:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> cache-3.router <span class="k">do</span>:<span class="s1">'ps -ef | grep [/]usr/sbin/varnishd'</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> cache-3.router <span class="k">do</span>:<span class="s1">'ps -ef | grep [/]usr/sbin/varnishd'</span>
 <span class="o">[</span>cache-3.router] out: root      8273     1  0 06:08 ?        00:00:00 /usr/sbin/varnishd <span class="nt">-P</span> /var/run/varnishd.pid <span class="nt">-a</span> :7999 <span class="nt">-f</span> /etc/varnish/default.vcl <span class="nt">-T</span> 127.0.0.1:6082 <span class="nt">-t</span> 900 <span class="nt">-w</span> 1,1000,120 <span class="nt">-S</span> /etc/varnish/secret <span class="nt">-s</span> malloc,5985M
 <span class="o">[</span>cache-3.router] out: nobody    8277  8273  1 06:08 ?        00:03:52 /usr/sbin/varnishd <span class="nt">-P</span> /var/run/varnishd.pid <span class="nt">-a</span> :7999 <span class="nt">-f</span> /etc/varnish/default.vcl <span class="nt">-T</span> 127.0.0.1:6082 <span class="nt">-t</span> 900 <span class="nt">-w</span> 1,1000,120 <span class="nt">-S</span> /etc/varnish/secret <span class="nt">-s</span> malloc,5985M
-</code></pre></div>
-<p>Check whether there are any children of the current parent process (this check
+</code></pre></div><p>Check whether there are any children of the current parent process (this check
 will fail where it succeeds below):</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> cache-3.router <span class="k">do</span>:<span class="s1">'/usr/lib/nagios/plugins/check_procs -c 1:1 -C '</span>varnishd<span class="s1">' -p `&lt; /var/run/varnishd.pid`'</span>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> cache-3.router <span class="k">do</span>:<span class="s1">'/usr/lib/nagios/plugins/check_procs -c 1:1 -C '</span>varnishd<span class="s1">' -p `&lt; /var/run/varnishd.pid`'</span>
 <span class="o">[</span>cache-3.router] out: PROCS OK: 1 process with <span class="nb">command </span>name <span class="s1">'varnishd'</span>, PPID <span class="o">=</span> 8273
-</code></pre></div>
-<h3 id="related-kibana-query">Related Kibana query</h3>
-
-<p>You can view the number of 5xx errors by <a href="/manual/logit.html">logging into Logit</a>, and using
+</code></pre></div><h3 id='related-kibana-query'>Related Kibana query</h3><p>You can view the number of 5xx errors by <a href="/manual/logit.html">logging into Logit</a>, and using
 this query:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>host:cache* AND @fields.status:[500 TO 599]
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>host:cache* AND @fields.status:[500 TO 599]
+</code></pre></div><h3 id='to-resolve-varnish-port-not-responding'>To resolve Varnish port not responding</h3><p>Restart Varnish on this machine:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> cache-3.router cache.restart
 </code></pre></div>
-<h3 id="to-resolve-varnish-port-not-responding">To resolve Varnish port not responding</h3>
-
-<p>Restart Varnish on this machine:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> cache-3.router cache.restart
-</code></pre></div>
-
 
   <div class='related-content'>
 

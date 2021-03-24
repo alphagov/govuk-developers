@@ -177,54 +177,39 @@
  <h1 id='header'>High Nginx 5xx rate</h1> <p>You can view the 5xx logs across all machines on these two dashboards:</p>
 
 <ul>
-  <li><a href="https://grafana.publishing.service.gov.uk/dashboard/file/nginx_requests.json?refresh=1m&amp;orgId=1&amp;var-Machines=All&amp;var-Hostname=All&amp;var-Status=5xx">Nginx 5xx Requests (Carrenza)</a></li>
-  <li><a href="https://grafana.blue.production.govuk.digital/dashboard/file/nginx_requests.json?refresh=1m&amp;orgId=1&amp;var-Machines=All&amp;var-Hostname=All&amp;var-Status=5xx">Nginx 5xx Requests (AWS)</a></li>
+<li><a href="https://grafana.publishing.service.gov.uk/dashboard/file/nginx_requests.json?refresh=1m&amp;orgId=1&amp;var-Machines=All&amp;var-Hostname=All&amp;var-Status=5xx">Nginx 5xx Requests (Carrenza)</a></li>
+<li><a href="https://grafana.blue.production.govuk.digital/dashboard/file/nginx_requests.json?refresh=1m&amp;orgId=1&amp;var-Machines=All&amp;var-Hostname=All&amp;var-Status=5xx">Nginx 5xx Requests (AWS)</a></li>
 </ul>
-
 <p>Change the hostname to view different apps.</p>
-
-<h2 id="spikes">Spikes</h2>
-
-<p>The alert should link to a graphite graph - often certain applications
+<h2 id='spikes'>Spikes</h2><p>The alert should link to a graphite graph - often certain applications
 such as Whitehall can have spikes - if you can determine this is a spike
 it is best to acknowledge the alert and let a team that is working on the app
 know (or alert Platform Health).</p>
-
-<h2 id="scaling-up">Scaling up</h2>
-
-<p>Sometimes a high 5xx rate can be because of a sudden increase in traffic to the
+<h2 id='scaling-up'>Scaling up</h2><p>Sometimes a high 5xx rate can be because of a sudden increase in traffic to the
 site. You can use the <a href="https://grafana.production.govuk.digital/dashboard/file/nginx_requests.json?refresh=1m&amp;orgId=1&amp;from=now-30m&amp;to=now">Nginx Requests (AWS)</a> dashboard to see
 if there are an unusually high number of requests to a particular machine
 class. If there are, you may want to consider
 <a href="/manual/auto-scaling-groups.html#manually-scaling">scaling up the number of machines available</a> to handle the requests.</p>
 
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>This is only possible in AWS.</p>
+<p><strong>Note</strong></p>
+<p>This is only possible in AWS.</p>
 </blockquote>
-
-<h2 id="unknown-internal-error"><code>UNKNOWN: INTERNAL ERROR</code></h2>
-
-<p>If the message is "UNKNOWN: INTERNAL ERROR: RuntimeError: no valid
-datapoints" or "UNKNOWN: INTERNAL ERROR: RuntimeError: no data returned
-for target", it probably means that statsd or collectd stopped
+<h2 id='unknown-internal-error'><code>UNKNOWN: INTERNAL ERROR</code></h2><p>If the message is &ldquo;UNKNOWN: INTERNAL ERROR: RuntimeError: no valid
+datapoints&rdquo; or &ldquo;UNKNOWN: INTERNAL ERROR: RuntimeError: no data returned
+for target&rdquo;, it probably means that statsd or collectd stopped
 submitting data for a period. Statsd metrics (those that begin with
-<code>stats.</code>) don't get created until the first event of a given type. For
+<code>stats.</code>) don&rsquo;t get created until the first event of a given type. For
 infrequently-used apps which rarely have errors, the <code>http_5xx</code> may
 never get created. You can force creation by creating a zero-value
 <code>http_500</code> counter:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fab $environment -H frontend-1.frontend statsd.create_counter:frontend-1_frontend.nginx_logs.static_publishing_service_gov_uk.http_500
-</code></pre></div>
-<p>Note that the <code>http_5xx</code> counters are created by carbon-aggregator, so
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>fab $environment -H frontend-1.frontend statsd.create_counter:frontend-1_frontend.nginx_logs.static_publishing_service_gov_uk.http_500
+</code></pre></div><p>Note that the <code>http_5xx</code> counters are created by carbon-aggregator, so
 they will automatically be created when a corresponding <code>http_500</code>
 counter gets created. You should <em>not</em> create a statsd counter for
 <code>http_5xx</code> as this will confuse carbon-aggregator.</p>
-
 <p>For collectd metrics (those without a leading <code>stats.</code> prefix), you
 probably just need to wait for the metric to get created.</p>
-
 
 
   <div class='related-content'>

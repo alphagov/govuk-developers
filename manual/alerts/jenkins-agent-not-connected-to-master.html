@@ -164,29 +164,20 @@
 </div>
 
  <h1 id='header'>Jenkins agent not connected to master</h1> <p>If the Jenkins agent is not connect to the master you can have a look at the <a href="https://ci.integration.publishing.service.gov.uk/computer/">Jenkins Nodes UI</a> and see
-if it's possible to diagnose and solve the problem from there.</p>
-
+if it&rsquo;s possible to diagnose and solve the problem from there.</p>
 <p>View the log for the relevant agent, for example by clicking on the hostname of the agent and then choosing Log from the menu on the left-hand side.</p>
-
 <p>Logs can also be found on the agent machine under <code>/var/lib/jenkins/remoting/logs</code>.</p>
-
 <p>If the agent process is repeatedly starting up and failing with messages like:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>deleting obsolete workspace /var/lib/jenkins/workspace/ishing-e2e-tests_govuk-test-TBY2AGKJXBE42MNITWCQM63I6R6XJSSGHBHBPH6P4IOBGXQK5OMA
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>deleting obsolete workspace /var/lib/jenkins/workspace/ishing-e2e-tests_govuk-test-TBY2AGKJXBE42MNITWCQM63I6R6XJSSGHBHBPH6P4IOBGXQK5OMA
 ...
 Unexpected termination of the channel
-</code></pre></div>
-<p>then try clearing out the workspace directory on the agent:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ gds govuk connect ssh -e ci ci_agent:0
+</code></pre></div><p>then try clearing out the workspace directory on the agent:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ gds govuk connect ssh -e ci ci_agent:0
 $ sudo rm -r /var/lib/jenkins/workspace/*
-</code></pre></div>
-<p>If there doesn't seem to be way to solve the problem it may be necessary to restart the master process:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ gds govuk connect ssh -e ci_master
+</code></pre></div><p>If there doesn&rsquo;t seem to be way to solve the problem it may be necessary to restart the master process:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ gds govuk connect ssh -e ci_master
 $ sudo service jenkins restart
-</code></pre></div>
-<p>Restarting the master process will temporarily suspend all CI jobs while the master reconnects to the agents, but it should not cause any jobs to fail.</p>
+</code></pre></div><p>Restarting the master process will temporarily suspend all CI jobs while the master reconnects to the agents, but it should not cause any jobs to fail.</p>
 
 
   <div class='related-content'>

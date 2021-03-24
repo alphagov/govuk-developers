@@ -165,20 +165,17 @@
 
  <h1 id='header'>Runs a rake task on Search API that generates the sitemap files</h1> <p>At 2:30am every day, a <a href="https://deploy.blue.production.govuk.digital/job/search_generate_sitemaps/">Jenkins job</a> runs a rake task on search-api
 to generate sitemap files for GOV.UK.</p>
-
 <p>Occasionally the task fails. This can happen if there is low memory available
 at the time of the rake task run, which can happen if other out-of-hours
 processes are happening at the same time (machine learning, for example).</p>
-
 <p>If the check fails:</p>
 
 <ul>
-  <li>Inspect the <a href="https://deploy.blue.production.govuk.digital/job/search_generate_sitemaps/">console logs for the rake task</a>.</li>
-  <li>Escalate to the team responsible for <a href="/apps/search-api.html">search-api</a>.</li>
-  <li>It is safe to re-run the rake task to make the alert go away.
-You may see some 'high load' alerts while the task is running.</li>
+<li>Inspect the <a href="https://deploy.blue.production.govuk.digital/job/search_generate_sitemaps/">console logs for the rake task</a>.</li>
+<li>Escalate to the team responsible for <a href="/apps/search-api.html">search-api</a>.</li>
+<li>It is safe to re-run the rake task to make the alert go away.
+You may see some &lsquo;high load&rsquo; alerts while the task is running.</li>
 </ul>
-
 
 
   <div class='related-content'>

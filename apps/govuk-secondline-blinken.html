@@ -317,126 +317,128 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: govuk-secondline-blinken</h1>
 
-  
-<p>A dashboard for Icinga</p>
+  <p>A dashboard for Icinga</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/blinkenjs">blinkenjs</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/blinkenjs"&gt;blinkenjs&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">N/A</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>Heroku</strong></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;N/A&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-
-    <li><a href="https://dashboard.heroku.com/apps/govuk-secondline-blinken" class="govuk-link">Manage application</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;Heroku&lt;/strong&gt;&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
 
-
-</ul>
-</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
+&lt;li&gt;&lt;a href="https://dashboard.heroku.com/apps/govuk-secondline-blinken" class="govuk-link"&gt;Manage application&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
+</div></p>
+<h2 id='imported-documents'>Imported documents</h2><h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="imported-documents">Imported documents</h2>
-
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>BlinkenJS is the JavaScript successor to <a href="https://github.com/alphagov/blinken">Blinken</a>. It runs purely in the browser and does not require compiling or running any applications.</p>
+
 <p>BlinkenJS gets data from <a href="https://www.icinga.com/">Icinga</a> and displays it in a dashboard, with one status per environment. There can be multiple groups of environments.</p>
+
 <p>BlinkenJS is much simpler than the original Blinken - only Icinga is supported and there are no detailed pages, only a dashboard.</p>
+
 <h2 id="how-to-run">How to run</h2>
+
 <ol>
 <li>Copy <code>app/config-example.js</code> to <code>app/config.js</code> and edit it to define your groups, environments and Icinga URLs.</li>
 <li>Open <code>app/blinken.html</code> in your browser.</li>
 </ol>
+
 <p>The page will automatically refresh once a minute.</p>
+
 <p><strong>Note</strong> In order for this script to be able to access your Icinga instances, you must ensure that at least the file <code>/cgi-bin/icinga/status.cgi</code> returns the HTTP header <code>Access-Control-Allow-Origin: *</code>.</p>
+
 <h2 id="screenshot">Screenshot</h2>
-<p><img src="https://raw.githubusercontent.com/alphagov/blinkenjs/master/docs/screenshot.png" alt="Screenshot of BlinkenJS in action" /></p>
+
+<p><img src="https://raw.githubusercontent.com/alphagov/blinkenjs/master/docs/screenshot.png" alt="Screenshot of BlinkenJS in action"></p>
+
 <h2 id="chrome-extension">Chrome extension</h2>
+
 <p>The Blinken page has also been wrapped up in a Chrome extension, for a quick overview of the service status.</p>
+
 <h3 id="installation">Installation</h3>
+
 <p>The extension can be installed directly from this repository:</p>
+
 <ol>
 <li>
 <a href="https://github.com/alphagov/blinkenjs/archive/master.zip">Download the source</a> and unzip</li>
 <li>Visit <a href="chrome://extensions">chrome://extensions</a> in Chrome</li>
-<li>Check the "Developer mode" checkbox</li>
-<li>Click "Load unpacked extension..."</li>
+<li>Check the &ldquo;Developer mode&rdquo; checkbox</li>
+<li>Click &ldquo;Load unpacked extension&hellip;&rdquo;</li>
 <li>Navigate to the root of this project - <code>/blinkenjs</code> - and select it</li>
 </ol>
-<p>After installation you should see a little grey icon in your toolbar. When you don't want to see it, you can right-click it and hide it.</p>
+
+<p>After installation you should see a little grey icon in your toolbar. When you don&rsquo;t want to see it, you can right-click it and hide it.</p>
+
 <h3 id="configuration">Configuration</h3>
-<p>You will need to point the extension at the Icinga alert pages in order to use it. To do this, open up your <a href="chrome://extensions">extensions</a>, and find the "GOV.UK Blinken" extension. Click "Options". On this page, you should type the <a href="https://github.com/alphagov/blinkenjs/blob/master/app/config.js">Icinga URLs for each environment</a> and click "Save". Once they have been successfully configured, you should see the icon change colour in the corner.</p>
+
+<p>You will need to point the extension at the Icinga alert pages in order to use it. To do this, open up your <a href="chrome://extensions">extensions</a>, and find the &ldquo;GOV.UK Blinken&rdquo; extension. Click &ldquo;Options&rdquo;. On this page, you should type the <a href="https://github.com/alphagov/blinkenjs/blob/master/app/config.js">Icinga URLs for each environment</a> and click &ldquo;Save&rdquo;. Once they have been successfully configured, you should see the icon change colour in the corner.</p>
+
 <h3 id="usage">Usage</h3>
+
 <p>The icon uses the following colour scheme:</p>
+
 <ul>
 <li>Green means no warnings</li>
 <li>Purple means some unknown alerts, but no warnings or critical alerts</li>
 <li>Amber means some warnings, but no critical alerts</li>
 <li>Red means some critical alerts</li>
 </ul>
+
 <p>The big block across the top of the icon represents Production. The medium-sized one at the bottom-left represents
 Staging, and the small block in the bottom-right represents Integration. AWS Staging and Production environments are
 not yet represented in the icon but will be once the majority of applications have been migrated.</p>
+
 <p>Clicking on the icon will open up the BlinkenJS page with more information. Each environment can be clicked to be taken
 to the corresponding Icinga page.</p>
-<h3 id="notifications">Notifications</h3>
-<p>The extension can also display system-wide notifications when the status of an environment changes. Clicking the notification will open the corresponding Icinga page.</p>
-<p>These notifications can be enabled/disabled on the extension settings page. Notifications can be toggled for each environment, and for each status.</p>
-<h2 id="licence">Licence</h2>
-<p><a href="https://github.com/alphagov/blinkenjs/blob/master/LICENCE">MIT License</a></p>
-  </div>
 
+<h3 id="notifications">Notifications</h3>
+
+<p>The extension can also display system-wide notifications when the status of an environment changes. Clicking the notification will open the corresponding Icinga page.</p>
+
+<p>These notifications can be enabled/disabled on the extension settings page. Notifications can be toggled for each environment, and for each status.</p>
+
+<h2 id="licence">Licence</h2>
+
+<p><a href="https://github.com/alphagov/blinkenjs/blob/master/LICENCE">MIT License</a></p>
+<p></div></p>
 
 
             

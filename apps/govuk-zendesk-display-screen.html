@@ -317,93 +317,80 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: govuk-zendesk-display-screen</h1>
 
-  
-<p>Display screen for GOV.UK Zendesk ticket statistics</p>
+  <p>Display screen for GOV.UK Zendesk ticket statistics</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/govuk-zendesk-display-screen">govuk-zendesk-display-screen</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/govuk-zendesk-display-screen"&gt;govuk-zendesk-display-screen&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">N/A</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>Heroku</strong></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;N/A&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-
-    <li><a href="https://dashboard.heroku.com/apps/govuk-zendesk-display-screen" class="govuk-link">Manage application</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;Heroku&lt;/strong&gt;&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
 
-
-</ul>
-</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
+&lt;li&gt;&lt;a href="https://dashboard.heroku.com/apps/govuk-zendesk-display-screen" class="govuk-link"&gt;Manage application&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
+</div></p>
+<h2 id='imported-documents'>Imported documents</h2><h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="imported-documents">Imported documents</h2>
-
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>Displays some high-level statistics from a given Zendesk view. Used to display the number of tickets currently on the 2nd line queue.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/govuk-zendesk-display-screen/master/docs/displayscreen.png" alt="GOV.UK Zendesk Display Screen" /></p>
-<h2 id="running">Running</h2>
-<p><code>ZENDESK_SUBDOMAIN=govuk ZENDESK_API_USERNAME=something@example.com ZENDESK_API_TOKEN=ABCDEFG ZENDESK_VIEW_ID=123456789 AUTH_USERNAME=username AUTH_PASSWORD=password bundle exec puma</code></p>
-<h3 id="colour-coding">Colour coding</h3>
-<p>All stats are coloured green if they are 0, amber if they are between 1 and 4, and red if they are 5 or over.</p>
-<h3 id="dark-mode">Dark mode</h3>
-<p>Dark mode is set by default and results in a dark background and light text. To disable dark mode, add <code>?dark_mode=false</code> to the URL.</p>
-<h3 id="hiding-the-low-queue">Hiding the low queue</h3>
-<p>The low queue is regularly used for tickets that are handed off to others or awaiting some other action, therefore the display screen hides it by default. To show it, add <code>?hide_low_queue=false</code> to the URL.</p>
-<h2 id="licence">Licence</h2>
-<p><a href="https://github.com/alphagov/govuk-zendesk-display-screen/blob/master/LICENCE">MIT License</a></p>
-  </div>
 
+<p><img src="https://raw.githubusercontent.com/alphagov/govuk-zendesk-display-screen/master/docs/displayscreen.png" alt="GOV.UK Zendesk Display Screen"></p>
+
+<h2 id="running">Running</h2>
+
+<p><code>ZENDESK_SUBDOMAIN=govuk ZENDESK_API_USERNAME=something@example.com ZENDESK_API_TOKEN=ABCDEFG ZENDESK_VIEW_ID=123456789 AUTH_USERNAME=username AUTH_PASSWORD=password bundle exec puma</code></p>
+
+<h3 id="colour-coding">Colour coding</h3>
+
+<p>All stats are coloured green if they are 0, amber if they are between 1 and 4, and red if they are 5 or over.</p>
+
+<h3 id="dark-mode">Dark mode</h3>
+
+<p>Dark mode is set by default and results in a dark background and light text. To disable dark mode, add <code>?dark_mode=false</code> to the URL.</p>
+
+<h3 id="hiding-the-low-queue">Hiding the low queue</h3>
+
+<p>The low queue is regularly used for tickets that are handed off to others or awaiting some other action, therefore the display screen hides it by default. To show it, add <code>?hide_low_queue=false</code> to the URL.</p>
+
+<h2 id="licence">Licence</h2>
+
+<p><a href="https://github.com/alphagov/govuk-zendesk-display-screen/blob/master/LICENCE">MIT License</a></p>
+<p></div></p>
 
 
             

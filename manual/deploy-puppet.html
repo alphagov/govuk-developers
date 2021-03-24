@@ -162,96 +162,78 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c887159ca81b3293e9df0aaedc37b031dbae9cfa">11 Mar 2021</a>
 </div>
 
- <h1 id='header'>Deploy Puppet</h1> <h2 id="deploying-a-branch">Deploying a branch</h2>
-
-<p>Before merging your PR, it's recommended that you deploy the change to
+ <h1 id='header'>Deploy Puppet</h1> <h2 id='deploying-a-branch'>Deploying a branch</h2><p>Before merging your PR, it&rsquo;s recommended that you deploy the change to
 Integration in order to test it works on real infrastructure. Go to <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_Puppet/">the
 <code>Deploy_Puppet</code> job in Jenkins</a> and click ‘Build with
 Parameters’. The <code>TAG</code> field should contain the name of the branch you wish to
 deploy.</p>
-
-<h2 id="deploying-a-release">Deploying a release</h2>
-
-<p>You can deploy Puppet to Staging and Production using the following steps:</p>
+<h2 id='deploying-a-release'>Deploying a release</h2><p>You can deploy Puppet to Staging and Production using the following steps:</p>
 
 <ol>
-  <li>In the <a href="https://release.publishing.service.gov.uk/applications/puppet">Release app</a>, select the release tag and review
+<li>In the <a href="https://release.publishing.service.gov.uk/applications/puppet">Release app</a>, select the release tag and review
 the changes listed.</li>
-  <li>If your change on integration appears as expected, deploy a newer version of
+<li>If your change on integration appears as expected, deploy a newer version of
 govuk-puppet to staging by using the <strong>Deploy to Staging</strong> button.</li>
-  <li>Wait 30 minutes or read about <a href="#convergence">convergence</a>.
+<li>Wait 30 minutes or read about <a href="#convergence">convergence</a>.
 You should monitor <a href="https://alert.blue.staging.govuk.digital/">Staging Icinga</a> and <a href="https://deploy.blue.staging.govuk.digital/job/Smokey">Staging Smokey</a>,
-and test anything you're concerned about.</li>
-  <li>Repeat the above steps for Production.</li>
+and test anything you&rsquo;re concerned about.</li>
+<li>Repeat the above steps for Production.</li>
 </ol>
-
 <p>Puppet is automatically deployed to integration by a combination of the <a href="https://ci-deploy.integration.publishing.service.gov.uk/job/Deploy_Puppet/">integration-puppet-deploy job on Jenkins CI</a> and <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_Puppet/">Deploy Puppet job on Jenkins Deploy</a> jobs.</p>
 
 <blockquote>
-  <p><strong>WARNING</strong></p>
-
-  <p>If you're deploying a change to <a href="https://github.com/alphagov/govuk-puppet/blob/master/hiera.yml">hiera.yml</a> or <a href="https://github.com/alphagov/govuk-puppet/blob/master/hiera_aws.yml">hiera_aws.yml</a>, you will need to restart the Puppet server on the Puppet Master machine, otherwise these changes will not be picked up.</p>
-
-  <p>To restart the server, run <code>sudo service puppetserver restart</code>.</p>
+<p><strong>WARNING</strong></p>
+<p>If you&rsquo;re deploying a change to <a href="https://github.com/alphagov/govuk-puppet/blob/master/hiera.yml">hiera.yml</a> or <a href="https://github.com/alphagov/govuk-puppet/blob/master/hiera_aws.yml">hiera_aws.yml</a>, you will need to restart the Puppet server on the Puppet Master machine, otherwise these changes will not be picked up.</p>
+<p>To restart the server, run <code>sudo service puppetserver restart</code>.</p>
 </blockquote>
-
-<h2 id="convergence">Convergence</h2>
-
-<p>The deployment only pushes the new code to the Puppet Master. Each node
+<h2 id='convergence'>Convergence</h2><p>The deployment only pushes the new code to the Puppet Master. Each node
 runs a Puppet agent every 30 minutes (via cron), so it may be some time
 before the release takes effect. This has an implication on how
 quickly you can go from staging to production.</p>
-
-<p>If you'd rather not wait and you're able to safely determine from the
+<p>If you&rsquo;d rather not wait and you&rsquo;re able to safely determine from the
 diff what classes of machines the change will affect, you can use
 <a href="https://github.com/alphagov/fabric-scripts">Fabric</a> to force a run of
 Puppet. For example:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fab $environment class:frontend_lb class:backend_lb puppet
-</code></pre></div>
-<p>This will run in serial across the nodes so there is a reduced chance of
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>fab $environment class:frontend_lb class:backend_lb puppet
+</code></pre></div><p>This will run in serial across the nodes so there is a reduced chance of
 downtime caused by a service restarting on all nodes of a given
 class at the same time. You should still be careful though, because
 some services take longer to restart than others.</p>
-
-<h2 id="preventing-service-restarts">Preventing service restarts</h2>
-
-<p>It may occassionally be neccessary to trick Puppet into not restarting a
+<h2 id='preventing-service-restarts'>Preventing service restarts</h2><p>It may occassionally be neccessary to trick Puppet into not restarting a
 service, if it is a single point of failure and doing so would cause a
 brief outage, e.g. MySQL.</p>
 
 <blockquote>
-  <p><strong>WARNING</strong></p>
-
-  <p>This is not a "normal" procedure. You should only do this if you need
+<p><strong>WARNING</strong></p>
+<p>This is not a &ldquo;normal&rdquo; procedure. You should only do this if you need
 to and you MUST have some plan for restarting the service in the near
-future so that it's not inconsistent with its configuration.</p>
+future so that it&rsquo;s not inconsistent with its configuration.</p>
 </blockquote>
 
 <ol>
-  <li>
-    <p>Disable normal Puppet runs on the affected nodes:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fab $environment class:mysql_master puppet.disable:'Preventing service restart'
-</code></pre></div>  </li>
-  <li>Change the file content to match what Puppet wants it to be. If it's
+<li>Disable normal Puppet runs on the affected nodes:</li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   fab $environment class:mysql_master puppet.disable:'Preventing service restart'
+</code></pre></div>
+<ol>
+<li>Change the file content to match what Puppet wants it to be. If it&rsquo;s
 a plain file you can probably apply the diff from git using
-<code>sudo patch source.diff dest</code>. If it's a template then you may need
+<code>sudo patch source.diff dest</code>. If it&rsquo;s a template then you may need
 to refer to an existing environment or figure it out yourself.</li>
-  <li>
-    <p>Verify that Puppet won't change the file or notify the service by
+<li>Verify that Puppet won&rsquo;t change the file or notify the service by
 running it in <code>noop</code> mode. You will need to provide a different lock
-path to bypass the disable:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>govuk_puppet --noop --test --agent_disabled_lockfile=/tmp/puppet.noop
-</code></pre></div>  </li>
-  <li>
-    <p>If you're happy with the results then re-enable Puppet and run it
-again:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>fab $environment class:mysql_master puppet.enable puppet
-</code></pre></div>  </li>
-  <li>Schedule a time to actually restart the service if necessary.</li>
+path to bypass the disable:</li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   govuk_puppet --noop --test --agent_disabled_lockfile=/tmp/puppet.noop
+</code></pre></div>
+<ol>
+<li>If you&rsquo;re happy with the results then re-enable Puppet and run it
+again:</li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   fab $environment class:mysql_master puppet.enable puppet
+</code></pre></div>
+<ol>
+<li>Schedule a time to actually restart the service if necessary.</li>
 </ol>
 
 

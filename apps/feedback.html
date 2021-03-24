@@ -317,142 +317,149 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: feedback</h1>
 
-  
-<p>Serves contact pages on GOV.UK</p>
+  <p>Serves contact pages on GOV.UK</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/feedback">feedback</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/feedback"&gt;feedback&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>frontend</strong> machine class</dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-platform-health&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Rake tasks</dt>
-            <dd class="govuk-summary-list__value"><span aria-hidden="true">Run a Rake task on</span> <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=feedback&amp;MACHINE_CLASS=frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Integration">Integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=feedback&amp;MACHINE_CLASS=frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Staging">Staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=feedback&amp;MACHINE_CLASS=frontend&amp;RAKE_TASK=" class="govuk-link" aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;AWS&lt;/strong&gt;, on the &lt;strong&gt;frontend&lt;/strong&gt; machine class&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/govuk/app-feedback" class="govuk-link">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/feedback.pp" class="govuk-link">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/feedback/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/feedback.json" class="govuk-link">Deployment dashboard</a></li>
-
-    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22feedback%3A+true%22+path%3A%2Fspec%2F" class="govuk-link">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Rake tasks&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;span aria-hidden='true'&gt;Run a Rake task on&lt;/span&gt; &lt;a
+  href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=feedback&amp;MACHINE_CLASS=frontend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Integration"&gt;Integration&lt;/a&gt;, &lt;a
+  href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=feedback&amp;MACHINE_CLASS=frontend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Staging"&gt;Staging&lt;/a&gt; or &lt;a
+  href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=feedback&amp;MACHINE_CLASS=frontend&amp;RAKE_TASK="
+  class="govuk-link"
+  aria-label="Run a Rake task on Production"&gt;⚠️ Production ⚠️&lt;/a&gt;&lt;/dd&gt;
 
-</ul>
-</dd>
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://sentry.io/govuk/app-feedback" class="govuk-link"&gt;Sentry (error tracking)&lt;/a&gt;&lt;/li&gt;
 
-              <dd class="govuk-summary-list__actions">
-</dd>
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/feedback.pp" class="govuk-link"&gt;Puppet configuration&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/govuk-app-deployment/blob/master/feedback/config/deploy.rb" class="govuk-link"&gt;Deploy scripts&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://grafana.production.govuk.digital/dashboard/file/feedback.json" class="govuk-link"&gt;Deployment dashboard&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22feedback%3A+true%22+path%3A%2Fspec%2F" class="govuk-link"&gt;Publishing E2E scenarios&lt;/a&gt; (warning: not all apps have E2E tests)&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
-
-<h2 id="imported-documents">Imported documents</h2>
-<ul class="gem-c-list govuk-list">
+</div></p>
+<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="/apps/feedback/assisted_digital_feedback.html" class="govuk-link">Assisted Digital Feedback</a></li>
       <li><a href="/apps/feedback/email_survey_signups.html" class="govuk-link">Email Survey Signups</a></li>
       <li><a href="/apps/feedback/notify_template_parameters.html" class="govuk-link">Notify template parameters</a></li>
       <li><a href="/apps/feedback/testing_with_real_authorisation.html" class="govuk-link">Manual testing with real authorisation</a></li>
-</ul>
+</ul></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>This app collects feedback from users via contact forms rendered on GOV.UK.
 This data is then sent to the <a href="https://github.com/alphagov/support">support</a> app or <a href="https://github.com/alphagov/support-api">support-api</a> app to be dealt with.</p>
+
 <h2 id="screenshots">Screenshots</h2>
+
 <h3 id="contact-page-on-gov-uk">Contact Page on GOV.UK</h3>
-<p><img src="https://raw.githubusercontent.com/docs/screenshots/contact_page.png?raw=true" alt="Contact Page on GOV.UK" title="Contact Page on GOV.UK" /></p>
+
+<p><img src="https://raw.githubusercontent.com/docs/screenshots/contact_page.png?raw=true" alt="Contact Page on GOV.UK" title="Contact Page on GOV.UK"></p>
+
 <h3 id="contact-form-on-gov-uk">Contact Form on GOV.UK</h3>
-<p><img src="https://raw.githubusercontent.com/docs/screenshots/contact_form.png?raw=true" alt="Contact Form on GOV.UK" title="Contact Form on GOV.UK" /></p>
+
+<p><img src="https://raw.githubusercontent.com/docs/screenshots/contact_form.png?raw=true" alt="Contact Form on GOV.UK" title="Contact Form on GOV.UK"></p>
+
 <h2 id="live-examples">Live examples</h2>
+
 <ul>
 <li><a href="https://www.gov.uk/contact/">https://www.gov.uk/contact/</a></li>
 <li><a href="https://www.gov.uk/contact/govuk">https://www.gov.uk/contact/govuk</a></li>
 <li><a href="https://www.gov.uk/contact/govuk/thankyou">https://www.gov.uk/contact/govuk/thankyou</a></li>
 <li><a href="https://www.gov.uk/contact/govuk/anonymous-feedback/thankyou">https://www.gov.uk/contact/govuk/anonymous-feedback/thankyou</a></li>
 </ul>
+
 <h2 id="nomenclature">Nomenclature</h2>
+
 <ul>
 <li>
-<strong>Feedback</strong>: All the data received from contact forms is considered to be "feedback" of some form
+<strong>Feedback</strong>: All the data received from contact forms is considered to be &ldquo;feedback&rdquo; of some form
 or other and relates to pages published on GOV.UK.</li>
 <li>
-<strong>Anonymous Contact</strong>: Part of the feedback collected by this app is anonymous, when it's
+<strong>Anonymous Contact</strong>: Part of the feedback collected by this app is anonymous, when it&rsquo;s
 submitted via an anonymous contact form.</li>
 <li>
 <strong>Named Contact</strong>: In contrast with the Anonymous Contact feedback, this is submitted
 via a form that will require you to identify yourself. This data is sent directly
 to the support app.</li>
 </ul>
+
 <h2 id="technical-documentation">Technical documentation</h2>
+
 <p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
+
 <p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
+
 <p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
+
 <h3 id="running-the-test-suite">Running the test suite</h3>
+
 <pre><code>bundle exec rake
 </code></pre>
+
 <h2 id="further-documentation">Further documentation</h2>
+
 <ul>
 <li><a href="/apps/feedback/testing_with_real_authorisation.html">Testing with real authorisation</a></li>
 <li><a href="/apps/feedback/assisted_digital_feedback.html">Assisted digital feedback workflow</a></li>
 <li><a href="/apps/feedback/email_survey_signups.html">Email survey signups feedback</a></li>
 </ul>
-<h2 id="licence">Licence</h2>
-<p><a href="https://github.com/alphagov/feedback/blob/master/LICENCE">MIT License</a></p>
-  </div>
 
+<h2 id="licence">Licence</h2>
+
+<p><a href="https://github.com/alphagov/feedback/blob/master/LICENCE">MIT License</a></p>
+<p></div></p>
 
 
             

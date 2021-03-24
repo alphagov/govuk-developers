@@ -134,7 +134,7 @@
     <a href="#header"><span>Whitehall scheduled publishing</span></a>
     <ul>
       <li>
-        <a href="#overdue-publications-in-whitehall"><span>'overdue publications in Whitehall'</span></a>
+        <a href="#39overdue-publications-in-whitehall39"><span>‘overdue publications in Whitehall’</span></a>
         <ul>
           <li>
             <a href="#after-a-database-restore"><span>After a database restore</span></a>
@@ -142,7 +142,7 @@
         </ul>
       </li>
       <li>
-        <a href="#scheduled-publications-in-whitehall-not-queued"><span>'scheduled publications in Whitehall not queued'</span></a>
+        <a href="#39scheduled-publications-in-whitehall-not-queued39"><span>‘scheduled publications in Whitehall not queued’</span></a>
       </li>
     </ul>
   </li>
@@ -169,75 +169,57 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3a217386b867f8a5c21b11f21cf79c41ea2e672f">24 Feb 2021</a>
 </div>
 
- <h1 id='header'>Whitehall scheduled publishing</h1> <h2 id="overdue-publications-in-whitehall">'overdue publications in Whitehall'</h2>
-
-<p>This alert means that there are scheduled editions which have passed their
-publication due date but haven't been published by the scheduled publishing
+ <h1 id='header'>Whitehall scheduled publishing</h1> <h2 id='39overdue-publications-in-whitehall39'>&lsquo;overdue publications in Whitehall&rsquo;</h2><p>This alert means that there are scheduled editions which have passed their
+publication due date but haven&rsquo;t been published by the scheduled publishing
 workers. Scheduled publishing is performed by Sidekiq workers picking up jobs
 from a scheduled queue.</p>
-
 <p>You can see whether Sidekiq picked up the job for processing, and the current
 state of the job using <a href="/manual/sidekiq.html#monitoring">Sidekiq monitoring apps</a>.</p>
-
 <p>You can verify that there are overdue published documents using:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:overdue:list" class="govuk-link">Run publishing:overdue:list on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:overdue:list" class="govuk-link">Run publishing:overdue:list on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:overdue:list" class="govuk-link">⚠️ Run publishing:overdue:list on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:overdue:list" class="govuk-link">Run publishing:overdue:list on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:overdue:list" class="govuk-link">Run publishing:overdue:list on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:overdue:list" class="govuk-link">⚠️ Run publishing:overdue:list on Production ⚠️</a></li>
 </ul>
-
-<p>You'll see output like this:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>ID  Scheduled date             Title
-</code></pre></div>
-<p>If there are overdue publications you can publish by running the
+<p>You&rsquo;ll see output like this:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>ID  Scheduled date             Title
+</code></pre></div><p>If there are overdue publications you can publish by running the
 following:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:overdue:publish" class="govuk-link">Run publishing:overdue:publish on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:overdue:publish" class="govuk-link">Run publishing:overdue:publish on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:overdue:publish" class="govuk-link">⚠️ Run publishing:overdue:publish on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:overdue:publish" class="govuk-link">Run publishing:overdue:publish on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:overdue:publish" class="govuk-link">Run publishing:overdue:publish on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:overdue:publish" class="govuk-link">⚠️ Run publishing:overdue:publish on Production ⚠️</a></li>
 </ul>
-
-<h3 id="after-a-database-restore">After a database restore</h3>
-
-<p>If the above rake tasks aren't working, it could be because the database was
+<h3 id='after-a-database-restore'>After a database restore</h3><p>If the above rake tasks aren&rsquo;t working, it could be because the database was
 recently restored, perhaps due to the data sync. In that case, you can try
 running the following Rake task on a <code>whitehall_backend</code> machine:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">Run publishing:scheduled:requeue_all_jobs on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">Run publishing:scheduled:requeue_all_jobs on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">⚠️ Run publishing:scheduled:requeue_all_jobs on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">Run publishing:scheduled:requeue_all_jobs on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">Run publishing:scheduled:requeue_all_jobs on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">⚠️ Run publishing:scheduled:requeue_all_jobs on Production ⚠️</a></li>
 </ul>
-
 <p>Due to the overnight <a href="https://github.com/alphagov/whitehall/blob/7b5c5a086b89cb62ffba62b152a0a8dcfc10c8e6/script/scrub-database">data anonymisation process</a> you may notice
 that some of the pending documents have one or more edition that is in a
 <code>scheduled</code> state, is <code>access_limited</code>, and may have one or more attachments
 with the filename <code>redacted.pdf</code>.</p>
-
 <p>These documents cannot be published and will cause a
 <code>RestClient::UnprocessableEntity: 422 Unprocessable Entity</code> error.</p>
-
 <p>The situation is likely to be re-created the next day by the above process on
 the same documents/editions.</p>
-
-<h2 id="scheduled-publications-in-whitehall-not-queued">'scheduled publications in Whitehall not queued'</h2>
-
-<p>This alert means that the number of editions in the database which are
+<h2 id='39scheduled-publications-in-whitehall-not-queued39'>&lsquo;scheduled publications in Whitehall not queued&rsquo;</h2><p>This alert means that the number of editions in the database which are
 scheduled to be published in the future is different from the number currently
 in the queue.</p>
-
 <p>Run the <code>publishing:scheduled:requeue_all_jobs</code> Rake task to requeue all
 scheduled editions:</p>
 
 <ul>
-  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">Run publishing:scheduled:requeue_all_jobs on Integration</a></li>
-<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">Run publishing:scheduled:requeue_all_jobs on Staging</a></li>
-<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">⚠️ Run publishing:scheduled:requeue_all_jobs on Production ⚠️</a></li>
+  <li><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">Run publishing:scheduled:requeue_all_jobs on Integration</a></li>
+<li><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">Run publishing:scheduled:requeue_all_jobs on Staging</a></li>
+<li><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&MACHINE_CLASS=whitehall_backend&RAKE_TASK=publishing:scheduled:requeue_all_jobs" class="govuk-link">⚠️ Run publishing:scheduled:requeue_all_jobs on Production ⚠️</a></li>
 </ul>
-
 <p>Historically, this error has happened in the staging and integration
 environments, after the nightly <a href="/manual/govuk-env-sync.html">data sync</a>.
 We <a href="https://github.com/alphagov/govuk-puppet/pull/10842">no longer spawn scheduling workers</a>

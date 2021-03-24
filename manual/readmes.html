@@ -134,7 +134,7 @@
     <a href="#header"><span>READMEs for GOV.UK applications</span></a>
     <ul>
       <li>
-        <a href="#who-are-readmes-for-aka-whats-the-user-need"><span>Who are READMEs for (aka what's the user need)?</span></a>
+        <a href="#who-are-readmes-for-aka-what39s-the-user-need"><span>Who are READMEs for (aka what’s the user need)?</span></a>
       </li>
       <li>
         <a href="#template-for-new-readmes"><span>Template for new READMEs</span></a>
@@ -146,7 +146,7 @@
         <a href="#one-line-summaries-on-github-repositories"><span>One-line summaries on GitHub repositories</span></a>
       </li>
       <li>
-        <a href="#things-we-shouldnt-put-in-the-readme"><span>Things we shouldn't put in the README</span></a>
+        <a href="#things-we-shouldn39t-put-in-the-readme"><span>Things we shouldn’t put in the README</span></a>
       </li>
     </ul>
   </li>
@@ -172,20 +172,15 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/473a0156518ca98097d5d84e3cfd2dd78abbaa38">10 Mar 2020</a>
 </div>
 
- <h1 id='header'>READMEs for GOV.UK applications</h1> <p>This is a guide to writing and maintaining README documents for GOV.UK's public repositories.</p>
-
-<h2 id="who-are-readmes-for-aka-whats-the-user-need">Who are READMEs for (aka what's the user need)?</h2>
-
+ <h1 id='header'>READMEs for GOV.UK applications</h1> <p>This is a guide to writing and maintaining README documents for GOV.UK&rsquo;s public repositories.</p>
+<h2 id='who-are-readmes-for-aka-what39s-the-user-need'>Who are READMEs for (aka what&rsquo;s the user need)?</h2>
 <ul>
-  <li>New starters to GDS</li>
-  <li>People joining a new team</li>
-  <li>People interested in our work</li>
-  <li>Developers on other teams</li>
+<li>New starters to GDS</li>
+<li>People joining a new team</li>
+<li>People interested in our work</li>
+<li>Developers on other teams</li>
 </ul>
-
-<h2 id="template-for-new-readmes">Template for new READMEs</h2>
-
-<div class="highlight"><pre class="highlight markdown"><code><span class="gh"># App name</span>
+<h2 id='template-for-new-readmes'>Template for new READMEs</h2><div class="highlight"><pre class="highlight markdown" tabindex="0"><code><span class="gh"># App name</span>
 
 One paragraph description and purpose.
 
@@ -238,61 +233,47 @@ Keep this section limited to core endpoints - if the app is complex link out to 
 
 <span class="gu">## Versioning policy (for Gems only)</span>
 
-</code></pre></div>
-<h2 id="benefits-of-using-this-template">Benefits of using this template</h2>
+</code></pre></div><h2 id='benefits-of-using-this-template'>Benefits of using this template</h2>
+<ul>
+<li>it is consistent</li>
+<li>it is scannable</li>
+<li>functionality is shown in screenshots and links to live services</li>
+<li>it has quick start information for new developers or interested third parties</li>
+</ul>
+<h2 id='one-line-summaries-on-github-repositories'>One-line summaries on GitHub repositories</h2><p>Who are these for? These are for people who scan the list in <a href="https://github.com/alphagov/">alphagov</a> and need a quick overview.</p>
 
 <ul>
-  <li>it is consistent</li>
-  <li>it is scannable</li>
-  <li>functionality is shown in screenshots and links to live services</li>
-  <li>it has quick start information for new developers or interested third parties</li>
+<li>Include information about whether it&rsquo;s on GOV.UK</li>
+<li>Try to tone down technical language - &lsquo;Filtered search of content&rsquo; is better than &lsquo;Faceted search interface&rsquo;</li>
+<li>Use the GitHub link field to link to the developer docs page for the repository, or otherwise the live service (if public facing)</li>
 </ul>
-
-<h2 id="one-line-summaries-on-github-repositories">One-line summaries on GitHub repositories</h2>
-
-<p>Who are these for? These are for people who scan the list in <a href="https://github.com/alphagov/">alphagov</a> and need a quick overview.</p>
-
-<ul>
-  <li>Include information about whether it's on GOV.UK</li>
-  <li>Try to tone down technical language - 'Filtered search of content' is better than 'Faceted search interface'</li>
-  <li>Use the GitHub link field to link to the developer docs page for the repository, or otherwise the live service (if public facing)</li>
-</ul>
-
 <p>A good example:</p>
 
 <blockquote>
-  <p>GOV.UK filtered search of public content</p>
+<p>GOV.UK filtered search of public content</p>
 </blockquote>
-
-<h2 id="things-we-shouldnt-put-in-the-readme">Things we shouldn't put in the README</h2>
+<h2 id='things-we-shouldn39t-put-in-the-readme'>Things we shouldn&rsquo;t put in the README</h2>
+<ul>
+<li>Full documentation of the API - if the app is complex or has a complex API, use the <code>docs</code> directory liberally, and link out to it from the <code>README</code>
 
 <ul>
-  <li>Full documentation of the API - if the app is complex or has a complex API, use the <code>docs</code> directory liberally, and link out to it from the <code>README</code>
-    <ul>
-      <li>If the API is small try to keep it in the main README and don't link to docs</li>
-      <li>Some bad examples - too much documentation in the README:
-        <ul>
-          <li><a href="https://github.com/alphagov/smart-answers/blob/06dfeb854ec9728374186a2e37c1eb62a5aaa49a/README.md">smart-answers (older version)</a></li>
-          <li><a href="https://github.com/alphagov/govuk_frontend_toolkit/blob/edd834de8d2f4e854475f5d226aa0cd260795cef/README.md">govuk_frontend_toolkit</a></li>
-        </ul>
-      </li>
-      <li>Good examples:
-        <ul>
-          <li><a href="https://github.com/alphagov/content-store/blob/b244620f505f248fc93d8556eedad14b5cba1187/README.md">content-store</a> - links out to more docs as required</li>
-          <li><a href="https://github.com/alphagov/smart-answers/blob/c0b4580d18ccc5004abfa7015017d26e1a73f2aa/README.md">smart-answers (newer version)</a> - links out to more docs as required</li>
-        </ul>
-      </li>
-      <li>For Ruby libraries always use <a href="http://yardoc.org/">yardoc</a> - then Gems will automatically have docs built</li>
-    </ul>
-  </li>
-  <li>Contributors - we can use GitHub's native graphing tools for this</li>
-  <li>Contribution guidelines - use GitHub's <a href="https://help.github.com/articles/setting-guidelines-for-repository-contributors/">CONTRIBUTING.md</a> guidelines for this
-    <ul>
-      <li>When writing this document, always link to the <a href="https://github.com/alphagov/styleguides/blob/master/pull-requests.md">GOV.UK pull request style guide</a></li>
-      <li>Document any weirdness here (eg when to use Cucumber over something else)</li>
-    </ul>
-  </li>
-  <li>Full licence - again, follow <a href="https://help.github.com/articles/open-source-licensing/#where-does-the-license-live-on-my-repository">GitHub convention</a></li>
+<li>If the API is small try to keep it in the main README and don&rsquo;t link to docs</li>
+<li>Some bad examples - too much documentation in the README:</li>
+<li><a href="https://github.com/alphagov/smart-answers/blob/06dfeb854ec9728374186a2e37c1eb62a5aaa49a/README.md">smart-answers (older version)</a></li>
+<li><a href="https://github.com/alphagov/govuk_frontend_toolkit/blob/edd834de8d2f4e854475f5d226aa0cd260795cef/README.md">govuk_frontend_toolkit</a></li>
+<li>Good examples:</li>
+<li><a href="https://github.com/alphagov/content-store/blob/b244620f505f248fc93d8556eedad14b5cba1187/README.md">content-store</a> - links out to more docs as required</li>
+<li><a href="https://github.com/alphagov/smart-answers/blob/c0b4580d18ccc5004abfa7015017d26e1a73f2aa/README.md">smart-answers (newer version)</a> - links out to more docs as required</li>
+<li>For Ruby libraries always use <a href="http://yardoc.org/">yardoc</a> - then Gems will automatically have docs built</li>
+</ul></li>
+<li>Contributors - we can use GitHub&rsquo;s native graphing tools for this</li>
+<li>Contribution guidelines - use GitHub&rsquo;s <a href="https://help.github.com/articles/setting-guidelines-for-repository-contributors/">CONTRIBUTING.md</a> guidelines for this
+
+<ul>
+<li>When writing this document, always link to the <a href="https://github.com/alphagov/styleguides/blob/master/pull-requests.md">GOV.UK pull request style guide</a></li>
+<li>Document any weirdness here (eg when to use Cucumber over something else)</li>
+</ul></li>
+<li>Full licence - again, follow <a href="https://help.github.com/articles/open-source-licensing/#where-does-the-license-live-on-my-repository">GitHub convention</a></li>
 </ul>
 
 

@@ -161,100 +161,77 @@
 
  <h1 id='header'>Manually resize EBSs (elastic block store)</h1> <p>In AWS, <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html">we use Elastic Block Store (EBS)</a> to attach additional
 block storage to EC2 instances.</p>
-
 <p>EBS is not the same thing as <a href="https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">Elastic File System (EFS)</a>, which
 is more like a shared NFS volume and does not need to be manually
 resized.</p>
-
-<h2 id="manually-scaling-up">Manually scaling up</h2>
-
+<h2 id='manually-scaling-up'>Manually scaling up</h2>
 <blockquote>
-  <p><strong>Note:</strong> EBS volumes can only be grown, not shrunk, so you <a href="https://github.com/alphagov/govuk-aws-data/pull/811">should
-make sure to raise a PR against govuk-aws-data</a> once it's all
-working to ensure that Terraform doesn't attempt (and fail) to
+<p><strong>Note:</strong> EBS volumes can only be grown, not shrunk, so you <a href="https://github.com/alphagov/govuk-aws-data/pull/811">should
+make sure to raise a PR against govuk-aws-data</a> once it&rsquo;s all
+working to ensure that Terraform doesn&rsquo;t attempt (and fail) to
 shrink the volume when deployed.</p>
 </blockquote>
 
 <ol>
-  <li>
-    <p><a href="/manual/access-aws-console.html">Access the AWS Console</a> and <a href="https://eu-west-1.console.aws.amazon.com/ec2/home?region=eu-west-1">go to the EC2 service</a>.</p>
-  </li>
-  <li>
-    <p>Select "Volumes", from the "Elastic Block Store" menu on the left
+<li><p><a href="/manual/access-aws-console.html">Access the AWS Console</a> and <a href="https://eu-west-1.console.aws.amazon.com/ec2/home?region=eu-west-1">go to the EC2 service</a>.</p></li>
+<li><p>Select &ldquo;Volumes&rdquo;, from the &ldquo;Elastic Block Store&rdquo; menu on the left
 hand side and find the right volume in the list (you can filter on
-the name).</p>
-
-    <p><img src="/manual/images/manually-resize-ebs-volume-filter.png" alt="Filtering EBS volumes" /></p>
-  </li>
-  <li>
-    <p>Select "Modify Volume" from the "Actions" list and enter the new
-size.</p>
-
-    <p><img src="/manual/images/manually-resize-ebs-volume-modify.png" alt="Modifying an EBS volume" /></p>
-  </li>
-  <li>
-    <p>Click "Modify".</p>
-  </li>
-  <li>
-    <p>Wait for the volume to resize.  The state in the "Description" tab
-at the bottom will say "optimizing" and display a percentage.  This
-will take a while.</p>
-
-    <p><img src="/manual/images/manually-resize-ebs-volume-status.png" alt="EBS volume status" /></p>
-  </li>
-  <li>
-    <p>SSH into the EC2 instance and check that the volume has resized:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ lsblk
-NAME                   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
-nvme0n1                259:0    0    20G  0 disk
-└─nvme0n1p1            259:1    0    20G  0 part /
-nvme1n1                259:2    0   460G  0 disk
-└─graphite-data (dm-0) 252:0    0   450G  0 lvm  /opt/graphite
-...
-</code></pre></div>
-    <p>You might need to reboot before the new space shows up.</p>
-  </li>
+the name).</p></li>
 </ol>
-
-<h2 id="if-you-are-growing-a-regular-partition">If you are growing a regular partition</h2>
-
-<p>See <a href="https://n2ws.com/blog/how-to-guides/how-to-increase-the-size-of-an-aws-ebs-cloud-volume-attached-to-a-linux-machine">these docs</a> and add some instructions here.</p>
-
-<h2 id="if-you-are-growing-an-lvm-volume">If you are growing an LVM volume</h2>
+<p><a href="images/manually-resize-ebs-volume-filter.png" rel="noopener noreferrer"><img src="/manual/images/manually-resize-ebs-volume-filter.png" alt="Filtering EBS volumes" /></a></p>
 
 <ol>
-  <li>
-    <p>Grow the LVM physical volume to fill the empty space:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo pvresize /dev/nvme1n1
-  Physical volume "/dev/nvme1n1" changed
-  1 physical volume(s) resized / 0 physical volume(s) not resized
-</code></pre></div>
-    <p>Where <code>/dev/nvme1n1</code> is the device name from <code>lsblk</code>.</p>
-  </li>
-  <li>
-    <p>Grow the LVM logical volume to fill the empty space:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo lvresize -l +100%FREE /dev/graphite/data
-  Extending logical volume data to 460.00 GiB
-  Logical volume data successfully resized
-</code></pre></div>
-    <p>Where <code>/dev/graphite/data</code> is the path to your logical volume.</p>
-  </li>
-  <li>
-    <p>Grow the filesystem to fill the empty space:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ sudo resize2fs /dev/graphite/data
-resize2fs 1.42.9 (4-Feb-2014)
-Filesystem at /dev/graphite/data is mounted on /opt/graphite; on-line resizing required
-old_desc_blocks = 29, new_desc_blocks = 29
-The filesystem on /dev/graphite/data is now 120585216 blocks long.
-</code></pre></div>
-    <p>Where <code>/dev/graphite/data</code> is the path to your logical volume.</p>
-  </li>
+<li>Select &ldquo;Modify Volume&rdquo; from the &ldquo;Actions&rdquo; list and enter the new
+size.</li>
 </ol>
+<p><a href="images/manually-resize-ebs-volume-modify.png" rel="noopener noreferrer"><img src="/manual/images/manually-resize-ebs-volume-modify.png" alt="Modifying an EBS volume" /></a></p>
 
+<ol>
+<li><p>Click &ldquo;Modify&rdquo;.</p></li>
+<li><p>Wait for the volume to resize.  The state in the &ldquo;Description&rdquo; tab
+at the bottom will say &ldquo;optimizing&rdquo; and display a percentage.  This
+will take a while.</p></li>
+</ol>
+<p><a href="images/manually-resize-ebs-volume-status.png" rel="noopener noreferrer"><img src="/manual/images/manually-resize-ebs-volume-status.png" alt="EBS volume status" /></a></p>
+
+<ol>
+<li>SSH into the EC2 instance and check that the volume has resized:</li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   $ lsblk
+   NAME                   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+   nvme0n1                259:0    0    20G  0 disk
+   └─nvme0n1p1            259:1    0    20G  0 part /
+   nvme1n1                259:2    0   460G  0 disk
+   └─graphite-data (dm-0) 252:0    0   450G  0 lvm  /opt/graphite
+   ...
+</code></pre></div><p>You might need to reboot before the new space shows up.</p>
+<h2 id='if-you-are-growing-a-regular-partition'>If you are growing a regular partition</h2><p>See <a href="https://n2ws.com/blog/how-to-guides/how-to-increase-the-size-of-an-aws-ebs-cloud-volume-attached-to-a-linux-machine">these docs</a> and add some instructions here.</p>
+<h2 id='if-you-are-growing-an-lvm-volume'>If you are growing an LVM volume</h2>
+<ol>
+<li>Grow the LVM physical volume to fill the empty space:</li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   $ sudo pvresize /dev/nvme1n1
+     Physical volume "/dev/nvme1n1" changed
+     1 physical volume(s) resized / 0 physical volume(s) not resized
+</code></pre></div><p>Where <code>/dev/nvme1n1</code> is the device name from <code>lsblk</code>.</p>
+
+<ol>
+<li>Grow the LVM logical volume to fill the empty space:</li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   $ sudo lvresize -l +100%FREE /dev/graphite/data
+     Extending logical volume data to 460.00 GiB
+     Logical volume data successfully resized
+</code></pre></div><p>Where <code>/dev/graphite/data</code> is the path to your logical volume.</p>
+
+<ol>
+<li>Grow the filesystem to fill the empty space:</li>
+</ol>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>   $ sudo resize2fs /dev/graphite/data
+   resize2fs 1.42.9 (4-Feb-2014)
+   Filesystem at /dev/graphite/data is mounted on /opt/graphite; on-line resizing required
+   old_desc_blocks = 29, new_desc_blocks = 29
+   The filesystem on /dev/graphite/data is now 120585216 blocks long.
+</code></pre></div><p>Where <code>/dev/graphite/data</code> is the path to your logical volume.</p>
 
 
   <div class='related-content'>

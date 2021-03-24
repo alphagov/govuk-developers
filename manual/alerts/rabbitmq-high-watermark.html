@@ -168,23 +168,16 @@ default, when the RabbitMQ server uses above 40% of the installed RAM, it
 raises a memory alarm and blocks all connections. Once the memory alarm has
 cleared (e.g. due to the server paging messages to disk or delivering them to
 clients) normal service resumes.</p>
-
 <p>If this alert is regularly triggered it is a sign that it is time to beef up
-the Rabbit boxes with more RAM. Alternatively, if you don't care about
+the Rabbit boxes with more RAM. Alternatively, if you don&rsquo;t care about
 messages, you can try to purge messages or remove unused queues.</p>
-
-<p>It's also possible for this alert to trigger even if there are no free memory issues.</p>
-
+<p>It&rsquo;s also possible for this alert to trigger even if there are no free memory issues.</p>
 <p>Under the hood, the alert queries the <a href="https://www.rabbitmq.com/management.html">RabbitMQ Management API</a> and checks if the response contains <code>mem_alert</code> and <code>disk_free_alarm</code>.</p>
-
-<p>The RabbitMQ Management API depends on the <code>rabbitmq_management</code> plugin being enabled. If it isn't enabled then it won't generate a response which contains <code>mem_alert</code> and <code>disk_free_alarm</code>.</p>
-
+<p>The RabbitMQ Management API depends on the <code>rabbitmq_management</code> plugin being enabled. If it isn&rsquo;t enabled then it won&rsquo;t generate a response which contains <code>mem_alert</code> and <code>disk_free_alarm</code>.</p>
 <p>To enable the plugin, connect to the server which is alerting and first disable then enable the plugin:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>$ rabbitmq-plugins disable rabbitmq_management
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ rabbitmq-plugins disable rabbitmq_management
 $ rabbitmq-plugins enable rabbitmq_management
-</code></pre></div>
-<p>Further information
+</code></pre></div><p>Further information
 <a href="https://www.rabbitmq.com/memory.html">can be found in the RabbitMQ docs</a>.</p>
 
 

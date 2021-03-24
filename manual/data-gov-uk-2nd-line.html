@@ -225,252 +225,157 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/983dacfec225939b626b8421f3d27aed94bde858">3 Aug 2020</a>
 </div>
 
- <h1 id='header'>Common 2nd line support tasks for data.gov.uk</h1> 
-<p>This document details some of the requests that GOV.UK 2nd line support may receive regarding data.gov.uk.  <a href="https://guidance.data.gov.uk">Separate documentation</a> exists for publishers.</p>
-
-<h2 id="users-and-publishers">Users and Publishers</h2>
-
-<p>Users have their own accounts and can login using either their username or email address.   A user can be a member of one or more publishing organisations, and can have either the role 'Admin' or 'Editor' for each organisation.  Users with 'Admin' status can add/remove users from the organisation for which they are an admin.  They only have 'admin' rights on their own organisation, contrasted to a 'sysadmin' who has admin rights across all organisations.</p>
-
-<h3 id="find-a-user">Find a user</h3>
-
-<p>There is a <a href="https://ckan.publishing.service.gov.uk/user">user list</a> which can be used to locate a user account.  This is useful in cases where a publisher does not know their username or no longer has access to their registered email account.  This list is only accessible when logged in as a sysadmin.</p>
-
-<h3 id="create-a-user-account">Create a user account</h3>
-
-<p>There are two routes for creating an new account for a new user:</p>
+ <h1 id='header'>Common 2nd line support tasks for data.gov.uk</h1> <p>This document details some of the requests that GOV.UK 2nd line support may receive regarding data.gov.uk.  <a href="https://guidance.data.gov.uk">Separate documentation</a> exists for publishers.</p>
+<h2 id='users-and-publishers'>Users and Publishers</h2><p>Users have their own accounts and can login using either their username or email address.   A user can be a member of one or more publishing organisations, and can have either the role &lsquo;Admin&rsquo; or &lsquo;Editor&rsquo; for each organisation.  Users with &lsquo;Admin&rsquo; status can add/remove users from the organisation for which they are an admin.  They only have &lsquo;admin&rsquo; rights on their own organisation, contrasted to a &lsquo;sysadmin&rsquo; who has admin rights across all organisations.</p>
+<h3 id='find-a-user'>Find a user</h3><p>There is a <a href="https://ckan.publishing.service.gov.uk/user">user list</a> which can be used to locate a user account.  This is useful in cases where a publisher does not know their username or no longer has access to their registered email account.  This list is only accessible when logged in as a sysadmin.</p>
+<h3 id='create-a-user-account'>Create a user account</h3><p>There are two routes for creating an new account for a new user:</p>
 
 <ol>
-  <li>A publishing organisation's 'admin' user(s) can invite new users to create an account.  The admin user should <a href="https://guidance.data.gov.uk/publish_and_manage_data/get_and_manage_accounts/#add-or-remove-editors-and-admins">follow these instructions</a> to invite the new user to join. We should encourage this approach as the organisation admin is best placed to know whether or not the new user should have access, as well as reducing the number of requests to 2nd line support.</li>
-  <li>A sysadmin user (e.g. 2nd line) can create an account for the new user. This should only be done if the organisation has no admins, and if we can verify the authenticity of the request.
-    <ul>
-      <li>Follow the instructions in <a href="#assign-users-to-publishers-setting-user-permissions">Assign users to publishers</a> inputting the user's email address instead of their username.</li>
-      <li>An invite email is generated and sent to the publisher.</li>
-    </ul>
-  </li>
+<li>A publishing organisation&rsquo;s &lsquo;admin&rsquo; user(s) can invite new users to create an account.  The admin user should <a href="https://guidance.data.gov.uk/publish_and_manage_data/get_and_manage_accounts/#add-or-remove-editors-and-admins">follow these instructions</a> to invite the new user to join. We should encourage this approach as the organisation admin is best placed to know whether or not the new user should have access, as well as reducing the number of requests to 2nd line support.</li>
+<li>A sysadmin user (e.g. 2nd line) can create an account for the new user. This should only be done if the organisation has no admins, and if we can verify the authenticity of the request.
+
+<ul>
+<li>Follow the instructions in <a href="#assign-users-to-publishers-setting-user-permissions">Assign users to publishers</a> inputting the user&rsquo;s email address instead of their username.</li>
+<li>An invite email is generated and sent to the publisher.</li>
+</ul></li>
 </ol>
 
 <blockquote>
-  <p>An account should only be created if the user intends to publish on data.gov.uk.  Previously users have been able to register accounts to follow publishers.  This is no longer offered.</p>
+<p>An account should only be created if the user intends to publish on data.gov.uk.  Previously users have been able to register accounts to follow publishers.  This is no longer offered.</p>
 </blockquote>
-
-<h3 id="update-a-user-account-email-address">Update a user account email address</h3>
-
-<p>Since CKAN was upgraded users have needed to login using their email address instead of a username.  Some users have changed their email address and as such are no longer able to login to data.gov.uk. In order to update the email address associated with a user's account:</p>
+<h3 id='update-a-user-account-email-address'>Update a user account email address</h3><p>Since CKAN was upgraded users have needed to login using their email address instead of a username.  Some users have changed their email address and as such are no longer able to login to data.gov.uk. In order to update the email address associated with a user&rsquo;s account:</p>
 
 <ol>
-  <li>Login to <a href="https://ckan.publishing.service.gov.uk">CKAN</a> as a sysadmin user (credentials are available in the <code>govuk-secrets</code> password store, under <code>datagovuk/ckan</code>).</li>
-  <li>Click the 'Publishers' button in the header.</li>
-  <li>Search for the user's publishing organisation and click on it.</li>
-  <li>Click on the 'Manage' button.</li>
-  <li>Click on the 'Members' tab.</li>
-  <li>Click on the user's username in the list.</li>
-  <li>Click on the 'Manage' button.</li>
-  <li>Fill in the email field with the user's new email address.</li>
-  <li>Enter the password you used to log in to CKAN in the 'Sysadmin password' field.</li>
-  <li>Set a new password for the user.</li>
-  <li>Click 'Update profile'.</li>
-  <li>Reply to the user to tell them that their email address has been changed, what the new password you set is and strongly advise them to change the password when they log in.</li>
+<li>Login to <a href="https://ckan.publishing.service.gov.uk">CKAN</a> as a sysadmin user (credentials are available in the <code>govuk-secrets</code> password store, under <code>datagovuk/ckan</code>).</li>
+<li>Click the &lsquo;Publishers&rsquo; button in the header.</li>
+<li>Search for the user&rsquo;s publishing organisation and click on it.</li>
+<li>Click on the &lsquo;Manage&rsquo; button.</li>
+<li>Click on the &lsquo;Members&rsquo; tab.</li>
+<li>Click on the user&rsquo;s username in the list.</li>
+<li>Click on the &lsquo;Manage&rsquo; button.</li>
+<li>Fill in the email field with the user&rsquo;s new email address.</li>
+<li>Enter the password you used to log in to CKAN in the &lsquo;Sysadmin password&rsquo; field.</li>
+<li>Set a new password for the user.</li>
+<li>Click &lsquo;Update profile&rsquo;.</li>
+<li>Reply to the user to tell them that their email address has been changed, what the new password you set is and strongly advise them to change the password when they log in.</li>
 </ol>
-
-<h3 id="create-a-publishing-organisation">Create a publishing organisation</h3>
-
+<h3 id='create-a-publishing-organisation'>Create a publishing organisation</h3>
 <ol>
-  <li>Login to <a href="https://ckan.publishing.service.gov.uk">CKAN</a> as a sysadmin user (credentials are available in the <code>govuk-secrets</code> password store, under <code>datagovuk/ckan</code>).</li>
-  <li>Click the 'Publishers' button in the header.</li>
-  <li>Click 'Add Publisher' and complete the form.</li>
-  <li>Ensure that a publishing user has been assigned as an 'Admin' for this organisation (this would normally be the person who makes the request, so they can then add further 'Editor' users without needing to contact support).</li>
+<li>Login to <a href="https://ckan.publishing.service.gov.uk">CKAN</a> as a sysadmin user (credentials are available in the <code>govuk-secrets</code> password store, under <code>datagovuk/ckan</code>).</li>
+<li>Click the &lsquo;Publishers&rsquo; button in the header.</li>
+<li>Click &lsquo;Add Publisher&rsquo; and complete the form.</li>
+<li>Ensure that a publishing user has been assigned as an &lsquo;Admin&rsquo; for this organisation (this would normally be the person who makes the request, so they can then add further &lsquo;Editor&rsquo; users without needing to contact support).</li>
 </ol>
 
 <blockquote>
-  <p>Check the authenticity of a request before adding a user as a publishing admin (i.e. make sure they actually belong to the department they want to publish for, bearing in mind that some parent organisations may publish on behalf of child organisations, e.g. BEIS can publish for the Civil Nuclear Police Authority).</p>
+<p>Check the authenticity of a request before adding a user as a publishing admin (i.e. make sure they actually belong to the department they want to publish for, bearing in mind that some parent organisations may publish on behalf of child organisations, e.g. BEIS can publish for the Civil Nuclear Police Authority).</p>
 </blockquote>
-
-<h3 id="assign-users-to-publishers-setting-user-permissions">Assign users to publishers (setting user permissions)</h3>
-
+<h3 id='assign-users-to-publishers-setting-user-permissions'>Assign users to publishers (setting user permissions)</h3>
 <ol>
-  <li>Login to <a href="https://ckan.publishing.service.gov.uk">CKAN</a> as a sysadmin user (credentials are available in the <code>govuk-secrets</code> password store, under <code>datagovuk/ckan</code>).</li>
-  <li>Navigate to the relevant page for the publisher (use the 'Publishers' button in the header).</li>
-  <li>Click the 'Manage' button.</li>
-  <li>Click onto the 'Members' tab, then the 'Add Member' button.</li>
-  <li>Add the user's existing account, or enter their email address to send them an invite, ensuring you select the relevant role for the user (either admin or editor).</li>
+<li>Login to <a href="https://ckan.publishing.service.gov.uk">CKAN</a> as a sysadmin user (credentials are available in the <code>govuk-secrets</code> password store, under <code>datagovuk/ckan</code>).</li>
+<li>Navigate to the relevant page for the publisher (use the &lsquo;Publishers&rsquo; button in the header).</li>
+<li>Click the &lsquo;Manage&rsquo; button.</li>
+<li>Click onto the &lsquo;Members&rsquo; tab, then the &lsquo;Add Member&rsquo; button.</li>
+<li>Add the user&rsquo;s existing account, or enter their email address to send them an invite, ensuring you select the relevant role for the user (either admin or editor).</li>
 </ol>
 
 <blockquote>
-  <p>Users should first be guided to request addition by an admin of their organisation, if possible.  This is to reduce the burden of these requests on the 2nd line team and to ensure only those with the correct authority are actually added as publishers.</p>
-
-  <p>Check the authenticity of a request before adding a user as a publisher (i.e. make sure they actually belong to the department they want to publish for, bearing in mind that some parent organisations may publish on behalf of child organisations, e.g. BEIS can publish for the Civil Nuclear Police Authority).</p>
+<p>Users should first be guided to request addition by an admin of their organisation, if possible.  This is to reduce the burden of these requests on the 2nd line team and to ensure only those with the correct authority are actually added as publishers.</p>
+<p>Check the authenticity of a request before adding a user as a publisher (i.e. make sure they actually belong to the department they want to publish for, bearing in mind that some parent organisations may publish on behalf of child organisations, e.g. BEIS can publish for the Civil Nuclear Police Authority).</p>
 </blockquote>
-
-<h2 id="datasets">Datasets</h2>
-
-<h3 id="delete-or-withdraw-a-dataset">Delete or withdraw a dataset</h3>
-
-<p>Users are not permitted to remove their own datasets.  There are a <a href="https://guidance.data.gov.uk/publish_and_manage_data/managing_published_data/#managing-published-data">limited number of circumstances</a> in which a dataset will be withdrawn.  This is to be done by 2nd line, following a request from the publisher.  Datasets are never hard-deleted (known as "purged" in CKAN), instead they are marked as "withdrawn" (a soft-deletion), which removes them from the Find interface but allows them to be viewed through the publishing interface (CKAN).</p>
+<h2 id='datasets'>Datasets</h2><h3 id='delete-or-withdraw-a-dataset'>Delete or withdraw a dataset</h3><p>Users are not permitted to remove their own datasets.  There are a <a href="https://guidance.data.gov.uk/publish_and_manage_data/managing_published_data/#managing-published-data">limited number of circumstances</a> in which a dataset will be withdrawn.  This is to be done by 2nd line, following a request from the publisher.  Datasets are never hard-deleted (known as &ldquo;purged&rdquo; in CKAN), instead they are marked as &ldquo;withdrawn&rdquo; (a soft-deletion), which removes them from the Find interface but allows them to be viewed through the publishing interface (CKAN).</p>
 
 <blockquote>
-  <p>Before making any deletions, you should check that the person making the request actually belongs to the organisation who own the document (or are from a superseding department, e.g. someone from BEIS could request a withdrawal for a dataset published by BIS).</p>
+<p>Before making any deletions, you should check that the person making the request actually belongs to the organisation who own the document (or are from a superseding department, e.g. someone from BEIS could request a withdrawal for a dataset published by BIS).</p>
 </blockquote>
-
-<h4 id="deleting-a-single-dataset">Deleting a single dataset</h4>
-
+<h4 id='deleting-a-single-dataset'>Deleting a single dataset</h4>
 <ol>
-  <li>Login to <a href="https://ckan.publishing.service.gov.uk">CKAN</a> as a sysadmin user (credentials are available in the <code>govuk-secrets</code> password store, under <code>datagovuk/ckan</code>).</li>
-  <li>Navigate to the relevant dataset (use the 'Datasets' button in the header).</li>
-  <li>Click the 'Manage' button.</li>
-  <li>Click the red 'Delete' button.</li>
-  <li>Once withdrawn, it will take up to 30 minutes to sync across to Find and clear the cache.</li>
+<li>Login to <a href="https://ckan.publishing.service.gov.uk">CKAN</a> as a sysadmin user (credentials are available in the <code>govuk-secrets</code> password store, under <code>datagovuk/ckan</code>).</li>
+<li>Navigate to the relevant dataset (use the &lsquo;Datasets&rsquo; button in the header).</li>
+<li>Click the &lsquo;Manage&rsquo; button.</li>
+<li>Click the red &lsquo;Delete&rsquo; button.</li>
+<li>Once withdrawn, it will take up to 30 minutes to sync across to Find and clear the cache.</li>
 </ol>
-
-<h4 id="bulk-deleting-datasets">Bulk deleting datasets</h4>
-
-<p>Sometimes a publisher will request a large deletion of datasets.  In these cases, you can bulk withdraw the datasets using the instructions contained in the <a href="/manual/data-gov-uk-supporting-ckan.html#deleting-a-dataset">supporting CKAN</a> documentation.  Refer to the instructions for 'Deleting a dataset' (which is a soft-delete).  <strong>Do not purge the dataset - this is a hard-delete.</strong></p>
-
-<h3 id="a-dataset-is-wrong-in-some-way">A dataset is wrong in some way</h3>
-
-<p>Responsibility for individual datasets lies with the publishing organisation.  Unless it's clearly a data.gov.uk problem (eg, a dataset page is returning an error response when it shouldn't be), users who report a problem with a dataset should be directed to the publisher.</p>
-
+<h4 id='bulk-deleting-datasets'>Bulk deleting datasets</h4><p>Sometimes a publisher will request a large deletion of datasets.  In these cases, you can bulk withdraw the datasets using the instructions contained in the <a href="/manual/data-gov-uk-supporting-ckan.html#deleting-a-dataset">supporting CKAN</a> documentation.  Refer to the instructions for &lsquo;Deleting a dataset&rsquo; (which is a soft-delete).  <strong>Do not purge the dataset - this is a hard-delete.</strong></p>
+<h3 id='a-dataset-is-wrong-in-some-way'>A dataset is wrong in some way</h3><p>Responsibility for individual datasets lies with the publishing organisation.  Unless it&rsquo;s clearly a data.gov.uk problem (eg, a dataset page is returning an error response when it shouldn&rsquo;t be), users who report a problem with a dataset should be directed to the publisher.</p>
 <p>This is a generic response for such cases:</p>
 
 <blockquote>
-  <p>Thanks for getting in touch.</p>
-
-  <p>Individual datasets are the responsibility of the publishing organisation, rather than the data.gov.uk team. This means that you’ll need to get in touch with the publishing organisation directly to request any changes to the dataset.</p>
-
-  <p>Contact details for each dataset are towards the bottom of the dataset page.</p>
-
-  <p>I hope that helps. I’ll close this ticket now.</p>
+<p>Thanks for getting in touch.</p>
+<p>Individual datasets are the responsibility of the publishing organisation, rather than the data.gov.uk team. This means that you’ll need to get in touch with the publishing organisation directly to request any changes to the dataset.</p>
+<p>Contact details for each dataset are towards the bottom of the dataset page.</p>
+<p>I hope that helps. I’ll close this ticket now.</p>
 </blockquote>
-
-<h3 id="different-number-of-datasets-in-ckan-app-to-find">Different number of datasets in <a href="/apps/ckanext-datagovuk.html">CKAN-app</a> to <a href="/apps/datagovuk_find.html">Find</a></h3>
-
-<p>Determine the number of datasets in CKAN using the API:</p>
-
+<h3 id='different-number-of-datasets-in-ckan-app-to-find'>Different number of datasets in <a href="/apps/ckanext-datagovuk.html">CKAN-app</a> to <a href="/apps/datagovuk_find.html">Find</a></h3><p>Determine the number of datasets in CKAN using the API:</p>
 <p><a href="https://data.gov.uk/api/3/search/dataset">https://data.gov.uk/api/3/search/dataset</a></p>
-
 <p>Determine the number of datasets in the Publish Postgres database using the Rails console.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf ssh publish-data-beta-production
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf ssh publish-data-beta-production
 /tmp/lifecycle/launcher /home/vcap/app 'rails console' ''
 &gt;&gt;&gt; Dataset.count
-</code></pre></div>
-<p>If these numbers match, but the number of datasets served on Find is still different, identify the number of published in the Publish Postgres database.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf ssh publish-data-beta-production
+</code></pre></div><p>If these numbers match, but the number of datasets served on Find is still different, identify the number of published in the Publish Postgres database.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf ssh publish-data-beta-production
 /tmp/lifecycle/launcher /home/vcap/app 'rails console' ''
 &gt;&gt;&gt; Dataset.published.count
-</code></pre></div>
-<p>With the current set up, all datasets that are available through the CKAN API will be marked as public in the Publish Postgres database.  Therefore, if you get a different number of datasets, you should mark them all as published in the Publish Postgres database.</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf ssh publish-data-beta-production
+</code></pre></div><p>With the current set up, all datasets that are available through the CKAN API will be marked as public in the Publish Postgres database.  Therefore, if you get a different number of datasets, you should mark them all as published in the Publish Postgres database.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf ssh publish-data-beta-production
 /tmp/lifecycle/launcher /home/vcap/app 'rails console' ''
 &gt;&gt;&gt; Dataset.update(status: 'published')
-</code></pre></div>
-<p>A <a href="/manual/data-gov-uk-operations.html#reindexing-find">reindex</a> must then be done to update the status with the Elastic instance that serves Find.</p>
-
-<h3 id="datasets-published-in-ckan-are-not-appearing-on-find">Datasets published in CKAN are not appearing on Find</h3>
-
-<p>Check the Sidekiq queue (see <a href="/manual/data-gov-uk-monitoring.html#sidekiq-publish">monitoring section</a>) length to ensure the queue length is not too long.  You should not be seeing more jobs than the number of datasets in CKAN.</p>
-
+</code></pre></div><p>A <a href="/manual/data-gov-uk-operations.html#reindexing-find">reindex</a> must then be done to update the status with the Elastic instance that serves Find.</p>
+<h3 id='datasets-published-in-ckan-are-not-appearing-on-find'>Datasets published in CKAN are not appearing on Find</h3><p>Check the Sidekiq queue (see <a href="/manual/data-gov-uk-monitoring.html#sidekiq-publish">monitoring section</a>) length to ensure the queue length is not too long.  You should not be seeing more jobs than the number of datasets in CKAN.</p>
 <p>If the queue is too long, you should <a href="https://github.com/mperham/sidekiq/wiki/API">clear the queue</a>.  The next sync process will repopulate the queue with any relevant datasets that require updating.</p>
-
-<h3 id="accessing-withdrawn-content">Accessing withdrawn content</h3>
-
-<p>Sometimes we get queries from users asking for data that is no longer publicly available, e.g. a withdrawn dataset.</p>
-
-<h4 id="if-the-withdrawn-content-was-a-dataset">If the withdrawn content was a dataset</h4>
-
-<p>Ask the user to email the organisation that originally published the dataset. You can find an email address for the organisation on CKAN.</p>
-
-<h4 id="if-the-withdrawn-content-was-a-publication">If the withdrawn content was a publication</h4>
-
-<p>If the content was published under <a href="http://data.gov.uk/library">http://data.gov.uk/library</a>, this was part of the former Drupal-based data.gov.uk publishing application, which is no longer being hosted on DGU.</p>
-
+<h3 id='accessing-withdrawn-content'>Accessing withdrawn content</h3><p>Sometimes we get queries from users asking for data that is no longer publicly available, e.g. a withdrawn dataset.</p>
+<h4 id='if-the-withdrawn-content-was-a-dataset'>If the withdrawn content was a dataset</h4><p>Ask the user to email the organisation that originally published the dataset. You can find an email address for the organisation on CKAN.</p>
+<h4 id='if-the-withdrawn-content-was-a-publication'>If the withdrawn content was a publication</h4><p>If the content was published under <a href="http://data.gov.uk/library">http://data.gov.uk/library</a>, this was part of the former Drupal-based data.gov.uk publishing application, which is no longer being hosted on DGU.</p>
 <p>Whilst we do have a backup of the old bytemark server and can access the publications in an emergency, we recommend directing users to the relevant team in government, as the original documents were often incomplete and/or outdated.</p>
-
-<h2 id="schema-vocabulary-definitions">Schema vocabulary definitions</h2>
-
-<h3 id="add-a-schema-vocabulary-definition">Add a schema vocabulary definition</h3>
-
-<p>Users are not permitted to add their own schema vocabulary definitions.
+<h2 id='schema-vocabulary-definitions'>Schema vocabulary definitions</h2><h3 id='add-a-schema-vocabulary-definition'>Add a schema vocabulary definition</h3><p>Users are not permitted to add their own schema vocabulary definitions.
 This is to be done by 2nd line, following a request from the publisher.</p>
 
 <ol>
-  <li>Add the new schema vocabulary definition to the <a href="schemas">schemas</a></li>
-  <li>Add the new schema vocabulary definition to the <a href="test-schemas">corresponding test</a></li>
+<li>Add the new schema vocabulary definition to the <a href="schemas">schemas</a></li>
+<li>Add the new schema vocabulary definition to the <a href="test-schemas">corresponding test</a></li>
 </ol>
-
 <p>The format is:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>"&lt;random UUID&gt;": "&lt;schema vocabulary definition title&gt; - &lt;schema vocabulary definition url&gt;"`
-</code></pre></div>
-<p>You can generate a <code>UUID</code> in <code>irb</code> or <code>pry</code>:</p>
-
-<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>pry
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>"&lt;random UUID&gt;": "&lt;schema vocabulary definition title&gt; - &lt;schema vocabulary definition url&gt;"`
+</code></pre></div><p>You can generate a <code>UUID</code> in <code>irb</code> or <code>pry</code>:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>pry
 <span class="o">[</span>1] pry<span class="o">(</span>main<span class="o">)&gt;</span> require <span class="s1">'securerandom'</span>
 <span class="o">=&gt;</span> <span class="nb">true</span>
 <span class="o">[</span>2] pry<span class="o">(</span>main<span class="o">)&gt;</span> SecureRandom.uuid
 <span class="o">=&gt;</span> <span class="s2">"14104757-303a-48ad-8eff-bfbe320b0e0a"</span>
 </code></pre></div>
 <blockquote>
-  <p><strong>Note</strong></p>
-
-  <p>The added schema will appear in the Schema/Vocabulary dropdown in <a href="https://ckan.publishing.service.gov.uk/dataset/new">https://ckan.publishing.service.gov.uk/dataset/new</a>.</p>
+<p><strong>Note</strong></p>
+<p>The added schema will appear in the Schema/Vocabulary dropdown in <a href="https://ckan.publishing.service.gov.uk/dataset/new">https://ckan.publishing.service.gov.uk/dataset/new</a>.</p>
 </blockquote>
-
-<h2 id="harvesting">Harvesting</h2>
-
-<p>Harvesting is where publishers can automatically import their data to data.gov.uk without having to manually enter it into the web interface. They can be set up to run automatically at specified periods, or run manually on-demand.</p>
-
-<p>See the <a href="/manual/data-gov-uk-supporting-ckan.html#harvesting">"Harvesting" section in "Support tasks for CKAN"</a> for troubleshooting.</p>
-
-<h2 id="map-previews-issues">Map previews issues</h2>
-
-<p>Datagovuk Find supports links to show a map preview, but sometimes the map link is not available.
+<h2 id='harvesting'>Harvesting</h2><p>Harvesting is where publishers can automatically import their data to data.gov.uk without having to manually enter it into the web interface. They can be set up to run automatically at specified periods, or run manually on-demand.</p>
+<p>See the <a href="/manual/data-gov-uk-supporting-ckan.html#harvesting">&ldquo;Harvesting&rdquo; section in &ldquo;Support tasks for CKAN&rdquo;</a> for troubleshooting.</p>
+<h2 id='map-previews-issues'>Map previews issues</h2><p>Datagovuk Find supports links to show a map preview, but sometimes the map link is not available.
 There may be a number of reasons for this:</p>
 
 <ol>
-  <li>The harvest source is broken.</li>
-  <li>The harvest source WMS version is incompatible.
-    <ul>
-      <li>Only 1.1.1 or 1.3.0 WMS versions are supported</li>
-      <li>the error should be available to users from the harvest jobs page:</li>
-    </ul>
-    <ul>
-      <li><code>https://ckan.publishing.service.gov.uk/harvest/&lt;harvest name&gt;/job/&lt;harvest job id&gt;</code>
-      - if the error is not shown you can investigate the harvest source by using the ckan api:</li>
-      <li><code>https://ckan.publishing.service.gov.uk/api/action/package_show?id=&lt;id or name of dataset&gt;</code></li>
-      <li>the URL in each resource should provide a version number which might be part of the link</li>
-    </ul>
-  </li>
+<li>The harvest source is broken.</li>
+<li>The harvest source WMS version is incompatible.
+
+<ul>
+<li>Only 1.1.1 or 1.3.0 WMS versions are supported</li>
+<li>the error should be available to users from the harvest jobs page:</li>
+<li><code>https://ckan.publishing.service.gov.uk/harvest/&lt;harvest name&gt;/job/&lt;harvest job id&gt;</code></li>
+<li>if the error is not shown you can investigate the harvest source by using the ckan api:</li>
+<li><code>https://ckan.publishing.service.gov.uk/api/action/package_show?id=&lt;id or name of dataset&gt;</code></li>
+<li>the URL in each resource should provide a version number which might be part of the link</li>
+</ul></li>
 </ol>
-
 <p>In both of these cases 2ndine should ask the user to fix the issue on their harvest server.</p>
-
-<h2 id="organogram-publishing">Organogram Publishing</h2>
-
-<p>Organograms are files that allow the people structure of an organisation to be visualised.  They are split into two files: one for senior staff (grades SCS1, SCS2 and SCS3, or equivalent) and another for junior staff (all other grades).  The senior staff file is more detailed than the junior staff file, with staff names included for posts classified as grades SCS2 and SCS3.</p>
-
+<h2 id='organogram-publishing'>Organogram Publishing</h2><p>Organograms are files that allow the people structure of an organisation to be visualised.  They are split into two files: one for senior staff (grades SCS1, SCS2 and SCS3, or equivalent) and another for junior staff (all other grades).  The senior staff file is more detailed than the junior staff file, with staff names included for posts classified as grades SCS2 and SCS3.</p>
 <p>Organograms are the only datasets in data.gov.uk where we host the data itself rather than linking to an external resource.  The data files are hosted in a S3 bucket (named <code>datagovuk-integration-ckan-organogram</code>, <code>datagovuk-staging-ckan-organogram</code> or <code>datagovuk-production-ckan-organogram</code>, depending on the environment).</p>
-
 <p>Read <a href="https://guidance.data.gov.uk/publish_and_manage_data/harvest_or_add_data/add_data/#publishing-organograms">publishing organograms</a> to find out how to upload new organograms and datasets. You can direct user queries to that guidance.</p>
-
-<h3 id="xls-to-csv-conversion">XLS to CSV Conversion</h3>
-
-<p>Publishers upload their organograms as a Excel (XLS) file that contains macros.  A script is run which converts these to the two CSV files (junior staff and senior staff).</p>
+<h3 id='xls-to-csv-conversion'>XLS to CSV Conversion</h3><p>Publishers upload their organograms as a Excel (XLS) file that contains macros.  A script is run which converts these to the two CSV files (junior staff and senior staff).</p>
 
 <blockquote>
-  <p>Publishers <strong>must</strong> select the correct 'Schema Vocabulary' for their organogram dataset (i.e. one of the two 'organisation structure' values) in order for the upload option to become available and for the XLS-to-CSV conversion to run.</p>
+<p>Publishers <strong>must</strong> select the correct &lsquo;Schema Vocabulary&rsquo; for their organogram dataset (i.e. one of the two &lsquo;organisation structure&rsquo; values) in order for the upload option to become available and for the XLS-to-CSV conversion to run.</p>
 </blockquote>
-
-<h3 id="dataset-analytics-requests">Dataset Analytics requests</h3>
-
-<p>It is possible to access analytics for datasets. If a user requests analytics for datasets, we can provide them with access to an analytics dashboard. Assign tickets like this to Martin Lugton or another member of the Platform Health product team.</p>
-
-<h2 id="revision-log">Revision log</h2>
-
-<p>There is a <a href="https://ckan.publishing.service.gov.uk/revision">revision log</a> which shows the most recent edits to CKAN datasets, harvester and users performed by all users.</p>
-
+<h3 id='dataset-analytics-requests'>Dataset Analytics requests</h3><p>It is possible to access analytics for datasets. If a user requests analytics for datasets, we can provide them with access to an analytics dashboard. Assign tickets like this to Martin Lugton or another member of the Platform Health product team.</p>
+<h2 id='revision-log'>Revision log</h2><p>There is a <a href="https://ckan.publishing.service.gov.uk/revision">revision log</a> which shows the most recent edits to CKAN datasets, harvester and users performed by all users.</p>
 
 
   <div class='related-content'>

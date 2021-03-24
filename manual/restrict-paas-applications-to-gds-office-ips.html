@@ -156,14 +156,10 @@
 </div>
 
  <h1 id='header'>Restrict PaaS applications to GDS office IPs</h1> <p>When deploying applications to the PaaS, it is possible to limit access to the application to GDS office IPs only.</p>
-
 <p>You need to create your application on the PaaS and then bind the route to the <a href="https://github.com/alphagov/govuk-paas-office-ip-router">GOV.UK PaaS Office IP route service</a>. The route service safelists GDS office IPs and will pass requests from office IPs through to your application on the PaaS.</p>
-
 <p>To bind the route to your application to the route service, do the following:</p>
-
-<div class="highlight"><pre class="highlight plaintext"><code>cf bind-route-service cloudapps.digital govuk-paas-office-ip-router-service --hostname APP_NAME
-</code></pre></div>
-<p>Comprehensive documentation can be found in the <a href="https://docs.cloud.service.gov.uk/deploying_services/route_services/#example-route-service-to-add-ip-address-authentication">PaaS tech docs</a>.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>cf bind-route-service cloudapps.digital govuk-paas-office-ip-router-service --hostname APP_NAME
+</code></pre></div><p>Comprehensive documentation can be found in the <a href="https://docs.cloud.service.gov.uk/deploying_services/route_services/#example-route-service-to-add-ip-address-authentication">PaaS tech docs</a>.</p>
 
 
   <div class='related-content'>

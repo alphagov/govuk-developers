@@ -317,114 +317,110 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Application: govuk-dependencies</h1>
 
-  
-<p>A tool to keep track of Dependabot pull requests</p>
+  <p>A tool to keep track of Dependabot pull requests</p>
+<p><div class="gem-c-summary-list  "></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  &lt;dl class="govuk-summary-list"&gt;
+      &lt;div class="govuk-summary-list__row"&gt;
 
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/govuk-dependencies">govuk-dependencies</a></dd>
+        &lt;dt class="govuk-summary-list__key"&gt;GitHub&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;a href="https://github.com/alphagov/govuk-dependencies"&gt;govuk-dependencies&lt;/a&gt;&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>Heroku</strong></dd>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Ownership&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;#govuk-platform-health&lt;/dd&gt;
 
 
 
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">No</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-
-    <li><a href="https://dashboard.heroku.com/apps/govuk-dependencies" class="govuk-link">Manage application</a></li>
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Hosting&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;strong&gt;Heroku&lt;/strong&gt;&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Continuously deployed?&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;No&lt;/dd&gt;
 
 
 
+          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
+</div>          <div class="govuk-summary-list__row"></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>        &lt;dt class="govuk-summary-list__key"&gt;Links&lt;/dt&gt;
+        &lt;dd class="govuk-summary-list__value"&gt;&lt;ul&gt;
 
-
-</ul>
-</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
+&lt;li&gt;&lt;a href="https://dashboard.heroku.com/apps/govuk-dependencies" class="govuk-link"&gt;Manage application&lt;/a&gt;&lt;/li&gt;
+</code></pre></div><p></ul>
+</dd></p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>          &lt;dd class="govuk-summary-list__actions"&gt;
+</code></pre></div><p></dd>
 </div></dl>
     <div class="gem-c-summary__block"></div>
-</div>
+</div></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="readme">README</h2>
-
-<div class="embedded-readme">
-    
 <p>A tool for:</p>
+
 <ul>
 <li>Viewing all of the outstanding open pull requests made by Dependabot to GOV.UK repos</li>
 <li>Sending Slack messages to GDS Teams reminding them of open Dependabot PRs for their applications</li>
 </ul>
+
 <h2 id="screenshots">Screenshots</h2>
-<p><img src="https://user-images.githubusercontent.com/976254/35578664-b0617926-05dc-11e8-9281-3b307a8792c4.png" alt="screenshot" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/976254/35578664-b0617926-05dc-11e8-9281-3b307a8792c4.png" alt="screenshot"></p>
+
 <h2 id="live-examples">Live examples</h2>
+
 <ul>
 <li><a href="https://govuk-dependencies.herokuapp.com/">https://govuk-dependencies.herokuapp.com/</a></li>
 </ul>
+
 <h2 id="technical-documentation">Technical documentation</h2>
+
 <p>This is a Sinatra application that uses the GitHub API in order to get a list of of PRs made
 by Dependabot and groups them in various ways:</p>
+
 <ul>
 <li>By application</li>
 <li>By team</li>
 <li>By gem</li>
 </ul>
+
 <h3 id="dependencies">Dependencies</h3>
+
 <ul>
 <li>
 <a href="https://github.com/octokit/octokit.rb">octokit/octokit.rb</a> - Used for interacting with the GitHub API</li>
 </ul>
+
 <h3 id="running-the-application">Running the application</h3>
+
 <p><code>bundle exec rackup</code></p>
+
 <p>Running this will start your application at <a href="localhost:9292">localhost:9292</a></p>
+
 <h3 id="running-the-test-suite">Running the test suite</h3>
+
 <p><code>bundle exec rake</code></p>
+
 <h3 id="environment-variables">Environment variables</h3>
+
 <ul>
 <li>
 <code>GITHUB_TOKEN</code> - OAuth token generated on GitHub which does not require any special permissions
 <ul>
 <li>Used to interact with the GitHub API, although not required it will help avoid limiting</li>
 </ul>
-</li>
+<p></li>
 <li>
 <code>SLACK_WEBHOOK_URL</code> - The webhook URL for sending Slack messages to</li>
 <li>
@@ -434,8 +430,7 @@ by Dependabot and groups them in various ways:</p>
 <p>If you find yourself being rate limited by GitHub - you can define the <code>GITHUB_TOKEN</code> environment variable.
 This needs to be a token generated from GitHub, however as the repositories are all public it needs no special
 permissions.</p>
-  </div>
-
+  </div></p>
 
 
             

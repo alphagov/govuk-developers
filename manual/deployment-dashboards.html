@@ -171,68 +171,32 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c7139ab88a6f8de3e7a4595c99db07801cfdbd4f">10 Jun 2020</a>
 </div>
 
- <h1 id='header'>Deployment dashboards</h1> <h2 id="deployment-dashboards">Deployment Dashboards</h2>
-
-<p>There are a number of applications with a dashboard showing useful information for the deployment process.</p>
-
-<p>They can be found in <a href="/manual/tools.html#grafana">Grafana</a>, and they are all named "Application dashboard - application name", such as <a href="https://grafana.publishing.service.gov.uk/dashboard/file/whitehall.json">Application dashboard - Whitehall</a>.</p>
-
+ <h1 id='header'>Deployment dashboards</h1> <h2 id='deployment-dashboards'>Deployment Dashboards</h2><p>There are a number of applications with a dashboard showing useful information for the deployment process.</p>
+<p>They can be found in <a href="/manual/tools.html#grafana">Grafana</a>, and they are all named &ldquo;Application dashboard - application name&rdquo;, such as <a href="https://grafana.publishing.service.gov.uk/dashboard/file/whitehall.json">Application dashboard - Whitehall</a>.</p>
 <p>The existing deployment dashboards are written by Puppet every 30 minutes and loaded when Grafana starts. Don’t change them directly.</p>
-
 <p>You can also see further tips on <a href="/manual/graphite-and-deployment-dashboards.html">how we use Graphite</a> to present the data below.</p>
-
-<h2 id="change-the-dashboards">Change the Dashboards</h2>
-
-<p>Each dashboard panel is configured by a .json.erb template in <a href="https://github.com/alphagov/govuk-puppet/tree/master/modules/grafana/templates/dashboards/application_dashboard_panels">Puppet</a> and these are combined to generate the JSON config for each application dashboard.</p>
-
+<h2 id='change-the-dashboards'>Change the Dashboards</h2><p>Each dashboard panel is configured by a .json.erb template in <a href="https://github.com/alphagov/govuk-puppet/tree/master/modules/grafana/templates/dashboards/application_dashboard_panels">Puppet</a> and these are combined to generate the JSON config for each application dashboard.</p>
 <p>You can export the entire dashboard by clicking on the cog:</p>
-
-<p><img src="/manual/images/deployment_dashboards/view_json.png" alt="Dashboard JSON" /></p>
-
+<p><a href="images/deployment_dashboards/view_json.png" rel="noopener noreferrer"><img src="/manual/images/deployment_dashboards/view_json.png" alt="Dashboard JSON" /></a></p>
 <p>Or you can export a single panel by clicking on the panel title to add it to a partial:</p>
-
-<p><img src="/manual/images/deployment_dashboards/panel_json.png" alt="Panel JSON" /></p>
-
+<p><a href="images/deployment_dashboards/panel_json.png" rel="noopener noreferrer"><img src="/manual/images/deployment_dashboards/panel_json.png" alt="Panel JSON" /></a></p>
 <p>Please delete any temporary dashboards after you’ve finished.</p>
-
-<h3 id="if-youre-adding-a-new-panel">If you’re adding a new panel</h3>
-
-<p>Create a new partial in Puppet with the exported JSON
+<h3 id='if-youre-adding-a-new-panel'>If you’re adding a new panel</h3><p>Create a new partial in Puppet with the exported JSON
 Replace any application specific text/urls/queries in the partial with template variables.</p>
-
 <p><code>govuk-puppet</code> uses an <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/grafana/manifests/dashboards.pp">array structure</a> to dynamically control which partials are rendered.</p>
-
 <p>Adding your partial name to this structure will result in it being rendered in Grafana.</p>
-
-<h2 id="add-a-new-application">Add a new application</h2>
-
-<p>The list of applications that have dashboards generated is stored in the <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/common.yaml">hiera data</a> inside Puppet under <code>grafana::dashboards::deployment_applications</code>.</p>
-
+<h2 id='add-a-new-application'>Add a new application</h2><p>The list of applications that have dashboards generated is stored in the <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/common.yaml">hiera data</a> inside Puppet under <code>grafana::dashboards::deployment_applications</code>.</p>
 <p>Each dashboard can have parameters associated with it which affect how the dashboard is generated.</p>
-
 <p>Parameters:</p>
 
 <ul>
-  <li>
-    <p><code>has_workers</code>: Adds a row with worker failure and success panels. This is required for applications that have Sidekiq workers. Defaults to <code>false</code>.</p>
-  </li>
-  <li>
-    <p><code>show_controller_errors</code>: Adds a row which graphs 5XX responses broken down by Rails controller and action. For this graph to contain data, the application must report response statuses to Kibana as <code>status</code>, and also report the controller and action as <code>controller</code> and <code>action</code>. You may wish to set this to <code>false</code> for apps with very low request rates to avoid having an empty and potentially confusing graph. Defaults to <code>true</code>.</p>
-  </li>
-  <li>
-    <p><code>show_slow_requests</code>: Adds a row which graphs response times broken down by Rails controller. For this graph to contain data, the application must report response times to Kibana as <code>duration</code> and the controller as <code>controller</code>. You may wish to set this to <code>false</code> for apps with very low request rates to avoid having an empty and potentially confusing graph. Defaults to <code>true</code>.</p>
-  </li>
-  <li>
-    <p><code>docs_name</code>: This is the name of the application used in the developer documentation. Often the same as the repository name on GitHub. This defaults to the <code>app_name</code>.</p>
-  </li>
-  <li>
-    <p><code>error_threshold</code>: The threshold at which application errors are highlighted in red. Defaults to 50.</p>
-  </li>
-  <li>
-    <p><code>warning_threshold</code>: The threshold at which application errors are highlighted in orange. Defaults to 25.</p>
-  </li>
+<li><p><code>has_workers</code>: Adds a row with worker failure and success panels. This is required for applications that have Sidekiq workers. Defaults to <code>false</code>.</p></li>
+<li><p><code>show_controller_errors</code>: Adds a row which graphs 5XX responses broken down by Rails controller and action. For this graph to contain data, the application must report response statuses to Kibana as <code>status</code>, and also report the controller and action as <code>controller</code> and <code>action</code>. You may wish to set this to <code>false</code> for apps with very low request rates to avoid having an empty and potentially confusing graph. Defaults to <code>true</code>.</p></li>
+<li><p><code>show_slow_requests</code>: Adds a row which graphs response times broken down by Rails controller. For this graph to contain data, the application must report response times to Kibana as <code>duration</code> and the controller as <code>controller</code>. You may wish to set this to <code>false</code> for apps with very low request rates to avoid having an empty and potentially confusing graph. Defaults to <code>true</code>.</p></li>
+<li><p><code>docs_name</code>: This is the name of the application used in the developer documentation. Often the same as the repository name on GitHub. This defaults to the <code>app_name</code>.</p></li>
+<li><p><code>error_threshold</code>: The threshold at which application errors are highlighted in red. Defaults to 50.</p></li>
+<li><p><code>warning_threshold</code>: The threshold at which application errors are highlighted in orange. Defaults to 25.</p></li>
 </ul>
-
 
 
   <div class='related-content'>

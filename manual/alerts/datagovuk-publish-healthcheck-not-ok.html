@@ -167,15 +167,13 @@
 has a healthcheck that monitors two Sidekiq jobs,
 <a href="https://github.com/alphagov/datagovuk_publish/blob/master/app/workers/ckan/v26/package_sync_worker.rb"><code>ckan_v26_package_sync</code></a>
 and <a href="https://github.com/alphagov/datagovuk_publish/blob/master/app/workers/ckan/v26/ckan_org_sync_worker.rb"><code>ckan_v26_ckan_org_sync</code></a>.</p>
-
 <p>The healthcheck alert notifies us if one or both of these jobs are not running in
 the expected timeframe set. This means latest <a href="https://ckan.publishing.service.gov.uk/dataset">dataset</a>
 or <a href="https://ckan.publishing.service.gov.uk/publisher">publisher</a> updates are
 not appearing on data.gov.uk - see <a href="/manual/data-gov-uk-2nd-line.html#datasets-published-in-ckan-are-not-appearing-on-find">Datasets published in CKAN are not appearing on Find</a></p>
-
 <p>You can monitor the number of jobs in the Sidekiq queue
 via <a href="https://grafana-paas.cloudapps.digital/d/rk9fSapik/data-gov-uk-2nd-line?orgId=1">the DGU dashboard</a>
-("Sign in with Google").</p>
+(&ldquo;Sign in with Google&rdquo;).</p>
 
 
   <div class='related-content'>

@@ -145,7 +145,7 @@
         <a href="#reranker-is-not-ok"><span>Reranker is not OK</span></a>
         <ul>
           <li>
-            <a href="#how-do-i-investigate-this-1"><span>How do I investigate this?</span></a>
+            <a href="#how-do-i-investigate-this"><span>How do I investigate this?</span></a>
           </li>
         </ul>
       </li>
@@ -182,53 +182,35 @@
 </div>
 
  <h1 id='header'>Search API app healthcheck not ok</h1> <p>See also: <a href="/manual/alerts/app-healthcheck-not-ok.html">how healthcheck alerts work on GOV.UK</a></p>
-
-<h2 id="elasticsearch-connectivity-is-not-ok">Elasticsearch connectivity is not OK</h2>
-
-<p>The Search API uses elasticsearch as an underlying data store and search
+<h2 id='elasticsearch-connectivity-is-not-ok'>Elasticsearch connectivity is not OK</h2><p>The Search API uses elasticsearch as an underlying data store and search
 engine.</p>
-
 <p>If the application cannot connect to the elasticsearch cluster,
 this will prevent end users performing searches.</p>
-
 <p>Note: We use a managed elasticsearch, <a href="https://aws.amazon.com/elasticsearch-service/">Amazon Elasticsearch Service</a>, rather than running our own.</p>
-
 <p>To solve this issue, look at the logs of the application to see what
 is wrong.</p>
-
-<h3 id="how-do-i-investigate-this">How do I investigate this?</h3>
-
-<p>Find out why the Search API can't connect to elasticsearch.</p>
+<h3 id='how-do-i-investigate-this'>How do I investigate this?</h3><p>Find out why the Search API can&rsquo;t connect to elasticsearch.</p>
 
 <ul>
-  <li>Look at the Search API logs</li>
-  <li>Look at the <a href="/manual/alerts/elasticsearch-cluster-health.html">elasticsearch cluster health</a></li>
-  <li>Check the status of the Elasticsearch cluster in the AWS console</li>
+<li>Look at the Search API logs</li>
+<li>Look at the <a href="/manual/alerts/elasticsearch-cluster-health.html">elasticsearch cluster health</a></li>
+<li>Check the status of the Elasticsearch cluster in the AWS console</li>
 </ul>
-
-<h2 id="reranker-is-not-ok">Reranker is not OK</h2>
-
-<p>The Search API uses machine learning to rank search results based on
+<h2 id='reranker-is-not-ok'>Reranker is not OK</h2><p>The Search API uses machine learning to rank search results based on
 analytics data.  If this alert fires, something has gone wrong with
-that process and we're serving results as they were ordered by
+that process and we&rsquo;re serving results as they were ordered by
 elasticsearch.</p>
-
 <p>Unlike the other healthcheck failures, this does not mean that Search
 API is serving errors.  Only that it is serving potentially worse
 results.</p>
-
 <p>The machine learning model is hosted in <a href="https://aws.amazon.com/sagemaker/">Amazon SageMaker</a>.</p>
-
-<h3 id="how-do-i-investigate-this-1">How do I investigate this?</h3>
-
-<p>Find out why the Search API can't connect to elasticsearch.</p>
+<h3 id='how-do-i-investigate-this'>How do I investigate this?</h3><p>Find out why the Search API can&rsquo;t connect to elasticsearch.</p>
 
 <ul>
-  <li>Look at the error message in the healthcheck response</li>
-  <li>Look at the Search API logs</li>
-  <li>Check the status of the SageMaker endpoint in the AWS console</li>
+<li>Look at the error message in the healthcheck response</li>
+<li>Look at the Search API logs</li>
+<li>Check the status of the SageMaker endpoint in the AWS console</li>
 </ul>
-
 
 
   <div class='related-content'>

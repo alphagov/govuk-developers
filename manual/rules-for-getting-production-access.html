@@ -165,51 +165,40 @@
 </div>
 
  <h1 id='header'>Rules for getting production access</h1> <p>These rules apply to developers in the GOV.UK programme and SREs in the TechOps programme.</p>
-
-<h2 id="what-production-access-means">What production access means</h2>
-
+<h2 id='what-production-access-means'>What production access means</h2>
 <ul>
-  <li>Permission to <a href="https://github.com/alphagov/govuk-secrets/blob/master/puppet/hieradata/production_credentials.yaml">read &amp; write production and staging hieradata</a> in govuk-secrets using GPG</li>
-  <li>Permission to read &amp; write from the Pass in govuk-secrets store using <a href="https://github.com/alphagov/govuk-secrets/blob/master/pass/2ndline/.gpg-id">GPG</a></li>
-  <li>Access to Production Deploy Jenkins and Staging Deploy Jenkins to deploy applications via the <a href="https://github.com/orgs/alphagov/teams/gov-uk-production">GOV.UK Production GitHub team</a></li>
-  <li>SSH access to production and staging servers via <a href="https://github.com/alphagov/govuk-puppet">govuk-puppet</a></li>
-  <li>AWS <a href="https://github.com/alphagov/govuk-aws-data/blob/master/data/infra-security/production/common.tfvars">PowerUser Access</a> via the <code>role_poweruser_user_arns</code> role</li>
-  <li><a href="/manual/set-up-gcp-account.html">Google Cloud Platform</a> (GCP) access with <code>Storage Admin</code> role to manage <a href="/manual/fall-back-to-mirror.html">static mirrors</a></li>
-  <li>Signon "Super Admin" access in production</li>
-  <li>GOV.UK PaaS <a href="https://docs.cloud.service.gov.uk/orgs_spaces_users.html#space-developer">Space developer</a>
+<li>Permission to <a href="https://github.com/alphagov/govuk-secrets/blob/master/puppet/hieradata/production_credentials.yaml">read &amp; write production and staging hieradata</a> in govuk-secrets using GPG</li>
+<li>Permission to read &amp; write from the Pass in govuk-secrets store using <a href="https://github.com/alphagov/govuk-secrets/blob/master/pass/2ndline/.gpg-id">GPG</a></li>
+<li>Access to Production Deploy Jenkins and Staging Deploy Jenkins to deploy applications via the <a href="https://github.com/orgs/alphagov/teams/gov-uk-production">GOV.UK Production GitHub team</a></li>
+<li>SSH access to production and staging servers via <a href="https://github.com/alphagov/govuk-puppet">govuk-puppet</a></li>
+<li>AWS <a href="https://github.com/alphagov/govuk-aws-data/blob/master/data/infra-security/production/common.tfvars">PowerUser Access</a> via the <code>role_poweruser_user_arns</code> role</li>
+<li><a href="/manual/set-up-gcp-account.html">Google Cloud Platform</a> (GCP) access with <code>Storage Admin</code> role to manage <a href="/manual/fall-back-to-mirror.html">static mirrors</a></li>
+<li>Signon &ldquo;Super Admin&rdquo; access in production</li>
+<li>GOV.UK PaaS <a href="https://docs.cloud.service.gov.uk/orgs_spaces_users.html#space-developer">Space developer</a>
 access to all spaces in <a href="https://admin.cloud.service.gov.uk/organisations/f8718311-b9a4-49d3-b1c7-7c5345a74e35">the govuk_development organisation</a></li>
 </ul>
-
-<h2 id="when-you-get-production-access">When you get production access</h2>
-
+<h2 id='when-you-get-production-access'>When you get production access</h2>
 <ul>
-  <li>Temporary supervised access during two 2nd line shadow shifts (GOV.UK developers only)</li>
-  <li>Supervised access after second shadow shift and probation has been passed (probation condition does not apply to SREs in TechOps)</li>
-  <li>Permanent access once a non-shadow 2nd line shift has been completed</li>
+<li>Temporary supervised access during two 2nd line shadow shifts (GOV.UK developers only)</li>
+<li>Supervised access after second shadow shift and probation has been passed (probation condition does not apply to SREs in TechOps)</li>
+<li>Permanent access once a non-shadow 2nd line shift has been completed</li>
 </ul>
-
-<p>"Supervised" means "we trust you, but just be extra careful," and the dev should
-ensure they're getting necessary and appropriate support from their team and
+<p>&ldquo;Supervised&rdquo; means &ldquo;we trust you, but just be extra careful,&rdquo; and the dev should
+ensure they&rsquo;re getting necessary and appropriate support from their team and
 tech lead during this time. The tech lead of the mission team is responsible for
-the supervision, whether it's by them or the team.</p>
-
-<h3 id="what-is-temporary-supervised-production-access">What is temporary supervised production access?</h3>
-
-<p>Access to production may be granted to GDS civil servants or contractors who
+the supervision, whether it&rsquo;s by them or the team.</p>
+<h3 id='what-is-temporary-supervised-production-access'>What is temporary supervised production access?</h3><p>Access to production may be granted to GDS civil servants or contractors who
 don’t meet the criteria above for a time limited period. In these cases, we
 require:</p>
 
 <ul>
-  <li>A minimum of BPSS (a blue building pass) security clearance</li>
-  <li>Approval from a Lead Developer or the Head of Technology</li>
-  <li>Access to be removed at the end of the time limited period</li>
-  <li>Supervision to be given by a production cleared person during access</li>
-  <li>Agreement from the person that they will only use their access while supervised. We trust our staff to be sensible and operate within these rules.</li>
+<li>A minimum of BPSS (a blue building pass) security clearance</li>
+<li>Approval from a Lead Developer or the Head of Technology</li>
+<li>Access to be removed at the end of the time limited period</li>
+<li>Supervision to be given by a production cleared person during access</li>
+<li>Agreement from the person that they will only use their access while supervised. We trust our staff to be sensible and operate within these rules.</li>
 </ul>
-
-<h2 id="temporarily-revoking-access">Temporarily revoking access</h2>
-
-<p>If you're absent more than 6 weeks, your access will be revoked.</p>
+<h2 id='temporarily-revoking-access'>Temporarily revoking access</h2><p>If you&rsquo;re absent more than 6 weeks, your access will be revoked.</p>
 
 
   <div class='related-content'>

@@ -163,16 +163,15 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/61581e2c262b7ec9c5d2af532147d34e7a6bdb90">17 Sep 2020</a>
 </div>
 
- <h1 id='header'>Pingdom search check</h1> <p>If Pingdom can't retrieve the search results page, it means that while GOV.UK
+ <h1 id='header'>Pingdom search check</h1> <p>If Pingdom can&rsquo;t retrieve the search results page, it means that while GOV.UK
 may be available, it is not possible to retrieve dynamic content. Assuming that
 the homepage check has not failed, the CDN is probably OK. It is possible for
 our main provider (Carrenza/AWS) to be down and for us to serve static content
 from a secondary mirror at a second supplier (AWS/GCP).</p>
-
 <p>This is not as critical a problem as you might assume, because a large amount
 of traffic from external searches goes directly to static content and can be
 served from the mirror. Debug as normal by walking through the stack backwards
-from the user's perspective to find out where the failure is.</p>
+from the user&rsquo;s perspective to find out where the failure is.</p>
 
 
   <div class='related-content'>

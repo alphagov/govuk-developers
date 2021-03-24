@@ -186,121 +186,79 @@
   Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9396945788068973ae0acbbc33afe2c1ea69a174">3 Aug 2020</a>
 </div>
 
- <h1 id='header'>Documentation style guide</h1> <h2 id="what-pages-should-be-about">What pages should be about</h2>
-
-<p>Most pages will be about how to do a thing. Include just enough information to allow the reader to complete what they need to do.</p>
-
-<p>Other pages help the reader understand how we use a particular technology or process. This is because they're working on something that requires that knowledge. Don't create pages to document why a decision was made if that information doesn't help the reader complete their task.</p>
-
-<p>Don't duplicate what's already in existing documentation.</p>
-
-<h2 id="title">Title</h2>
-
-<p>Put the most important word as near to the start of the title as possible. Short titles are good but descriptive titles are better.</p>
-
+ <h1 id='header'>Documentation style guide</h1> <h2 id='what-pages-should-be-about'>What pages should be about</h2><p>Most pages will be about how to do a thing. Include just enough information to allow the reader to complete what they need to do.</p>
+<p>Other pages help the reader understand how we use a particular technology or process. This is because they&rsquo;re working on something that requires that knowledge. Don&rsquo;t create pages to document why a decision was made if that information doesn&rsquo;t help the reader complete their task.</p>
+<p>Don&rsquo;t duplicate what&rsquo;s already in existing documentation.</p>
+<h2 id='title'>Title</h2><p>Put the most important word as near to the start of the title as possible. Short titles are good but descriptive titles are better.</p>
 <p>Good examples:</p>
 
 <blockquote>
-  <p>Reboot a machine</p>
-
-  <p>Data sync: check failed data</p>
-
-  <p>Assets: how they work</p>
+<p>Reboot a machine</p>
+<p>Data sync: check failed data</p>
+<p>Assets: how they work</p>
 </blockquote>
-
 <p>Bad examples:</p>
 
 <blockquote>
-  <p>How to reboot a machine</p>
-
-  <p>Rebooting a machine</p>
-
-  <p>Data sync</p>
-
-  <p>Ruby (too vague: what about Ruby?)</p>
+<p>How to reboot a machine</p>
+<p>Rebooting a machine</p>
+<p>Data sync</p>
+<p>Ruby (too vague: what about Ruby?)</p>
 </blockquote>
-
-<p>Don't use:</p>
+<p>Don&rsquo;t use:</p>
 
 <ul>
-  <li>"how to" at the start</li>
-  <li>'ing' at the end of verbs (for example use '"deploy an application", not "deploying an application")</li>
+<li>&ldquo;how to&rdquo; at the start</li>
+<li>&lsquo;ing&rsquo; at the end of verbs (for example use &lsquo;&ldquo;deploy an application&rdquo;, not &ldquo;deploying an application&rdquo;)</li>
 </ul>
-
-<h2 id="structure">Structure</h2>
-
-<p>Put the 'how to do the thing' information at the top of the page. Put 'how it works' stuff lower down.</p>
-
-<h2 id="subheadings">Subheadings</h2>
-
-<p>Use subheadings to break up the page and allow readers to scan the page for what they're looking for. Don't repeat the title in the headings though.</p>
-
+<h2 id='structure'>Structure</h2><p>Put the &#39;how to do the thing&rsquo; information at the top of the page. Put &lsquo;how it works&rsquo; stuff lower down.</p>
+<h2 id='subheadings'>Subheadings</h2><p>Use subheadings to break up the page and allow readers to scan the page for what they&rsquo;re looking for. Don&rsquo;t repeat the title in the headings though.</p>
 <p>Good example:</p>
 
 <blockquote>
-  <p>Title: Reboot a machine</p>
-
-  <p>Subheadings: Redis, MongoDB, Elasticsearch</p>
+<p>Title: Reboot a machine</p>
+<p>Subheadings: Redis, MongoDB, Elasticsearch</p>
 </blockquote>
-
 <p>Bad example:</p>
 
 <blockquote>
-  <p>Title: Rebooting machines</p>
-
-  <p>Subheadings: Rebooting Redis machines, Rebooting MongoDB machines, Rebooting Elasticsearch machines.</p>
+<p>Title: Rebooting machines</p>
+<p>Subheadings: Rebooting Redis machines, Rebooting MongoDB machines, Rebooting Elasticsearch machines.</p>
 </blockquote>
-
-<h2 id="writing-style">Writing style</h2>
-
-<h3 id="address-the-reader">Address the reader</h3>
-
-<p>Use "you" where possible.</p>
-
+<h2 id='writing-style'>Writing style</h2><h3 id='address-the-reader'>Address the reader</h3><p>Use &ldquo;you&rdquo; where possible.</p>
 <p>Do say:</p>
 
 <blockquote>
-  <p>You can export data to CSV.</p>
+<p>You can export data to CSV.</p>
 </blockquote>
-
-<p>Don't say:</p>
+<p>Don&rsquo;t say:</p>
 
 <blockquote>
-  <p>Data can be exported to CSV.</p>
+<p>Data can be exported to CSV.</p>
 </blockquote>
-
-<h3 id="acronyms">Acronyms</h3>
-
-<p>Spell out acronyms the first time they're used on the page unless they're very widely known.</p>
-
+<h3 id='acronyms'>Acronyms</h3><p>Spell out acronyms the first time they&rsquo;re used on the page unless they&rsquo;re very widely known.</p>
 <p>Examples of widely known acronyms:</p>
 
 <ul>
-  <li>HTTP</li>
-  <li>API</li>
-  <li>XML</li>
-  <li>CSV</li>
-  <li>DNS</li>
-  <li>JSON</li>
-  <li>VPN</li>
-  <li>URL</li>
-  <li>MD5</li>
+<li>HTTP</li>
+<li>API</li>
+<li>XML</li>
+<li>CSV</li>
+<li>DNS</li>
+<li>JSON</li>
+<li>VPN</li>
+<li>URL</li>
+<li>MD5</li>
 </ul>
-
 <p>Example of not widely known acronyms:</p>
 
 <blockquote>
-  <p>DR (disaster recovery)</p>
+<p>DR (disaster recovery)</p>
 </blockquote>
-
-<h3 id="bullets-and-numbered-lists">Bullets and numbered lists</h3>
-
-<p>Bullet lists <a href="https://www.nngroup.com/articles/presenting-bulleted-lists/">make pages easier to read</a>. Use numbered lists to describe a linear progress, or when the number of items in the list is important.</p>
-
-<h2 id="related">Related</h2>
-
+<h3 id='bullets-and-numbered-lists'>Bullets and numbered lists</h3><p>Bullet lists <a href="https://www.nngroup.com/articles/presenting-bulleted-lists/">make pages easier to read</a>. Use numbered lists to describe a linear progress, or when the number of items in the list is important.</p>
+<h2 id='related'>Related</h2>
 <ul>
-  <li><a href="/manual/review-page.html">Review a page in this manual</a></li>
+<li><a href="/manual/review-page.html">Review a page in this manual</a></li>
 </ul>
 
 
