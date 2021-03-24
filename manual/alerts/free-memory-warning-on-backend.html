@@ -167,8 +167,15 @@
     </div>
 
      <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        This document has not been updated for a while now. It may be out of date.
+      </strong>
+    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4662d990fa6adee1d0114d2fda9206d70c5ab489">24 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/dbebd62aa5f3eecd9754cf486518f8528cbcf6b3">24 Jun 2020</a>
 </div>
 
  <h1 id='header'>Free memory warning on backend</h1> <p>This alert is often caused by an application slowly leaking memory, which
@@ -187,12 +194,15 @@ memory.</p>
 <h3 id='kill-memory-leaking-unicorn-workers'>Kill memory leaking Unicorn workers</h3><p>Once you&rsquo;ve identified a Unicorn application with a memory leak, you can
 gracefully kill a Unicorn worker to reclaim some memory. Sending a <code>SIGQUIT</code> to
 the worker causes it to finish serving its current request then exit, the
-master will notice this and spawn a fresh worker.</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo kill</span> <span class="nt">--signal</span> QUIT &lt;worker process&gt;
-</code></pre></div><h3 id='restart-other-memory-leaking-apps'>Restart other memory leaking apps</h3><p>For leaky applications not managed by Unicorn (for example, Whitehall&rsquo;s
+master will notice this and spawn a fresh worker. This Fabric task will kill
+the worker using the most memory:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> backend-1.backend app.respawn_large_unicorns:APP-NAME
+</code></pre></div><p>This will only kill the most bloated Unicorn worker, so you may need to run
+it multiple times if the alert persists.</p>
+<h3 id='restart-other-memory-leaking-apps'>Restart other memory leaking apps</h3><p>For leaky applications not managed by Unicorn (for example, Whitehall&rsquo;s
 Sidekiq worker), restart it to reset the memory usage, and increase free memory
 on the host:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service whitehall-admin-procfile-worker restart
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> <span class="nt">-H</span> whitehall-backend-1.backend app.restart:whitehall-admin-procfile-worker
 </code></pre></div>
 
   <div class='related-content'>
