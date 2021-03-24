@@ -153,9 +153,6 @@
           <li>
             <a href="#rebooting-guidance-for-aws"><span>Rebooting guidance for AWS</span></a>
           </li>
-          <li>
-            <a href="#rebooting-guidance-for-carrenza"><span>Rebooting guidance for Carrenza</span></a>
-          </li>
         </ul>
       </li>
       <li>
@@ -188,21 +185,6 @@
           <li>
             <a href="#rebooting-docker-management"><span>Rebooting docker-management</span></a>
           </li>
-          <li>
-            <a href="#rebooting-backend-lb-machines-carrenza-only"><span>Rebooting backend-lb machines (Carrenza only)</span></a>
-          </li>
-          <li>
-            <a href="#rebooting-mysql-backup-machines-carrenza-only"><span>Rebooting MySQL backup machines (Carrenza only)</span></a>
-          </li>
-          <li>
-            <a href="#rebooting-mysql-master-and-slave-machines-carrenza-only"><span>Rebooting MySQL master and slave machines (Carrenza only)</span></a>
-          </li>
-          <li>
-            <a href="#rebooting-whitehall-mysql-slave-machines"><span>Rebooting Whitehall MySQL slave machines</span></a>
-          </li>
-          <li>
-            <a href="#rebooting-postgresql-primary-and-standby-machines-carrenza-only"><span>Rebooting PostgreSQL primary and standby machines (Carrenza only)</span></a>
-          </li>
         </ul>
       </li>
     </ul>
@@ -219,7 +201,7 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5427c4ebc59b0c3137c957f094ba7d9e3138e663">16 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/42bd96e7ff04bb90617f75bf4c6273d559258b47">24 Mar 2021</a>
 </div>
 
  <h1 id='header'>Reboot a machine</h1> <p>Under normal circumstances most machines reboot automatically when an update is required.
@@ -263,11 +245,14 @@ is <code>safe_to_reboot::can_reboot: &#39;yes&#39;</code>.</p>
 otherwise marked as &lsquo;no&rsquo;, then it may be done provided any downstream
 effects of this reboot have been considered.</p>
 </blockquote>
-<p>If you want to reboot the machine immediately, you can SSH into it and run:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>reboot
-</code></pre></div><p>Alternatively, there is a Fabric task to schedule a machine for downtime
-in Nagios for 20 minutes and then reboot it:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>fab &lt;aws_environment&gt; -H &lt;ip_address&gt; vm.reboot
+<p>If you want to reboot the machine immediately:</p>
+
+<ol>
+<li><p>Schedule downtime in Icinga, or let 2ndline know that there will be
+alerts for a machine being down.</p></li>
+<li><p>SSH into it and run:</p></li>
+</ol>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>   <span class="nb">sudo </span>reboot
 </code></pre></div><h3 id='rebooting-guidance-for-aws'>Rebooting guidance for AWS</h3><p>If rebooting machines in AWS, extended reboot times may result in the
 relevant machine being terminated automatically. If this happens, a
 new machine will be created automatically.</p>
@@ -276,12 +261,6 @@ and RE will be able to help in these cases. It also means RE can investigate
 any problems so it doesn&rsquo;t happen again and we have confidence in our ability
 to reboot machines in AWS.</p>
 <p>There&rsquo;s a <a href="#rebooting-cache-machines-in-aws">section on rebooting <code>cache</code> machines in AWS</a>.</p>
-<h3 id='rebooting-guidance-for-carrenza'>Rebooting guidance for Carrenza</h3><p>There is a known issue whereby adding an extra disk using the LSI
-Logic Parallel (SCSI) controller to a VM causes the BIOS boot order to
-change, meaning that the system disk cannot be found and the OS does
-not boot when the affected VM is restarted. See the
-manual entry on <a href="/manual/adding-disks-in-vcloud.html">adding disks</a> for
-more info.</p>
 <h2 id='special-cases'>Special cases</h2><h3 id='rebooting-jenkins-ci-agents'>Rebooting Jenkins CI agents</h3><p>Sometimes a CI agent starts continually erroring on Jenkins jobs, and the
 most straightforward way of fixing the issue is to reboot the machine.</p>
 <p>First, visit the <a href="https://ci.integration.publishing.service.gov.uk/computer/">Jenkins nodes list</a>.
@@ -316,7 +295,7 @@ from its Target Groups</li>
 <li>Once the instance is in a Standby state, SSH onto the machine (find this
 from the reboots required alert listing)</li>
 <li>Check the traffic has reduced to only be the Smokey healthchecks now: <code>tail -f /var/log/nginx/lb-access.log</code>.</li>
-<li>Run the <code>vm.reboot</code> fab script on your local machine like normal.</li>
+<li>Schedule downtime in icinga and run <code>sudo reboot</code> on the remote machine like normal.</li>
 <li>In the <code>blue-cache</code> ASG, move the instance back to the &ldquo;InService&rdquo; state,
 which will re-add the instance to the Target Groups</li>
 <li>Check the traffic is flowing from the load balancer with <code>tail -f /var/log/nginx/lb-access.log</code> again.</li>
@@ -371,10 +350,9 @@ take manual action to resolve the problem.</p>
 then either add a note here about how to make that application recover,
 or get the team responsible to make it point to the cluster.</p>
 <p>Rebooting rabbitmq may cause alerts for other apps which can be restarted,
-for example email-alert-api:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>fab aws_staging class:email_alert_api app.restart:email-alert-service
-</code></pre></div><p>You can also ssh into individual machines to restart the service:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo service cache-clearing-service restart
+for example email-alert-api.</p>
+<p>You can ssh into individual machines to restart the service:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo service email-alert-api restart
 </code></pre></div><h3 id='rebooting-asset-primary-and-secondary-machines'>Rebooting asset primary and secondary machines</h3><p>Unless there are urgent updates to apply the primary machine should not be
 rebooted in production during working hours - as the primary machine is required
 for attachments to be uploaded.</p>
@@ -390,74 +368,8 @@ as per the <a href="#rebooting-mongodb-machines">MongoDB rebooting guidance</a>.
 <h3 id='rebooting-jumpbox-machines'>Rebooting jumpbox machines</h3><p>These machines are safe to reboot during the day. During the night they
 are involved in a data sync processes and rebooting could cause the data
 sync to fail.</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>fab &lt;aws_environment&gt; -H &lt;ip_address&gt; vm.reboot
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo reboot
 </code></pre></div><h3 id='rebooting-docker-management'>Rebooting docker-management</h3><p>It is safe to reboot while no other unattended reboot is underway - see https://github.com/alphagov/govuk-puppet/blob/master/hieradata_aws/class/docker_management.yaml</p>
-<h3 id='rebooting-backend-lb-machines-carrenza-only'>Rebooting backend-lb machines (Carrenza only)</h3><p>In order to safely reboot these machines you&rsquo;ll need access to <a href="/manual/connect-to-vcloud-director.html">vCloud Director</a>, in order to switch traffic away from backend-lb-1 before rebooting it - all traffic goes through this machine unless it fails.</p>
-
-<ul>
-<li>Reboot backend-lb-2 and wait for it to recover.</li>
-</ul>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  fab &lt;environment&gt; -H backend-lb-2.backend vm.reboot
-</code></pre></div>
-<blockquote>
-<p>Doing this may trigger a PagerDuty alert and trigger 5xx errors on Fastly.</p>
-</blockquote>
-
-<ul>
-<li>Find the IP addresses of backend-lb-1 and backend-lb-2 for the
-environment. They will be listed in <a href="https://github.com/alphagov/govuk-provisioning/">this
-repo</a>.</li>
-<li>Use vCloud Director to update the NAT rule to point to backend-lb-2.
-
-<ul>
-<li>The Nat rule will be in <a href="https://github.com/alphagov/govuk-provisioning/">this repo</a>.</li>
-<li>Go to &ldquo;Administration&rdquo;.</li>
-<li>Find &lsquo;GOV.UK Management&rsquo; in the list of vdcs and click on it</li>
-<li>Select the &ldquo;edge gateway&rdquo; tab, right click on it and select &ldquo;edge gateway services&rdquo;.</li>
-<li>Click the NAT tab.</li>
-<li>Find the rule corresponding to the rule defined in the vcloud-launcher file, and update the DNAT rules to point to the IP address of backend-lb-2 by clicking edit, and updating the &ldquo;Translated (Internal) IP/range&rdquo; field and click OK to save these rules.</li>
-</ul></li>
-<li>Reboot backend-lb-1 and wait for it to recover</li>
-</ul>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  fab &lt;environment&gt; -H backend-lb-1.backend vm.reboot
-</code></pre></div>
-<ul>
-<li>Use <a href="/manual/connect-to-vcloud-director.html">vCloud Director</a> to update the NAT rule to point back to the IP address of backend-lb-1.</li>
-</ul>
-<h3 id='rebooting-mysql-backup-machines-carrenza-only'>Rebooting MySQL backup machines (Carrenza only)</h3><p>The MySQL backup machines <a href="https://github.com/alphagov/govuk-puppet/commit/0e1615bf31f714994b43142ecf915330d4d46af5">create a file during the backup
-process</a>.
-If that file exists, the machine isn&rsquo;t safe to reboot.</p>
-
-<ul>
-<li>Check if the file exists:</li>
-</ul>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  fab &lt;environment&gt; -H mysql-backup-1.backend sdo:'test -e /var/lock/mysql-backup.lock'
-</code></pre></div>
-<ul>
-<li>If the file doesn&rsquo;t exist (that command returns non-0), reboot the
-machine:</li>
-</ul>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>  fab &lt;environment&gt; -H mysql-backup-1.backend vm.reboot
-</code></pre></div><h3 id='rebooting-mysql-master-and-slave-machines-carrenza-only'>Rebooting MySQL master and slave machines (Carrenza only)</h3><p>Unless there are urgent updates to apply, these machines should not be
-rebooted during working hours in production. Applications write to the
-masters and read from the slaves (with the exception of the slave within
-the Disaster Recovery environment).</p>
-<p>Reboots of these machines, in the production environment, should be organised
-by On Call staff.</p>
-<p>They may be rebooted in working hours in the staging environment, however you
-should notify colleagues before doing so.</p>
-<h3 id='rebooting-whitehall-mysql-slave-machines'>Rebooting Whitehall MySQL slave machines</h3><p>The whitehall-mysql-slave-1 machine is used by the frontend component
-of Whitehall, so this&rsquo;ll be impacted when rebooting. The other
-whitehall-mysql-slave machines are not used by Whitehall frontend.</p>
-<h3 id='rebooting-postgresql-primary-and-standby-machines-carrenza-only'>Rebooting PostgreSQL primary and standby machines (Carrenza only)</h3><p>Unless there are urgent updates to apply, these machines should not be
-rebooted in production during working hours. Applications read and write
-to the primary machines, and some applications (e.g. Bouncer) read from the
-standby machines (with the exception of the slave within the Disaster Recovery
-environment).</p>
-<p>Reboots of these machines, in the production environment, should be organised
-by On Call staff.</p>
-<p>They may be rebooted in working hours in the staging environment, however you
-should notify colleagues before doing so.</p>
 
 
   <div class='related-content'>
