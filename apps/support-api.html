@@ -405,9 +405,18 @@
 </div>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>This app provides an API for storing and fetching anonymous feedback about pages on GOV.UK.  Data
+<p>This app provides an API for storing and fetching anonymous feedback about pages on GOV.UK. Data
 comes in from the <a href="https://github.com/alphagov/feedback">feedback app</a> on the public-facing frontend and is read by <a href="https://github.com/alphagov/support">the
-support app</a> on the admin-facing backend.</p>
+support app</a> on the admin-facing backend. Alternatively, some types of feedback are sent
+to Zendesk so it can be acted on by the support teams directly.</p>
+
+<p>Support API can receive feedback about any page on GOV.UK, but all it is sent is the path.  We use the
+content-store to look up extra information (content_id, associated organisations, etc) about these pages
+to allow for better search and filtering of the feedback.</p>
+
+<p>Support API also stores ratings for services. It aggregates those ratings every day in order to keep
+the size of the database manageable - see <code>config/schedule.rb</code> for more details. Previously the aggregate
+ratings were uploaded to the performance platform, which no longer exists.</p>
 
 <h2 id="nomenclature">Nomenclature</h2>
 
@@ -432,61 +441,15 @@ is sent directly to <a href="https://govuk.zendesk.com">Zendesk</a> to be handle
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>This is a Ruby on Rails application that provides an API for storing and retrieving feedback about GOV.UK.
-It has 3 main functions:</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<ol>
-<li>a write API used by the <a href="https://github.com/alphagov/feedback">feedback app</a> to store feedback</li>
-<li>a read API used by the <a href="https://github.com/alphagov/support">support app</a> to read that feedback and request exports to CSV</li>
-</ol>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<h3 id="csv-exports">CSV exports</h3>
-
-<p>When a CSV export is requested by the support app, a CSV file is generated and saved in Amazon S3.</p>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-<li>
-<a href="https://github.com/alphagov/content-store">content-store</a> - Support API can receive feedback about any
-page on GOV.UK, but all it is sent is the path.  We use the content-store to look up extra information
-(content_id, associated organisations, etc) about these pages to allow for better search and filtering
-of the feedback.</li>
-<li>
-<a href="https://github.com/alphagov/whitehall">whitehall</a> - Support API has a table of Organisations and as
-Whitehall is the canonical source of that information we use its Organisations API to keep our data up
-to date.</li>
-<li>
-<a href="https://govuk.zendesk.com">zendesk</a> - Support API sends some types of feedback to Zendesk so it can be
-acted on by the support teams directly rather than storing it in its own database.</li>
-<li>
-<a href="https://www.postgresql.org">postgres</a> - Support API uses postgres as its own database</li>
-<li>
-<a href="https://redis.io/">redis</a> - Support API uses <a href="https://github.com/mperham/sidekiq">sidekiq</a> to process
-background jobs (like sending feedback to zendesk) and sidekiq relies on redis</li>
-</ul>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
 <h3 id="running-the-test-suite">Running the test suite</h3>
 
 <p><code>bundle exec rake</code></p>
-
-<p>This will run the <a href="https://github.com/alphagov/support-api/blob/master/spec">rspec test suite</a> and generate a coverage report for these specs in <code>./coverage</code>.</p>
-
-<h3 id="organisations">Organisations</h3>
-
-<p>This app keeps a local copy of Organisations from Whitehall in the <code>organisations</code> table. In order
-to keep this up-to-date it runs a sync job overnight via cron.  To run the same script on your local
-development environment do the following:</p>
-
-<ol>
-<li>Ensure whitehall is running: <code>bowl whitehall</code>
-</li>
-<li>Run the rake task <code>rake api_sync:import_organisations</code>
-</li>
-</ol>
-
-<p>You most likely will only need to do this if your whitehall data is more recent than your data for
-this app.</p>
 
 <h2 id="licence">Licence</h2>
 
