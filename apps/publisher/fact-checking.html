@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>local-links-manager: Checking Links - GOV.UK Developer Documentation</title>
+    <title>publisher: Fact Checking - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/local-links-manager/checking-links.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/publisher/fact-checking.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="local-links-manager: Checking Links - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/checking-links.html" />
+      <meta name="twitter:title" content="publisher: Fact Checking - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/publisher/fact-checking.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="local-links-manager: Checking Links" />
+      <meta property="og:title" content="publisher: Fact Checking" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/checking-links.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/publisher/fact-checking.html" />
 
     
   </head>
@@ -165,7 +165,7 @@
     <li>
       <a href="/apps/local-links-manager.html"><span>local-links-manager</span></a>
         <ul>
-            <li><a href="/apps/local-links-manager/checking-links.html" class="toc-link--in-view"><span>Checking Links</span></a></li>
+            <li><a href="/apps/local-links-manager/checking-links.html"><span>Checking Links</span></a></li>
             <li><a href="/apps/local-links-manager/deleting-a-link.html"><span>Deleting a local transaction link</span></a></li>
             <li><a href="/apps/local-links-manager/enable-or-create-service.html"><span>Enabling (or creating) a new service</span></a></li>
             <li><a href="/apps/local-links-manager/exporting-local-authority-links.html"><span>Exporting Local Authority links to services</span></a></li>
@@ -189,7 +189,7 @@
     <li>
       <a href="/apps/publisher.html"><span>publisher</span></a>
         <ul>
-            <li><a href="/apps/publisher/fact-checking.html"><span>Fact Checking</span></a></li>
+            <li><a href="/apps/publisher/fact-checking.html" class="toc-link--in-view"><span>Fact Checking</span></a></li>
         </ul>
     </li>
     <li>
@@ -644,85 +644,22 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/local-links-manager/commit/8da4c07e31a656d99b0920faf22a938c42b0456e">1 Jul 2020</a>
+  Last updated: <a href="https://github.com/alphagov/publisher/commit/d950ddfbd22c87f2954dc46eadec3feab0d63967">24 Mar 2021</a>
 </div>
 
-  <h1 class="page-title">local-links-manager: Checking Links</h1>
+  <h1 class="page-title">publisher: Fact Checking</h1>
 
   
-<p><code>bundle exec rake check-links</code></p>
-<p>This long running rake task performs a <code>GET</code> request using <a href="https://github.com/alphagov/local-links-manager/blob/master/lib/local-links-manager/check_links/link_checker.rb#L4L5">a timeout and a redirect limit</a> against each active link.  It stores the HTTP status code of the result (or the error condition that it encountered).  The status is shown in the UI to help identify links that need to be fixed.</p>
-<p>A digest of the results is available for interaction links at:</p>
-<p><a href="https://local-links-manager.publishing.service.gov.uk/check_links_status.csv">https://local-links-manager.publishing.service.gov.uk/check_links_status.csv</a></p>
-<p>and for homepages at:</p>
-<p><a href="https://local-links-manager.publishing.service.gov.uk/check_homepage_links_status.csv">https://local-links-manager.publishing.service.gov.uk/check_homepage_links_status.csv</a></p>
-<p>The output resembles the following:</p>
-<table>
-<thead>
-<tr>
-<th>status</th>
-<th>count</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Invalid URI</td>
-<td>231</td>
-</tr>
-<tr>
-<td>Connection failed</td>
-<td>524</td>
-</tr>
-<tr>
-<td>500</td>
-<td>26</td>
-</tr>
-<tr>
-<td>200</td>
-<td>36599</td>
-</tr>
-<tr>
-<td>Too many redirects</td>
-<td>4</td>
-</tr>
-<tr>
-<td>503</td>
-<td>110</td>
-</tr>
-<tr>
-<td>Timeout Error</td>
-<td>194</td>
-</tr>
-<tr>
-<td>401</td>
-<td>6</td>
-</tr>
-<tr>
-<td>410</td>
-<td>72</td>
-</tr>
-<tr>
-<td>404</td>
-<td>2518</td>
-</tr>
-<tr>
-<td>SSL Error</td>
-<td>69</td>
-</tr>
-<tr>
-<td>403</td>
-<td>229</td>
-</tr>
-</tbody>
-</table>
+<p>Publisher comes with a system to allow editions not yet published to be externally fact checked.</p>
+<h2 id="process">Process</h2>
+<ol>
+<li>When a content designer clicks the "Fact check" button on an edition, they are presented with a form allowing them to input the email addresses they would like the fact check request to go to.</li>
+<li>The fact checker who receives the email then reviews the draft version of the edition, and once happy, replies to the email with the review.</li>
+<li>The email arrives in a Gmail inbox. Details of which inbox can be found in secrets under <code>govuk::apps::publisher::fact_check_username</code> and <code>govuk::apps::publisher::fact_check_password</code>.</li>
+<li>Every 5 minutes, the <a href="https://github.com/alphagov/publisher/blob/master/script/mail_fetcher">mail_fetcher</a> script runs which reads any new emails from the inbox, parses the response and adds it to the edition in the database.</li>
+</ol>
+<p><strong>Note:</strong> The ID of the edition is included in the subject line of the fact check email. It's important that this is never removed, otherwise the app will be <a href="https://docs.publishing.service.gov.uk/manual/alerts/publisher-unprocessed-fact-check-emails.html">unable to match the email with the edition</a>.</p>
 
 
             
@@ -730,8 +667,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/local-links-manager/blob/master/docs/checking-links.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/local-links-manager/checking-links.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/publisher/blob/master/docs/fact-checking.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/publisher/fact-checking.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

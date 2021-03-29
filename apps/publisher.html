@@ -404,6 +404,9 @@
 </div></dl>
     <div class="gem-c-summary__block"></div>
 </div>
+<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
+      <li><a href="/apps/publisher/fact-checking.html" class="govuk-link">Fact Checking</a></li>
+</ul></p>
 <h2 id='example-pages-published-by-publisher'>Example pages published by publisher</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="https://www.gov.uk/report-covid19-result" class="govuk-link">Report a COVID-19 rapid lateral flow test result</a></li>
       <li><a href="https://www.gov.uk/sign-in-universal-credit" class="govuk-link">Sign in to your Universal Credit account</a></li>
@@ -418,15 +421,10 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>Publisher is the primary content design app for GOV.UK. It provides the user interface for
-entering all the key editorial formats and an API so other apps (primarily frontend) can
-access that data for display. It is sometimes referred to as &ldquo;mainstream publisher&rdquo;.</p>
+<p>Publisher is sometimes referred to as &ldquo;mainstream publisher&rdquo;.</p>
 
-<h2 id="screenshots">Screenshots</h2>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/publisher/master/doc/publisher_document_screenshot.png" alt="alt tag">
-<img src="https://raw.githubusercontent.com/alphagov/publisher/master/doc/publisher_admin_screenshot.png" alt="alt tag">
-<img src="https://raw.githubusercontent.com/alphagov/publisher/master/doc/publisher_edit_screenshot.png" alt="alt tag"></p>
+<p>This application depends on <a href="https://www.github.com/alphagov/imminence">imminence</a> to
+provide geographical search tools.</p>
 
 <h2 id="live-examples">Live examples</h2>
 
@@ -460,12 +458,6 @@ the artefacts do still exist).  They have been fully migrated to
 specialist-publisher.</li>
 </ul>
 
-<h2 id="working-with-service-sign-in-pages">Working with Service Sign In pages</h2>
-
-<p>These pages do not have an admin interface and are instead managed through rake tasks.</p>
-
-<p>See the <a href="https://github.com/alphagov/publisher/blob/master/lib/service_sign_in/README.md">README</a> for more details.</p>
-
 <h2 id="nomenclature">Nomenclature</h2>
 
 <ul>
@@ -475,76 +467,41 @@ specialist-publisher.</li>
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>This is a Ruby on Rails application that publishes the content for mainstream document formats to the shared mongo database. The <code>frontend</code> app reads this content from the <a href="https://github.com/alphagov/content-store">Content Store</a>.</p>
+<p>This is a Rails application and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<h3 id="dependencies">Dependencies</h3>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies.  Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<ul>
-<li>
-<a href="https://github.com/alphagov/imminence">imminence</a> - provides geographical search tools</li>
-<li>
-<a href="https://github.com/alphagov/content-store">content-store</a> - new central storage of published content on GOV.UK</li>
-<li>
-<a href="https://github.com/alphagov/publishing-api">publishing-api</a> - will provide workflow for all content published to GOV.UK - creating a new document, publishing it, etc. Content published here will end up in the content-store</li>
-<li>
-<a href="http://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a> - defines the schemas for new-style document formats. Required to run the tests.</li>
-</ul>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
-<pre lang="shell"><code>bundle exec rake local_transactions:import SOURCE=/path/to/local_authority_service_details.CSV
+<h3 id="testing">Testing</h3>
+
+<p>The default <code>rake</code> task runs all the tests:</p>
+
+<pre lang="sh"><code>bundle exec rake
 </code></pre>
-
-<ul>
-<li>
-<a href="https://github.com/etsy/statsd/">statsd</a> - this application uses <a href="http://rubygems.org/gems/statsd-ruby">statsd-ruby</a> to send metrics to statsd. If a statsd process isn&rsquo;t present on the server it won&rsquo;t matter as statsd-ruby sends metrics over UDP. If a statsd process is present then
-it&rsquo;ll send strings with the respective increment/decrement/gauge function to use.</li>
-<li>
-<a href="https://github.com/alphagov/asset-manager">asset-manager</a> - manages uploaded assets (images, PDFs, videos etc.). Publisher needs an OAuth bearer token in order to authenticate with Asset Manager. By default, this is loaded from the <code>PUBLISHER_ASSET_MANAGER_BEARER_TOKEN</code> environment variable in <code>config/initializers/gds_api.rb</code>, which is automatically provided if using the development VM.
-Otherwise, to obtain this bearer token you should create an API user in the signonotron2 application. In the signonotron2 directory, to generate the bearer token you need, run:</li>
-</ul>
-
-<pre lang="shell"><code>rake api_clients:create[publisher,publisher@example.com,asset-manager,signin]
-</code></pre>
-
-<ul>
-<li>
-<a href="https://github.com/alphagov/calendars">calendars</a> - provides bank holiday information to feed into working days calculator.  Working days calculator is used to generate deadlines for fact checks.</li>
-<li>
-<a href="https://github.com/alphagov/link-checker-api">link-checker-api</a> - checks all the links in an edition on request from the edition show page.</li>
-</ul>
-
-<h3 id="running-the-application">Running the application</h3>
-
-<p>If you&rsquo;re just interested in running the Publisher locally, with a minimum of interaction
-with other apps, here&rsquo;s how. This assumes you&rsquo;re using this <a href="https://github.gds/gds/development">development setup</a>.</p>
-
-<pre lang="shell"><code>cd /var/govuk/development
-bowl publisher
-</code></pre>
-
-<h3 id="running-the-test-suite">Running the test suite</h3>
-
-<p><code>bundle exec rake</code></p>
-
-<p>The test suite relies on the presence of the <a href="http://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a>
-repository. If should be at the same directory level as the government-frontend repository.</p>
-
-<p>Or to specify the location explicitly:</p>
-
-<p><code>GOVUK_CONTENT_SCHEMAS_PATH=/some/dir/govuk-content-schemas bundle exec rake</code></p>
 
 <h3 id="state-machine">State machine</h3>
 
 <p>Maps out the transitions between states for the <code>Edition</code> class. These transitions are defined in the <a href="https://github.com/alphagov/publisher/blob/master/app/models/workflow.rb">workflow</a> module.
-A diagram of the current state machine can be seen here: <a href="https://github.com/alphagov/publisher/blob/master/doc/state_machines/state_machine_diagram_for_edition.png">state machine diagram</a>.
+A diagram of the current state machine can be seen here: <a href="https://github.com/alphagov/publisher/blob/master/docs/state_machines/state_machine_diagram_for_edition.png">state machine diagram</a>.
 The diagram can be (re)generated using the <a href="https://github.com/state-machines/state_machines-graphviz">state_machines-graphviz gem</a>, by doing:</p>
 
-<p><code>bundle exec rake state_machines:draw CLASS=Edition</code></p>
+<pre lang="sh"><code>bundle exec rake state_machines:draw CLASS=Edition TARGET=docs
+</code></pre>
 
-<p>This will generate a diagram in the <code>doc/state_machines</code> folder.</p>
+<p>This will generate a diagram in the <code>docs/state_machines</code> folder.</p>
 
-<h3 id="linkcheckerapi">LinkCheckerAPI</h3>
+<h2 id="further-documentation">Further documentation</h2>
 
-<p>The <code>link-checker-api</code> has been integrated on the show page for editions. It extracts all links from within any GovSpeak fields and sends them to the <code>/batch</code> endpoint of the API. In this request it also sends across a <code>webhook_callback</code> which then populates any information about broken/warning links. More reading about the endpoints can be found <a href="https://docs.publishing.service.gov.uk/apis/link-checker-api.html">here</a></p>
+<ul>
+<li><a href="/apps/publisher/fact-checking.html">Fact Checking</a></li>
+</ul>
+
+<h3 id="working-with-service-sign-in-pages">Working with Service Sign In pages</h3>
+
+<p>These pages do not have an admin interface and are instead managed through rake tasks.</p>
+
+<p>See the <a href="https://github.com/alphagov/publisher/blob/master/lib/service_sign_in/README.md">README</a> for more details.</p>
 
 <h2 id="licence">Licence</h2>
 
