@@ -153,15 +153,27 @@
             
   <p><a href='/manual.html#publishing'>Publishing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/d4fdc4766b7eea4ae70db1cda45fd2108edcf19a">9 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4381ed24b9cd4d1fc0ce1d8c5bebe40d32cc1ca4">29 Mar 2021</a>
 </div>
 
  <h1 id='header'>Republish content</h1> <p>Sometimes it may be necessary to republish content to make it show up on the website. For example if we make an update to <a href="https://github.com/alphagov/govspeak/">govspeak</a> that would require us to re-render and save new HTML for content.</p>
-<p>This process varies per app.</p>
-<h2 id='whitehall'>Whitehall</h2><p>If the document is in Whitehall, there is a Rake task you can run.</p>
+<p>This process varies per app and requires</p>
+
+<ul>
+<li>Connection to the <a href="https://docs.publishing.service.gov.uk/manual/vpn.html">VPN</a> and</li>
+<li><a href="https://docs.publishing.service.gov.uk/manual/rules-for-getting-production-access.html">Production access</a></li>
+</ul>
+<h2 id='whitehall'>Whitehall</h2><p>If the document is in Whitehall, there is a Rake task you can run:</p>
 <p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:republish_document[slug]"><code>publishing_api:republish_document[slug]</code></a></p>
 <p>For organisations, run:</p>
 <p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:republish_organisation[slug]"><code>publishing_api:republish_organisation[slug]</code></a></p>
+<p>for document type, run:</p>
+<p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:bulk_republish:document_type[DocumentClass]"><code>publishing_api:bulk_republish:document_type[DocumentClass]</code></a></p>
+<p>For example:
+<code>/government/case-studies/alexander-dennis-maximum-capacity</code>
+<code>publishing_api:bulk_republish:document_type[CaseStudies]</code></p>
+<p>You may wish to test first on Integration:
+<a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:bulk_republish:document_type[DocumentClass]"><code>publishing_api:bulk_republish:document_type[DocumentClass]</code></a></p>
 <h2 id='content-publisher'>Content Publisher</h2><p>If the document is in content publisher, there is a <a href="https://github.com/alphagov/content-publisher/blob/master/lib/tasks/resync.rake">resync Rake task</a> you can run.</p>
 <p>You can resync a single document by passing it a content ID and locale:</p>
 <p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=resync:document[a-content-id:locale]"><code>resync:document[a-content-id:locale]</code></a></p>
