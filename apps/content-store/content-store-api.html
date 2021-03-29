@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>content-store: # Content items - GOV.UK Developer Documentation</title>
+    <title>content-store: Content Store API - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/content-store/technical-information.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/content-store/content-store-api.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="content-store: # Content items - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/content-store/technical-information.html" />
+      <meta name="twitter:title" content="content-store: Content Store API - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/content-store/content-store-api.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="content-store: # Content items" />
+      <meta property="og:title" content="content-store: Content Store API" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/content-store/technical-information.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/content-store/content-store-api.html" />
 
     
   </head>
@@ -237,13 +237,14 @@
     <li>
       <a href="/apps/content-store.html"><span>content-store</span></a>
         <ul>
-            <li><a href="/apps/content-store/content_item_fields.html"><span>The Content Item Format</span></a></li>
+            <li><a href="/apps/content-store/access-limited-content-items.html"><span>Access-limited content items</span></a></li>
+            <li><a href="/apps/content-store/content-store-api.html" class="toc-link--in-view"><span>Content Store API</span></a></li>
+            <li><a href="/apps/content-store/content_item_fields.html"><span>Content Item Fields</span></a></li>
             <li><a href="/apps/content-store/gone_item.html"><span># Gone items</span></a></li>
             <li><a href="/apps/content-store/placeholder_item.html"><span># Placeholder items</span></a></li>
             <li><a href="/apps/content-store/publish_intents.html"><span>Publish intents</span></a></li>
             <li><a href="/apps/content-store/redirect_item.html"><span># Redirect items</span></a></li>
             <li><a href="/apps/content-store/route_registration.html"><span># Registering routes with the router.</span></a></li>
-            <li><a href="/apps/content-store/technical-information.html" class="toc-link--in-view"><span># Content items</span></a></li>
         </ul>
     </li>
     <li>
@@ -640,28 +641,21 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/content-store/commit/bcec194346509ae232c9b4850291459832b68dc2">9 Jun 2020</a>
+  Last updated: <a href="https://github.com/alphagov/content-store/commit/c0780d1038198c42157b3b79c7178a048b4734fe">29 Mar 2021</a>
 </div>
 
-  <h1 class="page-title">content-store: # Content items</h1>
+  <h1 class="page-title">content-store: Content Store API</h1>
 
-  <h2 id="content-items">Content items</h2>
+  
+<h2 id="content-items">Content items</h2>
 <p><code>ContentItem</code> is the base unit of content in the content store. They have both a
 private and public-facing JSON representation. More details on these
 representations and the meanings of the individual fields can be found in
 <a href="/apps/content-store/content_item_fields.html">content_item_fields.md</a>.</p>
 <h2 id="writing-content-items-to-the-content-store">Writing content items to the content store</h2>
-<p>Publishing applications will "publish" content on GOV.UK by sending them to
-the content store. To add or update a piece of content in the content store,
-make a PUT request:</p>
+<p>Content is written by the <a href="https://docs.publishing.service.gov.uk/apps/publishing-api.html">publishing API</a>, which is used by back-end publishing apps such as Travel Advice Publisher.</p>
+<p>To add or update a piece of content in the content store, make a PUT request:</p>
 <pre lang="sh"><code>curl https://content-store.publishing.service.gov.uk/content&lt;base_path&gt; -X PUT \
     -H 'Content-type: application/json' \
     -d '&lt;content_item_json&gt;'
@@ -674,6 +668,7 @@ in <a href="https://github.com/alphagov/gds-api-adapters">gds-api-adapters</a> f
 content to content-store, although it is likely that this will soon be extracted
 to a separate gem.</p>
 <h2 id="reading-content-from-the-content-store">Reading content from the content store</h2>
+<p>Content is retrieved from the content store via the <a href="https://content-api.publishing.service.gov.uk/">content API</a>, which takes a path and responds with a JSON representation of the content that should be displayed on that path. This API is used by front-end apps but is also exposed externally at <code>/api/content/&lt;path&gt;</code>, such as <a href="https://www.gov.uk/api/content/take-pet-abroad">https://www.gov.uk/api/content/take-pet-abroad</a></p>
 <p>To retrieve content from the content store, make a GET request:</p>
 <pre lang="sh"><code>  curl https://content-store.publishing.service.gov.uk/content&lt;path&gt;
 </code></pre>
@@ -681,36 +676,7 @@ to a separate gem.</p>
 <code>path</code> matches a route a 303 redirect will be returned to the content at the
 <code>base_path</code>.</p>
 <p>Examples of the JSON representation of content items can be found in <a href="https://github.com/alphagov/content-store/blob/master/docs/output_examples">output_examples</a>.</p>
-<h2 id="access-limited-content-items">Access-limited content items</h2>
-<p>Some content can be marked as <a href="/apps/content-store/content_item_fields.html">access-limited</a>.
-This content can only be retrieved from the content store with the right
-authorisation. Authentication details can be provided with a GET request to
-identify an authenticated user:</p>
-<pre lang="sh"><code>  curl -header "X-Govuk-Authenticated-User: f17150b0-7540-0131-f036-0050560123202" \
-    https://content-store.publishing.service.gov.uk/content&lt;base_path&gt;
-
-</code></pre>
-<p>If the supplied identifier is in the list of authorised users, the content item
-will be returned. If not, a 403 (Forbidden) response will be returned. For more
-details on how to create an access-limited content item, see
-<a href="/apps/content-store/content_item_fields.html">content_item_fields.md#access_limited</a></p>
-<p>Note: the access-limiting behaviour should only be active on the draft stack.</p>
-<h2 id="publish-intents">Publish intents</h2>
-<p>In order to support the timely publishing of items scheduled for publication,
-content-store allows publishing tools to register their intent to publish
-something at a given time.  If a publish intent is present for a content item,
-content-store will reduce the TTL in its cache headers as the publish time
-approaches, allowing the new item to be fetched as soon as it's published.</p>
-<p>See <a href="/apps/content-store/publish_intents.html">publish_intents.md</a> for more details.</p>
-<h2 id="running-draft-content-store-in-development">Running draft-content-store in development</h2>
-<p>On a development VM you may want to run an instance of content-store
-to accept draft content sent to publishing-api. You can:</p>
-<pre><code>  bowl draft-content-store
-</code></pre>
-<p>from the development directory to run the content-store application at
-<code>draft-content-store.dev.gov.uk</code>. This instance stores data in a separate
-database: 'draft_content_store_development', and logs to the same rails log file
-as content-store, with a tag [DRAFT].</p>
+<p>Not all content exists as a standalone page like the <code>/take-pet-abroad</code> example. Some content exists as a collection that references other pieces of content, and some content exists as meta content designed to describe a wider whole. We use <a href="https://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a> to describe all these different content types. The content API itself is not prescriptive about this; it takes any JSON structure.</p>
 
 
             
@@ -718,8 +684,8 @@ as content-store, with a tag [DRAFT].</p>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/content-store/blob/master/docs/technical-information.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/content-store/technical-information.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/content-store/blob/master/docs/content-store-api.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/content-store/content-store-api.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

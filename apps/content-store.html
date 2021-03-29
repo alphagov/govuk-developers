@@ -407,51 +407,48 @@
       <li><a href="/manual/uptime-metrics.html" class="govuk-link">Uptime Metrics</a></li>
 </ul></p>
 <h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
-      <li><a href="/apps/content-store/content_item_fields.html" class="govuk-link">The Content Item Format</a></li>
+      <li><a href="/apps/content-store/access-limited-content-items.html" class="govuk-link">Access-limited content items</a></li>
+      <li><a href="/apps/content-store/content-store-api.html" class="govuk-link">Content Store API</a></li>
+      <li><a href="/apps/content-store/content_item_fields.html" class="govuk-link">Content Item Fields</a></li>
       <li><a href="/apps/content-store/gone_item.html" class="govuk-link"># Gone items</a></li>
       <li><a href="/apps/content-store/placeholder_item.html" class="govuk-link"># Placeholder items</a></li>
       <li><a href="/apps/content-store/publish_intents.html" class="govuk-link">Publish intents</a></li>
       <li><a href="/apps/content-store/redirect_item.html" class="govuk-link"># Redirect items</a></li>
       <li><a href="/apps/content-store/route_registration.html" class="govuk-link"># Registering routes with the router.</a></li>
-      <li><a href="/apps/content-store/technical-information.html" class="govuk-link"># Content items</a></li>
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>The Content Store is a MongoDB database of almost all published content on GOV.UK.</p>
+<p>The Content Store is a MongoDB database of almost all published content on GOV.UK.
+See the <a href="/apps/content-store/content-store-api.html">Content Store API</a> for basic usage.</p>
 
-<h2 id="reading-and-writing-to-the-store">Reading and writing to the store</h2>
+<h2 id="technical-documentation">Technical documentation</h2>
 
-<p>Content is retrieved from the content store via the <a href="https://content-api.publishing.service.gov.uk/">content API</a>,
-which takes a path and responds with a JSON representation of the content that should
-be displayed on that path. This API is used by front-end apps but is also exposed externally
-at <code>/api/content/&lt;path&gt;</code>, such as <a href="https://www.gov.uk/api/content/take-pet-abroad">https://www.gov.uk/api/content/take-pet-abroad</a></p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<p>Content is written by the <a href="https://docs.publishing.service.gov.uk/apps/publishing-api.html">publishing API</a>, which is used by
-back-end publishing apps such as Travel Advice Publisher.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<h3 id="content-schemas">Content schemas</h3>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
-<p>Not all content exists as a standalone page like the <code>/take-pet-abroad</code> example. Some
-content exists as a collection that references other pieces of content, and some content
-exists as meta content designed to describe a wider whole. We use
-<a href="https://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a> to describe all these different content
-types. The content API itself is not prescriptive about this; it takes any JSON structure.</p>
-
-<p>Detailed technical information can be found in the
-<a href="/apps/content-store/technical-information.html">content store documentation</a>.</p>
-
-<h2 id="running-the-application">Running the application</h2>
-
-<p><code>./startup.sh</code></p>
-
-<h2 id="running-the-test-suite">Running the test suite</h2>
+<h3 id="running-the-test-suite">Running the test suite</h3>
 
 <p><code>bundle exec rake</code></p>
 
-<h2 id="example-api-output">Example API output</h2>
+<h3 id="example-api-output">Example API output</h3>
 
 <p>Example API requests and corresponding responses can be found in the
 <a href="https://pact-broker.cloudapps.digital/pacts/provider/Content%20Store/consumer/Publishing%20API/latest">content store pact-broker documentation</a>.</p>
+
+<h2 id="further-documentation">Further documentation</h2>
+
+<ul>
+<li><a href="/apps/content-store/content-store-api.html">Content Store API</a></li>
+<li><a href="/apps/content-store/publish_intents.html">Publish intents</a></li>
+<li><a href="/apps/content-store/access-limited-content-items.html">Access-limited content items</a></li>
+<li><a href="/apps/content-store/content_item_fields.html">Content item fields</a></li>
+<li><a href="/apps/content-store/gone_item.html">Gone items</a></li>
+<li><a href="/apps/content-store/redirect_item.html">Redirect items</a></li>
+<li><a href="/apps/content-store/placeholder_item.html">Placeholder items</a></li>
+</ul>
 
 <h2 id="licence">Licence</h2>
 
