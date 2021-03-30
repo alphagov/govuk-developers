@@ -2866,6 +2866,8 @@ html.has-search-results-open {
   overflow: hidden; }
   html.has-search-results-open .app-pane__content {
     overflow: hidden; }
+  html.has-search-results-open .toc__close {
+    display: none; }
 
 .search-results {
   display: none; }
