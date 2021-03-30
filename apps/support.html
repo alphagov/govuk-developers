@@ -405,7 +405,19 @@
 </div>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>Forms that create tickets for requests coming from government agencies or from GOV.UK contact forms.</p>
+<p>This app:</p>
+
+<ul>
+<li>
+<p>Presents anonymous feedback about pages on GOV.UK in a &ldquo;feedback explorer&rdquo;. Anonymous feedback is collected via the <a href="https://github.com/alphagov/feedback">Feedback app</a> and retrieved from the <a href="https://github.com/alphagov/support-api">Support API</a>.</p>
+</li>
+<li>
+<p>Exposes <a href="https://github.com/alphagov/gds-api-adapters/blob/master/lib/gds_api/support.rb">internal APIs</a> to create Zendesk tickets e.g. <a href="https://github.com/alphagov/feedback/blob/7e6893c0e80d9c98f6cea27d1bd089621054b177/app/models/contact_ticket.rb#L35">via the Feedback app</a>. Tickets are created using the <a href="https://github.com/alphagov/gds_zendesk">gds_zendesk gem</a>.</p>
+</li>
+<li>
+<p>Hosts internal forms for publishers to create Zendesk tickets, as well as emergency contact info. Emergency contacts are secret and retrieved from an <a href="https://github.com/alphagov/govuk-puppet/blob/941373ab48ae50a9d1929caee73a52390004bf81/modules/govuk/manifests/apps/support.pp#L129">environment variable</a> at runtime.</p>
+</li>
+</ul>
 
 <h2 id="nomenclature">Nomenclature</h2>
 
@@ -418,88 +430,34 @@ of some form or other and relates to pages published on GOV.UK.</li>
 submitted via an anonymous contact form in the <a href="https://github.com/alphagov/feedback">feedback app</a>.</li>
 <li>
 <strong>Named Contact</strong>: In contrast with the <code>Anonymous Contact</code> feedback, this is submitted
-via a form that will require you to identify yourself. This data is sent directly
-to the <code>support</code> app.</li>
+via a form that will require you to identify yourself.</li>
 </ul>
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>This is a Ruby on Rails application which collects feedback and creates tickets based on it.
-It collects data from two sources:</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<ul>
-<li>its own forms which can be accessed by <a href="https://github.com/alphagov/signon">signon</a> users</li>
-<li>contact forms from the <a href="https://github.com/alphagov/feedback">feedback app</a>
-</li>
-</ul>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<p>The data collected from either the <code>feedback</code> app or its own forms is then used to create
-and submit Zendesk tickets.</p>
-
-<p>Even though it is not public facing, the <code>support</code> app does receive data from the <a href="https://github.com/alphagov/feedback">feedback app</a>,
-which collects data via contact forms rendered on GOV.UK.</p>
-
-<h4 id="types-of-requests-from-the-support-app-forms">Types of requests from the Support app forms</h4>
-
-<p>The support app lets people who use the GOV.UK publishing tools ask for specific help from the GOV.UK team.</p>
-
-<p>The types of forms and their purpose are listed below:</p>
-
-<ul>
-<li>&ldquo;Content advice and help&rdquo;: Asking for help or advice on any content problems. Request short URLs, topical event pages, groups or manuals</li>
-<li>&ldquo;Content changes and new content requests&rdquo;: Request changes to GOV.UK content managed by GDS content designers</li>
-<li>&ldquo;Unpublish content&rdquo;: Request to unpublish content</li>
-<li>&ldquo;Changes to publishing applications or technical advice&rdquo;: Request for changes or new features for any publishing applications or ask for technical advice. Also used for transitioning new sites to GOV.UK.</li>
-<li>&ldquo;Report a technical fault to GDS&rdquo;: report something that is not working with any publishing application, eg Whitehall, finders or specialist publisher. Also used for urgent technical changes.</li>
-<li>&ldquo;Accounts, permissions and training&rdquo;: Request a new account, change an account or unlock an account</li>
-<li>&ldquo;Remove user&rdquo;: Request to remove user access</li>
-<li>&ldquo;Request a new campaign&rdquo;: Request GDS supoort for a new campaign</li>
-<li>&ldquo;Support for live campaign&rdquo;: Request GDS support for a live campaign</li>
-<li>&ldquo;Suggest a new topic&rdquo;: Suggest a new topic for the GOV.UK taxonomy</li>
-<li>&ldquo;Suggest a change to a topic&rdquo;: Suggest a change to a topic or the removal of a topic in the GOV.UK taxonomy</li>
-<li>&ldquo;Analytics access, reports and help&rdquo;: Request access to Google Analytics or help with analytics and reports</li>
-<li>&ldquo;General&rdquo;: Report a problem, request GDS support, or make a suggestion</li>
-<li>&ldquo;Feedback explorer&rdquo;: GOV.UK Anonymous Feedback</li>
-<li>&ldquo;Emergency contact details&rdquo;: Contact GOV.UK in an emergency</li>
-</ul>
-
-<h4 id="feedback-explorer">Feedback explorer</h4>
-
-<p>At the bottom of every page on GOV.UK we ask: “Is there anything wrong with this page?”.
-Users can leave comments on what they were doing and what went wrong. Feedback is anonymous
-and is collected via the <code>feedback</code> app.</p>
-
-<p>The Feedback explorer in the <code>support</code> app allows users to browse the feedback submitted from GOV.UK pages,
-and to export CSVs of the same for further analysis.</p>
-
-<h4 id="zendesk">Zendesk</h4>
-
-<p>Currently we use Zendesk to register our support tickets, via the <code>gds_zendesk</code> gem which is
-a wrapper around the Zendesk API.</p>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-<li>
-<a href="https://github.com/alphagov/support-api">alphagov/support-api</a> - provides an API for storing
-and fetching anonymous feedback about pages on GOV.UK.</li>
-</ul>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
 <h3 id="running-the-test-suite">Running the test suite</h3>
-
-<p>To run the specs, execute:</p>
 
 <pre><code>bundle exec rake
 </code></pre>
 
-<h3 id="starting-the-background-processing-queues">Starting the background processing queues</h3>
+<h3 id="running-the-worker">Running the worker</h3>
 
-<p>Zendesk tickets are raised in the background using a redis-backed queue called <a href="http://sidekiq.org/">sidekiq</a>.</p>
+<p>Zendesk tickets are raised in the background using a <a href="http://sidekiq.org/">Sidekiq</a> worker.</p>
 
-<p>To start the background workers:</p>
+<p>To start the background worker:</p>
 
-<pre><code>rake jobs:work
+<pre><code>bundle exec rake jobs:work
 </code></pre>
+
+<h2 id="licence">Licence</h2>
+
+<p><a href="https://github.com/alphagov/support/blob/master/LICENCE">MIT License</a></p>
 <p></div></p>
 
 
