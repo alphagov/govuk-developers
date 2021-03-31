@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Make a GitHub repo private - GOV.UK Developer Documentation</title>
+    <title>How to switch a Git default branch from master to main - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/make-github-repo-private.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/howto-switch-default-branch.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Make a GitHub repo private - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/make-github-repo-private.html" />
+      <meta name="twitter:title" content="How to switch a Git default branch from master to main - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/howto-switch-default-branch.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="Make a GitHub repo private" />
+      <meta property="og:title" content="How to switch a Git default branch from master to main" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/make-github-repo-private.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/howto-switch-default-branch.html" />
 
     
   </head>
@@ -131,30 +131,10 @@
                   <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
   <ul>
   <li>
-    <a href="#header"><span>Make a GitHub repo private</span></a>
+    <a href="#header"><span>How to switch a Git default branch from master to main</span></a>
     <ul>
       <li>
-        <a href="#creating-a-private-fork"><span>Creating a private fork</span></a>
-      </li>
-      <li>
-        <a href="#deploying-the-private-repository"><span>Deploying the private repository</span></a>
-        <ul>
-          <li>
-            <a href="#update-govuk-app-deployment"><span>Update govuk-app-deployment</span></a>
-          </li>
-          <li>
-            <a href="#update-jenkins"><span>Update Jenkins</span></a>
-          </li>
-          <li>
-            <a href="#testing-in-private"><span>Testing in private</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#keeping-repositories-in-sync"><span>Keeping repositories in sync</span></a>
-      </li>
-      <li>
-        <a href="#reverting-to-public"><span>Reverting to public</span></a>
+        <a href="#additional-things-to-check"><span>Additional things to check</span></a>
       </li>
     </ul>
   </li>
@@ -169,81 +149,37 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#github'>GitHub</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/ec5a0e48d45d50e3956bcbe36e7d67e742d994b2">17 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/ee7ff782741359707d917dd66c830a38d23a4a3a">3 Mar 2021</a>
 </div>
 
- <h1 id='header'>Make a GitHub repo private</h1> <p>In cases of an ongoing security incident, or when working on politically sensitive changes, we may want to work in private rather than public. We do this by creating a private fork of the application.</p>
-<h2 id='creating-a-private-fork'>Creating a private fork</h2><p>To fork an existing GOV.UK repository and make it private perform the following steps:</p>
+ <h1 id='header'>How to switch a Git default branch from master to main</h1> <p>These steps are for switching the default branch of a repo to <code>main</code>.</p>
 
 <ol>
-<li>Visit <a href="https://github.com/alphagov">https://github.com/alphagov</a> and click the green &lsquo;New&rsquo; button to create a new repository.</li>
-<li>Click on the &lsquo;import repository&rsquo; link to import the existing repository.</li>
-<li>Change the owner to <code>alphagov</code>.</li>
-<li>Set the repository name to the new private name.</li>
-<li>Set the &lsquo;Privacy&rsquo; setting to &lsquo;Private&rsquo;.</li>
-<li>Start the import. This may take a while to complete.</li>
-<li>Click on &lsquo;Settings&rsquo; and then &lsquo;Collaborators&rsquo; to set the permissions on the repository.</li>
-<li>Add the &lsquo;GOV.UK - CI Bots&rsquo; team so that Jenkins can access the repository for deployment. Make sure it is set to &lsquo;write&rsquo; access because Jenkins needs to access the repository and set the release tag.</li>
-<li>Add the &lsquo;gov-uk&rsquo; team and set it &lsquo;write&rsquo; access so that developers can create and merge pull requests.</li>
-<li>Consider adding <a href="https://github.com/search?q=org%3Aalphagov+%22Use+GitHub+Actions%22&amp;type=Issues">a GitHub action</a> to replace Jenkins CI that will not be running on this new repo.</li>
-<li>Add a branch protection rule against the master branch. You can <a href="https://github.com/alphagov/government-frontend/settings/branches">use the settings in another repo</a> as a template.</li>
-</ol>
-<h2 id='deploying-the-private-repository'>Deploying the private repository</h2><h3 id='update-govuk-app-deployment'>Update govuk-app-deployment</h3><p>To deploy a private repository, first create a private fork of the <code>govuk-app-deployment</code> repository named <code>govuk-app-deployment-private</code>.</p>
-<p>In the <code>govuk-app-deployment-private</code> repository there is a directory for each app in GOV.UK that can be deployed. Find the directory of the app you want to make private and edit the file <code>&lt;app&gt;/config/deploy.rb</code> to add a line to set the name of the private repository. For example, for ‘frontend’ add line 2:</p>
-<div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s2">"frontend"</span>
-<span class="n">set</span> <span class="ss">:repo_name</span><span class="p">,</span> <span class="s2">"frontend-private"</span>
-</code></pre></div><h3 id='update-jenkins'>Update Jenkins</h3><p>Perform these actions on staging first, before rolling out to production.</p>
-<p>In the relevant environment, disable Puppet on the Jenkins machine, otherwise Puppet will overwrite your changes.  This can be done by SSHing into the Jenkins machine:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ gds govuk connect -e &lt;environment&gt; ssh jenkins
-$ govuk_puppet --disable
-</code></pre></div><p>Jenkins must be updated to use the private version of <code>govuk-app-deployment</code> so the private version of the app is deployed.  This is done by navigating to the Jenkins UI in your web browser, clicking the &lsquo;Configure&rsquo; link and changing the &lsquo;Build&rsquo; section:</p>
-<p>From:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>export APP_DEPLOYMENT_GIT_URL="git@github.com:alphagov/govuk-app-deployment.git"
-</code></pre></div><p>To:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>export APP_DEPLOYMENT_GIT_URL="git@github.com:alphagov/govuk-app-deployment-private.git"
-</code></pre></div><p>The app can now be deployed as normal.</p>
-<p>After deployment is complete, Puppet can be re-enabled:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ gds govuk connect -e &lt;environment&gt; ssh jenkins
-$ govuk_puppet --enable
-</code></pre></div><h3 id='testing-in-private'>Testing in private</h3><p>We do not have CI builds on our private repos by default. To mitigate the risks of this, you can either:</p>
+<li>Rename the <code>master</code> branch in GitHub to <code>main</code> for that repo. See <a href="https://github.com/github/renaming#renaming-existing-branches">instructions from Github for renaming an existing default branch</a>.</li>
+<li>Update the <a href="https://release.publishing.service.gov.uk/applications/">Release app</a>:
 
 <ul>
-<li>Add <a href="/manual/test-and-build-a-project-with-github-actions.html">a GitHub Action</a> to do these things for you</li>
-<li>Or, run the following manual steps locally before pushing:</li>
-</ul>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>bundle exec rubocop # run the linter
-RAILS_ENV=production bundle exec rake assets:precompile # make sure production assets compilation works
-bundle exec rake # run all the tests
-</code></pre></div><h2 id='keeping-repositories-in-sync'>Keeping repositories in sync</h2><p>As part of our workflow we will need to keep our private repositories in sync with the public ones. To do this we need to open a terminal, enter the directory of the private repository we want to sync up and add an ‘upstream’ remote.</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ git remote add upstream https://github.com/alphagov/frontend.git
-</code></pre></div><p>We can now fetch commits from the upstream public repository and pull them in a new branch which can be merged into master through the usual Pull Request workflow.</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ git fetch upstream
-$ git diff upstream/master master # check if we need to rebase at all
-$ git checkout -b update
-$ git pull upstream master
-$ git push origin update
-</code></pre></div><h2 id='reverting-to-public'>Reverting to public</h2><p>In order to make our private changes public, we need to incorporate them into the public repo.</p>
-
-<ol>
-<li>Make sure you have pulled in the latest changes from the public repo into the private repo (detailed in &lsquo;Keeping repositories in sync&rsquo;).</li>
-<li>Merge any pending pull requests into the master branch of the private repo.</li>
-<li>On the public repo, add the private repo as a new upstream remote: e.g. <code>git remote add upstream https://github.com/alphagov/frontend-private.git</code></li>
-<li>Create a new branch on the public repo.</li>
-<li>Rebase the master branch of the private repo onto the new branch:</li>
-<li><code>git fetch upstream</code></li>
-<li><code>git rebase upstream/master</code></li>
-<li><code>git rebase master</code></li>
-<li>Raise a PR on the public repo for the new branch.</li>
-<li>Delete the private fork, once the changes have been merged into the public repo.</li>
+<li>Go to the app entry from the <a href="https://release.publishing.service.gov.uk/applications/">listing</a>.</li>
+<li>Hit the <code>Edit</code> tab.</li>
+<li>Switch under the dropdown for <code>GitHub repository default branch</code>.</li>
+</ul></li>
+<li><a href="https://docs.publishing.service.gov.uk/manual/test-and-build-a-project-on-jenkins-ci.html#fixing-the-build-number">Set the Jenkins build number</a>  (the last <code>master</code> build +1).</li>
+<li><a href="https://docs.github.com/en/github/administering-a-repository/renaming-a-branch#updating-a-local-clone-after-a-branch-name-changes">Switch your local branch</a>, otherwise you might rebase the wrong branch by mistake!</li>
+<li>Update the <a href="https://trello.com/c/xVhGGzOE/225-change-default-branch-to-main">list of apps on the Trello card</a></li>
 </ol>
+<h2 id='additional-things-to-check'>Additional things to check</h2>
+<ul>
+<li>Update <a href="https://github.com/alphagov/govuk-puppet/search?l=HTML%2BERB&amp;q=master">references in Jenkins to pulling down the <code>master</code> branch</a> of the app.
+See <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk_jenkins/templates/jobs/bouncer_cdn.yaml.erb">example</a>.</li>
+<li>Update the Pact tests to run against the <code>main</code> branch
+
+<ul>
+<li>There are various places where we reference a <code>master</code> branch in the Pact tests. We&rsquo;ll need to remember to update these as we go through the various apps. Examples:</li>
+<li><a href="https://github.com/alphagov/collections/pull/2281#discussion_r576018353">collections</a></li>
+<li><a href="https://github.com/alphagov/gds-api-adapters/blob/ea45d4c1133a2a48b7bbfdc477b7880c330ec7b9/Jenkinsfile#L13-L17">gds-api-adapters</a></li>
+</ul></li>
+</ul>
 
 
   <div class='related-content'>
@@ -265,7 +201,7 @@ $ git push origin update
 
           <ul class="govuk-list">
             <li><a href="/manual/configure-github-repo.html">Configure a GitHub repo</a></li>
-            <li><a href="/manual/howto-switch-default-branch.html">How to switch a Git default branch from master to main</a></li>
+            <li><a href="/manual/make-github-repo-private.html">Make a GitHub repo private</a></li>
             <li><a href="/manual/merge-pr.html">Merge a Pull Request</a></li>
           </ul>
         </div>
@@ -279,8 +215,8 @@ $ git push origin update
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/make-github-repo-private.html.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'Make%20a%20GitHub%20repo%20private'&amp;body=Problem%20with%20'Make%20a%20GitHub%20repo%20private'%20(https://docs.publishing.service.gov.uk/manual/make-github-repo-private.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/howto-switch-default-branch.html.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'How%20to%20switch%20a%20Git%20default%20branch%20from%20master%20to%20main'&amp;body=Problem%20with%20'How%20to%20switch%20a%20Git%20default%20branch%20from%20master%20to%20main'%20(https://docs.publishing.service.gov.uk/manual/howto-switch-default-branch.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
