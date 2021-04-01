@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>whitehall: Edition Workflow - GOV.UK Developer Documentation</title>
+    <title>account-api: API documentation - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/whitehall/edition_workflow.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/account-api/api.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="whitehall: Edition Workflow - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/whitehall/edition_workflow.html" />
+      <meta name="twitter:title" content="account-api: API documentation - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/account-api/api.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="whitehall: Edition Workflow" />
+      <meta property="og:title" content="account-api: API documentation" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/whitehall/edition_workflow.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/account-api/api.html" />
 
     
   </head>
@@ -223,7 +223,7 @@
         <ul>
             <li><a href="/apps/whitehall/api.html"><span>Whitehall API</span></a></li>
             <li><a href="/apps/whitehall/css.html"><span>Whitehall CSS Styleguide</span></a></li>
-            <li><a href="/apps/whitehall/edition_workflow.html" class="toc-link--in-view"><span>Edition Workflow</span></a></li>
+            <li><a href="/apps/whitehall/edition_workflow.html"><span>Edition Workflow</span></a></li>
             <li><a href="/apps/whitehall/finders.html"><span>Finders</span></a></li>
             <li><a href="/apps/whitehall/internationalisation_guide.html"><span>Internationalisation guide</span></a></li>
             <li><a href="/apps/whitehall/javascript.html"><span>Whitehall JavaScript</span></a></li>
@@ -236,7 +236,7 @@
     <li>
       <a href="/apps/account-api.html"><span>account-api</span></a>
         <ul>
-            <li><a href="/apps/account-api/api.html"><span>API documentation</span></a></li>
+            <li><a href="/apps/account-api/api.html" class="toc-link--in-view"><span>API documentation</span></a></li>
         </ul>
     </li>
     <li>
@@ -646,103 +646,524 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/whitehall/commit/4f02cea806918b1ae074b733deba8a09ab614912">16 Jan 2018</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/d083f345bd57251780e2644cfd795f9d4e569564">18 Mar 2021</a>
 </div>
 
-  <h1 class="page-title">whitehall: Edition Workflow</h1>
+  <h1 class="page-title">account-api: API documentation</h1>
 
   
-<p>Editions will be in one of a number of states. The state machine for them is located in <a href="https://github.com/alphagov/whitehall/blob/master/docs/app/models/edition/workflow.rb">workflow.rb</a>. This configures the possible transitions between states, resulting in this:</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/whitehall/master/docs/misc/edition_transitions.png" alt="Transitions graph"></p>
-<h2 id="unpublishing-withdrawal">Unpublishing / Withdrawal</h2>
-<p>Some status is also controlled by the presence or otherwise of a related <code>Unpublishing</code> record. These are created during the <code>withdraw</code> and <code>unpublish</code> transitions. Editors trigger these in the <a href="https://github.com/alphagov/whitehall/blob/master/docs/app/controllers/admin/edition_workflow_controller.rb"><code>EditionWorkflowController</code></a>. The three options for Unpublishing or Withdrawing correspond to an <a href="https://github.com/alphagov/whitehall/blob/master/docs/app/models/unpublishing_reason.rb"><code>UnpublishingReason</code></a>, each of which control the behaviour of a document when visited by a user:</p>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>State</th>
-<th>Requires explanation?</th>
-<th>Requires URL?</th>
-<th>Redirects?</th>
-<th>Shows original content?</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td><code>PublishedInError</code></td>
-<td><code>draft</code></td>
-<td>No</td>
-<td>No</td>
-<td>If provided</td>
-<td>No</td>
-</tr>
-<tr>
-<td>4</td>
-<td><code>Consolidated</code></td>
-<td><code>draft</code></td>
-<td>No</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr>
-<td>5</td>
-<td><code>Withdrawn</code></td>
-<td><code>withdrawn</code></td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-<p>If a document has an edition in one of the <code>Edition::PUBLICLY_VISIBLE_STATES</code> (<code>published</code> or <code>withdrawn</code>), Whitehall's <code>DocumentsController</code> will render it. If an <code>Unpublishing</code> exists, the withdrawal notice will be rendered near the top of the page as well.</p>
-<p>If a document does not have an edition in one of these states, it will use the <code>Unpublishing</code> to determine the response. If the <code>Unpublishing</code> is a redirect, ie a <code>Consolidated</code> <code>Unpublishing</code>, it will redirect to the alternative url. Otherwise it will render the <code>unpublished</code> view.</p>
-<p>The <code>PublishingApiUnpublishingWorker</code> uses the above to decide what to do with an <code>Unpublishing</code> when sending the content to the Publishing API. It will always call the <code>unpublish</code> endpoint, with one of the following types:</p>
-<table>
-<thead>
-<tr>
-<th>Unpublishing type</th>
-<th>Publishing API unpublishing type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>PublishedInError</code> with alternative url</td>
-<td><code>redirect</code></td>
-</tr>
-<tr>
-<td>
-<code>PublishedInError</code> without alternative url</td>
-<td><code>gone</code></td>
-</tr>
-<tr>
-<td><code>PublishedInError</code></td>
-<td><code>gone</code></td>
-</tr>
-<tr>
-<td><code>Consolidated</code></td>
-<td><code>redirect</code></td>
-</tr>
-<tr>
-<td><code>Withdrawn</code></td>
-<td><code>withdrawn</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="linkcheckerapi">LinkCheckerAPI</h2>
-<p>The <code>link-checker-api</code> has been integrated on the show page for Editions. It extracts all links from within any GovSpeak fields and sends them to the <code>/batch</code> endpoint of the API. In this request it also sends across a <code>webhook_callback</code> which then populates any information about broken/warning links. More reading about the endpoints can be found <a href="https://docs.publishing.service.gov.uk/apis/link-checker-api.html">here</a></p>
+<p>This API is for GOV.UK Publishing microservices (the things which make
+up <a href="http://www.gov.uk">www.gov.uk</a>) to implement personalisation and user session
+management. This API is not for other government services.</p>
+<ul>
+<li><a href="#nomenclature">Nomenclature</a></li>
+<li>
+<a href="#requirements-for-api-consumers">Requirements for API consumers</a>
+<ul>
+<li><a href="#update-the-users-session-if-a-new-session-identifier-is-returned">Update the user's session if a new session identifier is returned</a></li>
+<li><a href="#end-the-users-session-if-an-endpoint-returns-a-401-unauthenticated">End the user's session if an endpoint returns a <code>401: Unauthenticated</code></a></li>
+<li><a href="#ensure-responses-are-not-cached">Ensure responses are not cached</a></li>
+</ul>
+</li>
+<li><a href="#example-api-usage">Example API usage</a></li>
+<li>
+<a href="#api-endpoints">API endpoints</a>
+<ul>
+<li><a href="#get-apioauth2sign-in"><code>GET /api/oauth2/sign-in</code></a></li>
+<li><a href="#post-apioauth2callback"><code>POST /api/oauth2/callback</code></a></li>
+<li><a href="#post-apioauth2state"><code>POST /api/oauth2/state</code></a></li>
+<li><a href="#get-apiattributes"><code>GET /api/attributes</code></a></li>
+<li><a href="#patch-apiattributes"><code>PATCH /api/attributes</code></a></li>
+<li><a href="#get-apitransition-checker-email-subscription"><code>GET /api/transition-checker-email-subscription</code></a></li>
+<li><a href="#post-apitransition-checker-email-subscription"><code>POST /api/transition-checker-email-subscription</code></a></li>
+</ul>
+</li>
+<li><a href="#healthcheck">Healthcheck</a></li>
+</ul>
+<h2 id="nomenclature">Nomenclature</h2>
+<h3 id="identity-provider">Identity provider</h3>
+<p>The service which authenticates a user. Currently we use the <a href="https://github.com/alphagov/govuk-account-manager-prototype/">GOV.UK account manager prototype</a>.</p>
+<h3 id="session-identifier">Session identifier</h3>
+<p>An opaque token which identifies a user and provides access to their attributes.</p>
+<h2 id="requirements-for-api-consumers">Requirements for API consumers</h2>
+<p>We manage user sessions in frontend apps by using custom headers, which tie into logic in our Content Delivery Network (CDN). This section describes what you have to do to manage those custom headers correctly.</p>
+<h3 id="request-custom-headers">Request custom headers</h3>
+<p>The request custom header is <code>GOVUK-Account-Session</code>.</p>
+<p>This custom header is set by our CDN to the value of the user's session cookie. This is the user's session identifier.</p>
+<p>See the <a href="https://github.com/alphagov/govuk-cdn-config/blob/2ade45759be947a28b1225aee085311430bcbecf/vcl_templates/www.vcl.erb#L339-L340"><code>govuk-cdn-config</code> VCL</a> for more information.</p>
+<h3 id="response-custom-headers">Response custom headers</h3>
+<p>The response custom headers are:</p>
+<ul>
+<li><code>GOVUK-Account-Session</code></li>
+<li><code>GOVUK-Account-End-Session</code></li>
+</ul>
+<p><code>GOVUK-Account-Session</code> is sent to our CDN to update the user's session cookie.</p>
+<p><code>GOVUK-Account-End-Session</code> is sent to our CDN to delete the user's session cookie.</p>
+<p>See the <a href="https://github.com/alphagov/govuk-cdn-config/blob/2ade45759be947a28b1225aee085311430bcbecf/vcl_templates/www.vcl.erb#L442-L455"><code>govuk-cdn-config</code> VCL</a> for more information.</p>
+<p>We do not have a CDN when developing locally. To enable local development with Accounts, we store the session identifier
+in a cookie called <code>govuk_account_session</code>, with <code>domain: dev.gov.uk</code>, when running in development mode.</p>
+<p>We may later provide a gem implementing this behaviour.</p>
+<h3 id="update-the-users-session-if-a-new-session-identifier-is-returned">Update the user's session if a new session identifier is returned</h3>
+<p>Some of these endpoints return a session identifier in the <code>govuk_account_session</code> JSON response field. If this happens, you must update the user's session identifier.</p>
+<ol>
+<li>
+<p>Set the <code>GOVUK-Account-Session</code> response custom header:</p>
+<pre lang="ruby"><code>response.headers["GOVUK-Account-Session"] = "&lt;govuk_account_session value&gt;"
+</code></pre>
+</li>
+<li>
+<p>Update the development cookie when running locally:</p>
+<pre lang="ruby"><code>if Rails.env.development?
+  cookies["govuk_account_session"] = {
+    value: "&lt;govuk_account_session value&gt;",
+    domain: "dev.gov.uk",
+  }
+end
+</code></pre>
+</li>
+</ol>
+<h3 id="end-the-users-session-if-an-endpoint-returns-a-401-unauthenticated">End the user's session if an endpoint returns a <code>401: Unauthenticated</code>
+</h3>
+<p>If an endpoint returns a <code>401: Unauthenticated</code> response, then the user must no longer be considered logged in.</p>
+<ol>
+<li>
+<p>Set the <code>GOVUK-Account-End-Session</code> response header:</p>
+<pre lang="ruby"><code>response.headers["GOVUK-Account-End-Session"] = "1"
+</code></pre>
+</li>
+<li>
+<p>Expire the development cookie when running locally:</p>
+<pre lang="ruby"><code>if Rails.env.development?
+  cookies["govuk_account_session"] = {
+    value: "",
+    domain: "dev.gov.uk",
+    expires: 1.second.ago,
+  }
+end
+</code></pre>
+</li>
+</ol>
+<h3 id="ensure-responses-are-not-cached">Ensure responses are not cached</h3>
+<p>Any user-visible response which involves calling this API must return appropriate response headers to either forbid caching, or specific that the response depends on the user.</p>
+<p>To forbid caching:</p>
+<pre lang="ruby"><code>response.headers["Cache-Control"] = "no-store"
+</code></pre>
+<p>To specify that the response depends on the user:</p>
+<pre lang="ruby"><code>response.headers["Vary"] = [response.headers["Vary"], "GOVUK-Account-Session"].compact.join(", ")
+</code></pre>
+<h2 id="example-api-usage">Example API usage</h2>
+<p>This is an example of updating an attribute for the current user.</p>
+<p>The <code>update</code> method is the controller action.  The <code>disable_cache</code>,
+<code>fetch_session_identifier</code>, <code>set_session_identifier</code>, and <code>logout!</code>
+methods would be re-used by other actions which call this API.</p>
+<pre lang="ruby"><code>before_action :disable_cache, only: %i[update]
+before_action :fetch_session_identifier, only: %i[update]
+
+def update
+  head :unauthorised and return unless @session_identifier
+
+  api_response = GdsApi.account_api.set_attributes(
+    govuk_account_session: @session_identifier,
+    attributes: { example_attribute: params[:attribute_value] },
+  ).to_h
+
+  set_session_identifier api_response["govuk_account_session"]
+rescue GdsApi::HTTPUnauthorized
+  logout!
+  render plain: "you have been logged out"
+end
+
+private
+
+def disable_cache
+  response.headers["Cache-Control"] = "no-store"
+end
+
+def fetch_session_identifier
+  @session_identifier =
+    if request.headers["HTTP_GOVUK_ACCOUNT_SESSION"]
+      request.headers["HTTP_GOVUK_ACCOUNT_SESSION"]
+    elsif Rails.env.development?
+      cookies["govuk_account_session"]
+    end
+end
+
+def set_session_identifier(session_identifier)
+  return unless session_identifier
+
+  response.headers["GOVUK-Account-Session"] = @session_identifier
+
+  if Rails.env.development?
+    cookies["govuk_account_session"] = {
+      value: @session_identifier,
+      domain: "dev.gov.uk",
+    }
+  end
+end
+
+def logout!
+  @session_identifier = nil
+
+  response.headers["GOVUK-Account-End-Session"] = "1"
+
+  if Rails.env.development?
+    cookies["govuk_account_session"] = {
+      value: "",
+      domain: "dev.gov.uk",
+      expires: 1.second.ago,
+    }
+  end
+end
+</code></pre>
+<h2 id="api-endpoints">API endpoints</h2>
+<h3 id="get-apioauth2sign-in"><code>GET /api/oauth2/sign-in</code></h3>
+<p>Generates an OAuth sign in URL.</p>
+<p>This URL should be served to the user with a 302 response to authenticate the user against the identity provider.</p>
+<h4 id="query-parameters">Query parameters</h4>
+<ul>
+<li>
+<code>state_id</code> <em>(optional)</em>
+<ul>
+<li>an identifier returned from a previous call to <code>POST /api/oauth2/state</code>
+</li>
+</ul>
+</li>
+<li>
+<code>redirect_path</code> <em>(optional)</em>
+<ul>
+<li>a path on GOV.UK to send the user to after authenticating</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>auth_uri</code>
+<ul>
+<li>an absolute URL, pointing to the identity provider, which the user should be redirected to so they can authenticate</li>
+</ul>
+</li>
+<li>
+<code>state</code>
+<ul>
+<li>a random string, used for CSRF protection, which should be stored in a cookie and compared with the <code>state</code> returned by the identity provider after the user authenticated</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>200</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.account_api.get_sign_in_url(
+    redirect_path: "/guidance/keeping-a-pet-pig-or-micropig",
+    state_id: "12345",
+)
+</code></pre>
+<p>Response:</p>
+<pre lang="json"><code>{
+    "auth_uri": "https://www.account.publishing.service.gov.uk/oauth/authorize?client_id=clientid&amp;nonce=nonce&amp;redirect_uri=https%3A%2F%2Fwww.gov.uk%2Fsign-in%2Fcallback&amp;response_type=code&amp;scope=openid&amp;state=12345%3Aabcd",
+    "state": "12345:abcdef"
+}
+</code></pre>
+<h3 id="post-apioauth2callback"><code>POST /api/oauth2/callback</code></h3>
+<p>Validates an OAuth response from the identity provider.</p>
+<p>On a <code>401: Unauthorized</code> response, the identity provider has rejected the authentication parameters.</p>
+<h4 id="request-parameters">Request parameters</h4>
+<ul>
+<li>
+<code>code</code>
+<ul>
+<li>the value of the <code>code</code> parameter returned from the identity provider</li>
+</ul>
+</li>
+<li>
+<code>state</code>
+<ul>
+<li>the value of the <code>state</code> parameter returned from the identity provider</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>govuk_account_session</code>
+<ul>
+<li>a session identifier</li>
+</ul>
+</li>
+<li>
+<code>redirect_path</code> <em>(optional)</em>
+<ul>
+<li>the <code>redirect_path</code> which was previously passed to <code>GET /api/oauth2/sign-in</code>, if given</li>
+</ul>
+</li>
+<li>
+<code>ga_client_id</code> <em>(optional)</em>
+<ul>
+<li>the Google Analytics client ID which the identity provider used for analytics</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>401 if authentication is unsuccessful</li>
+<li>200 otherwise</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.account_api.validate_auth_response(
+    code: "12345",
+    state: "67890",
+)
+</code></pre>
+<p>Response:</p>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
+    "redirect_path": "/guidance/keeping-a-pet-pig-or-micropig",
+    "ga_client_id": "ga-123-userid"
+}
+</code></pre>
+<h3 id="post-apioauth2state"><code>POST /api/oauth2/state</code></h3>
+<p>Stores some initial attributes which will be persisted if a user creates an account rather than logging in.</p>
+<h4 id="json-request-parameters">JSON request parameters</h4>
+<ul>
+<li>
+<code>attributes</code>
+<ul>
+<li>a JSON object where keys are attribute names and values are attribute values</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>state_id</code>
+<ul>
+<li>an identifier to pass to <code>GET /api/oauth2/sign-in</code>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>200</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.account_api.create_registration_state(
+    attributes: { name1: "value1", name2: "value2" },
+)
+</code></pre>
+<p>Response:</p>
+<pre lang="json"><code>{
+    "state_id": "5821a9f9-3ba7-4385-a864-80cdb374550a"
+}
+</code></pre>
+<h3 id="get-apiattributes"><code>GET /api/attributes</code></h3>
+<p>Retrieves attribute values for the current user.</p>
+<h4 id="request-headers">Request headers</h4>
+<ul>
+<li>
+<code>GOVUK-Account-Session</code>
+<ul>
+<li>the user's session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="query-parameters">Query parameters</h4>
+<ul>
+<li>
+<code>attributes[]</code> <em>(one for each attribute)</em>
+<ul>
+<li>a list of attribute names, specified once for each name</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>govuk_account_session</code> <em>(optional)</em>
+<ul>
+<li>a new session identifier</li>
+</ul>
+</li>
+<li>
+<code>values</code>
+<ul>
+<li>a JSON object of attribute values, where keys are attribute names and values are attribute values</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>401 if the session identifier is invalid</li>
+<li>200 otherwise</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.account_api.get_attributes(
+    attributes: %w[name1 name2],
+    govuk_account_session: "session-identifier",
+)
+</code></pre>
+<p>Response:</p>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
+    "values": {
+        "name1": "value1",
+        "name2": "value2"
+    }
+}
+</code></pre>
+<h3 id="patch-apiattributes"><code>PATCH /api/attributes</code></h3>
+<p>Updates the attributes of the current user.</p>
+<h4 id="request-headers">Request headers</h4>
+<ul>
+<li>
+<code>GOVUK-Account-Session</code>
+<ul>
+<li>the user's session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-request-parameters">JSON request parameters</h4>
+<ul>
+<li>
+<code>attributes</code>
+<ul>
+<li>a JSON object where keys are attribute names and values are attribute values</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>govuk_account_session</code> <em>(optional)</em>
+<ul>
+<li>a new session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>401 if the session identifier is invalid</li>
+<li>200 otherwise</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.account_api.set_attributes(
+    attributes: { name1: "value1", name2: "value2" },
+    govuk_account_session: "session-identifier",
+)
+</code></pre>
+<p>Response:</p>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg=="
+}
+</code></pre>
+<h3 id="get-apitransition-checker-email-subscription"><code>GET /api/transition-checker-email-subscription</code></h3>
+<p>Checks if the user has an active Transition Checker email subscription.</p>
+<h4 id="request-headers">Request headers</h4>
+<ul>
+<li>
+<code>GOVUK-Account-Session</code>
+<ul>
+<li>the user's session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>govuk_account_session</code> <em>(optional)</em>
+<ul>
+<li>a new session identifier</li>
+</ul>
+</li>
+<li>
+<code>has_subscription</code>
+<ul>
+<li>a boolean</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>401 if the session identifier is invalid</li>
+<li>200 otherwise</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.account_api.check_for_email_subscription(
+    govuk_account_session: "session-identifier",
+)
+</code></pre>
+<p>Response:</p>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
+    "has_subscription": false
+}
+</code></pre>
+<h3 id="post-apitransition-checker-email-subscription"><code>POST /api/transition-checker-email-subscription</code></h3>
+<p>Updates the user's Transition Checker email subscription, cancelling any previous subscription they had.</p>
+<h4 id="request-headers">Request headers</h4>
+<ul>
+<li>
+<code>GOVUK-Account-Session</code>
+<ul>
+<li>the user's session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="request-parameters">Request parameters</h4>
+<ul>
+<li>
+<code>slug</code>
+<ul>
+<li>the email topic slug to subscribe to</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>govuk_account_session</code> <em>(optional)</em>
+<ul>
+<li>a new session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>401 if the session identifier is invalid</li>
+<li>200 otherwise</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.account_api.set_email_subscription(
+    govuk_account_session: "session-identifier",
+    slug: "slug-name",
+)
+</code></pre>
+<p>Response:</p>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg=="
+}
+</code></pre>
+<h2 id="healthcheck">Healthcheck</h2>
+<p>A database health check endpoint is available at <code>/healthcheck</code>.</p>
+<pre lang="json"><code>{
+  "checks": {
+    "database_connectivity": {
+      "status": "ok"
+    }
+  },
+  "status": "ok"
+}
+</code></pre>
 
 
             
@@ -750,8 +1171,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/whitehall/blob/master/docs/edition_workflow.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/whitehall/edition_workflow.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/account-api/blob/main/docs/api.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/account-api/api.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

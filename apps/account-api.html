@@ -403,9 +403,89 @@
 </div></dl>
     <div class="gem-c-summary__block"></div>
 </div>
-<h2 id='imported-documents'>Imported documents</h2><h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
+<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
+      <li><a href="/apps/account-api/api.html" class="govuk-link">API documentation</a></li>
+</ul></p>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<!-- raw HTML omitted -->
+<p>Provides sign in / sign out and attribute storage functionality to
+other GOV.UK applications.</p>
+
+<p>In production this app currently uses the <a href="https://github.com/alphagov/govuk-account-manager-prototype">GOV.UK account manager
+prototype</a> as an authentication service and the <a href="https://github.com/alphagov/govuk-attribute-service-prototype">GOV.UK attribute
+service prototype</a> as a user data store.</p>
+
+<p>This app does not serve any user-facing pages. To see the app working, you
+must run an app which uses it, such as <a href="https://github.com/alphagov/finder-frontend">Finder Frontend</a>.</p>
+
+<p>After starting Finder Frontend, you should be able to access the
+following links:</p>
+
+<ul>
+<li>the <a href="http://finder-frontend.dev.gov.uk/transition-check/questions">Brexit checker journey start page</a>
+</li>
+<li>the <a href="http://finder-frontend.dev.gov.uk/transition-check/results?c%5B%5D=living-ie">Brexit checker results page</a> that reflects the
+answers you give during the Brexit checker journey</li>
+<li>the <a href="http://finder-frontend.dev.gov.uk/transition-check/save-your-results?c%5B%5D=living-ie">account sign up page</a> to save your answers</li>
+</ul>
+
+<p>When you have set up your local account, you can <a href="http://www.login.service.dev.gov.uk/">sign into your
+account</a>.</p>
+
+<h2 id="technical-documentation">Technical documentation</h2>
+
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app
+conventions</a>.</p>
+
+<p>Use GOV.UK Docker to run any of the following commands.</p>
+
+<h3 id="testing">Testing</h3>
+
+<p>This repository follows the standards for testing described in the
+<a href="https://github.com/alphagov/govuk-rfcs/blob/main/rfc-128-continuous-deployment.md">GOV.UK RFC on continuous deployment</a>:</p>
+
+<ul>
+<li>code coverage in excess of 95%</li>
+<li>API contract tests (&ldquo;pact tests&rdquo;) between the Account API and its
+consumers</li>
+<li>a <a href="https://github.com/alphagov/smokey/blob/main/features/account_api.feature">smoke test</a> to check the application is running after a
+deployment</li>
+</ul>
+
+<p>The default <code>rake</code> task runs all the tests and records code coverage:</p>
+
+<pre lang="sh"><code>bundle exec rake
+</code></pre>
+
+<h4 id="changing-the-pact-tests">Changing the Pact tests</h4>
+
+<p>If you make changes to the API, you must update the Pact tests.</p>
+
+<p>A Pact test has two parts:</p>
+
+<ol>
+<li>
+<p>The consumer test (defined <a href="https://github.com/alphagov/gds-api-adapters/blob/master/test/account_api_test.rb">in gds-api-adapters</a>), which:</p>
+<ul>
+<li>specifies the state it expects the provider to be in</li>
+<li>gives a request to make</li>
+<li>and a response to match against</li>
+</ul>
+</li>
+<li>
+<p>The provider configuration (defined <a href="https://github.com/alphagov/account-api/blob/main/spec/service_consumers/pact_helper.rb">in this repo</a>), which
+defines all of the provider states referenced by the consumer
+tests.</p>
+</li>
+</ol>
+
+<p>See the GOV.UK Developer Docs for <a href="https://docs.publishing.service.gov.uk/manual/pact-broker.html#updating-pact-tests">how to update a Pact test</a>.</p>
+
+<h2 id="further-documentation">Further documentation</h2>
+
+<ul>
+<li><a href="/apps/account-api/api.html">API documentation</a></li>
+</ul>
 
 <h2 id="licence">Licence</h2>
 
