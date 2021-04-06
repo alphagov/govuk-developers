@@ -161,15 +161,8 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#packaging'>Packaging</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/cbd165cc227b8d64cc06f102ce7b7f12b2f7b2d7">3 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/51edbfd0d17ff388a5b3a06a58ebf0fcc5cd83e2">6 Apr 2021</a>
 </div>
 
  <h1 id='header'>Publish a Ruby gem</h1> <h2 id='naming'>Naming</h2><p>In general, the gem name should be the same as the thing you require when using
@@ -204,9 +197,9 @@ file).</li>
 for an example.</p>
 <h2 id='clearing-the-gemstash-cache'>Clearing the gemstash cache</h2><p>When a new gem version is released, it may not be available immediately on Jenkins.
 This is due to <a href="https://github.com/bundler/gemstash/">gemstash</a>, our gem mirror. It caches versions for up to 30
-minutes. To force it to clear, run this on <code>apt-1.management</code> in the relevant
-environment:</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ sudo docker restart gemstash
+minutes. To force it to clear, restart <code>gemstash</code> on the <code>apt</code> machine in the
+relevant environment, e.g. for integration:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>gds govuk c ssh -e integration apt 'sudo docker restart gemstash'
 </code></pre></div><p>To clear the cache for the CI Jenkins instance, run this in integration.</p>
 
 
