@@ -428,91 +428,32 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>Manuals Publisher is a Ruby on Rails content management application for the &lsquo;manuals&rsquo; format. The manuals format is currently in a rendered phase of migration, so content is stored in a local datastore but also drafted and published through the publishing-pipeline via the <a href="https://github.com/alphagov/publishing-api">Publishing API</a>.</p>
-
-<p>This is the renamed repository of the original Specialist
-Publisher. Specialist Publisher has been divided into two publishing
-applications to accommodate Specialist Documents and Manuals
-separately.  <em>Specialist Document</em> or <em>Finders</em> publishing now lives
-at <a href="https://github.com/alphagov/specialist-publisher">https://github.com/alphagov/specialist-publisher</a>. See <a href="/apps/manuals-publisher/history.html">history</a> for more details.</p>
-
-<h2 id="purpose">Purpose</h2>
-
-<p>Publishing app for manuals.</p>
+<p>Publishing app for manuals. E.g. <a href="https://www.gov.uk/guidance/the-highway-code">The Highway Code</a>.</p>
 
 <h2 id="nomenclature">Nomenclature</h2>
 
 <ul>
-<li>Manual: Grouped Documents published as a number of sections inside a parent document</li>
+<li>Manual: Parent document which is made up of a number of sections</li>
+<li>Section: Individual segment / page of a Manual</li>
+<li>Attachment: File attachment which can be added to a section</li>
 </ul>
 
-<h3 id="live-examples-of-manuals">Live examples of manuals</h3>
+<h2 id="technical-documentation">Technical documentation</h2>
 
-<ul>
-<li><a href="https://www.gov.uk/guidance/the-highway-code">The Highway Code</a></li>
-<li><a href="https://www.gov.uk/guidance/style-guide">Style guide</a></li>
-<li><a href="https://www.gov.uk/guidance/buying-for-schools">Buying for schools</a></li>
-</ul>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app
+conventions</a>.</p>
 
-<h2 id="dependencies">Dependencies</h2>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the
+application and its tests with all the necessary dependencies. Follow the
+<a href="https://github.com/alphagov/govuk-docker#usage">usage instructions</a> to get started.</p>
 
-<ul>
-<li>
-<a href="http://github.com/alphagov/asset-manager">alphagov/asset-manager</a>: provides uploading for static files</li>
-<li>
-<a href="http://github.com/alphagov/publishing-api">alphagov/publishing-api</a>: allows documents to be published to the Publishing queue</li>
-<li>
-<a href="https://github.com/alphagov/link-checker-api">link-checker-api</a>: checks all the links in an edition on request from the edition show page.</li>
-</ul>
-
-<h2 id="running-the-application">Running the application</h2>
-
-<p>To run the application in development you will need at least one user in the application database. In a rails console do:</p>
-
-<pre><code>User.create!(name: "My Name", email: "my.email@somedomain.com", permissions: ["gds_editor"], organisation_slug: "government-digital-service", organisation_content_id: "af07d5a5-df63-4ddc-9383-6a666845ebe9")
-</code></pre>
-
-<p>Note: This insert (and the app in general) doesn&rsquo;t work with recent versions of MongoDB. v3.0.12 works OK; v3.4.1 does NOT work due to a problem with the <code>:w =&gt; 1</code> option no longer being supported at the top level, i.e. outside the Write Concern options. <a href="https://github.com/alphagov/manuals-publisher/pull/796#issuecomment-276379600">It looks as if</a> <a href="https://github.com/alphagov/govuk-puppet/blob/f3614e33bcf037b218e0b9e816f0994786b41efb/hieradata/common.yaml#L1256">v2.4.9 is currently being used in production</a>.</p>
-
-<p>Then start the application:</p>
-
-<pre><code>$ ./startup.sh
-</code></pre>
-
-<p>If you are using the GDS development virtual machine then the application will be available on the host at <a href="http://manuals-publisher.dev.gov.uk/">http://manuals-publisher.dev.gov.uk/</a></p>
-
-<h2 id="running-the-test-suite">Running the test suite</h2>
+<h3 id="running-the-test-suite">Running the test suite</h3>
 
 <pre><code>$ bundle exec rake
 </code></pre>
 
-<h2 id="application-directory-structure">Application directory structure</h2>
-
-<p>Non standard Rails directories and what they&rsquo;re used for:</p>
-
-<ul>
-<li>
-<code>app/models</code>
-Combination of Mongoid documents and Ruby objects for handling Documents and various behaviours
-<ul>
-<li>
-<code>app/models/validators</code>
-Not validators. Decorators for providing validation logic.</li>
-</ul>
-<p></li>
-<li>app/presenters
-Decorators mainly used for previewing documents</li>
-<li>
-<code>app/services</code>
-Reusable classes for completing actions on documents</li>
-<li>
-<code>app/view_adapters</code>
-Provide classes which allow us to have Rails like form objects in views</li>
-<li>
-<code>app/workers</code>
-Classes for sidekiq workers. Currently the only worker in the App is for publishing Manuals as Manual publishing was timing out due to the large number of document objects inside a Manual</li>
-</ul>
 <h2 id="documentation">Documentation</h2>
+
 <ul>
 <li><a href="/apps/manuals-publisher/history.html">History of the development of the application</a></li>
 <li><a href="/apps/manuals-publisher/current-state.html">Current state of the application</a></li>
@@ -520,7 +461,7 @@ Classes for sidekiq workers. Currently the only worker in the App is for publish
 <li><a href="/apps/manuals-publisher/next-steps.html">Possible next steps for development</a></li>
 <li><a href="/apps/manuals-publisher/fully-migrated-spike.html">Notes on investigation into fully migrating app with respect to Publishing API</a></li>
 </ul>
-  </div></p>
+<p></div></p>
 
 
             
