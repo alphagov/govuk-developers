@@ -647,7 +647,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-puppet/commit/eb8ad0e0b9e648b5e1bceb28f6a5bff2f1e6fb3b">7 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-puppet/commit/440b097a86664c33a6dbdfb4ea092c45041c3638">7 Apr 2021</a>
 </div>
 
   <h1 class="page-title">govuk-puppet: adding-a-new-app</h1>
@@ -710,10 +710,6 @@ parameters:</p>
 #   The port of the database server to use in the DATABASE_URL.
 #   Default: undef
 #
-# [*db_allow_prepared_statements*]
-#   The ?prepared_statements= parameter to use in the DATABASE_URL.
-#   Default: undef
-#
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
@@ -730,7 +726,6 @@ app does not need them:</p>
   $db_username = 'my-app',
   $db_hostname = undef,
   $db_port = undef,
-  $db_allow_prepared_statements = undef,
   $db_password = undef,
   $db_name = 'my-app_production',
 ) {
@@ -777,13 +772,12 @@ app does not need them:</p>
 </code></pre>
 <p>If your app uses a database, set the database URL:</p>
 <pre lang="puppet"><code>  govuk::app::envvar::database_url { $app_name:
-    type                      =&gt; 'postgresql',
-    username                  =&gt; $db_username,
-    password                  =&gt; $db_password,
-    host                      =&gt; $db_hostname,
-    port                      =&gt; $db_port,
-    allow_prepared_statements =&gt; $db_allow_prepared_statements,
-    database                  =&gt; $db_name,
+    type     =&gt; 'postgresql',
+    username =&gt; $db_username,
+    password =&gt; $db_password,
+    host     =&gt; $db_hostname,
+    port     =&gt; $db_port,
+    database =&gt; $db_name,
   }
 </code></pre>
 <p>Then end the class definition:</p>
