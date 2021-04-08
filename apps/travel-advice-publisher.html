@@ -427,43 +427,23 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>Travel Advice Publisher manages foreign travel advice content on GOV.UK.</p>
-
-<h2 id="screenshots">Screenshots</h2>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/travel-advice-publisher/master/docs/images/screenshot.png" alt="Travel Advice Publisher"></p>
+<p>Manages <a href="https://www.gov.uk/foreign-travel-advice">foreign travel advice content on GOV.UK</a>.</p>
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>Travel Advice Publisher is a Ruby on Rails content management web application
-which provides a versioned workflow for drafting and publishing <a href="http://www.gov.uk/foreign-travel-advice">foreign travel
-advice</a>.  The application persists
-content in MongoDB and in the downstream
-<a href="https://github.com/alphagov/publishing-api">publishing-api</a>.  Travel advice
-content is rendered by
-<a href="https://github.com/alphagov/government-frontend">government-frontend</a>.</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<h2 id="dependencies">Dependencies</h2>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<ul>
-<li><a href="https://github.com/alphagov/asset-manager">asset-manager</a></li>
-<li><a href="https://github.com/alphagov/content-store">content-store</a></li>
-<li><a href="https://github.com/alphagov/publishing-api">publishing-api</a></li>
-<li><a href="https://github.com/alphagov/link-checker-api">link-checker-api</a></li>
-</ul>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
-<h2 id="running-the-application">Running the application</h2>
-
-<p><code>bundle exec rails s -p 3035</code></p>
-
-<h2 id="running-the-test-suite">Running the test suite</h2>
+<h3 id="running-the-test-suite">Running the test suite</h3>
 
 <p><code>bundle exec rake</code></p>
 
-<h2 id="further-technical-information">Further technical information</h2>
+<h3 id="further-documentation">Further documentation</h3>
 
-<p>Detailed technical information can be found in the <a href="/apps/travel-advice-publisher/further-technical-information.html">travel advice publisher
-documentation</a>.</p>
+<p>Detailed technical information can be found in <a href="https://github.com/alphagov/travel-advice-publisher/blob/master/docs/"><code>docs/</code></a>.</p>
 <p></div></p>
 
 

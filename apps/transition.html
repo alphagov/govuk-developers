@@ -414,34 +414,37 @@
 <p>Rails app for managing the transition of websites to GOV.UK. Specifically, it&rsquo;s for the production of and handling
 of mappings for use with <a href="https://github.com/alphagov/bouncer">Bouncer</a>.</p>
 
-<h2 id="dependencies">Dependencies</h2>
+<h2 id="technical-documentation">Technical documentation</h2>
 
-<ul>
-<li>Redis</li>
-<li>PostgreSQL 9.3+ (the app uses materialized views, which were introduced in 9.3).
-This is included in the Trusty dev VM, which is now the default.</li>
-</ul>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<h2 id="running-the-app">Running the app</h2>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<p>The web application itself is run like any other Rails app, for example:</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
-<pre lang="sh"><code>script/rails s
+<h3 id="running-the-tests">Running the tests</h3>
+
+<pre><code>bundle exec rake
 </code></pre>
 
-<p>In development, you can run sidekiq to process background jobs:</p>
+<h3 id="running-the-worker">Running the worker</h3>
 
-<pre lang="sh"><code>bundle exec sidekiq -C config/sidekiq.yml
+<pre><code>bundle exec sidekiq -C config/sidekiq.yml
 </code></pre>
 
-<h2 id="style-guide">Style guide</h2>
+<h3 id="style-guide">Style guide</h3>
 
 <p>Available at /style, the guide documents how transition is using bootstrap, where the app has diverged from default
 styles and any custom styles needed to fill in the gaps.</p>
 
-<h2 id="adding-data-to-the-transition-app">Adding data to the transition app</h2>
+<h3 id="adding-data">Adding data</h3>
 
 <p>You can add new URLs and update existing configurations for sites and organisations within the Transition app using the <a href="https://github.com/alphagov/transition-config">Transition config</a> repo.</p>
+
+<p>To import locally, clone the config repo into <code>data/</code> and then run:</p>
+
+<pre><code>bundle exec rake import:all:orgs_sites_hosts
+</code></pre>
 <p></div></p>
 
 
