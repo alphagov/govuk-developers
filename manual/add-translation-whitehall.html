@@ -166,16 +166,10 @@
             
   <p><a href='/manual.html#publishing'>Publishing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/276116f346fb76a1857949733ae19289f950eed4">16 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/f3344cc9732d2b74ea42968c099173de46953bd0">12 Apr 2021</a>
 </div>
 
- <h1 id='header'>Add support for a new translation in Whitehall</h1> <p>Useful links:</p>
-
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">List of ISO 639-1 codes</a></li>
-<li><a href="https://github.com/alphagov/rails_translation_manager">Rails Translation Manager</a></li>
-<li><a href="https://github.com/alphagov/whitehall/blob/master/docs/internationalisation_guide.md">Internationalisation guide</a></li>
-</ul>
+ <h1 id='header'>Add support for a new translation in Whitehall</h1> <p>Before starting, it’s worth checking the language tag that is being added is correct: it should be compatible with the <a href="https://en.wikipedia.org/wiki/IETF_language_tag#Syntax_of_language_tags">IETF Language Tag syntax</a> and use correct <a href="https://en.wikipedia.org/wiki/ISO_639-1">ISO 639</a> codes (with optional <a href="https://en.wikipedia.org/wiki/ISO_15924">ISO 15924</a> or <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166</a> subtags where appropriate). This is important to ensure maximum compatibility with accessibility feature such as screen readers. Some other useful reading includes <a href="https://github.com/alphagov/rails_translation_manager">Rails Translation Manager</a> and <a href="https://github.com/alphagov/whitehall/blob/master/docs/internationalisation_guide.md">Whitehall Internationalisation guide</a>.</p>
 <h3 id='1-update-government-frontend'>1. Update Government Frontend</h3><p><a href="https://github.com/alphagov/government-frontend/pull/1382">Example PR</a></p>
 <p>In <a href="https://github.com/alphagov/government-frontend">Government Frontend</a>:</p>
 
