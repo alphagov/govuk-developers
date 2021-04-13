@@ -161,7 +161,7 @@
             
   <p><a href='/manual.html#aws'>AWS</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/2e8db39807b724c08e6c11a8b6f7b17460141ae1">21 Oct 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4b3dd1e17d969a4670aa0fd089ec9ba5f87f0dc3">13 Apr 2021</a>
 </div>
 
  <h1 id='header'>SSH into machines</h1> <p>This document explains how to SSH into machines, and what commands exist to navigate machines and applications quickly. We use a tool called <a href="https://github.com/alphagov/govuk-connect">GOV.UK Connect</a> to make this easier.</p>
@@ -183,29 +183,24 @@ to production, your attempt to SSH into a production node will fail silently.</p
 it&rsquo;s not working, you can try manually running the commands it normally runs for you.</p>
 
 <ul>
-<li><p><a href="https://docs.publishing.service.gov.uk/apps.html">Find the class of machine you need (and which cloud it lives in)</a>.</p></li>
-<li><p>Find <a href="https://github.com/alphagov/govuk-connect/blob/fcbe054874c84968b6af97e45005b00bc5aa285a/lib/govuk_connect/cli.rb#L81">the jumpbox for the environment you need</a>.</p></li>
-<li><p>SSH to the jumpbox.</p></li>
+<li><p><a href="https://docs.publishing.service.gov.uk/apps.html">Find the class of machine you need</a>.</p></li>
+<li><p>Find <a href="https://github.com/alphagov/govuk-connect/blob/095d49445d25e2afe845c00b32fb35589087f292/lib/govuk_connect/cli.rb#L81">the jumpbox for the environment you need</a>.</p></li>
+<li><p>Use ssh to run <code>govuk_node_list</code> on the jumpbox to find the machine you want.</p></li>
 </ul>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>ssh <span class="nt">-A</span> jumpbox.staging.govuk.digital
-</code></pre></div>
-<ul>
-<li>On the jumpbox, run <code>govuk_node_list</code> to find the machine you want.</li>
-</ul>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>govuk_node_list <span class="nt">-c</span> backend
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>ssh jumpbox.staging.govuk.digital govuk_node_list <span class="nt">-c</span> backend
   ip-10-12-4-106.eu-west-1.compute.internal
   ip-10-12-5-205.eu-west-1.compute.internal
   ip-10-12-6-44.eu-west-1.compute.internal
 </code></pre></div>
 <ul>
-<li>Still on the jumpbox, SSH to one of the machines in the list.</li>
+<li>SSH to one of the machines in the list using the jumpbox:</li>
 </ul>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>ssh ip-10-12-4-106.eu-west-1.compute.internal
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>ssh <span class="nt">-J</span> jumpbox.staging.govuk.digital ip-10-12-4-106.eu-west-1.compute.internal
 </code></pre></div>
 <ul>
 <li>Once you&rsquo;re on the machine you need, you can start a Rails console.</li>
 </ul>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>govuk_app_console publishing-api
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>govuk_app_console publisher
 </code></pre></div><p>These common commands, along with <code>govuk_node_list</code>, live in
 <a href="https://github.com/alphagov/govuk-puppet/tree/master/modules/govuk_scripts">govuk-puppet</a>.</p>
 
