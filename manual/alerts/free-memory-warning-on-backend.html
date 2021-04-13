@@ -146,6 +146,9 @@
           </li>
         </ul>
       </li>
+      <li>
+        <a href="#fix-memory-leaks"><span>Fix memory leaks</span></a>
+      </li>
     </ul>
   </li>
 </ul>
@@ -168,7 +171,7 @@
 
      <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4662d990fa6adee1d0114d2fda9206d70c5ab489">24 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/91675b1f21d07f12a1257ccaf2ba70b0075cb74f">12 Apr 2021</a>
 </div>
 
  <h1 id='header'>Free memory warning on backend</h1> <p>This alert is often caused by an application slowly leaking memory, which
@@ -193,7 +196,9 @@ master will notice this and spawn a fresh worker.</p>
 Sidekiq worker), restart it to reset the memory usage, and increase free memory
 on the host:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service whitehall-admin-procfile-worker restart
-</code></pre></div>
+</code></pre></div><h2 id='fix-memory-leaks'>Fix memory leaks</h2><p>A common cause of the alerts are memory leaks. For Rails applications you
+can try diagnosing the error with <a href="https://github.com/schneems/derailed_benchmarks">the derailed gem</a>.</p>
+
 
   <div class='related-content'>
 
