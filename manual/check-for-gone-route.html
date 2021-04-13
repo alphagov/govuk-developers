@@ -152,15 +152,8 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#routing'>Routing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/cbb82fe3fa66d6ba86f169635ffe84a6e9bdfbd5">11 Apr 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3b22e462cbc33d9707e29fd7623f5ec93bba61fe">13 Apr 2021</a>
 </div>
 
  <h1 id='header'>Check for a 'gone' route</h1> <p>When a Whitehall document fails to appear on the frontend, and the user
@@ -173,7 +166,6 @@ is shown a &lsquo;Gone&rsquo; page, follow these instructions:</p>
 remove the route (this works because <code>/government</code> is a <code>prefix</code> route
 to Whitehall):</p>
 <div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="o">&gt;</span> <span class="n">r</span><span class="p">.</span><span class="nf">destroy</span>
-<span class="o">&gt;</span> <span class="no">RouterReloader</span><span class="p">.</span><span class="nf">reload</span>
 </code></pre></div>
 
   <div class='related-content'>
