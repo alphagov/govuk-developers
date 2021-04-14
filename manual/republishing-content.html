@@ -153,7 +153,7 @@
             
   <p><a href='/manual.html#publishing'>Publishing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4381ed24b9cd4d1fc0ce1d8c5bebe40d32cc1ca4">29 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/33a414edfbe5b1977c8c1bada29cb1c4010174ba">7 Apr 2021</a>
 </div>
 
  <h1 id='header'>Republish content</h1> <p>Sometimes it may be necessary to republish content to make it show up on the website. For example if we make an update to <a href="https://github.com/alphagov/govspeak/">govspeak</a> that would require us to re-render and save new HTML for content.</p>
@@ -163,17 +163,33 @@
 <li>Connection to the <a href="https://docs.publishing.service.gov.uk/manual/vpn.html">VPN</a> and</li>
 <li><a href="https://docs.publishing.service.gov.uk/manual/rules-for-getting-production-access.html">Production access</a></li>
 </ul>
-<h2 id='whitehall'>Whitehall</h2><p>If the document is in Whitehall, there is a Rake task you can run:</p>
+<h2 id='whitehall'>Whitehall</h2><p>If the documents are in Whitehall, there are Rake tasks you can run as outlined below. Try to pick the one most focused to the scope of what you need to republish to avoid unnecessary load. You can monitor the effect on the publishing queue via these Grafana dashboards:</p>
+
+<ul>
+<li><a href="https://grafana.integration.publishing.service.gov.uk/dashboard/file/sidekiq.json?refresh=1m&amp;orgId=1&amp;var-Application=whitehall&amp;var-Interval=$__auto_interval">integration</a></li>
+<li><a href="https://grafana.blue.staging.govuk.digital/dashboard/file/sidekiq.json?refresh=1m&amp;orgId=1&amp;var-Application=whitehall&amp;var-Interval=$__auto_interval">staging</a></li>
+<li><a href="https://grafana.blue.production.govuk.digital/dashboard/file/sidekiq.json?refresh=1m&amp;orgId=1&amp;var-Application=whitehall&amp;var-Interval=$__auto_interval">production</a></li>
+</ul>
 <p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:republish_document[slug]"><code>publishing_api:republish_document[slug]</code></a></p>
 <p>For organisations, run:</p>
 <p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:republish_organisation[slug]"><code>publishing_api:republish_organisation[slug]</code></a></p>
-<p>for document type, run:</p>
+<p>For all of a single document type, run:</p>
 <p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:bulk_republish:document_type[DocumentClass]"><code>publishing_api:bulk_republish:document_type[DocumentClass]</code></a></p>
 <p>For example:
 <code>/government/case-studies/alexander-dennis-maximum-capacity</code>
 <code>publishing_api:bulk_republish:document_type[CaseStudies]</code></p>
 <p>You may wish to test first on Integration:
 <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:bulk_republish:document_type[DocumentClass]"><code>publishing_api:bulk_republish:document_type[DocumentClass]</code></a></p>
+<p>For a short list of Content IDs, run:
+<a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:bulk_republish:republish_documents_by_content_ids[content_id_1%20content_id_2]"><code>publishing_api:bulk_republish:republish_documents_by_content_ids[content_id_1 content_id_2]</code></a></p>
+<p>For a significant number of Content IDs:
+Some preparation is needed for this as a CSV file needs to be in place. The CSV should have a column called content_id that contains all the relevant IDS. This should be added to the whitehall repository at:
+lib/tasks/{FILENAME}.csv
+<a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:bulk_republish:publishing_api:bulk_republish:republish_documents_by_content_ids_from_csv[csv_file_name]"><code>publishing_api:bulk_republish:republish_documents_by_content_ids_from_csv[csv_file_name]</code></a>
+Ensure that the CSV is removed again after the job completes.</p>
+<p>To republish all documents:
+Caution: this is a lot of content and will take hours to complete. If it is possible to scope the republish do so and use a different task, but if you have made a change such as something in govspeak that will affect the majority of content, this is available. Before running this job confirm with 2nd line that they are happy for you to proceed as it could cause backed up publishing queues and alerts.</p>
+<p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=whitehall&amp;MACHINE_CLASS=whitehall_backend&amp;RAKE_TASK=publishing_api:bulk_republish:all"><code>publishing_api:bulk_republish:all</code></a></p>
 <h2 id='content-publisher'>Content Publisher</h2><p>If the document is in content publisher, there is a <a href="https://github.com/alphagov/content-publisher/blob/master/lib/tasks/resync.rake">resync Rake task</a> you can run.</p>
 <p>You can resync a single document by passing it a content ID and locale:</p>
 <p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=content-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=resync:document[a-content-id:locale]"><code>resync:document[a-content-id:locale]</code></a></p>
