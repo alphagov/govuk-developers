@@ -305,6 +305,8 @@
       <li>
         <ul class='subnav'>
           <li><a href="/apps/licensify.html"><span>licensify</span></a></li>
+          <li><a href="/apps/licensify-admin.html"><span>licensify-admin</span></a></li>
+          <li><a href="/apps/licensify-feed.html"><span>licensify-feed</span></a></li>
         </ul>
       </li>
   </ul>
@@ -424,7 +426,9 @@
 
 <h2 id="screenshots">Screenshots</h2>
 
-<p><img src="https://raw.githubusercontent.com/docs/screenshot.png?raw=true" alt="screenshot"></p>
+<p><code>gem_layout</code> template:</p>
+
+<p><img src="https://raw.githubusercontent.com/docs/gem_layout.png?raw=true" alt="screenshot"></p>
 
 <h2 id="nomenclature">Nomenclature</h2>
 
@@ -456,7 +460,7 @@ the same local instance, you&rsquo;ll need to set <code>PLEK_SERVICE_STATIC_URI<
 the host used for static assets (even on static).</p>
 
 <p>Otherwise it defaults to <code>static.dev.gov.uk</code>, which won&rsquo;t exist if you&rsquo;re
-just running this repo locally, without the rest of the GOV.UK stack.</p>
+running this repo locally, without the rest of the GOV.UK stack.</p>
 
 <p>To run this app locally, and have it point at its own assets, run it like this:</p>
 
@@ -471,7 +475,7 @@ Restarting the app should pick up the changes.</p>
 
 <p>For example, to see changes made to static templates which
 are wrapped around feedback pages, run <code>bowl feedback --without=feedback</code> in one terminal and the <code>.startup.sh</code> script for <code>feedback</code>
-in a separate terminal. Following local edits to <code>static</code>, restarting just
+in a separate terminal. Following local edits to <code>static</code>, restarting only
 <code>feedback</code> should be sufficient.</p>
 
 <p>If you repeatedly see 504 Gateway Timeout errors when developing with static in your

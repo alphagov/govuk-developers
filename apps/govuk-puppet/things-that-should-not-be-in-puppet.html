@@ -646,15 +646,8 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-puppet/commit/cd29c6b45a68fc3635d77938d311be68ad2d90fb">20 May 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-puppet/commit/93c37282448ab6440232cd0802f78cb1d4ebb122">13 Apr 2021</a>
 </div>
 
   <h1 class="page-title">govuk-puppet: Things that should not be in Puppet</h1>
@@ -666,7 +659,7 @@
 tokens etc.) within Puppet. To do so means that even if you specify that a
 secret applies to one particular environment it is available on the
 PuppetMaster for every environment. It is good practise to store
-secrets in the <code>govuk-secrets</code> repo at <code>puppet/hieradata/${environment}.yaml</code>.
+secrets in the <code>govuk-secrets</code> repo at <code>puppet/hieradata_aws/${environment}.yaml</code>.
 Please make sure where necessary you have different secrets for each value.</p>
 </li>
 <li>
