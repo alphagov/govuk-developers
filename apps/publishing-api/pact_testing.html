@@ -278,6 +278,8 @@
         <ul>
             <li><a href="/apps/publishing-api/admin-tasks.html"><span>Admin Tasks</span></a></li>
             <li><a href="/apps/publishing-api/api.html"><span>Publishing API's API</span></a></li>
+            <li><a href="/apps/publishing-api/data-migration.html"><span>Writing data migrations</span></a></li>
+            <li><a href="/apps/publishing-api/deleting-content.html"><span>Deleting Documents, Editions and Links</span></a></li>
             <li><a href="/apps/publishing-api/dependency-resolution.html"><span>Dependency Resolution</span></a></li>
             <li><a href="/apps/publishing-api/link-expansion.html"><span>Link Expansion</span></a></li>
             <li><a href="/apps/publishing-api/model.html"><span>Publishing API's Model</span></a></li>
@@ -646,15 +648,8 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/publishing-api/commit/70306125658fd41376de523371b3a9873a0d9f72">10 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/publishing-api/commit/56d211e6240a2c8d71030b835a0ac129b279b938">13 Apr 2021</a>
 </div>
 
   <h1 class="page-title">publishing-api: Contract testing with Pact</h1>
@@ -701,12 +696,10 @@ verify the current branch against the master branch.</p>
 <p>You can use <code>pact:verify</code> locally to run the current branch against the master
 branch of pacts stored in Pact Broker. If you need to run them against a local
 version of gds-api-adapters, run the tests in that directory
-and then set the <code>USE_LOCAL_PACT</code> env variable:</p>
-<pre><code>USE_LOCAL_PACT=1 bundle exec rake pact:verify
+and then set the <code>PACT_URI</code> env variable:</p>
+<pre><code>PACT_URI="../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json" bundle exec rake pact:verify
 </code></pre>
-<p>This will cause pact to look for the pactfile in
-<code>../gds-api-adapters/spec/pacts/gds_api_adapters-publishing_api.json</code>. You can
-additionally override this location by setting the <code>GDS_API_PACT_PATH</code> variable.</p>
+<p>This will cause pact to look for the pactfile in gds-api-adapters.</p>
 <h2 id="making-breaking-changes">Making breaking changes</h2>
 <p>It is possible to get into a situation where there are mutually dependent
 branches of gds-api-adapters and publishing-api, neither of which will pass

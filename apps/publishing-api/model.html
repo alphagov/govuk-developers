@@ -278,6 +278,8 @@
         <ul>
             <li><a href="/apps/publishing-api/admin-tasks.html"><span>Admin Tasks</span></a></li>
             <li><a href="/apps/publishing-api/api.html"><span>Publishing API's API</span></a></li>
+            <li><a href="/apps/publishing-api/data-migration.html"><span>Writing data migrations</span></a></li>
+            <li><a href="/apps/publishing-api/deleting-content.html"><span>Deleting Documents, Editions and Links</span></a></li>
             <li><a href="/apps/publishing-api/dependency-resolution.html"><span>Dependency Resolution</span></a></li>
             <li><a href="/apps/publishing-api/link-expansion.html"><span>Link Expansion</span></a></li>
             <li><a href="/apps/publishing-api/model.html" class="toc-link--in-view"><span>Publishing API's Model</span></a></li>
@@ -646,15 +648,8 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/publishing-api/commit/17a5b39a3d161d47e741bef0e46a187ad0a9cfb5">9 Jun 2020</a>
+  Last updated: <a href="https://github.com/alphagov/publishing-api/commit/5623f0945a683d16c9f8d67f241fa157dadb8fe9">15 Apr 2021</a>
 </div>
 
   <h1 class="page-title">publishing-api: Publishing API's Model</h1>
@@ -889,6 +884,12 @@ stored as Events.</p>
 <p>Events are used as a debugging and reference tool by developers of the
 Publishing API. As they generate large amounts of data the full details of
 them are not stored permanently.</p>
+<p>Events older then a month are archived to S3, you can import these events back
+into your local DB by running the rake tasks in lib/tasks/events.rake, after
+you set up the relevant ENV variables. For example if you want to find all the
+events that are relevant for a particular content id you can run:</p>
+<pre lang="sh"><code>rake 'events:import_content_id_events[a796ca43-021b-4960-9c99-f41bb8ef2266]'
+</code></pre>
 <h2 id="action">Action</h2>
 <p>An Action is used to store the change history of a piece of content in the
 Publishing API. They are associated with both a <a href="#content_id"><code>content_id</code></a> and

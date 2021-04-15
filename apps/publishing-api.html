@@ -411,6 +411,8 @@
 <h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="/apps/publishing-api/admin-tasks.html" class="govuk-link">Admin Tasks</a></li>
       <li><a href="/apps/publishing-api/api.html" class="govuk-link">Publishing API&rsquo;s API</a></li>
+      <li><a href="/apps/publishing-api/data-migration.html" class="govuk-link">Writing data migrations</a></li>
+      <li><a href="/apps/publishing-api/deleting-content.html" class="govuk-link">Deleting Documents, Editions and Links</a></li>
       <li><a href="/apps/publishing-api/dependency-resolution.html" class="govuk-link">Dependency Resolution</a></li>
       <li><a href="/apps/publishing-api/link-expansion.html" class="govuk-link">Link Expansion</a></li>
       <li><a href="/apps/publishing-api/model.html" class="govuk-link">Publishing API&rsquo;s Model</a></li>
@@ -420,182 +422,63 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>The Publishing API aims to provide <em>workflow as a service</em> so that common
-publishing features can be written once and used by all publishing applications
-across Government. Content can be stored and retrieved using the API and
-workflow actions can be performed, such as creating a new draft or publishing an
-existing piece of content.</p>
+<p>The Publishing API aims to provide <em>workflow as a service</em> so that common publishing features can be written once and used by all publishing applications across Government. Content can be stored and retrieved using the API and workflow actions can be performed, such as creating a new draft or publishing an existing piece of content.</p>
+
+<p>Publishing API sends content downstream to the draft and live <a href="https://github.com/alphagov/content-store">Content Stores</a>, as well as on a <a href="/apps/publishing-api/rabbitmq.html">Rabbit message queue</a>, which enables things like sending emails to users subscribed to that content. Read &ldquo;<a href="https://docs.publishing.service.gov.uk/manual/architecture-deep-dive.html#downstream-sidekiq-background-processing-triggered-by-publishing">Downstream Sidekiq background processing triggered by publishing</a>&rdquo;.</p>
 
 <h2 id="nomenclature">Nomenclature</h2>
 
 <ul>
 <li>
-<a href="/apps/publishing-api/model.html"><strong>Document</strong></a>: A document is a piece of content in a
-particular locale. It is associated with editions that represent the versions
-of the document.</li>
+<a href="/apps/publishing-api/model.html"><strong>Document</strong></a>: A document is a piece of content in a particular locale. It is associated with editions that represent the versions of the document.</li>
 <li>
-<a href="/apps/publishing-api/model.html"><strong>Edition</strong></a>: The content of a document is represented
-by an edition, it represents a distinct version of a Document.</li>
+<a href="/apps/publishing-api/model.html"><strong>Edition</strong></a>: The content of a document is represented by an edition, it represents a distinct version of a Document.</li>
 <li>
-<a href="https://github.com/alphagov/content-store/blob/master/docs/content_item_fields.md"><strong>Content Item</strong></a>: A representation of
-content that can be sent to a <a href="https://github.com/alphagov/content-store">content store</a>.</li>
+<a href="https://github.com/alphagov/content-store/blob/master/docs/content_item_fields.md"><strong>Content Item</strong></a>: A representation of content that can be sent to a <a href="https://github.com/alphagov/content-store">content store</a>.</li>
 <li>
-<a href="/apps/publishing-api/model.html"><strong>Links</strong></a>: Used to capture relationships between
-pieces of content (e.g. parent/child). Can be of type
-<a href="/apps/publishing-api/link-expansion.html">link set link</a> or <a href="/apps/publishing-api/link-expansion.html">edition link</a>.</li>
+<a href="/apps/publishing-api/model.html"><strong>Links</strong></a>: Used to capture relationships between pieces of content (e.g. parent/child). Can be of type <a href="/apps/publishing-api/link-expansion.html">link set link</a> or <a href="/apps/publishing-api/link-expansion.html">edition link</a>.</li>
 <li>
-<a href="/apps/publishing-api/model.html"><strong>Unpublishing</strong></a>: An object indicating a
-previously published edition which has been removed from the live site.</li>
+<a href="/apps/publishing-api/model.html"><strong>Unpublishing</strong></a>: An object indicating a previously published edition which has been removed from the live site.</li>
 <li>
-<strong>User</strong>: A user of the system, which is used to track who initiated requests
-and to restrict access to draft content.</li>
+<strong>User</strong>: A user of the system, which is used to track who initiated requests and to restrict access to draft content.</li>
 <li>
-<a href="/apps/publishing-api/model.html"><strong>Path Reservation</strong></a>: An object that
-attributes a path on GOV.UK to a piece of content. It is used when paths
-need to be reserved before that content enters the system.</li>
+<a href="/apps/publishing-api/model.html"><strong>Path Reservation</strong></a>: An object that attributes a path on GOV.UK to a piece of content. It is used when paths need to be reserved before that content enters the system.</li>
 <li>
-<a href="/apps/publishing-api/model.html"><strong>Event Log</strong></a>: A log of all requests to the Publishing
-API that have the potential to mutate its internal state.</li>
+<a href="/apps/publishing-api/model.html"><strong>Event Log</strong></a>: A log of all requests to the Publishing API that have the potential to mutate its internal state.</li>
 <li>
-<a href="/apps/publishing-api/model.html"><strong>Action</strong></a>: A record of activity on a particular
-edition, used to assist custom workflows of publishing applications.</li>
+<a href="/apps/publishing-api/model.html"><strong>Action</strong></a>: A record of activity on a particular edition, used to assist custom workflows of publishing applications.</li>
 <li>
-<a href="/apps/publishing-api/link-expansion.html"><strong>Link Expansion</strong></a>: A process that converts the
-stored and automatic links for an edition into a JSON representation.</li>
+<a href="/apps/publishing-api/link-expansion.html"><strong>Link Expansion</strong></a>: A process that converts the stored and automatic links for an edition into a JSON representation.</li>
 <li>
-<a href="/apps/publishing-api/dependency-resolution.html"><strong>Dependency Resolution</strong></a>: A process that
-determines other editions that require updating downstream as a result of a
-change to an edition.</li>
+<a href="/apps/publishing-api/dependency-resolution.html"><strong>Dependency Resolution</strong></a>: A process that determines other editions that require updating downstream as a result of a change to an edition.</li>
 </ul>
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>The Publishing API is a <a href="http://rubyonrails.org/">Ruby on Rails</a> application
-that exposes an internal API to publishing applications. It stores its data in a
-<a href="http://www.postgresql.org/">Postgresql</a> database and sends content downstream
-to the draft and live <a href="https://github.com/alphagov/content-store">Content Stores</a> as well as on a
-<a href="https://www.rabbitmq.com/">Rabbit</a> message queue. Some of the processing of
-requests is handled asynchronously through <a href="http://sidekiq.org/">Sidekiq</a>
-which stores jobs in <a href="http://redis.io/">Redis</a>.</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<p>The endpoints of the Publishing API are documented in <a href="/apps/publishing-api/api.html">docs/api.md</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<p>Decisions about the design of the Publishing API are recorded as architecture
-decision records in the <a href="https://github.com/alphagov/publishing-api/blob/master/docs/arch">docs/arch</a> directory.</p>
-
-<h3 id="deleting-documents-editions-and-links">Deleting Documents, Editions and Links</h3>
-
-<p>To delete content from the Publishing API you will need to create a <a href="https://github.com/alphagov/publishing-api/blob/master/CONTRIBUTING.md#are-you-writing-a-migration-to-change-publishing-api-data">data
-migration</a>.</p>
-
-<p>If you need to delete all traces of a document from the system:</p>
-
-<pre lang="ruby"><code>require_relative "helpers/delete_content"
-
-class RemoveYourDocument &lt; ActiveRecord::Migration
-  # Remove /some/base-path
-  def up
-    Helpers::DeleteContent.destroy_documents_with_links("some-content-id")
-  end
-end
-</code></pre>
-
-<p>If you need to delete a single edition:</p>
-
-<pre lang="ruby"><code>require_relative "helpers/delete_content"
-
-class RemoveYourEdition &lt; ActiveRecord::Migration
-  def up
-    editions = Edition.where(id: 123)
-
-    Helpers::DeleteContent.destroy_supporting_objects(editions)
-
-    editions.destroy_all
-  end
-end
-</code></pre>
-
-<p>If you need to delete just the links for a document:</p>
-
-<pre lang="ruby"><code>require_relative "helpers/delete_content"
-
-class RemoveLinks &lt; ActiveRecord::Migration
-  # Remove /some/base-path
-  def up
-    Helpers::DeleteContent.destroy_links("some-content-id")
-  end
-end
-</code></pre>
-
-<h2 id="dependencies">Dependencies</h2>
-
-<ul>
-<li>
-<a href="http://www.postgresql.org/">postgres</a> - the app uses a postgres database</li>
-<li>
-<a href="http://redis.io/">redis</a> - the Sidekiq worker stores its jobs in Redis</li>
-<li>
-<a href="https://github.com/alphagov/content-store">alphagov/content-store</a> - content is sent to multiple
-content-stores (draft and live)</li>
-</ul>
-
-<p>These dependencies are set up on the dev vm and if you use bowl to run the app,
-it will start both the draft and live content store for you. For more
-information about RabbitMQ, see <a href="/apps/publishing-api/rabbitmq.html">docs/rabbitmq.md</a>.</p>
-
-<h2 id="running-the-application">Running the application</h2>
-
-<p><code>./startup.sh</code></p>
-
-<p>It downloads and installs dependencies and starts the app on port 3093.
-When using GOV.UK virtual machine the app is available at
-<code>publishing-api.dev.gov.uk</code>.</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
 <h2 id="running-the-test-suite">Running the test suite</h2>
 
 <p>You can run the tests locally with: <code>bundle exec rake</code>.</p>
 
-<p>The publishing API includes contract tests which verify that the service
-behaves in the way expected by its clients. We use a library called
-<a href="https://github.com/pact-foundation/pact-ruby"><code>pact</code></a> which follows the <em>consumer driven contract testing</em> pattern.
-You can run the pact verification tests on their own using:</p>
+<p>The publishing API includes <a href="/apps/publishing-api/pact_testing.html">Pact contract tests</a>, which verify that the service behaves in the way expected by its clients. The tests the <em>consumer driven contract testing</em> pattern. You can run these on their own using:</p>
 
 <pre lang="sh"><code>$ bundle exec rake pact:verify
 </code></pre>
 
-<p>See <a href="/apps/publishing-api/pact_testing.html">docs/pact_testing.md</a> for more details about the pacts
-and the pact broker.</p>
+<h3 id="further-documentation">Further documentation</h3>
 
-<h2 id="example-api-requests">Example API requests</h2>
-
-<pre lang="sh"><code>curl https://publishing-api.dev.gov.uk/content/&lt;content_id&gt; \
-  -X PUT \
-  -H 'Content-type: application/json' \
-  -d '&lt;content_json&gt;'
-</code></pre>
-
-<p>See <a href="/apps/publishing-api/api.html">docs/api.md</a> and <a href="https://pact-broker.cloudapps.digital/pacts/provider/Publishing%20API/consumer/GDS%20API%20Adapters/latest">the pact broker</a> for more
-information.</p>
-
-<h2 id="events">Events</h2>
-
-<p>Events older then a month are archived to S3, you can import these events back
-into your local DB by running the rake tasks in lib/tasks/events.rake, after
-you set up the relevant ENV variables. For example if you want to find all the
-events that are relevant for a particular content id you can run:</p>
-
-<pre lang="sh"><code>rake 'events:import_content_id_events[a796ca43-021b-4960-9c99-f41bb8ef2266]'
-</code></pre>
-
-<p>See the rake task for more details.</p>
-
-<h2 id="admin-tasks">Admin tasks</h2>
-
-<p>See <a href="/apps/publishing-api/admin-tasks.html">admin tasks</a> for more information</p>
-
-<h2 id="contributing">Contributing</h2>
-
-<p>See <a href="https://github.com/alphagov/publishing-api/blob/master/CONTRIBUTING.md">the contributing documentation</a> for more information.</p>
+<ul>
+<li><a href="/apps/publishing-api/api.html">Publishing API&rsquo;s API</a></li>
+<li><a href="https://github.com/alphagov/publishing-api/blob/master/docs/arch">Architecture decision records</a></li>
+<li><a href="/apps/publishing-api/admin-tasks.html">Admin tasks</a></li>
+<li><a href="/apps/publishing-api/deleting-content.html">Deleting Documents, Editions and Links</a></li>
+<li><a href="/apps/publishing-api/data-migration.html">Writing data migrations</a></li>
+</ul>
 
 <h2 id="licence">Licence</h2>
 

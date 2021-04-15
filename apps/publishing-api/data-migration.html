@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>content-store: Content Item Fields - GOV.UK Developer Documentation</title>
+    <title>publishing-api: Writing data migrations - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/content-store/content_item_fields.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/publishing-api/data-migration.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="content-store: Content Item Fields - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/content-store/content_item_fields.html" />
+      <meta name="twitter:title" content="publishing-api: Writing data migrations - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/publishing-api/data-migration.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="content-store: Content Item Fields" />
+      <meta property="og:title" content="publishing-api: Writing data migrations" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/content-store/content_item_fields.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/publishing-api/data-migration.html" />
 
     
   </head>
@@ -244,7 +244,7 @@
         <ul>
             <li><a href="/apps/content-store/access-limited-content-items.html"><span>Access-limited content items</span></a></li>
             <li><a href="/apps/content-store/content-store-api.html"><span>Content Store API</span></a></li>
-            <li><a href="/apps/content-store/content_item_fields.html" class="toc-link--in-view"><span>Content Item Fields</span></a></li>
+            <li><a href="/apps/content-store/content_item_fields.html"><span>Content Item Fields</span></a></li>
             <li><a href="/apps/content-store/gone_item.html"><span># Gone items</span></a></li>
             <li><a href="/apps/content-store/placeholder_item.html"><span># Placeholder items</span></a></li>
             <li><a href="/apps/content-store/publish_intents.html"><span>Publish intents</span></a></li>
@@ -278,7 +278,7 @@
         <ul>
             <li><a href="/apps/publishing-api/admin-tasks.html"><span>Admin Tasks</span></a></li>
             <li><a href="/apps/publishing-api/api.html"><span>Publishing API's API</span></a></li>
-            <li><a href="/apps/publishing-api/data-migration.html"><span>Writing data migrations</span></a></li>
+            <li><a href="/apps/publishing-api/data-migration.html" class="toc-link--in-view"><span>Writing data migrations</span></a></li>
             <li><a href="/apps/publishing-api/deleting-content.html"><span>Deleting Documents, Editions and Links</span></a></li>
             <li><a href="/apps/publishing-api/dependency-resolution.html"><span>Dependency Resolution</span></a></li>
             <li><a href="/apps/publishing-api/link-expansion.html"><span>Link Expansion</span></a></li>
@@ -649,225 +649,50 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/content-store/commit/409de1c793397664663f258288a7faa064683cff">25 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/publishing-api/commit/73a3232f25b3f8f04f21856974b6838293455fde">15 Apr 2021</a>
 </div>
 
-  <h1 class="page-title">content-store: Content Item Fields</h1>
+  <h1 class="page-title">publishing-api: Writing data migrations</h1>
 
   
-<p>A content item consists of a set key/value pairs. Different key/value pairs are
-present or required, depending on the context. The three contexts are:</p>
-<ul>
-<li>storing: content items being sent to the content store.</li>
-<li>retrieving: content items being retrieved from the content store.</li>
-</ul>
-<p>Examples of content items as sent to the content store can be found in
-<a href="https://github.com/alphagov/content-store/blob/master/docs/input_examples/"><code>input_examples</code></a>. Examples of content items being retrieved
-from the content store API can be found in
-<a href="https://github.com/alphagov/content-store/blob/master/docs/output_examples/"><code>output_examples</code></a>.</p>
-<h1 id="details-of-each-field">Details of each field</h1>
-<h2 id="base_path"><code>base_path</code></h2>
-<p>A string. Present in the request URL in the storing context and included in the
-document in all other contexts.</p>
-<p>The absolute path of the content on GOV.UK. This uniquely identifies the
-content within the content store and allows the content store to answer the
-question "what is at this URL?".</p>
-<h2 id="format"><code>format</code></h2>
-<p>A string. Present in all contexts.</p>
-<p>The format of the content. This determines how the contents of the <code>details</code>
-field should be interpreted by the public-facing application responsible for
-rendering the content on GOV.UK.</p>
-<p>Some formats are explicitly handled by the content store, and expect a different
-set of fields than those listed below.</p>
-<ul>
-<li>
-<code>gone</code>: A content item which has <a href="/apps/content-store/gone_item.html">gone away</a>
-</li>
-<li>
-<code>redirect</code>: A content item which has <a href="/apps/content-store/redirect_item.html">been redirected</a>
-</li>
-<li>
-<code>placeholder*</code>: A temporary <a href="/apps/content-store/placeholder_item.html">placeholder</a> for a content item.</li>
-</ul>
-<h2 id="content_id"><code>content_id</code></h2>
-<p>A UUID string as described in <a href="http://www.ietf.org/rfc/rfc4122.txt">RFC 4122</a>.
-Present in all contexts.</p>
-<p>For example: <code>"30737dba-17f1-49b4-aff8-6dd4bff7fdca"</code>.</p>
-<p>This is a unique identifier for the piece of content, allocated by the
-publishing application. It is used as the reference with which content items can
-reference other content items (see the <code>links</code> field in the input/output
-examples).</p>
-<p>If translations of a content item exist, they should all use the same
-<code>content_id</code> and be distinguished by their <code>locale</code>. This allows the content
-store to automatically generate a list of <code>available_translations</code> for each
-content item, and to choose the most appropriate available translation of an
-item when resolving related links.</p>
-<p>The content store does not enforce the uniqueness of (<code>content_id</code>, <code>locale</code>)
-tuples within the store, so more than one content item may exist in the
-content store for the same (<code>content_id</code>, <code>locale</code>) pair. This will usually
-only ever be temporary during the creation of a redirect to ensure that the
-new content is available before the redirect replaces the old content.</p>
-<h2 id="title"><code>title</code></h2>
-<p>A string. Present in all contexts.</p>
-<p>The title for the content. This will be used, for example, for the HTML title
-of the content when formatted as HTML, but may also be used when linking to the
-content (eg, in search results).</p>
-<h2 id="description"><code>description</code></h2>
-<p>A string. Present in all contexts.</p>
-<p>The description of the content. This will be used, for example, for the HTML
-meta-description of the content when formatted as HTML, but may also be used
-when linking to the content (eg, in search results).</p>
-<h2 id="locale"><code>locale</code></h2>
-<p>The I18n locale code for the content item. Present in all contexts.</p>
-<p>This specifies the language of the content. It is an optional field when adding
-content items to the content store, but the content store will default it to
-the default language (English, represented by the code <code>en</code>) if it is not
-explicitly set.</p>
-<p>The field uses <a href="http://en.wikipedia.org/wiki/IETF_language_tag">IETF language
-tags</a>; though only a small set
-of values are allowed (defined in the <code>config.i18n.available_locales</code> setting).</p>
-<p>Locales are always in lowercase.  We use the plain 2 letter <a href="http://en.wikipedia.org/wiki/ISO_639-1">ISO
-693-1</a> codes for many languages (eg,
-<code>en</code> is "English").  We append two-letter <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO
-3166-1</a> country codes in some
-cases (eg, <code>zh-hk</code> is "Chinese, Hong Kong variant with traditional characters")
-and append three-digit <a href="http://en.wikipedia.org/wiki/UN_M.49">UN M.49</a>
-geographical region codes in other cases (eg, <code>es-419</code> is "Spanish appropriate
-for the Latin America and Caribbean region").</p>
-<h2 id="public_updated_at"><code>public_updated_at</code></h2>
-<p>ISO 8601 formatted timestamp. Present in all contexts.</p>
-<p>This is the update date that should be surfaced to the user. This is used for
-sorting documents by update date or to display when the document was last
-changed.</p>
-<p>If a <code>public_updated_at</code> field is included when sending the draft payload to the
-publishing api then this field will represent when the draft was saved. Publishing
-will not update it.</p>
-<p>If a <code>public_updated_at</code> field is not included when sending the draft payload
-then this field represents the time it was published for a major version, or the
-time the most recent major version was published if a minor version.</p>
-<h2 id="first_published_at"><code>first_published_at</code></h2>
-<p>ISO 8601 formatted timestamp. Present when the content item has been published.</p>
-<h2 id="details"><code>details</code></h2>
-<p>A hash. Present in all contexts.</p>
-<p>This hash contains information representing the main content of the content
-item. The meaning of the data here is dependent on the value of the <code>format</code>
-field. The interpretation of keys which exist here should be consistent for a
-given format (though there may be optional ones for each format).</p>
-<h2 id="links"><code>links</code></h2>
-<p>A hash of <code>link_type =&gt; list_of_links</code>.</p>
-<p>Present in all contexts, but representations vary.</p>
-<p>The <code>link_type</code> is a string which describes the relationship or type of
-related item.</p>
-<p>The <code>list_of_links</code> is an array of content items, order is preserved. In the
-storing context, content items are represented by their content ids. In the
-retrieving context, content items are expanded (see <a href="#representation-of-content-item-links-in-different-contexts">below</a>
-for details).</p>
-<p>You may link to items which haven't been published yet (ie. which are not yet
-present in the content store). In that case, the items which are not published
-yet will be omitted from the content store output in the <code>retrieving</code>
-context.</p>
-<p>The interpretation of the <code>link_type</code> is format-dependent, although it's
-recommended to follow these rules of thumb:</p>
-<ul>
-<li>when linking to another type of content item, <code>link_type</code> should be the
-plural noun for the content format, e.g. <code>organisations</code>
-</li>
-<li>for general related links use the <code>related</code> link_type</li>
-<li>be careful of relying on the order of links to imply a nuance or distinction
-in a relationship (such as a primary organisation or section). Use a separate
-<code>link_type</code> instead.</li>
-</ul>
-<p>An example:</p>
-<pre><code>"links": {
-  "lead_organisation": ['ORG-CONTENT-ID'],
-  "organisations": ['ORG-CONTENT-ID', 'ANOTHER-ORG-CONTENT-ID'],
-  "topics": ['TOPIC-CONTENT-ID'],
-  "available_translations": [... automatically generated ...]
-}
-</code></pre>
-<p>The <code>available_translations</code> link type is special because it is automatically
-generated by the content store. It lists the available translations of the
-content item, ordered alphabetically by locale.</p>
-<p>If duplicate items exist with the same (<code>content_id</code>, <code>locale</code>), the content
-store will use the newest one.</p>
-<p>For convenience, a self-referential link is included as well. If you try to
-post a content item with <code>available_translations</code> in the <code>links</code> hash, you'll
-get an error.</p>
-<h3 id="representation-of-content-item-links-in-different-contexts">Representation of content item links in different contexts</h3>
-<p>In the <code>storing</code> context, the items are UUID strings.</p>
-<p>In the <code>notifying</code> context, the items are hashes containing: (TODO: confirm)</p>
-<ul>
-<li>
-<code>content_id</code>: The Content ID of the linked content item</li>
-<li>
-<code>base_path</code>: The base path of the content item</li>
-</ul>
-<p>In the <code>retrieving</code> context, the items are hashes containing:</p>
-<ul>
-<li>
-<code>content_id</code>: The Content ID of the linked content item</li>
-<li>
-<code>title</code>: The title of the content item</li>
-<li>
-<code>base_path</code>: The base path of the content</li>
-<li>
-<code>description</code>: The description of the content</li>
-<li>
-<code>api_url</code>: The URL at which the content item is retrievable from the content
-store</li>
-<li>
-<code>web_url</code>: The public-facing URL for the piece of content</li>
-<li>
-<code>locale</code>: The locale code of the item</li>
-</ul>
-<h2 id="updated_at"><code>updated_at</code></h2>
-<p>ISO 8601 formatted timestamp. Present in retrieving and notifying contexts.</p>
-<p>This field is not sent from the publishing-api. It is set with the current time
-by the content-store whenever an item is created or modified in it. This means
-that in the context of the draft content-store this field will reflect the time
-the publishing-api receives a <code>put_content</code> or <code>patch_links</code> request. In the context
-of the live content-store it will reflect the time the publishing-api receives a
-<code>publish</code> request, or even a <code>publish</code> request for a dependent content item.</p>
-<p>Content items may be updated for reasons other than a change to the wording. A
-technical/housekeeping reason may require content items to be republished, which
-would result in this field being updated.</p>
-<p>When using this field in a frontend to represent when a page was updated, consider
-whether <code>public_updated_at</code> or <code>last_edited_at</code> would better suit your needs.</p>
-<h2 id="publishing_app"><code>publishing_app</code></h2>
-<p>A string. Present only in storing context.</p>
-<p>This is the name of the application responsible for publishing the content to
-the content store. This should be resolvable with <code>Plek.find(publishing_app)</code>.</p>
-<h2 id="rendering_app"><code>rendering_app</code></h2>
-<p>A string. Present only in storing context.</p>
-<p>The is the name of the application responsible for rendering the content on
-GOV.UK. It is passed to the router when the content store registers the routes
-for the content. This should be resolvable with <code>Plek.find(rendering_app)</code>.</p>
-<h2 id="routes"><code>routes</code></h2>
-<p>An array of hashes. Present only in storing context.</p>
-<p>This holds the routes associated with the content item. Each hash in the array
-contains a path and a routing type. See
-<a href="/apps/content-store/route_registration.html"><code>route_registration</code></a> for more details.</p>
-<h2 id="redirects"><code>redirects</code></h2>
-<p>An array of hashes. Present only in storing context.</p>
-<p>The redirects from old paths associated with the content item. Each hash in the
-array contains an original path, a routing type, and a destination path. See
-<a href="/apps/content-store/route_registration.html"><code>route_registration</code></a> for more details.</p>
-<p>For redirect content items, the behaviour is slightly different.  See
-redirect_item.md for details.</p>
-<h2 id="access_limited"><code>access_limited</code></h2>
-<p>A hash. Present in the storing and notifying context.</p>
-<p>This is an optional field that is used to identify access-limited content. It
-should identify the specific users that are authorised to view it. If present,
-the expected format is as follows:</p>
-<pre><code>    "access_limited": {
-      "users": ['USER-UID', 'ANOTHER-USER-UID']
-    }
-</code></pre>
-<p>A content item with the above fields would be treated as access-limited, and
-only the users with UIDs 'USER-UID' and 'ANOTHER-USER-UID' would be authorised
-to view it.</p>
-<p>If <code>access_limited</code> is not present, or is an empty hash, the item will be
-treated as publicly visible.</p>
+<h2 id="are-you-writing-a-migration-to-change-publishing-api-data">Are you writing a migration to change Publishing API data?</h2>
+<p>We have a lot of migrations added to the Publishing API to change data, our
+long term plan is to reduce these so that these can be done via the API itself
+and not need migrations. Until we are at that point please use the following
+guidelines when creating migrations.</p>
+<h3 id="run-the-migration-on-your-machine-first">Run the migration on your machine first</h3>
+<p>At the very least this will ensure that the code runs and that your data looks
+correct, but it also allows you to get an idea for how long the migration will
+take to finish. You should then include that information in the PR to help with
+whoever is doing the deployment.</p>
+<p>We also encourage you to run and check the results of the migration on
+integration, since the data there will be closer to production.</p>
+<h3 id="always-include-the-schema-rb-file">Always include the <code>schema.rb</code> file</h3>
+<p>Even if the change is just the timestamp, it's important to include this file
+in your commit otherwise when trying to use the app in testing an error saying
+there are pending migrations will appear.</p>
+<h3 id="target-only-content-related-to-the-application-you-are-affecting">Target only content related to the application you are affecting</h3>
+<p>Mistakes in migrations can and do happen, by at least targeting the application
+you are affecting (with <code>.where(publishing_app: )</code>) you can avoid unnecessary
+fallout.</p>
+<h3 id="dont-assume-the-records-you-are-altering-exist">Don't assume the records you are altering exist</h3>
+<p>Migrations get run in test environments, on old databases or when a developer
+first clones the project. You should always make sure that your migrations run
+fine without the data there that you are expecting.</p>
+<h3 id="do-you-need-to-represent-this-data-downstream">Do you need to represent this data downstream?</h3>
+<p>Representing the data downstream won't work on local machines, so you will need
+to have a check in the migration making sure it is running in the right
+environment (<code>Rails.env.production?</code>). Alternatively, and ideally, you can
+<a href="https://github.com/alphagov/publishing-api/blob/master/docs/lib/tasks/represent_downstream.rake">use the <code>represent_downstream:</code> class of rake tasks</a> in Jenkins to
+achieve the same result. If you do decide to represent downstream in the
+migration itself, you must disable transactions for this migration (by running
+the <code>disable_ddl_transaction!</code> method) as otherwise you will be representing
+downstream before the data is committed to the database.</p>
+<h3 id="if-you-are-disabling-the-transaction-ensure-the-migration-is-idempotent">If you are disabling the transaction, ensure the migration is idempotent</h3>
+<p>If you have <code>disable_ddl_transaction!</code> in your migration for some reason, you
+should make sure that the migration will do the right thing if it gets run
+again. This could happen if it happens to fail the first time, but since it
+will not be running in a transaction, the data won't be rolled back.</p>
 
 
             
@@ -875,8 +700,8 @@ treated as publicly visible.</p>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/content-store/blob/master/docs/content_item_fields.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/content-store/content_item_fields.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/publishing-api/blob/master/docs/data-migration.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/publishing-api/data-migration.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
