@@ -414,79 +414,35 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>A web service that takes an input of URIs. It performs a number of checks on
-them to determine whether these are things that should be linked to.</p>
+<p>A web service that takes an input of URIs. It performs a number of checks on them to determine whether these are things that should be linked to.</p>
 
 <h2 id="nomenclature">Nomenclature</h2>
 
 <ul>
 <li>
-<strong>Link</strong>: The consideration of a URI and all resulting redirects
-that may occur from it.</li>
+<strong>Link</strong>: The consideration of a URI and all resulting redirects that may occur from it.</li>
 <li>
-<strong>Check</strong>: The process of taking a URI and checking it as a Link
-for any problems that may affecting linking to it within content.</li>
+<strong>Check</strong>: The process of taking a URI and checking it as a Link for any problems that may affecting linking to it within content.</li>
 <li>
-<strong>Batch</strong>: The functionality to check multiple URIs in a grouping</li>
+<strong>Batch</strong>: The functionality to check multiple URIs in a grouping.</li>
 </ul>
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>This is a Ruby on Rails application that acts as web service for performing
-links. Communication to and from this service is done through a RESTful JSON
-API. The majority of link checking is done through a background worker than
-uses Sidekiq. There is a webhook functionality for applications to receive
-notifications when link checking is complete.</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<p>The HTTP API is defined in <a href="/apps/link-checker-api/api.html">docs/api.md</a>.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-<li>
-<a href="https://www.postgresql.org/">PostgreSQL</a> - provides a database</li>
-<li>
-<a href="https://redis.io">redis</a> - provides queue storage for Sidekiq jobs</li>
-</ul>
-
-<h3 id="running-the-application">Running the application</h3>
-
-<p>Start the web app with:</p>
-
-<pre lang="bash"><code>$ ./startup.sh
-</code></pre>
-
-<p>Application will be available on port 3208 - <a href="http://localhost:3208">http://localhost:3208</a> or if you
-are using the development VM <a href="http://link-checker-api.dev.gov.uk">http://link-checker-api.dev.gov.uk</a></p>
-
-<p>Start the sidekiq worker with:</p>
-
-<pre lang="bash"><code>$ bundle exec sidekiq -C config/sidekiq.yml
-</code></pre>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
 <h3 id="running-the-test-suite">Running the test suite</h3>
 
-<pre lang="bash"><code>$ bundle exec rspec
+<pre><code>bundle exec rake
 </code></pre>
 
-<h3 id="report-rake-task">Report rake task</h3>
+<h3 id="further-documentation">Further documentation</h3>
 
-<pre lang="bash"><code>$ bundle exec rake report[links.csv]
-</code></pre>
-
-<p>This will produce a report of all broken links stored in the link checker and when they were last checked.</p>
-
-<h3 id="example-api-output">Example API output</h3>
-
-<pre><code>$ curl -s http://link-checker-api.dev.gov.uk/check\?uri\=https%3A%2F%2Fwww.gov.uk%2F\&amp;synchronous\=true | jq
-{
-  "uri": "https://www.gov.uk/",
-  "status": "ok",
-  "checked": "2017-04-12T18:47:16Z",
-  "errors": {},
-  "warnings": {}
-}
-</code></pre>
+<p>Check the <a href="https://github.com/alphagov/link-checker-api/blob/master/docs">docs</a> directory.</p>
 
 <h2 id="licence">Licence</h2>
 

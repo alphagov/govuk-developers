@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>email-alert-api: Data cleanup mechanisms - GOV.UK Developer Documentation</title>
+    <title>local-links-manager: # Example API output - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/email-alert-api/data-cleanup-mechanisms.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/local-links-manager/example-api-output.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="email-alert-api: Data cleanup mechanisms - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/email-alert-api/data-cleanup-mechanisms.html" />
+      <meta name="twitter:title" content="local-links-manager: # Example API output - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/example-api-output.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="email-alert-api: Data cleanup mechanisms" />
+      <meta property="og:title" content="local-links-manager: # Example API output" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/email-alert-api/data-cleanup-mechanisms.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/example-api-output.html" />
 
     
   </head>
@@ -168,7 +168,7 @@
             <li><a href="/apps/local-links-manager/checking-links.html"><span>Checking Links</span></a></li>
             <li><a href="/apps/local-links-manager/deleting-a-link.html"><span>Deleting a local transaction link</span></a></li>
             <li><a href="/apps/local-links-manager/enable-or-create-service.html"><span>Enabling (or creating) a new service</span></a></li>
-            <li><a href="/apps/local-links-manager/example-api-output.html"><span># Example API output</span></a></li>
+            <li><a href="/apps/local-links-manager/example-api-output.html" class="toc-link--in-view"><span># Example API output</span></a></li>
             <li><a href="/apps/local-links-manager/exporting-local-authority-links.html"><span>Exporting Local Authority links to services</span></a></li>
             <li><a href="/apps/local-links-manager/google_analytics_custom_import.html"><span>Authorisation for Google Analytics custom import</span></a></li>
             <li><a href="/apps/local-links-manager/importing-local-authorities-data.html"><span>Importing Local Authorities data</span></a></li>
@@ -258,7 +258,7 @@
         <ul>
             <li><a href="/apps/email-alert-api/analytics.html"><span>Analytics</span></a></li>
             <li><a href="/apps/email-alert-api/api.html"><span>Available endpoints</span></a></li>
-            <li><a href="/apps/email-alert-api/data-cleanup-mechanisms.html" class="toc-link--in-view"><span>Data cleanup mechanisms</span></a></li>
+            <li><a href="/apps/email-alert-api/data-cleanup-mechanisms.html"><span>Data cleanup mechanisms</span></a></li>
             <li><a href="/apps/email-alert-api/env-vars.html"><span>ENV vars</span></a></li>
             <li><a href="/apps/email-alert-api/matching-content-to-subscriber-lists.html"><span>Matching content to subscriber lists</span></a></li>
             <li><a href="/apps/email-alert-api/support-tasks.html"><span>Support tasks</span></a></li>
@@ -653,53 +653,63 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/fce084452d25ff6d712e3d57b7273050dfd9e9c3">1 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/local-links-manager/commit/708bd39b51f75a8b80e614c043671c18a007a351">14 Apr 2021</a>
 </div>
 
-  <h1 class="page-title">email-alert-api: Data cleanup mechanisms</h1>
+  <h1 class="page-title">local-links-manager: # Example API output</h1>
 
-  
-<p>There are several mechanisms regarding the cleanup of data in Email Alert Api.
-This doc gives an overview of each.</p>
-<h2 id="nullifying-email-addresses">Nullifying email addresses</h2>
-<p>Updates the <code>address</code> of old unsubscribed <code>Subscriber</code> records to <code>nil</code>. We do
-this to comply with GDPR, specifically so we're not retaining user's data for
-longer than needed.</p>
-<p>We nullify subscribers in two different scenarios.</p>
-<p>Firstly, once they've been unsubscribed from all subscriptions for over 28
-days. We could nullify user's email addresses immediately after unsubscribing
-but this would limit our ability to assist in user support queries. E.g.
-restoring a user's subscriptions after they've unsubscribed by accident which
-would be impossible to do if the system had nullified their address
-immediately after unsubscribing.</p>
-<p>Secondly, subscribers are nullified which are created more than 28 days ago and
-don't have any subscriptions at all (active or ended). It shouldn't be possible
-for subscribers to exist without subscriptions but these are queried and
-removed anyway to prevent storing user's data indefinitely if, for whatever
-reason, a subscriber ends up with no subscriptions. This has happened before,
-unintentionally, see <a href="https://github.com/alphagov/email-alert-api/pull/1462/commits/053859c5962eef104256661f28727b08a43e3d31">here</a> and <a href="https://github.com/alphagov/email-alert-api/pull/1462/commits/a4b3e82801d79abd3989b1dd60ffd499e7ce82ba">here</a>.</p>
-<p>The <a href="https://github.com/alphagov/email-alert-api/blob/master/app/workers/nullify_subscribers_worker.rb">NullifySubscribersWorker</a> runs <a href="https://github.com/alphagov/email-alert-api/blob/cefdfa76b13915ea96b131490fd3186b6d52cf05/config/sidekiq.yml#L27">every hour</a>.</p>
-<h2 id="deleting-emails">Deleting emails</h2>
-<p>The <a href="https://github.com/alphagov/email-alert-api/blob/a62abc85453b723d683c2dc13f3bf0065fb86d5f/app/workers/email_deletion_worker.rb">EmailDeletionWorker</a> deletes emails after 7 days. These recently archived
-emails get deleted regularly to keep the database performant as we produce a
-large quantity which the system only uses for a short period of time. In deleting
-these emails we also delete their associated subscription contents through a
-<a href="https://github.com/alphagov/email-alert-api/blob/11fb84542e6c7f3995f419e4affaf56aa759ec6c/db/schema.rb#L206">db cascade</a>. As of 05/11/2020 we generate around ~3 million emails per day.</p>
-<p>The <a href="https://github.com/alphagov/email-alert-api/blob/b850dc646202aaa9e2fac88986a6f3d0c738be78/config/sidekiq.yml#L33">deletion worker</a> runs every hour. Every hour was chosen to limit the worst
-case backlog (and potential performance impact) if a run of the job fails for
-transient reasons. Note that it often takes 10-30 minutes just to delete an hour's
-worth of email, so it's not feasible to run this job more frequently.</p>
-<h2 id="deleting-historic-data">Deleting historic data</h2>
-<p>The <a href="https://github.com/alphagov/email-alert-api/blob/a62abc85453b723d683c2dc13f3bf0065fb86d5f/app/workers/historical_data_deletion_worker.rb">HistoricalDataDeletionWorker</a> deletes data we deem as historic everday at
-<a href="https://github.com/alphagov/email-alert-api/blob/cefdfa76b13915ea96b131490fd3186b6d52cf05/config/sidekiq.yml#L24">midday</a>. Midday was chosen as removing historic data is deemed non urgent work
-and so running once a day, in hours, seems sufficient.</p>
-<p>In general, we remove historic, unused data after a year. One exception to this
-is that we remove subscriber lists which have been created over seven days ago
-and never had any subscriptions.</p>
-<p>We remove this data so we don't pollute our analytics or run into future
-capacity issues.</p>
-<p>You can read in more detail about the decision to implement the historic
-deletion of data in <a href="https://github.com/alphagov/email-alert-api/blob/master/docs/adr/adr-007-retain-data-for-up-to-one-year.md#decision">ADR-7</a>.</p>
+  <h2 id="example-api-output">Example API output</h2>
+<p><strong>Endoint for local authorities</strong></p>
+<p><code>GET /api/local-authority?authority_slug=&lt;authority_slug&gt;</code></p>
+<p>This takes parameters for Authority Slug.</p>
+<p>Returns a JSON array containing details for the local authority and (if appropriate), the county council that contains the district.</p>
+<p>This example is for <code>GET /api/local-authority?authority_slug=rochford</code></p>
+<pre><code>[
+  {
+    "name" =&gt; 'Rochford District Council',
+    "homepage_url" =&gt; "http://rochford.example.com",
+    "country_name" =&gt; "England",
+    "tier" =&gt; "district"
+  },
+  {
+    "name" =&gt; 'Essex County Council',
+    "homepage_url" =&gt; "http://essex.example.com",
+    "country_name" =&gt; "England",
+    "tier" =&gt; "county"
+  }
+]
+</code></pre>
+<p>This example is for <code>GET /api/local-authority?authority_slug=camden</code></p>
+<pre><code>[
+  {
+    "name" =&gt; 'Camden Borough Council',
+    "homepage_url" =&gt; "http://camden.example.com",
+    "country_name" =&gt; "England",
+    "tier" =&gt; "unitary"
+  }
+]
+</code></pre>
+<p>We do not require authentication for this request.</p>
+<p><strong>Endpoint for local transactions links</strong></p>
+<p><code>GET /api/link?authority_slug=&lt;authority_slug&gt;&amp;lgsl=&lt;lgsl&gt;&amp;lgil=&lt;lgil&gt;</code></p>
+<p>This takes parameters for Authority Slug, LGSL and optionally LGIL.</p>
+<p>Returns JSON details for local authority and interaction or just local authority depending whether the LGIL parameter is passed in. If the LGIL is passed in we return the link for the LGIL if it exists. If not then only the local authority details are returned. If the LGIL is not passed in it returns the appropriate fallback link. If no appropriate link is found then once again we only return the local authority details.</p>
+<pre><code>{
+  "local_authority" =&gt; {
+    "name" =&gt; "Blackburn",
+      "snac" =&gt; "00AG",
+      "tier" =&gt; "unitary",
+      "homepage_url" =&gt; "http://blackburn.example.com",
+      "country_name" =&gt; "England",
+  },
+    "local_interaction" =&gt; {
+      "lgsl_code" =&gt; 2,
+      "lgil_code" =&gt; 4,
+      "url" =&gt; "http://blackburn.example.com/abandoned-shopping-trolleys/report",
+    }
+}
+</code></pre>
+<p>We do not require authentication for this request.</p>
 
 
             
@@ -707,8 +717,8 @@ deletion of data in <a href="https://github.com/alphagov/email-alert-api/blob/ma
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/email-alert-api/blob/master/docs/data-cleanup-mechanisms.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/email-alert-api/data-cleanup-mechanisms.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/local-links-manager/blob/master/docs/example-api-output.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/local-links-manager/example-api-output.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

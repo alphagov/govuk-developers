@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>email-alert-api: Data cleanup mechanisms - GOV.UK Developer Documentation</title>
+    <title>authenticating-proxy: Generating an auth bypass token - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/email-alert-api/data-cleanup-mechanisms.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/authenticating-proxy/generating-a-token.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="email-alert-api: Data cleanup mechanisms - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/email-alert-api/data-cleanup-mechanisms.html" />
+      <meta name="twitter:title" content="authenticating-proxy: Generating an auth bypass token - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/authenticating-proxy/generating-a-token.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="email-alert-api: Data cleanup mechanisms" />
+      <meta property="og:title" content="authenticating-proxy: Generating an auth bypass token" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/email-alert-api/data-cleanup-mechanisms.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/authenticating-proxy/generating-a-token.html" />
 
     
   </head>
@@ -258,7 +258,7 @@
         <ul>
             <li><a href="/apps/email-alert-api/analytics.html"><span>Analytics</span></a></li>
             <li><a href="/apps/email-alert-api/api.html"><span>Available endpoints</span></a></li>
-            <li><a href="/apps/email-alert-api/data-cleanup-mechanisms.html" class="toc-link--in-view"><span>Data cleanup mechanisms</span></a></li>
+            <li><a href="/apps/email-alert-api/data-cleanup-mechanisms.html"><span>Data cleanup mechanisms</span></a></li>
             <li><a href="/apps/email-alert-api/env-vars.html"><span>ENV vars</span></a></li>
             <li><a href="/apps/email-alert-api/matching-content-to-subscriber-lists.html"><span>Matching content to subscriber lists</span></a></li>
             <li><a href="/apps/email-alert-api/support-tasks.html"><span>Support tasks</span></a></li>
@@ -385,7 +385,7 @@
     <li>
       <a href="/apps/authenticating-proxy.html"><span>authenticating-proxy</span></a>
         <ul>
-            <li><a href="/apps/authenticating-proxy/generating-a-token.html"><span>Generating an auth bypass token</span></a></li>
+            <li><a href="/apps/authenticating-proxy/generating-a-token.html" class="toc-link--in-view"><span>Generating an auth bypass token</span></a></li>
         </ul>
     </li>
     <li>
@@ -653,53 +653,50 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/fce084452d25ff6d712e3d57b7273050dfd9e9c3">1 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/authenticating-proxy/commit/d376606324ac71adfcfd5b78502a6f81250b4aed">14 Apr 2021</a>
 </div>
 
-  <h1 class="page-title">email-alert-api: Data cleanup mechanisms</h1>
+  <h1 class="page-title">authenticating-proxy: Generating an auth bypass token</h1>
 
   
-<p>There are several mechanisms regarding the cleanup of data in Email Alert Api.
-This doc gives an overview of each.</p>
-<h2 id="nullifying-email-addresses">Nullifying email addresses</h2>
-<p>Updates the <code>address</code> of old unsubscribed <code>Subscriber</code> records to <code>nil</code>. We do
-this to comply with GDPR, specifically so we're not retaining user's data for
-longer than needed.</p>
-<p>We nullify subscribers in two different scenarios.</p>
-<p>Firstly, once they've been unsubscribed from all subscriptions for over 28
-days. We could nullify user's email addresses immediately after unsubscribing
-but this would limit our ability to assist in user support queries. E.g.
-restoring a user's subscriptions after they've unsubscribed by accident which
-would be impossible to do if the system had nullified their address
-immediately after unsubscribing.</p>
-<p>Secondly, subscribers are nullified which are created more than 28 days ago and
-don't have any subscriptions at all (active or ended). It shouldn't be possible
-for subscribers to exist without subscriptions but these are queried and
-removed anyway to prevent storing user's data indefinitely if, for whatever
-reason, a subscriber ends up with no subscriptions. This has happened before,
-unintentionally, see <a href="https://github.com/alphagov/email-alert-api/pull/1462/commits/053859c5962eef104256661f28727b08a43e3d31">here</a> and <a href="https://github.com/alphagov/email-alert-api/pull/1462/commits/a4b3e82801d79abd3989b1dd60ffd499e7ce82ba">here</a>.</p>
-<p>The <a href="https://github.com/alphagov/email-alert-api/blob/master/app/workers/nullify_subscribers_worker.rb">NullifySubscribersWorker</a> runs <a href="https://github.com/alphagov/email-alert-api/blob/cefdfa76b13915ea96b131490fd3186b6d52cf05/config/sidekiq.yml#L27">every hour</a>.</p>
-<h2 id="deleting-emails">Deleting emails</h2>
-<p>The <a href="https://github.com/alphagov/email-alert-api/blob/a62abc85453b723d683c2dc13f3bf0065fb86d5f/app/workers/email_deletion_worker.rb">EmailDeletionWorker</a> deletes emails after 7 days. These recently archived
-emails get deleted regularly to keep the database performant as we produce a
-large quantity which the system only uses for a short period of time. In deleting
-these emails we also delete their associated subscription contents through a
-<a href="https://github.com/alphagov/email-alert-api/blob/11fb84542e6c7f3995f419e4affaf56aa759ec6c/db/schema.rb#L206">db cascade</a>. As of 05/11/2020 we generate around ~3 million emails per day.</p>
-<p>The <a href="https://github.com/alphagov/email-alert-api/blob/b850dc646202aaa9e2fac88986a6f3d0c738be78/config/sidekiq.yml#L33">deletion worker</a> runs every hour. Every hour was chosen to limit the worst
-case backlog (and potential performance impact) if a run of the job fails for
-transient reasons. Note that it often takes 10-30 minutes just to delete an hour's
-worth of email, so it's not feasible to run this job more frequently.</p>
-<h2 id="deleting-historic-data">Deleting historic data</h2>
-<p>The <a href="https://github.com/alphagov/email-alert-api/blob/a62abc85453b723d683c2dc13f3bf0065fb86d5f/app/workers/historical_data_deletion_worker.rb">HistoricalDataDeletionWorker</a> deletes data we deem as historic everday at
-<a href="https://github.com/alphagov/email-alert-api/blob/cefdfa76b13915ea96b131490fd3186b6d52cf05/config/sidekiq.yml#L24">midday</a>. Midday was chosen as removing historic data is deemed non urgent work
-and so running once a day, in hours, seems sufficient.</p>
-<p>In general, we remove historic, unused data after a year. One exception to this
-is that we remove subscriber lists which have been created over seven days ago
-and never had any subscriptions.</p>
-<p>We remove this data so we don't pollute our analytics or run into future
-capacity issues.</p>
-<p>You can read in more detail about the decision to implement the historic
-deletion of data in <a href="https://github.com/alphagov/email-alert-api/blob/master/docs/adr/adr-007-retain-data-for-up-to-one-year.md#decision">ADR-7</a>.</p>
+<p>Applications which want to generate a token valid for bypassing authentication will
+need to have access to the same value for the JWT_AUTH_SECRET environment variable.
+They can then use the JWT library - which will probably already be present, since it
+is a dependency of gds-sso via oauth2 - to encode a token as follows:</p>
+<pre><code>JWT.encode({
+  "sub" =&gt; auth_bypass_id,
+  "iat" =&gt; Time.zone.now.to_i,
+  "exp" =&gt; 1.month.from_now.to_i,
+  "content_id" =&gt; content_id,
+}, ENV['JWT_AUTH_SECRET'], 'HS256')
+</code></pre>
+<p>Where:</p>
+<ul>
+<li>
+<code>sub</code> value of <code>auth_bypass_id</code> is a unique value determined by the publishing
+application for a particular draft piece of content</li>
+<li>
+<code>iat</code> ("issued at") is the time at which the token was created</li>
+<li>
+<code>exp</code> ("expiration time") is when the token should expire and no longer be
+valid</li>
+<li>
+<code>content_id</code> is the GOV.UK content id for the piece of content that is being
+shared</li>
+</ul>
+<p><code>sub</code>, <code>iat</code> and <code>exp</code> [registered claims][] as part of the JWT specification.
+Applications are advised to use an expiry on tokens to limit their lifespan
+and set an auth_bypass_id that is relatively simple to rotate were a token
+to be accidentally made public. The <code>iat</code> and <code>content_id</code> values allow tracing
+the source of a token.</p>
+<h2 id="optional-special-fields">Optional special fields</h2>
+<p>In addition to the JWT standard fields, you can encode arbitrary fields which might
+only have meaning for your application. For example, it is recommended that you store
+some information that describes the piece of content associated with the JWT token (such
+as a content ID). Do bear in mind that the data inside a JWT token is not encrypted
+and <strong>must</strong> not include sensitive or personally identifiable data.</p>
+<pre><code>  "content_id" =&gt; step_by_step.content_id
+</code></pre>
 
 
             
@@ -707,8 +704,8 @@ deletion of data in <a href="https://github.com/alphagov/email-alert-api/blob/ma
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/email-alert-api/blob/master/docs/data-cleanup-mechanisms.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/email-alert-api/data-cleanup-mechanisms.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/authenticating-proxy/blob/main/docs/generating-a-token.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/authenticating-proxy/generating-a-token.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

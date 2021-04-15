@@ -405,39 +405,16 @@
 </div></dl>
     <div class="gem-c-summary__block"></div>
 </div>
+<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
+      <li><a href="/apps/authenticating-proxy/generating-a-token.html" class="govuk-link">Generating an auth bypass token</a></li>
+</ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
 <p>App to add authentication to the draft version of GOV.UK, so that only users with
 a <a href="https://github.com/alphagov/signon">signon</a> account - or a valid JSON web token (<a href="https://jwt.io/">JWT</a>) - can access it.</p>
 
-<p>Some of the thinking behind this is <a href="https://github.com/alphagov/govuk-rfcs/blob/master/rfc-013-thoughts-on-access-limiting-in-draft.md">documented in RFC 13</a>.</p>
-
-<h2 id="live-examples">Live examples</h2>
-
-<p><a href="https://www-origin.draft.preview.publishing.service.gov.uk/">https://www-origin.draft.preview.publishing.service.gov.uk/</a></p>
-
-<h2 id="nomenclature">Nomenclature</h2>
-
-<ul>
-<li>
-<strong><code>X-GOVUK-AUTHENTICATED-USER</code></strong>: The HTTP header which contains the UID of
-the authenticated user (as reported by Signon).</li>
-<li>
-<strong>upstream service</strong>: The destination service that the app is proxying to.</li>
-<li>
-<strong>Signon</strong>: Single signon service for GOV.UK authentication.</li>
-<li>
-<strong><code>GOVUK_UPSTREAM_URI</code></strong>: environment variable used to specify the upstream
-site.</li>
-<li>
-<strong><code>GOVUK_AUTH_BYPASS_ID</code></strong>: The HTTP header which contains the UUID of a auth
-bypass, extracted from a token.</li>
-</ul>
-
-<h2 id="technical-documentation">Technical documentation</h2>
-
-<p>This is a Rails application that proxies requests to an upstream service, first
-performing authentication using <code>gds-sso</code> to ensure that only authenticated
+<p>This is a Rails application that <a href="https://github.com/ncr/rack-proxy">proxies</a> requests to an upstream service, first
+performing authentication using <a href="http://github.com/alphagov/gds-sso">gds-sso</a> to ensure that only authenticated
 users are able to view the site. It sets an <code>X-GOVUK-AUTHENTICATED-USER</code> header
 so that the upstream service can identify the user.</p>
 
@@ -448,110 +425,28 @@ that token contains a <code>sub</code> key, the value of that key is passed upst
 the <code>GOVUK_AUTH_BYPASS_ID</code> header. NB, the <code>sub</code> (or &ldquo;subject&rdquo;) key is one of the
 <a href="https://auth0.com/docs/tokens/jwt-claims#reserved-claims">reserved claims of a JWT</a>.</p>
 
-<p>If a user is authenticated using <code>gds-sso</code> and a JWT token is also provided, both
+<p>If a user is authenticated using <a href="http://github.com/alphagov/gds-sso">gds-sso</a> and a JWT token is also provided, both
 sets of information are passed upstream. It is up to the upstream application how
 to handle these cases.</p>
 
-<p>Authenticating-proxy does not itself check that the auth_bypass_id is actually
-valid; this will be done by content-store.</p>
+<p>Some of the thinking behind this is <a href="https://github.com/alphagov/govuk-rfcs/blob/master/rfc-013-thoughts-on-access-limiting-in-draft.md">documented in RFC 13</a>.</p>
 
-<h3 id="dependencies">Dependencies</h3>
+<h2 id="technical-documentation">Technical documentation</h2>
 
-<ul>
-<li>
-<a href="http://github.com/alphagov/gds-sso">alphagov/gds-sso</a> - provides
-authentication against the GOV.UK single-signon application,
-<a href="https://github.com/alphagov/signon">signon</a>
-</li>
-<li>
-<a href="https://github.com/ncr/rack-proxy">rack-proxy</a> - rack middleware used to
-proxy requests through to the upstream service.</li>
-<li><a href="https://www.mongodb.com/">MongoDB</a></li>
-</ul>
+<h3 id="running-the-app">Running the app</h3>
 
-<h3 id="setup">Setup</h3>
-
-<p>authenticating-proxy is not supported in <a href="https://github.com/alphagov/govuk-docker/">govuk-docker</a> yet. In the meantime,
-<a href="#running-the-application-in-the-dev-vm">use the development VM</a> or set things
-up manually:</p>
-
-<pre lang="sh"><code>bundle install
-GOVUK_UPSTREAM_URI=http://www.dev.gov.uk bundle exec rails server
-</code></pre>
-
-<h3 id="running-the-application-in-the-dev-vm">Running the application in the dev VM</h3>
-
-<p>On the development VM, <code>GOVUK_UPSTREAM_URI</code> defaults to government-frontend. If
-you want to run authenticating-proxy against a real running instance of signon
-(instead of the usual mock-mode), then use the following <code>bowl</code> command:</p>
-
-<pre><code>$ GDS_SSO_STRATEGY=real bowl authenticating-proxy signon
-</code></pre>
-
-<p>Note that <code>GDS_SSO_STRATEGY</code> is set to true to stop gds-sso from using mock mode
-and instead authenticate via a running local version of signon. If you are going
-to run against real signon, then you will need to add authenticating-proxy as an
-application in signon and also create a user with permission to access it:</p>
-
-<pre><code># From the signon directory:
-$ bundle exec rake applications:create name=authenticating-proxy description="authenticating proxy" home_uri="http://authenticating-proxy.dev.gov.uk" redirect_uri="http://authenticating-proxy.dev.gov.uk/auth/gds/callback"
-$ bundle exec rake users:create name='User Name' email=user@email.com applications=authenticating-proxy
-</code></pre>
+<p>In GOV.UK Docker, <code>GOVUK_UPSTREAM_URI</code> defaults to government-frontend. This
+means that, when you request <code>authenticating-proxy.dev.gov.uk</code>, it should behave
+the same as requesting <code>government-frontend.dev.gov.uk</code>.</p>
 
 <h3 id="running-the-test-suite">Running the test suite</h3>
 
-<p>You will need to follow the <a href="#setup">setup instructions</a>, then:</p>
-
-<pre><code>$ bundle exec rspec
+<pre><code>bundle exec rake
 </code></pre>
 
-<h3 id="generating-a-auth-bypass-token">Generating a auth bypass token</h3>
+<h3 id="further-documentation">Further documentation</h3>
 
-<p>Applications which want to generate a token valid for bypassing authentication will
-need to have access to the same value for the JWT_AUTH_SECRET environment variable.
-They can then use the JWT library - which will probably already be present, since it
-is a dependency of gds-sso via oauth2 - to encode a token as follows:</p>
-
-<pre><code>JWT.encode({
-  "sub" =&gt; auth_bypass_id,
-  "iat" =&gt; Time.zone.now.to_i,
-  "exp" =&gt; 1.month.from_now.to_i,
-  "content_id" =&gt; content_id,
-}, ENV['JWT_AUTH_SECRET'], 'HS256')
-</code></pre>
-
-<p>Where:</p>
-
-<ul>
-<li>
-<code>sub</code> value of <code>auth_bypass_id</code> is a unique value determined by the publishing
-application for a particular draft piece of content</li>
-<li>
-<code>iat</code> (&ldquo;issued at&rdquo;) is the time at which the token was created</li>
-<li>
-<code>exp</code> (&ldquo;expiration time&rdquo;) is when the token should expire and no longer be
-valid</li>
-<li>
-<code>content_id</code> is the GOV.UK content id for the piece of content that is being
-shared</li>
-</ul>
-
-<p><code>sub</code>, <code>iat</code> and <code>exp</code> [registered claims][] as part of the JWT specification.
-Applications are advised to use an expiry on tokens to limit their lifespan
-and set an auth_bypass_id that is relatively simple to rotate were a token
-to be accidentally made public. The <code>iat</code> and <code>content_id</code> values allow tracing
-the source of a token.</p>
-
-<h4 id="optional-special-fields">Optional special fields</h4>
-
-<p>In addition to the JWT standard fields, you can encode arbitrary fields which might
-only have meaning for your application. For example, it is recommended that you store
-some information that describes the piece of content associated with the JWT token (such
-as a content ID). Do bear in mind that the data inside a JWT token is not encrypted
-and <strong>must</strong> not include sensitive or personally identifiable data.</p>
-
-<pre><code>  "content_id" =&gt; step_by_step.content_id
-</code></pre>
+<p>Check the <a href="https://github.com/alphagov/authenticating-proxy/blob/master/docs/"><code>docs/</code></a> directory.</p>
 
 <h2 id="licence">Licence</h2>
 
