@@ -206,7 +206,7 @@
             
   <p><a href='/manual.html#publishing'>Publishing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0de242f14f2f071ce5ff5e19d46a6374c33658ef">10 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4cfac7743561ab1a4b16d2b5c70a2073bae2caeb">12 Apr 2021</a>
 </div>
 
  <h1 id='header'>Deploy emergency publishing banners</h1> <p>There are three types of events that would lead GOV.UK to add an emergency
@@ -247,14 +247,14 @@ Head of GOV.UK.</p>
 <li><a href="https://deploy.blue.production.govuk.digital/job/deploy-emergency-banner/">⚠️ Deploy the emergency banner on Production ⚠️</a></li>
 </ul></li>
 <li><p>Click <code>Build with Parameters</code>.</p></li>
-<li><p>Fill in the appropriate variables using the form presented by Jenkins.</p></li>
+<li><p>Fill in the appropriate variables using the form presented by Jenkins. Use a relative URL (i.e. without the www.gov.uk prefix) if a link is required.</p></li>
 <li><p>Click <code>Build</code>.</p></li>
 </ol>
 <p><a href="images/emergency_publishing/deploy_emergency_banner_job.png" rel="noopener noreferrer"><img src="/manual/images/emergency_publishing/deploy_emergency_banner_job.png" alt="Jenkins Deploy Emergency Banner" /></a></p>
 
 <blockquote>
 <p><strong>Note</strong></p>
-<p>The Jenkins job will also clear all caches. The main page updates immediately, however whitehall and travel advice can take a couple of minutes before the banner appears.</p>
+<p>The Jenkins job will also clear the Varnish caches and the CDN cache for <a href="https://github.com/alphagov/govuk-puppet/blob/8cca9aad2b68d6cb396a135f47524fafeca1c947/modules/govuk_jenkins/templates/jobs/clear_cdn_cache.yaml.erb#L22-L34">a predefined list of 10 URLs</a> (including the website root).</p>
 </blockquote>
 <h3 id='4-test-with-cache-bust-strings'>4. Test with cache bust strings</h3><p>Test the changes by visiting pages and adding a cache-bust string. Remember to change the URL based on the environment you are testing in (integration, staging, production).</p>
 <p>For each page:</p>

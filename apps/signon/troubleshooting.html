@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>signon:  Troubleshooting - GOV.UK Developer Documentation</title>
+    <title>signon: Troubleshooting - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
@@ -15,12 +15,12 @@
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="signon:  Troubleshooting - GOV.UK Developer Documentation" />
+      <meta name="twitter:title" content="signon: Troubleshooting - GOV.UK Developer Documentation" />
       <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/signon/troubleshooting.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="signon:  Troubleshooting" />
+      <meta property="og:title" content="signon: Troubleshooting" />
       <meta property="og:type" content="object" />
       <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/signon/troubleshooting.html" />
 
@@ -372,7 +372,7 @@
         <ul>
             <li><a href="/apps/signon/mass_password_reset.html"><span>mass_password_reset</span></a></li>
             <li><a href="/apps/signon/oauth.html"><span>Sign-On-O-Tron and OAuth2</span></a></li>
-            <li><a href="/apps/signon/troubleshooting.html" class="toc-link--in-view"><span> Troubleshooting</span></a></li>
+            <li><a href="/apps/signon/troubleshooting.html" class="toc-link--in-view"><span>Troubleshooting</span></a></li>
             <li><a href="/apps/signon/usage.html"><span>Usage Documentation</span></a></li>
         </ul>
     </li>
@@ -646,29 +646,37 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/signon/commit/7099d91005710d69a5cf7c8b1e4864a22044a9fa">21 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/signon/commit/e454b4694aafadab2655b9cb1040e59acb317ce8">13 Apr 2021</a>
 </div>
 
-  <h1 class="page-title">signon:  Troubleshooting</h1>
+  <h1 class="page-title">signon: Troubleshooting</h1>
 
-  <p># Troubleshooting</p>
+  
 <p>This is a place to record workarounds to some common problems.</p>
 <h2 id="user-didnt-receive-password-reset-email">User didn't receive password reset email</h2>
-<p>All the emails do is send users a link to reset their password. We can find this link and give it to them directly.</p>
-<p>First, open a Rails console (Signon is on the backend box in Carrenza).</p>
-<p>If you run:</p>
+<p>When a user account is created, they are sent a link to reset their password. A similar email is sent when users request a password reset email.</p>
+<p>In the first instance, a new email should be requested. The route is different depending on the type of password reset email.</p>
+<h3 id="new-user-account">New user account</h3>
+<p>As a superadmin user, in Signon, find the user and press the 'Resend signup email' button.</p>
+<h3 id="password-reset-email">Password reset email</h3>
+<p>The user can request a new password reset link themselves through the <a href="https://signon.publishing.service.gov.uk/users/password/new">password reset form</a>.</p>
+<h3 id="user-does-not-receive-the-email">User does not receive the email</h3>
+<p>If a user does not receive this email after attempting to reteieve it again themselves, you may wish to send it directly to their email address.</p>
+<p>There are two ways of retrieving the link:</p>
+<h4 id="notify-dashboard">Notify dashboard</h4>
+<p>This method is preferred as you do not need to open a Rails console on a production system.</p>
+<p>If the email was sent in the last 7 days, it can be retrieved by searching for the user's email address in the <a href="https://www.notifications.service.gov.uk/services/51c6b7b7-f7dc-421c-9105-7b73774cfb43">GOV.UK Notify dashboard</a>.</p>
+<h4 id="rails-console">Rails console</h4>
+<p>First, open a Rails console:</p>
+<pre><code>gds govuk c app-console -e &lt;environment&gt; signon
+</code></pre>
+<p>Run the following to obtain a token:</p>
 <pre lang="ruby"><code>token = User.find_by(email: "name@example.com").send_reset_password_instructions
 </code></pre>
-<p>you’ll get the token back and can add it into the URL to give to the user:</p>
-<p><a href="https://signon.publishing.service.gov.uk/users/password/edit?reset_password_token=">https://signon.publishing.service.gov.uk/users/password/edit?reset_password_token=</a><!-- raw HTML omitted --></p>
+<p>Add it into the URL to give to the user (e.g. for production):</p>
+<pre><code>https://signon.publishing.service.gov.uk/users/password/edit?reset_password_token=&lt;token&gt;
+</code></pre>
 
 
             
