@@ -653,7 +653,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/d083f345bd57251780e2644cfd795f9d4e569564">18 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/d3274643fe678e6f4e3b9eeeff5c5acccf22cfba">15 Apr 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -683,6 +683,12 @@ management. This API is not for other government services.</p>
 <li><a href="#patch-apiattributes"><code>PATCH /api/attributes</code></a></li>
 <li><a href="#get-apitransition-checker-email-subscription"><code>GET /api/transition-checker-email-subscription</code></a></li>
 <li><a href="#post-apitransition-checker-email-subscription"><code>POST /api/transition-checker-email-subscription</code></a></li>
+</ul>
+</li>
+<li>
+<a href="#api-errors">API errors</a>
+<ul>
+<li><a href="#unknown-attribute-names">Unknown attribute names</a></li>
 </ul>
 </li>
 <li><a href="#healthcheck">Healthcheck</a></li>
@@ -1005,6 +1011,7 @@ end
 </ul>
 <h4 id="response-codes">Response codes</h4>
 <ul>
+<li>422 if any attributes are unknown (see <a href="#unknown-attribute-names">error: unknown attribute names</a>)</li>
 <li>401 if the session identifier is invalid</li>
 <li>200 otherwise</li>
 </ul>
@@ -1055,6 +1062,7 @@ end
 </ul>
 <h4 id="response-codes">Response codes</h4>
 <ul>
+<li>422 if any attributes are unknown (see <a href="#unknown-attribute-names">error: unknown attribute names</a>)</li>
 <li>401 if the session identifier is invalid</li>
 <li>200 otherwise</li>
 </ul>
@@ -1159,6 +1167,26 @@ end
     "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg=="
 }
 </code></pre>
+<h2 id="api-errors">API errors</h2>
+<p>API errors are returned as an <a href="https://tools.ietf.org/html/rfc7807">RFC 7807</a> "Problem Detail" object, in
+the following format:</p>
+<pre lang="json"><code>{
+  "type": "URI which identifies the problem type and points to further information",
+  "title": "Short human-readable summary of the problem type",
+  "detail": "Human-readable explanation of this specific instance of the problem."
+}
+</code></pre>
+<p>Each error type may define additional response fields.</p>
+<h3 id="unknown-attribute-names">Unknown attribute names</h3>
+<p>One or more of the attribute names you have specified are not known.
+The <code>attributes</code> response field lists these.</p>
+<h4 id="debugging-steps">Debugging steps</h4>
+<ul>
+<li>check that you don't have a typo in the attribute names</li>
+<li>check that the attributes are defined in <code>config/user_attributes.yml</code>
+</li>
+<li>check that you are running the latest version of account-api</li>
+</ul>
 <h2 id="healthcheck">Healthcheck</h2>
 <p>A database health check endpoint is available at <code>/healthcheck</code>.</p>
 <pre lang="json"><code>{
