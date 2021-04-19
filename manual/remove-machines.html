@@ -147,20 +147,6 @@
           </li>
         </ul>
       </li>
-      <li>
-        <a href="#carrenza"><span>Carrenza</span></a>
-      </li>
-      <li>
-        <a href="#1-remove-the-node-from-the-puppetmaster"><span>1. Remove the node from the puppetmaster</span></a>
-        <ul>
-          <li>
-            <a href="#2-remove-from-vcloud-director"><span>2. Remove from vCloud Director</span></a>
-          </li>
-          <li>
-            <a href="#3-remove-from-govuk-provisioning"><span>3. Remove from govuk-provisioning</span></a>
-          </li>
-        </ul>
-      </li>
     </ul>
   </li>
 </ul>
@@ -175,7 +161,7 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c5831a932e0da5ddd21913b3aceb513503d25555">6 Nov 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9ba52660950982bbc0e38ae16ee524710e942a47">19 Apr 2021</a>
 </div>
 
  <h1 id='header'>Remove a machine</h1> <p>Before you start, make sure that the machines you are removing are no longer
@@ -202,33 +188,7 @@ an hour.  You can force this by running Puppet on the puppetmaster:</p>
 </code></pre></div><p>And then on the monitoring machine:</p>
 <div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="gp">$</span><span class="w"> </span>gds govuk connect <span class="nt">-e</span> &lt;environment&gt; ssh monitoring
 <span class="gp">$</span><span class="w"> </span>govuk_puppet <span class="nt">--verbose</span>
-</code></pre></div><h2 id='carrenza'>Carrenza</h2><h2 id='1-remove-the-node-from-the-puppetmaster'>1. Remove the node from the puppetmaster</h2><p>You need to remove the nodes from the puppetmaster in each environment.
-This is needed to clean up exported resources from Puppet, including
-removing checks from Icinga.</p>
-<p>First, disable Puppet on the machines you wish to remove.</p>
-<p>Next, SSH into the puppetmaster for the environment:</p>
-<div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="gp">$</span><span class="w"> </span>ssh puppetmaster-1.management.production
-</code></pre></div><p>Then run this on each machine:</p>
-<div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="gp">$</span><span class="w"> </span>govuk_node_clean &lt;machine_name&gt;
-</code></pre></div><p>Where <code>&lt;machine_name&gt;</code> might be <code>machine-name-1.vdc-name.production</code> (Carrenza)
-To find the names of the machines, you can list the nodes on puppetmaster:</p>
-<div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>puppet cert list <span class="nt">--all</span>
-</code></pre></div><p>If <code>govuk_node_clean</code> was successful, you will get output like:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>Submitted <span class="s1">'deactivate node'</span> <span class="k">for </span>redirector-1.redirector.production with UUID 0fb445ff-d660-41eb-b6d2-eca40447d4bf
-Notice: Revoked certificate with serial 127
-Notice: Removing file Puppet::SSL::Certificate redirector-1.redirector.production at <span class="s1">'/etc/puppet/ssl/ca/signed/redirector-1.redirector.production.pem'</span>
-</code></pre></div><p>After this, Icinga will forget about the machine when it next
-runs Puppet. You can force this with:</p>
-<div class="highlight"><pre class="highlight console" tabindex="0"><code><span class="gp">$</span><span class="w"> </span>ssh monitoring-1.management.production
-<span class="gp">$</span><span class="w"> </span>govuk_puppet <span class="nt">--test</span>
-</code></pre></div><p>You may need to wait a few minutes, but it should then disappear from
-the &ldquo;Host Detail&rdquo; page in Icinga.</p>
-<h3 id='2-remove-from-vcloud-director'>2. Remove from vCloud Director</h3><p>Sign in to the vCloud Director instance for the given environment.
-Go to &lsquo;My Cloud&rsquo;, search for the given machine, stop it, and then
-delete it.</p>
-<h3 id='3-remove-from-govuk-provisioning'>3. Remove from govuk-provisioning</h3><p>If your machine class matches a vDC, be careful not to remove firewall
-rules that apply to the vDC.</p>
-
+</code></pre></div>
 
   <div class='related-content'>
 
@@ -253,9 +213,7 @@ rules that apply to the vDC.</p>
           <h4>How to...</h4>
 
           <ul class="govuk-list">
-            <li><a href="/manual/adding-disks-in-vcloud.html">Add a disk to a vCloud machine (Carrenza only)</a></li>
             <li><a href="/manual/ruby.html">Add a new Ruby version</a></li>
-            <li><a href="/manual/connect-to-vcloud-director.html">Connect to vCloud Director (Carrenza only)</a></li>
             <li><a href="/manual/generate-csr.html">Generate a Certificate Signing Request (CSR) for GOV.UK</a></li>
             <li><a href="/manual/rabbitmq.html">Manage RabbitMQ</a></li>
             <li><a href="/manual/auto-scaling-groups.html">Manually resize ASGs (auto scaling groups)</a></li>

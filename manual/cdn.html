@@ -181,7 +181,7 @@
             
   <p><a href='/manual.html#cdn-caching'>CDN & Caching</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/224ed4edc3b2e282a75981e55e1c7b5dcd7bfae1">4 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9ba52660950982bbc0e38ae16ee524710e942a47">19 Apr 2021</a>
 </div>
 
  <h1 id='header'>Our content delivery network (CDN)</h1> <p>GOV.UK uses Fastly as a CDN. Public users aren&rsquo;t accessing GOV.UK servers directly, they connect via the CDN. This is better because:</p>
@@ -223,66 +223,13 @@
 &lt; X-Timer: &lt;time it took&gt;
 &lt; Vary: Accept-Encoding, Accept-Encoding
 </code></pre></div><p>See the Varnish/Fastly docs for what these mean. Check out the Fastly <a href="https://docs.fastly.com/guides/debugging/checking-cache#using-curl">debugging guide</a> for more details on testing.</p>
-<h2 id='access-controls-on-cache-clearing'>Access controls on cache clearing</h2><p>Our <a href="https://github.com/alphagov/govuk-cdn-config/">Fastly Varnish config</a> restricts HTTP purges to specific IP addresses (otherwise anyone would be able to purge the cache).</p>
+<h2 id='access-controls-on-cache-clearing'>Access controls on cache clearing</h2><p>Our [Fastly Varnish config][vcl_config] restricts HTTP purges to specific IP addresses (otherwise anyone would be able to purge the cache).</p>
 <h2 id='fastly39s-ip-ranges-and-our-access-controls-on-origin-servers'>Fastly&rsquo;s IP ranges and our access controls on origin servers</h2><p>Fastly publish their cache node <a href="https://api.fastly.com/public-ip-list">IP address ranges as JSON from their API</a>. We use these IP addresses in two places:</p>
 
 <ul>
-<li>Origin has <a href="https://github.com/alphagov/govuk-provisioning/blob/master/vcloud-edge_gateway/vars/production_carrenza_vars.yaml">firewall rules</a> in place so that only our office and Fastly can connect. This is updated automatically using the <a href="https://registry.terraform.io/providers/fastly/fastly/latest/docs">Fastly Terraform provider</a> when the <a href="https://github.com/alphagov/govuk-aws/tree/master/terraform/projects/infra-security-groups">infra-security-groups</a> module is deployed. Triggering the deployment is still a manual step though.</li>
-<li>Performance Platform, which is still hosted in Carrenza/6degrees, has similar restrictions in place but this list is updated manually - see below.</li>
+<li>Origin has firewall rules in place so that only our office and Fastly can connect. This is updated automatically using the <a href="https://registry.terraform.io/providers/fastly/fastly/latest/docs">Fastly Terraform provider</a> when the <a href="https://github.com/alphagov/govuk-aws/tree/master/terraform/projects/infra-security-groups">infra-security-groups</a> module is deployed. Triggering the deployment is still a manual step though.</li>
 </ul>
-<p>We have <a href="https://deploy.publishing.service.gov.uk/job/Check_CDN_IP_Ranges/">a Jenkins job &ldquo;Check CDN IP Ranges&rdquo;</a> which will start to fail if the Fastly IPs in our Carrenza/6degrees firewall rules don&rsquo;t match the ones returned from the Fastly API. This check is only relevant for Carrenza/6degrees, which hosts Performance Platform. It does not apply to the rest of GOV.UK.</p>
-<p>Updating the firewall rules in Carrenza with new Fastly IPs is a manual process. The <a href="/manual/raising-issues-with-reliability-engineering.html">SREs currently in Replatforming team</a> can help with this:</p>
-
-<ol>
-<li>You will need to install <a href="https://github.com/vmware/vcd-cli">vcd-cli</a> to use the following scripts.</li>
-<li>Connect to the <a href="/manual/connect-to-vcloud-director.html#connecting-with-cisco-anyconnect">Carrenza VPN</a></li>
-<li>Login to Vcloud director, you can find the organisation name and the credentials attached to it in the password store.</li>
-</ol>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>vcd login vcloud.carrenza.com <span class="o">{</span>organisation<span class="o">}</span> 2nd-line-support@digital.cabinet-office.gov.uk <span class="nt">-V</span> 32.0
-</code></pre></div>
-<ol>
-<li>Find the correct values for $stag_prefix and $prod_prefix in Carrenza and run this script, setting env to either staging or production and put the list of new Fastly IP ranges into fastly_ips as an array</li>
-</ol>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">env</span><span class="o">=</span><span class="nv">$1</span>
-<span class="nv">fastly_ips</span><span class="o">=()</span>
-
-<span class="k">case</span> <span class="nv">$env</span> <span class="k">in</span>
-        <span class="s2">"staging"</span><span class="p">)</span>
-                <span class="nv">dests</span><span class="o">=(</span><span class="k">${</span><span class="nv">stag_prefix</span><span class="k">}</span>.146 <span class="k">${</span><span class="nv">stag_prefix</span><span class="k">}</span>.158 <span class="k">${</span><span class="nv">stag_prefix</span><span class="k">}</span>.155 <span class="k">${</span><span class="nv">stag_prefix</span><span class="k">}</span>.155 <span class="k">${</span><span class="nv">stag_prefix</span><span class="k">}</span>.155 <span class="k">${</span><span class="nv">stag_prefix</span><span class="k">}</span>.157 <span class="k">${</span><span class="nv">stag_prefix</span><span class="k">}</span>.149<span class="o">)</span>
-                <span class="nv">gateway</span><span class="o">=</span><span class="s1">'0e7t-DR-GOVUK-Staging-gateway-LDN'</span>
-                <span class="p">;;</span>
-        <span class="s2">"production"</span><span class="p">)</span>
-                <span class="nv">dests</span><span class="o">=(</span><span class="k">${</span><span class="nv">prod_prefix</span><span class="k">}</span>.82 <span class="k">${</span><span class="nv">prod_prefix</span><span class="k">}</span>.94 <span class="k">${</span><span class="nv">prod_prefix</span><span class="k">}</span>.91 <span class="k">${</span><span class="nv">prod_prefix</span><span class="k">}</span>.91 <span class="k">${</span><span class="nv">prod_prefix</span><span class="k">}</span>.91 <span class="k">${</span><span class="nv">prod_prefix</span><span class="k">}</span>.93 <span class="k">${</span><span class="nv">prod_prefix</span><span class="k">}</span>.85<span class="o">)</span>
-                <span class="nv">gateway</span><span class="o">=</span><span class="s1">'0e7t-GOV_PRODUCTION-gateway01'</span>
-                <span class="p">;;</span>
-        <span class="k">*</span><span class="p">)</span>
-                <span class="nb">echo</span> <span class="s2">"Environment should either be staging or production"</span>
-                <span class="nb">exit </span>1
-                <span class="p">;;</span>
-<span class="k">esac</span>
-
-<span class="nv">ports</span><span class="o">=(</span>443 443 6514 6515 6516 80 443<span class="o">)</span>
-<span class="nv">names</span><span class="o">=(</span>origin API monitoring-1_GOV.UK monitoring-1_Assets monitoring-1_Bouncer apt_mirror Backend_AWS<span class="o">)</span>
-
-<span class="nv">nb_rules</span><span class="o">=</span><span class="k">$((</span> <span class="k">${#</span><span class="nv">fastly_ips</span><span class="p">[@]</span><span class="k">}</span> <span class="o">*</span> <span class="m">7</span> <span class="k">))</span>
-<span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq</span> <span class="nv">$nb_rules</span> <span class="nv">$END</span><span class="si">)</span>
-<span class="k">do
-        </span>vcd gateway services firewall create <span class="nt">--disabled</span> <span class="nt">--name</span> <span class="s2">"NewRule_</span><span class="nv">$i</span><span class="s2">"</span> <span class="nt">--action</span> accept <span class="nt">--type</span> user <span class="nv">$gateway</span>
-<span class="k">done
-
-</span><span class="nv">newrules_ids</span><span class="o">=(</span><span class="sb">`</span>vcd gateway services firewall list <span class="nv">$gateway</span> | <span class="nb">grep</span> <span class="s1">'NewRule_'</span> | <span class="nb">awk</span> <span class="s1">'{print $1'</span><span class="o">}</span><span class="sb">`</span><span class="o">)</span>
-
-<span class="nb">seq</span><span class="o">=</span>0
-<span class="k">for </span>ip <span class="k">in</span> <span class="k">${</span><span class="nv">fastly_ips</span><span class="p">[@]</span><span class="k">}</span>
-<span class="k">do
-        for </span>i <span class="k">in</span> <span class="sb">`</span><span class="nb">seq </span>0 6<span class="sb">`</span>
-        <span class="k">do
-                </span><span class="nv">name</span><span class="o">=</span><span class="s2">"'Fastly </span><span class="nv">$ip</span><span class="s2"> to </span><span class="k">${</span><span class="nv">names</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span><span class="s2">'"</span>
-                vcd gateway services firewall update <span class="nt">--enabled</span> <span class="nt">--name</span> <span class="nv">$name</span> <span class="nt">--source</span> <span class="nv">$ip</span>:ip <span class="nt">--destination</span> <span class="k">${</span><span class="nv">dests</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span>:ip <span class="nt">--service</span> tcp any <span class="k">${</span><span class="nv">ports</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span> <span class="nv">$gateway</span> <span class="k">${</span><span class="nv">newrules_ids</span><span class="p">[</span><span class="nv">$seq</span><span class="p">]</span><span class="k">}</span>
-                <span class="nb">seq</span><span class="o">=</span><span class="k">$((</span><span class="nb">seq</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
-        <span class="k">done
-done</span>
-</code></pre></div><h2 id='banning-ip-addresses-at-the-cdn-edge'>Banning IP addresses at the CDN edge</h2><p>We occasionally decide to ban an IP address at our CDN edge if they exhibit the following behaviour:</p>
+<h2 id='banning-ip-addresses-at-the-cdn-edge'>Banning IP addresses at the CDN edge</h2><p>We occasionally decide to ban an IP address at our CDN edge if they exhibit the following behaviour:</p>
 
 <ul>
 <li>not respecting <a href="https://www.gov.uk/robots.txt">our robots.txt directives</a></li>

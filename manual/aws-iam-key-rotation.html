@@ -175,15 +175,8 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#aws'>AWS</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/eca2820931ad734378d25e123c5dc8a2ed398e33">5 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9ba52660950982bbc0e38ae16ee524710e942a47">19 Apr 2021</a>
 </div>
 
  <h1 id='header'>AWS IAM Key Rotation</h1> <h2 id='overview'>Overview</h2><p>GOV.UK uses <a href="https://docs.aws.amazon.com/en_pv/IAM/latest/UserGuide/id_users.html">AWS IAM</a> accounts to manage applications access to our AWS
@@ -234,7 +227,7 @@ If they haven&rsquo;t, you&rsquo;ll need to follow the manual steps below (and s
 update the spreadsheet with your findings when you&rsquo;re done).</p>
 <p>When searching for keys, keep in consideration that they may be present in
 <a href="https://github.com/alphagov/govuk-secrets">govuk-secrets</a> or in the control panel of 3rd party services, such as Fastly or
-Logit. Keys may also be shared across AWS and Carrenza environments.</p>
+Logit.</p>
 <p>Firstly, search for the key in <a href="https://github.com/alphagov/govuk-secrets">govuk-secrets</a>:</p>
 
 <ul>

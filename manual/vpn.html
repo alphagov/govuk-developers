@@ -134,18 +134,7 @@
     <a href="#header"><span>GOV.UK and Virtual Private Networks (VPNs)</span></a>
     <ul>
       <li>
-        <a href="#vpn-between-live-organisation-and-disaster-recovery-organisation"><span>VPN between live organisation and disaster recovery organisation</span></a>
-      </li>
-      <li>
         <a href="#vpn-between-aws-and-ukcloud-for-licensify-civica-payment-status-requests"><span>VPN between AWS and UKCloud for Licensify Civica payment status requests</span></a>
-        <ul>
-          <li>
-            <a href="#troubleshooting-steps"><span>Troubleshooting Steps</span></a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#vpn-between-live-organisation-in-carrenza-and-aws-during-aws-migration"><span>VPN between live organisation in Carrenza and AWS during AWS migration</span></a>
         <ul>
           <li>
             <a href="#troubleshooting-steps"><span>Troubleshooting Steps</span></a>
@@ -166,23 +155,10 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b0201ced8212ffbd3fdf4c71b63a07be520ecb5f">1 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9ba52660950982bbc0e38ae16ee524710e942a47">19 Apr 2021</a>
 </div>
 
- <h1 id='header'>GOV.UK and Virtual Private Networks (VPNs)</h1> <p>GOV.UK uses several VPNs to connect environments. This page explains what they
-are and what happens if they stop working.</p>
-<h2 id='vpn-between-live-organisation-and-disaster-recovery-organisation'>VPN between live organisation and disaster recovery organisation</h2><p>There&rsquo;s a VPN in each Carrenza environment (currently staging and production)
-which connects the live organisation to the disaster recovery organisation.
-It&rsquo;s used for monitoring the disaster recovery machines and for syncing data to
-them. The VPNs are managed by Carrenza.</p>
-<p>If it goes down, these things will happen:</p>
-
-<ol>
-<li>The machines on the disaster recovery side of the connection will appear as
-unreachable hosts in GOV.UK monitoring</li>
-<li>Data replication will pause</li>
-</ol>
-<h2 id='vpn-between-aws-and-ukcloud-for-licensify-civica-payment-status-requests'>VPN between AWS and UKCloud for Licensify Civica payment status requests</h2><p>There&rsquo;s a VPN between AWS Production (only) and UKCloud Production which exists
+ <h1 id='header'>GOV.UK and Virtual Private Networks (VPNs)</h1> <h2 id='vpn-between-aws-and-ukcloud-for-licensify-civica-payment-status-requests'>VPN between AWS and UKCloud for Licensify Civica payment status requests</h2><p>There&rsquo;s a VPN between AWS Production (only) and UKCloud Production which exists
 only as a workaround for routing certain requests from Licensify to Civica, one
 of Licensify&rsquo;s payment gateways. This is undesirable and <a href="https://trello.com/c/CG5mc7Zi/213-licensify-connection-to-civica-still-goes-via-uk-cloud-and-vpn-from-aws">recorded as
 GOV.UK Tech Debt</a>.</p>
@@ -210,71 +186,6 @@ GOV.UK Tech Debt</a>.</p>
 <li>The pop-up window will disappear and you need to click <code>save changes</code> in put into effect the VPN being now disabled.</li>
 <li>Wait a few minutes and repeat step 7-9 to re-enable the VPN again.</li>
 </ol>
-<h2 id='vpn-between-live-organisation-in-carrenza-and-aws-during-aws-migration'>VPN between live organisation in Carrenza and AWS during AWS migration</h2><p>During the staged migration of the GOV.UK from Carrenza to AWS, there is a VPN
-tunnel to connect the 2 private clouds so that migrated and un-migrated
-services can still access each other during the migration.</p>
-<p>If the VPN goes down, these things will happen:</p>
-
-<ol>
-<li><p>the ping probes between certain virtual machines in AWS and Carrenza will
-fail and these will appear in the Icinga dashboard of GOV.UK</p></li>
-<li><p>services which makes use of the VPN will fail and the relevant
-alerts will appear in Icinga</p></li>
-</ol>
-<h3 id='troubleshooting-steps'>Troubleshooting Steps</h3>
-<ol>
-<li><p>Check that the VPN is <code>UP</code> in the AWS Console by:</p>
-
-<ol>
-<li>log in into the AWS console and assume your role for the given GOV.UK
-environment</li>
-<li>go to the <code>VPC</code> service dashboard, as pictured in Figure 1.0
-<a href="images/aws_carrenza_vpn_aws_console.jpg" rel="noopener noreferrer"><img src="/manual/images/aws_carrenza_vpn_aws_console.jpg" alt="Figure 1.0" /></a>
-Figure 1.0: VPC dashboard in AWS showing the VPN site-to-site status.</li>
-<li>scroll on the left pane of the dashboard and click
-<code>Site-to-Site VPN Connections</code> as shown in step 1 in Figure 1.0</li>
-<li>select the <code>Staging AWS</code> VPN connection as shown in step 2 in Figure 1.0</li>
-<li>select the tab <code>Tunnel Details</code> as shown in step 3 in Figure 1.0</li>
-<li>check the status of the VPN tunnel, in the normal scenario, only <strong>one</strong>
-tunnel will be <code>UP</code> as shown in step 4 in Figure 1.0. The other tunnel is
-<code>DOWN</code> by default.</li>
-</ol>
-<p>If <strong>all</strong> tunnels are down this means there is a VPN issue and you may
-   have to swap to the secondary VPN tunnel.</p></li>
-<li><p>Switching to the secondary VPN tunnel:</p>
-
-<ol>
-<li>log in the Carrenza vCloud interface as described
-<a href="/manual/connect-to-vcloud-director.html">here</a></li>
-<li>click on the &ldquo;Administration&rdquo; button on the interface as shown in step 1
-in Figure 2.0
-<a href="images/carrenza_vcloud_mgmt_console.jpg" rel="noopener noreferrer"><img src="/manual/images/carrenza_vcloud_mgmt_console.jpg" alt="Figure 2.0" /></a>
-Figure 2.0: Carrenza vCloud interface showing the vEdge gateways list</li>
-<li>select the <code>GOV.UK Management</code> virtual data centre and the data
-centre should appear as shown in step 2 in Figure 2.0</li>
-<li>select the <code>Edge Gateways</code> tab as shown in step 3 in Figure 2.0</li>
-<li>right-click the only edge gateway in the list as shown in step 4 in Figure
-2.0 and select <code>Edge Gateway Service...</code>. A new pop-up window will appear
-as shown in Figure 2.1.
-<a href="images/carrenza_vpn_configuration.jpg" rel="noopener noreferrer"><img src="/manual/images/carrenza_vpn_configuration.jpg" alt="Figure 2.1" /></a></li>
-<li>select the <code>enabled</code> (shown by a green tick in the enabled column) AWS VPN
-as shown in step 1 in Figure 2.1. Make a note of it so you remember which
-VPN you are going to disable.
-<strong>Do not select the UKCloud VPN</strong></li>
-<li>click on the <code>edit</code> button as shown in step 2 in Figure 2.1. A new pop-up
-window will appear where you can <code>uncheck</code> the
-<code>Enable this VPN configuration</code> option so that this VPN is disabled. Finally
-select <code>ok</code> to return to the previous pop-up window.</li>
-<li>in the list of VPN connections, select the second AWS VPN tunnel and click
-<code>edit</code> as in step 2 in Figure 2.1 and enable the VPN configuration in the
-new pop-up window.</li>
-<li>finally click on <code>ok</code> as shown in step 3 in Figure 2.1.</li>
-<li>go to the AWS console and check if the other VPN tunnel is now <code>UP</code> and
-the previously active VPN tunnel is <code>DOWN</code>.</li>
-</ol>
-<p>In addition, check that the Icinga ping alerts across the Carrenza-AWS VPN
-   has now been cleared.</p></li>
-</ol>
 
 
   <div class='related-content'>
@@ -299,9 +210,7 @@ the previously active VPN tunnel is <code>DOWN</code>.</li>
           <h4>How to...</h4>
 
           <ul class="govuk-list">
-            <li><a href="/manual/adding-disks-in-vcloud.html">Add a disk to a vCloud machine (Carrenza only)</a></li>
             <li><a href="/manual/ruby.html">Add a new Ruby version</a></li>
-            <li><a href="/manual/connect-to-vcloud-director.html">Connect to vCloud Director (Carrenza only)</a></li>
             <li><a href="/manual/generate-csr.html">Generate a Certificate Signing Request (CSR) for GOV.UK</a></li>
             <li><a href="/manual/rabbitmq.html">Manage RabbitMQ</a></li>
             <li><a href="/manual/auto-scaling-groups.html">Manually resize ASGs (auto scaling groups)</a></li>

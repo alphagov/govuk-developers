@@ -201,7 +201,7 @@
             
   <p><a href='/manual.html#applications'>Applications</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3b22e462cbc33d9707e29fd7623f5ec93bba61fe">13 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9ba52660950982bbc0e38ae16ee524710e942a47">19 Apr 2021</a>
 </div>
 
  <h1 id='header'>Architectural deep-dive of GOV.UK</h1> <p>We can cover a lot of GOV.UK architecture by asking ourselves three questions:</p>
@@ -378,11 +378,10 @@ processed when resources become available. In addition, when we publish a new
 edition, we often want to trigger some other actions as a result. For example,
 we want to send an email to anyone subscribed to that content.</p>
 <p>We use <a href="/manual/sidekiq.html">Sidekiq</a> to manage the background processing. When each Sidekiq
-process is evaluated, a message is put onto a <a href="https://www.rabbitmq.com/">RabbitMQ</a> queue (which runs
-on its own machines in Carrenza and AWS). RabbitMQ is a message broker: when
-a message is broadcast to a RabbitMQ exchange, it forwards the message to its
-consumers. These consumers retrieve the content item and do something in
-response, such as:</p>
+process is evaluated, a message is put onto a <a href="https://www.rabbitmq.com/">RabbitMQ</a> queue.
+RabbitMQ is a message broker: when a message is broadcast to a RabbitMQ
+exchange, it forwards the message to its consumers. These consumers
+retrieve the content item and do something in response, such as:</p>
 
 <ul>
 <li>Clear the page&rsquo;s cache, via the cache-clearing-service</li>

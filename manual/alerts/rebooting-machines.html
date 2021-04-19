@@ -201,7 +201,7 @@
             
   <p><a href='/manual.html#infrastructure'>Infrastructure</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/42bd96e7ff04bb90617f75bf4c6273d559258b47">24 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9ba52660950982bbc0e38ae16ee524710e942a47">19 Apr 2021</a>
 </div>
 
  <h1 id='header'>Reboot a machine</h1> <p>Under normal circumstances most machines reboot automatically when an update is required.
@@ -231,7 +231,6 @@ alerts will tell you if it&rsquo;s a manual reboot, and whether it&rsquo;s in-
 or out-of-hours.</li>
 <li>There is <a href="#rebooting-guidance-for-aws">extra guidance if the machine you are rebooting is in AWS</a>.
 You may wish to pair with the RE interruptible/on call person.</li>
-<li>There are also <a href="#rebooting-guidance-for-carrenza">things to consider when rebooting Carrenza machines</a>.</li>
 </ul>
 <h3 id='rebooting-one-machine'>Rebooting one machine</h3><p>First check whether the machine is safe to reboot. This information is
 stored in puppet in hieradata. For example,
@@ -395,9 +394,7 @@ sync to fail.</p>
           <h4>How to...</h4>
 
           <ul class="govuk-list">
-            <li><a href="/manual/adding-disks-in-vcloud.html">Add a disk to a vCloud machine (Carrenza only)</a></li>
             <li><a href="/manual/ruby.html">Add a new Ruby version</a></li>
-            <li><a href="/manual/connect-to-vcloud-director.html">Connect to vCloud Director (Carrenza only)</a></li>
             <li><a href="/manual/generate-csr.html">Generate a Certificate Signing Request (CSR) for GOV.UK</a></li>
             <li><a href="/manual/rabbitmq.html">Manage RabbitMQ</a></li>
             <li><a href="/manual/auto-scaling-groups.html">Manually resize ASGs (auto scaling groups)</a></li>
