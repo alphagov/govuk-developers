@@ -178,7 +178,7 @@
             
   <p><a href='/manual.html#testing'>Testing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b5ca2dc176873633e32ee2a01bdefdee39f7c435">3 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/1b72430f31aa1d57c93e8da83f53d6aee95932be">20 Apr 2021</a>
 </div>
 
  <h1 id='header'>Pact Broker</h1> <p><a href="https://docs.pact.io/">Pact</a> is a tool for <em>consumer-driven contract testing</em>.
@@ -256,7 +256,7 @@ always be the highest numeric version.</p>
 
 <ul>
 <li>The build should pass.</li>
-<li>It should also be possible to <a href="https://github.com/alphagov/frontend/blob/master/CONTRIBUTING.md#pact-tests">test this locally, if your provider is set up to do so</a>.</li>
+<li>It should also be possible to test this locally e.g. <code>bundle exec rake PACT_URI=&quot;../gds-api-adapters/spec/pacts/gds_api_adapters-collections_organisation_api.json&quot; pact:verify</code>.</li>
 </ul></li>
 <li>Merge the consumer PR, followed by the provider PR.</li>
 </ol>
