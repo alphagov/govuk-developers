@@ -141,14 +141,6 @@
           </li>
         </ul>
       </li>
-      <li>
-        <a href="#reranker-is-not-ok"><span>Reranker is not OK</span></a>
-        <ul>
-          <li>
-            <a href="#how-do-i-investigate-this"><span>How do I investigate this?</span></a>
-          </li>
-        </ul>
-      </li>
     </ul>
   </li>
 </ul>
@@ -170,15 +162,8 @@
     </div>
 
      <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/fa9156352557336ddc2c30af20e59bc5c6b42ea0">15 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/618115d0332c77f8cac3303a543ab75b84fc6e50">21 Apr 2021</a>
 </div>
 
  <h1 id='header'>Search API app healthcheck not ok</h1> <p>See also: <a href="/manual/alerts/app-healthcheck-not-ok.html">how healthcheck alerts work on GOV.UK</a></p>
@@ -195,21 +180,6 @@ is wrong.</p>
 <li>Look at the Search API logs</li>
 <li>Look at the <a href="/manual/alerts/elasticsearch-cluster-health.html">elasticsearch cluster health</a></li>
 <li>Check the status of the Elasticsearch cluster in the AWS console</li>
-</ul>
-<h2 id='reranker-is-not-ok'>Reranker is not OK</h2><p>The Search API uses machine learning to rank search results based on
-analytics data.  If this alert fires, something has gone wrong with
-that process and we&rsquo;re serving results as they were ordered by
-elasticsearch.</p>
-<p>Unlike the other healthcheck failures, this does not mean that Search
-API is serving errors.  Only that it is serving potentially worse
-results.</p>
-<p>The machine learning model is hosted in <a href="https://aws.amazon.com/sagemaker/">Amazon SageMaker</a>.</p>
-<h3 id='how-do-i-investigate-this'>How do I investigate this?</h3><p>Find out why the Search API can&rsquo;t connect to elasticsearch.</p>
-
-<ul>
-<li>Look at the error message in the healthcheck response</li>
-<li>Look at the Search API logs</li>
-<li>Check the status of the SageMaker endpoint in the AWS console</li>
 </ul>
 
 
