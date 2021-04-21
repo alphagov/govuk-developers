@@ -413,50 +413,30 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>Signon is a centralised OAuth2 based single sign-on provider for GDS services
-that provides username/password and 2-Factor authentication.</p>
-
-<h2 id="live-example">Live example</h2>
-
-<p><a href="https://signon.integration.publishing.service.gov.uk">Integration Environment Signon</a></p>
+<p>Signon is a centralised OAuth2 based single sign-on provider for GDS services that provides username/password and 2-Factor authentication.</p>
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p><a href="https://github.com/plataformatec/devise">Devise</a> is used to provide username
-password sign-in, and <a href="https://github.com/applicake/doorkeeper/">Doorkeeper</a>
-as an OAuth 2 provider.</p>
+<p><a href="https://github.com/plataformatec/devise">Devise</a> is used to provide username password sign-in, and <a href="https://github.com/applicake/doorkeeper">Doorkeeper</a> as an OAuth 2 provider. Details of our interpretation of OAuth are provided in <a href="/apps/signon/oauth.html">an accompanying document</a>.</p>
 
-<p>Details of our interpretation of OAuth are provided in
-<a href="/apps/signon/oauth.html">an accompanying document</a></p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<h2 id="dependencies">Dependencies</h2>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow the <a href="https://github.com/alphagov/govuk-docker#usage">usage instructions</a> to get started.</p>
 
-<p><a href="https://github.com/alphagov/signon/blob/master/Gemfile">Various Rubygems</a></p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
-<p>MySQL for data storage.</p>
-
-<p>Redis/Sidekiq for ActiveJob asynchronous tasks</p>
-
-<h2 id="running-the-application">Running the application</h2>
-
-<p>The web application itself is run like any other Rails app, for example:</p>
-
-<pre lang="sh"><code>script/rails s
-</code></pre>
-
-<p>In development, you can run sidekiq to process background jobs:</p>
-
-<pre lang="sh"><code>bundle exec sidekiq -C config/sidekiq.yml
-</code></pre>
-
-<h2 id="running-the-test-suite">Running the test suite</h2>
+<h3 id="running-the-test-suite">Running the test suite</h3>
 
 <pre lang="sh"><code>bundle exec rake
 </code></pre>
 
-<h2 id="setup-and-usage">Setup and usage</h2>
+<h2 id="further-documentation">Further documentation</h2>
 
-<p>See accompanying <a href="/apps/signon/usage.html">Usage Documentation</a></p>
+<ul>
+<li><a href="/apps/signon/usage.html">Usage documentation</a></li>
+<li><a href="/apps/signon/mass_password_reset.html">Mass password reset</a></li>
+<li><a href="/apps/signon/troubleshooting.html">Troubleshooting</a></li>
+</ul>
 
 <h2 id="license">License</h2>
 
