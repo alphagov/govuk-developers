@@ -167,22 +167,15 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#data-gov-uk'>data.gov.uk</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3eb7708e902df4b5578a4a364a41422809d388ef">9 Apr 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/55cbbabcd7fe7d13d18177f294d7e9edd7872d55">22 Apr 2021</a>
 </div>
 
  <h1 id='header'>Monitor data.gov.uk</h1> <p><a href="https://grafana-paas.cloudapps.digital/d/rk9fSapik/data-gov-uk-2nd-line?orgId=1">dgu-dashboard</a></p>
 <h2 id='prometheus'>Prometheus</h2><p>There are two dashboards: <a href="https://grafana-paas.cloudapps.digital/d/rk9fSapik/data-gov-uk-2nd-line?orgId=1">DGU for 2nd line</a> displays a summary overview of key stats (including queue length), and <a href="https://grafana-paas.cloudapps.digital/d/xonj40imk/data-gov-uk?refresh=1m&amp;orgId=1">DGU Apps Dashboard</a> which shows the health of each app deployment (a drop-down menu on the dashboard allows the PaaS app to be selected).</p>
 <p>Metrics are exposed to Prometheus through a <code>/metrics</code> endpoint from the PaaS-team maintained <a href="https://reliability-engineering.cloudapps.digital/manuals/set-up-paas-metric-exporter-with-prometheus.html#configure-container-metrics">paas-metric-exporter</a> app.  This provides separate stats for each app running in the DGU space on the PaaS.</p>
 <p>Two additional apps expose <code>/metrics</code> endpoints which summarise the state of various parts of data.gov.uk.  These are <a href="https://github.com/alphagov/datagovuk_publish_queue_monitor">datagovuk_publish_queue_monitor</a> for the state of the Sidekiq queues used to sync data between CKAN and Publish, and <a href="https://github.com/alphagov/datagovuk_publish_elasticsearch_monitor">datagovuk-publish-elasticsearch-monitor</a> for monitoring the Elasticsearch indices.</p>
-<h2 id='pingdom'>Pingdom</h2><p>Pingdom monitors <code>https://data.gov.uk</code> uptime and alerts <a href="https://govuk.pagerduty.com/">PagerDuty</a> when downtime is detected. Maintenace of this service forms part of <code>#govuk-2nd-line</code>.</p>
+<h2 id='pingdom'>Pingdom</h2><p><a href="/manual/pingdom.html">Pingdom</a> monitors <code>https://data.gov.uk</code> uptime and alerts <a href="https://govuk.pagerduty.com/">PagerDuty</a> when downtime is detected. Maintenace of this service forms part of <code>#govuk-2nd-line</code>.</p>
 <h2 id='sentry'>Sentry</h2><p><a href="https://sentry.io/govuk/">Sentry</a> monitors application errors. The Sentry pages for each app can be found on the <a href="/apps/datagovuk_find.html">Find</a> and <a href="/apps/datagovuk_publish.html">Publish</a> app pages.</p>
 <h2 id='log-it'>Log.it</h2><p>Each application sends logs to <a href="https://logit.io/a/1c6b2316-16e2-4ca5-a3df-ff18631b0e74">Logit</a>. <a href="/apps/datagovuk_publish.html">Publish</a> and <a href="/apps/datagovuk_find.html">Find</a> use the corresponding <a href="https://docs.cloud.service.gov.uk/#set-up-the-logit-io-log-management-service">PaaS Service</a>. Example query: <code>source_host: &quot;gds-data-gov-uk.data-gov-uk.find-data-beta&quot; &amp;&amp; access.response_code: 500</code>.</p>
 <h2 id='data-gov-uk-production-dashboard'>Data.gov.uk production dashboard</h2><p>You can view the <a href="https://grafana-paas.cloudapps.digital/d/rk9fSapik/data-gov-uk-2nd-line?orgId=1">DGU dashboard</a> to get an overview of DGU that includes Find 4xx and 5xx, Publish elasticsearch index size and Sidekiq metrics.</p>

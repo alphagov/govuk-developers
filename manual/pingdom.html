@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Add an Icinga passive check to a Jenkins job - GOV.UK Developer Documentation</title>
+    <title>Pingdom - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/add-an-icinga-passive-check.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/pingdom.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Add an Icinga passive check to a Jenkins job - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/add-an-icinga-passive-check.html" />
+      <meta name="twitter:title" content="Pingdom - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/pingdom.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="Add an Icinga passive check to a Jenkins job" />
+      <meta property="og:title" content="Pingdom" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/add-an-icinga-passive-check.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/pingdom.html" />
 
     
   </head>
@@ -131,7 +131,15 @@
                   <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
   <ul>
   <li>
-    <a href="#header"><span>Add an Icinga passive check to a Jenkins job</span></a>
+    <a href="#header"><span>Pingdom</span></a>
+    <ul>
+      <li>
+        <a href="#access-pingdom"><span>Access Pingdom</span></a>
+      </li>
+      <li>
+        <a href="#add-a-pingdom-check"><span>Add a Pingdom check</span></a>
+      </li>
+    </ul>
   </li>
 </ul>
 
@@ -144,46 +152,37 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
             
   <p><a href='/manual.html#monitoring'>Monitoring</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6852435e8962726b7cb9e2d0ec2c6cedaf2465ca">28 Feb 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b707863f1175cd8af3b1be0d15b81cd523e75643">22 Apr 2021</a>
 </div>
 
- <h1 id='header'>Add an Icinga passive check to a Jenkins job</h1> <p>If you would like Icinga to raise an alert when a Jenkins job has not completed
-successfully in a while, you can add an Icinga passive check to the Jenkins job
-by configuring Puppet.</p>
+ <h1 id='header'>Pingdom</h1> <p>GOV.UK uses <a href="https://www.pingdom.com/">Pingdom</a> to monitor the external availability of our services, integrating with <a href="/manual/pagerduty.html">PagerDuty</a> to notify developers if a service becomes unavailable (owing to a DNS issue or network misconfiguration, for example).</p>
+<p>Our internal monitoring tool, <a href="https://github.com/alphagov/smokey">Smokey</a>, is not as reliable at detecting problems like these, as it runs on the same local network as our services, and thus can&rsquo;t necessarily guarantee for us that users can reach our services.</p>
+<p>Pingdom operates by making pre-defined requests at a regular interval (typically 1 minute) and if it returns a non-success response it will deem the host as down. After a suitable threshold (typically 5 minutes) of downtime it will alert that the host is down.</p>
+<h2 id='access-pingdom'>Access Pingdom</h2><p>GOV.UK account credentials for Pingdom are available in <a href="https://github.com/alphagov/govuk-secrets">govuk-secrets</a> via the <a href="https://github.com/alphagov/govuk-secrets/tree/master/pass">2nd line password store</a> under <code>monitoring/pingdom</code>.</p>
+<h2 id='add-a-pingdom-check'>Add a Pingdom check</h2><p>Before you add a new check, see if an existing check covers your use case. For example, it&rsquo;s beneficial to have a single check on the <code>assets.publishing.service.gov.uk</code> hostname, as this determines an external user can reach that host. However, there&rsquo;d be no benefit in checking for <em>assets</em> served on that host, which should already be covered by internal tests in Smokey or Asset Manager, and from which we learn nothing extra if making the requests externally.</p>
+<p>These instructions are for adding a standard HTTP request check.</p>
 
 <ol>
-<li><p>Add a <a href="https://github.com/alphagov/govuk-puppet/blob/ddf7d9f0a921638a0fd3e9b69121e766722ddacf/modules/govuk_jenkins/templates/jobs/production/copy_data_to_staging.yaml.erb#L59-L69">parameterized build trigger</a> to the Jenkins job you wish to monitor
-in Puppet, so that the success or failure of the job builds will be reported
-to Icinga.</p></li>
-<li><p>If the alert should be a warning rather than a critical alert, configure the
-alert level by setting the status code parameter in the build trigger
-configured in the previous step (<a href="https://github.com/alphagov/govuk-puppet/pull/6118/commits/f162bbd0e7ff9497b4e0b2963121593cda83f3aa#diff-f1cd3cc148bc84dc0ded35ef53cb0dd9R42">example</a>):</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code> NSCA_CODE=1
-</code></pre></div><p>Valid values are 0 = OK, 1 = warning, 2 = critical, 3 = unknown. The
- default is 2.</p></li>
-<li><p>Configure an <code>icinga::passive_check</code> <a href="https://github.com/alphagov/govuk-puppet/blob/984ddd98fd81a529cb2ed3215be3c7f0a2a08acd/modules/govuk_jenkins/manifests/job/copy_data_to_integration.pp#L29-L35">exported resource</a> in the Puppet
-manifest file for the Jenkins job you wish to monitor, making sure that the
-service description matches the one used to configure the build trigger
-above.</p>
-<p>You will need to determine an appropriate &lsquo;freshness threshold&rsquo;, which
- determines how much time can pass, in seconds, before Icinga will raise a
- &lsquo;freshness threshold alert&rsquo;.  You should allow enough time for the interval
- between scheduled builds, plus the time it usually takes the job to run,
- plus a little extra in case the job takes longer than usual.</p></li>
-<li><p>Strongly consider creating a page in this manual which explains the alert and
-suggests how to resolve it.</p>
-<p>In the page metadata, configure the section to be <code>Icinga alerts</code>.</p>
-<p>Update the <code>icinga::passive_check</code> puppet settings added in the previous
-step: configure the <code>notes_url</code> so that it links to your new page.</p></li>
-<li><p>Deploy Puppet.</p></li>
+<li>In Pingdom, visit the <a href="https://my.pingdom.com/app/newchecks/checks">uptime</a>
+section and click &ldquo;Add new&rdquo;.</li>
+<li>Name your check based on the service you are monitoring.</li>
+<li>Leave the default check interval at 1 minute.</li>
+<li>Select the &ldquo;HTTP(S) check&rdquo;.</li>
+<li>Enter the URL you are monitoring.</li>
+<li>Leave the location as the default (North America/Europe).</li>
+<li>Leave &ldquo;Check importance&rdquo; at the default of &ldquo;High importance&rdquo;, we don&rsquo;t have
+different configurations for High or Low importance</li>
+<li>Select &ldquo;GOV.UK 2nd line support&rdquo; in the &ldquo;Who to alert?&rdquo; section and
+uncheck &ldquo;Platform Team&rdquo;. This will mean the 2nd line support email is
+notified when services are down for long enough to alert.</li>
+<li>Leave &ldquo;When down, alert after&rdquo; at the default value of 5 minutes, this
+offers a buffer against alerting for a short lived spike.</li>
+<li>Update the &ldquo;Customized message&rdquo; to capture any links to documentation
+or specific steps that would help someone if they received this alert.</li>
+<li>In the &ldquo;Webhook&rdquo; section check the PagerDuty integration, this will mean in
+and out of hours support team are called up when the service is down and the
+alert threshold has passed.</li>
 </ol>
 
 
@@ -214,10 +213,10 @@ step: configure the <code>notes_url</code> so that it links to your new page.</p
           <h4>How to...</h4>
 
           <ul class="govuk-list">
+            <li><a href="/manual/add-an-icinga-passive-check.html">Add an Icinga passive check to a Jenkins job</a></li>
             <li><a href="/manual/nagios-nrpe-connection-failures.html">Debug Nagios NRPE connection failures</a></li>
             <li><a href="/manual/debug-underperforming-search.html">Debug underperforming search</a></li>
             <li><a href="/manual/errors.html">How we handle errors</a></li>
-            <li><a href="/manual/pingdom.html">Pingdom</a></li>
             <li><a href="/manual/nagstamon.html">Use Nagstamon for monitoring Icinga</a></li>
           </ul>
         </div>
@@ -231,8 +230,8 @@ step: configure the <code>notes_url</code> so that it links to your new page.</p
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/add-an-icinga-passive-check.html.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'Add%20an%20Icinga%20passive%20check%20to%20a%20Jenkins%20job'&amp;body=Problem%20with%20'Add%20an%20Icinga%20passive%20check%20to%20a%20Jenkins%20job'%20(https://docs.publishing.service.gov.uk/manual/add-an-icinga-passive-check.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/pingdom.html.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'Pingdom'&amp;body=Problem%20with%20'Pingdom'%20(https://docs.publishing.service.gov.uk/manual/pingdom.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
