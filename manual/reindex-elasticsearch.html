@@ -161,7 +161,7 @@
             
   <p><a href='/manual.html#publishing'>Publishing</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/06b2cbfb6513626ddce20ac2962810b1d8fd6fcd">5 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5f88ba15421985a11bd5b5d9db13ae0e488ff427">22 Apr 2021</a>
 </div>
 
  <h1 id='header'>Reindex an Elasticsearch index</h1> <p>After updating an Elasticsearch index&rsquo;s schema by <a href="/apis/search/add-new-fields-or-document-types.html">changing the fields or
@@ -230,7 +230,9 @@ age:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>rake search:timed_clean MAX_INDEX_AGE=number_of_days SEARCH_INDEX=alias_of_index_to_clean_up
 </code></pre></div><p>This is running in a Jenkins job that clears any index over 7 days old, and will always leave at least one inactive index available (typically the
   newest one created) alongside the active index for backup purposes.</p>
-<h3 id='troubleshooting'>Troubleshooting</h3><h4 id='to-stop-the-reindexing-job'>To stop the reindexing job</h4><p>If you need to cancel the reindexing while it&rsquo;s in progress:</p>
+<h3 id='troubleshooting'>Troubleshooting</h3><h4 id='failed-to-switch-to-new-index'>Failed to switch to new index</h4><p>The final part of the reindex is to switch Elasticsearch over to the newly created indexes. We&rsquo;ve noticed recently that this isn&rsquo;t always successful. It appears to be that if content is written to the database while the reindex task is running, the task will fail at the end as it detects a difference in the data.</p>
+<p><strong>Re-running the reindex task usually fixes this.</strong></p>
+<h4 id='to-stop-the-reindexing-job'>To stop the reindexing job</h4><p>If you need to cancel the reindexing while it&rsquo;s in progress:</p>
 
 <ol>
 <li>Stop the reindexing rake task</li>
