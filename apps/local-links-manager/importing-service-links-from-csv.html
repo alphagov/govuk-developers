@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>release: Release API - GOV.UK Developer Documentation</title>
+    <title>local-links-manager: Importing Service Links from a CSV - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/release/api.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/local-links-manager/importing-service-links-from-csv.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="release: Release API - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/release/api.html" />
+      <meta name="twitter:title" content="local-links-manager: Importing Service Links from a CSV - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/importing-service-links-from-csv.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="release: Release API" />
+      <meta property="og:title" content="local-links-manager: Importing Service Links from a CSV" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/release/api.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/local-links-manager/importing-service-links-from-csv.html" />
 
     
   </head>
@@ -172,7 +172,7 @@
             <li><a href="/apps/local-links-manager/exporting-local-authority-links.html"><span>Exporting Local Authority links to services</span></a></li>
             <li><a href="/apps/local-links-manager/google_analytics_custom_import.html"><span>Authorisation for Google Analytics custom import</span></a></li>
             <li><a href="/apps/local-links-manager/importing-local-authorities-data.html"><span>Importing Local Authorities data</span></a></li>
-            <li><a href="/apps/local-links-manager/importing-service-links-from-csv.html"><span>Importing Service Links from a CSV</span></a></li>
+            <li><a href="/apps/local-links-manager/importing-service-links-from-csv.html" class="toc-link--in-view"><span>Importing Service Links from a CSV</span></a></li>
         </ul>
     </li>
     <li>
@@ -392,7 +392,7 @@
     <li>
       <a href="/apps/release.html"><span>release</span></a>
         <ul>
-            <li><a href="/apps/release/api.html" class="toc-link--in-view"><span>Release API</span></a></li>
+            <li><a href="/apps/release/api.html"><span>Release API</span></a></li>
         </ul>
     </li>
     <li>
@@ -653,37 +653,28 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/release/commit/6f279e8cfae022f692d024c806e0d145837518bb">15 May 2020</a>
+  Last updated: <a href="https://github.com/alphagov/local-links-manager/commit/b638d21a89ffb01baab7e480529081c8ad452dea">21 Apr 2021</a>
 </div>
 
-  <h1 class="page-title">release: Release API</h1>
+  <h1 class="page-title">local-links-manager: Importing Service Links from a CSV</h1>
 
   
-<p>The Release app exposes information about GOV.UK applications a RESTful API.</p>
-<p>Current implemented endpoints are oulined below:</p>
-<h2 id="show-application-get-applicationsid-json">Show Application: GET <code>/applications/:id.json</code>
-</h2>
-<p>Get information about a specific application where <code>:id</code> is the application shortname.</p>
-<h3 id="success-response">Success Response</h3>
-<p>Code: <code>200 OK</code></p>
-<p>Examples:</p>
-<pre lang="json"><code>{
-   "name": "Smart Answers",
-   "shortname": "smartanswers",
-   "archived": false,
-   "deploy_freeze": true,
-   "notes": "",
-   "repository_url": "https://github.com/alphagov/smart-answers",
-   "hosted_on_aws": true
-}
+<p><code>bundle exec rake import:service_links[lgsl_code lgil_code filename]</code> provides the ability to mass import local authority service links.</p>
+<h2 id="why">Why?</h2>
+<p>This is useful in a situation where a new service is added nationally. Every local authority running the new service will have a page on their website to provide information about the service. Usually the url would be added for a service through the user interface.</p>
+<h3 id="data-format">Data format</h3>
+<p>A CSV with the headings <code>slug</code> and <code>url</code> needs to be placed somewhere it can be read in by the script (accessed by the <code>filename</code> argument).</p>
+<p>Example:</p>
+<p><code>test-data.csv</code></p>
+<pre><code>slug,url
+milton-keynes,http://www.milton-keynes.gov.uk/new-service
+brighton-and-hove,http://www.brighton-hove.gov.uk/new-service
+</code></pre>
+<h3 id="running-the-script">Running the script</h3>
+<p><code>govuk-docker-run bundle exec rake import:service_links[123,8,test-data.csv]</code></p>
+<p>To run on anything other than a local environment, the CSV needs to be added manually to the <code>/tmp</code> directory using <code>scp-push</code>. If there are multiple machine classes, the CSV will need to be added to the <code>/tmp</code> directory for each of them.</p>
+<pre><code>$ scp-push --environment [integration|staging|integration] name-of-machine[:1|:2|:3] path/to/file.ext /tmp/
 </code></pre>
 
 
@@ -692,8 +683,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/release/blob/main/docs/api.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/release/api.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/local-links-manager/blob/master/docs/importing-service-links-from-csv.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/local-links-manager/importing-service-links-from-csv.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
