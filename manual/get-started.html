@@ -218,7 +218,7 @@
             
   <p><a href='/manual.html#learning-gov-uk'>Learning GOV.UK</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/7c255afbbf6ccf43d889c6f7b72c05bf02b8ead6">28 Jan 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/714b4a598e0a8688b9bce7b44dd863b86fcb16a8">26 Apr 2021</a>
 </div>
 
  <h1 id='header'>Get started on GOV.UK</h1> <p>This is the guide for new technical staff working on GOV.UK in <a href="https://gds.blog.gov.uk/about/">GDS</a>. If you just joined, 👋 welcome!</p>
@@ -256,10 +256,6 @@ brew <span class="nb">install </span>gds-cli govuk-connect
 gds config yubikey <span class="nb">false</span> <span class="c"># If you type MFA codes from your phone</span>
 </code></pre></div><h2 id='4-connecting-to-the-gds-vpn'>4. Connecting to the GDS VPN</h2><p>Access to our infrastructure and internal services is controlled by IP safelisting. If you&rsquo;re outside of the office or not on the Brattain network (ie, you&rsquo;re on GovWiFi), you&rsquo;ll need to connect to the GDS VPN to access our stuff.</p>
 <p>To do this, read <a href="https://sites.google.com/a/digital.cabinet-office.gov.uk/gds/working-at-the-white-chapel-building/it-the-white-chapel-building/how-to/gds-vpn">the GDS Wiki page about the VPN</a> to ensure you have the required pre-requisites, for example the Cisco AnyConnect software installed on your computer, and an MFA token given to you when you arrived by GDS IT. If you don&rsquo;t have these, <a href="https://gdshelpdesk.digital.cabinet-office.gov.uk/helpdesk/WebObjects/Helpdesk.woa">contact the IT helpdesk</a>.</p>
-<p>The <code>gds-cli</code> tool that we installed earlier has a <code>vpn</code> subcommand.</p>
-<p>To connect to the VPN, run <code>gds vpn connect</code> and you&rsquo;ll be asked for a password and MFA code. The password is the one you use to login to your GDS-issued laptop, printers, or the Cisco AnyConnect VPN GUI.</p>
-<p>To disconnect, run <code>gds vpn disconnect</code>.</p>
-<p>If you&rsquo;re here, you&rsquo;re probably using a GDS-issued laptop. If for any reason you&rsquo;re on your own device, or a GDS-issued Linux laptop, you&rsquo;ll need to run <code>gds vpn configure-byod-profiles</code> first as the non-GDS-assured VPN is a little different.</p>
 <h2 id='5-set-up-govuk-docker'>5. Set up govuk-docker</h2><p>We use a Docker environment - <a href="https://github.com/alphagov/govuk-docker/blob/master/README.md">govuk-docker</a> - for local development.</p>
 <p>👉 <a href="/manual/intro-to-docker.html">Learn about how we use Docker</a></p>
 <p>👉 <a href="https://github.com/alphagov/govuk-docker/blob/master/README.md">Get setup with govuk-docker</a></p>
