@@ -199,7 +199,7 @@
             
   <p><a href='/manual.html#applications'>Applications</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/7d4f9ae6cb832ad0464a39f75b5e33f3e2c11e98">16 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/632e8aaa23e4eef1b345dbcd82e0f0376834c0df">26 Apr 2021</a>
 </div>
 
  <h1 id='header'>Set up a new Rails application</h1> <h2 id='before-you-start'>Before you start</h2><p>Before you create a Ruby on Rails (“Rails”) app, you must complete all steps in the <a href="https://docs.publishing.service.gov.uk/manual/get-started.html">GOV.UK developer get started documentation</a>.</p>
@@ -297,7 +297,8 @@
 </code></pre></div></li>
 <li><p>Replace the content of <code>config/routes.rb</code> with the following:</p>
 <div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">routes</span><span class="p">.</span><span class="nf">draw</span> <span class="k">do</span>
-  <span class="n">get</span> <span class="s2">"/healthcheck"</span><span class="p">,</span> <span class="ss">to: </span><span class="no">GovukHealthcheck</span><span class="p">.</span><span class="nf">rack_response</span>
+  <span class="n">get</span> <span class="s2">"/healthcheck/live"</span><span class="p">,</span> <span class="ss">to: </span><span class="nb">proc</span> <span class="p">{</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="p">{},</span> <span class="sx">%w[OK]</span><span class="p">]</span> <span class="p">}</span>
+  <span class="n">get</span> <span class="s2">"/healthcheck/ready"</span><span class="p">,</span> <span class="ss">to: </span><span class="no">GovukHealthcheck</span><span class="p">.</span><span class="nf">rack_response</span>
 <span class="k">end</span>
 </code></pre></div></li>
 <li><p>Configure linting for your Rails app to make sure the app&rsquo;s code is consistent with other GOV.UK apps. Find out more information about <a href="https://docs.publishing.service.gov.uk/manual/configure-linting.html">configuring linting</a>.</p></li>
