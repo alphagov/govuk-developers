@@ -654,7 +654,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/d3274643fe678e6f4e3b9eeeff5c5acccf22cfba">15 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/fbef364240d7aa6a4a3c083ff3f305e0209dc8f9">26 Apr 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -692,7 +692,6 @@ management. This API is not for other government services.</p>
 <li><a href="#unknown-attribute-names">Unknown attribute names</a></li>
 </ul>
 </li>
-<li><a href="#healthcheck">Healthcheck</a></li>
 </ul>
 <h2 id="nomenclature">Nomenclature</h2>
 <h3 id="identity-provider">Identity provider</h3>
@@ -1188,17 +1187,6 @@ The <code>attributes</code> response field lists these.</p>
 </li>
 <li>check that you are running the latest version of account-api</li>
 </ul>
-<h2 id="healthcheck">Healthcheck</h2>
-<p>A database health check endpoint is available at <code>/healthcheck</code>.</p>
-<pre lang="json"><code>{
-  "checks": {
-    "database_connectivity": {
-      "status": "ok"
-    }
-  },
-  "status": "ok"
-}
-</code></pre>
 
 
             
