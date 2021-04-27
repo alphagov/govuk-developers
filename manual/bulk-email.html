@@ -159,13 +159,19 @@
             
   <p><a href='/manual.html#emails'>Emails</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/351540c5c4c36f283bd6d8178e7528512ea27fe6">7 Jan 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/08b4c95752323724e80d5b910d2f542802eedb2f">27 Apr 2021</a>
 </div>
 
  <h1 id='header'>Send a bulk email</h1> <p>Sometimes it may be necessary to send a bulk email to many subscribers at once.
-There is <a href="https://github.com/alphagov/email-alert-api/blob/3a3eaaa59e71e03427021ba730c626ecdf107ccd/lib/tasks/bulk.rake#L2-L9">a Rake task in email-alert-api</a> to peform this task and
+There is <a href="https://github.com/alphagov/email-alert-api/blob/3a3eaaa59e71e03427021ba730c626ecdf107ccd/lib/tasks/bulk.rake#L2-L9">a Rake task in email-alert-api</a> to perform this task and
 it&rsquo;s <a href="https://deploy.blue.production.govuk.digital/job/send-bulk-email/">available as a job in Jenkins</a>.</p>
-<h2 id='1-prepare-the-content'>1. Prepare the content</h2><p>The format for the body text is <a href="https://www.notifications.service.gov.uk/using-notify/guidance/edit-and-format-messages">a limited subset of markdown</a>. A footer will be automatically appended to the specified body text. The footer will have links to unsubscribe and manage subscriptions. We should always provide users with these options, to help avoid our emails being marked as spam.</p>
+<h2 id='1-prepare-the-content'>1. Prepare the content</h2><p>You&rsquo;ll need:</p>
+
+<ul>
+<li>Email subject line</li>
+<li>Email body text</li>
+</ul>
+<p>The body text can contain <a href="https://www.notifications.service.gov.uk/using-notify/guidance/edit-and-format-messages">a limited subset of markdown</a>. A footer will be automatically appended to the body text. The footer will have links to unsubscribe and manage subscriptions. We should always provide users with these options, to help avoid our emails being marked as spam.</p>
 <p>Any occurrence of <code>%LISTURL%</code> in the body text will be substituted with the URL of the subscriber list, or an empty string if it has none. This is useful when sending the same email across many lists, where the content of the email needs to link to the specific page on GOV.UK associated with the list. You should check the lists you want to send a bulk email for, to see if they have a URL populated (it&rsquo;s a recent addition).</p>
 <h2 id='2-get-the-subscriber-lists'>2. Get the subscriber lists</h2><p>Next you&rsquo;ll need to get the IDs of all the subscriber lists to send the email
 out to. This will require querying the email-alert-api <code>SubscriberList</code> model.</p>
