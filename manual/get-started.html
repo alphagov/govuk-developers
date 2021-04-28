@@ -218,7 +218,7 @@
             
   <p><a href='/manual.html#learning-gov-uk'>Learning GOV.UK</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/714b4a598e0a8688b9bce7b44dd863b86fcb16a8">26 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/31ac24733f23f19aa1b0b72bebf67fa603bd91e6">28 Apr 2021</a>
 </div>
 
  <h1 id='header'>Get started on GOV.UK</h1> <p>This is the guide for new technical staff working on GOV.UK in <a href="https://gds.blog.gov.uk/about/">GDS</a>. If you just joined, 👋 welcome!</p>
@@ -377,7 +377,8 @@ Enter token <span class="k">for </span>arn:aws:iam::123456789012:mfa/firstname.l
 <li>Re-initialise the <code>gds-cli</code> by changing <code>initialised: true</code> in <code>~/.gds/config.yml</code> to <code>initialised: false</code>.</li>
 <li>Then re-run the &ldquo;First run&rdquo; commands above.</li>
 </ol>
-<h3 id='get-your-role'>Get Your Role</h3><p>Work out which <a href="/manual/set-up-aws-account.html#4-get-the-appropriate-access">list of users you&rsquo;re part of in govuk-aws-data</a>.
+<h3 id='get-your-role'>Get Your Role</h3><p>Work out which <a href="https://github.com/alphagov/govuk-aws-data/blob/master/data/infra-security/integration/common.tfvars">list of users you&rsquo;re part of in govuk-aws-data</a>.
+If you&rsquo;re not part of any lists, add yourself to the appropriate list (or get someone in your team to do it).
 You&rsquo;re about to use it in the &lsquo;Web Console&rsquo; section below.</p>
 <h3 id='usage'>Usage</h3><h4 id='web-console'>Web Console</h4><p>If you want to look around in integration:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds aws govuk-integration-readonly <span class="nt">-l</span>
