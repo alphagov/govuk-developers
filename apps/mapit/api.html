@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>static: test-ecommerce-changes-to-static - GOV.UK Developer Documentation</title>
+    <title>mapit: Example API output - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/static/test-ecommerce-changes-to-static.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/mapit/api.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="static: test-ecommerce-changes-to-static - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/static/test-ecommerce-changes-to-static.html" />
+      <meta name="twitter:title" content="mapit: Example API output - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/mapit/api.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="static: test-ecommerce-changes-to-static" />
+      <meta property="og:title" content="mapit: Example API output" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/static/test-ecommerce-changes-to-static.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/mapit/api.html" />
 
     
   </head>
@@ -335,7 +335,7 @@
       <a href="/apps/mapit.html"><span>mapit</span></a>
         <ul>
             <li><a href="/apps/mapit/about-datasets.html"><span>About datasets</span></a></li>
-            <li><a href="/apps/mapit/api.html"><span>Example API output</span></a></li>
+            <li><a href="/apps/mapit/api.html" class="toc-link--in-view"><span>Example API output</span></a></li>
             <li><a href="/apps/mapit/importing-data.html"><span>MapIt - import postcode and boundary data</span></a></li>
             <li><a href="/apps/mapit/testing-server.html"><span>Testing a server with an updated Mapit database</span></a></li>
         </ul>
@@ -478,7 +478,7 @@
             <li><a href="/apps/static/image-optimisation.html"><span>Image optimisation</span></a></li>
             <li><a href="/apps/static/slimmer_templates.html"><span>Slimmer Templates</span></a></li>
             <li><a href="/apps/static/surveys.html"><span>Running test surveys on GOV.UK</span></a></li>
-            <li><a href="/apps/static/test-ecommerce-changes-to-static.html" class="toc-link--in-view"><span>test-ecommerce-changes-to-static</span></a></li>
+            <li><a href="/apps/static/test-ecommerce-changes-to-static.html"><span>test-ecommerce-changes-to-static</span></a></li>
         </ul>
     </li>
     <li>
@@ -654,342 +654,362 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/static/commit/854faadee5ce63adebc51c6650f466c359363689">9 Jun 2020</a>
+  Last updated: <a href="https://github.com/alphagov/mapit/commit/0c99b921e4382499a4973a15b672b1c80313e851">28 Apr 2021</a>
 </div>
 
-  <h1 class="page-title">static: test-ecommerce-changes-to-static</h1>
+  <h1 class="page-title">mapit: Example API output</h1>
 
   
-<p>Changes to static can have an impact to tracking across multiple frontend apps.
-Whilst unit and feature tests exist, it might make sense to run some manual tests until we have stabalised the eCommerce code.</p>
-<h2 id="apps-using-ecommerce">Apps using Ecommerce</h2>
-<p><strong>Actual as of 2020-03-12</strong></p>
-<ul>
-<li>Search
-<ul>
-<li>Results</li>
-<li>Ajax Ecommerce spelling suggestions</li>
-</ul>
-</li>
-<li>Finders</li>
-<li>Brexit/Transition Checker results pages</li>
-</ul>
-<p><strong>Proposed as of 2020-03-12</strong></p>
-<ul>
-<li>Mainstream browse</li>
-<li>Topic (specialist) browse</li>
-<li>Taxon pages</li>
-<li>Navigation header:
-<ul>
-<li>Whitehall version</li>
-<li>Global (static) version</li>
-</ul>
-</li>
-</ul>
-<h2 id="manual-testing-scripts">Manual testing Scripts</h2>
-<h3 id="searchfinder">Search/Finder</h3>
-<p><strong>Go to a finder and do not search</strong></p>
-<ol>
-<li>Go to a search/finder page without a search term
-<ul>
-<li>[ ] Check that ecommerce tracking is being passed with no search term</li>
-</ul>
-</li>
-<li>Click on a search result
-<ul>
-<li>[ ] Check that ecommerce tracking is being passed. Only navFinderClicked event tracking (current finder event tracking)</li>
-</ul>
-</li>
-</ol>
-<p><strong>Search from search and finder</strong></p>
-<ol>
-<li>Enter a search term on page
-<ul>
-<li>[ ] Check that the dimensions are being passed with the results pageview</li>
-</ul>
-</li>
-<li>Click on a result
-<ul>
-<li>[ ] Check that event click - UX is fired with all correct ecommerce dimensions</li>
-</ul>
-</li>
-<li>Go back
-<ul>
-<li>[ ] Check that the dimensions are being passed with the results pageview</li>
-</ul>
-</li>
-</ol>
-<p><strong>Search from site (search/all only)</strong></p>
-<ol>
-<li>Search from any page on site</li>
-<li>Land on search results - ensuring search results are sorted by relevant first
-<ul>
-<li>[ ] Check that the dimensions are being passed with the pageview</li>
-</ul>
-</li>
-<li>Click on a result
-<ul>
-<li>[ ] Check that event click - UX is fired with all correct ecommerce dimensions</li>
-</ul>
-</li>
-<li>Go back
-<ul>
-<li>[ ] Check that the dimensions are being passed with the pageview</li>
-</ul>
-</li>
-<li>Enter a search term on page
-<ul>
-<li>[ ] Check that the dimensions are being passed with the pageview</li>
-</ul>
-</li>
-<li>Click on a result
-<ul>
-<li>[ ] Check that event click - UX is fired with all correct ecommerce dimensions</li>
-</ul>
-</li>
-</ol>
-<p><strong>Using other sort options on search &amp; finder</strong></p>
-<ol>
-<li>Go to a finder
-<ul>
-<li>[ ] Check that ecommerce tracking is being passed with no search term</li>
-</ul>
-</li>
-<li>Enter a search term on page
-<ul>
-<li>[ ] Check that the dimensions are being passed with the pageview</li>
-</ul>
-</li>
-<li>Click on a result
-<ul>
-<li>[ ] Check that event click - UX is fired with all correct ecommerce dimensions</li>
-</ul>
-</li>
-<li>Sort by updated(newest)/most viewed
-<ul>
-<li>[ ] Check that ecommerce tracking is being passed</li>
-</ul>
-</li>
-<li>Click on a result
-<ul>
-<li>[ ] Check that ecommerce tracking is being passed with search term</li>
-</ul>
-</li>
-</ol>
-<p><strong>Using other refine options on search &amp; finder</strong></p>
-<ol>
-<li>Search with a search term
-<ul>
-<li>[ ] Check that the dimensions are being passed with the pageview</li>
-</ul>
-</li>
-<li>Search with another search term
-<ul>
-<li>[ ] Check that the dimensions are being passed with the pageview and that it is against the correct search term and the correct page url is shown in full</li>
-</ul>
-</li>
-<li>Click on a result
-<ul>
-<li>[ ] Check that correct dimensions are being passed and that it is against the correct search term (2nd refined search term)</li>
-</ul>
-</li>
-</ol>
-<h3 id="search-spelling">Search - Spelling</h3>
-<p><strong>Search from any page, then click a spelling suggestion</strong></p>
-<ol>
-<li>Go to any non-search/finder page, and enter a misspelled search term in the search box, which takes you to the search results page</li>
-</ol>
-<ul>
-<li>
-<strong>In the pageview (for UA-26179049-1):</strong>
-<ul>
-<li>[ ] Custom dimension 81 is the spelling suggestion text</li>
-<li>[ ] All other page custom dimensions included as usual</li>
-</ul>
-</li>
-<li>
-<strong>In the pageview:</strong>
-<ul>
-<li>[ ] Impression list 'Search spelling suggestion' (containing 1 product)</li>
-<li>[ ] Impression list product 1 dimension 71 is the actual misspelled search term</li>
-<li>[ ] Impression list product 1 ID is dd395436-9b40-41f3-8157-740a453ac972</li>
-<li>[ ] Also the main impression list 'Search' containing up to 20 products for the search results</li>
-</ul>
-</li>
-</ul>
-<ol start="2">
-<li>Click on the spelling suggestion</li>
-</ol>
-<ul>
-<li>
-<p><strong>In the event:</strong></p>
-<ul>
-<li>[ ] Product 1 dimension 71 is the original misspelled search term</li>
-<li>[ ] Product 1 ID is dd395436-9b40-41f3-8157-740a453ac972</li>
-<li>[ ] Product Action List is 'Search spelling suggestions'</li>
-</ul>
-</li>
-<li>
-<p><strong>In the event:</strong></p>
-<ul>
-<li>[ ] Custom dimension 81 is the suggested search term clicked</li>
-<li>[ ] All other page custom dimensions included as usual</li>
-</ul>
-</li>
-<li>
-<p><strong>In the event:</strong></p>
-<ul>
-<li>[ ] Impression list should NOT be visible here</li>
-</ul>
-</li>
-<li>
-<p><strong>In the new pageview:</strong></p>
-<ul>
-<li>[ ] Page path parameter tbc contains the original mispelled keyword, while parameter 'keywords=' contains the new corrected keyword as usual</li>
-<li>[ ] No spelling suggestion shown on the new results page.</li>
-</ul>
-</li>
-<li>
-<p><strong>In the new pageview:</strong></p>
-<ul>
-<li>[ ] Impression list 'Search' as normal</li>
-<li>[ ] No impression list 'Search spelling suggestions'</li>
-</ul>
-</li>
-</ul>
-<p><strong>Search from any page, then click a search result</strong></p>
-<ol>
-<li>Go to any non-search/finder page, and enter a misspelled search term in the search box, which takes you to the search results page</li>
-</ol>
-<ul>
-<li>
-<strong>In the pageview (for UA-26179049-1):</strong>
-<ul>
-<li>[ ] Custom dimension 81 is the spelling suggestion text</li>
-<li>[ ] All other page custom dimensions included as usual</li>
-</ul>
-</li>
-<li>
-<strong>In the pageview:</strong>
-<ul>
-<li>[ ] Impression list 'Search spelling suggestion' (containing 1 product)</li>
-<li>[ ] Impression list product 1 dimension 71 is the actual misspelled search term</li>
-<li>[ ] Impression list product 1 ID is dd395436-9b40-41f3-8157-740a453ac972</li>
-<li>[ ] Also the main impression list 'Search' containing up to 20 products for the search results</li>
-</ul>
-</li>
-</ul>
-<ol start="2">
-<li>Click on any search result</li>
-</ol>
-<ul>
-<li>
-<strong>In the event:</strong>
-<ul>
-<li>[ ] Product Action List is 'Search'</li>
-<li>[ ] Product ID and position match the result you clicked</li>
-<li>[ ] Product dimension 71 is the original mispelled search term</li>
-</ul>
-</li>
-<li>
-<strong>In the event</strong>
-<ul>
-<li>[ ] Impression list should NOT be visible here</li>
-</ul>
-</li>
-</ul>
-<p><strong>Search for a mispelled term that returns a suggestion but no results</strong></p>
-<ol>
-<li>Enter a misspelled search term that has no results but does have a spelling suggestion
-**In the results pageview:</li>
-</ol>
-<ul>
-<li>[ ] Impression list 'Search spelling suggestion' appears, with product 1 as above
-In the results pageview:</li>
-<li>[ ] Custom dimension 5 has the value 0</li>
-</ul>
-<p><strong>Search for a correctly spelled term</strong></p>
-<ol>
-<li>Enter a common search term that is not misppelled and does not return a spelling suggestion
-<strong>In the results pageview:</strong>
-</li>
-</ol>
-<ul>
-<li>[ ] Impression list 'Search' appears as usual</li>
-<li>[ ] Impresson list 'Search spelling suggestions' does not appear</li>
-<li>[ ] Custom dimension 81 does not appear</li>
-</ul>
-<h3 id="brexittransition-results">Brexit/Transition - Results</h3>
-<p><strong>A very long URL</strong></p>
-<ol>
-<li>Visit <a href="https://www.gov.uk/transition-check/results?c%5B%5D=aero-space&amp;c%5B%5D=automotive&amp;c%5B%5D=electronic-machinery&amp;c%5B%5D=install-service-repair&amp;c%5B%5D=marine-transport&amp;c%5B%5D=rail-manufacture&amp;c%5B%5D=agriculture-farm&amp;c%5B%5D=animal-ex-food&amp;c%5B%5D=fish-inc-wholesale&amp;c%5B%5D=forestry&amp;c%5B%5D=vet&amp;c%5B%5D=personal-service&amp;c%5B%5D=legal-service&amp;c%5B%5D=charity&amp;c%5B%5D=voluntary&amp;c%5B%5D=construction&amp;c%5B%5D=environment&amp;c%5B%5D=defence&amp;c%5B%5D=electricity&amp;c%5B%5D=nuclear&amp;c%5B%5D=oil-gas-coal&amp;c%5B%5D=renewables&amp;c%5B%5D=media&amp;c%5B%5D=creative&amp;c%5B%5D=gamble&amp;c%5B%5D=sports&amp;c%5B%5D=culture&amp;c%5B%5D=finance&amp;c%5B%5D=insurance&amp;c%5B%5D=real-estate&amp;c%5B%5D=health&amp;c%5B%5D=medical-tech&amp;c%5B%5D=pharma&amp;c%5B%5D=digital&amp;c%5B%5D=telecoms&amp;c%5B%5D=consumer-goods&amp;c%5B%5D=chemical&amp;c%5B%5D=diamond&amp;c%5B%5D=metal&amp;c%5B%5D=mining&amp;c%5B%5D=non-metal-material&amp;c%5B%5D=justice-including-prisons&amp;c%5B%5D=public-administration&amp;c%5B%5D=education&amp;c%5B%5D=research&amp;c%5B%5D=food-drink-tobacco&amp;c%5B%5D=motor-trade&amp;c%5B%5D=retail-wholesale-x-food-drink-motors&amp;c%5B%5D=accommodation&amp;c%5B%5D=restaurants-catering&amp;c%5B%5D=tourism&amp;c%5B%5D=air-passenger-freight&amp;c%5B%5D=port-airports&amp;c%5B%5D=postal-couriers&amp;c%5B%5D=rail-passenger-freight&amp;c%5B%5D=road-passenger-freight&amp;c%5B%5D=warehouse-pipeline&amp;c%5B%5D=import-from-eu&amp;c%5B%5D=export-to-eu&amp;c%5B%5D=provide-services-do-business-in-eu&amp;c%5B%5D=haulage-goods-across-eu-borders&amp;c%5B%5D=ip&amp;c%5B%5D=ip-copyright&amp;c%5B%5D=ip-trade-marks&amp;c%5B%5D=ip-designs&amp;c%5B%5D=ip-patents&amp;c%5B%5D=ip-exhaustion-rights&amp;c%5B%5D=sell-public-sector&amp;c%5B%5D=sell-public-sector-contracts&amp;c%5B%5D=sell-defence-contracts&amp;c%5B%5D=eu-uk-funding&amp;c%5B%5D=personal-eu-org&amp;c%5B%5D=personal-eu-org-process&amp;c%5B%5D=personal-eu-org-use&amp;c%5B%5D=personal-eu-org-provide&amp;c%5B%5D=employ-eu-citizens&amp;c%5B%5D=owns-operates-business-organisation&amp;c%5B%5D=visiting-driving&amp;c%5B%5D=visiting-bring-pet&amp;c%5B%5D=visiting-ie&amp;c%5B%5D=visiting-eu&amp;c%5B%5D=visiting-row&amp;c%5B%5D=travel-eu-business&amp;c%5B%5D=working-uk&amp;c%5B%5D=working-ie&amp;c%5B%5D=working-eu&amp;c%5B%5D=studying-uk&amp;c%5B%5D=studying-ie&amp;c%5B%5D=studying-eu&amp;c%5B%5D=retired&amp;c%5B%5D=living-uk&amp;c%5B%5D=nationality-uk">a very large set of results</a>
-</li>
-</ol>
-<ul>
-<li>Check that the dimensions are being passed to a page view
-<ul>
-<li>[ ] Each action is listed as a product</li>
-<li>[ ] Each action is grouped by the subheading</li>
-<li>[ ] Each action has an index appropriate to its group</li>
-</ul>
-</li>
-</ul>
-<ol start="2">
-<li>Click on a guidance URL</li>
-</ol>
-<ul>
-<li>[ ] Check that the dimensions are being passed to a click event</li>
-</ul>
-<ol start="3">
-<li>Click on a title URL</li>
-</ol>
-<ul>
-<li>[ ] Check that the dimensions are being passed to a click event</li>
-</ul>
-<p><strong>A URL with just one choice</strong></p>
-<ol>
-<li>Visit <a href="https://www.gov.uk/transition-check/results?c%5B%5D=travel-eu-business&amp;c%5B%5D=working-uk&amp;c%5B%5D=working-ie&amp;c%5B%5D=living-uk&amp;c%5B%5D=nationality-uk">a small large set of results</a>
-</li>
-</ol>
-<ul>
-<li>Check that the dimensions are being passed to a page view
-<ul>
-<li>[ ] Each action is listed as a product</li>
-<li>[ ] Each action is grouped by the subheading</li>
-<li>[ ] Each action has an index appropriate to its group2) Click on a guidance URL</li>
-</ul>
-</li>
-<li>[ ] Check that the dimensions are being passed to a click event</li>
-</ul>
-<ol start="3">
-<li>Click on a title URL</li>
-</ol>
-<ul>
-<li>[ ] Check that the dimensions are being passed to a click event</li>
-</ul>
-<p><strong>A no questions answered page</strong></p>
-<ol>
-<li>Visit <a href="https://www.gov.uk/transition-check/results">A results page with no questions</a>
-</li>
-</ol>
-<p><strong>A results page with no actions</strong></p>
-<ol>
-<li>Visit <a href="https://www.gov.uk/transition-check/results?c%5B%5D=nationality-uk">A results page with no actions</a>
-</li>
-</ol>
-<h2 id="references">References</h2>
-<ul>
-<li><a href="https://docs.google.com/spreadsheets/d/1BFkhVA0z3XgdgtZBJ5DQ7B7zHhPafohfT-9h9xpTWbw/efdit#gid=0">Harriet's checklist for Ecommerce finder/search checks</a></li>
-<li><a href="https://docs.google.com/spreadsheets/d/1ZurYvYs2PLrlqOU4S0TrkbeIB8VjUG8L6ixUTp11SpY/edit#gid=0%5D">Tara's checklist for Ecommerce search checks</a></li>
-</ul>
+<h2 id="to-fetch-information-about-all-european-parliamentary-constituencies">To fetch information about all European parliamentary constituencies:</h2>
+<p><code>curl http://mapit.dev.gov.uk/areas/EUR.json -H 'Content-type: application/json'</code></p>
+<pre lang="json"><code>{
+  "9558":
+  {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9558,
+    "codes": {
+      "ons": "06",
+      "gss": "E15000006",
+      "unit_id": "41425"
+    },
+    "name": "Eastern",
+    "country": "E",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "EUR"
+  },
+  "9559": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9559,
+    "codes": {
+      "ons": "04",
+      "gss": "E15000004",
+      "unit_id": "41423"
+    },
+    "name": "East Midlands",
+    "country": "E",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "EUR"
+  },
+  "9560": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9560,
+    "codes": {
+      "ons": "07",
+      "gss": "E15000007",
+      "unit_id": "41428"
+    },
+    "name": "London",
+    "country": "E",
+    "type_name":
+    "European region",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "EUR"
+  },
+  "9566": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9566,
+    "codes": {
+      "ons": "01",
+      "gss": "E15000001",
+      "unit_id": "41422"
+    },
+    "name": "North East",
+    "country": "E",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "EUR"
+  },
+  "12233": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 12233,
+    "codes": {
+      "osni_oid": "EUR-1",
+      "gss": "N07000001"
+    },
+    "name": "Northern Ireland",
+    "country": "N",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "Northern Ireland",
+    "type": "EUR"
+  },
+  "9561": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9561,
+    "codes": {
+      "ons": "02",
+      "gss": "E15000002",
+      "unit_id": "41431"
+    },
+    "name": "North West",
+    "country": "E",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "EUR"
+  },
+  "9562": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9562,
+    "codes": {
+      "gss": "S15000001",
+      "unit_id": "41429"
+    },
+    "name": "Scotland",
+    "country": "S",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "Scotland",
+    "type": "EUR"
+  },
+  "9565": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9565,
+    "codes": {
+      "ons": "08",
+      "gss": "E15000008",
+      "unit_id": "41421"
+    },
+    "name": "South East",
+    "country": "E",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "EUR"
+  },
+  "9568": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9568,
+    "codes": {
+      "ons": "09",
+      "gss": "E15000009",
+      "unit_id": "41427"
+    },
+    "name": "South West",
+    "country": "E",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "EUR"
+  },
+  "9567": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9567,
+    "codes": {
+      "ons": "10",
+      "gss": "W08000001",
+      "unit_id": "41424"
+    },
+    "name": "Wales",
+    "country": "W",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "Wales",
+    "type": "EUR"
+  },
+  "9563": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9563,
+    "codes": {
+      "ons": "05",
+      "gss": "E15000005",
+      "unit_id": "41426"
+    },
+    "name": "West Midlands",
+    "country": "E",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "EUR"
+  },
+  "9564": {
+    "parent_area": null,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 9564,
+    "codes": {
+      "ons": "03",
+      "gss": "E15000003",
+      "unit_id": "41430"
+    },
+    "name": "Yorkshire and the Humber",
+    "country": "E",
+    "type_name": "European region",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "EUR"
+  }
+}
+</code></pre>
+<h2 id="to-fetch-information-about-a-single-postcode">To fetch information about a single postcode:</h2>
+<p><code>curl http://mapit.dev.gov.uk/postcode/sw1a+1aa.json -H 'Content-type: application/json'</code></p>
+<pre lang="json"><code>{
+  "wgs84_lat": 51.50086373251905,
+  "coordsyst": "G",
+  "shortcuts": {
+    "WMC": 11135,
+    "ward": 7037,
+    "council": 1974
+  },
+  "wgs84_lon": -0.14320717529002294,
+  "postcode": "SW1A 1AA",
+  "easting": 528978,
+  "areas": {
+    "1974": {
+      "parent_area": null,
+      "generation_high": 1,
+      "all_names": {},
+      "id": 1974,
+      "codes": {
+        "ons": "00BK",
+        "gss": "E09000033",
+        "unit_id": "11164"
+      },
+      "name": "City of Westminster Borough Council",
+      "country": "E",
+      "type_name": "London borough",
+      "generation_low": 1,
+      "country_name": "England",
+      "type": "LBO"
+    },
+    "9582": {
+      "parent_area": 1750,
+      "generation_high": 1,
+      "all_names": {},
+      "id": 9582,
+      "codes": {
+        "ons": "",
+        "gss": "E32000014",
+        "unit_id": "41449"
+      },
+      "name": "West Central",
+      "country": "E",
+      "type_name": "London Assembly constituency",
+      "generation_low": 1,
+      "country_name": "England",
+      "type": "LAC"
+    },
+    "1750": {
+      "parent_area": null,
+      "generation_high": 1,
+      "all_names": {},
+      "id": 1750,
+      "codes": {
+        "unit_id": "41441"
+      },
+      "name": "Greater London Authority",
+      "country": "E",
+      "type_name": "Greater London Authority",
+      "generation_low": 1,
+      "country_name": "England",
+      "type": "GLA"
+    },
+    "9560": {
+      "parent_area": null,
+      "generation_high": 1,
+      "all_names": {},
+      "id": 9560,
+      "codes": {
+        "ons": "07",
+        "gss": "E15000007",
+        "unit_id": "41428"
+      },
+      "name": "London",
+      "country": "E",
+      "type_name": "European region",
+      "generation_low": 1,
+      "country_name": "England",
+      "type": "EUR"
+    },
+    "7037": {
+      "parent_area": 1974,
+      "generation_high": 1,
+      "all_names": {},
+      "id": 7037,
+      "codes": {
+        "ons": "00BKGQ",
+        "gss": "E05000644",
+        "unit_id": "11162"
+      },
+      "name": "St James's",
+      "country": "E",
+      "type_name": "London borough ward",
+      "generation_low": 1,
+      "country_name": "England",
+      "type": "LBW"
+    },
+    "11135": {
+      "parent_area": null,
+      "generation_high": 1,
+      "all_names": {},
+      "id": 11135,
+      "codes": {
+        "ons": "B11",
+        "gss": "E14000639",
+        "unit_id": "25040"
+      },
+      "name": "Cities of London and Westminster",
+      "country": "E",
+      "type_name": "UK Parliament constituency",
+      "generation_low": 1,
+      "country_name": "England",
+      "type": "WMC"
+    }
+  },
+  "northing": 179626
+}
+</code></pre>
+<h2 id="to-search-for-areas-by-name">To search for areas by name:</h2>
+<p><code>curl https://mapit.integration.publishing.service.gov.uk/areas/owl.json -H 'Content-type: application/json'</code></p>
+<pre lang="json"><code>{
+  "8197": {
+    "parent_area": 2027,
+    "generation_high": 1,
+    "all_names": {},
+    "id": 8197,
+    "codes": {
+      "ons": "00MANK",
+      "gss": "E05002284",
+      "unit_id": "397"
+    },
+    "name": "Owlsmoor",
+    "country": "E",
+    "type_name": "Unitary Authority ward (UTW)",
+    "generation_low": 1,
+    "country_name": "England",
+    "type": "UTW"
+  }
+}
+</code></pre>
 
 
             
@@ -997,8 +1017,8 @@ In the results pageview:</li>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/static/blob/master/docs/test-ecommerce-changes-to-static.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/static/test-ecommerce-changes-to-static.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/mapit/blob/master/docs/api.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/mapit/api.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
