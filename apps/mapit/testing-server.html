@@ -655,7 +655,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/mapit/commit/fad7ea4dc41d175533f12ff51af4e66ef97c3ec2">5 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/mapit/commit/f326a6068aa64eaa818cc5c5dcd16945fc9111db">29 Apr 2021</a>
 </div>
 
   <h1 class="page-title">mapit: Testing a server with an updated Mapit database</h1>
@@ -751,7 +751,7 @@ run it on rather than replaying traffic from production. Useful when
 upgrading production environments, perhaps less so for upgrading other
 environments.</p>
 <h2 id="running-the-test-samples-script">Running the test samples script</h2>
-<p>For a more comprehensive test, you can use the <a href="https://github.com/alphagov/mapit/blob/master/test-samples.sh">test-samples.sh</a>
+<p>For a more comprehensive test, you can use the <a href="https://github.com/alphagov/mapit/blob/main/test-samples.sh">test-samples.sh</a>
 script, which needs to be run before and after a database upgrade:</p>
 <pre><code>$ your laptop&gt; ssh mapit-1.production
 $ mapit-1&gt; sudo su - root /var/apps/mapit/test-samples.sh sample
@@ -774,7 +774,7 @@ unique to each area, but an area can change code, for example when boundaries
 change. If this happens, you might have to change some of our apps to use the
 new codes instead of the old ones.</p>
 <p>Our forked repo of MapIt contains a file [<code>mapit_gb/data/authorities.json</code>]
-(<a href="https://github.com/alphagov/mapit/blob/master/mapit_gb/data/authorities.json">https://github.com/alphagov/mapit/blob/master/mapit_gb/data/authorities.json</a>)
+(<a href="https://github.com/alphagov/mapit/blob/main/mapit_gb/data/authorities.json">https://github.com/alphagov/mapit/blob/main/mapit_gb/data/authorities.json</a>)
 which contains a list of Local Authorities, their slugs and their GSS codes.
 During the import (invoked by the <code>import-uk-onspd</code> script), the GSS codes are
 used to match to the areas in MapIt that represent LocalAuthorities and the

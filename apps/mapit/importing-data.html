@@ -655,7 +655,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/mapit/commit/3892dd1cd083a1836b5326fcc908c58cd08de3c0">2 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/mapit/commit/f326a6068aa64eaa818cc5c5dcd16945fc9111db">29 Apr 2021</a>
 </div>
 
   <h1 class="page-title">mapit: MapIt - import postcode and boundary data</h1>
@@ -854,13 +854,13 @@ $ sudo -u deploy govuk_setenv mapit venv3/bin/python manage.py mapit_UK_show_mis
 You may have output similar to this if these councils have had some updates, and
 you will have to make some additional updates in the code:</p>
 <ul>
-<li>Missing ONS/GSS codes are added in <a href="https://github.com/alphagov/mapit/blob/master/mapit_gb/management/commands/mapit_UK_add_missing_codes.py">mapit_UK_add_missing_codes.py</a>, see <a href="https://github.com/alphagov/mapit/commit/532f3e88ce0f5dea64b8f7eede6fb80605648e21">this example</a>
+<li>Missing ONS/GSS codes are added in <a href="https://github.com/alphagov/mapit/blob/main/mapit_gb/management/commands/mapit_UK_add_missing_codes.py">mapit_UK_add_missing_codes.py</a>, see <a href="https://github.com/alphagov/mapit/commit/532f3e88ce0f5dea64b8f7eede6fb80605648e21">this example</a>
 </li>
-<li>An ONS/GSS code might need to be updated, or council names updated/removed in <a href="https://github.com/alphagov/mapit/blob/master/mapit_gb/data/authorities.json">authorities.json</a>, see <a href="https://github.com/alphagov/mapit/commit/b4d96ffa6160cfa9a8414383b96e6f1a8fa01b71">this example</a>
+<li>An ONS/GSS code might need to be updated, or council names updated/removed in <a href="https://github.com/alphagov/mapit/blob/main/mapit_gb/data/authorities.json">authorities.json</a>, see <a href="https://github.com/alphagov/mapit/commit/b4d96ffa6160cfa9a8414383b96e6f1a8fa01b71">this example</a>
 </li>
 <li>If there are merged/abolished authorities, to prevent it from being flagged in the
 next import's output (and potentially add to the confusion), you can add them to the
-exception list in <a href="https://github.com/alphagov/mapit/blob/master/mapit_gb/management/commands/mapit_UK_add_override_names_to_local_authorities.py#L41">mapit_UK_add_override_names_to_local_authorities.py</a> and <a href="https://github.com/alphagov/mapit/blob/master/mapit_gb/management/commands/mapit_UK_add_slugs_to_local_authorities.py#L36">mapit_UK_add_slugs_to_local_authorities.py</a>. You can also check if the authority
+exception list in <a href="https://github.com/alphagov/mapit/blob/main/mapit_gb/management/commands/mapit_UK_add_override_names_to_local_authorities.py#L41">mapit_UK_add_override_names_to_local_authorities.py</a> and <a href="https://github.com/alphagov/mapit/blob/main/mapit_gb/management/commands/mapit_UK_add_slugs_to_local_authorities.py#L36">mapit_UK_add_slugs_to_local_authorities.py</a>. You can also check if the authority
 is still active on <a href="https://findthatpostcode.uk/areas/E07000191.html">https://findthatpostcode.uk</a>
 </li>
 </ul>
@@ -998,7 +998,7 @@ information is missing or needs to be corrected. Searching for the data on
 might also be helpful. Also see <a href="#useful-database-queries">useful database queries</a>.</p>
 <p>You can also search for the area by its ONS code on the ONS website e.g.
 <a href="http://statistics.data.gov.uk/atlas/resource?uri=http://statistics.data.gov.uk/id/statistical-geography/S17000011">http://statistics.data.gov.uk/atlas/resource?uri=http://statistics.data.gov.uk/id/statistical-geography/S17000011</a></p>
-<p>You can manually fix it by adding a correction in <a href="https://github.com/alphagov/mapit/blob/master/mapit/management/find_parents.py">mapit/management/find_parents.py</a>. See <a href="https://github.com/alphagov/mapit/commit/5b2ede155a157d7d69883a6a0197513bcbcca4bb">this example</a>
+<p>You can manually fix it by adding a correction in <a href="https://github.com/alphagov/mapit/blob/main/mapit/management/find_parents.py">mapit/management/find_parents.py</a>. See <a href="https://github.com/alphagov/mapit/commit/5b2ede155a157d7d69883a6a0197513bcbcca4bb">this example</a>
 and <a href="https://github.com/alphagov/mapit/pull/70/files#diff-8e70109ed476fd7c998d2cd2a051297478b15d926e4c4d7645361197276292eeR203">this example</a>
 for more information.</p>
 
