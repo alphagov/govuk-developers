@@ -654,15 +654,8 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/specialist-publisher/commit/7eebe7ab41d6aba9dff71f4bf9c0dfe5f9d9b2d2">17 Sep 2018</a>
+  Last updated: <a href="https://github.com/alphagov/specialist-publisher/commit/09bb30ebd9c1bac6d3562ed48cbd1899e137b93e">29 Apr 2021</a>
 </div>
 
   <h1 class="page-title">specialist-publisher: Creating a new specialist document format</h1>
@@ -674,7 +667,7 @@ application, [govuk-content-schemas][govuk-content-schemas] and
 applications.</p>
 <h2 id="create-a-new-specialist-document-format-in-specialist-publisher">Create a new specialist document format in Specialist Publisher</h2>
 <h3 id="create-the-schema">Create the schema</h3>
-<p>See <a href="https://github.com/alphagov/specialist-publisher/blob/master/lib/documents/schemas/cma_cases.json">CMA cases</a>.</p>
+<p>See <a href="https://github.com/alphagov/specialist-publisher/blob/main/lib/documents/schemas/cma_cases.json">CMA cases</a>.</p>
 <p>You'll need to generate your own UUIDs for it, e.g.:</p>
 <pre><code>$ irb
 irb(main):001:0&gt; require "securerandom"
@@ -683,19 +676,19 @@ irb(main):002:0&gt; SecureRandom.uuid
 =&gt; "5087e8b6-ee54-40f9-b592-8c2813c7037d"
 </code></pre>
 <h3 id="create-the-model">Create the model</h3>
-<p>See <a href="https://github.com/alphagov/specialist-publisher/blob/master/app/models/cma_case.rb">CMA cases</a></p>
+<p>See <a href="https://github.com/alphagov/specialist-publisher/blob/main/app/models/cma_case.rb">CMA cases</a></p>
 <h3 id="create-the-view-template">Create the view template</h3>
-<p><a href="https://github.com/alphagov/specialist-publisher/blob/master/app/views/metadata_fields/_cma_cases.html.erb">CMA cases</a></p>
+<p><a href="https://github.com/alphagov/specialist-publisher/blob/main/app/views/metadata_fields/_cma_cases.html.erb">CMA cases</a></p>
 <h2 id="configure-rummager">Configure rummager</h2>
 <h3 id="add-the-schema">Add the schema</h3>
 <p>Rummager needs a copy of a schema very similar to the one in Specialist Publisher.</p>
-<p>See <a href="https://github.com/alphagov/rummager/blob/master/config/schema/elasticsearch_types/cma_case.json">the CMA case schema</a>, <a href="https://github.com/alphagov/rummager/blob/master/config/schema/indexes/govuk.json">the main ES types list</a> and <a href="https://github.com/alphagov/rummager/blob/1700c85e1484d1d9b2c1d46f276326bc06b51a14/config/schema/field_definitions.json">the field definitions</a>.</p>
+<p>See <a href="https://github.com/alphagov/rummager/blob/main/config/schema/elasticsearch_types/cma_case.json">the CMA case schema</a>, <a href="https://github.com/alphagov/rummager/blob/main/config/schema/indexes/govuk.json">the main ES types list</a> and <a href="https://github.com/alphagov/rummager/blob/1700c85e1484d1d9b2c1d46f276326bc06b51a14/config/schema/field_definitions.json">the field definitions</a>.</p>
 <h3 id="tell-rummager-about-the-format">Tell Rummager about the format</h3>
 <ul>
-<li><a href="https://github.com/alphagov/rummager/blob/master/config/govuk_index/migrated_formats.yaml">migrated_formats.yaml</a></li>
-<li><a href="https://github.com/alphagov/rummager/blob/master/config/govuk_index/mapped_document_types.yaml">mapped_document_types.yaml</a></li>
-<li><a href="https://github.com/alphagov/rummager/blob/master/lib/govuk_index/presenters/elasticsearch_presenter.rb">elasticsearch_presenter.rb</a></li>
-<li><a href="https://github.com/alphagov/rummager/blob/master/lib/govuk_index/presenters/specialist_presenter.rb">specialist_presenter.rb</a></li>
+<li><a href="https://github.com/alphagov/rummager/blob/main/config/govuk_index/migrated_formats.yaml">migrated_formats.yaml</a></li>
+<li><a href="https://github.com/alphagov/rummager/blob/main/config/govuk_index/mapped_document_types.yaml">mapped_document_types.yaml</a></li>
+<li><a href="https://github.com/alphagov/rummager/blob/main/lib/govuk_index/presenters/elasticsearch_presenter.rb">elasticsearch_presenter.rb</a></li>
+<li><a href="https://github.com/alphagov/rummager/blob/main/lib/govuk_index/presenters/specialist_presenter.rb">specialist_presenter.rb</a></li>
 </ul>
 <h2 id="add-a-schema-to-govuk-content-schemas">Add a schema to govuk-content-schemas</h2>
 <ol>
