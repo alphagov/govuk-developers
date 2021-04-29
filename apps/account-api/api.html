@@ -655,7 +655,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/fbef364240d7aa6a4a3c083ff3f305e0209dc8f9">26 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/c7541d1ca0f52e375bc657f5bf8288eb5fcd25fd">28 Apr 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -690,6 +690,7 @@ management. This API is not for other government services.</p>
 <li>
 <a href="#api-errors">API errors</a>
 <ul>
+<li><a href="#level-of-authentication-too-low">Level of authentication too low</a></li>
 <li><a href="#unknown-attribute-names">Unknown attribute names</a></li>
 </ul>
 </li>
@@ -1013,6 +1014,7 @@ end
 <h4 id="response-codes">Response codes</h4>
 <ul>
 <li>422 if any attributes are unknown (see <a href="#unknown-attribute-names">error: unknown attribute names</a>)</li>
+<li>403 if the session's level of authentication is too low (see <a href="#level-of-authentication-too-low">error: level of authentication too low</a>)</li>
 <li>401 if the session identifier is invalid</li>
 <li>200 otherwise</li>
 </ul>
@@ -1064,6 +1066,7 @@ end
 <h4 id="response-codes">Response codes</h4>
 <ul>
 <li>422 if any attributes are unknown (see <a href="#unknown-attribute-names">error: unknown attribute names</a>)</li>
+<li>403 if the session's level of authentication is too low (see <a href="#level-of-authentication-too-low">error: level of authentication too low</a>)</li>
 <li>401 if the session identifier is invalid</li>
 <li>200 otherwise</li>
 </ul>
@@ -1178,6 +1181,14 @@ the following format:</p>
 }
 </code></pre>
 <p>Each error type may define additional response fields.</p>
+<h3 id="level-of-authentication-too-low">Level of authentication too low</h3>
+<p>You have tried to access something which the current user is not
+authenticated highly enough to use.  The
+<code>needed_level_of_authentication</code> response field gives the required
+level.</p>
+<h4 id="debugging-steps">Debugging steps</h4>
+<p>This is not an error, the user must be reauthenticated at the higher
+level to access.</p>
 <h3 id="unknown-attribute-names">Unknown attribute names</h3>
 <p>One or more of the attribute names you have specified are not known.
 The <code>attributes</code> response field lists these.</p>
