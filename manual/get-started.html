@@ -218,7 +218,7 @@
             
   <p><a href='/manual.html#learning-gov-uk'>Learning GOV.UK</a></p>   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/31ac24733f23f19aa1b0b72bebf67fa603bd91e6">28 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c8b637e84eae69406b0fbb5200e8c07baa3a9f0d">29 Apr 2021</a>
 </div>
 
  <h1 id='header'>Get started on GOV.UK</h1> <p>This is the guide for new technical staff working on GOV.UK in <a href="https://gds.blog.gov.uk/about/">GDS</a>. If you just joined, 👋 welcome!</p>
@@ -272,7 +272,7 @@ git clone git@github.com:alphagov/govuk-puppet.git
     ssh_key  =&gt; 'this public key will be a few lines long (copy the output from `more ~/.ssh/alphagov.pub`). It should begin with `ssh-rsa AAA` and end with `== john.smith.123@digital.cabinet-office.gov.uk`. You may need to add the email address to the end of your public key manually.',
   }
 }
-</code></pre></div><p>Add the name of your manifest (your username) into the list of <code>users::usernames</code> in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata_aws/integration.yaml"><code>hieradata_aws/integration.yaml</code></a> for integration and in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata/integration.yaml"><code>hieradata/integration.yaml</code></a> for CI.</p>
+</code></pre></div><p>Add the name of your manifest (your username) into the list of <code>users::usernames</code> in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata_aws/integration.yaml"><code>hieradata_aws/integration.yaml</code></a>.</p>
 <p>Create a pull request with these changes. Once it has been <a href="/manual/merge-pr.html">reviewed by a member of the GOV.UK team</a>, you can merge it and it will automatically deploy to the integration environment.</p>
 <h3 id='access-remote-environments'>Access remote environments</h3><p>Your pull request from earlier will hopefully have been merged by now. If it&rsquo;s been longer than 30 minutes since the merge, it would have been deployed, too. It&rsquo;s time to test your access to servers via SSH.</p>
 
