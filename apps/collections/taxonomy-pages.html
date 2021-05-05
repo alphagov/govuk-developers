@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>govuk-content-store-examples: Adding contract tests to your app - GOV.UK Developer Documentation</title>
+    <title>collections: Taxonomy - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/govuk-content-schemas/contract-testing-howto.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/collections/taxonomy-pages.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="govuk-content-store-examples: Adding contract tests to your app - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/govuk-content-schemas/contract-testing-howto.html" />
+      <meta name="twitter:title" content="collections: Taxonomy - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/collections/taxonomy-pages.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="govuk-content-store-examples: Adding contract tests to your app" />
+      <meta property="og:title" content="collections: Taxonomy" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/govuk-content-schemas/contract-testing-howto.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/collections/taxonomy-pages.html" />
 
     
   </head>
@@ -411,7 +411,7 @@
         <ul>
             <li><a href="/apps/collections/api.html"><span>Collections API</span></a></li>
             <li><a href="/apps/collections/campaign-pages.html"><span>Campaign pages</span></a></li>
-            <li><a href="/apps/collections/taxonomy-pages.html"><span>Taxonomy</span></a></li>
+            <li><a href="/apps/collections/taxonomy-pages.html" class="toc-link--in-view"><span>Taxonomy</span></a></li>
             <li><a href="/apps/collections/update-covid-local-restriction-data.html"><span>Update COVID Local Restriction Data</span></a></li>
         </ul>
     </li>
@@ -531,7 +531,7 @@
         <ul>
             <li><a href="/apps/govuk-content-schemas/adding-a-new-schema.html"><span>Adding a new content schema</span></a></li>
             <li><a href="/apps/govuk-content-schemas/changing-a-schema.html"><span># How to change a content schema</span></a></li>
-            <li><a href="/apps/govuk-content-schemas/contract-testing-howto.html" class="toc-link--in-view"><span>Adding contract tests to your app</span></a></li>
+            <li><a href="/apps/govuk-content-schemas/contract-testing-howto.html"><span>Adding contract tests to your app</span></a></li>
             <li><a href="/apps/govuk-content-schemas/deployment.html"><span>Deployment</span></a></li>
             <li><a href="/apps/govuk-content-schemas/running-frontend-against-examples.html"><span>Running your frontend against the examples</span></a></li>
             <li><a href="/apps/govuk-content-schemas/suggested-workflows.html"><span>Suggested workflows for schema changes</span></a></li>
@@ -656,26 +656,43 @@
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-content-store-examples/commit/6e337b006dd4e2155866f04ea8ce79639782226b">23 Jan 2019</a>
+  Last updated: <a href="https://github.com/alphagov/collections/commit/6ef3e665b007a941b04a27cfcc8706016f28ea24">29 Apr 2021</a>
 </div>
 
-  <h1 class="page-title">govuk-content-store-examples: Adding contract tests to your app</h1>
+  <h1 class="page-title">collections: Taxonomy</h1>
 
   
-<p>You will need to provide tests in your app which are part of the full test suite, but can also be run separately from the other tests (unless your test suite is really fast and likely to stay fast). What you need to do differs depending upon the type of app.</p>
-<h2 id="frontend-apps">Frontend apps</h2>
-<p>You should include tests which use the examples from the govuk-content-schemas to test whether your frontend works or not. <a href="https://github.com/alphagov/govuk_schemas">govuk_schemas</a> provides code for doing this.</p>
-<p>Ideally you should have a test which checks your app against every example for the formats it supports dynamically - so that examples added later are still tested in your app - there is an example in the <a href="https://github.com/alphagov/govuk_schemas">govuk_schemas</a> README.</p>
-<h2 id="publishing-apps">Publishing apps</h2>
-<p>You should include tests which generate the JSON your app would send to content-store and validate them against the schemas. <a href="https://github.com/alphagov/govuk_schemas">govuk_schemas</a> provides RSpec and test-unit helpers for this.</p>
+<p>Content for taxon pages is returned by Search API based on:</p>
+<ul>
+<li>
+<code>content_id</code>s for world taxon pages; and</li>
+<li>
+<code>content_id</code>s and <a href="https://docs.publishing.service.gov.uk/document-types/content_purpose_supergroup.html">supergroups</a> for topic taxon pages.</li>
+</ul>
+<h2 id="topic-taxonomy">Topic Taxonomy</h2>
+<p>A taxon page divides the content tagged to the taxon by its <a href="https://docs.publishing.service.gov.uk/document-types/content_purpose_supergroup.html">supergroup</a> e.g: Guidance and Regulation for Funding and finance for students <a href="https://www.gov.uk/education/funding-and-finance-for-students">gov.uk/education/funding-and-finance-for-students</a>. Each taxon page also shows a grid of sub-topic taxons at the next level of the taxonomy.</p>
+<h2 id="worldwide-taxonomy">Worldwide taxonomy</h2>
+<p>The worldwide taxonomy is rendered on different types of pages depending on whether the taxon has any children.</p>
+<p>For example:</p>
+<ul>
+<li>
+<strong>Taxon with children</strong>: a content item of type taxon that has
+<code>child_taxons</code> links. None of those child taxons' links have <code>child_taxons</code>,
+in which case we display an accordion view:
+<a href="https://www.gov.uk/world/afghanistan">gov.uk/world/afghanistan</a>
+</li>
+<li>
+<strong>Taxon without children</strong>: a content item of type taxon that doesn't have
+<code>child_taxons</code> links. In this case we display an leaf view:
+<a href="https://www.gov.uk/world/living-in-afghanistan">gov.uk/world/living-in-afghanistan</a>
+</li>
+<li>
+<strong>Taxon with associated taxons</strong>: a content item of type taxon that has
+<code>associated_taxons</code> links. In this case the tagged content of the taxon will
+include content that is directly tagged to it and also content that has been
+tagged to any of the associated taxons.</li>
+</ul>
 
 
             
@@ -683,8 +700,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/govuk-content-schemas/blob/master/docs/contract-testing-howto.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/govuk-content-schemas/contract-testing-howto.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/collections/blob/main/docs/taxonomy-pages.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/collections/taxonomy-pages.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

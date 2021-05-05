@@ -409,6 +409,8 @@
 </div>
 <h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="/apps/collections/api.html" class="govuk-link">Collections API</a></li>
+      <li><a href="/apps/collections/campaign-pages.html" class="govuk-link">Campaign pages</a></li>
+      <li><a href="/apps/collections/taxonomy-pages.html" class="govuk-link">Taxonomy</a></li>
       <li><a href="/apps/collections/update-covid-local-restriction-data.html" class="govuk-link">Update COVID Local Restriction Data</a></li>
 </ul></p>
 <h2 id='example-pages-rendered-by-collections'>Example pages rendered by collections</h2><p><ul class="gem-c-list govuk-list">
@@ -425,55 +427,9 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>Collections serves the GOV.UK navigation pages and organisation pages.</p>
+<p>Collections serves the GOV.UK navigation pages and organisation pages. Search API is used to make the pages dynamic e.g. the latest changes for Topics, Organisations and Mainstream browse pages.</p>
 
-<p>At time of writing, it also serves the priority campaign pages ie:</p>
-
-<ul>
-<li>Coronavirus pages</li>
-<li>Transition landing page (<a href="https://www.gov.uk/transition"> gov.uk/transition</a> )</li>
-<li>DIT landing page ( <a href="https://www.gov.uk/transition">gov.uk/eubusiness </a>)</li>
-</ul>
-
-<p>See the <a href="#campaign-pages">Campaign pages</a> section below for more information.</p>
-
-<h2 id="screenshots">Screenshots</h2>
-
-<h3 id="browse-page">Browse page</h3>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections/master/docs/browse-page.jpg" alt="Browse page"></p>
-
-<h3 id="topic-page">Topic page</h3>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections/master/docs/topic-page.jpg" alt="Topic page"></p>
-
-<h3 id="subtopic-page">Subtopic page</h3>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections/master/docs/subtopic-page.jpg" alt="Subtopic page"></p>
-
-<h3 id="services-and-information-page">Services and information page</h3>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections/master/docs/services-and-information-page.jpg" alt="Services and information page"></p>
-
-<h3 id="taxonomy-page">Taxonomy page</h3>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections/master/docs/taxonomy-page.png" alt="Taxonomy page"></p>
-
-<h3 id="worldwide-taxonomy-page">Worldwide taxonomy page</h3>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections/master/docs/world-taxonomy-page.png" alt="Worldwide taxonomy page"></p>
-
-<h3 id="organisation-index-page">Organisation index page</h3>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections/master/docs/orgs-index-page.png" alt="Organisation index page"></p>
-
-<h3 id="organisation-page">Organisation page</h3>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections/master/docs/org-page.png" alt="Organisation page"></p>
-
-<h3 id="step-by-step-page">Step by step page</h3>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections/master/docs/step-by-step-page.png" alt="Step by step page"></p>
+<p>At time of writing, it also serves the priority campaign pages. See the <a href="/apps/collections/campaign-pages.html">Campaign pages</a> manual for more details.</p>
 
 <h2 id="live-examples">Live examples</h2>
 
@@ -498,10 +454,6 @@
 </li>
 </ul>
 
-<h2 id="apis">APIs</h2>
-
-<p>The endpoints and known consumers of this application&rsquo;s APIs are documented in <a href="/apps/collections/api.html">docs/api</a></p>
-
 <h2 id="nomenclature">Nomenclature</h2>
 
 <h3 id="topics">Topics</h3>
@@ -517,148 +469,81 @@ curated into a named list.</li>
 &ldquo;specialist sub-sector&rdquo;.)</li>
 </ul>
 
-<h3 id="browse-pages">Browse pages</h3>
-
-<ul>
-<li>
-<strong>Root browse page</strong>: <a href="https://www.gov.uk/browse">gov.uk/browse</a>
-</li>
-<li>
-<strong>Top level browse page</strong>: <a href="https://www.gov.uk/browse/benefits">gov.uk/browse/benefits</a>
-</li>
-<li>
-<strong>Second level browse page</strong>: <a href="https://www.gov.uk/browse/benefits/entitlement">gov.uk/browse/benefits/entitlement</a>
-</li>
-</ul>
-
-<h3 id="taxonomy">Taxonomy</h3>
-
-<p>The taxonomy is surfaced on taxon pages, which group together tagged content for that level of the taxonomy into <a href="https://docs.publishing.service.gov.uk/document-types/content_purpose_supergroup.html">supergroups</a> on the page, e.g: Guidance and Regulation for Funding and finance for students <a href="https://www.gov.uk/education/funding-and-finance-for-students">gov.uk/education/funding-and-finance-for-students</a>. Each taxon page also shows a grid of sub-topics at the next level of the taxonomy.</p>
-
-<h3 id="worldwide-taxonomy">Worldwide taxonomy</h3>
-
-<p>The worldwide taxonomy is rendered on different types of pages depending on whether the taxon has any children.</p>
-
-<p>For example:</p>
-
-<ul>
-<li>
-<strong>Taxon with children</strong>: a content item of type taxon that has
-<code>child_taxons</code> links. None of those child taxons&rsquo; links have <code>child_taxons</code>,
-in which case we display an accordion view:
-<a href="https://www.gov.uk/world/afghanistan">gov.uk/world/afghanistan</a>
-</li>
-<li>
-<strong>Taxon without children</strong>: a content item of type taxon that doesn&rsquo;t have
-<code>child_taxons</code> links. In this case we display an leaf view:
-<a href="https://www.gov.uk/world/living-in-afghanistan">gov.uk/world/living-in-afghanistan</a>
-</li>
-<li>
-<strong>Taxon with associated taxons</strong>: a content item of type taxon that has
-<code>associated_taxons</code> links. In this case the tagged content of the taxon will
-include content that is directly tagged to it and also content that has been
-tagged to any of the associated taxons.</li>
-</ul>
-
-<h2 id="campaign-pages">Campaign pages</h2>
-
-<p>Collections currently renders the following campaign pages:</p>
-
-<h4 id="transition-landing-page-transition-">Transition landing page (<a href="https://www.gov.uk/transition"> /transition </a>)</h4>
-
-<p>All content for the transition landing pages are currently read from yaml files. <a href="https://github.com/alphagov/collections/blob/master/config/locales/cy/transition_landing_page.yml">Welsh</a> and <a href="https://github.com/alphagov/collections/blob/master/config/locales/en/transition_landing_page.yml">English</a> translations are available.</p>
-
-<h4 id="dit-landing-page-eubusiness-">DIT landing page (<a href="https://www.gov.uk/eubusiness"> /eubusiness </a>)</h4>
-
-<p>All content for the DIT landing pages are currently read from yaml files e.g. for <a href="https://github.com/alphagov/collections/blob/master/config/locales/en/dit_landing_page.yml">English</a>. See the <a href="https://www.gov.uk/api/content/eubusiness">content item&rsquo;s available translations</a> for the current list.</p>
-
-<h4 id="coronavirus-pages">Coronavirus pages:</h4>
-
-<ul>
-<li>Landing page ( <a href="https://www.gov.uk/coronavirus">gov.uk/coronavirus</a> )</li>
-<li>Postcode lookup service( <a href="https://www.gov.uk/find-coronavirus-local-restrictions">gov.uk/find-coronavirus-local-restrictions</a> )</li>
-<li>Hub pages ( <a href="https://www.gov.uk/getting-tested-for-coronavirus">/getting-tested-for-coronavirus</a>, <a href="https://www.gov.uk/coronavirus/worker-support">/worker-support</a>, <a href="https://www.gov.uk/coronavirus/business-support">/business-support</a> and <a href="https://www.gov.uk/coronavirus/education-and-childcare">/education-and-childcare</a> )</li>
-</ul>
-
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>This is a public facing Ruby on Rails application that retrieves browse content from APIs and presents it. There is no underlying persistence layer, and (with the exception of the <a href="#campaign-pages">campaign pages</a>) all content is retrieved from external sources.</p>
+<p>This is a public facing Ruby on Rails application that retrieves browse content from APIs and presents it.</p>
 
-<h3 id="content-for-taxon-pages">Content for taxon pages</h3>
-
-<p>Content for taxon pages is returned by Search API based on content_ids for world taxonomy pages and content_ids and <a href="https://docs.publishing.service.gov.uk/document-types/content_purpose_supergroup.html">supergroups</a> for all other taxonomy pages.</p>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-<li>
-<a href="https://github.com/alphagov/content-store">content-store</a>, provides:
-<ul>
-<li>Mainstream browse pages (Root, Top and Second level browse pages)</li>
-<li>Topics</li>
-<li>Subtopics and their curated lists</li>
-</ul>
-<p></li>
-<li>
-<a href="https://github.com/alphagov/search-api">search api</a>, provides:
-<ul>
-<li>latest changes for Topics</li>
-<li>content tagged to a particular Topic, Mainstream browse page or Organisation</li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/alphagov/email-alert-api">email-alert-api</a>, provides:
-<ul>
-<li>support for subscribing to notifications from a topic</li>
-</ul>
-</li>
-</ul>
 <h3 id="running-the-application">Running the application</h3>
+
 <ul>
 <li>
 <h4 id="with-startup-scripts">With startup scripts</h4>
 </li>
 </ul>
+
 <pre><code>./startup.sh
 </code></pre>
+
 <p>The app should start on <a href="http://localhost:3070">http://localhost:3070</a></p>
+
 <pre><code>./startup.sh --live
 </code></pre>
+
 <p>This will run the app and point it at the production GOV.UK <code>content-store</code> and <code>static</code> instances.</p>
+
 <pre><code>./startup.sh --dummy
 </code></pre>
+
 <p>This will run the app and point it at the <a href="https://govuk-content-store-examples.herokuapp.com/">dummy content store</a>, which serves the content schema examples and random content.</p>
+
 <ul>
 <li>
 <h4 id="with-govuk-docker">With govuk-docker</h4>
 </li>
 </ul>
+
 <p>Once you have installed <a href="https://github.com/alphagov/govuk-docker#installation">govuk-docker</a>, do the following</p>
+
 <pre><code>&gt; cd govuk/govuk-docker
 &gt; git pull origin master
-&gt; make collections</p>
-<p>&gt; cd govuk/collections
+&gt; make collections
+
+&gt; cd govuk/collections
 &gt; govuk-docker-up
 </code></pre>
+
 <p>Collections will be running locally at collections.dev.gov.uk.</p>
+
 <h3 id="running-the-test-suite">Running the test suite</h3>
+
 <p>Use <code>bundle exec rake</code> to run the test suite, excluding JavaScript. Or if you are running in docker, <code>govuk-docker-run bundle exec rake</code></p>
+
 <p>To test a single file:</p>
+
 <p><code>govuk-docker-run bundle exec rails test test/unit/application_helper_test.rb</code></p>
+
 <h4 id="javascript-tests">Javascript tests</h4>
+
 <p>Use <code>bundle exec rake jasmine:ci</code> to run Jasmine tests</p>
+
 <h3 id="pact-tests">Pact tests</h3>
-<p>Collections Organisations API has pact tests with <a href="https://github.com/alphagov/gds-api-adapters/blob/19515f01395a2a2cdfa22e1c86f8cb1a4298c492/test/test_helpers/pact_helper.rb">gds-api-adapters</a>.</p>
-<p>Use <code>bundle exec rake pact:verify</code> to run the pact tests against the master pactfile stored on the pact broker.</p>
-<p>If you have made a change to the code that consumes the organisations api, you might want to confirm that collections will still honour its pact. You can do so by running the pact tests against your local gds-api-adapters branch like so:</p>
+
+<p>Collections Organisations API has a pact with <a href="https://github.com/alphagov/gds-api-adapters">GDS API Adapters</a>.</p>
+
+<p>See the <a href="https://docs.publishing.service.gov.uk/manual/pact-broker.html">guidance on Pact testing</a> for how to run and modify the tests.</p>
+
+<h3 id="further-documentation">Further documentation</h3>
+
 <ul>
-<li>From gds-api-adapters run <code>bundle exec rake</code> to regenerate a new pactfile on you local machine.</li>
-<li>From collections run <code>bundle exec rake PACT_URI=&quot;../gds-api-adapters/spec/pacts/gds_api_adapters-collections_organisation_api.json&quot; pact:verify</code>
-</li>
+<li><a href="/apps/collections/taxonomy-pages.html">Taxonomy pages</a></li>
+<li><a href="/apps/collections/campaign-pages.html">Campaign pages</a></li>
+<li><a href="/apps/collections/api.html">API endpoints and consumers</a></li>
 </ul>
+
 <h2 id="license">License</h2>
+
 <p><a href="https://github.com/alphagov/collections/blob/master/LICENCE.txt">MIT License</a></p>
-  </div></p>
+<p></div></p>
 
 
             

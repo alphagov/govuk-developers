@@ -407,25 +407,17 @@
 </div>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>This is a message queue consumer application which clears Fastly and Varnish
-caches when new content is published.</p>
+<p>A message queue consumer application which clears Fastly and Varnish caches when new content is published. Messages are read from the <code>published_documents</code> exchange which carries documents published from all publishing applications.</p>
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>Messages are read from the <code>published_documents</code> exchange which carries
-documents published from all publishing applications.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the tests. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<p>When the service detects a published document it clears the cache in Fastly and
-Varnish for that path.</p>
-
-<h3 id="running-the-application">Running the application</h3>
-
-<pre lang="sh"><code>$ bin/cache_clearing_service
-</code></pre>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
 <h3 id="running-the-test-suite">Running the test suite</h3>
 
-<pre lang="sh"><code>$ bundle exec rspec
+<pre lang="sh"><code>bundle exec rake
 </code></pre>
 
 <h2 id="licence">Licence</h2>

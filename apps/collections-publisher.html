@@ -424,7 +424,7 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>The Collections Publisher publishes:</p>
+<p>This app is used by GDS and some departmental editors. It can publish:</p>
 
 <ul>
 <li><a href="https://www.gov.uk/browse/births-deaths-marriages/register-offices">/browse pages</a></li>
@@ -432,18 +432,12 @@
 <li>
 <a href="https://www.gov.uk/learn-to-drive-a-car">step by step pages</a> and <a href="https://www.gov.uk/driving-eyesight-rules">step by step sidebar navigation</a>
 </li>
-<li><a href="https://www.gov.uk/coronavirus">coronavirus pages</a></li>
+<li><a href="/apps/collections-publisher/coronavirus_page_publishing_tool.html">coronavirus pages</a></li>
 </ul>
 
-<p>These pages are then served by the <a href="https://github.com/alphagov/collections">collections app</a>.</p>
+<p>These pages are then served by the <a href="https://github.com/alphagov/collections">collections app</a>. It is also used to curate pages tagged to a topic or browse page into &ldquo;curated lists&rdquo;, instead of a single &lsquo;A-Z&rsquo; list, as the following screenshots illustrate.</p>
 
-<p><img src="https://raw.githubusercontent.com/alphagov/collections-publisher/master/docs/screenshot.png" alt="Screenshot of Collections Publisher"></p>
-
-<h2 id="live-examples">Live examples</h2>
-
-<ul>
-<li><a href="https://collections-publisher.publishing.service.gov.uk/">collections-publisher</a></li>
-</ul>
+<p><img src="https://raw.githubusercontent.com/alphagov/collections-publisher/master/docs/screenshot-curated-topics.png" alt="Screenshot of curated and non-curated pages"></p>
 
 <h2 id="nomenclature">Nomenclature</h2>
 
@@ -451,55 +445,25 @@
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>This is a Ruby on Rails application for internal use by GDS and some departmental editors.</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<p>It has these features:</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<ul>
-<li>Creating &amp; editing topics and mainstream browse pages.</li>
-<li>Creating &amp; editing step by step navigation pages, and where they are used as sidebar and sticky navigation.</li>
-<li>Curate the pages tagged to a topic or browse page into &ldquo;curated lists&rdquo;. This means they&rsquo;ll be displayed in a group with a title. By default, the links are not curated and will appear with a &lsquo;A-Z&rsquo; heading.</li>
-<li>
-<a href="/apps/collections-publisher/coronavirus_page_publishing_tool.html">Curating, and editing coronavirus pages</a>.</li>
-</ul>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
-<p><img src="https://raw.githubusercontent.com/alphagov/collections-publisher/master/docs/screenshot-curated-topics.png" alt="Screenshot of curated and non-curated pages"></p>
-
-<p>Left, a <a href="https://www.gov.uk/browse/childcare-parenting/childcare">curated mainstream browse page</a>, right, an <a href="https://www.gov.uk/browse/justice/prisons-probation">uncurated browse page</a>.</p>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections-publisher/master/docs/screenshot-step-by-step-page.png" alt="Screenshot of a step by step navigation page"></p>
-
-<p>Example of a <a href="https://www.gov.uk/learn-to-drive-a-car">step by step navigation page</a>.</p>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/collections-publisher/master/docs/screenshot-step-by-step-sidebar-navigation.png" alt="Screenshot of step by step navigation sidebar"></p>
-
-<p>Example of <a href="https://www.gov.uk/driving-eyesight-rules">step by step navigation</a> used as sidebar navigation for one of the primary pages.</p>
-
-<p>This application uses the <a href="http://sidekiq.org/">sidekiq</a> message queue for background work (mainly publishing to the Publishing API).</p>
-
-<h3 id="dependencies">Dependencies</h3>
-
-<ul>
-<li>
-<a href="https://github.com/alphagov/publishing-api">alphagov/publishing-api</a> -
-<ul>
-<li>used for the publishing workflow of <code>mainstream_browse_page</code>s, <code>topic</code>s, curated lists and <code>step_by_step_page</code>s.</li>
-<li>Publishing API sends data onto <a href="https://github.com/alphagov/rummager">Rummager</a> for search indexing <code>topic</code>, <code>mainstream_browse_page</code> and <code>step_by_step_page</code> pages.</li>
-</ul>
-<p></li>
-</ul>
 <h3 id="running-the-test-suite">Running the test suite</h3>
-<p>The test suite includes testing against
-<a href="http://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a>, so
-you will need a copy of this repo on your file system. By default this should
-be in a sibling directory to your project. Alternatively, you can specify their
-location with the <code>GOVUK_CONTENT_SCHEMAS_PATH</code> environment variable.</p>
-<p>To run the test suite:</p>
+
 <pre><code>bundle exec rake
 </code></pre>
+
+<h3 id="further-documentation">Further documentation</h3>
+
+<p>See the <a href="https://github.com/alphagov/collections-publisher/blob/master/docs/">docs/</a> directory for guidance and architectural decisions.</p>
+
 <h2 id="licence">Licence</h2>
+
 <p><a href="https://github.com/alphagov/collections-publisher/blob/master/LICENSE.txt">MIT License</a></p>
-  </div></p>
+<p></div></p>
 
 
             

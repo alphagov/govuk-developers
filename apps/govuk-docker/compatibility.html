@@ -410,6 +410,8 @@
       <a href="/apps/collections.html"><span>collections</span></a>
         <ul>
             <li><a href="/apps/collections/api.html"><span>Collections API</span></a></li>
+            <li><a href="/apps/collections/campaign-pages.html"><span>Campaign pages</span></a></li>
+            <li><a href="/apps/collections/taxonomy-pages.html"><span>Taxonomy</span></a></li>
             <li><a href="/apps/collections/update-covid-local-restriction-data.html"><span>Update COVID Local Restriction Data</span></a></li>
         </ul>
     </li>
@@ -655,7 +657,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-docker/commit/301e3c4a11ef2cb7301d8f15714e3fd6d62a297b">27 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-docker/commit/2a815f5ce5e781286b3eb5b10ea8a759d96974f0">30 Apr 2021</a>
 </div>
 
   <h1 class="page-title">govuk-docker: Compatibility</h1>
@@ -674,7 +676,11 @@
 <li>✅ asset-manager</li>
 <li>✅ authenticating-proxy</li>
 <li>✅ bouncer</li>
-<li>✅ cache-clearing-service</li>
+<li>⚠ cache-clearing-service
+<ul>
+<li><strong>TODO: Missing support for running the app</strong></li>
+</ul>
+</li>
 <li>❌ ckan
 <ul>
 <li>Has a <a href="https://github.com/alphagov/docker-ckan">separate</a> Docker project.</li>
