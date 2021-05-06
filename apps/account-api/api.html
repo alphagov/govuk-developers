@@ -657,7 +657,7 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/a588560609c8c17a4d6ce7164571bafb8e879a8f">5 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/b38f547c62fd6de07cb8bf09ec59005551aab727">30 Apr 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -685,6 +685,7 @@ management. This API is not for other government services.</p>
 <li><a href="#post-apioauth2state"><code>POST /api/oauth2/state</code></a></li>
 <li><a href="#get-apiattributes"><code>GET /api/attributes</code></a></li>
 <li><a href="#patch-apiattributes"><code>PATCH /api/attributes</code></a></li>
+<li><a href="#get-apiattributesnames"><code>GET /api/attributes/names</code></a></li>
 <li><a href="#get-apitransition-checker-email-subscription"><code>GET /api/transition-checker-email-subscription</code></a></li>
 <li><a href="#post-apitransition-checker-email-subscription"><code>POST /api/transition-checker-email-subscription</code></a></li>
 </ul>
@@ -1088,6 +1089,61 @@ end
 <p>Response:</p>
 <pre lang="json"><code>{
     "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg=="
+}
+</code></pre>
+<h3 id="get-apiattributesnames"><code>GET /api/attributes/names</code></h3>
+<p>Retrieves attribute names for the current user.</p>
+<h4 id="request-headers">Request headers</h4>
+<ul>
+<li>
+<code>GOVUK-Account-Session</code>
+<ul>
+<li>the user's session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="query-parameters">Query parameters</h4>
+<ul>
+<li>
+<code>attributes[]</code> <em>(one for each attribute)</em>
+<ul>
+<li>a list of attribute names, specified once for each name</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>govuk_account_session</code> <em>(optional)</em>
+<ul>
+<li>a new session identifier</li>
+</ul>
+</li>
+<li>
+<code>values</code>
+<ul>
+<li>a JSON array of attribute names</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>422 if any attributes are unknown (see <a href="#unknown-attribute-names">error: unknown attribute names</a>)</li>
+<li>403 if the session's level of authentication is too low (see <a href="#level-of-authentication-too-low">error: level of authentication too low</a>)</li>
+<li>401 if the session identifier is invalid</li>
+<li>200 otherwise</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.account_api.get_attributes(
+    attributes: %w[name1 name2],
+    govuk_account_session: "session-identifier",
+)
+</code></pre>
+<p>Response:</p>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
+    "values": ["name1", "name2"]
 }
 </code></pre>
 <h3 id="get-apitransition-checker-email-subscription"><code>GET /api/transition-checker-email-subscription</code></h3>
