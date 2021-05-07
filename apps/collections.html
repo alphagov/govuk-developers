@@ -510,60 +510,26 @@ curated into a named list.</li>
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>This is a public facing Ruby on Rails application that retrieves browse content from APIs and presents it.</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<h3 id="running-the-application">Running the application</h3>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> or the local <code>startup.sh</code> script to run the app. Read the <a href="https://docs.publishing.service.gov.uk/manual/local-frontend-development.html">guidance on local frontend development</a> to find out more about each approach, before you get started.</p>
 
-<ul>
-<li>
-<h4 id="with-startup-scripts">With startup scripts</h4>
-</li>
-</ul>
-
-<pre><code>./startup.sh
-</code></pre>
-
-<p>The app should start on <a href="http://localhost:3070">http://localhost:3070</a></p>
-
-<pre><code>./startup.sh --live
-</code></pre>
-
-<p>This will run the app and point it at the production GOV.UK <code>content-store</code> and <code>static</code> instances.</p>
-
-<pre><code>./startup.sh --dummy
-</code></pre>
-
-<p>This will run the app and point it at the <a href="https://govuk-content-store-examples.herokuapp.com/">dummy content store</a>, which serves the content schema examples and random content.</p>
-
-<ul>
-<li>
-<h4 id="with-govuk-docker">With govuk-docker</h4>
-</li>
-</ul>
-
-<p>Once you have installed <a href="https://github.com/alphagov/govuk-docker#installation">govuk-docker</a>, do the following</p>
-
-<pre><code>&gt; cd govuk/govuk-docker
-&gt; git pull origin master
-&gt; make collections
-
-&gt; cd govuk/collections
-&gt; govuk-docker-up
-</code></pre>
-
-<p>Collections will be running locally at collections.dev.gov.uk.</p>
+<p>If you are using GOV.UK Docker, remember to combine it with the commands that follow. See the <a href="https://github.com/alphagov/govuk-docker#usage">GOV.UK Docker usage instructions</a> for examples.</p>
 
 <h3 id="running-the-test-suite">Running the test suite</h3>
 
-<p>Use <code>bundle exec rake</code> to run the test suite, excluding JavaScript. Or if you are running in docker, <code>govuk-docker-run bundle exec rake</code></p>
+<pre><code>bundle exec rake
+</code></pre>
 
 <p>To test a single file:</p>
 
-<p><code>govuk-docker-run bundle exec rails test test/unit/application_helper_test.rb</code></p>
+<pre><code>bundle exec rails test test/unit/application_helper_test.rb
+</code></pre>
 
-<h4 id="javascript-tests">Javascript tests</h4>
+<p>To run JavaScript tests (only):</p>
 
-<p>Use <code>bundle exec rake jasmine:ci</code> to run Jasmine tests</p>
+<pre><code>bundle exec rake jasmine:ci
+</code></pre>
 
 <h3 id="pact-tests">Pact tests</h3>
 
