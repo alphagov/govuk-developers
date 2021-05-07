@@ -317,7 +317,45 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-              <h1 class="page-title">Application: content-data-api</h1>
+              
+<script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "name": "Home",
+        "@id": "http://www.dev.gov.uk/"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "name": "Apps",
+        "@id": "http://www.dev.gov.uk/apps.html"
+      }
+    }
+  ]
+}
+</script>
+
+<div class="gem-c-breadcrumbs govuk-breadcrumbs" data-module="gem-track-click">
+  <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="homeLinkClicked" data-track-action="homeBreadcrumb" data-track-label="" data-track-options="{}" class="govuk-breadcrumbs__link" href="/">Home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="breadcrumbClicked" data-track-action="2" data-track-label="/apps.html" data-track-options="{&quot;dimension28&quot;:&quot;2&quot;,&quot;dimension29&quot;:&quot;Apps&quot;}" class="govuk-breadcrumbs__link" href="/apps.html">Apps</a>
+        </li>
+  </ol>
+</div>
+
+  
+  <h1 class="page-title">Application: content-data-api</h1>
 
   <p>Data warehouse that stores content and content metrics to help content owners measure and improve content on GOV.UK</p>
 
@@ -405,16 +443,50 @@
 </div></dl>
     <div class="gem-c-summary__block"></div>
 </div>
-<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
-      <li><a href="/apps/content-data-api/data-warehouse-schema.html" class="govuk-link">data-warehouse-schema</a></li>
-      <li><a href="/apps/content-data-api/data-warehouse-what-and-why.html" class="govuk-link">data-warehouse-what-and-why</a></li>
-      <li><a href="/apps/content-data-api/etl-process.html" class="govuk-link">Collecting user metrics</a></li>
-      <li><a href="/apps/content-data-api/google_analytics_setup.html" class="govuk-link">Set up Google Analytics credentials in development</a></li>
-      <li><a href="/apps/content-data-api/how_to_handle_errors.html" class="govuk-link">How to proceed with Sentry Errors</a></li>
-      <li><a href="/apps/content-data-api/import_production_data.html" class="govuk-link">Import Production Data</a></li>
-      <li><a href="/apps/content-data-api/processing_publishing_api_messages.html" class="govuk-link">Processing messages from the Publishing API</a></li>
-      <li><a href="/apps/content-data-api/requeue_all_content.html" class="govuk-link">Re-queue all content from the Publishing API</a></li>
-</ul></p>
+<h2 id='imported-documents'>Imported documents</h2>
+<ul>
+<li><a href='/apps/content-data-api/etl-process.html' class='govuk-link'>Collecting user metrics</a></li>
+        <li><a href='/apps/content-data-api/how_to_handle_errors.html' class='govuk-link'>How to proceed with Sentry Errors</a></li>
+        <li><a href='/apps/content-data-api/import_production_data.html' class='govuk-link'>Import Production Data</a></li>
+        <li><a href='/apps/content-data-api/processing_publishing_api_messages.html' class='govuk-link'>Processing messages from the Publishing API</a></li>
+        <li><a href='/apps/content-data-api/requeue_all_content.html' class='govuk-link'>Re-queue all content from the Publishing API</a></li>
+        <li><a href='/apps/content-data-api/google_analytics_setup.html' class='govuk-link'>Set up Google Analytics credentials in development</a></li>
+        <li><a href='/apps/content-data-api/data-warehouse-schema.html' class='govuk-link'>data-warehouse-schema</a></li>
+        <li><a href='/apps/content-data-api/data-warehouse-what-and-why.html' class='govuk-link'>data-warehouse-what-and-why</a></li>
+
+
+      <li><strong>/api</strong></li>
+      <ul>
+                <li><a href='/apps/content-data-api/api/README.html' class='govuk-link'>README</a></li>
+
+      </ul>
+
+      <li><strong>/api/source</strong></li>
+      <ul>
+                <li><a href='/apps/content-data-api/api/source/404.html.html' class='govuk-link'>404.html</a></li>
+
+      </ul>
+
+      <li><strong>/arch</strong></li>
+      <ul>
+                <li><a href='/apps/content-data-api/arch/adr-000-document-architectural-decisions.html' class='govuk-link'>ADR 000: Document architectural decisions</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-003-use-google-tag-manager.html' class='govuk-link'>ADR 003: Use Google Tag Manager</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-005-split-audit-tool-cpm.html' class='govuk-link'>ADR 005: Split Audit Tool and Content Performance Manager</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-006-track-metrics-via-time-dimension.html' class='govuk-link'>ADR 006: Track metrics through a time dimension</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-007-etl-publishing-api-content-store.html' class='govuk-link'>ADR 007: ETL to populate Content Items&rsquo; dimension.</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-008-focus-on-english-content.html' class='govuk-link'>ADR 008: Focus on english content in the first iterations.</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-009-consume-from-publishing-api.html' class='govuk-link'>ADR 009: Consume content items only from the publishing API</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-009-track-metrics-by-basepath.html' class='govuk-link'>ADR 009: Track metrics by basepath instead of by Content Item</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-011-new-app-for-ui-management.html' class='govuk-link'>ADR 011: Create a new application for UI management</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-010-track-content-items-in-all-languages.html' class='govuk-link'>ADR 011: Track content items in all languages</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-012-use-sidekiq-for-proessing-rabbitmq-messages.html' class='govuk-link'>ADR 012: Process each RabbitMQ message in a Sidekiq Job</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-016-rename-content-performance-manager.html' class='govuk-link'>ADR 016: Rename Content Performance Manager to Content Data API</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-013-store-json-from-events-that-carry-content-changes.html' class='govuk-link'>Store Content Item JSON that makes the dimensions grow</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-014-track-attribute-changes-per-basepath.html' class='govuk-link'>Track attribute changes through time for basepaths</a></li>
+        <li><a href='/apps/content-data-api/arch/adr-015-convention-for-data-warehouse-unique-id.html' class='govuk-link'>Use compound id instead of a random UUID</a></li>
+
+      </ul>
+</ul>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
 <p>A data warehouse that stores content and content metrics, and exposes this information via an API, to help content owners measure and improve content on GOV.UK.</p>

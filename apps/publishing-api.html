@@ -317,7 +317,45 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-              <h1 class="page-title">Application: publishing-api</h1>
+              
+<script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "name": "Home",
+        "@id": "http://www.dev.gov.uk/"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "name": "Apps",
+        "@id": "http://www.dev.gov.uk/apps.html"
+      }
+    }
+  ]
+}
+</script>
+
+<div class="gem-c-breadcrumbs govuk-breadcrumbs" data-module="gem-track-click">
+  <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="homeLinkClicked" data-track-action="homeBreadcrumb" data-track-label="" data-track-options="{}" class="govuk-breadcrumbs__link" href="/">Home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="breadcrumbClicked" data-track-action="2" data-track-label="/apps.html" data-track-options="{&quot;dimension28&quot;:&quot;2&quot;,&quot;dimension29&quot;:&quot;Apps&quot;}" class="govuk-breadcrumbs__link" href="/apps.html">Apps</a>
+        </li>
+  </ol>
+</div>
+
+  
+  <h1 class="page-title">Application: publishing-api</h1>
 
   <p>API to publish content on GOV.UK</p>
 
@@ -408,18 +446,42 @@
 <h2 id='relevant-manual-pages'>Relevant manual pages</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="/manual/uptime-metrics.html" class="govuk-link">Uptime Metrics</a></li>
 </ul></p>
-<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
-      <li><a href="/apps/publishing-api/admin-tasks.html" class="govuk-link">Admin Tasks</a></li>
-      <li><a href="/apps/publishing-api/api.html" class="govuk-link">Publishing API&rsquo;s API</a></li>
-      <li><a href="/apps/publishing-api/data-migration.html" class="govuk-link">Writing data migrations</a></li>
-      <li><a href="/apps/publishing-api/deleting-content.html" class="govuk-link">Deleting Documents, Editions and Links</a></li>
-      <li><a href="/apps/publishing-api/dependency-resolution.html" class="govuk-link">Dependency Resolution</a></li>
-      <li><a href="/apps/publishing-api/link-expansion.html" class="govuk-link">Link Expansion</a></li>
-      <li><a href="/apps/publishing-api/model.html" class="govuk-link">Publishing API&rsquo;s Model</a></li>
-      <li><a href="/apps/publishing-api/pact_testing.html" class="govuk-link">Contract testing with Pact</a></li>
-      <li><a href="/apps/publishing-api/publishing-application-examples.html" class="govuk-link">Publishing application examples</a></li>
-      <li><a href="/apps/publishing-api/rabbitmq.html" class="govuk-link">RabbitMQ</a></li>
-</ul></p>
+<h2 id='imported-documents'>Imported documents</h2>
+<ul>
+<li><a href='/apps/publishing-api/admin-tasks.html' class='govuk-link'>Admin Tasks</a></li>
+        <li><a href='/apps/publishing-api/pact_testing.html' class='govuk-link'>Contract testing with Pact</a></li>
+        <li><a href='/apps/publishing-api/deleting-content.html' class='govuk-link'>Deleting Documents, Editions and Links</a></li>
+        <li><a href='/apps/publishing-api/dependency-resolution.html' class='govuk-link'>Dependency Resolution</a></li>
+        <li><a href='/apps/publishing-api/link-expansion.html' class='govuk-link'>Link Expansion</a></li>
+        <li><a href='/apps/publishing-api/api.html' class='govuk-link'>Publishing API&rsquo;s API</a></li>
+        <li><a href='/apps/publishing-api/model.html' class='govuk-link'>Publishing API&rsquo;s Model</a></li>
+        <li><a href='/apps/publishing-api/publishing-application-examples.html' class='govuk-link'>Publishing application examples</a></li>
+        <li><a href='/apps/publishing-api/rabbitmq.html' class='govuk-link'>RabbitMQ</a></li>
+        <li><a href='/apps/publishing-api/data-migration.html' class='govuk-link'>Writing data migrations</a></li>
+
+
+      <li><strong>/arch</strong></li>
+      <ul>
+                <li><a href='/apps/publishing-api/arch/adr-004-govspeak-and-embedded-content.html' class='govuk-link'># Decision Record: Govspeak and embedded content</a></li>
+        <li><a href='/apps/publishing-api/arch/adr-003-representation-for-multiple-content-types.html' class='govuk-link'># Decision Record: Representation for Multiple Content Types</a></li>
+        <li><a href='/apps/publishing-api/arch/adr-005-documents-and-editions.html' class='govuk-link'>Decision Record: Resolve consistency and uniqueness in content</a></li>
+        <li><a href='/apps/publishing-api/arch/adr-002-dont-log-events-which-result-in-error.html' class='govuk-link'>Decision record: don&rsquo;t log events which result in an error</a></li>
+        <li><a href='/apps/publishing-api/arch/adr-001-use-event-sourcing-pattern.html' class='govuk-link'>Decision record: use event sourcing</a></li>
+
+      </ul>
+
+      <li><strong>/archive</strong></li>
+      <ul>
+                <li><a href='/apps/publishing-api/archive/data-cleanup-plan.html' class='govuk-link'>Data Cleanup Plan: 17th December, 2015</a></li>
+
+      </ul>
+
+      <li><strong>/model</strong></li>
+      <ul>
+                <li><a href='/apps/publishing-api/model/README.html' class='govuk-link'>README</a></li>
+
+      </ul>
+</ul>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
 <p>The Publishing API aims to provide <em>workflow as a service</em> so that common publishing features can be written once and used by all publishing applications across Government. Content can be stored and retrieved using the API and workflow actions can be performed, such as creating a new draft or publishing an existing piece of content.</p>

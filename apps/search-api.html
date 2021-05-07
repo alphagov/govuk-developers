@@ -317,7 +317,45 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-              <h1 class="page-title">Application: search-api</h1>
+              
+<script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "name": "Home",
+        "@id": "http://www.dev.gov.uk/"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "name": "Apps",
+        "@id": "http://www.dev.gov.uk/apps.html"
+      }
+    }
+  ]
+}
+</script>
+
+<div class="gem-c-breadcrumbs govuk-breadcrumbs" data-module="gem-track-click">
+  <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="homeLinkClicked" data-track-action="homeBreadcrumb" data-track-label="" data-track-options="{}" class="govuk-breadcrumbs__link" href="/">Home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="breadcrumbClicked" data-track-action="2" data-track-label="/apps.html" data-track-options="{&quot;dimension28&quot;:&quot;2&quot;,&quot;dimension29&quot;:&quot;Apps&quot;}" class="govuk-breadcrumbs__link" href="/apps.html">Apps</a>
+        </li>
+  </ol>
+</div>
+
+  
+  <h1 class="page-title">Application: search-api</h1>
 
   <p>Search API for GOV.UK</p>
 
@@ -410,22 +448,46 @@
       <li><a href="/manual/make-a-new-document-type-available-to-search.html" class="govuk-link">Make a new document type available to search</a></li>
       <li><a href="/manual/reindex-elasticsearch.html" class="govuk-link">Reindex an Elasticsearch index</a></li>
 </ul></p>
-<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
-      <li><a href="/apps/search-api/adding-new-fields.html" class="govuk-link">Adding new fields to a document type</a></li>
-      <li><a href="/apps/search-api/content-api.html" class="govuk-link">Content API</a></li>
-      <li><a href="/apps/search-api/content_overview.html" class="govuk-link">Content in the search index and where it comes from</a></li>
-      <li><a href="/apps/search-api/documents.html" class="govuk-link">Documents API (to be deprecated)</a></li>
-      <li><a href="/apps/search-api/how-search-works.html" class="govuk-link">How Search Works</a></li>
-      <li><a href="/apps/search-api/indexing.html" class="govuk-link">Indexing</a></li>
-      <li><a href="/apps/search-api/learning-to-rank.html" class="govuk-link">learning-to-rank</a></li>
-      <li><a href="/apps/search-api/new-indexing-process.html" class="govuk-link">Moving a format to the new indexing process</a></li>
-      <li><a href="/apps/search-api/popularity.html" class="govuk-link">Popularity information</a></li>
-      <li><a href="/apps/search-api/publishing-finders.html" class="govuk-link">Publishing finders</a></li>
-      <li><a href="/apps/search-api/relevancy.html" class="govuk-link">Relevancy</a></li>
-      <li><a href="/apps/search-api/schemas.html" class="govuk-link">Schema definitions</a></li>
-      <li><a href="/apps/search-api/search-api.html" class="govuk-link">Using the search API</a></li>
-      <li><a href="/apps/search-api/search-quality-metrics.html" class="govuk-link">Search Quality Metrics</a></li>
-</ul></p>
+<h2 id='imported-documents'>Imported documents</h2>
+<ul>
+<li><a href='/apps/search-api/adding-new-fields.html' class='govuk-link'>Adding new fields to a document type</a></li>
+        <li><a href='/apps/search-api/content-api.html' class='govuk-link'>Content API</a></li>
+        <li><a href='/apps/search-api/content_overview.html' class='govuk-link'>Content in the search index and where it comes from</a></li>
+        <li><a href='/apps/search-api/documents.html' class='govuk-link'>Documents API (to be deprecated)</a></li>
+        <li><a href='/apps/search-api/how-search-works.html' class='govuk-link'>How Search Works</a></li>
+        <li><a href='/apps/search-api/indexing.html' class='govuk-link'>Indexing</a></li>
+        <li><a href='/apps/search-api/new-indexing-process.html' class='govuk-link'>Moving a format to the new indexing process</a></li>
+        <li><a href='/apps/search-api/popularity.html' class='govuk-link'>Popularity information</a></li>
+        <li><a href='/apps/search-api/publishing-finders.html' class='govuk-link'>Publishing finders</a></li>
+        <li><a href='/apps/search-api/relevancy.html' class='govuk-link'>Relevancy</a></li>
+        <li><a href='/apps/search-api/schemas.html' class='govuk-link'>Schema definitions</a></li>
+        <li><a href='/apps/search-api/search-quality-metrics.html' class='govuk-link'>Search Quality Metrics</a></li>
+        <li><a href='/apps/search-api/search-api.html' class='govuk-link'>Using the search API</a></li>
+        <li><a href='/apps/search-api/learning-to-rank.html' class='govuk-link'>learning-to-rank</a></li>
+
+
+      <li><strong>/arch</strong></li>
+      <ul>
+                <li><a href='/apps/search-api/arch/adr-007-batch-processing-of-rabbit-mq-messages.html' class='govuk-link'>Decision record: Batch processing of rabbit MQ messages</a></li>
+        <li><a href='/apps/search-api/arch/adr-005-incremental-popularity-updates.html' class='govuk-link'>Decision record: Incremental popularity updates</a></li>
+        <li><a href='/apps/search-api/arch/adr-010-learn-to-rank.html' class='govuk-link'>Decision record: Learning To Rank</a></li>
+        <li><a href='/apps/search-api/arch/adr-011-sagemaker.html' class='govuk-link'>Decision record: Sagemaker</a></li>
+        <li><a href='/apps/search-api/arch/adr-004-transition-mainstream-to-publishing-api-index.html' class='govuk-link'>Decision record: Transition mainstream formats to a Publishing API derived search index</a></li>
+        <li><a href='/apps/search-api/arch/adr-006-transition-whitehall-to-publishing-api-index.html' class='govuk-link'>Decision record: Transition whitehall documents to a Publishing API derived search index</a></li>
+        <li><a href='/apps/search-api/arch/adr-008-elasticsearch5-upgrade.html' class='govuk-link'>Decision record: Upgrade to Elasticsearch 5</a></li>
+        <li><a href='/apps/search-api/arch/adr-009-elasticsearch6-upgrade.html' class='govuk-link'>Decision record: Upgrade to Elasticsearch 6</a></li>
+        <li><a href='/apps/search-api/arch/adr-003-popularity-updating-without-index-locks.html' class='govuk-link'>Decision record: perform popularity updating without using an index lock</a></li>
+        <li><a href='/apps/search-api/arch/adr-001-use-of-both-rabbitmq-and-sidekiq-queues.html' class='govuk-link'>Decision record: use of both RabbitMQ (bunny) and Redis (Sidekiq) queuing systems</a></li>
+        <li><a href='/apps/search-api/arch/adr-002-handle-race-conditions-in-govuk-index.html' class='govuk-link'>Decision record: use versioning to handle race conditions when updating the govuk index</a></li>
+
+      </ul>
+
+      <li><strong>/public-api</strong></li>
+      <ul>
+                <li><a href='/apps/search-api/public-api/faceted-search.html' class='govuk-link'>Faceted search</a></li>
+
+      </ul>
+</ul>
 <h2 id='example-pages-published-by-search-api'>Example pages published by search-api</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="https://www.gov.uk/search/all" class="govuk-link">Search</a></li>
       <li><a href="https://www.gov.uk/search/news-and-communications" class="govuk-link">News and communications</a></li>

@@ -317,7 +317,45 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-              <h1 class="page-title">Application: smart-answers</h1>
+              
+<script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "name": "Home",
+        "@id": "http://www.dev.gov.uk/"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "name": "Apps",
+        "@id": "http://www.dev.gov.uk/apps.html"
+      }
+    }
+  ]
+}
+</script>
+
+<div class="gem-c-breadcrumbs govuk-breadcrumbs" data-module="gem-track-click">
+  <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="homeLinkClicked" data-track-action="homeBreadcrumb" data-track-label="" data-track-options="{}" class="govuk-breadcrumbs__link" href="/">Home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="breadcrumbClicked" data-track-action="2" data-track-label="/apps.html" data-track-options="{&quot;dimension28&quot;:&quot;2&quot;,&quot;dimension29&quot;:&quot;Apps&quot;}" class="govuk-breadcrumbs__link" href="/apps.html">Apps</a>
+        </li>
+  </ol>
+</div>
+
+  
+  <h1 class="page-title">Application: smart-answers</h1>
 
   <p>Serves smart answers on GOV.UK</p>
 
@@ -406,7 +444,62 @@
 </div></dl>
     <div class="gem-c-summary__block"></div>
 </div>
-<h2 id='imported-documents'>Imported documents</h2><h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
+<h2 id='imported-documents'>Imported documents</h2>
+<ul>
+<li><strong>/arch</strong></li>
+      <ul>
+                <li><a href='/apps/smart-answers/arch/adr-001-removing-smartdown.html' class='govuk-link'>ADR 1: Removing Smartdown</a></li>
+        <li><a href='/apps/smart-answers/arch/002-store-responses-in-query-string.html' class='govuk-link'>ADR 2: Store responses in query string</a></li>
+
+      </ul>
+
+      <li><strong>/debugging</strong></li>
+      <ul>
+                <li><a href='/apps/smart-answers/debugging/custom-google-analytics-tracking-id.html' class='govuk-link'>Custom Google Analytics account and Tracking ID</a></li>
+        <li><a href='/apps/smart-answers/debugging/viewing-state.html' class='govuk-link'>Viewing Smart Answer state</a></li>
+        <li><a href='/apps/smart-answers/debugging/visualising-flows.html' class='govuk-link'>Visualising flows</a></li>
+
+      </ul>
+
+      <li><strong>/smart-answer-flow-development</strong></li>
+      <ul>
+                <li><a href='/apps/smart-answers/smart-answer-flow-development/publishing.html' class='govuk-link'>## Publishing</a></li>
+        <li><a href='/apps/smart-answers/smart-answer-flow-development/creating-a-new-smart-answer.html' class='govuk-link'>Creating a new Smart Answer</a></li>
+        <li><a href='/apps/smart-answers/smart-answer-flow-development/fact-check.html' class='govuk-link'>Deploying changes for fact-check</a></li>
+        <li><a href='/apps/smart-answers/smart-answer-flow-development/flattening-outcomes.html' class='govuk-link'>Flattening Marriage Abroad outcomes for a country</a></li>
+        <li><a href='/apps/smart-answers/smart-answer-flow-development/retiring-a-smart-answer.html' class='govuk-link'>How to retire a Smart Answer</a></li>
+        <li><a href='/apps/smart-answers/smart-answer-flow-development/refactoring.html' class='govuk-link'>Refactoring existing Smart Answers</a></li>
+        <li><a href='/apps/smart-answers/smart-answer-flow-development/development-principles.html' class='govuk-link'>Smart Answer flows - Development principles</a></li>
+        <li><a href='/apps/smart-answers/smart-answer-flow-development/updating-worldwide-fixture-data.html' class='govuk-link'>Updating Worldwide fixture data</a></li>
+
+      </ul>
+
+      <li><strong>/smart-answers-app-development</strong></li>
+      <ul>
+                <li><a href='/apps/smart-answers/smart-answers-app-development/testing.html' class='govuk-link'>Testing</a></li>
+
+      </ul>
+
+      <li><strong>/smart-answers</strong></li>
+      <ul>
+                <li><a href='/apps/smart-answers/smart-answers/erb-templates.html' class='govuk-link'>ERB templates</a></li>
+        <li><a href='/apps/smart-answers/smart-answers/file-structure.html' class='govuk-link'>File structure</a></li>
+        <li><a href='/apps/smart-answers/smart-answers/flow-definition.html' class='govuk-link'>Flow</a></li>
+        <li><a href='/apps/smart-answers/smart-answers/next-node-rules.html' class='govuk-link'>Next node rules</a></li>
+        <li><a href='/apps/smart-answers/smart-answers/question-types.html' class='govuk-link'>Question types</a></li>
+        <li><a href='/apps/smart-answers/smart-answers/storing-data.html' class='govuk-link'>Storing data for later use</a></li>
+
+      </ul>
+
+      <li><strong>/smart-answers/erb-templates</strong></li>
+      <ul>
+                <li><a href='/apps/smart-answers/smart-answers/erb-templates/landing-page-template.html' class='govuk-link'>Landing page template</a></li>
+        <li><a href='/apps/smart-answers/smart-answers/erb-templates/outcome-templates.html' class='govuk-link'>Outcome templates</a></li>
+        <li><a href='/apps/smart-answers/smart-answers/erb-templates/question-templates.html' class='govuk-link'>Question templates</a></li>
+
+      </ul>
+</ul>
+<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
 <blockquote>
 <p>Smart answers are a great tool for content designers to present complex information in a quick and simple way. Defining what they are – decision trees? calculators? tools? is immaterial – what they do is provide a reusable technical framework to build a quick and simple answer to a complex question.</p>

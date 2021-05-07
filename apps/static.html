@@ -317,7 +317,45 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-              <h1 class="page-title">Application: static</h1>
+              
+<script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "name": "Home",
+        "@id": "http://www.dev.gov.uk/"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "name": "Apps",
+        "@id": "http://www.dev.gov.uk/apps.html"
+      }
+    }
+  ]
+}
+</script>
+
+<div class="gem-c-breadcrumbs govuk-breadcrumbs" data-module="gem-track-click">
+  <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="homeLinkClicked" data-track-action="homeBreadcrumb" data-track-label="" data-track-options="{}" class="govuk-breadcrumbs__link" href="/">Home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="breadcrumbClicked" data-track-action="2" data-track-label="/apps.html" data-track-options="{&quot;dimension28&quot;:&quot;2&quot;,&quot;dimension29&quot;:&quot;Apps&quot;}" class="govuk-breadcrumbs__link" href="/apps.html">Apps</a>
+        </li>
+  </ol>
+</div>
+
+  
+  <h1 class="page-title">Application: static</h1>
 
   <p>GOV.UK static files and resources</p>
 
@@ -410,16 +448,25 @@
       <li><a href="/manual/assets.html" class="govuk-link">Assets: how they work</a></li>
       <li><a href="/manual/frontend-architecture.html" class="govuk-link">Frontend architecture</a></li>
 </ul></p>
-<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
-      <li><a href="/apps/static/analytics.html" class="govuk-link">Analytics</a></li>
-      <li><a href="/apps/static/emergency-banner.html" class="govuk-link">Emergency banner</a></li>
-      <li><a href="/apps/static/global-banner.html" class="govuk-link"># Global banner</a></li>
-      <li><a href="/apps/static/humans.html" class="govuk-link">humans.txt</a></li>
-      <li><a href="/apps/static/image-optimisation.html" class="govuk-link">Image optimisation</a></li>
-      <li><a href="/apps/static/slimmer_templates.html" class="govuk-link">Slimmer Templates</a></li>
-      <li><a href="/apps/static/surveys.html" class="govuk-link">Running test surveys on GOV.UK</a></li>
-      <li><a href="/apps/static/test-ecommerce-changes-to-static.html" class="govuk-link">test-ecommerce-changes-to-static</a></li>
-</ul></p>
+<h2 id='imported-documents'>Imported documents</h2>
+<ul>
+<li><a href='/apps/static/global-banner.html' class='govuk-link'># Global banner</a></li>
+        <li><a href='/apps/static/analytics.html' class='govuk-link'>Analytics</a></li>
+        <li><a href='/apps/static/emergency-banner.html' class='govuk-link'>Emergency banner</a></li>
+        <li><a href='/apps/static/image-optimisation.html' class='govuk-link'>Image optimisation</a></li>
+        <li><a href='/apps/static/surveys.html' class='govuk-link'>Running test surveys on GOV.UK</a></li>
+        <li><a href='/apps/static/slimmer_templates.html' class='govuk-link'>Slimmer Templates</a></li>
+        <li><a href='/apps/static/humans.html' class='govuk-link'>humans.txt</a></li>
+        <li><a href='/apps/static/test-ecommerce-changes-to-static.html' class='govuk-link'>test-ecommerce-changes-to-static</a></li>
+
+
+      <li><strong>/architecture-decisions</strong></li>
+      <ul>
+                <li><a href='/apps/static/architecture-decisions/0001-record-architecture-decisions.html' class='govuk-link'>1. Record architecture decisions</a></li>
+        <li><a href='/apps/static/architecture-decisions/0002-add-enhanced-ecommerce.html' class='govuk-link'>2. Add Enhanced E-commerce plugin</a></li>
+
+      </ul>
+</ul>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
 <p>This application defines global templates for <a href="https://www.gov.uk">GOV.UK</a> pages.</p>

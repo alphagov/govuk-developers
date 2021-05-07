@@ -317,7 +317,45 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
-              <h1 class="page-title">Application: email-alert-api</h1>
+              
+<script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "name": "Home",
+        "@id": "http://www.dev.gov.uk/"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "name": "Apps",
+        "@id": "http://www.dev.gov.uk/apps.html"
+      }
+    }
+  ]
+}
+</script>
+
+<div class="gem-c-breadcrumbs govuk-breadcrumbs" data-module="gem-track-click">
+  <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="homeLinkClicked" data-track-action="homeBreadcrumb" data-track-label="" data-track-options="{}" class="govuk-breadcrumbs__link" href="/">Home</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="breadcrumbClicked" data-track-action="2" data-track-label="/apps.html" data-track-options="{&quot;dimension28&quot;:&quot;2&quot;,&quot;dimension29&quot;:&quot;Apps&quot;}" class="govuk-breadcrumbs__link" href="/apps.html">Apps</a>
+        </li>
+  </ol>
+</div>
+
+  
+  <h1 class="page-title">Application: email-alert-api</h1>
 
   <p>Sends email alerts to the public for GOV.UK</p>
 
@@ -409,14 +447,30 @@
 <h2 id='relevant-manual-pages'>Relevant manual pages</h2><p><ul class="gem-c-list govuk-list">
       <li><a href="/manual/bulk-email.html" class="govuk-link">Send a bulk email</a></li>
 </ul></p>
-<h2 id='imported-documents'>Imported documents</h2><p><ul class="gem-c-list govuk-list">
-      <li><a href="/apps/email-alert-api/analytics.html" class="govuk-link">Analytics</a></li>
-      <li><a href="/apps/email-alert-api/api.html" class="govuk-link">Available endpoints</a></li>
-      <li><a href="/apps/email-alert-api/data-cleanup-mechanisms.html" class="govuk-link">Data cleanup mechanisms</a></li>
-      <li><a href="/apps/email-alert-api/env-vars.html" class="govuk-link">ENV vars</a></li>
-      <li><a href="/apps/email-alert-api/matching-content-to-subscriber-lists.html" class="govuk-link">Matching content to subscriber lists</a></li>
-      <li><a href="/apps/email-alert-api/support-tasks.html" class="govuk-link">Support tasks</a></li>
-</ul></p>
+<h2 id='imported-documents'>Imported documents</h2>
+<ul>
+<li><a href='/apps/email-alert-api/analytics.html' class='govuk-link'>Analytics</a></li>
+        <li><a href='/apps/email-alert-api/api.html' class='govuk-link'>Available endpoints</a></li>
+        <li><a href='/apps/email-alert-api/data-cleanup-mechanisms.html' class='govuk-link'>Data cleanup mechanisms</a></li>
+        <li><a href='/apps/email-alert-api/env-vars.html' class='govuk-link'>ENV vars</a></li>
+        <li><a href='/apps/email-alert-api/matching-content-to-subscriber-lists.html' class='govuk-link'>Matching content to subscriber lists</a></li>
+        <li><a href='/apps/email-alert-api/support-tasks.html' class='govuk-link'>Support tasks</a></li>
+
+
+      <li><strong>/adr</strong></li>
+      <ul>
+                <li><a href='/apps/email-alert-api/adr/adr-005-record-architecture-decisions.html' class='govuk-link'>5. Record architecture decisions</a></li>
+        <li><a href='/apps/email-alert-api/adr/adr-006-email-delivery-responsibilities.html' class='govuk-link'>6. Email Delivery Responsibilities</a></li>
+        <li><a href='/apps/email-alert-api/adr/adr-007-retain-data-for-up-to-one-year.html' class='govuk-link'>7. Retain data for up to one year</a></li>
+        <li><a href='/apps/email-alert-api/adr/adr-008-monitoring-and-alerting.html' class='govuk-link'>8. Monitoring and alerting</a></li>
+        <li><a href='/apps/email-alert-api/adr/adr-009-sidekiq-lost-job-recovery.html' class='govuk-link'>9. Sidekiq Lost Job Recovery</a></li>
+        <li><a href='/apps/email-alert-api/adr/adr-003-initial-data-retention-strategy.html' class='govuk-link'>Decision Record: Initial Data Retention Strategy</a></li>
+        <li><a href='/apps/email-alert-api/adr/adr-001-notify-integration.html' class='govuk-link'>Decision Record: Initial architecture for Notify integration</a></li>
+        <li><a href='/apps/email-alert-api/adr/adr-002-digest-mvp.html' class='govuk-link'>Decision Record: MVP implementation of Digests</a></li>
+        <li><a href='/apps/email-alert-api/adr/adr-004-message-concept.html' class='govuk-link'>Decision Record: Message Concept</a></li>
+
+      </ul>
+</ul>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
 <p>Sends emails to users that subscribe to specific GOV.UK email alerts.</p>
