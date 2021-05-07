@@ -193,20 +193,23 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/ea841afdf8fe52c8cf3f27e5fe902d00c5aeb402">3 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/48e9c3f9ebb906a386d0b3c1439aabd6859081ab">7 May 2021</a>
 </div>
 
  <h1 id='header'>Receive emails from Email Alert API in Integration and Staging</h1> <p>In order to test receiving real emails from Email Alert API we have configured
 Google groups for the integration and staging environments. Emails
 sent to addresses other than those of these groups will be
 <a href="https://github.com/alphagov/email-alert-api/blob/006afa2ee6c35631b83b16519f8af2c6c2ea5c59/app/services/send_email_service/send_pseudo_email.rb#L10-L20">written to a logfile</a>.</p>
-<h2 id='in-integration'>In Integration</h2><p>For testing in Integration there is the <a href="https://groups.google.com/a/digital.cabinet-office.gov.uk/g/email-alert-api-integration">Email Alert API Integration Google
+<h2 id='in-integration'>In Integration</h2><p>In Integration there is the <a href="https://groups.google.com/a/digital.cabinet-office.gov.uk/g/email-alert-api-integration">Email Alert API Integration Google
 group</a>. It has an email address of
-<code>email-alert-api-integration@digital.cabinet-office.gov.uk</code> and you can use this
-address to sign up for mailing lists that you wish to test.</p>
+<code>email-alert-api-integration@digital.cabinet-office.gov.uk</code>.</p>
+<p>This account can be used to sign up to subscriptions on
+https://www.integration.publishing.service.gov.uk/.</p>
 <h2 id='in-staging'>In Staging</h2><p>In Staging there is the <a href="https://groups.google.com/a/digital.cabinet-office.gov.uk/g/email-alert-api-staging">Email Alert API Staging Google
-group</a> and it has an email address of
+group</a>. It has an email address of
 <code>email-alert-api-staging@digital.cabinet-office.gov.uk</code>.</p>
+<p>This account can be used to sign up to subscriptions on
+https://www.staging.publishing.service.gov.uk/.</p>
 <h2 id='how-to-use'>How to use</h2><p>To use these Google groups you need to interact with the Email Alert system
 using the group email as your email address. For example, if you wanted to test
 receiving the content change alerts for travel advice, you can
