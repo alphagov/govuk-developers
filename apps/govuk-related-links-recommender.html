@@ -414,7 +414,17 @@
 </div>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>Machine learning model to recommend related content</p>
+<p>Main things this repo does:</p>
+
+<ol>
+<li>Training an ML model for creating suggested related links like these (on the right sidebar) <a href="https://www.gov.uk/government/collections/health-certificates-for-animal-and-animal-product-imports-to-great-britain">https://www.gov.uk/government/collections/health-certificates-for-animal-and-animal-product-imports-to-great-britain</a>
+</li>
+<li>Getting suggested recommended links from the trained model</li>
+<li>Uploading the model, data, logs and recommended links to aws</li>
+<li>Feeding links from AWS to the publishing api</li>
+</ol>
+
+<p>More details here: <a href="https://docs.publishing.service.gov.uk/manual/related-links.html">https://docs.publishing.service.gov.uk/manual/related-links.html</a></p>
 
 <h2 id="project-organization">Project Organization</h2>
 
@@ -469,7 +479,52 @@
 <p>Need to set and activate environment variables before running pipeline. To run the make_functional_edges_and_weights.py
 script, use command line to <code>export GOOGLE_APPLICATION_CREDENTIALS=&#39;path/to/GOV-UK BigQuery analytics-fa2ed548d98c.json&#39;</code></p>
 <p>Environment variables are also used to locate data and model directories: DATA_DIR and MODEL_DIR.
-Make sure these are activated before runnning data pipeline.</p>
+Make sure these are activated before running data pipeline.</p>
+<h2 id="config">Config</h2>
+<h3 id="preprocessing-config">Preprocessing config</h3>
+<p><code>src/config/preprocessing-config.yml</code></p>
+<p>Set the names for the structural (hyperlink) and functional (user movement) graphs/networks output csvs, from/to dates for GA data, if you want to use intraday data (cheap and quick!), and where the mongodb instance containing the content store is serving from</p>
+<h3 id="node2vec-config">Node2vec config</h3>
+<p><code>src/config/node2vec-config.yml</code></p>
+<p>Set whether you want to use weighted edges in node2vec (weights=user movement), various hyperparameters and output filenames for the model and embeddings</p>
+<h3 id="important-output-file-names">Important: Output file names</h3>
+<p>The names of the files that get uploaded to AWS (and ingested into the content api) are hardcoded in <code>run_link_generation</code> and <code>run_link_ingestion</code>.
+So any other file name (ie youve changed it in <code>node2vec-config.yml</code>) won&rsquo;t get picked up.</p>
+<h2 id="running-the-complete-pipeline-high-level">Running the complete pipeline (high level)</h2>
+<h3 id="run-link-generation">Run link generation</h3>
+<p><code>run_link_generation.sh</code></p>
+<ol>
+<li>Downloads content store backup from aws</li>
+<li>sets up mongodb of content store</li>
+<li>Runs <code>run_all.py</code> (see below for the contents of that)</li>
+<li>Uploads to aws</li>
+</ol>
+<h3 id="run-link-ingestion">Run link ingestion</h3>
+<p><code>run_link_ingestion.sh</code></p>
+<ol>
+<li>Feeds links from AWS to the publishing api</li>
+</ol>
+<h2 id="running-the-pipeline-low-level">Running the pipeline (low level)</h2>
+<p>Here&rsquo;s a run through of what <code>run.py</code> does:</p>
+<h3 id="get-the-functional-network">Get the functional network</h3>
+<p><code>src/datapreprocessing/make_functional_edges_and_weights.py</code></p>
+<p>The functional network is how users move around gov.uk. Function queries <code>govuk-bigquery-analytics</code> for a list of source and destination content ids and a count of how many times users made that transition. Outputs a csv of weighted source-destination pairs. See <code>src/config/preprocessing-config.yml</code>
+for settings. Runs quickly. Runs cheaply if you use <code>use_intraday: True</code> in the config.</p>
+<h3 id="get-the-structural-network">Get the structural network</h3>
+<p><code>src/data_preprocessing/get_content_store_data.py</code></p>
+<p>The structural network is the network of hyperlinks in gov.uk. Function assumes there is a mongodb instance containing the content store on the ip and port configured in <code>src/config/preprocessing-config.yml</code></p>
+<p>Extracts all the links from content store content. Outputs csv of unweighted source - destination pairs. Seems extremely faffy and takes a long time.</p>
+<p>How to set up mongodb instance locally: <a href="https://github.com/ukgovdatascience/govuk-mongodb-content">https://github.com/ukgovdatascience/govuk-mongodb-content</a></p>
+<h3 id="create-functional-structural-network">Create functional + structural network</h3>
+<p><code>src/features/make_weighted_network.py</code></p>
+<p>Concatenates the structural and functional edgelists. Untravelled edges (ie from the structural network) get assigned <code>weight = 1</code>. Everything else has <code>weight = n users that travelled that edge</code></p>
+<p>Outputs csv of unique weighted source-destination pairs</p>
+<h3 id="training-node2vec">Training node2vec</h3>
+<p><code>src/models/train_node2vec_model</code></p>
+<p>Config in <code>src/config/node2vec-config.yml</code>. Trains the model and saves the embeddings and model.</p>
+<h3 id="predict-links">Predict links</h3>
+<p><code>src/models/predict_related_links</code></p>
+<p>Gets the top 5 most similar nodes for every node (not explicitly excluded in the <code>source_exclusions_that_are_not_linked_from.yml</code> ) ! Filters out results subject to lots of uncertainty (ie low user traversal). Outputs a csv</p>
 <h2 id="rules-for-displaying-automated-related-links">Rules for displaying automated related links</h2>
 <p><strong>Do-not-display-automated-related-links-from these-pages</strong></p>
 <ul>
@@ -480,7 +535,7 @@ Make sure these are activated before runnning data pipeline.</p>
 <pre><code>(~related_links.link.str.contains(&quot;/y/&quot;)) &amp;
                               (~related_links.link.str.endswith(&quot;/y&quot;)) &amp;
                               (~related_links.link.str.contains(&quot;/no/&quot;)) &amp;
-                              (~related_links.link.str.endswith(&quot;/no&quot;)) &amp; 
+                              (~related_links.link.str.endswith(&quot;/no&quot;)) &amp;
                               (~related_links.link.str.contains(&quot;/education/&quot;))
 </code></pre>
 <ul>
