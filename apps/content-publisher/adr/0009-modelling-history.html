@@ -414,7 +414,7 @@ support task for Whitehall publisher);</li>
 pain points and provide a means to support the future intended features. These
 changes provide the means to store the individual editions of a document,
 each revision of the content of a document and each status an edition has held.
-As per <a href="https://github.com/alphagov/content-publisher/blob/master/docs/adr/0003-initial-domain-modelling.md">ADR-3</a> it does not consider the
+As per <a href="https://github.com/alphagov/content-publisher/blob/main/docs/adr/0003-initial-domain-modelling.md">ADR-3</a> it does not consider the
 option of sharing data between translations of a document as there are not
 the appropriate product decisions for this.</p>
 <p>A common theme in this decision is
@@ -426,7 +426,7 @@ storing history for <a href="#timeline">timeline</a> and <a href="#topics">topic
 where the usage/need of history is less clear. Finally, this ADR concludes with
 a <a href="#collated-diagram">collated diagram</a> of the domain model concepts.</p>
 <h3 id="core-concepts">Core Concepts</h3>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-publisher/master/docs/adr/0009/main-concepts-diagram.png" alt="Main concepts"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-publisher/main/docs/adr/0009/main-concepts-diagram.png" alt="Main concepts"></p>
 <p><strong>Document</strong>: A record that represents all versions of a piece of content in a
 particular locale. It has many editions and at any time it will have a current
 edition - shown on Content Publisher index - and potentially a live edition
@@ -497,7 +497,7 @@ is likely to be a large amount of these with often only minor differences
 between them. To address this a Revision is not stored as a single model but
 instead as a collection of models, where the Revision model stores little data
 and joins to other models. This can be visualised as:</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-publisher/master/docs/adr/0009/revision-diagram.png" alt="Revision breakdown"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-publisher/main/docs/adr/0009/revision-diagram.png" alt="Revision breakdown"></p>
 <p>The intention of breaking this up is to be conservative with the amount of data
 duplicated between consecutive revisions. For example when a user edits
 the title of an edition a new ContentRevision is created and the existing
@@ -515,7 +515,7 @@ user can change, of which a history is stored. A single image file uploaded
 produces multiple files that are uploaded to Asset Manager for different sizing
 variations. Images are modelled in a similar way to Revision with an
 immutable Image::Revision model, as represented below:</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-publisher/master/docs/adr/0009/image-revision-diagram.png" alt="Image Revision breakdown"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-publisher/main/docs/adr/0009/image-revision-diagram.png" alt="Image Revision breakdown"></p>
 <p>The Image model itself is used for continuation between image revisions. It is
 known that two Image::Revisions are versions of the same item if they share the
 same Image association. The id of the Image is used in Content Publisher URLs
@@ -565,7 +565,7 @@ the history of topics will not be available.</p>
 in the following, somewhat daunting, diagram. It has been simplified for ease
 of reading with noticeable omissions being a User model, since most models have
 a creator, and the speculative joins of a TimelineEntry.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-publisher/master/docs/adr/0009/domain-model-diagram.png" alt="Domain model diagram"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-publisher/main/docs/adr/0009/domain-model-diagram.png" alt="Domain model diagram"></p>
 <h2 id="status">Status</h2>
 <p>Accepted</p>
 <h2 id="consequences">Consequences</h2>

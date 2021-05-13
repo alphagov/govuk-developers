@@ -405,11 +405,11 @@ require this.</p>
 <h2 id="when-it-occurs">When it occurs</h2>
 <p>Dependency resolution occurs in a background process provided by a
 <a href="https://sidekiq.org">Sidekiq</a> worker:
-<a href="https://github.com/alphagov/publishing-api/blob/master/app/workers/dependency_resolution_worker.rb">DependencyResolutionWorker</a>. The dependency
+<a href="https://github.com/alphagov/publishing-api/blob/main/app/workers/dependency_resolution_worker.rb">DependencyResolutionWorker</a>. The dependency
 resolution process itself is triggered as a result of different Sidekiq
-workers (<a href="https://github.com/alphagov/publishing-api/blob/master/app/workers/downstream_draft_worker.rb">DownstreamDraftWorker</a>,
-<a href="https://github.com/alphagov/publishing-api/blob/master/app/workers/downstream_live_worker.rb">DownstreamLiveWorker</a>, and
-<a href="https://github.com/alphagov/publishing-api/blob/master/app/workers/downstream_discard_draft_worker.rb">DownstreamDiscardDraftWorker</a>) who are
+workers (<a href="https://github.com/alphagov/publishing-api/blob/main/app/workers/downstream_draft_worker.rb">DownstreamDraftWorker</a>,
+<a href="https://github.com/alphagov/publishing-api/blob/main/app/workers/downstream_live_worker.rb">DownstreamLiveWorker</a>, and
+<a href="https://github.com/alphagov/publishing-api/blob/main/app/workers/downstream_discard_draft_worker.rb">DownstreamDiscardDraftWorker</a>) who are
 responsible for updating the Content Stores any time an edition changes.</p>
 <p>Thus any time an edition is updated and re-presented in the content store
 the dependency resolution process will run and update items linked to the
@@ -423,16 +423,16 @@ that item in each locale that is available.</p>
 <p>For reference of the types of links see
 <a href="/apps/publishing-api/link-expansion.html">docs/link-expansion.md</a></p>
 <p>The class responsible for determining which <code>content_id</code>s require updates is
-<a href="https://github.com/alphagov/publishing-api/blob/master/lib/dependency_resolution.rb">DependencyResolution</a>. It uses the
-<a href="https://github.com/alphagov/publishing-api/blob/master/lib/expansion_rules/link_expansion.rb">link expansion rules</a> to perform the inverse process of
+<a href="https://github.com/alphagov/publishing-api/blob/main/lib/dependency_resolution.rb">DependencyResolution</a>. It uses the
+<a href="https://github.com/alphagov/publishing-api/blob/main/lib/expansion_rules/link_expansion.rb">link expansion rules</a> to perform the inverse process of
 link expansion.</p>
-<p>The <a href="https://github.com/alphagov/publishing-api/blob/master/app/queries/content_dependencies.rb">Queries::ContentDependencies</a> class is responsible
+<p>The <a href="https://github.com/alphagov/publishing-api/blob/main/app/queries/content_dependencies.rb">Queries::ContentDependencies</a> class is responsible
 for determining the locales of each <code>content_id</code>.</p>
 <h2 id="updating-content-store">Updating Content Store</h2>
 <p>As a result of the dependency resolution process, editions identified to
 be presented will be queued in the Sidekiq workers:
-<a href="https://github.com/alphagov/publishing-api/blob/master/app/workers/downstream_draft_worker.rb">DownstreamDraftWorker</a> and
-<a href="https://github.com/alphagov/publishing-api/blob/master/app/workers/downstream_live_worker.rb">DownstreamLiveWorker</a>. These workers communicate
+<a href="https://github.com/alphagov/publishing-api/blob/main/app/workers/downstream_draft_worker.rb">DownstreamDraftWorker</a> and
+<a href="https://github.com/alphagov/publishing-api/blob/main/app/workers/downstream_live_worker.rb">DownstreamLiveWorker</a>. These workers communicate
 with the content store.</p>
 <h3 id="content-store-http-headers">Content Store HTTP headers</h3>
 <p>HTTP Requests to the Content Store contain HTTP headers that can be used
@@ -448,10 +448,10 @@ the request was not the result of dependency resolution.</li>
 </ul>
 <h2 id="debugging">Debugging</h2>
 <p>You can explore dependency resolution in the rails console by creating a
-<a href="https://github.com/alphagov/publishing-api/blob/master/lib/dependency_resolution.rb"><code>DependencyResolution</code></a> instance.</p>
+<a href="https://github.com/alphagov/publishing-api/blob/main/lib/dependency_resolution.rb"><code>DependencyResolution</code></a> instance.</p>
 <pre><code>&gt; dependency_resolution = DependencyResolution.new(content_id, locale: :en, with_drafts: true)
 </code></pre>
-<p>You can then print the <a href="https://github.com/alphagov/publishing-api/blob/master/app/models/link_graph.rb"><code>link_graph</code></a> of the link expansion to view
+<p>You can then print the <a href="https://github.com/alphagov/publishing-api/blob/main/app/models/link_graph.rb"><code>link_graph</code></a> of the link expansion to view
 the links.</p>
 <pre><code>&gt; dependency_resolution.link_graph.to_h
 =&gt; {:children=&gt;[

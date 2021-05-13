@@ -403,7 +403,7 @@ and <a href="https://github.com/alphagov/search-api">Search API</a>.</p>
 get hold of the content item for the finder.</p>
 <pre lang="ruby"><code>ContentItem.from_content_store('/search/services') # gets content item (from memcached / API)
 </code></pre>
-<p>We call the Content Store to get the content item. Like the majority of pages on GOV.UK, all search pages have an associated <a href="https://github.com/alphagov/finder-frontend/blob/master/docs/docs/finder-content-item.md">content item</a>.</p>
+<p>We call the Content Store to get the content item. Like the majority of pages on GOV.UK, all search pages have an associated <a href="https://github.com/alphagov/finder-frontend/blob/main/docs/docs/finder-content-item.md">content item</a>.</p>
 <p>For example, site search's content item is here: <a href="https://www.gov.uk/api/content/search">https://www.gov.uk/api/content/search</a>.</p>
 <p>The content item plays an important role. The content item determines:</p>
 <ul>
@@ -428,7 +428,7 @@ from the user.</p>
 such as facets, which affect both how we render pages and how we query Search API.</p>
 <p>Search content items are published by Search API and Specialist Publisher.</p>
 <h3 id="querying-the-search-api">Querying the Search API</h3>
-<p>The query we make to Search API is performed by <a href="https://github.com/alphagov/finder-frontend/blob/master/docs/app/lib/search/query.rb"><code>Search::Query</code></a>.</p>
+<p>The query we make to Search API is performed by <a href="https://github.com/alphagov/finder-frontend/blob/main/docs/app/lib/search/query.rb"><code>Search::Query</code></a>.</p>
 <p>Using the content item and a user's query parameters, <code>Search::Query</code> makes a
 query to Search API.</p>
 <p>The single request made to Search API asks for a lot of different data.</p>

@@ -396,13 +396,13 @@
 <p>Users will have a different experience when interacting with a locked document compared with a regular document.</p>
 <h3 id="edition-show-page">Edition show page</h3>
 <p>When viewing the show page for a locked document users will see a very stripped down page compared with the regular show page.  All buttons and links to edit the edition and its associations, as well as any workflow actions such as submitting for 2i, have been removed.  We've restricted the metadata that is displayed as it could quickly become out of sync with changes made in Content Publisher, which would be misleading to users.  A notice is also displayed to communicate that the document has been moved to Content Publisher and provide a link to edit the document in the app.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/whitehall/master/docs/migration_to_content_publisher/locked-document-show-page.png" alt="Document show page"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/whitehall/main/docs/migration_to_content_publisher/locked-document-show-page.png" alt="Document show page"></p>
 <h3 id="document-index-page">Document index page</h3>
 <p>While we wanted to prevent locked documents from appearing in lists of documents to feature or add to a document collection, we do still want users to be able to access the show pages for locked documents.  We've ensured that locked documents can still be found on the document index page by adding a flag to the <code>Admin::EditionFilter</code> to include locked documents.  We've added a "Migrated to Content Publisher" label to locked documents that appear on the index page and have replaced the "Updated by", "Updated" and "State" cells with a "Migrated to Content Publisher" message to prevent confusion when these values become out of sync with changes made to the document in Content Publisher.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/whitehall/master/docs/migration_to_content_publisher/locked-document-index-page.png" alt="Document index page"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/whitehall/main/docs/migration_to_content_publisher/locked-document-index-page.png" alt="Document index page"></p>
 <h3 id="accessing-edit-pages">Accessing edit pages</h3>
 <p>As described in the <a href="#controllers">Controllers</a> section, if a user accesses a page to edit an edition or its associations directly then they will be redirected to to the document show page with a message explaining that the document is locked and cannot be edited.
-<img src="https://raw.githubusercontent.com/alphagov/whitehall/master/docs/migration_to_content_publisher/locked-document-redirected.png" alt="Redirected document show page"></p>
+<img src="https://raw.githubusercontent.com/alphagov/whitehall/main/docs/migration_to_content_publisher/locked-document-redirected.png" alt="Redirected document show page"></p>
 
 
             

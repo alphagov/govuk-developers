@@ -224,15 +224,8 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/1d3739899047589d57dfd00dd5f535867510e640">3 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Intro to GOV.UK Docker</h1> <p>We use <a href="https://github.com/alphagov/govuk-docker">govuk-docker</a> to help us develop stuff on GOV.UK. If you&rsquo;re new to Docker, this will provide useful insights into how we use it in the context of the GOV.UK stack.</p>
@@ -287,7 +280,7 @@ Docker version 18.09.2, build 6247962
 <span class="nv">$dev</span> bundle <span class="nb">install</span>
 </code></pre></div>
 <blockquote>
-<p>Note: you may need to use a different image (e.g. <code>ruby:2.6.5</code>) depending on the version specified in <a href="https://github.com/alphagov/content-publisher/blob/master/.ruby-version"><code>.ruby-version</code></a> in <a href="https://github.com/alphagov/content-publisher">content-publisher</a>.</p>
+<p>Note: you may need to use a different image (e.g. <code>ruby:2.6.5</code>) depending on the version specified in <a href="https://github.com/alphagov/content-publisher/blob/main/.ruby-version"><code>.ruby-version</code></a> in <a href="https://github.com/alphagov/content-publisher">content-publisher</a>.</p>
 <p>Note: this may take a while, so feel free to stop it by pressing Ctrl+c as the next step will show why it doesn&rsquo;t matter at this point.</p>
 </blockquote>
 <p>You can see that the gems required for content-publisher are installed! However, anything you do here won&rsquo;t persist - if you were to quit the container and then go back in exactly the same way, all the gems would need to be re-installed again.</p>

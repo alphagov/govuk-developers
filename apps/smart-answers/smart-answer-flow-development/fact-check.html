@@ -382,12 +382,12 @@ this allows previewing draft Smart Answers. This is available at
 <h2 id="displaying-rates-for-a-specific-date">Displaying rates for a specific date</h2>
 <p>Smart Answers are often used to illustrate certain costs or benefits applicable
 on a particular date. These are determined by looking up the correct rates (in
-<a href="https://github.com/alphagov/smart-answers/blob/master/config/smart_answers/rates"><code>config/smart_answers/rates</code></a>) to display for the current date.
+<a href="https://github.com/alphagov/smart-answers/blob/main/config/smart_answers/rates"><code>config/smart_answers/rates</code></a>) to display for the current date.
 When testing upcoming changes to rates you may want to simulate how they will
 appear on a particular date, this can be achieved by setting the
 <code>RATES_QUERY_DATE</code> environment variable.</p>
 <p>To apply this to a particular review app you can set a value for this
-environment variable in the <a href="https://github.com/alphagov/smart-answers/blob/master/app.json"><code>app.json</code></a>, for example:
+environment variable in the <a href="https://github.com/alphagov/smart-answers/blob/main/app.json"><code>app.json</code></a>, for example:
 <code>"RATES_QUERY_DATE": "2020-04-01"</code> - don't forget to remove this before
 merging.</p>
 

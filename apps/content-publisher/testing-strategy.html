@@ -402,7 +402,7 @@ further.</li>
 <a href="https://github.com/alphagov/email-alert-api/pull/300/commits/bf087c28442629bf672be67441fd224f6d746fa5">Email Alert API Testing</a>, and
 <a href="https://thoughtbot.com/blog/how-we-test-rails-applications">Thoughtbots' How We Test Rails Applications</a>.</p>
 <h2 id="tests-directory-structure">Tests directory structure</h2>
-<p>Tests for Content Publisher are stored in the <a href="https://github.com/alphagov/content-publisher/blob/master/spec">spec</a> directory with
+<p>Tests for Content Publisher are stored in the <a href="https://github.com/alphagov/content-publisher/blob/main/spec">spec</a> directory with
 the Ruby tests written using <a href="https://rspec.info/">RSpec</a> and JavaScript tests
 written using <a href="https://jasmine.github.io/">Jasmine</a>.</p>
 <p>As per Rails convention, most of the directories within the spec directory
@@ -487,7 +487,7 @@ the scenario, for example when relying on Rails' implicit rescue responses
 for <code>ActiveRecord::RecordNotFound</code> or <code>ActionController::ParameterMissing</code>;</li>
 <li>they should assert against the HTTP responses involved in the request, and
 not side-effects such as database changes, these are better suited to <a href="#unit-tests">unit
-testing</a> an <a href="https://github.com/alphagov/content-publisher/blob/master/docs/adr/0011-moving-business-logic-out-of-controllers.md">interactor</a>;</li>
+testing</a> an <a href="https://github.com/alphagov/content-publisher/blob/main/docs/adr/0011-moving-business-logic-out-of-controllers.md">interactor</a>;</li>
 <li>they should focus on the effects of a single endpoint with a single HTTP
 method at a time, for example <code>POST /documents</code>, for multiple endpoints
 consider whether you are testing a <a href="#feature-tests">feature</a>;</li>

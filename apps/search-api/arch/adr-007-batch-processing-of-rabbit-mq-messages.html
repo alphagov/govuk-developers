@@ -382,7 +382,7 @@
 <h2 id="definitions">Definitions</h2>
 <p>ES refers to elasticsearch</p>
 <h2 id="context">Context</h2>
-<p>As a result of <a href="https://github.com/alphagov/search-api/blob/master/docs/arch/adr-004-transition-mainstream-to-publishing-api-index.md">ADR 004</a>
+<p>As a result of <a href="https://github.com/alphagov/search-api/blob/main/docs/arch/adr-004-transition-mainstream-to-publishing-api-index.md">ADR 004</a>
 we now process data from rabbit MQ and insert them into our search index. While the
 process itself works as expected we have had scaling issues when large volumes
 of messages arrive from the publishing API and sit in our sidekiq queue waiting to be
@@ -410,17 +410,17 @@ any of them fail during the ES update.</li>
 <p>We have done some initial testing using the new batch processor and have the following results:</p>
 <h3 id="current-process">Current process</h3>
 <p>Processing 1 message at a time for approx 10000 documents (employment_tribunal_decision format)</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/search-api/master/docs/arch/images/1-queue.png" alt="Queue Size">
-<img src="https://raw.githubusercontent.com/alphagov/search-api/master/docs/arch/images/1-free-cpu.png" alt="Free CPU"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/search-api/main/docs/arch/images/1-queue.png" alt="Queue Size">
+<img src="https://raw.githubusercontent.com/alphagov/search-api/main/docs/arch/images/1-free-cpu.png" alt="Free CPU"></p>
 <h3 id="new-process">New process</h3>
 <p>Processing 100 messages at a time with a 5 second timeout for approx 10000 documents (employment_tribunal_decision format)</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/search-api/master/docs/arch/images/100-queue.png" alt="Queue Size">
-<img src="https://raw.githubusercontent.com/alphagov/search-api/master/docs/arch/images/100-free-cpu.png" alt="Free CPU"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/search-api/main/docs/arch/images/100-queue.png" alt="Queue Size">
+<img src="https://raw.githubusercontent.com/alphagov/search-api/main/docs/arch/images/100-free-cpu.png" alt="Free CPU"></p>
 <h3 id="new-process-in-bulk">New process in bulk</h3>
 <p>Processing 100 messages at a time with a 5 second timeout for the top 4 formats - approx 125000 documents.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/search-api/master/docs/arch/images/100-bulk-queue.png" alt="Queue Size">
-<img src="https://raw.githubusercontent.com/alphagov/search-api/master/docs/arch/images/100-bulk-free-cpu.png" alt="Free CPU">
-<img src="https://raw.githubusercontent.com/alphagov/search-api/master/docs/arch/images/100-bulk-errors.png" alt="Sidekiq Errors"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/search-api/main/docs/arch/images/100-bulk-queue.png" alt="Queue Size">
+<img src="https://raw.githubusercontent.com/alphagov/search-api/main/docs/arch/images/100-bulk-free-cpu.png" alt="Free CPU">
+<img src="https://raw.githubusercontent.com/alphagov/search-api/main/docs/arch/images/100-bulk-errors.png" alt="Sidekiq Errors"></p>
 <p>We don't see an increase in 500 error on dependant apps which means we aren't blocking
 consumer applications as a result of increasing our throughput.</p>
 <p>We do observed a number of SigTerm exceptions from the worker processes in Sentry

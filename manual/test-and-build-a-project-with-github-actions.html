@@ -218,13 +218,13 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0f0067be547a6af42e018189be87b6a948e0a0b7">21 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Test & build a project with GitHub Actions</h1> <p><a href="https://github.com/features/actions">GitHub Actions</a> is an automated workflow
 system that GOV.UK uses for <a href="https://en.wikipedia.org/wiki/Continuous_integration">Continuous Integration (CI)</a>, we also have
 <a href="/manual/testing-projects.html">Jenkins</a> and <a href="/manual/concourse.html">Concourse</a>
-that provide similar functionality. In <a href="https://github.com/alphagov/govuk-rfcs/blob/master/rfc-123-github-actions-ci.md">GOV.UK RFC 123</a> we decided that
+that provide similar functionality. In <a href="https://github.com/alphagov/govuk-rfcs/blob/main/rfc-123-github-actions-ci.md">GOV.UK RFC 123</a> we decided that
 GitHub Actions is the preferred platform for GOV.UK CI usage where the wider
 platform integration of Jenkins is not required.</p>
 <p>Please note that we cannot currently make use of the <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">Secrets</a>
@@ -240,7 +240,7 @@ following:</p>
 jobs during or following a build (for example, triggering
 <a href="/manual/publishing-e2e-tests.html">publishing end-to-end tests</a> or triggering a deployment);</li>
 <li>authentication to external systems (for example, <a href="/manual/publishing-a-ruby-gem.html#releasing-gem-versions">releasing a gem
-automatically</a> during a master build).</li>
+automatically</a> during a main build).</li>
 </ul>
 <h2 id='gov-uk-conventions-for-github-actions'>GOV.UK Conventions for GitHub Actions</h2><h3 id='name-of-ci-workflow-file'>Name of CI workflow file</h3><p>You should name the file used for configuring the CI workflow <code>ci.yml</code>.</p>
 <h3 id='when-the-ci-workflow-should-run'>When the CI workflow should run</h3><p>The workflow should be configured to run on <a href="https://help.github.com/en/actions/reference/events-that-trigger-workflows#push-event-push"><code>push</code></a> and
@@ -249,7 +249,7 @@ push to the repository and this will generate a build against the branch
 that was pushed. The <code>pull_request</code> event occurs whenever a pull request
 is opened and it is triggered again any time the pull request changes (such
 as extra commits or rebasing), these differ to the <code>push</code> event by merging in
-the master branch before running operations. Pull requests from forks of a
+the main branch before running operations. Pull requests from forks of a
 repo will only trigger the <code>pull_request</code> event.</p>
 <p>For example:</p>
 <div class="highlight"><pre class="highlight yaml" tabindex="0"><code><span class="c1"># ./github/workflows/ci.yml</span>
@@ -400,8 +400,8 @@ compilation.</li>
 <li>In the underlying project (Content Publisher) <code>bundle exec rake</code> performs:
 Ruby &amp; JS unit testing; Ruby, SCSS, JavaScript and FactoryBot linting; and
 brakeman security audit.</li>
-<li>This example does not include tagging the <a href="https://docs.publishing.service.gov.uk/manual/testing-projects.html#fixing-the-build-number">master branch with a particular
-release tag</a> when there is a successful master build.</li>
+<li>This example does not include tagging the <a href="https://docs.publishing.service.gov.uk/manual/testing-projects.html#fixing-the-build-number">main branch with a particular
+release tag</a> when there is a successful main build.</li>
 </ul>
 
 

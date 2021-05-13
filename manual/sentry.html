@@ -244,7 +244,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9136362f17338f8d5a5a4553cba60878ac2b1aa0">8 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Sentry</h1> <p><a href="https://sentry.io/govuk/">Sentry</a> is a service that collates errors that happen on GOV.UK in one
@@ -286,7 +286,7 @@ read a <a href="https://docs.publishing.service.gov.uk/apps.json">list of apps</
 all configuration is set up correctly.</p>
 <p>Apps are configured to talk to Sentry using the <a href="https://github.com/alphagov/govuk_app_config">govuk_app_config</a> gem,
 which interfaces with Sentry via its <a href="https://github.com/alphagov/govuk_app_config/blob/master/lib/govuk_app_config/govuk_error.rb"><code>GovukError</code> class</a>. Apps
-call <code>GovukError.configure</code> - see <a href="https://github.com/alphagov/email-alert-api/blob/master/config/initializers/govuk_error.rb">example</a>. This
+call <code>GovukError.configure</code> - see <a href="https://github.com/alphagov/email-alert-api/blob/main/config/initializers/govuk_error.rb">example</a>. This
 <a href="https://github.com/alphagov/govuk_app_config/pull/160">delegates</a> to the <a href="https://github.com/getsentry/sentry-ruby/tree/master/sentry-raven">sentry-raven</a> gem under the hood,
 though the gem is now superseded by sentry-ruby, which we have
 <a href="https://trello.com/c/1zVPYfTR/1979-replace-sentry-raven-with-sentry-ruby">plans to migrate to</a> in the future.</p>

@@ -371,7 +371,7 @@
   <h1 class="page-title">smart-answers: Flow</h1>
 
   
-<p>At the heart of each Smart Answer is a subclass of <code>SmartAnswer::Flow</code>. Subclasses like this make a DSL available for <a href="#metadata">specifying metadata</a>, and <a href="#definition">defining</a> all the <a href="#question-nodes">question nodes</a>, the <a href="#outcome-nodes">outcome nodes</a>, and the <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/next-node-rules.md">rules</a> to control routing between the nodes.</p>
+<p>At the heart of each Smart Answer is a subclass of <code>SmartAnswer::Flow</code>. Subclasses like this make a DSL available for <a href="#metadata">specifying metadata</a>, and <a href="#definition">defining</a> all the <a href="#question-nodes">question nodes</a>, the <a href="#outcome-nodes">outcome nodes</a>, and the <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/next-node-rules.md">rules</a> to control routing between the nodes.</p>
 <h2 id="naming">Naming</h2>
 <p>The flow filename should be based on the path where the Smart Answer is to be found on gov.uk. For example, for a Smart Answer at <a href="https://www.gov.uk/example-smart-answer">https://www.gov.uk/example-smart-answer</a>, the flow file should be named <code>lib/smart_answer_flows/example-smart-answer.rb</code>. Similarly the template directory should be named <code>lib/smart_answer_flows/example-smart-answer/</code>.</p>
 <p>The flow class should be a camel-case version of the flow filename with the suffix, <code>Flow</code> e.g. in the case above it would be <code>ExampleSmartAnswerFlow</code>. The class should inherit from <code>SmartAnswer::Flow</code> and be in the <code>SmartAnswer</code> namespace.</p>
@@ -429,13 +429,13 @@ end
 <p>Some flows (e.g. <a href="https://github.com/alphagov/smart-answers/blob/20d2d9f524e912a3edcb9256ce2d790059538641/lib/smart_answer_flows/register-a-birth.rb#L9-L12">register-a-birth</a>) define local variables towards the top of the flow definition. Standard Ruby scoping means that these are then available within question &amp; outcome blocks, as well as within blocks nested inside these blocks. However, note that the value of the local variable is set at flow definition time and <em>not</em> at request time. Since a single flow instance is cached in the <code>FlowRegistry</code> at application start-up time, this means the local variable is <em>only assigned once</em>.</p>
 <h3 id="start-node">Start node</h3>
 <p>Every flow has an implicit start node which represents the "landing page" i.e. the page which displays the "Start" button. There is no representation of this start node in the flow definition. Clicking the "Start" button on the "landing page" takes you to the page for the first question node (see below).</p>
-<p>Also see the documentation for <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/docs/smart-answers/erb-templates/landing-page-template.md">landing page templates</a>.</p>
+<p>Also see the documentation for <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/docs/smart-answers/erb-templates/landing-page-template.md">landing page templates</a>.</p>
 <h3 id="question-nodes">Question nodes</h3>
-<p>There is an implicit assumption that the question definition which appears first in the flow definition is the first question of the flow. All other "routing" between nodes is <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/next-node-rules.md">done explicitly</a> in a single <code>next_node</code> block per question node.</p>
+<p>There is an implicit assumption that the question definition which appears first in the flow definition is the first question of the flow. All other "routing" between nodes is <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/next-node-rules.md">done explicitly</a> in a single <code>next_node</code> block per question node.</p>
 <p>By convention, question nodes are usually listed roughly in the order that a user would visit them. Although this isn't always straightforward when there are multiple paths through the flow.</p>
 <p>Since all "routing" is done explicitly within <code>next_node</code> blocks, the order of the question definitions (other than the first one) is functionally unimportant.</p>
 <p>By convention, all question nodes are defined <em>before</em> any of the outcome nodes. However, again the order is functionally unimportant.</p>
-<p>Question nodes are defined by calls to one of the various <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/question-types.md">question-type methods</a>. Since the value of <code>self</code> at the "top-level" within the <code>#define</code> method is an instance of the flow, these question-type methods are defined on the <code>SmartAnswer::Flow</code> base class.</p>
+<p>Question nodes are defined by calls to one of the various <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/question-types.md">question-type methods</a>. Since the value of <code>self</code> at the "top-level" within the <code>#define</code> method is an instance of the flow, these question-type methods are defined on the <code>SmartAnswer::Flow</code> base class.</p>
 <p>For example:</p>
 <pre lang="ruby"><code>module SmartAnswer
   class ExampleSmartAnswerFlow &lt; Flow
@@ -523,7 +523,7 @@ new_state.example_state_variable.equal?(state.example_state_variable)
 <blockquote>
 <p>Since a new instance of the state is created for each request, it's not obvious <em>why</em> the state is duplicated in this way. I know that in the past there have been problems with state leaking between requests, so perhaps this was a mistaken attempt at preventing such leakage.</p>
 </blockquote>
-<p>It's possible to <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/viewing-state.md">view the state</a> when you're running the app in the development environment.</p>
+<p>It's possible to <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/viewing-state.md">view the state</a> when you're running the app in the development environment.</p>
 <h5 id="built-in-state-variables">Built-in state variables</h5>
 <ul>
 <li>
@@ -580,7 +580,7 @@ second_state = first_state.transition_to(:third_node, 'second-response')
 <li>A <code>SmartAnswer::InvalidResponse</code> exception is raised with the <code>message_key</code> set as the exception message.</li>
 <li>This exception is handled within the app and prevents the transition to the next node.</li>
 <li>The <code>message_key</code> from the exception message is set on the built-in state variable, <code>error</code>.</li>
-<li>When the question template is re-rendered, the <code>error</code> state variable is used to lookup the appropriate validation error message in the <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/docs/smart-answers/erb-templates/question-templates.md#error_messagemessage">question template</a>.</li>
+<li>When the question template is re-rendered, the <code>error</code> state variable is used to lookup the appropriate validation error message in the <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/docs/smart-answers/erb-templates/question-templates.md#error_messagemessage">question template</a>.</li>
 </ol>
 </li>
 </ul>
@@ -603,15 +603,15 @@ end
 <li>This block is intended to determine which node comes next based on the user responses so far.</li>
 <li>These blocks are executed after all the <code>validate</code> blocks have been executed.</li>
 <li>The built-in state variables, <code>path</code>, <code>current_node</code> &amp; <code>responses</code>, are updated if this block returns successfully.</li>
-<li>The block return value must be the result of calling the <code>#question</code> or <code>#outcome</code> methods passing in the key of the next node - see the <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/next-node-rules.md">next node documentation</a> for more details.</li>
+<li>The block return value must be the result of calling the <code>#question</code> or <code>#outcome</code> methods passing in the key of the next node - see the <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/next-node-rules.md">next node documentation</a> for more details.</li>
 </ul>
 <blockquote>
 <p>The use of this block type is <em>required</em>. However, it should call methods on the <code>calculator</code> state variable and not rely on the <code>response</code> argument passed into the block.</p>
 </blockquote>
 <h4 id="further-information">Further information</h4>
-<p>See the <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/storing-data.md">documentation on storing data</a>.</p>
+<p>See the <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/storing-data.md">documentation on storing data</a>.</p>
 <h4 id="templates">Templates</h4>
-<p>See the <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/docs/smart-answers/erb-templates/question-templates.md">documentation for question templates</a>.</p>
+<p>See the <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/docs/smart-answers/erb-templates/question-templates.md">documentation for question templates</a>.</p>
 <h3 id="outcome-nodes">Outcome nodes</h3>
 <p>These are very similar to question nodes. There should never be a response associated with an outcome node. Having said that, the following methods are all <em>technically</em> available within the node definition, because they are instance methods on <code>SmartAnswer::Outcome</code> (or its superclasses):</p>
 <ul>
@@ -619,7 +619,7 @@ end
 </ul>
 <p>If any attempt is made to process a response when the current node is an outcome node (e.g. by hacking the URL path), an exception will be raised.</p>
 <h4 id="templates">Templates</h4>
-<p>See the <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/docs/smart-answers/erb-templates/outcome-templates.md">documentation for outcome templates</a>.</p>
+<p>See the <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/docs/smart-answers/erb-templates/outcome-templates.md">documentation for outcome templates</a>.</p>
 
 
             

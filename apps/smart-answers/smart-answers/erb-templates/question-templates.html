@@ -406,7 +406,7 @@ also use govspeak or HTML. Example:</p>
 </code></pre>
 <p>Note: As of May 2020 this option may not be working correctly. Please check and amend this documentation.</p>
 <h3 id="suffix_label"><code>:suffix_label</code></h3>
-<p>Valid for <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/question-types.md#value_question">value questions</a> &amp; <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/question-types.md#money_question">money questions</a>. Can only be text. Example:</p>
+<p>Valid for <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/question-types.md#value_question">value questions</a> &amp; <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/question-types.md#money_question">money questions</a>. Can only be text. Example:</p>
 <pre lang="erb"><code>&lt;% text_for :suffix_label do %&gt;
   years old
 &lt;% end %&gt;
@@ -441,7 +441,7 @@ can be specified with a prefix of <code>:error_</code>,</p>
 <h2 id="specifying-options">Specifying options</h2>
 <p>This is done using a call to the <code>options</code> method.</p>
 <h3 id="optionshash"><code>options(hash)</code></h3>
-<p>Valid for <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/question-types.md#radio">radio</a> and <a href="https://github.com/alphagov/smart-answers/blob/master/docs/smart-answers/question-types.md#checkbox_question">checkbox</a> question types. <code>hash</code> argument is a <code>Hash</code> of option keys (strings) and values (strings or hashes).
+<p>Valid for <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/question-types.md#radio">radio</a> and <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/question-types.md#checkbox_question">checkbox</a> question types. <code>hash</code> argument is a <code>Hash</code> of option keys (strings) and values (strings or hashes).
 It is used to specify the human-readable label text or hint text for each of the option keys.</p>
 <p>Example with only label text:</p>
 <pre lang="erb"><code>&lt;% options(

@@ -465,7 +465,7 @@ single day, we need to understand how those metrics evolved <strong>over time</s
 <code>550</code> live Content Items and <code>Organisation B</code> has <code>400</code>.</p>
 <p>With this information, it is hard to see if those organizations are effectively
 managing their content because we only have a data points for a single day.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/master/docs/images/fig-01-no-trends.png" alt="without metrics over time"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/main/docs/images/fig-01-no-trends.png" alt="without metrics over time"></p>
 <ul>
 <li>
 <strong>Content Items published by an organization over time</strong>*</li>
@@ -476,7 +476,7 @@ that <code>Organisation A</code> is decreasing the number of Content Items daily
 <p>We can conclude that <code>organization b</code> would need to take action to improve the
 way they manage content over time: they can make an informed decision based on
 data about the way they manage content.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/master/docs/images/fig-02-with-trends.png" alt="with metrics over time"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/main/docs/images/fig-02-with-trends.png" alt="with metrics over time"></p>
 <h3 id="example-2-enforcing-good-practices">Example 2: Enforcing good practices</h3>
 <p>Data is not only to help departments to manage their content over time; it can
 also help to provide evidence about compliance to best practices and guidelines.</p>
@@ -486,7 +486,7 @@ not benefitial for users, would make it easier for departments to fully comply
 with GOV.UK guidelines.</p>
 <p>In the following example, we can see how there is a relationship between the
 number of PDFs published by <code>Organisation A</code> and the <code>satisfaction score</code>.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/master/docs/images/fig-03-comparisons.png" alt="enforcing good practices"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/main/docs/images/fig-03-comparisons.png" alt="enforcing good practices"></p>
 <h3 id="example-3-predictions">Example 3: Predictions</h3>
 <p>User interactions with content on GOV.UK can sometimes follow seasonal patterns.
 If on a particular week or month of the year a set of pages receive a spike on
@@ -496,7 +496,7 @@ of visits the following year during the same period.</p>
 <p>As per the spike of visits in June last year, it is very likely that
 <code>Organisation A</code> expects a spike in page views for a content item, so they might
 consider reviewing in advance the content, so it is accurate and up to date.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/master/docs/images/fig-04-predictions.png" alt="predictions"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/main/docs/images/fig-04-predictions.png" alt="predictions"></p>
 <h1 id="why-a-data-warehouse">Why a Data Warehouse</h1>
 <h2 id="considerations-for-building-a-new-application">Considerations for building a new application</h2>
 <p>Before building a new application, we explored if the existing set of
@@ -506,14 +506,14 @@ applications and data sources were good enough to fulfill our mission goals.</p>
 <li>
 <p>We don't have a single place to retrieve all metrics for content items. We
 currently store metrics for organizations (and dashboards) via the
-<a href="https://github.com/alphagov/content-data-api/blob/master/docs/performance-platform">performance platform</a>, but the way it is structured
+<a href="https://github.com/alphagov/content-data-api/blob/main/docs/performance-platform">performance platform</a>, but the way it is structured
 and the scope of the product, make it not a good fit for our mission goal.</p>
 </li>
 <li>
 <p>We store the number of page views in <a href="https://github.com/alphagov/rummager">Search</a>, so when users search
 in GOV.UK the results are ordered by popularity; the way this information is
 collected <a href="https://trello.com/c/mMXm3KQ2/38-google-analytics-integration-is-very-fragile">has been reported as Tech debt</a> and building
-this applpcation will enable <a href="https://github.com/alphagov/rummager">Search</a> to <a href="https://github.com/alphagov/content-data-api/blob/master/docs/api">use the API</a> and pay
+this applpcation will enable <a href="https://github.com/alphagov/rummager">Search</a> to <a href="https://github.com/alphagov/content-data-api/blob/main/docs/api">use the API</a> and pay
 the tech debt.</p>
 </li>
 <li>

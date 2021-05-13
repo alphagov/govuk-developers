@@ -399,7 +399,7 @@ fine without the data there that you are expecting.</p>
 <p>Representing the data downstream won't work on local machines, so you will need
 to have a check in the migration making sure it is running in the right
 environment (<code>Rails.env.production?</code>). Alternatively, and ideally, you can
-<a href="https://github.com/alphagov/publishing-api/blob/master/docs/lib/tasks/represent_downstream.rake">use the <code>represent_downstream:</code> class of rake tasks</a> in Jenkins to
+<a href="https://github.com/alphagov/publishing-api/blob/main/docs/lib/tasks/represent_downstream.rake">use the <code>represent_downstream:</code> class of rake tasks</a> in Jenkins to
 achieve the same result. If you do decide to represent downstream in the
 migration itself, you must disable transactions for this migration (by running
 the <code>disable_ddl_transaction!</code> method) as otherwise you will be representing

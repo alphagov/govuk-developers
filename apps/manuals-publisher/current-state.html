@@ -384,7 +384,7 @@
 <p>Sections can have file <code>Attachment</code>s. Publishing a manual makes a call to the Publishing API (which updates the search index via Rummager). For historical reasons the application maintains its own state in MongoDB. The local state <em>should</em> reflect the state of the Publishing API's database at any particular time, although the application itself doesn't enforce this. A user of the application sees data read from the local MongoDB database, not the Publishing API.</p>
 <h2 id="models">Models</h2>
 <p>The following diagram illustrates the associations between the models in the application</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/manuals-publisher/master/docs/diagram.png" alt="Class relationship diagram"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/manuals-publisher/main/docs/diagram.png" alt="Class relationship diagram"></p>
 <p>This application models the "domain" and the "persistence" for Manuals and Sections separately. Unfortunately this separation is not rigidly and consistently held throughout the application</p>
 <ul>
 <li>A "plain Ruby" class <code>Manual</code> is responsible for persisting its data into <code>ManualRecord</code> and <code>ManualRecord::Edition</code>.</li>

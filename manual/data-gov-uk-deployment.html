@@ -208,15 +208,8 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/bebd80a7a6955bdd8090423ba0fe22b36a92c982">3 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Deployments for data.gov.uk</h1> <h2 id='find-and-publish-rails-apps'>Find and Publish (Rails Apps)</h2><h3 id='continuous-integration'>Continuous Integration</h3><p>Travis is configured for both <a href="https://travis-ci.org/alphagov/datagovuk_publish/">Publish (CI)</a> and <a href="https://travis-ci.org/alphagov/datagovuk_find">Find (CI)</a> according to <code>.travis.yml</code> file in each repo. Each PR request should automatically build a <a href="https://docs.publishing.service.gov.uk/manual/review-apps.html#header">Heroku Review App</a>, which can be accessed from the PR page on GitHub.</p>
@@ -228,13 +221,13 @@ contains a set of manifests that specify the container settings for when it&rsqu
 deployed.</p>
 <p>The deployment for both apps can be triggered automatically via GitHub flow, or
 manually via command line tools.</p>
-<h4 id='staging'>Staging</h4><p>The deployment to staging is triggered when a PR gets merged into master. You
-can check the <a href="https://travis-ci.org/alphagov/datagovuk_find">Travis logs of the <code>master</code> build</a> to see progress.</p>
+<h4 id='staging'>Staging</h4><p>The deployment to staging is triggered when a PR gets merged into main. You
+can check the <a href="https://travis-ci.org/alphagov/datagovuk_find">Travis logs of the <code>main</code> build</a> to see progress.</p>
 <p>You can check the deployment on <a href="https://staging.data.gov.uk/">staging.data.gov.uk</a></p>
 <h4 id='production'>Production</h4><p>The deployment to production is triggered when a <a href="https://github.com/alphagov/datagovuk_find/releases">new release</a> with an appropriate version
 number is created in GitHub.</p>
 <p>To create a new release, provide a new version number, release title and description. The version number must include the leading &lsquo;v&rsquo; to trigger a deployment, for example: <code>v1.0.0</code></p>
-<p>This deployment behaviour is defined in <a href="https://github.com/alphagov/datagovuk_publish/blob/master/.travis.yml#L30-L50">Publish&rsquo;s travis.yml</a>
+<p>This deployment behaviour is defined in <a href="https://github.com/alphagov/datagovuk_publish/blob/main/.travis.yml#L30-L50">Publish&rsquo;s travis.yml</a>
 and in <a href="https://github.com/alphagov/datagovuk_find/blob/af8cfa61584b16e4e1ad7bedbd1b7f890cec940d/.travis.yml#L44-L48">Find&rsquo;s travis.yml</a>.</p>
 <p>The process to manually deploy is as follows.</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>## run once to install the plugin
@@ -244,7 +237,7 @@ cf install-plugin autopilot -r CF-Community -f
 ## manually deploy the publish app
 cf zero-downtime-push publish-data-beta-staging -f staging-app-manifest.yml
 cf zero-downtime-push publish-data-beta-staging-worker -f staging-worker-manifest.yml
-</code></pre></div><p>There are <a href="https://github.com/alphagov/datagovuk_publish/tree/master/scripts">some scripts available for datagovuk_publish</a> which can run a deploy for you, for example:</p>
+</code></pre></div><p>There are <a href="https://github.com/alphagov/datagovuk_publish/tree/main/scripts">some scripts available for datagovuk_publish</a> which can run a deploy for you, for example:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ cd datagovuk_publish
 $ git pull
 $ ./scripts/deploy-staging.sh
@@ -256,7 +249,7 @@ $ ./scripts/deploy-production.sh
 <p>For more information, refer to the <a href="https://docs.cloudfoundry.org/devguide/deploy-apps/ssh-apps.html#ssh-env">Cloud Foundry documentation on SSH Session Environment</a>.</p>
 <h2 id='ckan'>CKAN</h2><p><a href="https://github.com/alphagov/ckanext-datagovuk">CKAN</a> uses GOV.UK infrastructure, which includes <a href="/manual/jenkins-ci.html">Jenkins</a> for CI.</p>
 <p>Integration, staging and production environments behave like all other GOV.UK applications on AWS.</p>
-<p>Deployments for ckan are initiated via updates to <a href="https://github.com/alphagov/ckanext-datagovuk">ckanext-datagovuk</a>, whenever a ckan extension is updated the <a href="https://github.com/alphagov/ckanext-datagovuk/blob/master/bin/install-dependencies.sh">install-dependencies</a> file will need an update with the relevant extensions (eg. spatial, harvest, dcat) commit or version number.</p>
+<p>Deployments for ckan are initiated via updates to <a href="https://github.com/alphagov/ckanext-datagovuk">ckanext-datagovuk</a>, whenever a ckan extension is updated the <a href="https://github.com/alphagov/ckanext-datagovuk/blob/main/bin/install-dependencies.sh">install-dependencies</a> file will need an update with the relevant extensions (eg. spatial, harvest, dcat) commit or version number.</p>
 <h3 id='csw'>CSW</h3><p>When deploying changes that affect the CSW service, (OWSLib or PyCSW updates), provided at the <code>/csw</code> endpoint for the <a href="https://ckan.publishing.service.gov.uk">CKAN publisher</a> you should make sure that the endpoint is still running correctly by curling it, <code>curl &quot;https://ckan.publishing.service.gov.uk/csw&quot;</code>, or view it in Firefox. Chrome and Safari do not show the XML on the page correctly.</p>
 <p>The daily sync between pycsw and ckan should also be tested:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>sudo su deploy

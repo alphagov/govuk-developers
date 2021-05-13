@@ -201,15 +201,8 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/14c5ae4c42e3cb365bcacae431acde666d6ab67b">18 Feb 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>How the topic taxonomy works</h1> <p>The Topic Taxonomy is a classification scheme for organising and
@@ -225,7 +218,7 @@ the &ldquo;Education&rdquo; taxon</a>.</p>
 <p>This means that taxons inherit the publishing-api workflow, and can be
 in either draft state or published.</p>
 <p>The link type <code>parent_taxons</code> is used to store the relationship
-between taxons. A <a href="https://github.com/alphagov/publishing-api/blob/master/lib/expansion_rules.rb#L29">reverse link</a> called
+between taxons. A <a href="https://github.com/alphagov/publishing-api/blob/main/lib/expansion_rules.rb#L29">reverse link</a> called
 <code>child_taxons</code> is setup through the publishing-api.</p>
 <h2 id='tagging'>Tagging</h2><p>There is no technical limit in what can be tagged to the taxonomy, but
 not every type of content in the publishing-api is suitable for
@@ -281,7 +274,7 @@ allows us to publish the entire taxonomy while making those parts which are not
 considered mature enough for production harder to find.</p>
 <h2 id='taxonomy-metrics'>Taxonomy Metrics</h2><p>High level metrics regarding the taxonomy are recorded in Graphite,
 and can be looked at through a Grafana <a href="https://grafana.publishing.service.gov.uk/dashboard/file/topic_taxonomy.json">dashboard</a>.</p>
-<p>A <a href="https://github.com/alphagov/content-tagger/blob/master/lib/tasks/taxonomy_metrics.rake#L27">rake task</a> in Content Tagger is run through the <a href="https://deploy.publishing.service.gov.uk/job/record-taxonomy-metrics/">deploy
+<p>A <a href="https://github.com/alphagov/content-tagger/blob/main/lib/tasks/taxonomy_metrics.rake#L27">rake task</a> in Content Tagger is run through the <a href="https://deploy.publishing.service.gov.uk/job/record-taxonomy-metrics/">deploy
 Jenkins</a> every 30 minutes to push metrics to
 Graphite (via StatsD).</p>
 

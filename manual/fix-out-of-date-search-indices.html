@@ -192,28 +192,21 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/efdd893e70e40a28cad0be12a9f466488335c2f6">21 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Fix out-of-date search indices</h1> <p>If the data in the search index is out-of-sync with the Publishing API,
 (for example, after <a href="https://docs.publishing.service.gov.uk/manual/elasticsearch-dumps.html">restoring a backup</a>), then any <code>publish</code>
 and <code>unpublish</code> messages that have not been processed need to be resent.</p>
-<h2 id='govuk-index'><code>govuk</code> index</h2><p>Content in the <code>govuk</code> index is populated from the <a href="https://github.com/alphagov/search-api/blob/master/docs/new-indexing-process.md">Publishing API message queue</a>.
+<h2 id='govuk-index'><code>govuk</code> index</h2><p>Content in the <code>govuk</code> index is populated from the <a href="https://github.com/alphagov/search-api/blob/main/docs/new-indexing-process.md">Publishing API message queue</a>.
 Missing documents can be recovered by resending the content to the message queue. In the
 Publishing API, run the following rake task (including the quotes) to replay traffic between
 two datestamps:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>govuk_setenv publishing-api bundle exec \
 rake 'represent_downstream:published_between[2018-12-17T01:02:30, 2018-12-18T10:20:30]'
 </code></pre></div><p>You can also run this task from Jenkins.</p>
-<p><a href="https://github.com/alphagov/publishing-api/blob/master/lib/tasks/represent_downstream.rake">Other replay options are available</a>, for example replaying all traffic for a single publishing app or doctype.
+<p><a href="https://github.com/alphagov/publishing-api/blob/main/lib/tasks/represent_downstream.rake">Other replay options are available</a>, for example replaying all traffic for a single publishing app or doctype.
 Be aware that these options will replay the entire Publisher API history for that app or doctype, and may take some time.</p>
 <h2 id='governmentdetailed-indexes'><code>government</code>/<code>detailed</code> indexes</h2><p><strong>This will not be neccessary after whitehall content has been moved to the
 <code>govuk</code> index.</strong></p>

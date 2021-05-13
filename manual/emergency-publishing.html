@@ -243,7 +243,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4cfac7743561ab1a4b16d2b5c70a2073bae2caeb">12 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Deploy emergency publishing banners</h1> <p>There are three types of events that would lead GOV.UK to add an emergency
@@ -336,7 +336,7 @@ Head of GOV.UK.</p>
 <p>Caches will clear automatically.</p>
 
 <hr>
-<h2 id='troubleshooting'>Troubleshooting</h2><h3 id='background'>Background</h3><p>The information for the emergency banner is stored in Redis. <a href="https://github.com/alphagov/static">Static</a> is responsible for displaying the data and we use Jenkins to run <a href="https://github.com/alphagov/static/blob/master/lib/tasks/emergency_banner.rake">rake tasks in static</a> to set or delete the appropriate hash in Redis.</p>
+<h2 id='troubleshooting'>Troubleshooting</h2><h3 id='background'>Background</h3><p>The information for the emergency banner is stored in Redis. <a href="https://github.com/alphagov/static">Static</a> is responsible for displaying the data and we use Jenkins to run <a href="https://github.com/alphagov/static/blob/main/lib/tasks/emergency_banner.rake">rake tasks in static</a> to set or delete the appropriate hash in Redis.</p>
 <h3 id='the-banner-is-not-showing-not-clearing'>The banner is not showing / not clearing</h3><p>Usually this is because the caching has not cleared properly. This can be at
 various points in our stack as well as locally in your browser. Things to try:</p>
 

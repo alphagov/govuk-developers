@@ -385,7 +385,7 @@ representations and the meanings of the individual fields can be found in
 </code></pre>
 <p>where <code>&lt;base_path&gt;</code> is the path on GOV.UK where the content lives (for example
 <code>/vat-rates</code>) and <code>&lt;content_item_json&gt;</code> is the JSON for the content item as
-outlined in <a href="https://github.com/alphagov/content-store/blob/master/docs/input_examples">input_examples</a>.</p>
+outlined in <a href="https://github.com/alphagov/content-store/blob/main/docs/input_examples">input_examples</a>.</p>
 <p>There is currently an <a href="https://github.com/alphagov/gds-api-adapters/blob/master/lib/gds_api/publishing_api.rb">API adapter</a>
 in <a href="https://github.com/alphagov/gds-api-adapters">gds-api-adapters</a> for writing
 content to content-store, although it is likely that this will soon be extracted
@@ -398,7 +398,7 @@ to a separate gem.</p>
 <p>If the <code>path</code> matches a <code>base_path</code> content will be returned, whereas if the
 <code>path</code> matches a route a 303 redirect will be returned to the content at the
 <code>base_path</code>.</p>
-<p>Examples of the JSON representation of content items can be found in <a href="https://github.com/alphagov/content-store/blob/master/docs/output_examples">output_examples</a>.</p>
+<p>Examples of the JSON representation of content items can be found in <a href="https://github.com/alphagov/content-store/blob/main/docs/output_examples">output_examples</a>.</p>
 <p>Not all content exists as a standalone page like the <code>/take-pet-abroad</code> example. Some content exists as a collection that references other pieces of content, and some content exists as meta content designed to describe a wider whole. We use <a href="https://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a> to describe all these different content types. The content API itself is not prescriptive about this; it takes any JSON structure.</p>
 
 

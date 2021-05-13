@@ -382,13 +382,13 @@
 <h2 id="status">Status</h2>
 <p>Rejected.</p>
 <h2 id="context">Context</h2>
-<p>In <a href="https://github.com/alphagov/search-api/blob/master/docs/arch/docs/arch/adr-003-popularity-updating-without-index-locks.md">ADR 003 - perform popularity updating without using an index lock</a> we changed the process
+<p>In <a href="https://github.com/alphagov/search-api/blob/main/docs/arch/docs/arch/adr-003-popularity-updating-without-index-locks.md">ADR 003 - perform popularity updating without using an index lock</a> we changed the process
 for bulk loading data into Rummager's search indexes to update the existing index in place, rather than creating a separate index, which had required locking the existing index until the new one was ready. The main reason we bulk load
 data is to update the popularity field every night, which affects every document in the search index.</p>
 <h2 id="problem">Problem</h2>
 <p>After switching to the new index, we observed regular spikes in 503 errors from the search API, that coincide with when the nightly task runs. The elasticsearch queries were taking longer than normal and timing out.</p>
 <p>We want reads from the index to be unaffected by bulk indexing, because the user's ability to search is more important than the content being up to date.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/search-api/master/docs/arch/images/popularity-errors.png" alt="Spike in slow requests"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/search-api/main/docs/arch/images/popularity-errors.png" alt="Spike in slow requests"></p>
 <p>As part of the investigation, we looked at ways we could change the
 implementation of the nightly popularity update to improve performance. We
 considered limiting the popularity update task so that it only changed a small
@@ -405,7 +405,7 @@ over two successive days to work out how much page popularity shifts in practice
 <p>A very small number number of pages actually have significant changes day to day
 (i.e, a change of at least +/- 10 page views). This means that we shouldn't need
 to update the entire search index every day - we could get away with 10% of the current update workload.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/search-api/master/docs/arch/images/changes-in-vc-14-metric.png" alt="Changes in VC-14 field day to day"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/search-api/main/docs/arch/images/changes-in-vc-14-metric.png" alt="Changes in VC-14 field day to day"></p>
 <p>Despite this, we don't think that incremental popularity updates would work
 without significant changes.</p>
 <p>Rummager doesn't use the <code>vc_14</code> values directly to order search results; it uses <code>rank_14</code> (the relative ranking compared to all pages in the index).</p>

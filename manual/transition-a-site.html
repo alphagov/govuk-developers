@@ -225,7 +225,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3b05b02b9e53aee940a442015f9a02ff4be46cba">21 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Transition a site to GOV.UK</h1> <p>When a site is going to move to GOV.UK, there are two ways that the old site
@@ -236,15 +236,15 @@ on GOV.UK. These mappings are stored in a database and used by <a href="/apps/bo
 handle requests to those old domains.</p>
 <p>This page covers adding a site so that we can handle traffic to
 it, or changing the configuration of an existing site in the Transition app.</p>
-<h2 id='changing-the-configuration-of-a-site-that-is-already-in-the-transition-app'>Changing the configuration of a site that is already in the Transition app</h2><p>The <a href="https://github.com/alphagov/transition-config/blob/master/README.md">transition-config README</a> gives more details on how to
-edit the relevant <a href="https://github.com/alphagov/transition-config/tree/master/data/transition-sites">transition configuration file</a>.</p>
+<h2 id='changing-the-configuration-of-a-site-that-is-already-in-the-transition-app'>Changing the configuration of a site that is already in the Transition app</h2><p>The <a href="https://github.com/alphagov/transition-config/blob/main/README.md">transition-config README</a> gives more details on how to
+edit the relevant <a href="https://github.com/alphagov/transition-config/tree/main/data/transition-sites">transition configuration file</a>.</p>
 <h2 id='checklist-for-transitioning-a-new-site'>Checklist for transitioning a new site</h2><h3 id='1-ensure-the-department-is-aware-of-the-technical-limitation-of-https-enabled-sites'>1) Ensure the department is aware of the technical limitation of HTTPS enabled sites</h3><p>Unless the domain being transitioned is a subdomain of one of our wildcard
 <a href="https://en.wikipedia.org/wiki/Subject_Alternative_Name">SANs</a>, we <a href="/manual/transition-architecture.html#https-support-for-transitioned-sites">do not support HTTPS</a> for transitioned sites.</p>
 <p>If a domain is not in our SAN but wants to keep HTTPS integrity, the best
 alternative is to set up redirects on their own server.</p>
 <p>The content team might ask a developer to offer the department some guidance
 around this.</p>
-<h3 id='2-add-a-site-to-the-transition-app'>2) Add a site to the Transition app</h3><p>Follow the instructions in the <a href="https://github.com/alphagov/transition-config/blob/master/README.md">transition-config README</a>.</p>
+<h3 id='2-add-a-site-to-the-transition-app'>2) Add a site to the Transition app</h3><p>Follow the instructions in the <a href="https://github.com/alphagov/transition-config/blob/main/README.md">transition-config README</a>.</p>
 <h3 id='3-consider-aka-domains'>3) Consider AKA domains</h3><p>If the department want to use the side-by-side browser to preview how their
 redirects will appear after transitioning they will need to set up AKA domains.</p>
 <p>They will need one new CNAME DNS entry for each domain/subdomain they wish to
@@ -280,7 +280,7 @@ might take several hours. This will give you a list of URLs for a domain:</p>
 </blockquote>
 <h3 id='5-clean-up-urls'>5) Clean up URLs</h3><h4 id='strip-paths-and-pattern'>Strip paths and pattern</h4><p>There are lots of file formats we don&rsquo;t want to provide mappings for, like
 static assets, images, or common spammy/malicious crawlers. These can be
-stripped using the <a href="https://github.com/alphagov/transition-config/blob/master/tools/strip_mappings.sh">strip_mappings.sh</a> script.</p>
+stripped using the <a href="https://github.com/alphagov/transition-config/blob/main/tools/strip_mappings.sh">strip_mappings.sh</a> script.</p>
 <h4 id='query-parameter-analysis'>Query parameter analysis</h4><p>From your set of URLs, you can attempt to identify significant query string
 parameter names and then add them to the site configuration file in
 <code>transition-config</code>. A query string parameter is considered significant if it
@@ -289,8 +289,8 @@ mapped to a different new URL.</p>
 <p>There are some transition-config scripts to help analyse query param usage:</p>
 
 <ul>
-<li><a href="https://github.com/alphagov/transition-config/blob/master/tools/analyse_query_params.sh">analyse_query_params.sh</a></li>
-<li><a href="https://github.com/alphagov/transition-config/blob/master/tools/analyse_query_usage.sh">analyse_query_usage.sh</a></li>
+<li><a href="https://github.com/alphagov/transition-config/blob/main/tools/analyse_query_params.sh">analyse_query_params.sh</a></li>
+<li><a href="https://github.com/alphagov/transition-config/blob/main/tools/analyse_query_usage.sh">analyse_query_usage.sh</a></li>
 </ul>
 <p>Some common examples of significant parameters:</p>
 

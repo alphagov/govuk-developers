@@ -209,21 +209,14 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5386e87539d3655cdbf343e485739c2dc3e7f8b0">3 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>WMS map previews on data.gov.uk</h1> <h2 id='harvesting-data-for-web-map-service-map-previews'>Harvesting data for Web Map Service map previews</h2><p>In order to show map previews a harvest source needs to be created with the correct source type (<code>WAF</code>, <code>CSW</code>, etc) in the ckan publisher.</p>
 <p>Manually uploading datasets will not generate map preview data, please create a harvest source with a <code>Single Gemini 2 document</code> source type.</p>
 <h2 id='previewing-web-map-service-data-on-dgu-maps'>Previewing Web Map Service data on DGU maps</h2><p><a href="https://data.gov.uk/search?q=&amp;filters%5Bpublisher%5D=&amp;filters%5Btopic%5D=&amp;filters%5Bformat%5D=WMS&amp;sort=best">Data.gov.uk find</a> provides a map preview for Web Map Service (WMS) data. This data is represented as features on a map, eg. historic landfill sites in the UK.</p>
-<p>The source code for the map rendering can be found in <a href="https://github.com/alphagov/datagovuk_find/tree/master/app/assets/javascripts/map-preview">alphagov/datagovuk_find javascript assets</a>. Maps are comprised of client-side javascript on top of <a href="https://openlayers.org/">OpenLayers</a> and <a href="https://www.sencha.com/extjs-for-open-source/">Ext</a> 3rd party javascript libraries.</p>
+<p>The source code for the map rendering can be found in <a href="https://github.com/alphagov/datagovuk_find/tree/main/app/assets/javascripts/map-preview">alphagov/datagovuk_find javascript assets</a>. Maps are comprised of client-side javascript on top of <a href="https://openlayers.org/">OpenLayers</a> and <a href="https://www.sencha.com/extjs-for-open-source/">Ext</a> 3rd party javascript libraries.</p>
 <h2 id='key-openlayers-map-preview-concepts'>Key OpenLayers map preview concepts</h2><p>OpenLayers is a slip map javascript framework, conceptually similar to Google Maps.
 Maps are comprised of a central map element which can be layered with additional data features such as bounded boxes, polygons and data points.
 The underlying map image is a series of tiled images which can be retrieved from an external service.

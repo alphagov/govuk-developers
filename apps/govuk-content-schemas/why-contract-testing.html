@@ -375,7 +375,7 @@
 <p>We could do this by running all the systems at the same time and testing end-to-end. However setting up such a configuration would be tricky, and keeping it working reliably in a reproducible way which avoids test interference would be very difficult.</p>
 <p>The idea of contract testing is to gain more confidence that the whole system works together properly, but without needing to run all the services at the same time. Instead we can test each service in isolation using a 'contract' which describes the expectations on each interacting service.</p>
 <p>The definition of the contracts are provided by <a href="https://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a>.</p>
-<p>For more information and background please read the <a href="https://github.com/alphagov/govuk-content-schemas/blob/master/README.md">README.md</a></p>
+<p>For more information and background please read the <a href="https://github.com/alphagov/govuk-content-schemas/blob/main/README.md">README.md</a></p>
 <h2 id="overview-of-publishing">Overview of publishing</h2>
 <p>Publishing involves three systems:</p>
 <pre><code>                   (1)                                    (2)
@@ -388,7 +388,7 @@
 <p>Note that the <em>frontend representation</em> differs slightly from the <em>publishing
 representation</em>. The main difference is that the <code>links</code> hash is expanded so
 that it contains full details about links, wheras the publisher representation
-only contains content ids (for full info see <a href="https://github.com/alphagov/govuk-content-schemas/blob/master/docs/spec/lib/frontend_schema_generator_spec.rb">frontend_schema_generator_spec.rb</a>).</p>
+only contains content ids (for full info see <a href="https://github.com/alphagov/govuk-content-schemas/blob/main/docs/spec/lib/frontend_schema_generator_spec.rb">frontend_schema_generator_spec.rb</a>).</p>
 <p>The <em>contract</em> between the publishing application and the frontend application
 is defined by <a href="https://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a>.</p>
 <p>This comprises three things:</p>

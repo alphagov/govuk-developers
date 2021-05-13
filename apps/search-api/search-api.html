@@ -442,7 +442,7 @@ options, will cause an HTTP 422 error.  This means that typos do not make the
 API silently return the wrong results, and new features can be added to the API
 without changing what existing clients see.</p>
 <h2 id="returning-specific-document-fields">Returning specific document fields</h2>
-<p>See the <a href="https://github.com/alphagov/search-api/blob/master/docs/config/schema/field_definitions.json">field reference</a> for a list of all fields returned by the search API.</p>
+<p>See the <a href="https://github.com/alphagov/search-api/blob/main/docs/config/schema/field_definitions.json">field reference</a> for a list of all fields returned by the search API.</p>
 <p>Only a few fields are returned by default. You can override the fields returned using the <code>fields</code> parameter. For example:</p>
 <pre><code>https://www.gov.uk/api/search.json?q=passport&amp;fields=mainstream_browse_pages&amp;fields=title
 </code></pre>
@@ -452,7 +452,7 @@ times), or in Ruby/PHP array style (ie, <code>name[]=value&amp;name[]=value</cod
 <h2 id="other-parameters">Other parameters</h2>
 <ul>
 <li>
-<p><code>filter_&lt;foo&gt;</code>/<code>reject_&lt;foo&gt;</code>/<code>aggregate_&lt;foo&gt;</code>: see the <a href="https://github.com/alphagov/search-api/blob/master/docs/docs/public-api/faceted-search.md">faceted search guide</a></p>
+<p><code>filter_&lt;foo&gt;</code>/<code>reject_&lt;foo&gt;</code>/<code>aggregate_&lt;foo&gt;</code>: see the <a href="https://github.com/alphagov/search-api/blob/main/docs/docs/public-api/faceted-search.md">faceted search guide</a></p>
 </li>
 <li>
 <p><code>ab_tests</code>: a/b test with selected variant type. This allows test to be configured

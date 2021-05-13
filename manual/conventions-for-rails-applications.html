@@ -259,7 +259,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3a31bc283cbbc19c09cb06396478779903cc0c3b">9 Mar 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Conventions for Rails applications</h1> <p>The majority of GOV.UK applications are built using <a href="https://rubyonrails.org/">Ruby on Rails</a> and over
@@ -340,7 +340,7 @@ about the gem version. For example:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>gem "elasticsearch", "~&gt; 6" # We need a 6.x release to interface with Elasticsearch 6
 </code></pre></div><h3 id='data-storage'>Data storage</h3><p>For non-specialist database needs you should use
 <a href="https://www.postgresql.org/">PostgreSQL</a> with <a href="https://guides.rubyonrails.org/active_record_basics.html">ActiveRecord</a>. The
-<a href="https://github.com/alphagov/content-publisher/blob/master/db/seeds.rb">db/seeds.rb</a> can be used to populate the database for development and test
+<a href="https://github.com/alphagov/content-publisher/blob/main/db/seeds.rb">db/seeds.rb</a> can be used to populate the database for development and test
 environments.</p>
 <p>For <a href="https://en.wikipedia.org/wiki/Key-value_database">key-value datastore</a> access (such as queues or distributed caches)
 <a href="https://redis.io/">Redis</a> should be used. Typically a Redis datastore will not be shared
@@ -472,7 +472,7 @@ causes confusion with the prevalent <code>/lib</code> directory.</p>
 store application documentation (which is typically linked to from the readme).</p>
 <p>For recording the reasoning behind architectural decisions it&rsquo;s conventional
 to use <a href="http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions">architectural decision records</a> in the <code>/docs/adr</code> directory
-(<a href="https://github.com/alphagov/content-publisher/blob/master/docs/adr/0002-use-local-datastore.md">example</a>).</p>
+(<a href="https://github.com/alphagov/content-publisher/blob/main/docs/adr/0002-use-local-datastore.md">example</a>).</p>
 <h2 id='testing-strategies'>Testing strategies</h2><p>We aim for well tested Rails applications that provide a good degree of coverage
 and provide assurances that an application is operating correctly. We value
 test suites that are fast to run, easy to read and <a href="https://github.com/alphagov/content-publisher/blob/f26d9b551842fdf2084159b5b7f1bb078da56936/docs/testing-strategy.md">test things consistently at

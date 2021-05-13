@@ -386,7 +386,7 @@ reading the documentation</a>.</p>
 <code>survey_source</code> (the path on GOV.UK where the sign up form was displayed),
 <code>ga_client_id</code> (the Google Analytics client ID for that user's session), and
 <code>survey_id</code> (the survey they were invited to take part in).  The <code>survey_id</code>
-should match with an instance of <code>EmailSurvey</code> defined in <a href="https://github.com/alphagov/feedback/blob/master/docs/app/models/email_survey.rb"><code>app/models/email_survey.rb</code>.</a>
+should match with an instance of <code>EmailSurvey</code> defined in <a href="https://github.com/alphagov/feedback/blob/main/docs/app/models/email_survey.rb"><code>app/models/email_survey.rb</code>.</a>
 These instances, like their counterparts in static, have start and endtimes so
 that we don't send emails when the survey has closed.  Unlike their counterparts
 in static they do not have match rules on the path - response that gets past an
@@ -412,7 +412,7 @@ templates, but they'll still all have to belong to the same Notify service.</p>
 <h3 id="notify-template-parameters">Notify template parameters</h3>
 <p>Please be aware that notify templates can be parameterised. Notify will error if
 we don't send the correct params. You can read more about this in the docs:
-<a href="https://github.com/alphagov/feedback/blob/master/docs/docs/notify_template_parameters.md">docs/notify_template_parameters.md</a>.</p>
+<a href="https://github.com/alphagov/feedback/blob/main/docs/docs/notify_template_parameters.md">docs/notify_template_parameters.md</a>.</p>
 <p>NB: Adding new parameters will require a deploy.</p>
 
 

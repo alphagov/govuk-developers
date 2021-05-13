@@ -499,8 +499,8 @@ type. In the above example there are two types of link: <code>organisations</cod
 <h2 id="when-it-occurs">When it occurs</h2>
 <p>Link expansion occurs at the point an edition is represented to the
 Content Store - which is normally the result of a <a href="http://sidekiq.org/">Sidekiq</a>
-worker process such as <a href="https://github.com/alphagov/publishing-api/blob/master/app/workers/downstream_draft_worker.rb">DownstreamDraftWorker</a> or
-<a href="https://github.com/alphagov/publishing-api/blob/master/app/workers/downstream_live_worker.rb">DownstreamLiveWorker</a>.</p>
+worker process such as <a href="https://github.com/alphagov/publishing-api/blob/main/app/workers/downstream_draft_worker.rb">DownstreamDraftWorker</a> or
+<a href="https://github.com/alphagov/publishing-api/blob/main/app/workers/downstream_live_worker.rb">DownstreamLiveWorker</a>.</p>
 <h2 id="how-links-are-added">How links are added</h2>
 <p>There are two ways that links can be added for a document: link set links and
 edition links. These are added by different endpoints.</p>
@@ -556,7 +556,7 @@ link. For example when presenting a collection of links with a type of
 <code>children</code>, each one of those links will have a link of type <code>parent</code> which
 links to the original content.</p>
 <p>These links may be <a href="#recursive-links">recursive</a> dependant on their <code>link_type</code>,
-they are defined in <a href="https://github.com/alphagov/publishing-api/blob/master/lib/expansion_rules/link_expansion.rb"><code>LinkExpansion::Rules</code></a>.</p>
+they are defined in <a href="https://github.com/alphagov/publishing-api/blob/main/lib/expansion_rules/link_expansion.rb"><code>LinkExpansion::Rules</code></a>.</p>
 <h3 id="recursive-links">Recursive links</h3>
 <p>Some link types are considered recursive which is used to present a tree
 structure of links of specific types. As with many things recursive, these
@@ -605,7 +605,7 @@ of <code>ordered_related_items</code> and <code>mainstream_browse_pages</code>.<
 <pre><code>"Item A" -ordered_related_items-&gt; "Item B" -mainstream_browse_pages-&gt; "Item C" -mainstream_browse_pages-&gt; "Item D" -parent-&gt; "Item E" -parent-&gt; "Item F"
 </code></pre>
 <p>The rules for recursive link types are defined in
-<a href="https://github.com/alphagov/publishing-api/blob/master/lib/expansion_rules/link_expansion.rb"><code>LinkExpansion::Rules</code></a>.</p>
+<a href="https://github.com/alphagov/publishing-api/blob/main/lib/expansion_rules/link_expansion.rb"><code>LinkExpansion::Rules</code></a>.</p>
 <h2 id="which-states-are-linked">Which states are linked</h2>
 <p>Whether an item is linked to depends on whether an edition of a document
 being linked to exists in a particular <a href="/apps/publishing-api/model.html">state</a>. The states that
@@ -618,7 +618,7 @@ that are in an <code>unpublished</code> state with type <code>withdrawn</code> a
 depending on their <code>link_type</code>. Editions that are <code>unpublished</code> and are not of
 type <code>withdrawn</code> are not linked.</p>
 <p>The <code>link_types</code> that define whether a withdrawn edition is linked is defined
-in <a href="https://github.com/alphagov/publishing-api/blob/master/lib/link_expansion.rb">LinkExpansion</a>.</p>
+in <a href="https://github.com/alphagov/publishing-api/blob/main/lib/link_expansion.rb">LinkExpansion</a>.</p>
 <h3 id="edition-has-a-state-of-draft">Edition has a state of <code>draft</code>
 </h3>
 <p>Editions follow the same rules as those for <code>published</code> or <code>unpublished</code>
@@ -659,7 +659,7 @@ link representation of an edition</li>
 </ul>
 <p>The fields can and are customised in some cases. This can be done on a
 <code>link_type</code> basis. These customisations can be performed in
-<a href="https://github.com/alphagov/publishing-api/blob/master/lib/expansion_rules/link_expansion.rb"><code>LinkExpansion::Rules</code></a>.</p>
+<a href="https://github.com/alphagov/publishing-api/blob/main/lib/expansion_rules/link_expansion.rb"><code>LinkExpansion::Rules</code></a>.</p>
 <h2 id="developer-gotchas">Developer gotchas</h2>
 <p>Link expansion is complicated and thus can be challenging for developers to
 understand. This section attempts to cover some of the common questions,
@@ -692,13 +692,13 @@ links will take precedence.</li>
 <h3 id="whyhow-does-a-link-have-different-fields-to-other-links">Why/how does a link have different fields to other links?</h3>
 <p>Links for a specific <code>link_type</code> can be defined to return
 <a href="#fields">different fields</a> as part of link expansion. These are defined in
-<a href="https://github.com/alphagov/publishing-api/blob/master/lib/expansion_rules/link_expansion.rb"><code>LinkExpansion::Rules</code></a>.</p>
+<a href="https://github.com/alphagov/publishing-api/blob/main/lib/expansion_rules/link_expansion.rb"><code>LinkExpansion::Rules</code></a>.</p>
 <h2 id="debugging">Debugging</h2>
 <p>You can explore link expansion in the rails console by creating a
-<a href="https://github.com/alphagov/publishing-api/blob/master/lib/link_expansion.rb"><code>LinkExpansion</code></a> instance.</p>
+<a href="https://github.com/alphagov/publishing-api/blob/main/lib/link_expansion.rb"><code>LinkExpansion</code></a> instance.</p>
 <pre><code>&gt; link_expansion = LinkExpansion.by_content_id(content_id, locale: :en, with_drafts: true)
 </code></pre>
-<p>You can then print the <a href="https://github.com/alphagov/publishing-api/blob/master/app/models/link_graph.rb"><code>link_graph</code></a> of the link expansion to view
+<p>You can then print the <a href="https://github.com/alphagov/publishing-api/blob/main/app/models/link_graph.rb"><code>link_graph</code></a> of the link expansion to view
 the links.</p>
 <pre><code>&gt; link_expansion.link_graph.to_h
 =&gt; {:organisations=&gt;

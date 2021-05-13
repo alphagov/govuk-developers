@@ -424,7 +424,7 @@ bundle exec ./script/rummager_export.rb --detailed &gt; detailed.dump
 <h2 id="search-indexing-paths">Search indexing paths</h2>
 <p>There are currently two paths for whitehall searchable classes to be indexed.
 For a list of searchable classes, please refer to <code>Whitehall.edition_classes</code>
-(in <a href="https://github.com/alphagov/whitehall/blob/master/lib/whitehall.rb">lib/whitehall.rb</a>).</p>
+(in <a href="https://github.com/alphagov/whitehall/blob/main/lib/whitehall.rb">lib/whitehall.rb</a>).</p>
 <p>Indexing for searchable classes that inherit from <code>Edition</code> is triggered via the
 <code>ServiceListeners::SearchIndexer</code> listening to the <code>force_publish</code> and <code>publish</code>
 events. Since <code>Edition</code> sets the <code>index_after</code> key in its searchable options hash to

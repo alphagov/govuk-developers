@@ -196,11 +196,11 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/46495d06955717b374ae0f61db2429b0a488ee4e">11 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Email notifications: how they work</h1> <h2 id='high-level-overview'>High-level overview</h2><p>The purpose of the email notifications system is to inform users when content they are interested in is added to or changed on GOV.UK. Users can subscribe to receive updates for an area of interest, such as a topic, government department, or a set of search results. Current subscriptions to individual content items are not supported.</p>
-<p><strong>Update September 2019:</strong> the email system also now supports highly customised subscriptions for users completing the <a href="https://github.com/alphagov/finder-frontend/tree/master/app/lib/brexit_checker">Brexit Checker</a>, which operates in isolation from the rest of GOV.UK, and specifies its own notifications. More information can be found in <a href="https://github.com/alphagov/email-alert-api/blob/master/docs/adr/adr-004-message-concept.md">the ADR</a> for these changes.</p>
+<p><strong>Update September 2019:</strong> the email system also now supports highly customised subscriptions for users completing the <a href="https://github.com/alphagov/finder-frontend/tree/main/app/lib/brexit_checker">Brexit Checker</a>, which operates in isolation from the rest of GOV.UK, and specifies its own notifications. More information can be found in <a href="https://github.com/alphagov/email-alert-api/blob/main/docs/adr/adr-004-message-concept.md">the ADR</a> for these changes.</p>
 <h2 id='types-of-email'>Types of email</h2><p>The email notification system generates 3 different types of email. These are transactional, immediate and digest.</p>
 <p><strong>Transactional</strong> emails are sent to confirm a new subscription, and to authenticate an existing subscriber so they can manage their subscriptions.</p>
 <p><strong>Immediate</strong> emails are generated shortly after the email system receives a content change, or a message, that corresponds to a user&rsquo;s immediate subscription. It&rsquo;s worth noting that &ldquo;immediate&rdquo; is a somewhat misleading name as these emails can sometimes take a long time (hours) to be sent when the system is busy.</p>
@@ -209,7 +209,7 @@
 <ul>
 <li><a href="https://grafana.production.govuk.digital/dashboard/file/email_alert_api_technical.json">Technical dashboard</a></li>
 <li><a href="https://grafana.production.govuk.digital/dashboard/file/email_alert_api_product.json">Product dashboard</a></li>
-<li><a href="https://github.com/alphagov/email-alert-api/blob/master/docs/matching-content-to-subscriber-lists.md">How content is matched to subscriber lists</a></li>
+<li><a href="https://github.com/alphagov/email-alert-api/blob/main/docs/matching-content-to-subscriber-lists.md">How content is matched to subscriber lists</a></li>
 <li><a href="https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!forum/govuk-email-courtesy-copies">Courtesy copies Google group</a>
 
 <ul>
@@ -220,7 +220,7 @@
 </ul>
 <h2 id='email-system-apps'>Email system apps</h2>
 <ul>
-<li><p><a href="https://github.com/alphagov/finder-frontend/blob/master/app/controllers/email_alert_subscriptions_controller.rb">Finder Frontend</a></p>
+<li><p><a href="https://github.com/alphagov/finder-frontend/blob/main/app/controllers/email_alert_subscriptions_controller.rb">Finder Frontend</a></p>
 
 <ul>
 <li>Provides a UI to sign up to filterable search results.</li>
@@ -248,7 +248,7 @@
 <ul>
 <li>Stores data about subscribers and the emails we send to them.</li>
 <li>Provides APIs for working with subscriptions and sending emails.</li>
-<li>Sends email using GOV.UK Notify, and <a href="https://github.com/alphagov/email-alert-api/blob/master/app/controllers/spam_reports_controller.rb">deals</a> with spam reports.</li>
+<li>Sends email using GOV.UK Notify, and <a href="https://github.com/alphagov/email-alert-api/blob/main/app/controllers/spam_reports_controller.rb">deals</a> with spam reports.</li>
 </ul></li>
 </ul>
 <p>Communication from Email Alert API to Notify is done via a HTTP API which is authenticated by <a href="https://github.com/alphagov/email-alert-api/blob/05c99c4ed95f71dbca1d423dd3d5d438b93d6437/config/secrets.yml#L40">an API key</a>. Communication from Notify to Email Alert API is <a href="https://signon.publishing.service.gov.uk/api_users/14020/edit">authenticated</a> with Signon and a bearer token.  Email Alert API is an internal application, so to enable callbacks two endpoints are <a href="https://github.com/alphagov/govuk-aws/commit/442bd30c46f8c242a7df05a8c27a79855b5698fb#diff-069b7aaa2455edca6b507407de527eba4e4374d04b01584889519b6c5d6a4290R822">exposed</a> publicly through <a href="https://email-alert-api-public.publishing.service.gov.uk">https://email-alert-api-public.publishing.service.gov.uk</a> (similarly for Integration and Staging).</p>

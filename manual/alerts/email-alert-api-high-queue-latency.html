@@ -165,7 +165,7 @@
     
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/a7b2adbd0a1b44dd3029a9b65d56dd33c0059b9f">3 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Email Alert API: high latency for sidekiq queue</h1> <p>This alert triggers when there is a significant delay in the time from the
@@ -178,7 +178,7 @@ triggers once this latency reaches an alarming level.</p>
 <code>send_email_transactional</code> queue indicates that users are blocked from
 completing user journeys (such as sign-in or sign up), thus a delay of minutes
 is frustrating.</p>
-<p>For the other <a href="https://github.com/alphagov/email-alert-api/blob/master/config/sidekiq.yml">queues</a> the impact of delayed email is less significant for
+<p>For the other <a href="https://github.com/alphagov/email-alert-api/blob/main/config/sidekiq.yml">queues</a> the impact of delayed email is less significant for
 users (there aren&rsquo;t assurances on how rapidly an email should be sent)
 and indicates a risk that the system is experiencing significantly
 degraded performance and may become perpetually overloaded. For

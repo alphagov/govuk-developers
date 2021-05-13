@@ -388,7 +388,7 @@ explain the purposes of the individual components.</p>
 <h3 id="product-decisions">Product decisions</h3>
 <p>The need for a change in architecture was determined by product decisions which
 differed from the previous understanding of digest function explored in
-<a href="https://github.com/alphagov/email-alert-api/blob/master/docs/adr/adr-001-notify-integration.md">adr-001</a>.</p>
+<a href="https://github.com/alphagov/email-alert-api/blob/main/docs/adr/adr-001-notify-integration.md">adr-001</a>.</p>
 <p>The biggest decision that influenced the change was an intention to send each
 user a single digest email that contained all of their topics as is consistent
 with Govdelivery. We had previously intended to launch with the change that
@@ -398,7 +398,7 @@ each subscription is a separate email.</p>
 This will mean that a user can be signed up to receive emails to some lists
 immediately and daily/weekly digests for others.</p>
 <h3 id="diagram">Diagram</h3>
-<p><img src="https://raw.githubusercontent.com/alphagov/email-alert-api/master/docs/adr/adr-002/digests.png" alt="Sequence Diagram"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/email-alert-api/main/docs/adr/adr-002/digests.png" alt="Sequence Diagram"></p>
 <h3 id="components">Components</h3>
 <h4 id="digestinitiatorservice"><code>DigestInitiatorService</code></h4>
 <p>There are two classes to represent the respective digest periods:

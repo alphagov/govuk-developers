@@ -203,15 +203,8 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/45df9671061936c16c387ab364f143d3a3a31019">10 Jun 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Analytics on GOV.UK</h1> <p>GOV.UK uses Google Analytics to track user journeys through the site. The tracking
@@ -220,8 +213,8 @@ request access to this by following the <a href="https://sites.google.com/a/digi
 <h2 id='gov-uk-analytics-code'>GOV.UK analytics code</h2><p>The GOV.UK analytics codebase is a collection of JavaScript modules spread through a few different projects:</p>
 
 <ul>
-<li><a href="https://github.com/alphagov/static/tree/master/app/assets/javascripts/analytics">static</a> - Core analytics code (originally from <a href="https://github.com/alphagov/govuk_frontend_toolkit/tree/master/javascripts/govuk/analytics">govuk_frontend_toolkit</a> but migrated and modified) plus additional and legacy modules.</li>
-<li>Supplementary tracking for application specific cases is included in several applications including <a href="https://github.com/alphagov/government-frontend/blob/master/app/assets/javascripts/modules/track-radio-group.js">government-frontend</a> and <a href="https://github.com/alphagov/frontend/tree/master/app/assets/javascripts/modules">frontend</a>.</li>
+<li><a href="https://github.com/alphagov/static/blob/main/app/assets/javascripts/analytics.js.erb">static</a> - Core analytics code (originally from <a href="https://github.com/alphagov/govuk_frontend_toolkit/commit/315e46edab783321196fd4a879a97b1a1ca843b1">govuk_frontend_toolkit</a> but migrated and modified) plus additional and legacy modules.</li>
+<li>Supplementary tracking for application specific cases is included in several applications including <a href="https://github.com/alphagov/government-frontend/blob/main/app/assets/javascripts/modules/track-radio-group.js">government-frontend</a> and <a href="https://github.com/alphagov/frontend/tree/master/app/assets/javascripts/modules">frontend</a>.</li>
 </ul>
 <h2 id='tracking-overview'>Tracking overview</h2><p>User behaviours and journeys can be tracked in a variety of ways, the default method of tracking with Google Analytics is to record <em>pageviews</em> - This is data relating to a page the user has just requested (eg. URL, user-agent, referrer).
 Pageviews are typically recorded as the user visits the page.</p>
@@ -232,7 +225,7 @@ Pageviews are typically recorded as the user visits the page.</p>
 <p>To some extent the referrer value in pageview data will contain some evidence of where the user has arrived from, often this isn&rsquo;t enough information or may be misleading due to authentication redirects.</p>
 <p>The javascript function</p>
 <div class="highlight"><pre class="highlight javascript" tabindex="0"><code><span class="nx">GOVUK</span><span class="p">.</span><span class="nx">analytics</span><span class="p">.</span><span class="nx">addLinkedTrackerDomain</span><span class="p">(</span><span class="dl">'</span><span class="s1">UA-43888888-1</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">someServiceTracker</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">some.service.gov.uk</span><span class="dl">'</span><span class="p">])</span>
-</code></pre></div><p>registers a <em>linked</em> (cross domain) tracker and sends a pageview to the tracker. The <a href="https://github.com/alphagov/static/blob/master/app/assets/javascripts/analytics/init.js.erb#L160">current cross domain configuration on GOV.UK</a> contains only those domains that have turned on cross domain tracking. More information is included in <a href="https://github.com/alphagov/static/blob/master/docs/analytics.md#tracking-across-domains">static&rsquo;s analytics documentation</a>.</p>
+</code></pre></div><p>registers a <em>linked</em> (cross domain) tracker and sends a pageview to the tracker. The current cross domain configuration on GOV.UK contains only those domains that have turned on cross domain tracking. More information is included in <a href="https://github.com/alphagov/static/blob/main/docs/analytics.md#tracking-across-domains">static&rsquo;s analytics documentation</a>.</p>
 <p>Some cross domain tracking existed prior to this work to link 19 services to GOV.UK. It exists on some transaction start pages such as <a href="https://www.gov.uk/change-driving-test">Change your driving test appointment</a>, where the start button contains data attributes, such as:</p>
 <div class="highlight"><pre class="highlight html" tabindex="0"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://some.service.gov.uk"</span>
    <span class="na">data-module=</span><span class="s">"cross-domain-tracking"</span>

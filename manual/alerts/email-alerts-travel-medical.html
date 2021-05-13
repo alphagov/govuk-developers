@@ -168,7 +168,7 @@
     
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/74d8ee2de0eb187841855bd770ae048775525bd0">11 Dec 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Travel Advice or Drug and Medical Device email alerts not sent</h1> <p>We expect that when new GOV.UK content is published, or when existing content
@@ -192,7 +192,7 @@ the credentials in the <a href="https://github.com/alphagov/govuk-secrets/tree/m
 <code>google-accounts/govuk_email_check@digital.cabinet-office.gov.uk</code>. Then you can
 use the previously noted subjects to try identify the email(s).</p>
 <p>This check has been susceptible to a number of false positive scenarios in the
-past (there are <a href="https://github.com/alphagov/email-alert-api/blob/master/docs/adr/adr-008-monitoring-and-alerting.md#removal-of-email-alert-monitoring">plans</a> to retire this check due, in part,
+past (there are <a href="https://github.com/alphagov/email-alert-api/blob/main/docs/adr/adr-008-monitoring-and-alerting.md#removal-of-email-alert-monitoring">plans</a> to retire this check due, in part,
 to it&rsquo;s fragility), examples of these are:</p>
 
 <ul>
@@ -215,7 +215,7 @@ sub-type, this was the previous cause of an <a href="https://docs.google.com/doc
 is recorded as <a href="https://trello.com/c/v2ees2fD/199-all-checkbox-is-misleading-for-finderemailsignups">GOV.UK Tech Debt</a>;</li>
 <li>check whether the email was sent as a <a href="/manual/email-notifications-how-they-work.html#useful-resources">courtesy copy</a> to
 determine if Email Alert API processed the change;</li>
-<li>verify whether Notify sent the expected email using <a href="https://github.com/alphagov/email-alert-api/blob/master/docs/support-tasks.md#view-subscribers-recent-emails">the <code>support:view_emails</code>
+<li>verify whether Notify sent the expected email using <a href="https://github.com/alphagov/email-alert-api/blob/main/docs/support-tasks.md#view-subscribers-recent-emails">the <code>support:view_emails</code>
 rake task</a>;</li>
 <li>check the <a href="https://kibana.logit.io/s/2dd89c13-a0ed-4743-9440-825e2e52329e/goto/43fc79ee47ac49f248e0f29a174be240">Kibana logs</a> and <a href="https://sentry.io/organizations/govuk/issues/?project=202220&amp;statsPeriod=12h">Sentry</a> for any errors or clues;</li>
 <li>if all else fails you may need to investigate the Email Alert API database

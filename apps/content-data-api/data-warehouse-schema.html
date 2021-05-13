@@ -442,7 +442,7 @@ GOV.UK uses one</a></p>
 There are not many tables but some of them contains a big number of rows. It is
 imporant to understand their associations and the type of data that each table
 stores.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/master/docs/images/schema.png" alt="data warehouse Database Schema"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/main/docs/images/schema.png" alt="data warehouse Database Schema"></p>
 <h3 id="how-to-generate-the-schema">How to generate the schema</h3>
 <p>The schema is generated using [Rails ERD][rails-erd] running the following
 command:</p>
@@ -625,7 +625,7 @@ the metrics.</p>
 </tr>
 <tr>
 <td>warehouse_item_id</td>
-<td>Uniq identifier (<a href="https://github.com/alphagov/content-data-api/blob/master/docs/arch/adr-015-convention-for-data-warehouse-unique-id.md">see ADR</a>)</td>
+<td>Uniq identifier (<a href="https://github.com/alphagov/content-data-api/blob/main/docs/arch/adr-015-convention-for-data-warehouse-unique-id.md">see ADR</a>)</td>
 </tr>
 <tr>
 <td>title</td>
@@ -639,9 +639,9 @@ This is due to the existence of some content items, like guides, that share the
 same content id for muliple pages.</p>
 <p>Please, read the following ADRs to get additional information.</p>
 <ol>
-<li><a href="https://github.com/alphagov/content-data-api/blob/master/docs/arch/adr-009-track-metrics-by-basepath.md">Track collected metrics by base_path</a></li>
-<li><a href="https://github.com/alphagov/content-data-api/blob/master/docs/arch/adr-014-track-attribute-changes-per-basepath.md">Track attribute changes by base_path</a></li>
-<li><a href="https://github.com/alphagov/content-data-api/blob/master/docs/arch/adr-015-convention-for-data-warehouse-unique-id.md">Convention for unique warehoue identifier</a></li>
+<li><a href="https://github.com/alphagov/content-data-api/blob/main/docs/arch/adr-009-track-metrics-by-basepath.md">Track collected metrics by base_path</a></li>
+<li><a href="https://github.com/alphagov/content-data-api/blob/main/docs/arch/adr-014-track-attribute-changes-per-basepath.md">Track attribute changes by base_path</a></li>
+<li><a href="https://github.com/alphagov/content-data-api/blob/main/docs/arch/adr-015-convention-for-data-warehouse-unique-id.md">Convention for unique warehoue identifier</a></li>
 </ol>
 <h4 id="dates-dimension">Dates dimension</h4>
 <pre><code>Contains date attributes that are used to add time context to metrics and

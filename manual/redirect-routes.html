@@ -224,7 +224,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/3b22e462cbc33d9707e29fd7623f5ec93bba61fe">13 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Redirect a route</h1> <p>There are a number of different ways of applying redirects on GOV.UK.
@@ -309,7 +309,7 @@ You should now be redirected when you visit the route in your browser.</p>
 with one another, whereby a redirect has been applied to a content
 item in Publishing API but hasn&rsquo;t been successfully processed by
 Content Store. In these cases, there are several
-<a href="https://github.com/alphagov/publishing-api/blob/master/lib/tasks/represent_downstream.rake">rake tasks</a>
+<a href="https://github.com/alphagov/publishing-api/blob/main/lib/tasks/represent_downstream.rake">rake tasks</a>
 we can use to re-present the content item from Publishing API to
 Content Store.</p>
 <p>First, you&rsquo;ll need the content ID of the content item. Here we have
@@ -411,7 +411,7 @@ English version to a translation, for example:</p>
 </code></pre></div><p>&hellip;can be deleted with</p>
 <div class="highlight"><pre class="highlight ruby" tabindex="0"><code><span class="no">Route</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="s1">'579a109cd068b406250014e4'</span><span class="p">).</span><span class="nf">destroy</span>
 </code></pre></div><p>The deleted routes will take effect after a short delay (for Router instances to poll and apply updates).</p>
-<h2 id='redirects-for-hmrc-manuals'>Redirects for HMRC manuals</h2><p>There are rake tasks for redirecting HMRC manuals and HMRC manual sections, which can be <a href="https://github.com/alphagov/hmrc-manuals-api/tree/master/lib/tasks">found in the hmrc-manuals-api repo</a>. These can be run via the <code>Run rake task</code> jenkins job.</p>
+<h2 id='redirects-for-hmrc-manuals'>Redirects for HMRC manuals</h2><p>There are rake tasks for redirecting HMRC manuals and HMRC manual sections, which can be <a href="https://github.com/alphagov/hmrc-manuals-api/tree/main/lib/tasks">found in the hmrc-manuals-api repo</a>. These can be run via the <code>Run rake task</code> jenkins job.</p>
 <p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=hmrc-manuals-api&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=redirect_hmrc_section[original-parent-manual-slug,original-section-slug,new-parent-manual-slug,new-section-slug]">See example of redirecting a HMRC manual section to another section</a></p>
 <h2 id='redirects-from-campaign-sites'>Redirects from campaign sites</h2><p>The campaigns platform is a WordPress site managed by dxw. Redirects from a
 <code>*.campaign.gov.uk</code> site require a support ticket. Currently, James Whitmarsh or

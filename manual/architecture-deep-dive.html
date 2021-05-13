@@ -238,7 +238,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9ba52660950982bbc0e38ae16ee524710e942a47">19 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Architectural deep-dive of GOV.UK</h1> <p>We can cover a lot of GOV.UK architecture by asking ourselves three questions:</p>
@@ -403,7 +403,7 @@ document to a JSON payload conforming to the appropriate schema.</p>
 the draft Content Store, replacing whatever contents existed for that document
 beforehand. An edition must be explicitly published for it to go to the live
 Content Store, where it becomes visible to the outside world.</p>
-<p><a href="https://github.com/alphagov/publishing-api/blob/master/docs/link-expansion.md">Link expansion</a>, mentioned in <a href="#rendering">Rendering</a> is the process of
+<p><a href="https://github.com/alphagov/publishing-api/blob/main/docs/link-expansion.md">Link expansion</a>, mentioned in <a href="#rendering">Rendering</a> is the process of
 joining related content items (such as the title and details of a document&rsquo;s
 parent, used for navigational breadcrumbs) into a single JSON payload, so that
 rendering apps don&rsquo;t need to handle the complexity of pulling all of that data
@@ -422,7 +422,7 @@ retrieve the content item and do something in response, such as:</p>
 
 <ul>
 <li>Clear the page&rsquo;s cache, via the cache-clearing-service</li>
-<li><a href="https://github.com/alphagov/email-alert-service/blob/master/lib/tasks/message_queues.rake">Send emails to users subscribed to that content</a>. (The
+<li><a href="https://github.com/alphagov/email-alert-service/blob/main/lib/tasks/message_queues.rake">Send emails to users subscribed to that content</a>. (The
 exceptions to this are <code>travel-advice</code> &amp; <code>specialist-publisher</code>, which
 communicate directly with email-alert-api to ensure emails go out immediately)</li>
 </ul>
@@ -444,7 +444,7 @@ same things happen to the low priority content items as the high priority
 content items; it just tends to take longer as there are more items to
 process.</p>
 <p>The process for finding the content items affected by a content change is
-known as <a href="https://github.com/alphagov/publishing-api/blob/master/docs/dependency-resolution.md">dependency resolution</a>. Content items can be associated with
+known as <a href="https://github.com/alphagov/publishing-api/blob/main/docs/dependency-resolution.md">dependency resolution</a>. Content items can be associated with
 other content items in a number of ways. For example, you may provide an
 <a href="https://github.com/alphagov/govuk-content-schemas/blob/d9684140462e4a138668539c04829cd808636ed5/dist/formats/news_article/publisher_v2/schema.json#L70-L73">array of organisation IDs</a> in your payload
 when sending to Publishing API, to indicate that those organisations are
@@ -476,12 +476,12 @@ although apps not hosted on AWS are configured in <a href="https://github.com/al
 what happens under the hood?</p>
 <p>When a PR is opened against a GOV.UK repository, the corresponding Jenkins job
 on <a href="https://ci.integration.publishing.service.gov.uk/">CI Jenkins</a> runs the tests (although we&rsquo;re gradually
-<a href="https://github.com/alphagov/govuk-rfcs/blob/master/rfc-123-github-actions-ci.md">moving to GitHub Actions</a>). The Jenkins jobs are created
+<a href="https://github.com/alphagov/govuk-rfcs/blob/main/rfc-123-github-actions-ci.md">moving to GitHub Actions</a>). The Jenkins jobs are created
 in the first place by being <a href="https://github.com/alphagov/govuk-puppet/blob/6a0b05aa1f9a90c01cefd5fc5b9c8e5f0aa030f2/hieradata/common.yaml#L422">added to govuk-puppet</a>, and
 configured to use the <a href="https://github.com/alphagov/govuk-jenkinslib">govuk-jenkinslib</a> library to build and run the tests.</p>
 <p>The tests report back to the PR as a <a href="https://developer.github.com/v3/checks/">GitHub check</a>, though other checks may
 also be required before the PR can be merged (<a href="https://github.com/alphagov/govuk-saas-config">govuk-saas-config</a> defines things
-such as whether branches must be up to date with &lsquo;master&rsquo; before merging).</p>
+such as whether branches must be up to date with &lsquo;main&rsquo; before merging).</p>
 <p>On merge, the same Jenkins job that ran the tests runs the tests again, then
 <a href="https://github.com/alphagov/govuk-jenkinslib/blob/dab23c591306d9f497f1c89651f7b7c0c6cc6967/vars/govuk.groovy#L122-L124">creates and pushes a git tag</a> to GitHub, then
 <a href="https://github.com/alphagov/govuk-jenkinslib/blob/dab23c591306d9f497f1c89651f7b7c0c6cc6967/vars/govuk.groovy#L132-L135">sends a message</a> to the <a href="https://deploy.integration.publishing.service.gov.uk/">deploy Jenkins</a> environment

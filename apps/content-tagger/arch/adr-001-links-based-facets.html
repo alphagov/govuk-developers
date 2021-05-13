@@ -399,7 +399,7 @@ The script would check whether it already knew about the tags, and if it didn't,
 This means that in the time between the content being updated and the script being run, the content does not appear in the finder.</p>
 <p>Another more serious problem was that, because an email is triggered every time a new item of content was added to the business finder, you could (and did) end up in a situation where it looked like a piece of content was being updated twice a day, when in reality only the tags, or related content was being updated.
 An example of this was <a href="https://www.gov.uk/taking-a-lorry-abroad">Taking a lorry abroad</a></p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-tagger/master/docs/arch/images/take_a_lorry_abroad.png" alt="Duplicate email alerts for Taking a lorry abroad"></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-tagger/main/docs/arch/images/take_a_lorry_abroad.png" alt="Duplicate email alerts for Taking a lorry abroad"></p>
 <h2 id="decision">Decision</h2>
 <p>To solve the problem of facets "falling off" the search index and duplicate emails being sent, the decision was to move tagging of content to business finder facets into the publishing pipeline.</p>
 <p>To move the tagging to the publishing pipeline, these facets would have to be added to the content item somewhere. Putting them in the "details" wasn't viable, because either:</p>

@@ -408,7 +408,7 @@ processing.</p>
 <p>For a multi-part item, we will transform a single message into multiple items, each with a unique base path but a shared content ID.</p>
 <p>The base path of a part-item is the <code>base_path</code> attribute of the publishing API content item plus the <code>slug</code> of the part in the <code>details</code> hash.</p>
 <p>When we grow the dimension, we mark <em>all</em> parts with the same <code>content_id</code> with <code>latest=false</code>, and create new item records for <em>all</em> the part items from the new message.</p>
-<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/master/docs/arch/images/content_etl.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/alphagov/content-data-api/main/docs/arch/images/content_etl.png" alt=""></p>
 <h3 id="benefits">Benefits:</h3>
 <ul>
 <li>We can implement multi-part documents very easily</li>

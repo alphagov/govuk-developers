@@ -167,20 +167,13 @@
 
     
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/a2415822fa353f030f7cb742bb3fe2c2556b09a0">23 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Smokey loop tests</h1> <p><a href="https://github.com/alphagov/smokey">Smokey</a> runs in a continuous loop in each environment.
 and dumps the output of each run into a <code>tmp/smokey.json</code> file.
-We have <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/monitoring/manifests/checks/smokey.pp">Icinga checks</a> for <a href="https://github.com/alphagov/smokey/blob/master/docs/writing-tests.md#alerting-in-icinga">most Smokey features</a>, so that
+We have <a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/monitoring/manifests/checks/smokey.pp">Icinga checks</a> for <a href="https://github.com/alphagov/smokey/blob/main/docs/writing-tests.md#alerting-in-icinga">most Smokey features</a>, so that
 we are alerted when some aspect of GOV.UK may be in trouble.</p>
 <p>When a test fails, you should see a &ldquo;Smokey loop for &lt;feature&gt;&rdquo;
 alert. The alert description should contain the reason for the
@@ -205,7 +198,7 @@ boxes coming online or old ones going offline. You can try to restart the follow
 
 <span class="nb">sudo </span>service smokey-loop start
 </code></pre></div><p>After running the above commands, you should soon see the <code>/tmp/smokey.json</code> file has been modified.</p>
-<h2 id='try-a-manual-run-of-the-loop'>Try a manual run of the loop</h2><p>The Smokey Loop is just <a href="https://github.com/alphagov/smokey/blob/master/tests_json_output.sh#L27">a repeat run of Cucumber</a>, which you can do yourself.</p>
+<h2 id='try-a-manual-run-of-the-loop'>Try a manual run of the loop</h2><p>The Smokey Loop is just <a href="https://github.com/alphagov/smokey/blob/main/tests_json_output.sh#L27">a repeat run of Cucumber</a>, which you can do yourself.</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>su - smokey
 <span class="nb">cd</span> /opt/smokey
 

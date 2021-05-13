@@ -396,7 +396,7 @@
 <h3 id="lifecycle-of-our-search-indexes">Lifecycle of our search indexes</h3>
 <p>Rumamger's search indexes are long lived, but content is regularly
 updated to derive the <code>popularity</code> field from recent pageviews.
-As of <a href="https://github.com/alphagov/search-api/blob/master/docs/arch/adr-003-popularity-updating-without-index-locks.md">ADR 003: Popularity updating without index locks</a>,
+As of <a href="https://github.com/alphagov/search-api/blob/main/docs/arch/adr-003-popularity-updating-without-index-locks.md">ADR 003: Popularity updating without index locks</a>,
 this uses updates, rather than rebuilding the search index every time.</p>
 <p>There is a separate task in place to reindex the content currently in the search indexes with <a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/index-aliases.html">zero downtime</a>.
 This is something we need to do after adding new fields or otherwise changing

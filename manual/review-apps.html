@@ -195,15 +195,8 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/a93c1d7c6ebc0fe1a150679e99b7948332387cbb">3 Aug 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
 </div>
 
  <h1 id='header'>Set up Heroku review apps for pull requests</h1> <p><a href="https://devcenter.heroku.com/articles/github-integration-review-apps">Review apps</a>
@@ -282,8 +275,8 @@ configuration will vary. However, for most apps, you will need a number of
 environment variables configured before you can successfully deploy the app to
 Heroku.</p>
 <p>Check out the <code>app.json</code> files on both
-<a href="https://github.com/alphagov/collections/blob/master/app.json">collections</a> and
-<a href="https://github.com/alphagov/government-frontend/blob/master/app.json">government-frontend</a>
+<a href="https://github.com/alphagov/collections/blob/main/app.json">collections</a> and
+<a href="https://github.com/alphagov/government-frontend/blob/main/app.json">government-frontend</a>
 for examples of necessary environment variables.</p>
 <p>You can create the application via the <code>app.json</code> file.</p>
 <p>You will need a successful deploy with a correct configuration before you can
@@ -294,7 +287,7 @@ deploy review apps.</p>
 <p>If all goes well, you will be able to see your app on:
 <a href="https://govuk-app.herokuapp.com">https://govuk-app.herokuapp.com</a></p>
 <h2 id='create-a-new-pipeline-on-heroku'>Create a new pipeline on Heroku</h2><p>Once you have a successful deployment of your app into Heroku and the <code>app.json</code>
-file commited to the repository and in your master branch, you will now be able
+file commited to the repository and in your main branch, you will now be able
 to start using review apps.</p>
 <p>On Heroku, create a new pipeline and enable automatic review apps when prompted.
 At this point, every new Pull Request being opened on the GOV.UK application
