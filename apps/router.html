@@ -443,6 +443,10 @@
 </div></dl>
     <div class="gem-c-summary__block"></div>
 </div>
+<h2 id='imported-documents'>Imported documents</h2>
+<ul>
+<li><a href='/apps/router/data-structure.html' class='govuk-link'>Data structure</a></li>
+</ul>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
 <p>This is a HTTP reverse proxy router built on top of <a href="https://github.com/alphagov/router/tree/master/triemux"><code>triemux</code></a>. It
@@ -459,45 +463,15 @@ but no longer exist.</li>
 <p>The sister project <a href="https://github.com/alphagov/router-api"><code>router-api</code></a> provides a read/write
 interface to the underlying database and route reloading.</p>
 
-<p>Some of the thinking behind the router is documented in <a href="https://gdstechnology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/">this 2013 blog post</a>.</p>
+<h2 id="technical-documentation">Technical documentation</h2>
 
-<h2 id="environment-assumptions">Environment assumptions</h2>
+<p>Recommended reading: <a href="https://golang.org/doc/code.html">How to Write Go Code</a></p>
 
-<p>Our usage of <code>router</code> places it behind and in front of Nginx and/or Varnish.</p>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<p>As such, there are some things that we are guarded against:</p>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
-<ul>
-<li>Response buffering for slow clients</li>
-<li>Basic request sanitisation</li>
-</ul>
-
-<p>And some features that we have no need to implement:</p>
-
-<ul>
-<li>Access logging (but error logging is implemented)</li>
-<li>SSL</li>
-<li>Health check probes</li>
-<li>Custom header mangling</li>
-<li>Response rewriting</li>
-<li>Authentication</li>
-</ul>
-
-<h2 id="local-setup-build">Local Setup &amp; Build</h2>
-
-<p>The router needs to be built from within a Go <a href="https://golang.org/doc/code.html#Workspaces">workspace</a> for it to
-correctly identify the vendored dependencies.  Assuming you already have Go and
-a <code>$GOPATH</code> set up, you can simply run <code>go get github.com/alphagov/router</code> to
-pull the source into your workspace.</p>
-
-<p>Once you have the code set up correctly, building and running the application
-is simple:</p>
-
-<pre><code>make
-./router -h
-</code></pre>
-
-<h2 id="tests">Tests</h2>
+<h3 id="running-the-test-suite">Running the test suite</h3>
 
 <p>You can run all tests by running:</p>
 
@@ -514,106 +488,29 @@ in Go&rsquo;s own testing framework. To run them individually:</p>
 individual functions. Instead it has a comprehensive set of integration
 tests to exercise it&rsquo;s HTTP handling, error reporting, and performance.</p>
 
-<p>These require a local MongoDB instance and can be run with:</p>
-
 <pre><code>go test ./integration_tests
 </code></pre>
 
-<p>Some of the integration tests are optional because they have certain
-environment requirements that make them unfeasible to run within CI.</p>
+<h3 id="updating-dependencies">Updating dependencies</h3>
 
-<h2 id="dependencies">Dependencies</h2>
-
-<p>This project uses <a href="https://github.com/golang/go/wiki/Modules">Go Modules</a> to vendor its dependencies.
-If you have a working [Go][go] development setup, you should be able to update the dependencies via:</p>
+<p>This project uses <a href="https://github.com/golang/go/wiki/Modules">Go Modules</a> to vendor its dependencies. To update the dependencies:</p>
 
 <pre><code>go mod vendor
 </code></pre>
 
-<h2 id="data-structure">Data structure</h2>
+<h3 id="further-documentation">Further documentation</h3>
 
-<p>The Router requires two MongoDB collections: <code>routes</code> and <code>backends</code>.</p>
-
-<h3 id="routes">Routes</h3>
-
-<p>The <code>routes</code> collection uses the following data structure:</p>
-
-<pre lang="json"><code>{
-  "_id"           : ObjectId(),
-  "route_type"    : ["prefix","exact"],
-  "incoming_path" : "/url-path/here",
-  "handler"       : ["backend", "redirect", "gone"],
-  "disabled"      : false
-}
-</code></pre>
-
-<p>Incoming paths with special characters must be in their % encoded form in the
-database (eg spaces must be stored as <code>%20</code>).</p>
-
-<p>The behaviour of an enabled route is determined by <code>handler</code>. See below for
-extra fields corresponding to <code>handler</code> types.</p>
-
-<p>If a route is disabled, the router will return a 503 for all matching requests.
-This is typically used if a service needs to be taken offline for maintenance
-etc.</p>
-
-<h4 id="backend-handler">
-<code>backend</code> handler</h4>
-
-<p>The <code>backend</code> handler causes the Router to reverse proxy to a named
-<code>backend</code>. The following extra fields are supported:</p>
-
-<pre lang="json"><code>{
-  "backend_id" : "backend-id-corresponding-to-backends-collection"
-}
-</code></pre>
-
-<h4 id="redirect-handler">
-<code>redirect</code> handler</h4>
-
-<p>The <code>redirect</code> handler causes the Router to redirect the given
-<code>incoming_path</code> to the path stored in <code>redirect_to</code>. The following
-extra fields are supported:</p>
-
-<pre lang="json"><code>{
-  "redirect_to"   : "/target-of-redirect",
-  "redirect_type" : ["permanent", "temporary"]
-}
-</code></pre>
-
-<h4 id="gone-handler">
-<code>gone</code> handler</h4>
-
-<p>The <code>gone</code> handler causes the Router to return a 410 response.</p>
-
-<h3 id="backends">Backends</h3>
-
-<p>The <code>backends</code> collection uses the following data structure:</p>
-
-<pre lang="json"><code>{
-  "_id"         : ObjectId(),
-  "backend_id"  : "arbitrary-slug-or-name",
-  "backend_url" : "https://example.com:port/"
-}
-</code></pre>
-
-<h2 id="error-logging">Error logging</h2>
-
-<p>The logger package stores errors in logfiles and reports them to Sentry.</p>
-
-<h2 id="metrics">Metrics</h2>
-
-<p>Router exposes metrics in <a href="https://prometheus.io">Prometheus</a> format using the
-<a href="https://godoc.org/github.com/dnesting/client_golang/prometheus">Go prometheus client
-library</a>.</p>
-
-<p>See commit b443d3dd9cf776143eed270d01bd98d2233caea6 as an example for how to
-add a metric.</p>
+<ul>
+<li><a href="/apps/router/data-structure.html">Data structure</a></li>
+<li><a href="https://gdstechnology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk">Original thinking behind the router</a></li>
+<li>
+<a href="https://github.com/alphagov/router/commit/b443d3dd9cf776143eed270d01bd98d2233caea6">Example of adding a metric</a> using the <a href="https://godoc.org/github.com/dnesting/client_golang/prometheus">Go prometheus client library</a>
+</li>
+</ul>
 
 <h2 id="license">License</h2>
 
-<p><code>router</code> is released under the MIT license, a copy of which can be found in
-<code>LICENSE</code>.</p>
+<p><a href="https://github.com/alphagov/router/blob/main/LICENSE">MIT Licence</a></p>
 <p></div></p>
 
 
