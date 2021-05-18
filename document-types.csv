@@ -41,7 +41,7 @@ employment_tribunal_decision,https://docs.publishing.service.gov.uk/document-typ
 equality_and_diversity,https://docs.publishing.service.gov.uk/document-types/equality_and_diversity.html,48,https://www.gov.uk/government/organisations/ministry-of-justice/about/equality-and-diversity,government-frontend,thing,other,other,other,other
 esi_fund,https://docs.publishing.service.gov.uk/document-types/esi_fund.html,1414,https://www.gov.uk/european-structural-investment-funds/lump-sum-digital-interventions-call-oc00s21x1838,government-frontend,thing,other,other,business_support,guidance_and_regulation
 export_health_certificate,https://docs.publishing.service.gov.uk/document-types/export_health_certificate.html,1939,https://www.gov.uk/export-health-certificates/export-shelf-stable-composite-products-to-the-european-union-and-northern-ireland-importer-declaration-8352,government-frontend,thing,other,other,other,other
-external_content,https://docs.publishing.service.gov.uk/document-types/external_content.html,537,https://www.gov.ukhttp://www.boroughofpoole.com,"",thing,other,other,other,other
+external_content,https://docs.publishing.service.gov.uk/document-types/external_content.html,537,https://www.gov.ukhttp://www.copelandbc.gov.uk/,"",thing,other,other,other,other
 facet,https://docs.publishing.service.gov.uk/document-types/facet.html,0,,"",thing,other,other,other,other
 facet_group,https://docs.publishing.service.gov.uk/document-types/facet_group.html,0,,"",thing,other,other,other,other
 facet_value,https://docs.publishing.service.gov.uk/document-types/facet_value.html,0,,"",thing,other,other,other,other
@@ -66,7 +66,7 @@ hmrc_manual,https://docs.publishing.service.gov.uk/document-types/hmrc_manual.ht
 hmrc_manual_section,https://docs.publishing.service.gov.uk/document-types/hmrc_manual_section.html,79888,https://www.gov.uk/hmrc-internal-manuals/cryptoassets-manual/crypto20000,manuals-frontend,thing,other,other,other,other
 homepage,https://docs.publishing.service.gov.uk/document-types/homepage.html,0,,frontend,finding,other,other,other,other
 html_publication,https://docs.publishing.service.gov.uk/document-types/html_publication.html,0,,"government-frontend, whitehall-frontend",thing,other,other,other,other
-impact_assessment,https://docs.publishing.service.gov.uk/document-types/impact_assessment.html,1110,https://www.gov.uk/government/publications/ofsteds-phased-return-to-inspection,government-frontend,thing,publications,impact-assessments,policy,policy_and_engagement
+impact_assessment,https://docs.publishing.service.gov.uk/document-types/impact_assessment.html,1111,https://www.gov.uk/government/publications/ofsteds-phased-return-to-inspection,government-frontend,thing,publications,impact-assessments,policy,policy_and_engagement
 imported,https://docs.publishing.service.gov.uk/document-types/imported.html,0,,"",thing,other,other,other,other
 independent_report,https://docs.publishing.service.gov.uk/document-types/independent_report.html,3115,https://www.gov.uk/government/publications/priority-groups-for-coronavirus-covid-19-vaccination-advice-from-the-jcvi-30-december-2020,"government-frontend, whitehall-frontend",thing,publications,independent-reports,research,research_and_statistics
 international_development_fund,https://docs.publishing.service.gov.uk/document-types/international_development_fund.html,36,https://www.gov.uk/international-development-funding/uk-aid-connect,government-frontend,thing,other,other,business_support,guidance_and_regulation
@@ -174,7 +174,7 @@ welsh_language_scheme,https://docs.publishing.service.gov.uk/document-types/wels
 working_group,https://docs.publishing.service.gov.uk/document-types/working_group.html,0,,government-frontend,thing,other,other,other,other
 world_location,https://docs.publishing.service.gov.uk/document-types/world_location.html,0,,whitehall-frontend,thing,other,other,other,other
 world_location_news_article,https://docs.publishing.service.gov.uk/document-types/world_location_news_article.html,0,,government-frontend,thing,other,other,news,news_and_communications
-world_news_story,https://docs.publishing.service.gov.uk/document-types/world_news_story.html,13329,https://www.gov.uk/government/news/uk-india-agree-partnership-to-boost-work-visas-for-indian-nationals,government-frontend,thing,announcements,other,news,news_and_communications
+world_news_story,https://docs.publishing.service.gov.uk/document-types/world_news_story.html,13330,https://www.gov.uk/government/news/uk-india-agree-partnership-to-boost-work-visas-for-indian-nationals,government-frontend,thing,announcements,other,news,news_and_communications
 worldwide_office_staff_role,https://docs.publishing.service.gov.uk/document-types/worldwide_office_staff_role.html,0,,"",thing,other,other,other,other
 worldwide_organisation,https://docs.publishing.service.gov.uk/document-types/worldwide_organisation.html,0,,whitehall-frontend,thing,other,other,other,other
 written_statement,https://docs.publishing.service.gov.uk/document-types/written_statement.html,1956,https://www.gov.uk/government/speeches/traffic-light-system-safe-return-to-international-travel,government-frontend,thing,announcements,statements,speeches_and_statements,news_and_communications

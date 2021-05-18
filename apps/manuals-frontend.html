@@ -458,19 +458,17 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<h2 id="purpose">Purpose</h2>
-
 <p>Front-end app for the manuals format on GOV.UK</p>
 
 <h2 id="nomenclature">Nomenclature</h2>
 
 <ul>
 <li>
-<strong>Manuals</strong> – documents published using <a href="https://github.com/alphagov/manuals-publisher">github.com/alphagov/manuals-publisher</a>.</li>
+<strong>Manuals</strong> – documents published using <a href="https://github.com/alphagov/manuals-publisher">Manuals Publisher</a>.</li>
 <li>
-<strong>HMRC Manuals</strong> – Manuals published by HMRC and populated via their API: <a href="https://github.com/alphagov/hmrc-manuals-api">github.com/alphagov/hmrc-manuals-api</a>.</li>
+<strong>HMRC Manuals</strong> – Manuals published by HMRC and populated via <a href="https://github.com/alphagov/hmrc-manuals-api">HMRC Manuals API</a>.</li>
 <li>
-<strong>Sections</strong> - individual sub-pages of a Manual or HMRC Manual</li>
+<strong>Sections</strong> - individual sub-pages of a Manual or HMRC Manual.</li>
 </ul>
 
 <h2 id="live-examples">Live examples</h2>
@@ -482,41 +480,22 @@
 <li><a href="https://www.gov.uk/hmrc-internal-manuals/pensions-tax-manual/ptm000001">HMRC Manual Section: gov.uk/hmrc-internal-manuals/pensions-tax-manual/ptm000001</a></li>
 </ul>
 
-<h2 id="dependencies">Dependencies</h2>
+<h2 id="technical-documentation">Technical documentation</h2>
 
-<ul>
-<li>
-<a href="https://github.com/alphagov/static">https://github.com/alphagov/static</a> – Provides static assets (JS/CSS)</li>
-<li>
-<a href="https://github.com/alphagov/content-store">https://github.com/alphagov/content-store</a> – Provides content</li>
-</ul>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<h2 id="installation-and-running">Installation and running</h2>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> or the local <code>startup.sh</code> script to run the app. Read the <a href="https://docs.publishing.service.gov.uk/manual/local-frontend-development.html">guidance on local frontend development</a> to find out more about each approach, before you get started.</p>
 
-<p>In a terminal, run:</p>
+<p>If you are using GOV.UK Docker, remember to combine it with the commands that follow. See the <a href="https://github.com/alphagov/govuk-docker#usage">GOV.UK Docker usage instructions</a> for examples.</p>
 
-<pre><code>./startup.sh
+<h3 id="running-the-tests">Running the tests</h3>
+
+<pre><code>bundle exec rake
 </code></pre>
 
-<p>or using bowler:</p>
+<h2 id="license">License</h2>
 
-<p><code>bowl manuals-frontend</code></p>
-
-<p>If you are using the GDS development virtual machine then the application will be available on the host at <a href="http://manuals-frontend.dev.gov.uk/">http://manuals-frontend.dev.gov.uk/</a></p>
-
-<h2 id="running-the-tests">Running the tests</h2>
-
-<p>The test suite includes testing against govuk-content-schemas, so you will need a copy of this repo on your file system. By default this should be in a sibling directory to your project. Alternatively, you can specify their location with the GOVUK_CONTENT_SCHEMAS_PATH environment variable.</p>
-
-<p>All tests can be run using <code>bundle exec rake</code> as well.</p>
-
-<h2 id="viewing-a-manual">Viewing a manual</h2>
-
-<p>You can see the content design manual at <a href="http://manuals-frontend.dev.gov.uk/guidance/content-design">http://manuals-frontend.dev.gov.uk/guidance/content-design</a></p>
-
-<h2 id="publishing-a-manual-on-dev">Publishing a manual on dev</h2>
-
-<p>Manuals are published using <code>manuals-publisher</code> to publish a manual run <code>manuals-publisher</code> (instructions here: <a href="https://github.com/alphagov/manuals-publisher">https://github.com/alphagov/manuals-publisher</a>), publish a manual, and you should then be able to view it on <code>manuals-frontend</code>. If you have replicated from preview recently then you should be able to see currently published manuals at <a href="http://manuals-frontend.dev.gov.uk/%5Bpreview-slug%5D">http://manuals-frontend.dev.gov.uk/[preview-slug]</a> too.</p>
+<p><a href="https://github.com/alphagov/manuals-frontend/blob/main/LICENSE">MIT License</a></p>
 <p></div></p>
 
 

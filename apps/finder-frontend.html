@@ -449,6 +449,7 @@
 <ul>
 <li><a href='/apps/finder-frontend/analytics.html' class='govuk-link'>Analytics</a></li>
         <li><a href='/apps/finder-frontend/brexit-checker.html' class='govuk-link'>Brexit Checker</a></li>
+        <li><a href='/apps/finder-frontend/developing-a-finder.html' class='govuk-link'>Developing a Finder</a></li>
         <li><a href='/apps/finder-frontend/finder-email-alerts.html' class='govuk-link'>Finder email alerts</a></li>
         <li><a href='/apps/finder-frontend/how-search-works.html' class='govuk-link'>How search works</a></li>
         <li><a href='/apps/finder-frontend/brexit-checker-content-changes.html' class='govuk-link'>Make changes to Transition Checker content</a></li>
@@ -471,135 +472,64 @@
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>Finder frontend renders search on GOV.UK.</p>
+<p>Renders search on GOV.UK:</p>
+
+<ul>
+<li>
+<a href="https://www.gov.uk/search">Site search</a> is available from the header of every page.</li>
+<li>Finder pages provide facetted searching over a collection of documents.</li>
+<li>Most of these pages support <a href="/apps/finder-frontend/finder-email-alerts.html">subscribing to email alerts</a>.</li>
+</ul>
+
+<p>This app also provides the <a href="/apps/finder-frontend/brexit-checker.html">Brexit Checker</a>.</p>
 
 <h2 id="live-examples">Live examples</h2>
 
-<h3 id="site-search">Site search</h3>
-
-<p>Site search is available from the header of every page.</p>
-
-<p><a href="https://www.gov.uk/search"><img src="https://raw.githubusercontent.com/alphagov/finder-frontend/main/docs/assets/sitesearch-screenshot.png" alt="Site search screenshot"></a></p>
-
-<h3 id="finder-pages">Finder pages</h3>
-
-<p>Finder pages provide facetted searching over a collection of documents.</p>
-
 <ul>
 <li><a href="https://www.gov.uk/aaib-reports">gov.uk/aaib-reports</a></li>
-<li><a href="https://www.gov.uk/cma-cases">gov.uk/cma-cases</a></li>
-<li><a href="https://www.gov.uk/drug-safety-update">gov.uk/drug-safety-update</a></li>
 <li><a href="https://www.gov.uk/drug-device-alerts">gov.uk/drug-device-alerts</a></li>
 <li><a href="https://www.gov.uk/government/case-studies">gov.uk/government/case-studies</a></li>
-<li><a href="https://www.gov.uk/government/groups">gov.uk/government/groups</a></li>
 <li><a href="https://www.gov.uk/government/people">gov.uk/government/people</a></li>
 <li><a href="https://www.gov.uk/world/organisations">gov.uk/world/organisations</a></li>
 <li><a href="https://www.gov.uk/international-development-funding">gov.uk/international-development-funding</a></li>
-<li><a href="https://www.gov.uk/maib-reports">gov.uk/maib-reports</a></li>
-<li><a href="https://www.gov.uk/raib-reports">gov.uk/raib-reports</a></li>
 </ul>
-
-<p>Read more about <a href="/apps/finder-frontend/finder-facets-links.html">how links-based facets are handled</a>.</p>
-
-<p><img src="https://raw.githubusercontent.com/alphagov/finder-frontend/main/docs/assets/page-screenshot.png" alt="Finder frontend screenshot"></p>
 
 <h2 id="nomenclature">Nomenclature</h2>
 
 <ul>
 <li>Finder: Page containing a list of filterable documents and filters.</li>
-<li>Facets: Metadata associated with documents.</li>
+<li>Facets: Metadata associated with documents. See <code>app/models/*_facet.rb</code> for examples.</li>
 <li>Filters: Searchable/filterable metadata for example <code>case_state={open|closed}</code> for a CMA case.</li>
+<li>Parser: Transforms API responses into model objects.</li>
 </ul>
 
-<h2 id="dependencies">Dependencies</h2>
+<h2 id="technical-documentation">Technical documentation</h2>
 
-<ul>
-<li>
-<a href="http://github.com/alphagov/static">alphagov/static</a>: provides static assets (JS/CSS) and provides the GOV.UK templates.</li>
-<li>
-<a href="http://github.com/alphagov/content-store">alphagov/content-store</a>: provides the content items for the finder itself &ndash; containing the finder title, tagged organisations and related links</li>
-<li>
-<a href="http://github.com/alphagov/search-api">alphagov/search-api</a>: provides search results</li>
-</ul>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<h2 id="running-the-application">Running the application</h2>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> or the local <code>startup.sh</code> script to run the app. Read the <a href="https://docs.publishing.service.gov.uk/manual/local-frontend-development.html">guidance on local frontend development</a> to find out more about each approach, before you get started.</p>
 
-<pre lang="sh"><code>$ ./startup.sh
+<p>If you are using GOV.UK Docker, remember to combine it with the commands that follow. See the <a href="https://github.com/alphagov/govuk-docker#usage">GOV.UK Docker usage instructions</a> for examples.</p>
+
+<h3 id="running-the-test-suite">Running the test suite</h3>
+
+<pre lang="sh"><code># run all the tests
+bundle exec rake
+
+# run only feature tests
+bundle exec cucumber
+
+# run only JS tests
+bundle exec rake jasmine:ci
 </code></pre>
 
-<p>You can optionally add the <code>--live</code> flag to use live search data.</p>
+<h3 id="further-documentation">Further documentation</h3>
 
-<p>If you are using the GDS development virtual machine then the application will be available on the host at <a href="http://finder-frontend.dev.gov.uk/">http://finder-frontend.dev.gov.uk/</a></p>
+<p>See the <a href="https://github.com/alphagov/finder-frontend/blob/main/docs/"><code>docs/</code></a> directory for manuals and instructions.</p>
 
-<h2 id="running-the-test-suite">Running the test suite</h2>
+<h2 id="license">License</h2>
 
-<p>Before you can run the test suite you&rsquo;ll need the <a href="https://github.com/alphagov/govuk-content-schemas">govuk-content-schemas</a> repository locally. See <a href="https://github.com/alphagov/finder-frontend/blob/master/lib/govuk_content_schema_examples.rb"><code>lib/govuk_content_schema_examples.rb</code></a> for more details.</p>
-
-<p>The StandardJS JavaScript linter needs to be installed separately before running the default <code>rake</code> task. To make sure that it&rsquo;s been installed run:</p>
-
-<pre lang="sh"><code>$ yarn install
-</code></pre>
-
-<p>The default <code>rake</code> task runs all the tests:</p>
-
-<pre lang="sh"><code>$ bundle exec rake
-</code></pre>
-
-<p>The application has Jasmine tests, which can be accessed at <code>/specs</code> when the application is running in development mode. These are also run when <code>rake</code>, above, is run.</p>
-
-<p>To run the Jasmine tests separately: <code>bundle exec cucumber</code></p>
-
-<p>To run the JavaScript Jasmine tests separately: <code>bundle exec rake jasmine:ci</code></p>
-
-<p>Note: Running the JS tests require you to also install phantomjs with <code>brew cask install phantomjs</code>.</p>
-
-<h2 id="making-a-new-finder">Making a new finder</h2>
-
-<ol>
-<li>If required, add a schema to <a href="http://github.com/alphagov/search-api">alphagov/search-api</a> describing your document type &ndash; <a href="https://github.com/alphagov/search-api/blob/master/config/schema/elasticsearch_types/cma_case.json">example</a>
-</li>
-<li>Publish a Finder Content Item to the content store. See the doc for <a href="/apps/finder-frontend/finder-content-item.html">Finder Content Item</a> for more info.</li>
-<li>Ensure your documents are indexed in <a href="http://github.com/alphagov/search-api">alphagov/search-api</a> correctly.</li>
-</ol>
-
-<h3 id="developing-a-finder-locally">Developing a finder locally</h3>
-
-<p>You can run this application with a local file so you can develop a finder without having to publish the content item to the publishing-api.</p>
-
-<p>For example:</p>
-
-<pre><code>DEVELOPMENT_FINDER_JSON=features/fixtures/aaib_reports_example.json ./startup.sh --live
-</code></pre>
-
-<h3 id="how-to-add-a-fixed-filter">How to add a fixed filter</h3>
-
-<p>You can use <a href="https://www.gov.uk/api/search.json?filter_link=">gov.uk/api/search.json?filter_link=</a> with the path of the page you looking for to migrate.</p>
-
-<p>For example, you want to filter by the field <code>link</code> on <code>/government/world/organisations</code>
-You can access the following: <a href="https://www.gov.uk/api/search.json?filter_link=/government/world/organisations/british-antarctic-territory">https://www.gov.uk/api/search.json?filter_link=/government/world/organisations/british-antarctic-territory</a>
-You will be able to see inside results the field <code>format</code></p>
-
-<p>You can double check the filter by performing the following search using search-api:</p>
-
-<p><a href="http://search-api.dev.gov.uk/search.json?filter_NAME=VALUE">http://search-api.dev.gov.uk/search.json?filter_NAME=VALUE</a></p>
-
-<p>For more information please refer to the <a href="https://github.com/alphagov/search-api/blob/master/doc/search-api.md">search api documentation</a>.</p>
-
-<h2 id="application-structure">Application structure</h2>
-
-<ul>
-<li>No data store &ndash; all data comes via the APIs mentioned above.</li>
-<li>
-<code>app/models</code> contains two kinds of object.
-<ol>
-<li>Value objects used to wrap up responses from API calls.</li>
-<li>Facet objects which wrap up the behaviour of different types of facet &ndash;
-eg radios, selects, etc.</li>
-</ol>
-</li>
-<li>
-<code>app/parsers</code> contains objects which transform API responses into models.</li>
-</ul>
+<p><a href="https://github.com/alphagov/finder-frontend/blob/main/LICENCE.txt">MIT License</a></p>
 <p></div></p>
 
 
