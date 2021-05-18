@@ -244,7 +244,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/467e46215abf18e9d4aed6a393fed01bcc0d9e23">13 May 2021</a>
 </div>
 
  <h1 id='header'>Sentry</h1> <p><a href="https://sentry.io/govuk/">Sentry</a> is a service that collates errors that happen on GOV.UK in one
@@ -334,10 +334,9 @@ its errors will be logged to Sentry.</p>
 <h3 id='advanced-sentry-customisation'>Advanced Sentry customisation</h3><p>For all of the above, you can easily
 <a href="https://github.com/alphagov/govuk_app_config/blob/master/README.md#error-reporting">configure any of these properties by appending to them</a>.</p>
 <p>You can also run arbitrary code to decide whether or not an error should be
-logged in Sentry, using the <code>should_capture</code> lambda. Your custom code will be
-<a href="https://github.com/alphagov/govuk_app_config/blob/b911c5bbef9bd1df6a92cf31eb5a8e0d3a91d851/lib/govuk_app_config/govuk_error/configuration.rb#L18-L24">lazily combined with the default evaluators</a> such that if an
-exception is on any of the &lsquo;excluded exceptions&rsquo; lists, it will be excluded
-(even if your custom <code>should_capture</code> callback returns true).</p>
+logged in Sentry, using the <code>before_send</code> lambda. Your custom code will be
+<a href="https://github.com/alphagov/govuk_app_config/blob/589b7aae49c3584ead2f60f915be05a7922c5c3e/lib/govuk_app_config/govuk_error/configuration.rb#L63–L71">combined with the default evaluators</a> such that if any of the
+callbacks returns nil, the exception will be excluded.</p>
 <h2 id='when-errors-are-received-by-sentry'>When errors are received by Sentry</h2><p>Sentry first fingerprints the error to decide what Issue to group it under.
 It then checks how many occurrences of that Issue have happened recently,
 and rate-limits (i.e. ignores) this occurrence if it is happening too
