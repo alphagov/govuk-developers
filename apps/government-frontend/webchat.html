@@ -364,15 +364,8 @@
 </div>
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/government-frontend/commit/35d361185f641409867acb7d0768d192cc7d879f">27 Feb 2019</a>
+  Last updated: <a href="https://github.com/alphagov/government-frontend/commit/dcf76e0bb8c1a4c5cc95328f1dd94c42aed98435">17 May 2021</a>
 </div>
 
   <h1 class="page-title">government-frontend: Webchat Component</h1>
@@ -397,6 +390,68 @@
 <h3 id="note-regarding-response-normalisation">Note regarding response Normalisation</h3>
 <p>As can be seen in the fuller example above, we currently have the option to do the normalisation in JavaScript, this is deprecated, and is shim code until all current users of Wbchat have their own proxies up and running.</p>
 <p>Once this shim is removed we can move this component into Static as a GOV.UK Publishing Component</p>
+<h2 id="how-to-add-a-new-webchat-provider">How to add a new webchat provider</h2>
+<ol>
+<li>Open to <code>lib/webchat.yaml</code>
+</li>
+<li>Append new entry:</li>
+</ol>
+<pre lang="yaml"><code>- base_path: /government/contact/my-amazing-service
+  open_url: https://www.my-amazing-webchat.com/007/open-chat
+  availability_url: https://www.my-amazing-webchat.com/007/check-availability
+</code></pre>
+<ol start="3">
+<li>Deploy changes</li>
+<li>Go to <a href="https://www.gov.uk/government/contact/my-amazing-service">https://www.gov.uk/government/contact/my-amazing-service</a>
+</li>
+<li>Finished</li>
+</ol>
+<h2 id="cors-considerations">CORS considerations</h2>
+<p>To avoid CORS and CSP issues a new provider would need to be added to the Content Security Policy</p>
+<h2 id="required-configuration">Required configuration</h2>
+<h3 id="base-path">Base path</h3>
+<p>This is the base path of a contact page, for example, <code>/government/organisations/hm-revenue-customs/contact/child-benefit</code>.
+This path should always be a contact page, any other content page type will result in the webchat component not being loaded.</p>
+<h3 id="availability-url">Availability URL</h3>
+<p>This URL is used to check the availability of agents at regular intervals.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Request Method</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>Response Format</td>
+<td>JSON/JSONP (Default to JSONP)</td>
+</tr>
+<tr>
+<td>Request Example</td>
+<td>{"status":"success","response":"BUSY"}</td>
+</tr>
+<tr>
+<td>Valid statuses</td>
+<td>["BUSY", "UNAVAILABLE", "AVAILABLE","ONLINE", "OFFLINE", "ERROR"]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="open-url">Open URL</h3>
+<p>This url is used to start a webchat session.
+This url should not include session ids or require anything specific parameters to be generated.</p>
+<h2 id="optional-configuration-options">Optional Configuration options</h2>
+<h3 id="browser-window-behaviour">Browser window behaviour</h3>
+<p>By default the chat session would open in an a separate browser window. An additional value can be added to the yaml entry that will allow the web chat to remain in the current browser window.</p>
+<pre lang="yaml"><code>  open_url_redirect: true
+</code></pre>
+<h3 id="payload-format">Payload format</h3>
+<p>The default response from the api as used by HMRC webchat provider is JSONP. To add a provider that responds using JSON the following entry needs to be added.</p>
+<pre lang="yaml"><code>  availability_payload_format: json
+</code></pre>
 
 
             

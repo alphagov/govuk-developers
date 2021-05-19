@@ -6,25 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Application: government-frontend - GOV.UK Developer Documentation</title>
+    <title>government-frontend: Visual regression tests - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/government-frontend.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/government-frontend/visual-regression-tests.html">
 
-      <meta name="description" content="Everything about the government-frontend application (Serves government pages on GOV.UK)" />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="Application: government-frontend - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/government-frontend.html" />
+      <meta name="twitter:title" content="government-frontend: Visual regression tests - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/government-frontend/visual-regression-tests.html" />
 
-      <meta property="og:description" content="Everything about the government-frontend application (Serves government pages on GOV.UK)" />
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="Application: government-frontend" />
+      <meta property="og:title" content="government-frontend: Visual regression tests" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/government-frontend.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/government-frontend/visual-regression-tests.html" />
 
     
   </head>
@@ -221,7 +219,7 @@
           <li><a href="/apps/feedback.html"><span>feedback</span></a></li>
           <li><a href="/apps/finder-frontend.html"><span>finder-frontend</span></a></li>
           <li><a href="/apps/frontend.html"><span>frontend</span></a></li>
-          <li><a href="/apps/government-frontend.html" class="toc-link--in-view"><span>government-frontend</span></a></li>
+          <li><a href="/apps/government-frontend.html"><span>government-frontend</span></a></li>
           <li><a href="/apps/info-frontend.html"><span>info-frontend</span></a></li>
           <li><a href="/apps/licence-finder.html"><span>licence-finder</span></a></li>
           <li><a href="/apps/manuals-frontend.html"><span>manuals-frontend</span></a></li>
@@ -338,6 +336,14 @@
         "name": "Apps",
         "@id": "http://www.dev.gov.uk/apps.html"
       }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "name": "government-frontend",
+        "@id": "http://www.dev.gov.uk/apps/government-frontend.html"
+      }
     }
   ]
 }
@@ -349,295 +355,58 @@
           <a data-track-category="homeLinkClicked" data-track-action="homeBreadcrumb" data-track-label="" data-track-options="{}" class="govuk-breadcrumbs__link" href="/">Home</a>
         </li>
         <li class="govuk-breadcrumbs__list-item">
-          <a data-track-category="breadcrumbClicked" data-track-action="2" data-track-label="/apps.html" data-track-options="{&quot;dimension28&quot;:&quot;2&quot;,&quot;dimension29&quot;:&quot;Apps&quot;}" class="govuk-breadcrumbs__link" href="/apps.html">Apps</a>
+          <a data-track-category="breadcrumbClicked" data-track-action="2" data-track-label="/apps.html" data-track-options="{&quot;dimension28&quot;:&quot;3&quot;,&quot;dimension29&quot;:&quot;Apps&quot;}" class="govuk-breadcrumbs__link" href="/apps.html">Apps</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a data-track-category="breadcrumbClicked" data-track-action="3" data-track-label="/apps/government-frontend.html" data-track-options="{&quot;dimension28&quot;:&quot;3&quot;,&quot;dimension29&quot;:&quot;government-frontend&quot;}" class="govuk-breadcrumbs__link" href="/apps/government-frontend.html">government-frontend</a>
         </li>
   </ol>
 </div>
 
-  
-  <h1 class="page-title">Application: government-frontend</h1>
+  <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  <p>Serves government pages on GOV.UK</p>
-
-<div class="gem-c-summary-list  ">
-
-      <dl class="govuk-summary-list">
-          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">GitHub</dt>
-            <dd class="govuk-summary-list__value"><a href="https://github.com/alphagov/government-frontend">government-frontend</a></dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Ownership</dt>
-            <dd class="govuk-summary-list__value">#govuk-platform-health</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Hosting</dt>
-            <dd class="govuk-summary-list__value"><strong>AWS</strong>, on the <strong>draft_frontend</strong> machine class</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Continuously deployed?</dt>
-            <dd class="govuk-summary-list__value">Yes</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Rake tasks</dt>
-            <dd class="govuk-summary-list__value"><span aria-hidden='true'>Run a Rake task on</span> <a
-      href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=government-frontend&MACHINE_CLASS=draft_frontend&RAKE_TASK="
-      class="govuk-link"
-      aria-label="Run a Rake task on Integration">Integration</a>, <a
-      href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=government-frontend&MACHINE_CLASS=draft_frontend&RAKE_TASK="
-      class="govuk-link"
-      aria-label="Run a Rake task on Staging">Staging</a> or <a
-      href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=government-frontend&MACHINE_CLASS=draft_frontend&RAKE_TASK="
-      class="govuk-link"
-      aria-label="Run a Rake task on Production">⚠️ Production ⚠️</a></dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div>          <div class="govuk-summary-list__row">
-
-            <dt class="govuk-summary-list__key">Links</dt>
-            <dd class="govuk-summary-list__value"><ul>
-    <li><a href="https://sentry.io/govuk/app-government-frontend" class="govuk-link">Sentry (error tracking)</a></li>
-
-
-    <li><a href="https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/apps/government_frontend.pp" class="govuk-link">Puppet configuration</a></li>
-
-    <li><a href="https://github.com/alphagov/govuk-app-deployment/blob/master/government-frontend/config/deploy.rb" class="govuk-link">Deploy scripts</a></li>
-
-    <li><a href="https://grafana.production.govuk.digital/dashboard/file/government-frontend.json" class="govuk-link">Deployment dashboard</a></li>
-
-    <li><a href="https://github.com/alphagov/publishing-e2e-tests/search?q=%22government_frontend%3A+true%22+path%3A%2Fspec%2F" class="govuk-link">Publishing E2E scenarios</a> (warning: not all apps have E2E tests)</li>
-
-
-    <li><a href="https://government-frontend.herokuapp.com/component-guide" class="govuk-link">Component guide</a></li>
-
-
-</ul>
-</dd>
-
-
-
-              <dd class="govuk-summary-list__actions">
-</dd>
-</div></dl>
-    <div class="gem-c-summary__block"></div>
+  Last updated: <a href="https://github.com/alphagov/government-frontend/commit/91a70d45dace937395a0e244f60bb6c7c6be717b">17 May 2021</a>
 </div>
-<h2 id='relevant-manual-pages'>Relevant manual pages</h2><p><ul class="gem-c-list govuk-list">
-      <li><a href="/manual/howto-add-organisation-brand-colour.html" class="govuk-link">Add an organisation&rsquo;s brand colour</a></li>
-</ul></p>
-<h2 id='imported-documents'>Imported documents</h2>
-<ul>
-<li><a href='/apps/government-frontend/visual-regression-tests.html' class='govuk-link'>Visual regression tests</a></li>
-        <li><a href='/apps/government-frontend/webchat.html' class='govuk-link'>Webchat Component</a></li>
-</ul>
-<h2 id='example-pages-published-by-government-frontend'>Example pages published by government-frontend</h2><p><ul class="gem-c-list govuk-list">
-      <li><a href="https://www.gov.uk/government/history/lancaster-house" class="govuk-link">History of Lancaster House (FCDO)</a></li>
-      <li><a href="https://www.gov.uk/government/history/10-downing-street" class="govuk-link">History of 10 Downing Street</a></li>
-      <li><a href="https://www.gov.uk/government/history" class="govuk-link">History of the UK government</a></li>
-      <li><a href="https://www.gov.uk/government/history/king-charles-street" class="govuk-link">History of King Charles Street (FCDO)</a></li>
-      <li><a href="https://www.gov.uk/government/history/11-downing-street" class="govuk-link">History of 11 Downing Street</a></li>
-      <li><a href="https://www.gov.uk/government/history/1-horse-guards-road" class="govuk-link">History of 1 Horse Guards Road</a></li>
-</ul></p>
-<h2 id='example-pages-rendered-by-government-frontend'>Example pages rendered by government-frontend</h2><p><ul class="gem-c-list govuk-list">
-      <li><a href="https://www.gov.uk/log-in-register-hmrc-online-services" class="govuk-link">HMRC services: sign in or register</a></li>
-      <li><a href="https://www.gov.uk/get-coronavirus-test" class="govuk-link">Get a free PCR test to check if you have coronavirus (COVID-19)</a></li>
-      <li><a href="https://www.gov.uk/universal-credit" class="govuk-link">Universal Credit</a></li>
-      <li><a href="https://www.gov.uk/uk-border-control" class="govuk-link">Entering the UK</a></li>
-      <li><a href="https://www.gov.uk/national-minimum-wage-rates" class="govuk-link">National Minimum Wage and National Living Wage rates</a></li>
-      <li><a href="https://www.gov.uk/foreign-travel-advice/portugal" class="govuk-link">Portugal travel advice</a></li>
-      <li><a href="https://www.gov.uk/log-in-file-self-assessment-tax-return" class="govuk-link">File your Self Assessment tax return online</a></li>
-      <li><a href="https://www.gov.uk/foreign-travel-advice/spain" class="govuk-link">Spain travel advice</a></li>
-      <li><a href="https://www.gov.uk/pay-dartford-crossing-charge" class="govuk-link">Pay the Dartford Crossing charge (Dart Charge)</a></li>
-      <li><a href="https://www.gov.uk/change-address-driving-licence" class="govuk-link">Change the address on your driving licence</a></li>
-</ul></p>
-<h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>Government Frontend is a public-facing app to display the majority of documents on the /government part of GOV.UK, which are fetched from the <a href="https://github.com/alphagov/content-store">Content Store</a>. It is a replacement for the public-facing parts of the <a href="https://github.com/alphagov/whitehall">Whitehall</a> application.</p>
+  <h1 class="page-title">government-frontend: Visual regression tests</h1>
 
-<h2 id="schemas">Schemas</h2>
-
-<p>Not all schemas that this app can handle are rendered by it in production.</p>
-
-<table>
-<thead>
-<tr>
-<th>Schema</th>
-<th>Live example</th>
-<th>Production status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Answer</td>
-<td><a href="https://www.gov.uk/national-minimum-wage-rates">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Case study</td>
-<td><a href="https://www.gov.uk/government/case-studies/2013-elections-in-swaziland">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Coming soon</td>
-<td></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Consultation</td>
-<td><a href="https://www.gov.uk/government/consultations/soft-drinks-industry-levy">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Contacts</td>
-<td><a href="https://www.gov.uk/government/organisations/hm-revenue-customs/contact/alcohol-duties-national-registration-unit">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Corporate information page</td>
-<td><a href="https://www.gov.uk/government/organisations/government-digital-service/about">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Detailed guide</td>
-<td><a href="https://www.gov.uk/guidance/waste-exemption-nwfd-2-temporary-storage-at-the-place-of-production--2">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Document collection</td>
-<td><a href="https://www.gov.uk/government/collections/statutory-guidance-schools">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Fatality notice</td>
-<td><a href="https://www.gov.uk/government/fatalities/corporal-lee-churcher-dies-in-iraq">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Help page</td>
-<td><a href="https://www.gov.uk/help/about-govuk">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>HTML Publication</td>
-<td><a href="https://www.gov.uk/government/publications/budget-2016-documents/budget-2016">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>News Article</td>
-<td><a href="https://www.gov.uk/government/news/the-personal-independence-payment-amendment-regulations-2017-statement-by-paul-gray">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Publication</td>
-<td><a href="https://www.gov.uk/government/publications/budget-2016-documents">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Specialist document</td>
-<td><a href="https://www.gov.uk/business-finance-support/access-to-finance-advice-north-west-england">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Statistics announcement</td>
-<td><a href="https://www.gov.uk/government/statistics/announcements/diagnostic-imaging-dataset-for-september-2015">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Statistical data set</td>
-<td><a href="https://www.gov.uk/government/statistical-data-sets/unclaimed-estates-list">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Speech</td>
-<td><a href="https://www.gov.uk/government/speeches/government-at-your-service-ben-gummer-speech">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Take part</td>
-<td><a href="https://www.gov.uk/government/get-involved/take-part/become-a-councillor">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Topical event about page</td>
-<td><a href="https://www.gov.uk/government/topical-events/2014-overseas-territories-joint-ministerial-council/about">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Travel advice</td>
-<td><a href="https://www.gov.uk/foreign-travel-advice/nepal">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Unpublishing</td>
-<td></td>
-<td>Rendered by Whitehall, might not be migrated</td>
-</tr>
-<tr>
-<td>World Location News Article</td>
-<td><a href="https://www.gov.uk/government/world-location-news/changes-to-secure-english-language-test-providers-for-uk-visas">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-<tr>
-<td>Working group</td>
-<td><a href="https://www.gov.uk/government/groups/abstraction-reform">View on GOV.UK</a></td>
-<td>Migrated</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="technical-documentation">Technical documentation</h2>
-
-<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
-
-<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> or the local <code>startup.sh</code> script to run the app. Read the <a href="https://docs.publishing.service.gov.uk/manual/local-frontend-development.html">guidance on local frontend development</a> to find out more about each approach, before you get started.</p>
-
-<p>If you are using GOV.UK Docker, remember to combine it with the commands that follow. See the <a href="https://github.com/alphagov/govuk-docker#usage">GOV.UK Docker usage instructions</a> for examples.</p>
-
-<h3 id="running-the-test-suite">Running the test suite</h3>
-
-<pre><code>bundle exec rake
+  
+<p>Use <a href="http://bbc-news.github.io/wraith/">Wraith</a> ("A responsive screenshot comparison tool") to generate a visual diff to compare rendering changes in this application. <a href="http://brewformulas.org/Imagemagick">ImageMagick</a> is needed to run the visual regression tests locally.</p>
+<h2 id="compare-with-production">Compare with production</h2>
+<p>Compare development with production:</p>
+<pre><code>bundle exec wraith capture test/wraith/config.yaml
 </code></pre>
-
-<h3 id="components">Components</h3>
-
-<p>Pages are rendered using components. Components can be specific to government-frontend or shared between applications.</p>
-
-<p>Components specific to government-frontend are <a href="https://github.com/alphagov/government-frontend/tree/master/app/views/components">within the application</a> and follow rules set out by the <a href="https://github.com/alphagov/govuk_publishing_components">govuk_publishing_components</a> gem. They are documented in the <a href="https://government-frontend.herokuapp.com/component-guide">government-frontend component guide</a>.</p>
-
-<h3 id="further-documentation">Further documentation</h3>
-
-<ul>
-<li><a href="/apps/government-frontend/visual-regression-tests.html">Visual regression tests</a></li>
-<li><a href="/apps/government-frontend/webchat.html">Webchat</a></li>
-</ul>
-
-<h2 id="licence">Licence</h2>
-
-<p><a href="https://github.com/alphagov/government-frontend/blob/main/LICENCE">MIT License</a></p>
-<p></div></p>
+<p>Compare staging with production:</p>
+<pre><code>bundle exec wraith capture test/wraith/config-staging-vs-production.yaml
+</code></pre>
+<p>This will generate image diffs comparing the two runs, including a browsable
+gallery of the output, located at <code>shots/gallery.html</code>.</p>
+<h2 id="compare-examples-on-master-with-examples-on-branch">Compare examples on master with examples on branch</h2>
+<p>Examples are referencing <a href="https://github.com/alphagov/govuk-content-schemas">https://github.com/alphagov/govuk-content-schemas</a></p>
+<p>With government-frontend running master on the development VM and while <a href="https://github.com/alphagov/govuk-content-schemas/blob/master/docs/running-frontend-against-examples.md">pointing at the dummy content store</a>, create a set of historical screenshots using:</p>
+<pre><code>cd test/wraith
+bundle exec wraith history test/wraith/config-examples.yaml
+</code></pre>
+<p>Then switch to your branch and create a set of screenshots to compare against using:</p>
+<pre><code>bundle exec wraith latest test/wraith/config-examples.yaml
+</code></pre>
+<h2 id="compare-a-document_type">Compare a document_type</h2>
+<p>A rake task has been made to make this easy, given a <code>document_type</code> of <code>about</code></p>
+<pre><code>bundle exec rake wraith:document_type[about]
+</code></pre>
+<p>this will run against the 10 most popular pages as defined by the search api</p>
+<h2 id="compare-all-document_types">Compare all document_types</h2>
+<pre><code>bundle exec rake wraith:all_document_types[:sample_size]
+</code></pre>
+<p>This will run against the 10 (can be overidden with <code>:sample_size</code>) most popular pages as defined by the search api,
+for each known <code>document_type</code> in the app (see: <a href="#generate-a-config-for-known-document_types-and-example-pages">Generate a config for known document_types and example pages</a>).</p>
+<p><em>Note:</em> If you wish to have your own local wip configs, wip* is in the .gitignore, so as an example
+<code>wip-kittens.yaml</code> will be ignored</p>
+<h2 id="generate-a-config-for-known-document_types-and-example-pages">Generate a config for known document_types and example pages</h2>
+<p>Running the rake task below will retrieve the <code>document_types</code> where <code>rendering_app = government-frontend</code> from the search api. It will then generate <code>test/wraith/wip-config-all-document-types.yaml</code>, this is a wraith config file containing the top 10 (can be overidden with <code>:sample_size</code>) example pages for each type.</p>
+<p>The yaml file contains a custom key of <code>:document_types</code> not used by wraith but can be used to quickly scan and see which types the search api believes <code>government-frontend</code> is responsible for.</p>
+<pre><code>bundle exec rake wraith:update_document_types[:sample_size]
+</code></pre>
 
 
             
@@ -645,8 +414,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/main/data/applications.yml">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/government-frontend.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/government-frontend/blob/main/docs/visual-regression-tests.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/government-frontend/visual-regression-tests.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
