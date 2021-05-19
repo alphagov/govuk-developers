@@ -383,6 +383,7 @@
 <tr><td><strong>details</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>change_history</strong><br/><code>array</code></td> <td><br/></td></tr>
 <tr><td><strong>internal_name</strong><br/><code>string</code></td> <td>An internal name for taxonomy admin interfaces. Includes parent.<br/></td></tr>
 <tr><td><strong>notes_for_editors</strong><br/><code>string</code></td> <td>Usage notes for editors when tagging content to a taxon.<br/></td></tr>
+<tr><td><strong>url_override</strong><br/><code>string</code></td> <td>Set a custom url for the taxon to override the default of /taxon<br/></td></tr>
 <tr><td><strong>visible_to_departmental_editors</strong><br/><code>boolean</code></td> <td>Should this taxon be made visible to Content Editors in publishing apps? It&rsquo;s currently only a consideration for Root Taxons in a draft state.<br/></td></tr></table></td></tr>
 <tr><td><strong>document_type</strong><br/><code>string</code></td> <td><br/>Allowed values: <code>taxon</code></td></tr>
 <tr><td><strong>first_published_at</strong><br/><code></code> or <code>null</code></td> <td><br/></td></tr>
@@ -443,7 +444,6 @@
     </span><span class="nl">"notes_for_editors"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ultricies Pellentesque lorem dolor suscipit massa amet"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"document_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"taxon"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"first_published_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-07-18T08:05:48+00:00"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"associated_taxons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
@@ -1637,6 +1637,7 @@ a publishing application sends to the publishing-api in a
 <tr><td><strong>description</strong><br/><code></code> or <code>null</code></td> <td><br/></td></tr>
 <tr><td><strong>details</strong><br/><code>object</code></td> <td><table class='schema-table'><tr><td><strong>internal_name</strong><br/><code>string</code></td> <td>An internal name for taxonomy admin interfaces. Includes parent.<br/></td></tr>
 <tr><td><strong>notes_for_editors</strong><br/><code>string</code></td> <td>Usage notes for editors when tagging content to a taxon.<br/></td></tr>
+<tr><td><strong>url_override</strong><br/><code>string</code></td> <td>Set a custom url for the taxon to override the default of /taxon<br/></td></tr>
 <tr><td><strong>visible_to_departmental_editors</strong><br/><code>boolean</code></td> <td>Should this taxon be made visible to Content Editors in publishing apps? It&rsquo;s currently only a consideration for Root Taxons in a draft state.<br/></td></tr></table></td></tr>
 <tr><td><strong>document_type</strong><br/><code>string</code></td> <td><br/>Allowed values: <code>taxon</code></td></tr>
 <tr><td><strong>first_published_at</strong><br/><code>string</code></td> <td>The date the content was first published.  Automatically determined by the publishing-api, unless overridden by the publishing application.<br/></td></tr>
@@ -1672,59 +1673,46 @@ a publishing application sends to the publishing-api in a
   </span><span class="nl">"bulk_publishing"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"change_note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"internal_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"porttitor aliquet. molestie a malesuada turpis egestas. tempor volutpat interdum. Quisque ac at purus Nam sagittis morbi ac amet non dolor et tempor sit eu senectus consectetur"</span><span class="w">
+    </span><span class="nl">"internal_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"porttitor aliquet. molestie a malesuada turpis egestas. tempor volutpat interdum. Quisque ac at purus Nam sagittis morbi ac amet non dolor et tempor sit eu senectus consectetur"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"visible_to_departmental_editors"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"document_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"taxon"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"first_published_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-04-06T15:56:59+00:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"last_edited_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-07-27T13:19:32+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"first_published_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-07-27T13:19:32+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"last_edited_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-06-04T22:53:43+00:00"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"associated_taxons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"eee2cfb5-fe9d-10a6-abe2-a4b91adf5c7a"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"88a5fef1-cebe-19f9-ace2-5e8febb93975"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"79923c6d-ff34-1aa4-a12f-e8fa0f5b7a03"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"6b2feaf1-60e5-1ccd-a35f-122f6ee24acc"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"parent_taxons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"90d92e3e-00eb-1f90-a59f-f3c05453e5d2"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"bdac45eb-9615-1ec3-a092-73c53f7e17a3"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"6e4286b4-c5ab-117b-ad6b-eec0fce93f3f"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"2f3bee1a-6eb9-1a98-ad96-68d0f59febaf"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"fb57d62f-abc4-197b-afff-6d046c01c698"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"aecdd725-fd5a-1d89-a5ff-fef4e34a9dec"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
     </span><span class="nl">"policy_areas"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"9a96298a-6ec1-12e7-af99-c8c0172ac621"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"88f7e001-0112-1a24-a7bb-cf5f8d99b01d"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"b9f003f7-da56-1b0d-a70e-bae0273bbd33"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"50abc1e5-2dd6-1ee3-a2cb-cd3a0589ea40"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"0e0eed31-09df-18c9-adb4-57df976231fd"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"1a430a10-ad17-10a2-a65e-b47e0de0aa00"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"95eeaedf-7aec-10b6-a2fd-ebfd5c3a9d81"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"f3429cca-36e4-1099-a0aa-d62763f5dce8"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"b2613a18-625d-1cc2-a094-a90cec76dade"</span><span class="w">
+      </span><span class="s2">"2cfb5fe9-d0a6-1be2-aa4b-91adf5c7a88a"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"5fef1ceb-e9f9-1ce2-a5e8-febb93975799"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"23c6dff3-4aa4-112f-ae8f-a0f5b7a036b2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"feaf160e-5ccd-135f-a122-f6ee24acceec"</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zh-tw"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"previous_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"malesuada et Nam et suscipit Mauris purus vel volutpat hendrerit fames at morbi Nam Lorem orci consectetur Ut ac molestie tristique netus egestas. imperdiet sagittis Quisque ac est. non Sed vel Duis tempor in finibus risus mauris amet sollicitudin interdum. senectus Suspendisse habitant cursus ultricies ipsum ac eros. adipiscing massa nibh. nisl ac dolor Aenean porttitor lorem sem vestibulum. non interdum. nibh tempor turpis libero. lectus Ut risus sit scelerisque. molestie aliquet. eu elit. leo pellentesque a dolor tristique eu bibendum. Pellentesque sed"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"publishing_app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hmrc-manuals-api"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"rendering_app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"manuals-frontend"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"phase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"previous_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean vel ipsum molestie Duis Sed finibus Pellentesque Ut elit. sit ac Lorem netus interdum. porttitor tristique habitant molestie turpis Suspendisse Ut suscipit Mauris libero. nisl ac risus egestas. Nam vel nibh a at eros. aliquet. imperdiet et senectus pellentesque tempor orci eu malesuada adipiscing sem dolor mauris non bibendum. est. leo tempor volutpat et Nam ultricies eu fames scelerisque. risus hendrerit lorem vestibulum. lectus Quisque consectetur tristique ac ac interdum. non dolor sed in amet morbi sollicitudin purus massa sagittis nibh. cursus"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"publishing_app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"publisher"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"redirects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"eros. egestas. porttitor Quisque nibh. suscipit Lorem malesuada risus sem scelerisque. vel amet orci molestie ac purus fames cursus hendrerit molestie nisl ultricies lorem dolor finibus Suspendisse lectus nibh adipiscing Pellentesque Sed a non Ut imperdiet ac vestibulum. eu"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"interdum. in ac"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"egestas. consectetur tristique ac est. eu et aliquet. Nam interdum. Quisque lorem sed massa finibus Pellentesque tempor dolor Duis pellentesque elit. Nam scelerisque. sollicitudin habitant lectus ac porttitor sit malesuada sem risus a Lorem molestie volutpat Sed leo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"bibendum. sed risus ultricies et ac consectetur tristique dolor Nam vel Aenean et interdum. ac molestie leo vel Ut Quisque ipsum orci Suspendisse at egestas. tempor nibh. lectus interdum. sem nibh Lorem pellentesque hendrerit elit. cursus senectus sollicitudin"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"eu non nisl Quisque finibus leo senectus Pellentesque adipiscing scelerisque. vestibulum. Ut et"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"malesuada at netus Ut fames mauris ac Duis vel suscipit imperdiet elit. a ac senectus morbi turpis Suspendisse sed Lorem nisl lorem Sed molestie amet egestas. non finibus aliquet. vel sem hendrerit Quisque orci molestie libero. est. non interdum. Nam volutpat risus consectetur ultricies eu cursus dolor ac eros. tempor in nibh purus adipiscing ac dolor tristique et habitant sollicitudin bibendum. eu lectus Mauris tristique sagittis et tempor sit Ut porttitor leo risus"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sagittis Ut ac morbi elit. in porttitor vel Aenean hendrerit turpis bibendum. amet senectus pellentesque sit Mauris imperdiet egestas. molestie est. tempor eu tempor et risus massa finibus ac a fames orci Lorem Nam ac nisl Quisque Duis interdum. at Sed ac habitant Suspendisse libero. nibh. eu risus tristique netus adipiscing vel sollicitudin dolor non molestie interdum. ipsum ultricies lectus suscipit leo sed vestibulum. purus Pellentesque tristique Ut cursus malesuada"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"rendering_app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calculators"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"routes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Duis sed eu sagittis risus Aenean bibendum. ac morbi vestibulum. amet Nam Mauris elit. ac non vel Sed molestie purus lectus in mauris fames dolor risus scelerisque. egestas. molestie aliquet. consectetur et malesuada Nam volutpat ac sollicitudin Pellentesque lorem Ut porttitor interdum. nisl sit eros. libero. ipsum hendrerit tristique Quisque Lorem tempor Suspendisse senectus non ac imperdiet orci ultricies tristique adipiscing eu cursus suscipit vel nibh et leo sem tempor dolor finibus netus interdum. turpis Ut pellentesque est. a massa habitant nibh. at"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"at nibh. suscipit tristique vel Ut malesuada tristique libero. ac lorem fames imperdiet cursus morbi vel sed"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exact"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a sagittis dolor bibendum. consectetur Mauris Nam Lorem Duis amet eu ac lectus risus eros. purus in molestie Ut interdum. tempor ultricies et morbi ac Pellentesque hendrerit at aliquet. et Quisque habitant tempor sollicitudin risus adipiscing porttitor Ut nibh. leo mauris non malesuada massa vel dolor molestie Aenean finibus senectus ac suscipit Sed vel interdum. libero. nisl lorem netus elit."</span><span class="p">,</span><span class="w">
       </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prefix"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nisl molestie malesuada tempor at aliquet. pellentesque imperdiet purus Quisque mauris finibus interdum. ac cursus nibh. porttitor ac lectus scelerisque. amet Nam interdum. nibh libero. eu ipsum morbi sem consectetur massa Mauris non est. ac in dolor Duis a suscipit sagittis senectus et egestas. Nam sit Pellentesque adipiscing tempor habitant"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exact"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ut tristique vel aliquet. Quisque cursus non netus Ut elit. interdum. ac scelerisque. consectetur lectus sed et sem ipsum"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exact"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"schema_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"taxon"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scelerisque. ac sollicitudin sit suscipit ultricies pellentesque habitant molestie consectetur fames volutpat aliquet. Suspendisse hendrerit vestibulum. morbi eros. amet ac orci turpis nibh. et libero. elit. nibh tempor molestie sem sagittis tristique egestas. Lorem at Nam cursus vel nisl porttitor Quisque sed dolor bibendum. risus malesuada vel mauris eu in Sed purus tempor ac Ut dolor Mauris Pellentesque lorem massa Aenean interdum. ipsum Nam leo adipiscing eu risus senectus imperdiet est. tristique et Ut interdum. non non ac Duis netus lectus a finibus"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"update_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"minor"</span><span class="w">
+  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"adipiscing dolor imperdiet elit. suscipit amet eu hendrerit pellentesque dolor consectetur volutpat ipsum molestie cursus ac sagittis orci nibh. eu est. sem nisl tempor non Sed Ut Suspendisse risus netus Quisque et vestibulum. Mauris Ut massa aliquet. interdum. senectus tristique a vel Pellentesque molestie habitant in non nibh sit porttitor eros. vel purus egestas. mauris lorem malesuada Nam sed ac risus leo sollicitudin scelerisque. interdum. fames at ac Nam et Aenean Lorem ac finibus Duis"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"update_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"major"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <hr>
