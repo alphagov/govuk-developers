@@ -205,7 +205,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/50ff477b9ccbe72419635ae76fe1fcc495514eb2">20 May 2021</a>
 </div>
 
  <h1 id='header'>COVID-19 Services</h1> <p>Between March and October 2020 the GOV.UK operated three standalone
@@ -222,17 +222,10 @@ help with the response to coronavirus.  That included goods or
 services such as medical equipment, hotel rooms or childcare.</p>
 <p><strong>The service has been replaced with a guidance page.</strong></p>
 <p>A backup of the production database was taken prior to the service
-being removed. It is available at:</p>
+being removed. GDS has transferred this backup to Government
+Commercial Function within the Cabinet Office and no longer retains
+a copy.</p>
 
-<ul>
-<li>AWS S3 bucket: <code>govuk-production-database-backups</code></li>
-<li>Key: <code>coronavirus-business-volunteer-form/production.sql.gzip</code></li>
-<li>Retention period: 365 days (as per our privacy policy)</li>
-<li>Expiry date: Wed, 13 Oct 2021 00:00:00 GMT</li>
-</ul>
-<p>The file information can be retrieved with the following command&hellip;</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds aws govuk-production-poweruser aws s3api head-object <span class="nt">--bucket</span> govuk-production-database-backups <span class="nt">--key</span> coronavirus-business-volunteer-form/production.sql.gzip
-</code></pre></div>
 <ul>
 <li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form">Original GitHub Repository</a></li>
 <li><a href="https://github.com/alphagov/govuk-coronavirus-business-volunteer-form/blob/master/docs/how-to-bring-back-this-service.md">Information on how to bring this service back to life</a></li>
