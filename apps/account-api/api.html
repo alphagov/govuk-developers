@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/b38f547c62fd6de07cb8bf09ec59005551aab727">30 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/22c5b6a912f6d77aab5dd5686d6caae118805915">12 May 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -375,10 +375,18 @@
 up <a href="http://www.gov.uk">www.gov.uk</a>) to implement personalisation and user session
 management. This API is not for other government services.</p>
 <ul>
-<li><a href="#nomenclature">Nomenclature</a></li>
+<li>
+<a href="#nomenclature">Nomenclature</a>
+<ul>
+<li><a href="#identity-provider">Identity provider</a></li>
+<li><a href="#session-identifier">Session identifier</a></li>
+</ul>
+</li>
 <li>
 <a href="#requirements-for-api-consumers">Requirements for API consumers</a>
 <ul>
+<li><a href="#request-custom-headers">Request custom headers</a></li>
+<li><a href="#response-custom-headers">Response custom headers</a></li>
 <li><a href="#update-the-users-session-if-a-new-session-identifier-is-returned">Update the user's session if a new session identifier is returned</a></li>
 <li><a href="#end-the-users-session-if-an-endpoint-returns-a-401-unauthenticated">End the user's session if an endpoint returns a <code>401: Unauthenticated</code></a></li>
 <li><a href="#ensure-responses-are-not-cached">Ensure responses are not cached</a></li>
@@ -396,6 +404,10 @@ management. This API is not for other government services.</p>
 <li><a href="#get-apiattributesnames"><code>GET /api/attributes/names</code></a></li>
 <li><a href="#get-apitransition-checker-email-subscription"><code>GET /api/transition-checker-email-subscription</code></a></li>
 <li><a href="#post-apitransition-checker-email-subscription"><code>POST /api/transition-checker-email-subscription</code></a></li>
+<li><a href="#get-apisaved_pages"><code>GET /api/saved_pages</code></a></li>
+<li><a href="#put-apisaved_pagespage_path"><code>PUT /api/saved_pages/:page_path</code></a></li>
+<li><a href="#delete-apisaved_pagespage_path"><code>DELETE /api/saved_pages/:page_path</code></a></li>
+<li><a href="#get-apisaved_pagespage_path"><code>GET /api/saved_pages/:page_path</code></a></li>
 </ul>
 </li>
 <li>
@@ -403,6 +415,7 @@ management. This API is not for other government services.</p>
 <ul>
 <li><a href="#level-of-authentication-too-low">Level of authentication too low</a></li>
 <li><a href="#unknown-attribute-names">Unknown attribute names</a></li>
+<li><a href="#page-cannot-be-saved">Page cannot be saved</a></li>
 </ul>
 </li>
 </ul>
@@ -943,6 +956,202 @@ end
     "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg=="
 }
 </code></pre>
+<h3 id="get-apisaved_pages"><code>GET /api/saved_pages</code></h3>
+<p>Returns all a user's saved pages</p>
+<h4 id="request-headers">Request headers</h4>
+<ul>
+<li>
+<code>GOVUK-Account-Session</code>
+<ul>
+<li>the user's session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>govuk_account_session</code> <em>(optional)</em>
+<ul>
+<li>a new session identifier</li>
+</ul>
+</li>
+<li>
+<code>saved_pages</code>
+<ul>
+<li>an array of pages the user has saved, identified by their page path</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>401 if the session identifier is invalid</li>
+<li>200 otherwise</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.saved_page_api.get_saved_pages(
+    govuk_account_session: "session-identifier",
+)
+</code></pre>
+<p>Response when no pages are saved:</p>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
+    "saved_pages": []
+}
+</code></pre>
+<p>Response when a user has saved two pages:</p>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
+    "saved_pages": [
+      { "page_path": "/government/organisations/government-digital-service" },
+      { "page_path": "/government/organisations/cabinet-office" },
+  ]
+}
+</code></pre>
+<h3 id="put-apisaved_pagespage_path"><code>PUT /api/saved_pages/:page_path</code></h3>
+<p>Upsert a saved page in a user's account</p>
+<h4 id="request-headers">Request headers</h4>
+<ul>
+<li>
+<code>GOVUK-Account-Session</code>
+<ul>
+<li>the user's session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="request-parameters">Request parameters</h4>
+<ul>
+<li>
+<code>page_path</code>
+<ul>
+<li>An escaped URL safe string that identifies the path of a saved page.</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>govuk_account_session</code> <em>(optional)</em>
+<ul>
+<li>a new session identifier</li>
+</ul>
+</li>
+<li>
+<code>saved_page</code>
+<ul>
+<li>an object containing the page path of the successfully saved page</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>401 if the session identifier is invalid</li>
+<li>422 if the page could not be saved (see <a href="#page-cannot-be-saved">error: page cannot be saved</a>)</li>
+<li>200 otherwise</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.saved_page_api.save_page(
+    page_path: "/guidance/foo",
+    govuk_account_session: "session-identifier",
+)
+</code></pre>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
+    "saved_page": {
+      "page_path": "/guidance/foo"
+    },
+}
+</code></pre>
+<h3 id="delete-apisaved_pagespage_path"><code>DELETE /api/saved_pages/:page_path</code></h3>
+<p>Remove a saved page from a user's account</p>
+<h4 id="request-headers">Request headers</h4>
+<ul>
+<li>
+<code>GOVUK-Account-Session</code>
+<ul>
+<li>the user's session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="request-parameters">Request parameters</h4>
+<ul>
+<li>
+<code>page_path</code>
+<ul>
+<li>An escaped URL safe string that identifies the path of a saved page.</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>401 if the session identifier is invalid</li>
+<li>404 cannot find a page with the provided path</li>
+<li>204 successfully deleted</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.saved_page_api.delete_saved_page(
+    page_path: "/guidance/bar",
+    govuk_account_session: "session-identifier",
+)
+</code></pre>
+<p>Response is status code only.</p>
+<h3 id="get-apisaved_pagespage_path"><code>GET /api/saved_pages/:page_path</code></h3>
+<p>Query if a specific path has been saved by the user</p>
+<h4 id="request-headers">Request headers</h4>
+<ul>
+<li>
+<code>GOVUK-Account-Session</code>
+<ul>
+<li>the user's session identifier</li>
+</ul>
+</li>
+</ul>
+<h4 id="request-parameters">Request parameters</h4>
+<ul>
+<li>
+<code>page_path</code>
+<ul>
+<li>An escaped URL safe string that identifies the path of a saved page.</li>
+</ul>
+</li>
+</ul>
+<h4 id="json-response-fields">JSON response fields</h4>
+<ul>
+<li>
+<code>govuk_account_session</code> <em>(optional)</em>
+<ul>
+<li>a new session identifier</li>
+</ul>
+</li>
+<li>
+<code>saved_page</code>
+<ul>
+<li>an object containing the page path of the successfully queried page</li>
+</ul>
+</li>
+</ul>
+<h4 id="response-codes">Response codes</h4>
+<ul>
+<li>401 if the session identifier is invalid</li>
+<li>404 cannot find a page with the provided path</li>
+<li>200 otherwise</li>
+</ul>
+<h4 id="example-request-response">Example request / response</h4>
+<p>Request (with gds-api-adapters):</p>
+<pre lang="ruby"><code>GdsApi.saved_page_api.get_saved_page(
+    page_path: "/guidance/bar",
+    govuk_account_session: "session-identifier",
+)
+</code></pre>
+<pre lang="json"><code>{
+    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
+    "saved_page": {
+      "page_path": "/guidance/bar"
+    },
+}
+</code></pre>
 <h2 id="api-errors">API errors</h2>
 <p>API errors are returned as an <a href="https://tools.ietf.org/html/rfc7807">RFC 7807</a> "Problem Detail" object, in
 the following format:</p>
@@ -964,12 +1173,11 @@ level to access.</p>
 <h3 id="unknown-attribute-names">Unknown attribute names</h3>
 <p>One or more of the attribute names you have specified are not known.
 The <code>attributes</code> response field lists these.</p>
+<h3 id="page-cannot-be-saved">Page cannot be saved</h3>
+<p>The page you have specified could not be saved. The errors response field lists the problems.</p>
 <h4 id="debugging-steps">Debugging steps</h4>
 <ul>
-<li>check that you don't have a typo in the attribute names</li>
-<li>check that the attributes are defined in <code>config/user_attributes.yml</code>
-</li>
-<li>check that you are running the latest version of account-api</li>
+<li>check the <code>errors</code> returned as an extra detail in the response for specific error messages</li>
 </ul>
 
 
