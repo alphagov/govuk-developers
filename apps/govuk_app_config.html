@@ -528,11 +528,11 @@ end
 <p>Finally, you can pass your own callback to evaluate whether or not to capture the exception.
 Note that if an exception is on the <code>excluded_exceptions</code> list, or on the <code>data_sync_excluded_exceptions</code>
 and occurs at the time of a data sync, then it will be excluded even if the custom
-<code>should_capture</code> callback returns <code>true</code>.</p>
+<code>before_send</code> callback doesn&rsquo;t return <code>nil</code>.</p>
 
 <pre lang="ruby"><code>GovukError.configure do |config|
-  config.should_capture = lambda do |error_or_event|
-    error_or_event == "do capture"
+  config.before_send = lambda do |error_or_event|
+    error_or_event == "do capture" ? error_or_event : nil
   end
 end
 </code></pre>
