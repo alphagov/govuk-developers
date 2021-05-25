@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/22c5b6a912f6d77aab5dd5686d6caae118805915">12 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/b95659e0cf69185985ca114e45f3970c205b05a7">21 May 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -1003,8 +1003,16 @@ end
 <pre lang="json"><code>{
     "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
     "saved_pages": [
-      { "page_path": "/government/organisations/government-digital-service" },
-      { "page_path": "/government/organisations/cabinet-office" },
+      {
+        "page_path": "/government/organisations/government-digital-service",
+        "content_id": "af07d5a5-df63-4ddc-9383-6a666845ebe9",
+        "title": "Government Digital Service"
+      },
+      {
+        "page_path": "/government/organisations/cabinet-office",
+        "content_id": "96ae61d6-c2a1-48cb-8e67-da9d105ae381",
+        "title": "Cabinet Office"
+      },
   ]
 }
 </code></pre>
@@ -1046,6 +1054,8 @@ end
 <h4 id="response-codes">Response codes</h4>
 <ul>
 <li>401 if the session identifier is invalid</li>
+<li>404 if the page does not exist (not present in the content store)</li>
+<li>410 if the page has been removed (the latest edition is in the "gone" or "redirect" state)</li>
 <li>422 if the page could not be saved (see <a href="#page-cannot-be-saved">error: page cannot be saved</a>)</li>
 <li>200 otherwise</li>
 </ul>
@@ -1059,7 +1069,9 @@ end
 <pre lang="json"><code>{
     "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
     "saved_page": {
-      "page_path": "/guidance/foo"
+      "page_path": "/guidance/foo",
+      "content_id": "96ae61d6-c2a1-48cb-8e67-da9d105ae381",
+      "title": "Guidance for Foo-related Activities"
     },
 }
 </code></pre>
@@ -1148,7 +1160,9 @@ end
 <pre lang="json"><code>{
     "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
     "saved_page": {
-      "page_path": "/guidance/bar"
+      "page_path": "/guidance/bar",
+      "content_id": "96ae61d6-c2a1-48cb-8e67-da9d105ae381",
+      "title": "Guidance for Bar-related Activities"
     },
 }
 </code></pre>
