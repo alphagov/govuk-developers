@@ -136,19 +136,22 @@
     <a href="#header"><span>Get started on GOV.UK</span></a>
     <ul>
       <li>
-        <a href="#1-install-the-homebrew-package-manager-on-macos-or-linux"><span>1. Install the Homebrew package manager (on macOS or Linux)</span></a>
+        <a href="#before-you-start"><span>Before you start</span></a>
+      </li>
+      <li>
+        <a href="#1-install-the-homebrew-package-manager"><span>1. Install the Homebrew package manager</span></a>
       </li>
       <li>
         <a href="#2-set-up-your-github-account"><span>2. Set up your GitHub account</span></a>
       </li>
       <li>
-        <a href="#3-install-gds-tooling"><span>3. Install GDS tooling</span></a>
+        <a href="#3-install-gds-command-line-tools"><span>3. Install GDS command line tools</span></a>
       </li>
       <li>
-        <a href="#4-connecting-to-the-gds-vpn"><span>4. Connecting to the GDS VPN</span></a>
+        <a href="#4-connect-to-the-gds-vpn"><span>4. Connect to the GDS VPN</span></a>
       </li>
       <li>
-        <a href="#5-set-up-govuk-docker"><span>5. Set up govuk-docker</span></a>
+        <a href="#5-set-up-gov-uk-docker"><span>5. Set up GOV.UK Docker</span></a>
       </li>
       <li>
         <a href="#6-get-ssh-access-to-integration"><span>6. Get SSH access to integration</span></a>
@@ -160,7 +163,7 @@
             <a href="#create-a-user-to-ssh-into-integration"><span>Create a user to SSH into integration</span></a>
           </li>
           <li>
-            <a href="#access-remote-environments"><span>Access remote environments</span></a>
+            <a href="#access-remote-environments-and-server"><span>Access remote environments and server</span></a>
           </li>
         </ul>
       </li>
@@ -168,41 +171,32 @@
         <a href="#7-get-aws-access"><span>7. Get AWS access</span></a>
         <ul>
           <li>
-            <a href="#request-a-gds-aws-account"><span>Request a GDS AWS account</span></a>
+            <a href="#request-access-to-the-gds-aws-account"><span>Request access to the GDS AWS account</span></a>
           </li>
           <li>
             <a href="#sign-in-to-aws"><span>Sign in to AWS</span></a>
           </li>
           <li>
-            <a href="#set-up-your-mfa"><span>Set up your MFA</span></a>
+            <a href="#set-up-multi-factor-authentication"><span>Set up Multi-Factor Authentication</span></a>
           </li>
           <li>
             <a href="#generate-a-pair-of-access-keys"><span>Generate a pair of access keys</span></a>
           </li>
           <li>
-            <a href="#get-the-appropriate-access"><span>Get the appropriate access</span></a>
+            <a href="#get-access-to-integration-infrastructure"><span>Get access to integration infrastructure</span></a>
           </li>
         </ul>
       </li>
       <li>
-        <a href="#8-use-your-aws-access"><span>8. Use your AWS access</span></a>
+        <a href="#8-access-aws-for-the-first-time"><span>8. Access AWS for the first time</span></a>
         <ul>
           <li>
-            <a href="#first-run"><span>First run</span></a>
-          </li>
-          <li>
-            <a href="#re-initialising"><span>Re-initialising</span></a>
-          </li>
-          <li>
-            <a href="#get-your-role"><span>Get Your Role</span></a>
-          </li>
-          <li>
-            <a href="#usage"><span>Usage</span></a>
+            <a href="#reset-your-aws-vault-password"><span>Reset your AWS vault password</span></a>
           </li>
         </ul>
       </li>
       <li>
-        <a href="#you39re-all-done"><span>You’re all done!</span></a>
+        <a href="#supporting-information"><span>Supporting information</span></a>
       </li>
     </ul>
   </li>
@@ -255,185 +249,180 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c8b637e84eae69406b0fbb5200e8c07baa3a9f0d">29 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/ca3571fadb3d7b85be22ee04df401fba09f0220f">5 May 2021</a>
 </div>
 
- <h1 id='header'>Get started on GOV.UK</h1> <p>This is the guide for new technical staff working on GOV.UK in <a href="https://gds.blog.gov.uk/about/">GDS</a>. If you just joined, 👋 welcome!</p>
-<p>If they haven&rsquo;t done so yet, ask your tech lead to take you through the <a href="https://docs.google.com/presentation/d/1nAE65Og04JYNAc0VjYaUYLqNLuUOM9r3Mvo0PGFy_Zk">overview slides</a>.</p>
-<p>If you&rsquo;re having trouble with this guide, you can ask your colleagues or the #govuk-developers channel in Slack.</p>
-<h2 id='1-install-the-homebrew-package-manager-on-macos-or-linux'>1. Install the <a href="https://brew.sh">Homebrew package manager</a> (on macOS or Linux)</h2><div class="highlight"><pre class="highlight shell" tabindex="0"><code>/bin/bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span class="si">)</span><span class="s2">"</span>
-</code></pre></div><h2 id='2-set-up-your-github-account'>2. Set up your GitHub account</h2>
+ <h1 id='header'>Get started on GOV.UK</h1> <p>This getting started guide is for new technical staff (for example developers, technical architects) working on GOV.UK in <a href="https://gds.blog.gov.uk/about/">GDS</a> or CDDO.</p>
+<p>Ask your tech lead to take you through the <a href="https://docs.google.com/presentation/d/1nAE65Og04JYNAc0VjYaUYLqNLuUOM9r3Mvo0PGFy_Zk">overview slides</a> if they have not already done so.</p>
+<p>If you&rsquo;re having trouble with this guide, you can ask your colleagues on the <a href="https://gds.slack.com/archives/CAB4Q3QBW">#govuk-developers Slack channel</a> or using email.</p>
+<h2 id='before-you-start'>Before you start</h2><p>You must have a laptop with full admin access. To check if you have full admin access, run a <code>sudo</code> command in your command line. For example, <code>sudo ls</code>.</p>
+<p>If you do not have full admin access to your laptop, ask your line manager to ask IT to provide you with a developer build on your laptop.</p>
+<p>Once you have full admin access on your laptop, run the following in your command line to install the Xcode command line tool:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>xcode-select --install
+</code></pre></div><h2 id='1-install-the-homebrew-package-manager'>1. Install the Homebrew package manager</h2><p>Run the following in your command line to install the <a href="https://brew.sh">Homebrew package manager</a>:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>/bin/bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/master/install.sh<span class="si">)</span><span class="s2">"</span>
+</code></pre></div><p>This command works for macOS or Linux.</p>
+<h2 id='2-set-up-your-github-account'>2. Set up your GitHub account</h2>
 <ol>
-<li>Set up a <a href="https://www.github.com/">GitHub</a> account. Existing personal accounts are fine to use.</li>
-<li>Ask your tech lead to add you to the <a href="https://github.com/alphagov">alphagov organisation</a>. You will have to be added to the <a href="https://github.com/orgs/alphagov/teams/gov-uk/members">GOV.UK team</a> to get access to repos &amp; CI. Remember to click accept in the GitHub email invitation.</li>
-<li>Ask somebody with access to add your GitHub username to the <a href="https://github.com/alphagov/govuk-user-reviewer">user monitoring system</a>.</li>
-<li><a href="https://help.github.com/articles/connecting-to-github-with-ssh/">Generate and register an SSH key pair</a> for your laptop for your GitHub account. You should use a <code>4096</code> bit key.</li>
-<li><p>Import the SSH key into your keychain. Once you’ve done this, you&rsquo;ll be able to clone repos over SSH.</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ /usr/bin/ssh-add -K your-private-key
+<li>Set up a <a href="https://www.github.com/">GitHub</a> account. You can use your existing personal account.</li>
+<li><p>Ask your tech lead to add you to the <a href="https://github.com/alphagov">alphagov organisation</a> and the <a href="https://github.com/orgs/alphagov/teams/gov-uk/members">GOV.UK team</a> to get access to repos &amp; CI.</p>
+<p>Select <strong>Accept</strong> in the GitHub email invitation when you receive this email. If your tech lead is not available, ask one of the <a href="https://groups.google.com/a/digital.cabinet-office.gov.uk/g/gds-github-owners/members?pli=1">GDS GitHub owners</a>.</p></li>
+<li><p>Ask your tech lead to add your GitHub username to the <a href="https://github.com/alphagov/govuk-user-reviewer">user monitoring system</a>.</p>
+<p>If your tech lead is not available, ask in the <a href="https://gds.slack.com/archives/CADKZN519">2nd line support Slack channel</a> for someone who has production access to add you.</p></li>
+<li><p><a href="https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generate a new SSH key for your laptop and add it to the ssh-agent</a> for your GitHub account.</p></li>
+<li><p><a href="https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account">Add the SSH key to your GitHub account</a>.</p></li>
+<li><p>Add the following code into your <code>.zshrc</code>, <code>~/.bash_profile</code>, or equivalent so that it is persistent between restarts:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ /usr/bin/ssh-add -K &lt;YOUR-PRIVATE-KEY&gt;
 </code></pre></div></li>
-<li><p>Add the above line into your <code>~/.bash_profile</code> or equivalent so that it is persistent between restarts.</p></li>
-<li><p>Test that it all works by running <code>ssh -T git@github.com</code>.</p></li>
-<li><p>While you&rsquo;re here, associate your name and email to your git commits:</p>
+<li><p>Test that the SSH key works by running <code>ssh -T git@github.com</code>.</p></li>
+<li><p>Add your name and email to your git commits. For example:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>$ git config --global user.email "friendly.giraffe@digital.cabinet-office.gov.uk"
 $ git config --global user.name "Friendly Giraffe"
 </code></pre></div></li>
 </ol>
-<h2 id='3-install-gds-tooling'>3. Install GDS tooling</h2><p>On GOV.UK we use two command-line tools day-to-day: <a href="https://github.com/alphagov/govuk-connect"><code>govuk-connect</code></a> and the <a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a> for AWS, SSH and VPN access.</p>
-<p>To install these, run:</p>
+<h2 id='3-install-gds-command-line-tools'>3. Install GDS command line tools</h2><p>On GOV.UK we use the following command-line tools for AWS and SSH access:</p>
+
+<ul>
+<li><a href="https://github.com/alphagov/govuk-connect"><code>govuk-connect</code></a></li>
+<li><a href="https://github.com/alphagov/gds-cli"><code>gds-cli</code></a></li>
+</ul>
+
+<ol>
+<li><p>To install these command line tools, run the following in the command line:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code>brew tap alphagov/gds
 brew <span class="nb">install </span>gds-cli govuk-connect
-</code></pre></div><p>The GDS CLI repository is private, so you&rsquo;ll need to follow the GitHub setup instructions above for the download to work.</p>
-<p>Test that both tools work by running <code>gds --help</code> and <code>gds govuk connect --help</code>.</p>
+</code></pre></div><p>The GDS CLI repository is private, so you must first <a href="#2-set-up-your-github-account">set up your GitHub account</a>.</p></li>
+<li><p>Test that both tools work by running <code>gds --help</code> and <code>gds govuk connect --help</code>.</p>
+<p>If you see a <code>fatal: no such path in the working tree</code> error, that&rsquo;s because you&rsquo;re using ZSH, which has <code>gds</code> set up as a Git alias. To solve this, you can either:</p>
 
-<blockquote>
-<p>If you see <code>fatal: no such path in the working tree</code>, it&rsquo;s because you&rsquo;re using ZSH, which has <code>gds</code> set up as a Git alias. You can either remove that alias by adding <code>unalias gds</code> to your <code>~/.zshrc</code>, or use <code>gds-cli</code> instead of <code>gds</code> for all the relevant commands.</p>
-</blockquote>
-<p>The GDS CLI requires some initial configuration:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds config email firstname.lastname@digital.cabinet-office.gov.uk
-gds config yubikey <span class="nb">false</span> <span class="c"># If you type MFA codes from your phone</span>
-</code></pre></div><h2 id='4-connecting-to-the-gds-vpn'>4. Connecting to the GDS VPN</h2><p>Access to our infrastructure and internal services is controlled by IP safelisting. If you&rsquo;re outside of the office or not on the Brattain network (ie, you&rsquo;re on GovWiFi), you&rsquo;ll need to connect to the GDS VPN to access our stuff.</p>
-<p>To do this, read <a href="https://sites.google.com/a/digital.cabinet-office.gov.uk/gds/working-at-the-white-chapel-building/it-the-white-chapel-building/how-to/gds-vpn">the GDS Wiki page about the VPN</a> to ensure you have the required pre-requisites, for example the Cisco AnyConnect software installed on your computer, and an MFA token given to you when you arrived by GDS IT. If you don&rsquo;t have these, <a href="https://gdshelpdesk.digital.cabinet-office.gov.uk/helpdesk/WebObjects/Helpdesk.woa">contact the IT helpdesk</a>.</p>
-<h2 id='5-set-up-govuk-docker'>5. Set up govuk-docker</h2><p>We use a Docker environment - <a href="https://github.com/alphagov/govuk-docker/blob/master/README.md">govuk-docker</a> - for local development.</p>
-<p>👉 <a href="/manual/intro-to-docker.html">Learn about how we use Docker</a></p>
-<p>👉 <a href="https://github.com/alphagov/govuk-docker/blob/master/README.md">Get setup with govuk-docker</a></p>
-<h2 id='6-get-ssh-access-to-integration'>6. Get SSH access to integration</h2><h3 id='get-access'>Get access</h3><p>Ask somebody with access to add your SSH username (<code>firstnamelastname</code>) to the <a href="https://github.com/alphagov/govuk-user-reviewer">user monitoring system</a>.</p>
+<ul>
+<li>remove that alias by adding <code>unalias gds</code> to your <code>~/.zshrc</code></li>
+<li>use <code>gds-cli</code> instead of <code>gds</code> for all the relevant commands</li>
+</ul></li>
+<li><p>Configure the GDS CLI by running:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds config email &lt;FIRSTNAME&gt;.&lt;LASTNAME&gt;@digital.cabinet-office.gov.uk
+gds config yubikey &lt;<span class="nb">true</span><span class="o">&gt;</span>/&lt;<span class="nb">false</span><span class="o">&gt;</span>
+</code></pre></div></li>
+<li><p>Run <code>gds config yubikey false</code> if you use your phone as an Multi-Factor Authentication (MFA) device.</p>
+<p>Run <code>gds config yubikey true</code> if you use a Yubikey.</p></li>
+</ol>
+<h2 id='4-connect-to-the-gds-vpn'>4. Connect to the GDS VPN</h2><p>If you&rsquo;re outside of the office or on <a href="https://sites.google.com/a/digital.cabinet-office.gov.uk/gds/we-are-gds/service-design-and-assurance/govwifi">GovWiFi</a>, you must connect to the GDS VPN to access to our infrastructure and internal services.</p>
+<p>To connect to the GDS VPN, follow the <a href="https://docs.google.com/document/d/1O1LmLByDLlKU4F1-3chwS8qddd2WjYQgMaaEgTfK5To/edit">Cabinet Office guidance on how to sign into the GDS VPN using Google credentials</a>.</p>
+<h2 id='5-set-up-gov-uk-docker'>5. Set up GOV.UK Docker</h2><p>We use a <code>govuk-docker</code> Docker environment for local development.</p>
+<p>To set up GOV.UK Docker, see the <a href="https://github.com/alphagov/govuk-docker/blob/master/README.md">installation instructions in the <code>govuk-docker</code> GitHub repo</a>.</p>
+<h2 id='6-get-ssh-access-to-integration'>6. Get SSH access to integration</h2><h3 id='get-access'>Get access</h3><p>Ask your tech lead or <a href="https://gds.slack.com/archives/CADKZN519">GOV.UK 2nd line Support on Slack</a> to add your SSH username (<code>firstnamelastname</code>) to the <a href="https://github.com/alphagov/govuk-user-reviewer/blob/master/config/govuk_tech.yml">list of GOV.UK tech users</a> in the <a href="https://github.com/alphagov/govuk-user-reviewer">user monitoring system</a>.</p>
 <h3 id='create-a-user-to-ssh-into-integration'>Create a user to SSH into integration</h3><p>User accounts in our integration environments are managed in the <a href="https://github.com/alphagov/govuk-puppet">govuk-puppet</a> repository.</p>
+
+<ol>
+<li><p>Run the following command to create a <code>govuk</code> folder in your home directory and clone the <code>govuk-puppet</code> GitHub repo:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">mkdir</span> ~/govuk
 <span class="nb">cd</span> ~/govuk
 git clone git@github.com:alphagov/govuk-puppet.git
-</code></pre></div><p>Now create a user manifest in <code>~/govuk/govuk-puppet/modules/users/manifests</code> with your username and the public key you created when you set up your GitHub account above. Your file should use the <code>firstnamelastname.pp</code> format.</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>class users::johnsmith {
-  govuk_user { 'johnsmith':
-    fullname =&gt; 'John Smith',
-    email    =&gt; 'john.smith.123@digital.cabinet-office.gov.uk',
-    ssh_key  =&gt; 'this public key will be a few lines long (copy the output from `more ~/.ssh/alphagov.pub`). It should begin with `ssh-rsa AAA` and end with `== john.smith.123@digital.cabinet-office.gov.uk`. You may need to add the email address to the end of your public key manually.',
+</code></pre></div></li>
+<li><p>Run <code>more ~/.ssh/alphagov.pub</code> and copy your outputted SSH public key value.</p>
+<p>The key should begin with <code>ssh-rsa AAA</code> and end with <code>== &lt;GITHUB EMAIL&gt;</code>. You may need to manually add the email address to the end of your key.</p></li>
+<li><p>Create a user manifest file at <code>~/govuk/govuk-puppet/modules/users/manifests/&lt;FIRSTNAMELASTNAME&gt;.pp</code> with the following code:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>class users::&lt;GITHUB USERNAME&gt; {
+  govuk_user { '&lt;GITHUB USERNAME&gt;':
+    fullname =&gt; 'FIRSTNAME LASTNAME',
+    email    =&gt; 'GITHUB EMAIL',
+    ssh_key  =&gt; '&lt;SSH-PUBLIC-KEY-VALUE&gt;',
   }
 }
-</code></pre></div><p>Add the name of your manifest (your username) into the list of <code>users::usernames</code> in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata_aws/integration.yaml"><code>hieradata_aws/integration.yaml</code></a>.</p>
-<p>Create a pull request with these changes. Once it has been <a href="/manual/merge-pr.html">reviewed by a member of the GOV.UK team</a>, you can merge it and it will automatically deploy to the integration environment.</p>
-<h3 id='access-remote-environments'>Access remote environments</h3><p>Your pull request from earlier will hopefully have been merged by now. If it&rsquo;s been longer than 30 minutes since the merge, it would have been deployed, too. It&rsquo;s time to test your access to servers via SSH.</p>
-
-<blockquote>
-<p>If you&rsquo;re not in the office right now, you&rsquo;ll need to be <a href="#connect-to-gds-vpn">connected to the GDS office VPN</a> for SSH access to integration.</p>
-</blockquote>
-<p>Test that it works by running:</p>
+</code></pre></div><p>Enter your GitHub information and SSH public key value into the file. For example:</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>class users::&lt;johnsmith&gt; {
+  govuk_user { '&lt;johnsmith&gt;':
+    fullname =&gt; 'John Smith',
+    email    =&gt; 'john.smith@digital.cabinet-office.gov.uk',
+    ssh_key  =&gt; '&lt;SSH-PUBLIC-KEY-VALUE&gt;',
+  }
+}
+</code></pre></div></li>
+<li><p>Add the name of your user manifest file (<code>&lt;FIRSTNAMELASTNAME&gt;.pp</code>) into the list of <code>users::usernames</code> in <a href="https://github.com/alphagov/govuk-puppet/blob/master/hieradata_aws/integration.yaml"><code>hieradata_aws/integration.yaml</code></a>.</p></li>
+<li><p>Create a pull request with these changes.</p>
+<p>Once the pull request has been <a href="/manual/merge-pr.html">reviewed</a>, you can merge it and the pull request will automatically deploy to the integration environment.</p>
+<p>Your tech lead or any other developer with access can review this pull request.</p></li>
+</ol>
+<h3 id='access-remote-environments-and-server'>Access remote environments and server</h3><p>Once your pull request with your user manifest file is merged and deployed, you should test your SSH access to remote environments and servers.</p>
+<p>If you are outside of the office or on GovWiFi, you must first <a href="#4-connect-to-the-gds-vpn">connect to the GDS VPN</a>.</p>
+<p>Test your SSH access by running:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds govuk connect <span class="nt">--environment</span> integration ssh backend
-</code></pre></div><p>The commands can be shortened to <code>gds govuk c -e integration ssh backend</code> if you wish.</p>
-<h4 id='running-a-console'>Running a console</h4><p>Once you have SSH&rsquo;d into a machine, you can also open a console for a particular application so you can execute commands, for example:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>govuk_app_console transition
-</code></pre></div><h2 id='7-get-aws-access'>7. Get AWS access</h2><p>To work with <a href="https://github.com/alphagov/govuk-aws">govuk-aws</a> and <a href="https://github.com/alphagov/govuk-aws-data">govuk-aws-data</a>,
-you will require an account in AWS.</p>
-<h3 id='request-a-gds-aws-account'>Request a GDS AWS account</h3><p>GDS maintains a central account for AWS access. You will need to request an account from the Technology and Operations team.</p>
-<p>👉 <a href="https://gds-request-an-aws-account.cloudapps.digital">Request an AWS account</a></p>
-<p>You&rsquo;ll want to click &ldquo;Request user access&rdquo; - NOT &ldquo;Request an account&rdquo;. After submitting the form, you should receive an email to say your account creation is in progress, and later another email saying the work has been completed. You can then move onto step 2.</p>
-<h3 id='sign-in-to-aws'>Sign in to AWS</h3><p>To sign in, go to <a href="https://gds-users.signin.aws.amazon.com/console">the GDS AWS Sign page</a>, and use the following credentials:</p>
+</code></pre></div><h4 id='running-a-console'>Running a console</h4><p>Once you have SSH access into a remote environment or server, you can also open a console for a particular application so you can run commands.</p>
+<p>For example, to open a console for GOV.UK Publisher, run the following:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>govuk_app_console publisher
+</code></pre></div><h2 id='7-get-aws-access'>7. Get AWS access</h2><p>GDS maintains a central account for AWS access.</p>
+<p>You must have access to this GDS account to work with <a href="https://github.com/alphagov/govuk-aws">govuk-aws</a> and <a href="https://github.com/alphagov/govuk-aws-data">govuk-aws-data</a>.</p>
+<h3 id='request-access-to-the-gds-aws-account'>Request access to the GDS AWS account</h3><p>You request access to the GDS AWS account through the <a href="https://gds-request-an-aws-account.cloudapps.digital">Request an AWS account form</a>.</p>
+<p>Select <strong>Request user access</strong> to request access to the GDS AWS account and complete the form.</p>
+<p>After submitting the form, you should receive an email to say your account creation is in progress, and later another email saying the work has been completed.</p>
+<h3 id='sign-in-to-aws'>Sign in to AWS</h3><p>To sign in, go to <a href="https://gds-users.signin.aws.amazon.com/console">the <code>gds-users</code> AWS console</a>, and enter:</p>
 
 <ul>
-<li>&ldquo;Account ID or alias&rdquo;: <code>gds-users</code></li>
-<li>Username: your <code>@digital.cabinet-office.gov.uk</code> email address</li>
-<li>Password: your password</li>
+<li><code>gds-users</code> in <strong>Account ID or alias</strong></li>
+<li>your <code>@digital.cabinet-office.gov.uk</code> email address in <strong>Username</strong></li>
+<li>your AWS account password in <strong>Password</strong></li>
 </ul>
-<h3 id='set-up-your-mfa'>Set up your MFA</h3><p>You have to set up <a href="https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#multi-factor-authentication">Multi-Factor Authentication (MFA)</a>.</p>
+<h3 id='set-up-multi-factor-authentication'>Set up Multi-Factor Authentication</h3><p>You must set up <a href="https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#multi-factor-authentication">Multi-Factor Authentication (MFA)</a> to access AWS.</p>
+<p>How you set up MFA depends on whether you have a GDS-issued Yubikey or not.</p>
+<p>If you have a Yubikey, follow the <a href="https://re-team-manual.cloudapps.digital/yubikeys.html#use-yubikey-for-2fa-in-amazon-web-services">Reliability Engineering documentation on using YubiKey for 2FA in Amazon Web Services</a>.</p>
+<p>If you do not have a Yubikey, use the following instructions to set up your MFA device.</p>
 
 <ol>
-<li><a href="https://gds-users.signin.aws.amazon.com/console">Sign in to AWS GDS account</a></li>
-<li>Select or go to IAM service.</li>
-<li>Click on &ldquo;Users&rdquo; in the menu bar on the left hand side</li>
-<li>Enter your name</li>
-<li>Click on the link for your email address</li>
-<li>Click on the security credentials tab</li>
-<li>Click on the &ldquo;Manage&rdquo; link next to &ldquo;Assigned MFA device&rdquo;</li>
-<li>Follow the steps to set up your MFA device</li>
+<li>Sign in to the <a href="https://gds-users.signin.aws.amazon.com/console"><code>gds-users</code> AWS console</a>.</li>
+<li>Select the <strong>IAM</strong> service.</li>
+<li>Select <strong>Users</strong> in the left hand menu and enter your name.</li>
+<li>Select the link for your email address.</li>
+<li>Select the <strong>Security credentials</strong> tab.</li>
+<li>Select <strong>Manage</strong>, which is next to <strong>Assigned MFA device</strong>.</li>
+<li>Follow the instructions to set up your MFA device.</li>
 </ol>
-
-<blockquote>
-<p>If you have a GDS-issued Yubikey, follow the <a href="https://re-team-manual.cloudapps.digital/yubikeys.html#use-yubikey-for-2fa-in-amazon-web-services">cross-GDS Yubikey docs</a>.</p>
-</blockquote>
-<h3 id='generate-a-pair-of-access-keys'>Generate a pair of access keys</h3><p>You have to generate an AWS Access Key and Secret Key to be able to
-perform operations with AWS on the command-line.</p>
+<h3 id='generate-a-pair-of-access-keys'>Generate a pair of access keys</h3><p>You must generate an AWS access key ID and secret access key to be able to perform operations with AWS on the command line.</p>
 
 <ol>
-<li><a href="https://gds-users.signin.aws.amazon.com/console">Sign in to the gds-users AWS Console</a>.</li>
-<li>Click on your email address in the top right.</li>
-<li>Click &lsquo;My Security Credentials&rsquo;.</li>
-<li>Click &lsquo;Create access key&rsquo;.</li>
-<li>Copy/paste them into the inputs that the gds-cli provides for you,
-if you&rsquo;re following <a href="#first-run">the setup instructions</a>.</li>
+<li>Sign in to the <a href="https://gds-users.signin.aws.amazon.com/console"><code>gds-users</code> AWS console</a>.</li>
+<li>Select your email address in the top right of the screen.</li>
+<li>Select <strong>My Security Credentials</strong>.</li>
+<li>Select <strong>Create access key</strong>.</li>
+<li>Make a note of your AWS access key ID and secret access key for when you <a href="#8-access-aws-for-the-first-time">access AWS for the first time</a>.</li>
 </ol>
-<h4 id='changing-your-mfa-device'>Changing your MFA device</h4>
+<h3 id='get-access-to-integration-infrastructure'>Get access to integration infrastructure</h3><p>You must get access to the integration infrastructure so you can deploy to integration.</p>
+<p>To get access, you must add your email address to the list of <code>role_user_user_arns</code> users in the <code>govuk-aws-data</code> GitHub repo.</p>
+<p>Open a pull request to add the following code to the <code>role_user_user_arns</code> section in the <a href="https://github.com/alphagov/govuk-aws-data/blob/master/data/infra-security/integration/common.tfvars"><code>infra-security/integration/common.tfvars</code> file in the <code>govuk-aws-data</code> repo</a>.</p>
+<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>arn:aws:iam::&lt;account-ID&gt;:user/&lt;firstname.lastname&gt;@digital.cabinet-office.gov.uk
+</code></pre></div><p>Use the same <code>&lt;account-ID&gt;</code> as other entries in the <code>role_user_user_arns</code> section.</p>
+<p>See this <a href="https://github.com/alphagov/govuk-aws-data/pull/758/files">example pull request</a> for more information.</p>
+<p>After your pull request has been merged, someone from the <code>govuk-administrators</code> group or <code>govuk-internal-administrators</code> group needs to deploy the <code>infra-security</code> project. Check with your tech lead who this is.</p>
+<p>See the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html">AWS IAM users documentation</a> for more information.</p>
+<h2 id='8-access-aws-for-the-first-time'>8. Access AWS for the first time</h2>
 <ol>
-<li>Follow steps 1 to 7 in <a href="#set-up-your-mfa">set up your MFA</a></li>
-<li>Choose one of the two options (Remove or Resync)</li>
-</ol>
-<h3 id='get-the-appropriate-access'>Get the appropriate access</h3><p>An account in AWS doesn&rsquo;t give you access to anything, you&rsquo;ll need to be given rights.</p>
-<p>Add yourself to a lists of users found in <a href="https://github.com/alphagov/govuk-aws-data/tree/master/data/infra-security">the data for the infra-security project</a>. There are 5 groups:</p>
-
-<ul>
-<li><code>govuk-administrators</code>: people who are working on GOV.UK infrastructure</li>
-<li><code>govuk-internal-administrators</code>: people in GOV.UK who are working on GOV.UK infrastructure including Architects, Lead Developers and anyone else working on the AWS migration</li>
-<li><code>govuk-powerusers</code>: anyone else who can have production access on GOV.UK</li>
-<li><code>govuk-platformhealth-powerusers</code>: as above but for members of the GOV.UK Platform Health team. (Same access rights as above, we just have limits on the number of users per role).</li>
-<li><code>govuk-users</code>: anyone else who needs integration access on GOV.UK</li>
-</ul>
-
-<blockquote>
-<p>Note: There is a limit on the number of people that can be in each group. If you find that the limit has been hit, try and identify any users who no longer need access and can be removed. Otherwise, a new group will need to be created.</p>
-</blockquote>
-<p>The identifier you need to add is called the &ldquo;User ARN&rdquo;. You can find this by going
-to the <a href="https://console.aws.amazon.com/iam/home?region=eu-west-1#/users">users page in AWS IAM</a> and selecting your profile.</p>
-<div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>arn:aws:iam::&lt;account-id&gt;:user/&lt;firstname.lastname&gt;@digital.cabinet-office.gov.uk
-</code></pre></div><p>After your PR has been merged, someone from the <code>govuk-administrators</code>
-or <code>govuk-internal-administrators</code> group needs to deploy the
-<code>infra-security</code> project.</p>
-<h4 id='assuming-all-roles-for-users-with-production-access'>Assuming all roles for users with production access</h4><p>In addition to the previous section&rsquo;s named roles, anyone with production access
-can assume <code>admin</code>, <code>poweruser</code> and <code>user</code> roles. For example, if you want to
-assume a <code>poweruser</code> role in <code>integration</code>, the role you would specify would be:</p>
-
-<ul>
-<li><code>govuk-integration-poweruser</code> if using the GDS CLI</li>
-<li><code>your.name-poweruser</code> if going directly through the AWS Console</li>
-</ul>
-<p>More generally, to assume a role directly through the AWS Console, the role you
-specify should be of the form <code>your.name-&lt;role&gt;</code>, where role is either <code>admin</code>,
-<code>poweruser</code> or <code>user</code>.</p>
-<h2 id='8-use-your-aws-access'>8. Use your AWS access</h2><h3 id='first-run'>First run</h3><p>Here, you will use the GDS CLI you <a href="#3-install-gds-tooling">installed and set up earlier</a>. You&rsquo;ll be asked for AWS credentials on the first run:</p>
+<li>Open the <a href="#3-install-gds-command-line-tools">GDS CLI</a> and run <code>gds aws govuk-integration-poweruser -l</code> to open the AWS console in your web browser.</li>
+<li>In the GDS CLI, enter your <a href="#generate-a-pair-of-access-keys">AWS access key ID and secret access key</a>.</li>
+<li><p>Enter your <a href="#set-up-multi-factor-authentication">MFA token</a> in the command line.</p>
+<p>Here is an example of the output you&rsquo;ll see:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds aws govuk-integration-poweruser <span class="nt">-l</span>
 Welcome to the GDS CLI! We will now store your AWS credentials <span class="k">in </span>the keychain using aws-vault.
-Enter Access Key ID: AK-YOUR-ACCESS-KEY-ID
-Enter Secret Access Key: blah blah
+Enter Access Key ID: &lt;YOUR-ACCESS-KEY-ID&gt;
+Enter Secret Access Key: &lt;YOUR-SECRET-ACCESS-KEY&gt;
 Added credentials to profile <span class="s2">"gds-users"</span> <span class="k">in </span>vault
 Successfully initialised gds-cli
 Enter token <span class="k">for </span>arn:aws:iam::123456789012:mfa/firstname.lastname@digital.cabinet-office.gov.uk: 123456
-</code></pre></div><p>Your (Secret) Access Key is from the AWS console. Follow <a href="#generate-a-pair-of-access-keys">the instructions to generate one</a>. The token requested at the end is the <a href="#set-up-your-mfa">MFA token</a>. If you have a GDS-issued Yubikey (you probably don&rsquo;t at this stage), set <code>gds config yubikey true</code> and the GDS CLI will automatically pull the MFA code from your Yubikey.</p>
-<p>You&rsquo;ll be prompted to save credentials to your Mac&rsquo;s Keychain as <code>aws-vault</code> and set a password for it. Save that password somewhere safe, like a password manager.</p>
-<p>If you have <code>bash-completion</code> installed and configured, the gds-cli tab completions will work out of the box. They&rsquo;re especially useful for long commands like AWS account names.</p>
-<h3 id='re-initialising'>Re-initialising</h3><p>If you forget your <code>aws-vault</code> password:</p>
+</code></pre></div></li>
+<li><p>When prompted, save credentials to your Mac&rsquo;s keychain as <code>aws-vault</code> and set a password for the keychain. Save that password somewhere safe, for example in a password manager.</p></li>
+</ol>
+<p>If you have a GDS-issued Yubikey, you can run <code>gds config yubikey true</code> in the GDS CLI to set GDS CLI to automatically pull the MFA code from your Yubikey.</p>
+<p>You have completed the get started process.</p>
+<h3 id='reset-your-aws-vault-password'>Reset your AWS vault password</h3><p>If you forget your <code>aws-vault</code> password, you must reset that password.</p>
 
 <ol>
-<li>Delete the aws-vault keychain with <code>rm ~/Library/Keychains/aws-vault.keychain-db</code></li>
-<li>Re-initialise the <code>gds-cli</code> by changing <code>initialised: true</code> in <code>~/.gds/config.yml</code> to <code>initialised: false</code>.</li>
-<li>Then re-run the &ldquo;First run&rdquo; commands above.</li>
+<li>Delete the <code>aws-vault</code> keychain by running <code>rm ~/Library/Keychains/aws-vault.keychain-db</code> in the command line.</li>
+<li>Re-initialise the <code>gds-cli</code> by opening <code>~/.gds/config.yml</code> and changing <code>initialised: true</code> to <code>initialised: false</code>.</li>
 </ol>
-<h3 id='get-your-role'>Get Your Role</h3><p>Work out which <a href="https://github.com/alphagov/govuk-aws-data/blob/master/data/infra-security/integration/common.tfvars">list of users you&rsquo;re part of in govuk-aws-data</a>.
-If you&rsquo;re not part of any lists, add yourself to the appropriate list (or get someone in your team to do it).
-You&rsquo;re about to use it in the &lsquo;Web Console&rsquo; section below.</p>
-<h3 id='usage'>Usage</h3><h4 id='web-console'>Web Console</h4><p>If you want to look around in integration:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds aws govuk-integration-readonly <span class="nt">-l</span>
-</code></pre></div><p>If you&rsquo;re new to GOV.UK you&rsquo;ll only be able to use the readonly role.</p>
-<p>Users with production access can choose to use more privileged roles:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds aws govuk-integration-readonly <span class="nt">-l</span>  <span class="c"># Read only access</span>
-gds aws govuk-integration-poweruser <span class="nt">-l</span> <span class="c"># Full access, except for Identity Access Management (IAM)</span>
-gds aws govuk-integration-admin <span class="nt">-l</span>     <span class="c"># Full access, including Identity Access Management (IAM)</span>
-</code></pre></div><p>It is best practice to use the least privileged role you need for your task.
-This reduces the impact if your credentials or session are somehow compromised.</p>
-<p><code>-l</code> opens the web browser and logs you in. For a full list of CLI parameters,
-consult the <a href="https://github.com/alphagov/gds-cli">gds-cli README</a>.</p>
-<h4 id='terraform'>Terraform</h4><p>👉 <a href="/manual/deploying-terraform.html">Deploy AWS infrastructure with Terraform</a></p>
-<h4 id='terminal-commands'>Terminal commands</h4><p>You can also chain commands, like this one to list S3 buckets in integration:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds aws govuk-integration-poweruser aws s3 <span class="nb">ls</span>
-</code></pre></div><h2 id='you39re-all-done'>You&rsquo;re all done!</h2><p>You&rsquo;re set up and ready to go. It might be worth reading and bookmarking
-the <a href="/manual/architecture-deep-dive.html">architectural deep-dive of GOV.UK</a> to
-familiarise yourself with how things fit together.</p>
+<h2 id='supporting-information'>Supporting information</h2><p>Now you have completed the get started process, you should look at the following supporting information:</p>
+
+<ul>
+<li>the <a href="/manual/architecture-deep-dive.html">architectural deep dive of GOV.UK</a></li>
+<li><a href="/manual/intro-to-docker.html">how GDS uses Docker</a></li>
+</ul>
 
 
   <div class='related-content'>
