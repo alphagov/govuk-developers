@@ -541,9 +541,6 @@ bin/setup
 <strong>app-draft</strong>: used for testing the <a href="https://github.com/alphagov/govuk-docker/tree/master/projects/authenticating-proxy">authenticating-proxy</a> against a draft version of the <a href="https://github.com/alphagov/govuk-docker/tree/master/projects/router">router</a> app.</li>
 <li>
 <strong>app-live</strong>: used to test a read-only frontend app against live GOV.UK APIs (avoids having to replicate data locally).</li>
-<li>
-<strong>app-account</strong>: used to enable integrations with a local <a href="https://github.com/alphagov/govuk-account-manager-prototype">account manager app prototype</a> and <a href="https://github.com/alphagov/govuk-attribute-service-prototype/">attribute store</a>. Currently a part of the <a href="https://gds.blog.gov.uk/2020/09/22/introducing-gov-uk-accounts/">GOV Accounts trial</a>
-</li>
 </ul>
 
 <p>Some <code>app</code> stacks also depend on a <code>worker</code> stack, to run asynchronous tasks [<a href="https://github.com/alphagov/govuk-docker/blob/d286748e0300df8f0d1ed618086d4f8f951e752a/projects/content-publisher/docker-compose.yml#L46">example</a>].</p>
