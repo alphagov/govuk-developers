@@ -181,23 +181,18 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/0cd246b6bc8e983a70b400453bfa1e3d2aaae2af">11 Apr 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/5ffcfbe2bd88d59dc36ffe4a94d4f71057120732">25 May 2021</a>
 </div>
 
  <h1 id='header'>Change a specialist document base path</h1> <p>In <a href="https://specialist-publisher.publishing.service.gov.uk/">Specialist Publisher</a>, the base path is automatically generated based on the title when the specialist document is first created. We sometimes receive Zendesk tickets to change a base path when the title has been updated, as the publisher does not have the ability to do this.</p>
-<p>You can use the Jenkins rake task runner to run the task:</p>
-<p><a href="https://deploy.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=specialist-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=base_path:edit[content_id,/new_base_path]"><code>base_path:edit[content_id,/new_base_path]</code></a></p>
+<p>You can use the Jenkins rake task runner to run <code>base_path:edit[content_id,locale,/new_base_path]</code>:</p>
+<p><a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=specialist-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=base_path:edit[content_id,locale,/new_base_path]">Integration</a></p>
+<p><a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=specialist-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=base_path:edit[content_id,locale,/new_base_path]">Staging</a></p>
+<p><a href="https://deploy.blue.production.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=specialist-publisher&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=base_path:edit[content_id,locale,/new_base_path]">⚠️ Production ⚠️</a></p>
 
 <blockquote>
-<p>You can find the <code>content_id</code> of the document using the <a href="https://github.com/alphagov/govuk-browser-extension">govuk-toolkit</a> browser extension.</p>
+<p>You can find the <code>content_id</code> and <code>locale</code> of the document using the <a href="https://github.com/alphagov/govuk-browser-extension">govuk-toolkit</a> browser extension.</p>
 </blockquote>
 <p><strong>NOTE</strong>: the rake task will only change the slug for the latest draft (creating a new draft
 if necessary). For the change to be permanent, you need to publish the draft, which you can
