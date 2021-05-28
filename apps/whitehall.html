@@ -457,7 +457,6 @@
         <li><a href='/apps/whitehall/internationalisation_guide.html' class='govuk-link'>Internationalisation guide</a></li>
         <li><a href='/apps/whitehall/link_checker_api_integration.html' class='govuk-link'>Link Checker API Integrations</a></li>
         <li><a href='/apps/whitehall/search_setup_guide.html' class='govuk-link'>Search setup guide</a></li>
-        <li><a href='/apps/whitehall/testing_guide.html' class='govuk-link'>Testing Guide</a></li>
         <li><a href='/apps/whitehall/timestamps.html' class='govuk-link'>Timestamps</a></li>
         <li><a href='/apps/whitehall/api.html' class='govuk-link'>Whitehall API</a></li>
         <li><a href='/apps/whitehall/css.html' class='govuk-link'>Whitehall CSS Styleguide</a></li>
@@ -483,48 +482,24 @@
       </ul>
 </ul>
 <h2 id='example-pages-published-by-whitehall'>Example pages published by whitehall</h2><p><ul class="gem-c-list govuk-list">
+      <li><a href="https://www.gov.uk/government/organisations" class="govuk-link">Departments, agencies and public bodies</a></li>
       <li><a href="https://www.gov.uk/government/ministers" class="govuk-link">Ministers</a></li>
       <li><a href="https://www.gov.uk/world/embassies" class="govuk-link">Find a British embassy, high commission or consulate</a></li>
+      <li><a href="https://www.gov.uk/government/people/helen-macnamara" class="govuk-link">Helen MacNamara</a></li>
       <li><a href="https://www.gov.uk/government/people/matthew-hancock" class="govuk-link">The Rt Hon Matt Hancock MP</a></li>
       <li><a href="https://www.gov.uk/government/ministers/secretary-of-state-for-the-home-department" class="govuk-link">Secretary of State for the Home Department</a></li>
       <li><a href="https://www.gov.uk/government/people/jenny-harries" class="govuk-link">Dr Jenny Harries OBE</a></li>
       <li><a href="https://www.gov.uk/government/people/priti-patel" class="govuk-link">The Rt Hon Priti Patel MP</a></li>
-      <li><a href="https://www.gov.uk/government/people/helen-macnamara" class="govuk-link">Helen MacNamara</a></li>
       <li><a href="https://www.gov.uk/government/people/christopher-whitty" class="govuk-link">Professor Chris Whitty</a></li>
-      <li><a href="https://www.gov.uk/government/people/boris-johnson" class="govuk-link">The Rt Hon Boris Johnson MP</a></li>
       <li><a href="https://www.gov.uk/government/ministers/secretary-of-state-for-health-and-social-care" class="govuk-link">Secretary of State for Health and Social Care</a></li>
 </ul></p>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>whitehall is a Ruby on Rails content management application for content published by government departments and agencies.</p>
-
-<h2 id="running-the-application">Running the Application</h2>
-
-<p>Startup <a href="https://github.com/alphagov/govuk-docker">using govuk-docker</a>.</p>
-
-<p>There are two different views within this App, a <em>Publishing view</em> and a <em>Site view</em>. Once running, whitehall does not have an index, some suggested starting pages are below:</p>
-
-<p>Publishing view:</p>
+<p>Whitehall is deployed in two modes:</p>
 
 <ul>
-<li><a href="http://whitehall-admin.dev.gov.uk/government/admin/news/new">http://whitehall-admin.dev.gov.uk/government/admin/news/new</a></li>
-</ul>
-
-<p>Site view:</p>
-
-<ul>
-<li><a href="http://whitehall-frontend.dev.gov.uk/government/get-involved">http://whitehall-frontend.dev.gov.uk/government/get-involved</a></li>
-</ul>
-
-<p>Some pages will need data locally to display, whitehall uses mySQL. You&rsquo;ll need to gain relevant permissions to access data from AWS</p>
-
-<ul>
-<li>
-<p><a href="https://docs.publishing.service.gov.uk/manual/get-started.html">Get setup with AWS access</a></p>
-</li>
-<li>
-<p>Once completed <a href="https://github.com/alphagov/govuk-docker/blob/master/docs/how-tos.md#how-to-replicate-data-locally">a guide to install local data on whitehall can be found here</a></p>
-</li>
+<li>&lsquo;admin&rsquo; for publishers to create and manage content; and</li>
+<li>&lsquo;frontend&rsquo; for rendering some content under <a href="https://www.gov.uk/government">https://www.gov.uk/government</a> and <a href="https://www.gov.uk/world">https://www.gov.uk/world</a>.</li>
 </ul>
 
 <h2 id="nomenclature">Nomenclature</h2>
@@ -536,35 +511,62 @@
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<p>whitehall is a Ruby on Rails app built on a MySQL database. It is deployed in two modes: &lsquo;admin&rsquo; for publishers to create and manage content and &lsquo;frontend&rsquo; for rendering some content under <a href="https://www.gov.uk/government">https://www.gov.uk/government</a> and <a href="https://www.gov.uk/world">https://www.gov.uk/world</a>. whitehall also sends most content to the publishing-api and rummager.</p>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<h2 id="dependencies">Dependencies</h2>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the application and its tests with all the necessary dependencies. Follow <a href="https://github.com/alphagov/govuk-docker#usage">the usage instructions</a> to get started.</p>
 
-<h3 id="local-development-dependencies">Local development dependencies</h3>
+<p><strong>Use GOV.UK Docker to run any commands that follow.</strong></p>
 
-<p>This application uses Ruby dependencies installed via <a href="https://classic.yarnpkg.com/en/docs/install/">Bundler</a> and <a href="https://www.npmjs.com/">npm
-dependencies</a> installed via <a href="https://classic.yarnpkg.com/en/docs/install/">Yarn</a>.</p>
+<h3 id="running-the-application">Running the Application</h3>
 
-<p>These can be installed with:</p>
-
-<pre><code>bundle install
-yarn install
-</code></pre>
-
-<h3 id="dependent-gov-uk-apps">Dependent GOV.UK apps</h3>
+<p>Traditionally, the two sides of Whitehall are available on different domains in development, which reflect their counterparts in production:</p>
 
 <ul>
 <li>
-<a href="http://github.com/alphagov/asset-manager">alphagov/asset-manager</a>: provides uploading for static files</li>
+<p>admin side e.g. <a href="http://whitehall-admin.dev.gov.uk/government/admin/news/new">http://whitehall-admin.dev.gov.uk/government/admin/news/new</a></p>
+</li>
 <li>
-<a href="http://github.com/alphagov/publishing-api">alphagov/publishing-api</a>: documents are sent here, persisted and then requested</li>
-<li>
-<a href="http://github.com/alphagov/search-api">alphagov/search-api</a>: allows documents to be indexed for searching in both finders and site search</li>
-<li>
-<a href="https://github.com/alphagov/link-checker-api">alphagov/link-checker-api</a>: checks all the links in an edition on request from the edition show page.</li>
+<p>frontend side e.g. <a href="http://whitehall-frontend.dev.gov.uk/government/get-involved">http://whitehall-frontend.dev.gov.uk/government/get-involved</a></p>
+</li>
 </ul>
 
-<h2 id="other-documentation">Other documentation</h2>
+<p>While this usually results in different routing behaviour, in development <a href="https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L3-L5">all routes can be accessed from either domain</a>, although <a href="https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/config/routes.rb#L25-L28">the redirect behaviour may differ</a>.</p>
+
+<h3 id="shared-mustache-templates">Shared mustache templates</h3>
+
+<p>The shared mustache templates must be compiled for JavaScript and functional tests to pass.</p>
+
+<pre><code>bundle exec rake shared_mustache:compile
+bundle exec rake shared_mustache:clean
+</code></pre>
+
+<p>Shared mustache templates are generated and stored in app/assets/javascripts/templates.js.</p>
+
+<p>In absence of this generated template, shared mustache inlines mustache templates in <code>&lt;script&gt;</code> blocks on the page, which enables developers to see changes to mustache without compiling. If this generated template is checked-in, shared mustache uses this file instead of inlining templates. Hence, we don&rsquo;t check-in this file.</p>
+
+<h3 id="running-the-test-suite">Running the test suite</h3>
+
+<pre><code># run all the test suites
+bundle exec rake
+</code></pre>
+
+<p>Whitehall has <a href="https://github.com/alphagov/whitehall/blob/530abc13018145a6efe6ab4a19f6210254e2e304/lib/tasks/test_parallel.rake">its own parallelisation mechanism to run unit tests in Ruby</a>:</p>
+
+<pre><code># run Ruby unit tests
+bundle exec rake test:in_parallel
+</code></pre>
+
+<p>Javascript unit tests can also be run separately:</p>
+
+<pre><code># run all the JavaScript tests
+bundle exec rake test:javascript
+</code></pre>
+
+<p>To run or debug individual JavaScript tests, try viewing them in your browser. Start the app as you would normally, and then go to <code>/teaspoon/default</code>.</p>
+
+<h3 id="further-documentation">Further documentation</h3>
+
+<p>See the <a href="https://github.com/alphagov/whitehall/blob/main/docs/"><code>docs/</code></a> directory.</p>
 
 <ul>
 <li><a href="https://github.com/alphagov/whitehall/blob/main/CONTRIBUTING.md">Contributing guide</a></li>
@@ -574,18 +576,8 @@ yarn install
 <li><a href="/apps/whitehall/internationalisation_guide.html">Internationalisation</a></li>
 <li><a href="/apps/whitehall/javascript.html">JavaScript</a></li>
 <li><a href="/apps/whitehall/search_setup_guide.html">Search setup guide</a></li>
-<li><a href="/apps/whitehall/testing_guide.html">Testing guide</a></li>
 <li><a href="/apps/whitehall/timestamps.html">Timestamps</a></li>
 </ul>
-
-<h2 id="generating-technical-documentation">Generating technical documentation</h2>
-
-<p>We use <a href="https://github.com/lsegal/yard">YARD</a> for the technical documentation. You can generate a local copy with:</p>
-
-<pre><code>yard server --reload
-</code></pre>
-
-<p>You can also read the docs on <a href="http://rdoc.info/github/alphagov/whitehall/frames">rdoc.info</a>.</p>
 
 <h2 id="licence">Licence</h2>
 
