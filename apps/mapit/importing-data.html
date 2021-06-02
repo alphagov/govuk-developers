@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/mapit/commit/8724693b8a6aa920b46bdc83d2d442d499243438">1 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/mapit/commit/b1f94dca25a3abe79c39af8360fa8881a7cc5205">2 Jun 2021</a>
 </div>
 
   <h1 class="page-title">mapit: MapIt - import postcode and boundary data</h1>
@@ -609,34 +609,48 @@ the data outside the normal dataset releases.</p>
 gds aws govuk-production-poweruser aws s3api put-object --acl public-read --bucket govuk-custom-formats-mapit-storage-production --key source-data/${DATE}/
 gds aws govuk-production-poweruser aws s3 cp mapit-&lt;%b%Y&gt;-&lt;a-description-of-change&gt;.sql.gz s3://govuk-custom-formats-mapit-storage-production/source-data/${DATE}/ --acl public-read
 </code></pre>
-<h3 id="3-test-a-server-in-staging">3. Test a server in Staging</h3>
+<h3 id="3-test-a-server-in-staging">
+<!-- raw HTML omitted -->3. Test a server in Staging<!-- raw HTML omitted -->
+</h3>
 <p><strong>NB: THIS REQUIRES ACCESS TO GOV.UK PRODUCTION</strong></p>
-<p>Once the data has been uploaded change the URL and checksum (using
-<code>sha1sum &lt;your-mapit-file.sql.gz&gt;</code>) reference in <code>import-db-from-s3.sh</code>
-to refer to your new file, see <a href="https://github.com/alphagov/mapit/pull/58/files">this example PR</a>.
-Submit change as a PR against <a href="https://github.com/alphagov/mapit">Mapit</a> and
-deploy following the normal process to <code>staging</code>.</p>
-<p>Before you can test updated data you will need to clear the shared cache. Refer
-to <a href="https://docs.publishing.service.gov.uk/manual/mapit-cache.html">these docs</a> on how
-to clear the cache.</p>
-<blockquote>
-<p>Testing on integration may not be as accurate as staging so we recommend testing on staging</p>
-</blockquote>
-<p>Now that your changes have been deployed, you can test the new database in
-<code>AWS staging</code> before moving to <code>production</code>. See <a href="https://github.com/alphagov/mapit/blob/main/docs/docs/testing-server.md">Testing a server with an
-updated Mapit database</a>.</p>
-<p>Once you have tested that a new mapit node works as expected, you can
-update each mapit node in turn using a <a href="https://github.com/alphagov/fabric-scripts/blob/master/mapit.py#L10">fabric
-script</a>:</p>
-<pre><code>$ fab $environment -H &lt;ip_address&gt; mapit.update_database_via_app
+<ol>
+<li>
+<p>Update <code>import-db-from-s3.sh</code> to refer to your new file, see <a href="https://github.com/alphagov/mapit/pull/58/files">this example PR</a>.</p>
+</li>
+<li>
+<p>Deploy your change to staging using <a href="https://release.publishing.service.gov.uk/applications/mapit">the links in the Release app</a>.</p>
+</li>
+<li>
+<p>Choose a random node that will be used for testing and note the name (e.g. <code>ip-10-12-4-139.eu-west-1.compute.internal</code>):</p>
+<pre><code>$ gds govuk c ssh -e staging jumpbox 'govuk_node_list -c mapit'
 </code></pre>
-<p>We can happily survive with one mapit-server in an environment while
-this is done.</p>
+</li>
+<li>
+<p>SSH into the node and stop any Postgres instances, then restart (to terminate any connections):</p>
+<pre><code>sudo service postgresql stop
+ps aux | grep postgresql
+sudo kill -9 &lt;pid&gt;
+sudo service postgresql start
+</code></pre>
+</li>
+<li>
+<p>Use a <a href="https://github.com/alphagov/fabric-scripts/blob/master/mapit.py#L10">fabric script</a> to update the database:</p>
+<pre><code>$ fab staging-aws -H &lt;node_name&gt; mapit.update_database_via_app
+</code></pre>
+</li>
+<li>
+<p><a href="https://docs.publishing.service.gov.uk/manual/mapit-caches.html">Clear the shared cache</a> for that instance.</p>
+</li>
+<li>
+<p>Follow the instructions in <a href="/apps/mapit/testing-server.html">Testing a server with an updated Mapit database</a>.</p>
+</li>
+</ol>
 <h3 id="4-update-production-servers-with-new-database">
 <!-- raw HTML omitted -->4. Update production servers with new database<!-- raw HTML omitted -->
 </h3>
 <p>Now that you are happy with the changes in <code>staging</code>, you can now follow update
-the servers in <code>production</code>.</p>
+the servers in <code>production</code> by performing the process for staging on each
+production node.</p>
 <blockquote>
 <p><strong>Note: Only deploy this change to production once the new data has been tested
 in staging. If a new Mapit machine gets created in AWS, it will automatically
