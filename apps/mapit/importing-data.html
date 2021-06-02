@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/mapit/commit/d5fa20841b442a6e2acf0a85b094ad84033384f3">10 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/mapit/commit/8724693b8a6aa920b46bdc83d2d442d499243438">1 Jun 2021</a>
 </div>
 
   <h1 class="page-title">mapit: MapIt - import postcode and boundary data</h1>
@@ -425,51 +425,41 @@ the database for importing data.</li>
 <h4 id="1-2-download-the-latest-data-from-sources">
 <!-- raw HTML omitted -->1.2 Download the latest data from sources<!-- raw HTML omitted -->
 </h4>
-<p>This consists of the <a href="https://geoportal.statistics.gov.uk/search?collection=Dataset&amp;q=ONS%20Postcode%20Directory">Office for National Statistics Postcode Database (ONSPD)</a>, <a href="https://osdatahub.os.uk/downloads/open/BoundaryLine">Ordnance Survey Boundary Line (BL)</a>, and <a href="http://osni.spatial-ni.opendata.arcgis.com/">Ordnance Survey of Northern Ireland (OSNI)</a> datasets.</p>
+<p>This consists of the <a href="https://geoportal.statistics.gov.uk/search?collection=Dataset&amp;q=ONS%20Postcode%20Directory">Office for National Statistics Postcode Directory (ONSPD)</a>, <a href="https://osdatahub.os.uk/downloads/open/BoundaryLine">Ordnance Survey Boundary Line (BL)</a>, and <a href="http://osni.spatial-ni.opendata.arcgis.com/">Ordnance Survey of Northern Ireland (OSNI)</a> datasets.</p>
 <blockquote>
 <p>MySociety may have mirrored the latest datasets on their cache server: <a href="http://parlvid.mysociety.org/os/">http://parlvid.mysociety.org/os/</a> so check there first.</p>
 </blockquote>
 <ol>
 <li>
-<strong>ONS Postcode Database</strong> - ONSPD releases can be found via the Office
-for National Statistics (ONS) by going to
-<a href="http://geoportal.statistics.gov.uk/">http://geoportal.statistics.gov.uk/</a> and selecting the latest ONSPD
-from the Postcodes product drop down.</li>
+<p><strong>ONS Postcode Directory</strong> - ONSPD releases can be found via the Office
+for National Statistics (ONS) by going to the <a href="https://geoportal.statistics.gov.uk/search?collection=Dataset&amp;sort=-created&amp;tags=all(PRD_ONSPD)">ONS Open Geography
+Portal</a>
+then selecting the most recent ONS Postcode Directory.</p>
+</li>
 <li>
-<strong>Boundary Line data</strong> - BL releases can be found via the Ordnance Survey (OS)
-at
-<a href="https://osdatahub.os.uk/downloads/open/BoundaryLine">https://osdatahub.os.uk/downloads/open/BoundaryLine</a> and select the
-<code>ESRI Shapefile</code> format to download</li>
+<p><strong>Boundary Line data</strong> - BL releases can be downloaded in ESRI format
+from the <a href="https://api.os.uk/downloads/v1/products/BoundaryLine/downloads?area=GB&amp;format=ESRI%C2%AE+Shapefile&amp;redirect">Ordnance Survey (OS)</a>.</p>
+</li>
 <li>
-<strong>ONSI data</strong> - For the ONSI data we now point to Mysociety's URL in the
+<p><strong>ONSI data</strong> - For the ONSI data we now point to Mysociety's URL in the
 <a href="https://github.com/alphagov/mapit-scripts/blob/master/check-osni-downloads#L18">check-onsi-downloads</a> script, as there have not been any changes since December 2015.
-It's still worth checking if there are any updates. See <a href="https://github.com/alphagov/mapit/blob/main/docs/docs/about-datasets.md">about datasets</a> for more information.</li>
+It's still worth checking if there are any updates. See <a href="https://github.com/alphagov/mapit/blob/main/docs/docs/about-datasets.md">about datasets</a> for more information.</p>
+</li>
 </ol>
-<h4 id="1-3-upload-the-latest-data-to-amazon-s3">
-<!-- raw HTML omitted -->1.3 Upload the latest data to Amazon S3<!-- raw HTML omitted -->
-</h4>
-<p>Upload the latest ONS Postcode Database, Boundary Line, and OSNI datasets
-to the <code>govuk-custom-formats-mapit-storage-production</code> S3 bucket. The path
-should be of the format <code>source-data/&lt;year-month&gt;/&lt;filename&gt;</code>. Also ensure
-that you have set the permissions for the datasets to be <code>public</code> so that
-when you run the scripts later they are able to access the S3 files.</p>
-<blockquote>
-<p><strong>Note:</strong> the uploaded <code>&lt;filename&gt;</code> must match the naming convention
-of the dataset files. This may not be case when initially downloaded.
-For example, the ONSPD download for November 2018 is <code>2018-11</code>.
-Files within <code>2018-11/data</code> are named <code>ONSPD_NOV_2018_UK.xxx</code>.
-Before uploading in S3, rename folder <code>2018-11</code> to <code>ONSPD_NOV_2018_UK</code>.</p>
-</blockquote>
-<h4 id="1-4-update-url-paths-in-data-import-scripts">
-<!-- raw HTML omitted -->1.4 Update URL paths in data import scripts<!-- raw HTML omitted -->
+<p>Save the files you have downloaded to your <code>~/govuk/mapit</code> directory. This will
+make them available in Docker at <code>/govuk/mapit</code>. Ensure the rules in <code>.gitignore</code>
+cover the files you have downloaded, to stop them being erroneously commited to
+Git.</p>
+<h4 id="1-3-update-paths-in-data-import-scripts">
+<!-- raw HTML omitted -->1.3 Update paths in data import scripts<!-- raw HTML omitted -->
 </h4>
 <p>Update the <a href="https://github.com/alphagov/mapit-scripts/blob/master/import-uk-onspd">import-uk-onspd</a>
-script in <code>mapit-scripts</code> to refer to the URLs of the new releases uploaded to
-S3 in the <a href="#upload-latest-data">last step</a>.</p>
+script in <code>mapit-scripts</code> to refer to the paths of the new releases you have
+downloaded to <code>~/govuk/mapit</code>.</p>
 <p><strong>Note:</strong> If the ONSI data has been updated and uploaded to S3 update the
 <a href="https://github.com/alphagov/mapit-scripts/blob/master/check-osni-downloads#L18">check-onsi-downloads</a> script to refer to the new S3 URL.</p>
-<h4 id="1-5-start-running-the-import-script">
-<!-- raw HTML omitted -->1.5 Start running the import script<!-- raw HTML omitted -->
+<h4 id="1-4-start-running-the-import-script">
+<!-- raw HTML omitted -->1.4 Start running the import script<!-- raw HTML omitted -->
 </h4>
 <p>In your Mapit directory run the <code>import-uk-onspd</code> script to import the data using Docker:</p>
 <pre><code>$ govuk-docker run mapit-app ../mapit-scripts/import-uk-onspd
@@ -498,8 +488,8 @@ the database by running the <code>reset-db.sh</code> script and then run <code>i
 again. If you have database issues see the <a href="#troubleshooting">troubleshooting</a>
 section.</p>
 </blockquote>
-<h4 id="1-6-check-for-missing-codes">
-<!-- raw HTML omitted -->1.6 Check for missing codes<!-- raw HTML omitted -->
+<h4 id="1-5-check-for-missing-codes">
+<!-- raw HTML omitted -->1.5 Check for missing codes<!-- raw HTML omitted -->
 </h4>
 <p>The ONS used to identify areas with SNAC codes (called ONS
 in mapit). They stopped doing this in 2011 and started using GSS
@@ -515,8 +505,9 @@ are missing a GSS code (hopefully none) and how many are missing an
 ONS/SNAC code. If it lists any areas that are missing codes and you
 don't expect them (run the script on production or integration if
 you're not sure) you'll need to investigate.</p>
-<p>Ssh into one of the machines and run:</p>
-<pre><code>$ cd /var/apps/mapit
+<p>SSH into one of the machines and run:</p>
+<pre><code>gds govuk c ssh -e integration mapit
+$ cd /var/apps/mapit
 $ sudo -u deploy govuk_setenv mapit venv3/bin/python manage.py mapit_UK_show_missing_codes
 </code></pre>
 <p>Then compare the output with that generated in your local Docker container.</p>
@@ -575,8 +566,8 @@ is still active on <a href="https://findthatpostcode.uk/areas/E07000191.html">ht
 <p>You will have to reset the db and re-import the data again.
 Once these have been updated, the API will return the new GSS code, albeit mislabelled as an ONS code.</p>
 <p><strong>Note</strong> <a href="https://github.com/alphagov/licensify">Licensify</a> also depends on knowledge of SNAC codes to build it's own API paths. It will be necessary to update this <a href="https://github.com/alphagov/licensify/blob/master/common/app/uk/gov/gds/licensing/model/SnacCodes.scala">file</a> with the new GSS codes and corresponding area.</p>
-<h4 id="1-7-test-some-postcodes">
-<!-- raw HTML omitted -->1.7 Test some postcodes<!-- raw HTML omitted -->
+<h4 id="1-6-test-some-postcodes">
+<!-- raw HTML omitted -->1.6 Test some postcodes<!-- raw HTML omitted -->
 </h4>
 <p>If you've had users complaining that their postcode isn't
 recognised, then try <em>those</em> postcodes and any other ones
@@ -596,7 +587,9 @@ $ curl https://mapit.mysociety.org/postcode/ME206QZ
 <p>Ensure you test postcodes from <strong>all parts of the UK</strong>, since Northern
 Ireland data has been loaded separately.</p>
 </blockquote>
-<p>#### <!-- raw HTML omitted -->1.8 Make PRs for any changes you had to make<!-- raw HTML omitted --></p>
+<h4 id="1-7-make-prs-for-any-changes-you-had-to-make">
+<!-- raw HTML omitted -->1.7 Make PRs for any changes you had to make<!-- raw HTML omitted -->
+</h4>
 <p>You will have changed the <a href="https://github.com/alphagov/mapit-scripts/blob/master/import-uk-onspd">import-uk-onspd</a> and <a href="https://github.com/alphagov/mapit-scripts/blob/master/check-osni-download">check-onsi-downloads</a>
 scripts to refer to new datasets. If anything failed you may have had
 to change other things in the mapit repo too.</p>
@@ -611,9 +604,11 @@ to what data it contains. Perhaps <code>mapit-&lt;%b%Y&gt;.sql.gz</code> (using
 <code>strftime</code> parlance) for a standard release, or
 <code>mapit-&lt;%b%Y&gt;-&lt;a-description-of-change&gt;.sql.gz</code> if you've had to change
 the data outside the normal dataset releases.</p>
-<p>Arrange to have the file you just created uploaded to the
-<code>govuk-custom-formats-mapit-storage-production</code> S3 bucket, in the same folder
-the new data has been uploaded to, and ensure that it's permission is set to <code>public</code>.</p>
+<p>Create a new publicly readable directory in S3 for this import and upload the file:</p>
+<pre><code>DATE=`date '+%Y-%m'`
+gds aws govuk-production-poweruser aws s3api put-object --acl public-read --bucket govuk-custom-formats-mapit-storage-production --key source-data/${DATE}/
+gds aws govuk-production-poweruser aws s3 cp mapit-&lt;%b%Y&gt;-&lt;a-description-of-change&gt;.sql.gz s3://govuk-custom-formats-mapit-storage-production/source-data/${DATE}/ --acl public-read
+</code></pre>
 <h3 id="3-test-a-server-in-staging">3. Test a server in Staging</h3>
 <p><strong>NB: THIS REQUIRES ACCESS TO GOV.UK PRODUCTION</strong></p>
 <p>Once the data has been uploaded change the URL and checksum (using
