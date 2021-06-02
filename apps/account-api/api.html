@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/b95659e0cf69185985ca114e45f3970c205b05a7">21 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/dbc49385780c0bda5855577b91c3f45be1f66311">2 Jun 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -415,6 +415,7 @@ management. This API is not for other government services.</p>
 <ul>
 <li><a href="#level-of-authentication-too-low">Level of authentication too low</a></li>
 <li><a href="#unknown-attribute-names">Unknown attribute names</a></li>
+<li><a href="#unwritable-attributes">Unwritable attributes</a></li>
 <li><a href="#page-cannot-be-saved">Page cannot be saved</a></li>
 </ul>
 </li>
@@ -796,6 +797,7 @@ end
 <h4 id="response-codes">Response codes</h4>
 <ul>
 <li>422 if any attributes are unknown (see <a href="#unknown-attribute-names">error: unknown attribute names</a>)</li>
+<li>403 if any attributes are unwritable (see <a href="#unwritable-attributes">error: unwritable attributes</a>)</li>
 <li>403 if the session's level of authentication is too low (see <a href="#level-of-authentication-too-low">error: level of authentication too low</a>)</li>
 <li>401 if the session identifier is invalid</li>
 <li>200 otherwise</li>
@@ -1187,6 +1189,10 @@ level to access.</p>
 <h3 id="unknown-attribute-names">Unknown attribute names</h3>
 <p>One or more of the attribute names you have specified are not known.
 The <code>attributes</code> response field lists these.</p>
+<h3 id="unwritable-attributes">Unwritable attributes</h3>
+<p>One or more of the attributes you have specified cannot be updated
+through account-api.  The <code>attributes</code> response field lists these.</p>
+<p>Do not just reauthenticate the user and try again.</p>
 <h3 id="page-cannot-be-saved">Page cannot be saved</h3>
 <p>The page you have specified could not be saved. The errors response field lists the problems.</p>
 <h4 id="debugging-steps">Debugging steps</h4>
