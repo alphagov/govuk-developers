@@ -364,7 +364,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/mapit/commit/b1f94dca25a3abe79c39af8360fa8881a7cc5205">2 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/mapit/commit/32b9e43c9d4c2e30a7e5aaca907a6279a94bab02">3 Jun 2021</a>
 </div>
 
   <h1 class="page-title">mapit: MapIt - import postcode and boundary data</h1>
@@ -659,6 +659,23 @@ try importing the data from the new database.</strong></p>
 Refer to <a href="https://docs.publishing.service.gov.uk/manual/mapit-caches.html">these
 docs</a> on how
 to clear the cache.</p>
+<h3 id="5-update-local-links-manager">
+<!-- raw HTML omitted -->5. Update Local Links Manager<!-- raw HTML omitted -->
+</h3>
+<p>If there are new local authorities in this release, you will need to add these
+to Local Links Manager. This step can be skipped if there are no new authorities.</p>
+<ol>
+<li>
+<p>Run <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=local-links-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=import:local_authorities:import_all">a Rake task</a> to import the local authority slugs.</p>
+<pre><code>rake import:local_authorities:import_all
+</code></pre>
+</li>
+<li>
+<p>Run <a href="https://deploy.blue.staging.govuk.digital/job/run-rake-task/parambuild/?TARGET_APPLICATION=local-links-manager&amp;MACHINE_CLASS=backend&amp;RAKE_TASK=local_authority:update_homepage%5Bgovuk-slug%2Chttps%3A%2F%2Fwww.website.gov.uk%2F%5D">a Rake task</a> to add the homepage URL for each local authority that has been added.</p>
+<pre><code>rake local_authority:update_homepage[govuk-slug,https://www.website.gov.uk/]
+</code></pre>
+</li>
+</ol>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <h3 id="useful-database-queries">Useful database queries</h3>
 <ul>
