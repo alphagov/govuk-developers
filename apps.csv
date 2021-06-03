@@ -24,7 +24,6 @@ finder-frontend,#govuk-platform-health,#govuk-platform-health,https://docs.publi
 frontend,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/frontend.html,https://github.com/alphagov/frontend,aws
 government-frontend,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/government-frontend.html,https://github.com/alphagov/government-frontend,aws
 govuk-account-manager-prototype,#govuk-accounts-tech,#govuk-accounts-tech,https://docs.publishing.service.gov.uk/apps/govuk-account-manager-prototype.html,https://github.com/alphagov/govuk-account-manager-prototype,paas
-govuk-alert-tracker,,,https://docs.publishing.service.gov.uk/apps/govuk-alert-tracker.html,https://github.com/alphagov/govuk-alert-tracker,heroku
 govuk-attribute-service-prototype,#govuk-accounts-tech,#govuk-accounts-tech,https://docs.publishing.service.gov.uk/apps/govuk-attribute-service-prototype.html,https://github.com/alphagov/govuk-attribute-service-prototype,paas
 govuk-content-store-examples,,,https://docs.publishing.service.gov.uk/apps/govuk-content-store-examples.html,https://github.com/alphagov/govuk-content-schemas,heroku
 govuk-dependencies,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/govuk-dependencies.html,https://github.com/alphagov/govuk-dependencies,heroku
@@ -64,10 +63,10 @@ search-performance-explorer,#govuk-platform-health,#govuk-platform-health,https:
 service-manual-frontend,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/service-manual-frontend.html,https://github.com/alphagov/service-manual-frontend,aws
 service-manual-publisher,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/service-manual-publisher.html,https://github.com/alphagov/service-manual-publisher,aws
 short-url-manager,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/short-url-manager.html,https://github.com/alphagov/short-url-manager,aws
-side-by-side-browser,,,https://docs.publishing.service.gov.uk/apps/side-by-side-browser.html,https://github.com/alphagov/side-by-side-browser,none
 side-by-side-browser,,,https://docs.publishing.service.gov.uk/apps/side-by-side-browser.html,https://github.com/alphagov/side-by-side-browser,heroku
 signon,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/signon.html,https://github.com/alphagov/signon,aws
 smart-answers,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/smart-answers.html,https://github.com/alphagov/smart-answers,aws
+special-route-publisher,,,https://docs.publishing.service.gov.uk/apps/special-route-publisher.html,https://github.com/alphagov/special-route-publisher,none
 specialist-publisher,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/specialist-publisher.html,https://github.com/alphagov/specialist-publisher,aws
 static,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/static.html,https://github.com/alphagov/static,aws
 support,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/support.html,https://github.com/alphagov/support,aws
