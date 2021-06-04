@@ -197,15 +197,8 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4874f005fc582b54d0609cf7ccaeaa3fea5cc82d">6 May 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/135ce5c396ddedf13f8a67b88c9584669534f17f">3 Jun 2021</a>
 </div>
 
  <h1 id='header'>Purge a page from cache</h1> <p>The <code>www.gov.uk</code> domain is served through Fastly, which honours the
@@ -235,11 +228,12 @@ more verbose output using the <code>-i</code> switch:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>curl <span class="nt">-i</span> <span class="nt">-XPURGE</span> https://www.gov.uk/bank-holidays
 </code></pre></div><h2 id='full-edge-flush-on-fastly'>Full Edge Flush on Fastly</h2><p>There are two steps involved in flushing <em>everything</em>; our origin (the cache
 servers) followed by Fastly.</p>
+<p>If possible, speak to a member of the senior tech team before doing this, to
+evaluate the risk.</p>
 <p>To flush our origin run the following Fabric command:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>fab <span class="nv">$environment</span> class:cache class:draft_cache cache.ban_all
 </code></pre></div><p>Once this is done move on to Fastly. This can only be done through the Fastly
-UI - the credentials are in the 2nd line store. If possible, speak to a member
-of the senior tech team before doing this, to evaluate the risk.</p>
+UI - if you don&rsquo;t have access, speak to a member of the senior tech team.</p>
 <p>Within the UI you reach the purge all functionality.</p>
 
 <ul>
