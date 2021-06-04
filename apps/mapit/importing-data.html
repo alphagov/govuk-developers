@@ -364,7 +364,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/mapit/commit/7905f6d195446c15e4d30397866b5bc91dd64550">4 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/mapit/commit/76c968f6e69cbe87c72ef2ce4d8050478f8e282b">4 Jun 2021</a>
 </div>
 
   <h1 class="page-title">mapit: MapIt - import postcode and boundary data</h1>
@@ -614,42 +614,26 @@ gds aws govuk-production-poweruser aws s3 cp mapit-&lt;%b%Y&gt;-&lt;a-descriptio
 <p><strong>NB: THIS REQUIRES ACCESS TO GOV.UK PRODUCTION</strong></p>
 <ol>
 <li>
-<p>Update <code>import-db-from-s3.sh</code> to refer to your new file, see <a href="https://github.com/alphagov/mapit/pull/58/files">this example PR</a>.</p>
+<p>Update <a href="https://github.com/alphagov/govuk-puppet/blob/bb2313aff9f73c35acb655f68d63b442b09825aa/modules/govuk/files/etc/govuk/import_mapit_data.sh#L25">import-db-from-s3.sh</a> in <a href="https://github.com/alphagov/govuk-puppet">govuk-puppet</a> to refer to your new file.</p>
 </li>
 <li>
-<p>Deploy your change to staging using <a href="https://release.publishing.service.gov.uk/applications/mapit">the links in the Release app</a>.</p>
+<p><a href="https://docs.publishing.service.gov.uk/manual/deploy-puppet.html">Deploy</a>
+your Puppet changes to Staging.</p>
 </li>
 <li>
-<p>Choose a random node that will be used for testing and note the name (e.g. <code>ip-10-12-4-139.eu-west-1.compute.internal</code>):</p>
-<pre><code>$ gds govuk c ssh -e staging jumpbox 'govuk_node_list -c mapit'
-</code></pre>
+<p><a href="https://docs.publishing.service.gov.uk/manual/reprovision.html">Reprovision</a> one instance of Mapit (keep note of the Mapit machine index) so that a new Mapit instance is created with the updated database.</p>
 </li>
 <li>
-<p>SSH into the node and stop any Postgres instances, then restart (to terminate any connections):</p>
-<pre><code>sudo service postgresql stop
-ps aux | grep postgresql
-sudo kill -9 &lt;pid&gt;
-sudo service postgresql start
-</code></pre>
-</li>
-<li>
-<p>Use a <a href="https://github.com/alphagov/fabric-scripts/blob/master/mapit.py#L10">fabric script</a> to update the database:</p>
-<pre><code>$ fab staging-aws -H &lt;node_name&gt; mapit.update_database_via_app
-</code></pre>
-</li>
-<li>
-<p><a href="https://docs.publishing.service.gov.uk/manual/mapit-caches.html">Clear the shared cache</a> for that instance.</p>
-</li>
-<li>
-<p>Follow the instructions in <a href="/apps/mapit/testing-server.html">Testing a server with an updated Mapit database</a>.</p>
+<p>SSH into the replacement Mapit instance after it has been provisioned (the instance is successfully  provisioned if it is added to the Mapit target group in the AWS EC2 console) and follow
+the instructions in <a href="/apps/mapit/testing-server.html">Testing a server with an updated Mapit database</a>.</p>
 </li>
 </ol>
 <h3 id="4-update-production-servers-with-new-database">
 <!-- raw HTML omitted -->4. Update production servers with new database<!-- raw HTML omitted -->
 </h3>
-<p>Now that you are happy with the changes in <code>staging</code>, you can now follow update
-the servers in <code>production</code> by performing the process for staging on each
-production node.</p>
+<p>Now that you are happy with the changes in <code>Staging</code>, you can reprovision other instances of
+Mapit in <code>Staging</code> before deploying your puppet changes in <code>Production</code> and reprovision the instances
+there.</p>
 <blockquote>
 <p><strong>Note: Only deploy this change to production once the new data has been tested
 in staging. If a new Mapit machine gets created in AWS, it will automatically
