@@ -503,7 +503,7 @@ GovukUnicorn.configure(self)
 <p>You can add your environment to the list of active Sentry environments like so:</p>
 
 <pre lang="ruby"><code>GovukError.configure do |config|
-  config.active_sentry_environments &lt;&lt; "my-test-environment"
+  config.enabled_environments &lt;&lt; "my-test-environment"
 end
 </code></pre>
 
