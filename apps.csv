@@ -5,8 +5,8 @@ authenticating-proxy,#govuk-platform-health,#govuk-platform-health,https://docs.
 bouncer,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/bouncer.html,https://github.com/alphagov/bouncer,aws
 cache-clearing-service,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/cache-clearing-service.html,https://github.com/alphagov/cache-clearing-service,aws
 ckanext-datagovuk,#govuk-platform-health,#govuk-datagovuk,https://docs.publishing.service.gov.uk/apps/ckanext-datagovuk.html,https://github.com/alphagov/ckanext-datagovuk,aws
-collections,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/collections.html,https://github.com/alphagov/collections,aws
-collections-publisher,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/collections-publisher.html,https://github.com/alphagov/collections-publisher,aws
+collections,#govuk-platform-health,#govuk-corona-services-tech,https://docs.publishing.service.gov.uk/apps/collections.html,https://github.com/alphagov/collections,aws
+collections-publisher,#govuk-platform-health,#govuk-corona-services-tech,https://docs.publishing.service.gov.uk/apps/collections-publisher.html,https://github.com/alphagov/collections-publisher,aws
 contacts-admin,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/contacts-admin.html,https://github.com/alphagov/contacts-admin,aws
 content-data-admin,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/content-data-admin.html,https://github.com/alphagov/content-data-admin,aws
 content-data-api,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/content-data-api.html,https://github.com/alphagov/content-data-api,aws
@@ -45,7 +45,7 @@ licensify,#govuk-licensing,#govuk-licensing,https://docs.publishing.service.gov.
 licensify-admin,#govuk-licensing,#govuk-licensing,https://docs.publishing.service.gov.uk/apps/licensify-admin.html,https://github.com/alphagov/licensify-admin,aws
 licensify-feed,#govuk-licensing,#govuk-licensing,https://docs.publishing.service.gov.uk/apps/licensify-feed.html,https://github.com/alphagov/licensify-feed,aws
 link-checker-api,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/link-checker-api.html,https://github.com/alphagov/link-checker-api,aws
-local-links-manager,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/local-links-manager.html,https://github.com/alphagov/local-links-manager,aws
+local-links-manager,#govuk-platform-health,#govuk-corona-services-tech,https://docs.publishing.service.gov.uk/apps/local-links-manager.html,https://github.com/alphagov/local-links-manager,aws
 manuals-frontend,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/manuals-frontend.html,https://github.com/alphagov/manuals-frontend,aws
 manuals-publisher,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/manuals-publisher.html,https://github.com/alphagov/manuals-publisher,aws
 mapit,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/mapit.html,https://github.com/alphagov/mapit,aws
