@@ -364,7 +364,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/5608a0ed738f0399d969fb8b80f04fa6e245d62e">5 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/a664ab8bed453e264a91f1a13b37dcb5b24f3639">10 Feb 2021</a>
 </div>
 
   <h1 class="page-title">smart-answers: ADR 1: Removing Smartdown</h1>
@@ -373,7 +373,7 @@
 <h2 id="context">Context</h2>
 <p><a href="https://github.com/alphagov/smart-answers">Smart Answers</a> have been historically painful to develop and maintain. In particular, relatively simple content changes can incur quite a high development cost.</p>
 <p><a href="https://github.com/alphagov/smartdown">Smartdown</a> was developed in an attempt to reduce the overhead of Smart Answers development. <a href="https://github.com/alphagov/smart-answers/commit/a042c1b748819266a1e59365b07738737872e392">Smartdown was added to the Smart Answers project on 6 Aug 2014</a>.</p>
-<p>Smartdown made it easier for content designers to edit questions and outcome content, but was quite restrictive when it came to defining the rules of the Smart Answer (see the rules in <a href="https://github.com/alphagov/smart-answers/blob/cbc065f78abde540165df4e376025f56261b4723/lib/smartdown_flows/pay-leave-for-parents-old/questions/partner_earned_more_than_lower_earnings_limit.txt">pay-leave-for-parents/partner_earned_more_than_lower_earnings_limit</a>, for example).</p>
+<p>Smartdown made it easier for content designers to edit questions and outcome content, but was quite restrictive when it came to defining the rules of the Smart Answer (see the rules in <a href="https://github.com/alphagov/smart-answers/blob/cbc065f78abde540165df4e376025f56261b4723/lib/smartdown_flows/pay-leave-for-parents-old/questions/partner_earned_more_than_lower_earnings_limit.txt">maternity-paternity-pay-leave/partner_earned_more_than_lower_earnings_limit</a>, for example).</p>
 <p>Smartdown didn't match Ruby Smart Answers in terms of features. Adding support for these features to Smartdown would have required extensions to the grammar and hence the parser. The cost of this would've been relatively high, especially considering that Ruby Smart Answers already had all the functionality we needed (apart from multiple questions-per-page).</p>
 <p>The state of many of the Ruby Smart Answers would've made it hard to convert them to Smartdown without extensive refactoring.</p>
 <p>As at April 2015 there were:</p>
