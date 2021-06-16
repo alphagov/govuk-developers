@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>smart-answers: How to retire a Smart Answer - GOV.UK Developer Documentation</title>
+    <title>smart-answers: Deploying changes for fact-check - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answer-flow-development/retiring-a-smart-answer.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/fact-check.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="smart-answers: How to retire a Smart Answer - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answer-flow-development/retiring-a-smart-answer.html" />
+      <meta name="twitter:title" content="smart-answers: Deploying changes for fact-check - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/fact-check.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="smart-answers: How to retire a Smart Answer" />
+      <meta property="og:title" content="smart-answers: Deploying changes for fact-check" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answer-flow-development/retiring-a-smart-answer.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/fact-check.html" />
 
     
   </head>
@@ -364,95 +364,31 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/f2494f18f0b0300a88254d64cc822db27bd5e6b0">6 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/1477fc852d0052f5c003cffd71ea34ed09d2dfc7">14 Jun 2021</a>
 </div>
 
-  <h1 class="page-title">smart-answers: How to retire a Smart Answer</h1>
+  <h1 class="page-title">smart-answers: Deploying changes for fact-check</h1>
 
   
-<p>The process to retire a published Smart Answer involves
-<a href="#remove-smart-answer-code">removing the code</a> for the Smart Answer and then
-using an <a href="#removing-from-govuk">unpublish task</a> to update GOV.UK the content
-item that represents the Smart Answer flow.</p>
-<h2 id="remove-smart-answer-code">Remove Smart Answer code</h2>
-<p>Remove all the files and directories associated with the individual Smart
-Answer and their associated tests, examples of common files:</p>
-<ul>
-<li>Flow class files
-<ul>
-<li>lib/smart_answer_flows/&lt;\smart-answer-name&gt;.rb</li>
-</ul>
-</li>
-<li>ERB templates directory
-<ul>
-<li>lib/smart_answer_flows/&lt;\smart-answer-name&gt;</li>
-</ul>
-</li>
-<li>YAML files
-<ul>
-<li>config/smart_answers/rates/&lt;\smart-answer-name&gt;.yml</li>
-<li>config/smart_answers/&lt;\smart-answer-name&gt;.yml</li>
-</ul>
-</li>
-<li>Calculators, data query and other ruby files
-<ul>
-<li>lib/smart_answer/calculators/&lt;\smart-answer-name&gt;_calculator.rb</li>
-<li>lib/smart_answer/calculators/&lt;\smart-answer-name&gt;_data_query.rb</li>
-</ul>
-</li>
-</ul>
-<h2 id="removing-the-content-item">Removing the content item</h2>
-<p>Before removing a Smart Answer you will need the content_id for the Smart
-Answer. These can be found in the
-<code>lib/smart_answer_flows/&lt;\smart-answer-name&gt;.rb</code> file of the Smart Answer that
-is being retired. For redirecting or replacing a Smart Answer you will also
-need to know the paths of these pages these are based off the <code>name</code> attribute
-of the <code>lib/smart_answer_flows/&lt;\smart-answer-name&gt;.rb</code> file. For example, for
-the Marriage Abroad Smart Answer the path is <code>/marriage-abroad</code>.</p>
-<h3 id="redirecting-users-to-a-different-url">Redirecting users to a different URL</h3>
-<p>To send visitors to the Smart Answer to a new page you can run the
-<code>unpublish_redirect</code> task. For example to redirect requests to a new
-destination, <code>/random</code>, you'd run the following rake task:</p>
-<pre><code>bundle exec rake "publishing_api:unpublish_redirect[&lt;content_id&gt;,&lt;base_path&gt;,/random,prefix]"
-</code></pre>
-<p>Applying this to the <a href="https://github.com/alphagov/smart-answers/blob/main/lib/smart_answer_flows/marriage-abroad.rb">Marriage Abroad</a>
-Smart Answer you'd run the following command:</p>
-<pre><code>bundle exec rake "publishing_api:unpublish_redirect[d0a95767-f6ab-432a-aebc-096e37fb3039,/marriage-abroad,/random,prefix]"
-</code></pre>
-<h3 id="showing-users-a-page-to-indicate-the-content-is-no-longer-available">Showing users a page to indicate the content is no longer available</h3>
-<p>If there is not content to replace the Smart Answer then the convention is to
-serve a page that indicates there used to be content but isn't anymore (a 410
-gone HTTP response). An example of how to perform this is:</p>
-<pre><code>bundle exec rake publishing_api:unpublish_gone[&lt;content_id&gt;]
-</code></pre>
-<blockquote>
-<p>It is possible to remove the Smart Answer and rather than serve a 410 Gone
-page instead serve a 404 Not Found, which misleads visitors to the page that
-content had never been published there. This can be done by using the
-<code>publishing_api:unpublish_vanish</code> task instead of the gone equivalent. This
-task should only be used in exceptional circumstances for example an
-accidental early publishing of content with a sensitive URL.</p>
-</blockquote>
-<h3 id="replace-a-smart-answer-with-a-different-content-type">Replace a Smart Answer with a different content type</h3>
-<p>Sometimes there will be a need to replace a Smart Answer with a different type
-of content, typically these have been transactions, answers and start pages
-that can be published through <a href="https://github.com/alphagov/publisher">Publisher</a>.</p>
-<p>The next step is to perform a temporary removal of the Smart Answer page(s) to
-be replaced. You can use the <a href="#showing-users-a-page-to-indicate-the-content-is-no-longer-available">aforementioned <code>publishing_api:unpublish_gone</code>
-task</a>
-to perform this.</p>
-<p>You can then run a rake task command to reserve the path(s) used by the Smart
-Answer for a different publishing application. For example, to reserve the
-Marriage Abroad start page for Publisher you can perform the following command:</p>
-<pre><code>bundle exec rake "publishing_api:change_owning_application[/marriage-abroad,publisher]"
-</code></pre>
-<p>Once this is complete you can then create a new piece of content with the URL
-the Smart Answer page previously used.</p>
-<blockquote>
-<p>If you are replacing the start page of the Smart Answer with a page from a
-different publishing application don't forget to redirect or remove the flow
-page as well.</p>
-</blockquote>
+<p>When making bigger changes that need to be tested or fact-checked before they
+are deployed to GOV.UK you can make use of [Heroku Review apps][].
+These are created automatically when a new PR is opened and will also be
+automatically linked to from the PR. They will also update on each new commit
+to the PR.</p>
+<p>The master branch of Smart Answers is deployed to Heroku with each update and
+this allows previewing draft Smart Answers. This is available at
+<a href="https://smart-answers-preview.herokuapp.com/">https://smart-answers-preview.herokuapp.com/</a>.</p>
+<h2 id="displaying-rates-for-a-specific-date">Displaying rates for a specific date</h2>
+<p>Smart Answers are often used to illustrate certain costs or benefits applicable
+on a particular date. These are determined by looking up the correct rates (in
+<a href="https://github.com/alphagov/smart-answers/blob/main/config/smart_answers/rates"><code>config/smart_answers/rates</code></a>) to display for the current date.
+When testing upcoming changes to rates you may want to simulate how they will
+appear on a particular date, this can be achieved by setting the
+<code>RATES_QUERY_DATE</code> environment variable.</p>
+<p>To apply this to a particular review app you can set a value for this
+environment variable in the <a href="https://github.com/alphagov/smart-answers/blob/main/app.json"><code>app.json</code></a>, for example:
+<code>"RATES_QUERY_DATE": "2020-04-01"</code> - don't forget to remove this before
+merging.</p>
 
 
             
@@ -460,8 +396,8 @@ page as well.</p>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answer-flow-development/retiring-a-smart-answer.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answer-flow-development/retiring-a-smart-answer.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/tasks/fact-check.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/fact-check.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>smart-answers: File structure - GOV.UK Developer Documentation</title>
+    <title>smart-answers: Next node rules - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/file-structure.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/design/next-node-rules.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="smart-answers: File structure - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/file-structure.html" />
+      <meta name="twitter:title" content="smart-answers: Next node rules - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/design/next-node-rules.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="smart-answers: File structure" />
+      <meta property="og:title" content="smart-answers: Next node rules" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/file-structure.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/design/next-node-rules.html" />
 
     
   </head>
@@ -364,31 +364,59 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/5608a0ed738f0399d969fb8b80f04fa6e245d62e">5 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/1477fc852d0052f5c003cffd71ea34ed09d2dfc7">14 Jun 2021</a>
 </div>
 
-  <h1 class="page-title">smart-answers: File structure</h1>
+  <h1 class="page-title">smart-answers: Next node rules</h1>
 
   
-<p>This is an overview of the components that make up a single Smart Answer.</p>
-<pre><code>lib
-|__ smart_answer
-|   |__ calculators
-|       |__ &lt;calculator-name&gt;.rb (Optional: Object encapsulating business logic for the flow)
-|__ smart_answer_flows
-    |__ &lt;flow-name&gt;.rb (Required: Flow and question logic)
-    |__ &lt;flow-name&gt;
-    |   |__ &lt;flow-name&gt;.erb (Optional: Content for the landing page)
-    |   |__ outcomes
-    |   |   |__ &lt;outcome-name&gt;.erb (Optional: Content for each outcome page)
-    |   |   |__ _&lt;partial-name&gt;.erb (Optional: Useful when you need to share content between outcome templates)
-    |   |__ questions
-    |   |   |__ &lt;question-name&gt;.erb (Optional: Data used to build questions e.g. question and option text)
-    |__ shared
-    |    |__ &lt;shared-directory-name&gt;
-    |        |__ _&lt;partial-name&gt;.erb (Optional: Useful when you need to share content between Smart Answers)
-    |__ shared_logic
-        |__ &lt;shared-logic-name&gt;.rb (Optional: Useful when you need to share flow and question logic between Smart Answers)
+<p>The <code>next_node</code> method takes a block that should return the next node (question or outcome) to send the user to. The relevant node key must be returned via the <code>question</code> or <code>outcome</code> method.</p>
+<pre lang="ruby"><code>next_node do |response|
+  if response == 'green'
+    question :green? # Go to the :green? question node
+  else
+    outcome :red # Go to the :red outcome node
+  end
+end
+</code></pre>
+<h2 id="errors">Errors</h2>
+<h3 id="multiple-calls-to-next_node-are-not-allowed">Multiple calls to next_node are not allowed</h3>
+<p>Occurs if <code>next_node</code> is called more than once within a single question block.</p>
+<pre lang="ruby"><code># For example
+next_node do
+  outcome :red
+end
+next_node do
+  question :green?
+end
+</code></pre>
+<h3 id="argumenterror-you-must-specify-a-block">ArgumentError: You must specify a block</h3>
+<p>Occurs if <code>next_node</code> is called without a block.</p>
+<pre lang="ruby"><code># For example
+next_node
+</code></pre>
+<h3 id="next-node-undefined">Next node undefined</h3>
+<p>Occurs if the <code>next_node</code> block returns something "falsey" (e.g. <code>nil</code>).</p>
+<pre lang="ruby"><code># For example
+next_node do
+  nil
+end
+</code></pre>
+<h3 id="next-node-not-returned-via-question-or-outcome-method">Next node not returned via question or outcome method</h3>
+<p>Occurs if the <code>next_node</code> block returns something which was not returned by a
+call to <code>#question</code> or <code>#outcome</code>.</p>
+<pre lang="ruby"><code># For example
+next_node do
+  :green?
+end
+</code></pre>
+<h3 id="node-node-name-does-not-exist">Node "node-name" does not exist</h3>
+<p>Occurs if the <code>next_node</code> blocks returns a value that isn't defined as a question or outcome node.</p>
+<pre lang="ruby"><code># For example
+next_node do
+  outcome :red
+end
+outcome :blue
 </code></pre>
 
 
@@ -397,8 +425,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/file-structure.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/file-structure.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/design/next-node-rules.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/design/next-node-rules.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

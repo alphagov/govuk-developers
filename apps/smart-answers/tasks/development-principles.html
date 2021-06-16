@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>smart-answers: Question types - GOV.UK Developer Documentation</title>
+    <title>smart-answers: Smart Answer flows - Development principles - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/question-types.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/development-principles.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="smart-answers: Question types - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/question-types.html" />
+      <meta name="twitter:title" content="smart-answers: Smart Answer flows - Development principles - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/development-principles.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="smart-answers: Question types" />
+      <meta property="og:title" content="smart-answers: Smart Answer flows - Development principles" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/question-types.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/development-principles.html" />
 
     
   </head>
@@ -364,103 +364,49 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/5608a0ed738f0399d969fb8b80f04fa6e245d62e">5 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/1477fc852d0052f5c003cffd71ea34ed09d2dfc7">14 Jun 2021</a>
 </div>
 
-  <h1 class="page-title">smart-answers: Question types</h1>
+  <h1 class="page-title">smart-answers: Smart Answer flows - Development principles</h1>
 
   
-<h2 id="checkbox_question"><code>checkbox_question</code></h2>
-<ul>
-<li>User input: Choose zero to many options from a list of options.</li>
-<li>Validation: Must be in the list of options.</li>
-<li>Response: String containing comma-separated list of chosen options.</li>
-<li>Can specify <code>none_option</code> in flow definition to represent a "none" answer. This ensures the user has selected at least one checkbox before continuing.</li>
-</ul>
-<h2 id="country_select"><code>country_select</code></h2>
-<ul>
-<li>Options:
+<h2 id="do">Do</h2>
 <ul>
 <li>
-<code>exclude_countries</code>: Optional. Array of countries to exclude from the list.</li>
-<li>
-<code>include_uk</code>: Optional. Boolean indicating whether to include 'united-kingdom' in the list.</li>
-<li>
-<code>additional_countries</code>: Optional. Array of countries to add to the list.</li>
-</ul>
+<p>Make small improvements to the code before making even business-as-usual changes. See <a href="https://github.com/alphagov/smart-answers/blob/main/docs/tasks/refactoring.md">refactoring existing Smart Answers</a> for some common improvements.</p>
 </li>
-<li>User input: Choose a single country.</li>
-<li>Validation: Must be in the list of countries.</li>
-<li>Response: String containing the chosen country.</li>
-</ul>
-<h2 id="date_question"><code>date_question</code></h2>
-<ul>
-<li>User input: Choose a single date.</li>
-<li>Validation: Must be a valid date.</li>
-<li>Response: <code>Date</code> object.</li>
-</ul>
-<h2 id="money_question"><code>money_question</code></h2>
-<ul>
-<li>User input: Enter a money amount.</li>
-<li>Validation: Must be a number.</li>
-<li>Response: <code>Money</code> object.</li>
-</ul>
-<h2 id="radio"><code>radio</code></h2>
-<ul>
-<li>User input: Choose a single option from a list of options.</li>
-<li>Validation: Must be in the list of options.</li>
-<li>Response: String containing the chosen option.</li>
-<li>Can remove options.</li>
-</ul>
-<h2 id="postcode_question"><code>postcode_question</code></h2>
-<ul>
-<li>User input: Enter a postcode.</li>
-<li>Validation: Must be a valid postcode.</li>
-<li>Response: String containing a normalised postcode (e.g. "wc2b6nh" becomes "WC2B 6NH").</li>
-</ul>
-<h2 id="salary_question"><code>salary_question</code></h2>
-<ul>
-<li>User input: Enter an Amount and associated Period.</li>
-<li>Validation: Amount must be a valid <code>Money</code> object and Period must be one of 'year', 'month' or 'week'.</li>
-<li>Response: <code>Salary</code> object.</li>
-</ul>
-<h2 id="value_question"><code>value_question</code></h2>
-<ul>
-<li>Options:
-<ul>
 <li>
-<code>parse</code>: Optional. One of <code>Integer</code>, <code>:to_i</code>, <code>Float</code> or <code>:to_f</code>
+<p>Make use of the higher-level abstractions available in the project, for example the <code>DateRange</code>, <code>YearRange</code> and <code>YearRangeWithFixedStartDate</code> classes.</p>
+</li>
+<li>
+<p>Extract more higher-level abstractions where the same behaviour is being duplicated across multiple flows.</p>
+</li>
+<li>
+<p>Model the domain of the policy/rules that make up a Smart Answer.</p>
+</li>
+<li>
+<p>Ensure all policy logic is encapsulated in objects that are instantiated by (but separate from) the flow.</p>
+</li>
+<li>
+<p>Ensure all presentation logic is kept in the ERB templates and associated helper methods.</p>
+</li>
+<li>
+<p>Ensure the Smart Answer flows only contain routing (<code>next_node</code>) logic.</p>
+</li>
+<li>
+<p>Iteratively develop new Smart Answers. Get a simply happy-path version deployed and build upon that in collaboration with the department and content team.</p>
 </li>
 </ul>
-</li>
-<li>User input: Enter any text.</li>
-<li>Validation (depends on the <code>parse</code> option):
+<h2 id="dont">Don't</h2>
 <ul>
 <li>
-<code>Integer</code>: Must be a number.</li>
-<li>
-<code>:to_i</code>: Should be a number but non numbers are valid.</li>
-<li>
-<code>Float</code>: Must be a number.</li>
-<li>
-<code>:to_f</code>: Should be a number but non numbers are valid.</li>
-<li>
-<code>&lt;anything-else&gt;</code>: No validation.</li>
-</ul>
+<p>Don't copy the style of existing "legacy" Smart Answers (e.g. <a href="https://github.com/alphagov/smart-answers/blob/829837f1f738c711985bf3a7a5d1655605637edd/lib/smart_answer_flows/calculate-agricultural-holiday-entitlement.rb">calculate-agricultural-holiday-entitlement</a>).</p>
 </li>
-<li>Response (depends on the <code>parse</code> option):
-<ul>
 <li>
-<code>Integer</code>: Integer.</li>
+<p>Don't blindly follow the logic documents when creating/amending Smart Answers. This has lead to some of the problems we see in the "legacy" Smart Answers, e.g. policy logic being mixed up with flow/routing logic resulting in hard to maintain code.</p>
+</li>
 <li>
-<code>:to_i</code>: Integer (Non-numeric input returns 0).</li>
-<li>
-<code>Float</code>: Float.</li>
-<li>
-<code>:to_f</code>: Float (Non-numeric input returns 0.0).</li>
-<li>
-<code>&lt;anything-else&gt;</code>: String containing the user input.</li>
-</ul>
+<p>Don't do big-bang development of new Smart Answers. See the point about iteratively developing them in the "Do" section above.</p>
 </li>
 </ul>
 
@@ -470,8 +416,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/question-types.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/question-types.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/tasks/development-principles.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/development-principles.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

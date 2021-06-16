@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>smart-answers: Testing - GOV.UK Developer Documentation</title>
+    <title>smart-answers: Storing data for later use - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers-app-development/testing.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/design/storing-data.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="smart-answers: Testing - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers-app-development/testing.html" />
+      <meta name="twitter:title" content="smart-answers: Storing data for later use - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/design/storing-data.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="smart-answers: Testing" />
+      <meta property="og:title" content="smart-answers: Storing data for later use" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers-app-development/testing.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/design/storing-data.html" />
 
     
   </head>
@@ -364,83 +364,59 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/5608a0ed738f0399d969fb8b80f04fa6e245d62e">5 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/1477fc852d0052f5c003cffd71ea34ed09d2dfc7">14 Jun 2021</a>
 </div>
 
-  <h1 class="page-title">smart-answers: Testing</h1>
+  <h1 class="page-title">smart-answers: Storing data for later use</h1>
 
   
-<p>If you're writing a new smart answer or are <a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers-app-development/refactoring.md">refactoring an existing one</a> then you should be using the new approach to testing which we're gradually adopting. The idea is that with the various concerns better separated, we should be able to provide more test coverage at the unit-test level i.e. using the idea of a <a href="http://martinfowler.com/bliki/TestPyramid.html">Test Pyramid</a>.</p>
-<p>Advantages:</p>
-<ul>
-<li>Avoids combinatorial explosion</li>
-<li>Tests are less brittle</li>
-<li>Easier to diagnose failing tests</li>
-<li>Faster test suite</li>
-</ul>
-<h2 id="external-dependencies">External dependencies</h2>
-<p>Some of the Smart Answers tests require PhantomJS to be <a href="https://github.com/teampoltergeist/poltergeist/blob/master/README.md#installing-phantomjs">installed on your machine natively</a>.</p>
-<p>Smart Answers also require the <code>govuk-content-schemas</code> repository which can be <a href="https://github.com/alphagov/govuk-content-schemas">cloned</a> into a sibling directory, or a directory referenced using <code>GOVUK_CONTENT_SCHEMAS_PATH</code>.</p>
-<h2 id="new-style">New style</h2>
-<p>When we built the <a href="https://github.com/alphagov/smart-answers/blob/master/lib/smart_answer_flows/part-year-profit-tax-credits.rb">part-year-profit-tax-credits</a>, we adopted the following strategy:</p>
-<h3 id="unit-tests">Unit tests</h3>
+<p>You can use the <code>on_response</code> method to store data for later use. These values are stored in the state and are available in the rest of the flow and in the ERB templates.</p>
 <ul>
 <li>
-<a href="https://github.com/alphagov/smart-answers/blob/master/test/unit/smart_answer_flows/part_year_profit_tax_credits_flow_test.rb">PartYearProfitTaxCreditsFlowTest</a>
+<code>on_response</code> values are available in:
 <ul>
-<li>This unit-tests the flow one node at a time</li>
-<li>Tests the question routing logic</li>
-<li>c.f. RSpec controller unit spec</li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/alphagov/smart-answers/blob/master/test/unit/smart_answer_flows/part_year_profit_tax_credits_view_test.rb">PartYearProfitTaxCreditsViewTest</a>
-<ul>
-<li>This unit-tests the rendering of question and outcome pages one node at a time</li>
-<li>Tests presentational logic</li>
-<li>c.f. RSpec view unit spec</li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/alphagov/smart-answers/blob/master/test/unit/calculators/part_year_profit_calculator_test.rb">PartYearProfitTaxCreditsCalculatorTest</a>
-<ul>
-<li>This unit tests the policy logic</li>
-<li>It sometimes stubs out methods in order to isolate specific parts of the logic</li>
-<li>c.f. RSpec model unit spec</li>
+<li>The <code>validate</code> block</li>
+<li>The <code>next_node</code> block</li>
+<li>All subsequent questions and outcomes</li>
 </ul>
 </li>
 </ul>
-<h3 id="integration-tests">Integration tests</h3>
-<ul>
-<li>
-<a href="https://github.com/alphagov/smart-answers/blob/master/test/integration/calculators/part_year_profit_calculator_test.rb">PartYearProfitTaxCreditsCalculatorTest</a>
-<ul>
-<li>This tests the calculator as a whole and doesn't stub out any of its methods.</li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/alphagov/smart-answers/blob/master/test/integration/smart_answer_flows/part_year_profit_tax_credits_test.rb">PartYearProfitTaxCreditsTest</a>
-<ul>
-<li>This checks that the flow and its component parts are wired up correctly.</li>
-<li>It doesn't aim for 100% coverage, but just enough to exercise each node at least once.</li>
-</ul>
-</li>
-</ul>
-<h2 id="old-style">Old style</h2>
-<p>We previously had to use nested contexts to write integration tests around Smart Answers. This lead to deeply nested, hard to follow tests. We've removed the code that required this style and should no longer be writing these deeply nested tests.</p>
-<ul>
-<li>Flows that have a calculator also tend to have a unit test for that calculator.</li>
-<li>When we started doing significant refactoring of the app, we weren't happy that we had sufficient test coverage to support this work.</li>
-<li>Notably none of the tests actually <em>rendered</em> the question or outcome pages.</li>
-<li>We introduced the regression tests as a relatively quick way to improve the test coverage.</li>
-<li>The regression tests are only a temporary measure to help with the refactoring and have now been removed.</li>
-</ul>
-<p>Here's an example Smart Answer flow and how the two approaches to testing differ:</p>
-<pre lang="ruby"><code>status :published
+<p><strong>NOTE.</strong> <code>on_response</code> blocks are not named, because they don't automatically store a value in a state variable. In fact doing so is actively discouraged apart from when storing a calculator object in the first question of a flow:</p>
+<pre lang="ruby"><code>radio :question_1? do
+  option :option_1
+  option :option_2
 
-radio :question_1? do
-  option :A
-  option :B
+  on_response do |response|
+    self.calculator = ExampleCalculator.new
+    calculator.question_1_response = response
+  end
+
+  next_node do
+    if calculator.question_1_response == 'option_1'
+      outcome :outcome_1
+    else
+      outcome :outcome_2
+    end
+  end
+end
+
+value_question :question_2? do
+  on_response do |response|
+    calculator.question_2_response = response
+  end
+
+  next_node do
+    if calculator.question_1_response == 'option_1' &amp;&amp; calculator.question_2_response == 'London'
+      outcome :outcome_1
+    else
+      outcome :outcome_2
+    end
+  end
+end
+</code></pre>
+<p>The flow below illustrates the data available to the different Question node methods.</p>
+<pre lang="ruby"><code>radio :question_1? do
+  option :q1_option
 
   next_node do
     question :question_2?
@@ -448,77 +424,25 @@ radio :question_1? do
 end
 
 radio :question_2? do
-  option :C
-  option :D
+  option :q2_option
 
-  next_node do
-    question :question_3?
-  end
-end
+  on_response do |response|
+    # response                =&gt; 'q2_option'
+    # responses               =&gt; ['q1_option']
 
-radio :question_3? do
-  option :E
-  option :F
-
-  next_node do
-    outcome :outcome_1
-  end
-end
-
-outcome :outcome_1 do
-end
-</code></pre>
-<h3 id="good-flattened-test">Good: Flattened test</h3>
-<p>This is how we should be writing integration tests for Smart Answer flows.</p>
-<pre lang="ruby"><code>should "exercise the example flow" do
-  setup_for_testing_flow SmartAnswer::ExampleFlow
-
-  assert_current_node :question_1?
-  add_response :A
-  assert_current_node :question_2?
-  add_response :C
-  assert_current_node :question_3?
-  add_response :E
-  assert_current_node :outcome_1
-end
-</code></pre>
-<h3 id="deprecated-a-test-using-nested-contexts">DEPRECATED: A test using nested contexts</h3>
-<p>This is how we were previously writing integration tests for Smart Answer flows.</p>
-<pre lang="ruby"><code>setup do
-  setup_for_testing_flow SmartAnswer::ExampleFlow
-end
-
-should "be on question 1" do
-  assert_current_node :question_1?
-end
-
-context "when answering question 1" do
-  setup do
-    add_response :A
+    self.q2_saved_response = response
   end
 
-  should "be on question 2" do
-    assert_current_node :question_2?
+  validate do |response|
+    # response                       =&gt; 'q2_option'
+    # responses                      =&gt; ['q1_option']
+    # q2_saved_response              =&gt; 'q2_option'
   end
 
-  context "when answering question 2" do
-    setup do
-      add_response :C
-    end
-
-    should "be on question 3" do
-      assert_current_node :question_3?
-    end
-
-    context "when answering question 3" do
-      setup do
-        add_response :E
-      end
-
-      should "be on outcome 1" do
-        assert_current_node :outcome_1
-      end
-    end
+  next_node do |response|
+    # response                       =&gt; 'q2_option'
+    # responses                      =&gt; ['q1_option']
+    # q2_saved_response              =&gt; 'q2_option'
   end
 end
 </code></pre>
@@ -529,8 +453,8 @@ end
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers-app-development/testing.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers-app-development/testing.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/design/storing-data.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/design/storing-data.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>smart-answers: ## Publishing - GOV.UK Developer Documentation</title>
+    <title>smart-answers: Refactoring existing Smart Answers - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answer-flow-development/publishing.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/refactoring.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="smart-answers: ## Publishing - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answer-flow-development/publishing.html" />
+      <meta name="twitter:title" content="smart-answers: Refactoring existing Smart Answers - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/refactoring.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="smart-answers: ## Publishing" />
+      <meta property="og:title" content="smart-answers: Refactoring existing Smart Answers" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answer-flow-development/publishing.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/refactoring.html" />
 
     
   </head>
@@ -364,14 +364,54 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/5608a0ed738f0399d969fb8b80f04fa6e245d62e">5 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/1477fc852d0052f5c003cffd71ea34ed09d2dfc7">14 Jun 2021</a>
 </div>
 
-  <h1 class="page-title">smart-answers: ## Publishing</h1>
+  <h1 class="page-title">smart-answers: Refactoring existing Smart Answers</h1>
 
-  <h3 id="publishing">Publishing</h3>
-<p>Changes to smart answer pages need to be sent to be sent to the <code>content store</code> for them to appear on GOV.UK.</p>
-<p>The <a href="https://github.com/alphagov/smart-answers/blob/master/lib/tasks/publishing_api.rake">rake task <code>publishing_api:sync_all</code></a> needs to be run once you have deployed your changes in each environment and can be done in <a href="https://deploy.integration.publishing.service.gov.uk/job/run-rake-task/parambuild/?TARGET_APPLICATION=smartanswers&amp;MACHINE_CLASS=calculators_frontend&amp;RAKE_TASK=publishing_api:sync_all">Jenkins</a>.</p>
+  
+<p>Some Smart Answer flows contain a mix of concerns: routing logic, policy/calculator logic and presentation logic.</p>
+<p>These concerns should really be split. Routing belongs in the flow, policy/calculator logic belongs in the calculator and presentation belongs in the ERB templates. You might think of the flow as the Controller, the calculator as the Model and the ERB template as the View in an MVC architecture.</p>
+<p>We've refactored a number of these Smart Answers and have a rough set of steps that we follow:</p>
+<ul>
+<li>
+<p>Include <code>ActiveModel::Model</code> in the calculator so that it's easy to instantiate it with a number of attributes set. See commit <a href="https://github.com/alphagov/smart-answers/commit/f78671a062339ae97abb5cb267b55536233316c9">f78671a062339ae97abb5cb267b55536233316c9</a> for an example.</p>
+</li>
+<li>
+<p>Instantiate the calculator in a <code>on_response</code> block in the first question. See commit <a href="https://github.com/alphagov/smart-answers/commit/0df6fd7df9a00ec882edf249eeaaa68a291633c5">0df6fd7df9a00ec882edf249eeaaa68a291633c5</a> for an example.</p>
+</li>
+</ul>
+<pre lang="ruby"><code>value_question :first_question? do
+  on_response do |response|
+    self.calculator = ExampleCalculator.new
+    calculator.first_response = response
+  end
+end
+</code></pre>
+<ul>
+<li>Save the responses to questions on the calculator object using an <code>on_response</code> block.</li>
+</ul>
+<pre lang="ruby"><code>value_question :subsequent_question? do
+  on_response do |response|
+    calculator.subsequent_response = response
+  end
+end
+</code></pre>
+<ul>
+<li>
+<p>Extract magic numbers into intention-revealing variables/constants. See commit <a href="https://github.com/alphagov/smart-answers/commit/2e1f2ad117813cf0b8741ffbff6c711f5d838947">2e1f2ad117813cf0b8741ffbff6c711f5d838947</a> for an example.</p>
+</li>
+<li>
+<p>Move policy logic from the flow to the calculator. See commit <a href="https://github.com/alphagov/smart-answers/commit/96f10c4c04bd88cc6506d74dad48989de7b7fa29">96f10c4c04bd88cc6506d74dad48989de7b7fa29</a> for an example.</p>
+</li>
+<li>
+<p>Move validation logic from the flow to the calculator. See commit <a href="https://github.com/alphagov/smart-answers/commit/7833a2c4b5bed6e699a96a194a1c7663d35ec520">7833a2c4b5bed6e699a96a194a1c7663d35ec520</a> for an example.</p>
+</li>
+<li>
+<p>Move presentation from the flow/calculator to the ERB templates. See commit <a href="https://github.com/alphagov/smart-answers/commit/a23e4c7ab8ed6b3ae4c53212d7cd4102fbeb1f37">a23e4c7ab8ed6b3ae4c53212d7cd4102fbeb1f37</a> for an example.</p>
+</li>
+</ul>
+<p><a href="https://github.com/alphagov/smart-answers/pull/2068">Pull request 2068</a> is a great example of incrementally applying the steps above to refactor the calculate-statutory-sick-pay Smart Answer. Pull requests <a href="https://github.com/alphagov/smart-answers/pull/2095">2095</a> and <a href="https://github.com/alphagov/smart-answers/pull/1856">1856</a> apply a similar refactoring to check-uk-visa and minimum-wage respectively.</p>
 
 
             
@@ -379,8 +419,8 @@
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answer-flow-development/publishing.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answer-flow-development/publishing.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/tasks/refactoring.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/refactoring.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

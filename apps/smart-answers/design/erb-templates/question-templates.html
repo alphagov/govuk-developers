@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>smart-answers: Storing data for later use - GOV.UK Developer Documentation</title>
+    <title>smart-answers: Question templates - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/storing-data.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/design/erb-templates/question-templates.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="smart-answers: Storing data for later use - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/storing-data.html" />
+      <meta name="twitter:title" content="smart-answers: Question templates - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/design/erb-templates/question-templates.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="smart-answers: Storing data for later use" />
+      <meta property="og:title" content="smart-answers: Question templates" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/storing-data.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/design/erb-templates/question-templates.html" />
 
     
   </head>
@@ -364,88 +364,106 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/5608a0ed738f0399d969fb8b80f04fa6e245d62e">5 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/1477fc852d0052f5c003cffd71ea34ed09d2dfc7">14 Jun 2021</a>
 </div>
 
-  <h1 class="page-title">smart-answers: Storing data for later use</h1>
+  <h1 class="page-title">smart-answers: Question templates</h1>
 
   
-<p>You can use the <code>on_response</code> method to store data for later use. These values are stored in the state and are available in the rest of the flow and in the ERB templates.</p>
-<ul>
-<li>
-<code>on_response</code> values are available in:
-<ul>
-<li>The <code>validate</code> block</li>
-<li>The <code>next_node</code> block</li>
-<li>All subsequent questions and outcomes</li>
-</ul>
-</li>
-</ul>
-<p><strong>NOTE.</strong> <code>on_response</code> blocks are not named, because they don't automatically store a value in a state variable. In fact doing so is actively discouraged apart from when storing a calculator object in the first question of a flow:</p>
-<pre lang="ruby"><code>radio :question_1? do
-  option :option_1
-  option :option_2
-
-  on_response do |response|
-    self.calculator = ExampleCalculator.new
-    calculator.question_1_response = response
-  end
-
-  next_node do
-    if calculator.question_1_response == 'option_1'
-      outcome :outcome_1
-    else
-      outcome :outcome_2
-    end
-  end
-end
-
-value_question :question_2? do
-  on_response do |response|
-    calculator.question_2_response = response
-  end
-
-  next_node do
-    if calculator.question_1_response == 'option_1' &amp;&amp; calculator.question_2_response == 'London'
-      outcome :outcome_1
-    else
-      outcome :outcome_2
-    end
-  end
-end
+<p>Question templates live in <code>lib/smart_answer_flows/&lt;flow-name&gt;/questions/&lt;question-name&gt;.erb</code>.</p>
+<h2 id="content-types">Content types</h2>
+<p>The templates can contain content for any of the following keys:</p>
+<h3 id="title"><code>:title</code></h3>
+<p>Used as the h1 heading and can only be text. Example:</p>
+<pre lang="erb"><code>&lt;% text_for :title do %&gt;
+  How much milk proteins does the product contain?
+&lt;% end %&gt;
 </code></pre>
-<p>The flow below illustrates the data available to the different Question node methods.</p>
-<pre lang="ruby"><code>radio :question_1? do
-  option :q1_option
+<h3 id="hint"><code>:hint</code></h3>
+<p>Used as a "hint" paragraph and can be text. For money and radio questions you can
+also use govspeak or HTML. Example:</p>
+<pre lang="erb"><code>&lt;% govspeak_for :hint do %&gt;
+  Examples of some fruit:
 
-  next_node do
-    question :question_2?
-  end
-end
-
-radio :question_2? do
-  option :q2_option
-
-  on_response do |response|
-    # response                =&gt; 'q2_option'
-    # responses               =&gt; ['q1_option']
-
-    self.q2_saved_response = response
-  end
-
-  validate do |response|
-    # response                       =&gt; 'q2_option'
-    # responses                      =&gt; ['q1_option']
-    # q2_saved_response              =&gt; 'q2_option'
-  end
-
-  next_node do |response|
-    # response                       =&gt; 'q2_option'
-    # responses                      =&gt; ['q1_option']
-    # q2_saved_response              =&gt; 'q2_option'
-  end
-end
+  - apple
+  - orange
+  - banana
+&lt;% end %&gt;
 </code></pre>
+<h3 id="caption"><code>:caption</code></h3>
+<p>Used as a "caption" paragraph and can only be text. Example:</p>
+<pre lang="erb"><code>&lt;% text_for :caption do %&gt;
+  This is a caption
+&lt;% end %&gt;
+</code></pre>
+<p>If <code>:caption</code> is not supplied the <code>:title</code> (i.e. the flow name) from the <code>start_node</code> is used.</p>
+<h3 id="label"><code>:label</code></h3>
+<p>Used as a label (preceding the input control) for value questions. Can only be text. Example:</p>
+<pre lang="erb"><code>&lt;% text_for :label do %&gt;
+  Hours per shift
+&lt;% end %&gt;
+</code></pre>
+<p>Note: As of May 2020 this option may not be working correctly. Please check and amend this documentation.</p>
+<h3 id="suffix_label"><code>:suffix_label</code></h3>
+<p>Valid for <a href="https://github.com/alphagov/smart-answers/blob/main/docs/design/question-types.md#value_question">value questions</a> &amp; <a href="https://github.com/alphagov/smart-answers/blob/main/docs/design/question-types.md#money_question">money questions</a>. Can only be text. Example:</p>
+<pre lang="erb"><code>&lt;% text_for :suffix_label do %&gt;
+  years old
+&lt;% end %&gt;
+</code></pre>
+<h3 id="body"><code>:body</code></h3>
+<p>Used to generate the main content (appearing above the input control, e.g. text input element).
+It is valid for all questions types and can be govspeak or HTML. Example:</p>
+<pre lang="erb"><code>&lt;% govspeak_for :body do %&gt;
+  An introduction to a question.
+&lt;% end %&gt;
+</code></pre>
+<h3 id="post_body"><code>:post_body</code></h3>
+<p>Used to generate supplementary content (appearing below the input control).
+It is valid for all question types and can be govspeak or HTML. Example:</p>
+<pre lang="erb"><code>&lt;% html_for :post_body do %&gt;
+  &lt;p&gt;A conclusion to a question&lt;/p&gt;
+&lt;% end %&gt;
+</code></pre>
+<h3 id="error_message"><code>:error_message</code></h3>
+<p>Error message for the default validation error key. Can only be text. Example:</p>
+<pre lang="erb"><code>&lt;% text_for :error_message do %&gt;
+  Try again
+&lt;% end %&gt;
+</code></pre>
+<p>Note you can specify error messages for a custom validation error key. These
+can be specified with a prefix of <code>:error_</code>,</p>
+<p>Example:</p>
+<pre lang="erb"><code>&lt;% text_for :error_for_a_specific_scenario do %&gt;
+  Try again
+&lt;% end %&gt;
+</code></pre>
+<h2 id="specifying-options">Specifying options</h2>
+<p>This is done using a call to the <code>options</code> method.</p>
+<h3 id="optionshash"><code>options(hash)</code></h3>
+<p>Valid for <a href="https://github.com/alphagov/smart-answers/blob/main/docs/design/question-types.md#radio">radio</a> and <a href="https://github.com/alphagov/smart-answers/blob/main/docs/design/question-types.md#checkbox_question">checkbox</a> question types. <code>hash</code> argument is a <code>Hash</code> of option keys (strings) and values (strings or hashes).
+It is used to specify the human-readable label text or hint text for each of the option keys.</p>
+<p>Example with only label text:</p>
+<pre lang="erb"><code>&lt;% options(
+  "apple": "Apple",
+  "banana": "Bananas",
+  "red-grapes": "Red grapes"
+) %&gt;
+</code></pre>
+<p>Example with label text and hint text:</p>
+<pre lang="erb"><code>&lt;% options(
+  "apple": "Apple",
+  "gooseberry": {
+    label: "Gooseberry",
+    hint_text: "These can be sour"
+  },
+  "red-grapes": "Red grapes"
+) %&gt;
+</code></pre>
+<h2 id="hiding-the-caption">Hiding the caption</h2>
+<p>If you need hide the caption text above the question text. This can be set using the following method:</p>
+<pre lang="erb"><code>&lt;% hide_caption true %&gt;
+</code></pre>
+<p>By default the caption is shown (<code>hide_caption false</code>).</p>
 
 
             
@@ -453,8 +471,8 @@ end
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/storing-data.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/storing-data.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/design/erb-templates/question-templates.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/design/erb-templates/question-templates.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>

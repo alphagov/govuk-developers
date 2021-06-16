@@ -6,23 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>smart-answers: Outcome templates - GOV.UK Developer Documentation</title>
+    <title>smart-answers: Flattening Marriage Abroad outcomes for a country - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/erb-templates/outcome-templates.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/flattening-outcomes.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="smart-answers: Outcome templates - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/erb-templates/outcome-templates.html" />
+      <meta name="twitter:title" content="smart-answers: Flattening Marriage Abroad outcomes for a country - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/flattening-outcomes.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="smart-answers: Outcome templates" />
+      <meta property="og:title" content="smart-answers: Flattening Marriage Abroad outcomes for a country" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/erb-templates/outcome-templates.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/flattening-outcomes.html" />
 
     
   </head>
@@ -364,45 +364,31 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/5608a0ed738f0399d969fb8b80f04fa6e245d62e">5 Feb 2021</a>
+  Last updated: <a href="https://github.com/alphagov/smart-answers/commit/1477fc852d0052f5c003cffd71ea34ed09d2dfc7">14 Jun 2021</a>
 </div>
 
-  <h1 class="page-title">smart-answers: Outcome templates</h1>
+  <h1 class="page-title">smart-answers: Flattening Marriage Abroad outcomes for a country</h1>
 
   
-<p>Outcome templates live in <code>lib/smart_answer_flows/&lt;flow-name&gt;/outcomes/&lt;outcome-name&gt;.erb</code>.</p>
-<h2 id="content-types">Content types</h2>
-<p>The templates can contain content for any of the following keys:</p>
-<h3 id="title"><code>:title</code></h3>
-<p>Used as the h1 heading and can only be text. Example:</p>
-<pre lang="erb"><code>&lt;% text_for :title do %&gt;
-  &lt;% unless calculator.has_commodity_code? %&gt;
-    The product composition you indicated is not possible.
-  &lt;% else %&gt;
-    The Meursing code for a product with this composition is 7&lt;%= calculator.commodity_code %&gt;.
-  &lt;% end %&gt;
-&lt;% end %&gt;
-</code></pre>
-<h3 id="body"><code>:body</code></h3>
-<p>Used to generate the main content. Expected to be govspeak or HTML. Example:</p>
-<pre lang="erb"><code>&lt;% govspeak_for :body do %&gt;
-  &lt;% if calculator.has_commodity_code? %&gt;
-    Use these four digits together with the ten-digit commodity code from Trade Tariff.
-  &lt;% end %&gt;
-&lt;% end %&gt;
-</code></pre>
-<h3 id="use_title_as_h1"><code>:use_title_as_h1</code></h3>
-<p>When <code>true</code>, specifies that you want to use the given <code>title</code> as the outcome page
-<code>&lt;h1&gt;</code> heading instead of the default <code>&lt;h2&gt;</code> heading.  The flow title is no longer
-shown.</p>
-<pre lang="erb"><code>&lt;% use_title_as_h1 true %&gt;
-</code></pre>
-<h3 id="next_steps"><code>next_steps</code></h3>
-<p>Used to generate the "next steps" content (at the top of the right-hand sidebar). Expected to be govspeak or HTML. Example:</p>
-<pre lang="erb"><code>&lt;% govspeak_for :next_steps do %&gt;
-  Find out what happens to [ownerless property](/unclaimed-estates-bona-vacantia "Ownerless property (bona vacantia)")
-&lt;% end %&gt;
-</code></pre>
+<p><strong>1. Run the rake task to flatten the outcomes:</strong></p>
+<ul>
+<li><code>bundle exec rake marriage_abroad:flatten_outcomes[&lt;your country&gt;]</code></li>
+<li><code># e.g. bundle exec rake "marriage_abroad:flatten_outcomes[qatar]"</code></li>
+</ul>
+<p><strong>2. Add or move the country into the right section of these files:</strong></p>
+<ul>
+<li><code>config/smart_answers/marriage_abroad_data.yml</code></li>
+<li><code>test/integration/smart_answer_flows/marriage_abroad_test.rb</code></li>
+</ul>
+<p><strong>3. Update any special cases in these files:</strong></p>
+<ul>
+<li><code>test/integration/smart_answer_flows/marriage_abroad_test.rb</code></li>
+<li><code>lib/smart_answer_flows/marriage-abroad.rb</code></li>
+</ul>
+<p><strong>4. Remove any special-case outcome files for the country here:</strong></p>
+<ul>
+<li><code>lib/smart_answer_flows/marriage-abroad/outcomes</code></li>
+</ul>
 
 
             
@@ -410,8 +396,8 @@ shown.</p>
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/smart-answers/erb-templates/outcome-templates.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/smart-answers/erb-templates/outcome-templates.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/smart-answers/blob/main/docs/tasks/flattening-outcomes.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20''&amp;body=Problem%20with%20''%20(https://docs.publishing.service.gov.uk/apps/smart-answers/tasks/flattening-outcomes.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
