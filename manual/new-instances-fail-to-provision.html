@@ -132,6 +132,17 @@
   <ul>
   <li>
     <a href="#header"><span>New instances fail to provision</span></a>
+    <ul>
+      <li>
+        <a href="#symptoms"><span>Symptoms</span></a>
+      </li>
+      <li>
+        <a href="#diagnosis"><span>Diagnosis</span></a>
+      </li>
+      <li>
+        <a href="#treatment"><span>Treatment</span></a>
+      </li>
+    </ul>
   </li>
 </ul>
 
@@ -182,22 +193,32 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c254551168a88dfba0517ed93f5eecc1d7255faa">3 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/a2e5c3ae074a5e680ab82392575f798a397ff92f">21 Jun 2021</a>
 </div>
 
  <h1 id='header'>New instances fail to provision</h1> <p>Sometimes, it may happen that a new instance is not provisioned correctly due to
 <code>unattended reboot</code> rebooting the instance before all the init scripts have
 time to run.</p>
-<p>You may diagnose this issue by looking at the <code>system logs</code> in AWS console
+<p>This issue is more likely in Staging due to <code>unattended reboot</code> checking <a href="https://github.com/alphagov/govuk-puppet/commit/fd1a291ca69bae254b4b0efacec13f4228939496">every
+5 minutes at all hours of the day</a> rather than between <a href="https://github.com/alphagov/govuk-puppet/blob/e76b397c3e570ba807791befbf61758100e143d8/hieradata_aws/common.yaml#L1521">midnight and 5am</a> for Integration and Production.</p>
+<h2 id='symptoms'>Symptoms</h2><p>You&rsquo;ll likely see &ldquo;puppet last run errors&rdquo; on the instance.
+When running <code>govuk_puppet --test</code>, you&rsquo;ll likely see output like this:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>govuk_puppet <span class="nt">--test</span>
+<span class="c"># ...</span>
+Error: Execution of <span class="s1">'/usr/bin/apt-get -q -y -o DPkg::Options::=--force-confold install libxml2-dev'</span> returned 100: E: dpkg was interrupted, you must manually run <span class="s1">'sudo dpkg --configure -a'</span> to correct the problem.
+Error: /Stage[main]/Base::Packages/Package[libxml2-dev]/ensure: change from absent to present failed: Execution of <span class="s1">'/usr/bin/apt-get -q -y -o DPkg::Options::=--force-confold install libxml2-dev'</span> returned 100: E: dpkg was interrupted, you must manually run <span class="s1">'sudo dpkg --configure -a'</span> to correct the problem.
+Info: Class[Nginx::Config]: Scheduling refresh of Class[Nginx::Service]
+Info: Class[Nginx::Service]: Scheduling refresh of Service[nginx]
+Notice: /Stage[main]/Nginx::Service/Service[nginx]: Triggered <span class="s1">'refresh'</span> from 1 events
+Notice: /Stage[main]/Govuk_scripts/Exec[check_boto]: Dependency Package[libxml2-dev] has failures: <span class="nb">true
+</span>Warning: /Stage[main]/Govuk_scripts/Exec[check_boto]: Skipping because of failed dependencies
+Notice: Finished catalog run <span class="k">in </span>24.56 seconds
+</code></pre></div><h2 id='diagnosis'>Diagnosis</h2><p>You may diagnose this issue by looking at the <code>system logs</code> in AWS console
 (select the failed instance in EC2 console -&gt; <code>Actions</code> -&gt;
 <code>Monitor and troubleshoot</code> -&gt; <code>Get system log</code>) and seeing whether all
 init scripts have been run.</p>
-<p>This issue is more severe in Staging due to <code>unattended reboot</code> checking every
-5 minutes at all hours of the day (see <a href="https://github.com/alphagov/govuk-puppet/commit/fd1a291ca69bae254b4b0efacec13f4228939496">here</a>)
-rather than between <a href="https://github.com/alphagov/govuk-puppet/blob/e76b397c3e570ba807791befbf61758100e143d8/hieradata_aws/common.yaml#L1521">0-5</a> for Integration and Production.</p>
-<p>You could temporarily disable <code>unattended reboot</code> by adding this to the relevant hiera:
-<code>govuk_unattended_reboot::enabled: false</code>, deploy the branch of Puppet and create new
-instances again.</p>
+<h2 id='treatment'>Treatment</h2><p>If it is safe to do so, <a href="/manual/reprovision.html">reprovision the machine</a>.</p>
+<p>If the issue persists, you could temporarily disable <code>unattended reboot</code> by adding <code>govuk_unattended_reboot::enabled: false</code> to the relevant hiera. You&rsquo;ll need to deploy the branch of Puppet before creating the new instances again.</p>
 
 
   <div class='related-content'>
