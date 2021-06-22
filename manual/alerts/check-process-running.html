@@ -143,6 +143,14 @@
       </li>
       <li>
         <a href="#fixing-the-issue"><span>Fixing the issue</span></a>
+        <ul>
+          <li>
+            <a href="#restarting-the-service"><span>Restarting the service</span></a>
+          </li>
+          <li>
+            <a href="#fixing-a-stalled-process"><span>Fixing a stalled process</span></a>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="#troubleshooting-the-process"><span>Troubleshooting the process</span></a>
@@ -169,15 +177,8 @@
 
     
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/2c7fc4373f0375e82be7988470f8386b8fc77105">17 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/974a484bd72c87c036e76f90d1c7313ec13bf48d">22 Jun 2021</a>
 </div>
 
  <h1 id='header'>Check process running</h1> <p>This alert means that a process which should be running is not. It&rsquo;s highly likely that this process corresponds to a service.</p>
@@ -186,11 +187,16 @@
 </code></pre></div><p>If this doesn&rsquo;t work, you may need to do some digging to find out the name of the service. For example, the <code>postgresql</code> service runs the <code>postgres</code> process.</p>
 <h3 id='determining-the-name-of-the-service'>Determining the name of the service</h3><p>Look in <code>/etc/init</code> for services that may be in charge of the process.</p>
 <p>You can also list services with <code>sudo service --status-all</code>, though this doesn&rsquo;t show processes started with <a href="http://upstart.ubuntu.com/">upstart</a>.</p>
-<h2 id='fixing-the-issue'>Fixing the issue</h2><p>If the service isn&rsquo;t running, it can be enough to just restart the service by using:</p>
+<h2 id='fixing-the-issue'>Fixing the issue</h2><h3 id='restarting-the-service'>Restarting the service</h3><p>If the service isn&rsquo;t running, it can be enough to just restart the service by using:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service &lt;service&gt; start
 </code></pre></div><p>If the service is referring to a GOV.UK application, it may be necessary to also restart the Procfile worker:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service &lt;service&gt;-procfile-worker restart
-</code></pre></div><p>Sometimes, a process might appear to be running, but is actually stalled by a child process that has completed but not been garbage collected:</p>
+</code></pre></div><p>Check that the service has now started, by running:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nb">sudo </span>service &lt;service&gt; status
+</code></pre></div><p>If the service didn&rsquo;t start, check whether the app was successfully deployed to the machine.
+You should be able to <code>cd /data/vhost/{SERVICE NAME}/</code>, run <code>ls</code> and see a <code>releases</code> folder.
+If not, it is likely the <a href="/manual/new-instances-fail-to-provision.html">machine failed to provision</a> correctly.</p>
+<h3 id='fixing-a-stalled-process'>Fixing a stalled process</h3><p>Sometimes, a process might appear to be running, but is actually stalled by a child process that has completed but not been garbage collected:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>ps <span class="nt">-ef</span> | <span class="nb">grep </span>defunct
 root      2735     1  0 Jun08 ?        00:02:09 <span class="o">[</span>prometheus] &lt;defunct&gt;
 </code></pre></div><p>You can confirm this is a child process of the process in the alert by running <code>ps faux</code> to see where it is descended from.</p>
@@ -203,11 +209,6 @@ investigating by looking in the log files which could be in one of the following
 <li><code>/var/log/&lt;process&gt;/</code></li>
 <li><code>/var/log/&lt;process&gt;.log</code></li>
 </ul>
-<p>If you see something in the logs such as</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nt">---</span><span class="o">&gt;</span> Spinning up <span class="s1">'govuk_crawler_worker'</span> <span class="o">(</span><span class="nb">type </span>bare<span class="o">)</span> <span class="k">in</span> <span class="s1">'production'</span> environment
-/usr/local/bin/govuk_spinup: 30: <span class="nb">cd</span>: can<span class="s1">'t cd to /var/apps/govuk_crawler_worker
-</span></code></pre></div><p>This suggests that the crawler hasn&rsquo;t been deployed to the machine. You can try re-deploying
-via <a href="https://deploy.blue.staging.govuk.digital/">deploy jenkins</a>.</p>
 
 
   <div class='related-content'>

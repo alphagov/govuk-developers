@@ -193,7 +193,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/48050b7f386370b1dda9dca26bef4b8fa5c38ff7">21 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/974a484bd72c87c036e76f90d1c7313ec13bf48d">22 Jun 2021</a>
 </div>
 
  <h1 id='header'>New instances fail to provision</h1> <p>Sometimes, it may happen that a new instance is not provisioned correctly due to
@@ -218,7 +218,7 @@ Notice: Finished catalog run <span class="k">in </span>24.56 seconds
 <code>Monitor and troubleshoot</code> -&gt; <code>Get system log</code>) and seeing whether all
 init scripts have been run.</p>
 <h2 id='treatment'>Treatment</h2><p>Replatforming have a <a href="https://trello.com/c/uymM8qmy/538-fix-intermittently-broken-provisioning-in-ec2-govuk-because-of-unattended-reboot">card</a> to fix this.</p>
-<p>Until then, the recommended fix is to run <code>/usr/local/bin/govuk_sync_apps</code> once puppet has run cleanly on the machine. Note that the script takes some time to complete as there is a <code>sleep 180</code> in it.</p>
+<p>Until then, the recommended fix is to run <code>sudo /usr/local/bin/govuk_sync_apps</code> once puppet has run cleanly on the machine. Note that the script takes some time to complete as there is a <code>sleep 180</code> in it.</p>
 <p>Failing that, you could try <a href="/manual/reprovision.html">reprovisioning the machine</a>. If the issue persists, you may need to temporarily disable <code>unattended reboot</code> by adding <code>govuk_unattended_reboot::enabled: false</code> to the relevant hiera. You&rsquo;ll need to deploy the branch of Puppet before creating the new instances again.</p>
 
 
