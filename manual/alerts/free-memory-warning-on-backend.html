@@ -172,7 +172,7 @@
     
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/91675b1f21d07f12a1257ccaf2ba70b0075cb74f">12 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4038d090d9d2766ed9d8827492f5c1e017016fab">22 Jun 2021</a>
 </div>
 
  <h1 id='header'>Free memory warning on backend</h1> <p>This alert is often caused by an application slowly leaking memory, which
@@ -180,7 +180,7 @@ isn&rsquo;t usually an issue for apps that are deployed/restarted frequently.
 Some less frequently deployed apps will continue to grow over time.</p>
 <p>For more info, you can also read <a href="/manual/alerts/high-memory-for-application.html">the page for the alert that triggers
 when a application uses too much memory</a>.</p>
-<h3 id='investigation-of-the-problem'>Investigation of the problem</h3><p>Check <a href="https://graphite.publishing.service.gov.uk/render/?width=1133&amp;height=630&amp;_salt=1413553577.366&amp;from=-24days&amp;hideLegend=false&amp;target=highestAverage%28backend-1_backend.processes-*.ps_rss%2C5%29">Graphite</a> to see which apps are consuming a lot of
+<h3 id='investigation-of-the-problem'>Investigation of the problem</h3><p>Check <a href="https://graphite.blue.production.govuk.digital/render/?width=1133&amp;height=630&amp;_salt=1413553577.366&amp;from=-24days&amp;hideLegend=false&amp;target=highestAverage%28backend-1_backend.processes-*.ps_rss%2C5%29">Graphite</a> to see which apps are consuming a lot of
 memory, and are growing over time.</p>
 <p>You could also try using <code>htop</code> and sorting by memory to locate high memory
 usage, though this won&rsquo;t identify creeping memory leaks in the same way

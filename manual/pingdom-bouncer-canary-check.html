@@ -182,7 +182,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/55cbbabcd7fe7d13d18177f294d7e9edd7872d55">22 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4038d090d9d2766ed9d8827492f5c1e017016fab">22 Jun 2021</a>
 </div>
 
  <h1 id='header'>Pingdom Bouncer canary check</h1> <p>This alert is raised by <a href="/manual/pingdom.html">Pingdom</a> when it cannot
@@ -205,7 +205,7 @@ correctly passed to <code>https://bouncer.publishing.service.gov.uk</code></li>
 unavailable</li>
 <li>Bouncer&rsquo;s dependencies being missing or having errors in its
 configuration</li>
-<li><a href="https://graphite.publishing.service.gov.uk/render/?width=600&amp;height=300&amp;target=alias(dashed(constantLine(6442450944)),%22critical%22)&amp;target=alias(dashed(constantLine(4294967296)),%22warning%22)&amp;target=bouncer-*_redirector.processes-app-bouncer.ps_rss&amp;from=-2days">memory leaks in Bouncer</a></li>
+<li><a href="https://graphite.blue.production.govuk.digital/render/?width=600&amp;height=300&amp;target=alias(dashed(constantLine(6442450944)),%22critical%22)&amp;target=alias(dashed(constantLine(4294967296)),%22warning%22)&amp;target=bouncer-*_redirector.processes-app-bouncer.ps_rss&amp;from=-2days">memory leaks in Bouncer</a></li>
 <li>the app being unable to connect or authorise to the database</li>
 <li>the database or the required tables being missing or empty</li>
 <li>the <code>bouncer</code> role not having <code>SELECT</code> privileges on the required tables</li>
