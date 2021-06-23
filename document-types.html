@@ -330,9 +330,12 @@
               <h1 class="page-title">Document types on GOV.UK</h1>
 
   <p>The document type describes a page on GOV.UK.</p>
-<p>You can <a href="/document-types.csv">download this data as CSV too</a>. In Google Spreadsheets, use the following formula:</p>
+<p>You can <a href="/document-types.csv">download this data as CSV too</a> which is generated automatically based on the data in the <a href="https://github.com/alphagov/govuk_document_types">govuk_document_types repo</a>.</p>
+<p>To view the current data in Google Spreadsheets, copy the following formula into a new spreadsheet:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>=importData("https://docs.publishing.service.gov.uk/document-types.csv")
-</code></pre></div>
+</code></pre></div><p>Note that this is only a snapshot of the data and isn&rsquo;t kept up to date from the CSV.</p>
+<h2 id='using-search-to-find-similar-data'>Using Search to find similar data</h2><p>Use this <a href="https://www.gov.uk/api/search.json?count=0&amp;facet_content_store_document_type=115,examples:1,example_scope:query,example_fields:rendering_app">search query for document types</a> (it&rsquo;s currently missing bits of Whitehall)</p>
+
 
             
           </main>
