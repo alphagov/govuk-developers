@@ -10,23 +10,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>SSH into machines - GOV.UK Developer Documentation</title>
+    <title>Google Cloud Platform (GCP) - GOV.UK Developer Documentation</title>
 
     <link href="/stylesheets/manifest.css" rel="stylesheet" />
 
-    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html">
+    <link rel="canonical" href="https://docs.publishing.service.gov.uk/manual/google-cloud-platform-gcp.html">
 
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:domain" content="docs.publishing.service.gov.uk" />
       <meta name="twitter:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
-      <meta name="twitter:title" content="SSH into machines - GOV.UK Developer Documentation" />
-      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html" />
+      <meta name="twitter:title" content="Google Cloud Platform (GCP) - GOV.UK Developer Documentation" />
+      <meta name="twitter:url" content="https://docs.publishing.service.gov.uk/manual/google-cloud-platform-gcp.html" />
 
       <meta property="og:image" content="https://docs.publishing.service.gov.uk/images/govuk-large.png" />
       <meta property="og:site_name" content="GOV.UK Developer Documentation" />
-      <meta property="og:title" content="SSH into machines" />
+      <meta property="og:title" content="Google Cloud Platform (GCP)" />
       <meta property="og:type" content="object" />
-      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html" />
+      <meta property="og:url" content="https://docs.publishing.service.gov.uk/manual/google-cloud-platform-gcp.html" />
 
     
   </head>
@@ -131,21 +131,21 @@
                   <a href='/manual.html' class="toc__back-link govuk-link">&lsaquo; Manual</a>
   <ul>
   <li>
-    <a href="#header"><span>SSH into machines</span></a>
+    <a href="#header"><span>Google Cloud Platform (GCP)</span></a>
     <ul>
       <li>
-        <a href="#usage"><span>Usage</span></a>
-      </li>
-      <li>
-        <a href="#troubleshooting"><span>Troubleshooting</span></a>
+        <a href="#gcp-access"><span>GCP access</span></a>
         <ul>
           <li>
-            <a href="#ssh-key"><span>SSH Key</span></a>
+            <a href="#accessing-the-console"><span>Accessing the console</span></a>
           </li>
           <li>
-            <a href="#cli-problems"><span>CLI Problems</span></a>
+            <a href="#using-the-cli"><span>Using the CLI</span></a>
           </li>
         </ul>
+      </li>
+      <li>
+        <a href="#support-tasks-which-involve-gcp"><span>Support tasks which involve GCP</span></a>
       </li>
     </ul>
   </li>
@@ -198,48 +198,54 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/4b3dd1e17d969a4670aa0fd089ec9ba5f87f0dc3">13 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/dbe7d96900104a52b93342dee2e6830a1b300c54">23 Jun 2021</a>
 </div>
 
- <h1 id='header'>SSH into machines</h1> <p>This document explains how to SSH into machines, and what commands exist to navigate machines and applications quickly. We use a tool called <a href="https://github.com/alphagov/govuk-connect">GOV.UK Connect</a> to make this easier.</p>
-<h2 id='usage'>Usage</h2><p>If you know the class of machine you want, you can SSH straight from the command line:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh cache
-</code></pre></div><p>This will automatically SSH into a random <code>cache</code> machine on AWS.</p>
-<p>To see all classes, run:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging ssh <span class="k">*</span>
-</code></pre></div><p>You can connect to specific machines if you know their internal IP address:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect ssh <span class="nt">-e</span> integration ip-10-1-6-234.eu-west-1.compute.internal
-</code></pre></div><p>You can also start a Rails Console on a remote server, from your local machine:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>gds govuk connect <span class="nt">-e</span> staging app-console publishing-api
-</code></pre></div><p>For a full list of commands, run <code>gds govuk connect --help</code>.</p>
-<h2 id='troubleshooting'>Troubleshooting</h2><h3 id='ssh-key'>SSH Key</h3><p>Sometimes you might try to ssh into a server and nothing happens. Double-check that you
-have added the key into the keychain like so: <code>ssh-add -K ~/.ssh/id_rsa</code>.</p>
-<p>Make sure you have been granted access. For example, if you have yet to be granted access
-to production, your attempt to SSH into a production node will fail silently.</p>
-<h3 id='cli-problems'>CLI Problems</h3><p><a href="https://github.com/alphagov/govuk-connect">GOV.UK Connect</a> is a tool we use to make working with our machines quicker and easier. If
-it&rsquo;s not working, you can try manually running the commands it normally runs for you.</p>
+ <h1 id='header'>Google Cloud Platform (GCP)</h1> <p>GOV.UK uses Google Cloud Platform (GCP) for three main things:</p>
 
 <ul>
-<li><p><a href="https://docs.publishing.service.gov.uk/apps.html">Find the class of machine you need</a>.</p></li>
-<li><p>Find <a href="https://github.com/alphagov/govuk-connect/blob/095d49445d25e2afe845c00b32fb35589087f292/lib/govuk_connect/cli.rb#L81">the jumpbox for the environment you need</a>.</p></li>
-<li><p>Use ssh to run <code>govuk_node_list</code> on the jumpbox to find the machine you want.</p></li>
+<li><a href="/manual/fall-back-to-mirror.html">Static mirrors of GOV.UK</a> (these are hosted in AWS and GCP).</li>
+<li><a href="/manual/dns.html">DNS</a> (DNS for www.gov.uk, service.gov.uk and other domains we manage is mirrored to name servers in AWS Route53 and Google CloudDNS)</li>
+<li>Various data science tasks such as <a href="/manual/view-extract-feedback-data-bigquery.html">BigQuery</a></li>
 </ul>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>ssh jumpbox.staging.govuk.digital govuk_node_list <span class="nt">-c</span> backend
-  ip-10-12-4-106.eu-west-1.compute.internal
-  ip-10-12-5-205.eu-west-1.compute.internal
-  ip-10-12-6-44.eu-west-1.compute.internal
-</code></pre></div>
+<h2 id='gcp-access'>GCP access</h2><p>Access to GCP is managed through the <a href="https://groups.google.com/a/digital.cabinet-office.gov.uk/g/govuk-gcp-access">GOV.UK GCP access Google Group</a>.</p>
+<p>Access to this group is granted manually once <a href="/manual/rules-for-getting-production-access.html">permanent Production access</a> is
+approved and merged to <a href="https://github.com/alphagov/govuk-user-reviewer">GOV.UK user reviewer</a> repository.</p>
+<p>If you should have access but don&rsquo;t, the 2nd line team should be able to add you to the Google Group.</p>
+<h3 id='accessing-the-console'>Accessing the console</h3><p>You can login to the GCP console at <a href="https://console.cloud.google.com/">https://console.cloud.google.com/</a> using
+your <code>@digital.cabinet-office.gov.uk</code> email address.</p>
+<p>There are four main GCP projects in GOV.UK:</p>
+
 <ul>
-<li>SSH to one of the machines in the list using the jumpbox:</li>
+<li><a href="https://console.cloud.google.com/home/dashboard?project=govuk-production">GOVUK Production</a></li>
+<li><a href="https://console.cloud.google.com/home/dashboard?project=govuk-integration">GOVUK Integration</a></li>
+<li><a href="https://console.cloud.google.com/home/dashboard?project=govuk-staging-160211">GOVUK Staging</a></li>
+<li><a href="https://console.cloud.google.com/home/dashboard?project=govuk-test">GOVUK Test</a></li>
 </ul>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>ssh <span class="nt">-J</span> jumpbox.staging.govuk.digital ip-10-12-4-106.eu-west-1.compute.internal
-</code></pre></div>
+<p>The interesting services are:</p>
+
 <ul>
-<li>Once you&rsquo;re on the machine you need, you can start a Rails console.</li>
+<li><a href="https://console.cloud.google.com/storage/browser?project=govuk-production">Google Cloud Storage</a> - where the static mirrors are stored</li>
+<li><a href="https://console.cloud.google.com/net-services/dns/zones?project=govuk-production">Google Cloud DNS</a> - where the DNS is configured</li>
 </ul>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>  <span class="nv">$ </span>govuk_app_console publisher
-</code></pre></div><p>These common commands, along with <code>govuk_node_list</code>, live in
-<a href="https://github.com/alphagov/govuk-puppet/tree/master/modules/govuk_scripts">govuk-puppet</a>.</p>
+<h3 id='using-the-cli'>Using the CLI</h3><p>As with AWS, you can access GCP using the command line. The standard GCP command line interface is <code>gcloud</code>.</p>
+<p>You can install <code>gcloud</code> with <code>brew cask install google-cloud-sdk</code> or by following the instructions at <a href="https://cloud.google.com/sdk/docs/quickstart#mac">google&rsquo;s installation instructions</a>.</p>
+<p>NOTE: By default <code>gcloud</code> doesn&rsquo;t put itself on your PATH, so there&rsquo;s an extra manual step to add it.
+Make sure you follow all of the instructions from <a href="https://formulae.brew.sh/cask/google-cloud-sdk">homebrew&rsquo;s google-cloud-sdk cask</a>
+or <a href="https://cloud.google.com/sdk/docs/quickstart#mac">google&rsquo;s installation instructions</a>.</p>
+<p>Once you&rsquo;ve installed <code>gcloud</code> you can check it&rsquo;s working using some of these commands:</p>
+
+<ul>
+<li><code>gcloud help</code> - get help</li>
+<li><code>gcloud auth login</code> - sign in</li>
+<li><code>gcloud config set project govuk-production</code> - select the GOVUK Production project</li>
+<li><code>gcloud dns managed-zones list</code> - list the managed DNS zones</li>
+<li><code>gcloud dns record-sets list --zone alpha-gov-uk</code> - list the DNS record sets for the alpha.gov.uk. zone</li>
+</ul>
+<p>If you need to interact with the Cloud Storage (e.g. for the mirrors) from the CLI, you need to install the separate <code>gsutil</code> CLI.</p>
+<h2 id='support-tasks-which-involve-gcp'>Support tasks which involve GCP</h2><p>You may need login to GCP to <a href="/manual/howto-manually-remove-assets.html">remove an asset</a> or
+to <a href="/manual/fall-back-to-mirror.html#emergency-publishing-using-the-static-mirror">emergency publish content using the static mirrors</a>.</p>
+<p>You will also need GCP access to update DNS if you need to <a href="/manual/fall-back-to-aws-cloudfront.html.md">Fall back to the secondary CDN (AWS CloudFront)</a>.</p>
 
 
   <div class='related-content'>
@@ -262,7 +268,7 @@ it&rsquo;s not working, you can try manually running the commands it normally ru
           <h4>How to...</h4>
 
           <ul class="govuk-list">
-            <li><a href="/manual/google-cloud-platform-gcp.html">Google Cloud Platform (GCP)</a></li>
+            <li><a href="/manual/howto-ssh-to-machines.html">SSH into machines</a></li>
           </ul>
         </div>
 
@@ -275,8 +281,8 @@ it&rsquo;s not working, you can try manually running the commands it normally ru
 
           <aside>
               <ul class="contribution-banner">
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/howto-ssh-to-machines.html.md">View source</a></li>
-                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'SSH%20into%20machines'&amp;body=Problem%20with%20'SSH%20into%20machines'%20(https://docs.publishing.service.gov.uk/manual/howto-ssh-to-machines.html)">Report problem</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/blob/master/source/manual/google-cloud-platform-gcp.html.md">View source</a></li>
+                <li><a href="https://github.com/alphagov/govuk-developer-docs/issues/new?labels=bug&amp;title=Re:%20'Google%20Cloud%20Platform%20(GCP)'&amp;body=Problem%20with%20'Google%20Cloud%20Platform%20(GCP)'%20(https://docs.publishing.service.gov.uk/manual/google-cloud-platform-gcp.html)">Report problem</a></li>
                 <li><a href="https://github.com/alphagov/govuk-developer-docs">GitHub Repo</a></li>
               </ul>
           </aside>
