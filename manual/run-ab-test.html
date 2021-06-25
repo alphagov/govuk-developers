@@ -206,15 +206,8 @@
 </div>
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-        This document has not been updated for a while now. It may be out of date.
-      </strong>
-    </div>
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/e0bc49bdfc3d5f3eeb6ecf1db45f8a5be5913b65">23 Sep 2020</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/a92f76a4d2865f3fba31f141fb0f4a980ee3787f">25 Jun 2021</a>
 </div>
 
  <h1 id='header'>Run an A/B or multivariate test</h1> <h2 id='1-preparation'>1. Preparation</h2><h3 id='choose-your-test-name'>Choose your test name</h3><p>The name should begin with <code>ABTest-</code>.  Try to keep it short.</p>
@@ -251,7 +244,7 @@ need more data.</p>
 <li>Add your test to the <a href="https://docs.google.com/spreadsheets/d/1voQzdoGAFO9Tnvl7Xq4ahLEAyGtkeAtvTC26SxEP6rE/edit">A/B test register</a>.</li>
 <li>If you want to use Google Analytics to monitor the A/B test, talk to a performance analyst and pick a <a href="https://gov-uk.atlassian.net/wiki/display/GOVUK/Analytics+on+GOV.UK">GA dimension</a> to use for your test.</li>
 <li>Create dictionary and A/B test files in <a href="https://github.com/alphagov/govuk-cdn-config">the govuk-cdn-config repo</a>. See an <a href="https://github.com/alphagov/govuk-cdn-config-secrets/commit/ba3ec923c0bb5bdf17bdaf02419ff4e049516fda">example for the dictionaries</a> and an <a href="https://github.com/alphagov/fastly-configure/pull/29/files">example for the A/B configuration</a> (these used to be in a different repo). For more details, see the <a href="https://github.com/alphagov/govuk-cdn-config#fastly-dictionaries">dictionaries README</a>.</li>
-<li>Deploy the dictionary changes to each environment using the <a href="https://deploy.blue.staging.govuk.digital/job/Update_CDN_Dictionaries/">Update_CDN_Dictionaries</a> Jenkins job. The API key is in the <a href="https://github.com/alphagov/govuk-secrets/blob/master/pass/2ndline/fastly/2nd_line_api_token.gpg">govuk-secrets repo</a> and the dictionaries must be deployed to the <code>www</code> vhost.</li>
+<li>Deploy the dictionary changes to each environment using the <a href="https://deploy.blue.staging.govuk.digital/job/Update_CDN_Dictionaries/">Update_CDN_Dictionaries</a> Jenkins job. The dictionaries must be deployed to the <code>www</code> vhost.</li>
 <li>Deploy the Fastly configuration to each environment using the <a href="https://deploy.blue.staging.govuk.digital/job/Deploy_CDN/">Deploy_CDN</a> Jenkins job. Use the same parameters as in step 4. You can test it on staging by visiting <a href="https://www.staging.publishing.service.gov.uk">https://www.staging.publishing.service.gov.uk</a>. Changes should appear almost immediately - there is no caching of the CDN config.</li>
 <li>Use the <a href="https://github.com/alphagov/govuk_ab_testing">govuk_ab_testing gem</a> to serve different versions to your users. It can be configured with the analytics dimension selected in step 2.</li>
 <li>To activate or deactivate the test, or to change the B percentage, update your test in <a href="https://github.com/alphagov/govuk-cdn-config">the govuk-cdn-config repo</a> and deploy the dictionaries.</li>

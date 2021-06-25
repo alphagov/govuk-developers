@@ -135,6 +135,11 @@
     <ul>
       <li>
         <a href="#cdn-configuration"><span>CDN configuration</span></a>
+        <ul>
+          <li>
+            <a href="#deploying-fastly"><span>Deploying Fastly</span></a>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="#fastly-caching"><span>Fastly Caching</span></a>
@@ -218,7 +223,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/364178a831d6bbddeeb725a9f9dc0b095687f9f0">11 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/1c00595470be6f34bebf40f311ce74cf1538cf87">25 Jun 2021</a>
 </div>
 
  <h1 id='header'>Our content delivery network (CDN)</h1> <p>GOV.UK uses Fastly as a CDN. Public users aren&rsquo;t accessing GOV.UK servers directly, they connect via the CDN. This is better because:</p>
@@ -232,11 +237,33 @@
 <h2 id='cdn-configuration'>CDN configuration</h2><p>Most of the CDN config is versioned and scripted:</p>
 
 <ul>
-<li><a href="https://github.com/alphagov/govuk-cdn-config/">CDN configuration</a></li>
-<li><a href="https://github.com/alphagov/govuk-cdn-config-secrets">CDN config secrets</a></li>
+<li><a href="https://github.com/alphagov/govuk-cdn-config/">govuk-cdn-config</a></li>
+<li><a href="https://github.com/alphagov/govuk-cdn-config-secrets">govuk-cdn-config-secrets</a></li>
 </ul>
-<p>These are deployed to <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_CDN/">integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/Deploy_CDN/">staging</a> and <a href="https://deploy.blue.production.govuk.digital/job/Deploy_CDN/">production</a>.</p>
 <p>Some configuration isn&rsquo;t scripted, such as logging. The www, bouncer and assets services send logs to S3 which can be <a href="/manual/query-cdn-logs.html">queried</a>. These logging endpoints are configured directly in the Fastly UI.</p>
+<h3 id='deploying-fastly'>Deploying Fastly</h3><p>To deploy Fastly, you&rsquo;ll need to run the <code>Deploy_CDN</code> job on the relevant Jenkins environment: <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_CDN/">integration</a>, <a href="https://deploy.blue.staging.govuk.digital/job/Deploy_CDN/">staging</a> or <a href="https://deploy.blue.production.govuk.digital/job/Deploy_CDN/">production</a>. This job deploys the public and secret CDN configuration referenced above.</p>
+<p>Note that there are two configurations: one for <code>www</code> and one for <code>assets</code>.
+Choose the correct <code>vhost</code> for the configuration you&rsquo;d like to deploy.</p>
+<p>You&rsquo;ll need to provide a <code>FASTLY_API_KEY</code>. To do this:</p>
+
+<ol>
+<li>Log into your Fastly account.</li>
+<li>Click on &ldquo;Account&rdquo;, under your name in the top right corner.</li>
+<li>Click &ldquo;<a href="https://manage.fastly.com/account/personal/tokens">Personal API tokens</a>&rdquo;</li>
+<li>Click &ldquo;Create Token&rdquo;</li>
+</ol>
+<p>Then follow the steps to create a token with the minimum privileges required for the task at hand:</p>
+
+<ol>
+<li>The token name is unimportant; you&rsquo;ll be deleting it shortly.</li>
+<li>For &ldquo;Service Access&rdquo;, choose the service you&rsquo;ll be deploying,
+e.g. &ldquo;Integration GOV.UK&rdquo; (for <code>www</code>) or &ldquo;Integration Assets&rdquo; (for <code>assets</code>).</li>
+<li>For &ldquo;Scope&rdquo;, you&rsquo;ll need to pick &ldquo;Global API access&rdquo; (i.e. the most permissive)</li>
+<li>Under &ldquo;Expiration&rdquo;, choose tomorrow&rsquo;s date</li>
+<li>Click &ldquo;Create Token&rdquo;</li>
+</ol>
+<p>You can now copy and paste the token into the <code>FASTLY_API_KEY</code> in the Jenkins job.
+Once you&rsquo;ve run the job successfully, you can delete the token.</p>
 <h2 id='fastly-caching'>Fastly Caching</h2><p>The main www.gov.uk cache is <a href="https://varnish-cache.org/docs/2.1/index.html">Varnish</a>, which Fastly runs for us.</p>
 <p>Varnish lets us configure our caching logic with VCL (Varnish config language).</p>
 <p>It also lets us do fancy things, like <a href="https://github.com/alphagov/govuk-cdn-config/blob/f6cf15e9155f7c2ea89970741d3e03851a00013d/vcl_templates/www.vcl.erb#L202">only allowing connections to staging from permitted IPs</a>, <a href="https://github.com/alphagov/govuk-cdn-config/blob/f6cf15e9155f7c2ea89970741d3e03851a00013d/vcl_templates/www.vcl.erb#L222">forcing SSL</a> and <a href="https://github.com/alphagov/govuk-cdn-config/blob/f6cf15e9155f7c2ea89970741d3e03851a00013d/vcl_templates/www.vcl.erb#L208">blocking IP addresses</a>, among other things.</p>
