@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/b7040286b8e24400d2aa08146f1e545d7a3ba7cc">23 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/22d3fd378e3e6bdb6580173cbb54f9e6ce3b913e">24 Jun 2021</a>
 </div>
 
   <h1 class="page-title">email-alert-api: Available endpoints</h1>
@@ -380,6 +380,7 @@
     "title": "Title of topic",
     "gov_delivery_id": "123",
     "document_type": "",
+    "content_id": "",
     "created_at": "20141010T12:00:00",
     "updated_at": "20141010T12:00:00",
     "tags": {
@@ -419,6 +420,8 @@ share the corresponding field;</li>
 changes that share the corresponding field;</li>
 <li>government_document_supertype: A field that can be used to match with
 content changes that share the corresponding field.</li>
+<li>content_id: A field that can be used to match with a single content item
+for subscriptions to individual pages or pieces of guidance.</li>
 </ul>
 <h3 id="post-content-changes"><code>POST /content-changes</code></h3>
 <pre lang="json"><code>{
@@ -477,6 +480,7 @@ slowness in the external notifications API).</p>
         "created_at": "Thu, 01 Aug 2013 12:53:34 UTC +00:00",
         "updated_at": "Tue, 13 Mar 2018 15:11:29 UTC +00:00",
         "document_type": "",
+        "content_id": "",
         "tags": {},
         "links": {
           "organisations": ["9adfc4ed-9f6c-4976-a6d8-18d34356367c"]
