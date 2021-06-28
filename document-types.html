@@ -329,12 +329,19 @@
           <main id="content" class="technical-documentation" data-module="anchored-headings">
               <h1 class="page-title">Document types on GOV.UK</h1>
 
-  <p>The document type describes a page on GOV.UK.</p>
-<p>You can <a href="/document-types.csv">download this data as CSV too</a> which is generated automatically based on the data in the <a href="https://github.com/alphagov/govuk_document_types">govuk_document_types repo</a>.</p>
-<p>To view the current data in Google Spreadsheets, copy the following formula into a new spreadsheet:</p>
+  <p>The document type describes a type of page that can exist on GOV.UK. This is different to the <a href="/content-schemas.html">content schemas</a> which describe the underlying structure of a piece of content.</p>
+<p>The document types included in these docs are pulled in automatically based on data in the <a href="https://github.com/alphagov/govuk_document_types">govuk_document_types repo</a>.</p>
+<h2 id='analysing-document-types'>Analysing document types</h2><p>You can also <a href="/document-types.csv">download this data as CSV</a>. To view the current data in Google Spreadsheets, copy the following formula into a new spreadsheet:</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>=importData("https://docs.publishing.service.gov.uk/document-types.csv")
-</code></pre></div><p>Note that this is only a snapshot of the data and isn&rsquo;t kept up to date from the CSV.</p>
-<h2 id='using-search-to-find-similar-data'>Using Search to find similar data</h2><p>Use this <a href="https://www.gov.uk/api/search.json?count=0&amp;facet_content_store_document_type=115,examples:1,example_scope:query,example_fields:rendering_app">search query for document types</a> (it&rsquo;s currently missing bits of Whitehall)</p>
+</code></pre></div>
+<blockquote>
+<p>Note: this is only a snapshot of the data and isn&rsquo;t kept up to date automatically.</p>
+</blockquote>
+<h3 id='using-the-search-api-to-find-similar-data'>Using the Search API to find similar data</h3><p>It&rsquo;s also possible to use the Search API to <a href="https://www.gov.uk/api/search.json?count=0&amp;facet_content_store_document_type=115,examples:1,example_scope:query,example_fields:rendering_app">query for document types</a>.</p>
+
+<blockquote>
+<p>Note: this won&rsquo;t include document types which are not yet migrated out of Whitehall.</p>
+</blockquote>
 
 
             

@@ -225,7 +225,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/802855f2c2b84481b74d22fe6e16857d977e848b">24 Jun 2021</a>
 </div>
 
  <h1 id='header'>Transition a site to GOV.UK</h1> <p>When a site is going to move to GOV.UK, there are two ways that the old site
@@ -320,6 +320,8 @@ GOV.UK Signon for the Transition app. This lets you edit any site,
 rather than just ones belonging to your organisation. You can then go
 the <a href="https://transition.publishing.service.gov.uk">transition app</a>, find
 the site and click <code>Add mappings</code> to add them in bulk.</p>
+<p>To allow mappings which redirect away from GOV.UK, you&rsquo;ll need to add the site
+into <a href="https://transition.publishing.service.gov.uk/admin/whitelisted_hosts">the allowlisted hosts in Transition</a>. You&rsquo;ll need the <code>admin</code> permission in Transition to be able to see this page.</p>
 <h3 id='7-get-the-organisation-to-do-the-mapping-work'>7) Get the organisation to do the mapping work</h3><p>By default, the mappings will present an archive page to users visiting
 the old URL. The objective is to get users to somewhere that best serves
 the need fulfilled by the old page. Usually this means redirecting them
@@ -377,7 +379,6 @@ should perhaps be redirected instead</li>
           <h4>How to...</h4>
 
           <ul class="govuk-list">
-            <li><a href="/manual/allowlist-site-in-transition.html">Allowlist site to allow redirection away from GOV.UK</a></li>
             <li><a href="/manual/remove-site-from-transition-tool.html">Remove a site from the Transition tool</a></li>
             <li><a href="/manual/request-fastly-tls-certificate.html">Request Fastly TLS certificate</a></li>
           </ul>
