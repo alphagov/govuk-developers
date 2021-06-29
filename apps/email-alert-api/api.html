@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/22d3fd378e3e6bdb6580173cbb54f9e6ce3b913e">24 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/2151852c09ad5f8641c57f8fb10dca876890de81">29 Jun 2021</a>
 </div>
 
   <h1 class="page-title">email-alert-api: Available endpoints</h1>
@@ -564,8 +564,7 @@ matches a subscriber and, if so, returns the subscriber in the form</p>
 </code></pre>
 <p>Returns a 401 if the account session identifier is invalid.</p>
 <p>Returns a 403 if the account's email address is not verified.</p>
-<p>Returns a 404 if there is no matching subscriber.</p>
-<p>The 403, 404, and 200 responses may optionally have a
+<p>The 403 and 200 responses may optionally have a
 <code>govuk_account_session</code> response field, which should replace the value
 in the user's session.</p>
 <h2 id="healthcheck">Healthcheck</h2>
