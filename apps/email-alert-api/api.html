@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/2151852c09ad5f8641c57f8fb10dca876890de81">29 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/e443af81682b3eb99c25c34125b3fae00d23fac5">29 Jun 2021</a>
 </div>
 
   <h1 class="page-title">email-alert-api: Available endpoints</h1>
@@ -567,6 +567,45 @@ matches a subscriber and, if so, returns the subscriber in the form</p>
 <p>The 403 and 200 responses may optionally have a
 <code>govuk_account_session</code> response field, which should replace the value
 in the user's session.</p>
+<h3 id="post-subscribersgovuk-accountlink"><code>POST /subscribers/govuk-account/link</code></h3>
+<pre lang="json"><code>{
+  "govuk_account_session": "session-token-from-account-header"
+}
+</code></pre>
+<p>Looks up a GOV.UK Account and finds or creates a subscriber (in the
+same way as <code>POST /subscribers/govuk-account</code>), and stores the GOV.UK
+Account ID against the subscriber record.  Returns the subscriber in
+the form:</p>
+<pre lang="json"><code>{
+  "subscriber": {
+    "id": 1,
+    "govuk_account_id": "user-id",
+    "address": "test@example.com",
+    "created_at": "Wed, 07 Mar 2018 17:04:28 UTC +00:00",
+    "updated_at": "Wed, 07 Mar 2018 17:04:28 UTC +00:00",
+  }
+}
+</code></pre>
+<p>Returns a 401 if the account session identifier is invalid.</p>
+<p>Returns a 403 if the account's email address is not verified.</p>
+<p>The 403 and 200 responses may optionally have a
+<code>govuk_account_session</code> response field, which should replace the value
+in the user's session.</p>
+<h3 id="get-subscribersgovuk-accountid"><code>GET /subscribers/govuk-account/:id</code></h3>
+<p>Looks for a subscriber with a matching GOV.UK Account ID (as
+previously set by <code>POST /subscribers/govuk-account/link</code>) and, if
+there is one, returns it in the form:</p>
+<pre lang="json"><code>{
+  "subscriber": {
+    "id": 1,
+    "govuk_account_id": "user-id",
+    "address": "test@example.com",
+    "created_at": "Wed, 07 Mar 2018 17:04:28 UTC +00:00",
+    "updated_at": "Wed, 07 Mar 2018 17:04:28 UTC +00:00",
+  }
+}
+</code></pre>
+<p>Returns a 404 if there is no matching subscriber.</p>
 <h2 id="healthcheck">Healthcheck</h2>
 <p>A queue health check endpoint is available at <code>/healthcheck</code>.</p>
 <pre lang="json"><code>{
