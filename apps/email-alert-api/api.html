@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/e443af81682b3eb99c25c34125b3fae00d23fac5">29 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/email-alert-api/commit/047c97516f6fefee97bd1a34a760e3553d613676">1 Jul 2021</a>
 </div>
 
   <h1 class="page-title">email-alert-api: Available endpoints</h1>
@@ -543,9 +543,10 @@ new frequency.</p>
 }
 </code></pre>
 <p>This will trigger an email to the address specified with a link to the
-destination with a query string of token and a <a href="https://jwt.io/">JWT</a> token.
-Returns a 201 status code on success or 404 if the subscriber is not known
-to Email Alert API.</p>
+destination with a query string of token and a <a href="https://jwt.io/">JWT</a>
+token.  Returns a 201 status code on success; a 403 status code if the
+subscriber is linked to a GOV.UK Account; or a 404 status code if the
+subscriber is not known to Email Alert API.</p>
 <h3 id="post-subscribersgovuk-account"><code>POST /subscribers/govuk-account</code></h3>
 <pre lang="json"><code>{
   "govuk_account_session": "session-token-from-account-header"
