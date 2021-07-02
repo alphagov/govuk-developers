@@ -182,7 +182,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/b4eb388b602c232e913c747d90a750217e0a0e77">30 Apr 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/852787cae2aaa9a8b6c2dabb535cb7cac9cac197">2 Jul 2021</a>
 </div>
 
  <h1 id='header'>Rotate Fastly API Keys for Notify Emergency Alerts</h1> <p>The GOV.UK Notify team will occasionally request GOV.UK&rsquo;s help rotating some Fastly API keys which they use to purge Emergency Alerts
@@ -191,11 +191,11 @@ pages from the Fastly cache.</p>
 
 <ul>
 <li>Make sure you can clone <a href="https://github.com/alphagov/notifications-credentials/">Notify&rsquo;s secrets repository</a> (it&rsquo;s private, so you may need to be added)</li>
-<li>Sign in to Fastly using <a href="https://github.com/alphagov/govuk-secrets/blob/master/pass/2ndline/fastly/deployment_shared_account.gpg">the 2ndline password in govuk-secrets</a> (private repository)</li>
+<li>Sign in to Fastly using the Notify Emergency Alerts account <a href="https://github.com/alphagov/govuk-secrets/blob/master/pass/2ndline/fastly/notify_emergency_alerts_account.gpg">(credentials in govuk-secrets)</a> (private repository)</li>
 <li>Visit <a href="https://manage.fastly.com/account/personal/tokens">Account / Personal API tokens</a> in Fastly</li>
 <li>Search for &ldquo;GOV.UK Notify /alerts&rdquo; to find the current keys</li>
 <li>Click Create Token</li>
-<li>Re-enter the 2ndline password</li>
+<li>Re-enter the account password</li>
 <li>Name the token using the pattern <code>GOV.UK Notify /alerts $ENVIRONMENT $YEAR</code></li>
 <li>Choose the specific service <code>$ENVIRONMENT GOV.UK</code></li>
 <li>Select only purge select as the Scope</li>
