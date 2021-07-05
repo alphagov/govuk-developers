@@ -142,16 +142,24 @@
           <li>
             <a href="#set-up-a-unicorn-web-server"><span>Set up a Unicorn web server</span></a>
           </li>
+          <li>
+            <a href="#add-your-rails-app-to-gov-uk-docker"><span>Add your Rails app to GOV.UK Docker</span></a>
+          </li>
         </ul>
       </li>
       <li>
         <a href="#set-up-a-github-repo-for-your-rails-app"><span>Set up a GitHub repo for your Rails app</span></a>
-      </li>
-      <li>
-        <a href="#add-a-software-licence"><span>Add a software licence</span></a>
-      </li>
-      <li>
-        <a href="#replace-the-default-readme-md"><span>Replace the default README.md</span></a>
+        <ul>
+          <li>
+            <a href="#add-a-software-licence"><span>Add a software licence</span></a>
+          </li>
+          <li>
+            <a href="#replace-the-default-readme-md"><span>Replace the default README.md</span></a>
+          </li>
+          <li>
+            <a href="#write-api-documentation"><span>Write API documentation</span></a>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="#prepare-your-rails-app-to-run-in-production"><span>Prepare your Rails app to run in production</span></a>
@@ -179,9 +187,6 @@
           </li>
           <li>
             <a href="#run-the-deploy_app-job"><span>Run the Deploy_App job</span></a>
-          </li>
-          <li>
-            <a href="#add-your-rails-app-to-gov-uk-docker"><span>Add your Rails app to GOV.UK Docker</span></a>
           </li>
         </ul>
       </li>
@@ -236,7 +241,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/6631409a7116e2e522ecb54fe0a3687adfc9728d">13 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/c6d70300358fddc4e3420957dcc640b940c77530">5 Jul 2021</a>
 </div>
 
  <h1 id='header'>Set up a new Rails application</h1> <h2 id='before-you-start'>Before you start</h2><p>Before you create a Ruby on Rails (“Rails”) app, you must complete all steps in the <a href="https://docs.publishing.service.gov.uk/manual/get-started.html">GOV.UK developer get started documentation</a>.</p>
@@ -351,9 +356,10 @@
 GovukUnicorn.configure(self)
 </code></pre></div></li>
 </ol>
+<h3 id='add-your-rails-app-to-gov-uk-docker'>Add your Rails app to GOV.UK Docker</h3><p>Add your Rails app to GOV.UK Docker so you can run the app locally. See an <a href="https://github.com/alphagov/govuk-docker/pull/465">example GOV.UK Docker pull request</a>.</p>
 <h2 id='set-up-a-github-repo-for-your-rails-app'>Set up a GitHub repo for your Rails app</h2><p>When you’ve finished developing your Rails app, you can <a href="https://docs.publishing.service.gov.uk/manual/configure-github-repo.html#auto-configuration">set up a GitHub repo for your Rails app</a>.</p>
 <p>You must add a description to the <em>About</em> section in the GitHub repo, or the GOV.UK developer documentation build will break when it tries to build the <a href="https://docs.publishing.service.gov.uk/#applications">list of apps</a>.</p>
-<h2 id='add-a-software-licence'>Add a software licence</h2><p>You must add a <code>LICENCE</code> file to your project’s root folder that specifies the software licence. You should usually use the following MIT License text. Replace <YEAR> with the current year.</p>
+<h3 id='add-a-software-licence'>Add a software licence</h3><p>You must add a <code>LICENCE</code> file to your project’s root folder that specifies the software licence. You should usually use the following MIT License text. Replace <YEAR> with the current year.</p>
 <div class="highlight"><pre class="highlight plaintext" tabindex="0"><code>The MIT License (MIT)
 
 Copyright (c) &lt;YEAR&gt; Crown Copyright (Government Digital Service)
@@ -375,38 +381,53 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-</code></pre></div><h2 id='replace-the-default-readme-md'>Replace the default README.md</h2><p>Change the default <code>README.md</code> file to have the following structure:</p>
+</code></pre></div><h3 id='replace-the-default-readme-md'>Replace the default README.md</h3><p>Change the default <code>README.md</code> file to have the following structure:</p>
 <div class="highlight"><pre class="highlight markdown" tabindex="0"><code><span class="gh"># App name</span>
 
-Information about the app's description and purpose.
+One or more paragraphs describing the app:
+<span class="p">
+-</span> What it's used for.
+<span class="p">-</span> Any unusual dependencies it has.
+
+<span class="gu">## Live examples</span>
+
+(Only applies to frontend apps.)
+
+A list of links to example pages rendered by the app.
+
+<span class="gu">## Nomeclature</span>
+
+A list of definitions for unusual terms in the code.
 
 <span class="gu">## Technical documentation</span>
 
-Write a single paragraph including a general technical overview of the app.
+What goes here depends on the type of app.
 
-<span class="gu">### Testing</span>
+See the links below for example content to put here.
 
-Information about how to test the app.
+<span class="gu">### Running the test suite</span>
 
-<span class="gu">## Further documentation</span>
+Give one command to run all the tests, linting, etc.
 
-More information on how the app works.
+You can also add other commands e.g. to run JS tests.
 
-<span class="gu">## API documentation</span>
+<span class="gu">### Further documentation</span>
 
-If applicable, include API reference information including the following sections:
-<span class="p">
--</span> resources
-<span class="p">-</span> endpoints and methods
-<span class="p">-</span> parameters
-<span class="p">-</span> example requests and responses
-<span class="p">-</span> error codes
+A list of links to key files in docs/.
+
+You can also just link to the docs/ directory itself.
 
 <span class="gu">## Licence</span>
 
-Link to your <span class="p">[</span><span class="nv">MIT License</span><span class="p">][</span><span class="ss">LICENCE</span><span class="p">]</span> file.
-</code></pre></div><p>See the example <a href="https://github.com/alphagov/account-api/blob/main/README.md">account-api README.md</a>.</p>
-<p>Find out more about <a href="https://www.gov.uk/guidance/writing-api-reference-documentation">writing API reference content</a>.</p>
+Link to your LICENCE file.
+</code></pre></div><p>Examples READMEs that follow the above structure:</p>
+
+<ul>
+<li><p><a href="https://github.com/alphagov/collections/blob/13e53b7b63b2a9c1e618ba309756523341befc5b/README.md#technical-documentation">Frontend app: Collections</a></p></li>
+<li><p><a href="https://github.com/alphagov/email-alert-api/blob/92021c3e26277545f2fb99336695aed56ab781a4/README.md#technical-documentation">General app: Email Alert API</a></p></li>
+</ul>
+<h3 id='write-api-documentation'>Write API documentation</h3><p>If your app is an API, you should create a <code>docs/api.md</code> file.</p>
+<p><a href="https://www.gov.uk/guidance/writing-api-reference-documentation">Guidance on writing API reference documentation on GOV.UK</a>.</p>
 <h2 id='prepare-your-rails-app-to-run-in-production'>Prepare your Rails app to run in production</h2><h3 id='configure-your-rails-app-for-jenkins'>Configure your Rails app for Jenkins</h3>
 <ol>
 <li><p>Create a <code>Jenkinsfile</code> in your repo with the following content.</p>
@@ -428,7 +449,6 @@ Link to your <span class="p">[</span><span class="nv">MIT License</span><span cl
 <h3 id='add-your-rails-app-to-release-app'>Add your Rails app to Release app</h3><p>Add your Rails app to the <a href="https://release.publishing.service.gov.uk/applications">Release</a> app and select <strong>Create</strong>.</p>
 <h3 id='run-the-deploy_app-job'>Run the Deploy_App job</h3><p>Run the <a href="https://deploy.integration.publishing.service.gov.uk/job/Deploy_App/">Deploy_App job</a>.</p>
 <p>Use the <code>with_migrations</code> option if your Rails app has a database.</p>
-<h3 id='add-your-rails-app-to-gov-uk-docker'>Add your Rails app to GOV.UK Docker</h3><p>Add your Rails app to GOV.UK Docker so you can run the app locally. See an <a href="https://github.com/alphagov/govuk-docker/pull/465">example GOV.UK Docker pull request</a>.</p>
 
 
   <div class='related-content'>
