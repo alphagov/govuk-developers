@@ -521,12 +521,16 @@
 
 <h3 id="running-the-test-suite">Running the test suite</h3>
 
-<pre><code># ruby tests
-bundle exec rspec
+<pre><code>bundle exec rake
+</code></pre>
 
-# JS tests (in console, or in browser)
-bundle exec rake jasmine:ci
+<p>To run JavaScript tests (only):</p>
+
+<pre><code># run JS tests in browser
 bundle exec rake jasmine
+
+# run JS tests on command line
+bundle exec rake jasmine:ci
 </code></pre>
 
 <blockquote>
