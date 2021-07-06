@@ -365,7 +365,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/81708df20d4bf58a16c71afd54a8d38f518c392c">29 Jun 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/140b49d07e28b8552ea3f43174811a96e1798181">6 Jul 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -542,6 +542,12 @@ end
 <li>the Google Analytics client ID which the identity provider used for analytics</li>
 </ul>
 </li>
+<li>
+<code>cookie_consent</code> <em>(optional)</em>
+<ul>
+<li>whether the user saved a "usage" cookie consent</li>
+</ul>
+</li>
 </ul>
 <h4 id="response-codes">Response codes</h4>
 <ul>
@@ -559,7 +565,8 @@ end
 <pre lang="json"><code>{
     "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
     "redirect_path": "/guidance/keeping-a-pet-pig-or-micropig",
-    "ga_client_id": "ga-123-userid"
+    "ga_client_id": "ga-123-userid",
+    "cookie_consent": false,
 }
 </code></pre>
 <h3 id="post-apioauth2state"><code>POST /api/oauth2/state</code></h3>
