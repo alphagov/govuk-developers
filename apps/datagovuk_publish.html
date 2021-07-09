@@ -441,6 +441,20 @@
 
 <p>This repository contains the beta-stage publishing component of data.gov.uk.</p>
 
+<h1 id="deployment">Deployment</h1>
+
+<p>Continuous Integration has been setup using Github Actions.</p>
+
+<ul>
+<li>Tests are run on pull requests.</li>
+<li>Deployments to Staging happen automatically when marging branches into the <code>main</code> branch.</li>
+<li>In order to carry out a release to production a developer in the govuk team will need to create a release tag with a  leading <code>v</code> and <a href="https://docs.github.com/en/actions/managing-workflow-runs/reviewing-deployments">approve</a> of the deployment in Github Actions.</li>
+</ul>
+
+<p>Further information about the deploying to PaaS are in the developer documents here:</p>
+
+<p><a href="https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments">https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments</a></p>
+
 <h2 id="prerequisites">Prerequisites</h2>
 
 <p>You will need to install the following for development.</p>
@@ -575,12 +589,6 @@ OK
 <li>Then re-run sidekiq jobs - see <a href="#run-sidekiq-jobs">Run sidekiq jobs</a>
 </li>
 </ol>
-
-<h2 id="deployment">Deployment</h2>
-
-<p>See the developer documents here:</p>
-
-<p><a href="https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments">https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments</a></p>
 
 <h2 id="documentation">Documentation</h2>
 

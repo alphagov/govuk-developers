@@ -458,11 +458,21 @@
 
 <h2 id="deployment">Deployment</h2>
 
-<p>You can track the deployments on travis - <a href="https://travis-ci.org/alphagov/datagovuk_find">https://travis-ci.org/alphagov/datagovuk_find</a>.</p>
+<p>Continuous Integration has been setup using Github Actions.</p>
+
+<ul>
+<li>Tests are run on pull requests.</li>
+<li>Deployments to Staging happen automatically when marging branches into the <code>main</code> branch.</li>
+<li>In order to carry out a release to production a developer in the govuk team will need to create a release tag with a  leading <code>v</code> and <a href="https://docs.github.com/en/actions/managing-workflow-runs/reviewing-deployments">approve</a> of the deployment in Github Actions.</li>
+</ul>
+
+<p>Further information about the deploying to PaaS are in the developer documents here:</p>
+
+<p><a href="https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments">https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments</a></p>
 
 <h3 id="staging">Staging</h3>
 
-<p>To deploy to staging merge a PR into master.</p>
+<p>To deploy to staging merge a PR into <code>main</code>.</p>
 
 <p>Test that your changes are working here - <a href="https://find-data-beta-staging.cloudapps.digital">https://find-data-beta-staging.cloudapps.digital</a> before releasing to Production.</p>
 
@@ -471,6 +481,8 @@
 <h3 id="production">Production</h3>
 
 <p>To deploy to production you need to tag the release, the tag needs to be in this format - <code>v9.9.9</code> where 9 is a number and the leading <code>v</code> is required. E.g. <code>v0.1.11</code> is valid, <code>0.1.11</code> is not.</p>
+
+<p>Then the deployment needs to be <a href="https://docs.github.com/en/actions/managing-workflow-runs/reviewing-deployments">approved</a>.</p>
 
 <h2 id="developing-against-production-elasticsearch">Developing against production elasticsearch</h2>
 
