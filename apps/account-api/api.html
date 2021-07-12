@@ -367,7 +367,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/140b49d07e28b8552ea3f43174811a96e1798181">6 Jul 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/c6a928b1640ac77e24a5dd647db5973e6ca50ead">7 Jul 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -390,7 +390,6 @@ management. This API is not for other government services.</p>
 <ul>
 <li><a href="#get-apioauth2sign-in"><code>GET /api/oauth2/sign-in</code></a></li>
 <li><a href="#post-apioauth2callback"><code>POST /api/oauth2/callback</code></a></li>
-<li><a href="#post-apioauth2state"><code>POST /api/oauth2/state</code></a></li>
 <li><a href="#get-apiuser"><code>GET /api/user</code></a></li>
 <li><a href="#get-apiattributes"><code>GET /api/attributes</code></a></li>
 <li><a href="#patch-apiattributes"><code>PATCH /api/attributes</code></a></li>
@@ -461,13 +460,6 @@ end
 </ul>
 </li>
 <li>
-<code>state_id</code> <em>(optional)</em>
-<ul>
-<li>an identifier returned from a previous call to <code>POST /api/oauth2/state</code>
-</li>
-</ul>
-</li>
-<li>
 <code>redirect_path</code> <em>(optional)</em>
 <ul>
 <li>a path on GOV.UK to send the user to after authenticating</li>
@@ -497,7 +489,6 @@ end
 <p>Request (with gds-api-adapters):</p>
 <pre lang="ruby"><code>GdsApi.account_api.get_sign_in_url(
     redirect_path: "/guidance/keeping-a-pet-pig-or-micropig",
-    state_id: "12345",
 )
 </code></pre>
 <p>Response:</p>
@@ -569,42 +560,6 @@ end
     "redirect_path": "/guidance/keeping-a-pet-pig-or-micropig",
     "ga_client_id": "ga-123-userid",
     "cookie_consent": false,
-}
-</code></pre>
-<h3 id="post-apioauth2state"><code>POST /api/oauth2/state</code></h3>
-<p>Stores some initial attributes which will be persisted if a user creates an account rather than logging in.</p>
-<h4 id="json-request-parameters">JSON request parameters</h4>
-<ul>
-<li>
-<code>attributes</code>
-<ul>
-<li>a JSON object where keys are attribute names and values are attribute values</li>
-</ul>
-</li>
-</ul>
-<h4 id="json-response-fields">JSON response fields</h4>
-<ul>
-<li>
-<code>state_id</code>
-<ul>
-<li>an identifier to pass to <code>GET /api/oauth2/sign-in</code>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="response-codes">Response codes</h4>
-<ul>
-<li>200</li>
-</ul>
-<h4 id="example-request-response">Example request / response</h4>
-<p>Request (with gds-api-adapters):</p>
-<pre lang="ruby"><code>GdsApi.account_api.create_registration_state(
-    attributes: { name1: "value1", name2: "value2" },
-)
-</code></pre>
-<p>Response:</p>
-<pre lang="json"><code>{
-    "state_id": "5821a9f9-3ba7-4385-a864-80cdb374550a"
 }
 </code></pre>
 <h3 id="get-apiuser"><code>GET /api/user</code></h3>
