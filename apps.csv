@@ -30,10 +30,10 @@ govuk-content-store-examples,,,https://docs.publishing.service.gov.uk/apps/govuk
 govuk-dependencies,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/govuk-dependencies.html,https://github.com/alphagov/govuk-dependencies,heroku
 govuk-display-screen,,,https://docs.publishing.service.gov.uk/apps/govuk-display-screen.html,https://github.com/alphagov/govuk-display-screen,heroku
 govuk-docker,#govuk-developers,#govuk-developers,https://docs.publishing.service.gov.uk/apps/govuk-docker.html,https://github.com/alphagov/govuk-docker,none
-govuk-jenkinslib,,,https://docs.publishing.service.gov.uk/apps/govuk-jenkinslib.html,https://github.com/alphagov/govuk-jenkinslib,aws
+govuk-jenkinslib,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/govuk-jenkinslib.html,https://github.com/alphagov/govuk-jenkinslib,aws
 govuk-knowledge-graph,#govuk-data-labs,#govuk-data-labs,https://docs.publishing.service.gov.uk/apps/govuk-knowledge-graph.html,https://github.com/alphagov/govuk-knowledge-graph,none
-govuk-load-testing,,,https://docs.publishing.service.gov.uk/apps/govuk-load-testing.html,https://github.com/alphagov/govuk-load-testing,none
-govuk-pact-broker,,,https://docs.publishing.service.gov.uk/apps/govuk-pact-broker.html,https://github.com/alphagov/govuk-pact-broker,paas
+govuk-load-testing,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/govuk-load-testing.html,https://github.com/alphagov/govuk-load-testing,none
+govuk-pact-broker,#govuk-platform-health,#govuk-platform-health,https://docs.publishing.service.gov.uk/apps/govuk-pact-broker.html,https://github.com/alphagov/govuk-pact-broker,paas
 govuk-puppet,#govuk-developers,#govuk-developers,https://docs.publishing.service.gov.uk/apps/govuk-puppet.html,https://github.com/alphagov/govuk-puppet,none
 govuk-related-links-recommender,#govuk-data-labs,#govuk-data-labs,https://docs.publishing.service.gov.uk/apps/govuk-related-links-recommender.html,https://github.com/alphagov/govuk-related-links-recommender,none
 govuk-secondline-blinken,,,https://docs.publishing.service.gov.uk/apps/govuk-secondline-blinken.html,https://github.com/alphagov/blinkenjs,heroku
