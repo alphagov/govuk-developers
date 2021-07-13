@@ -249,7 +249,7 @@
 
    <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/ca3571fadb3d7b85be22ee04df401fba09f0220f">5 May 2021</a>
+  Last updated: <a href="https://github.com/alphagov/govuk-developer-docs/commit/9facf455c4c1e8489e9606ce8c41e805b1bcfe42">9 Jul 2021</a>
 </div>
 
  <h1 id='header'>Get started on GOV.UK</h1> <p>This getting started guide is for new technical staff (for example developers, technical architects) working on GOV.UK in <a href="https://gds.blog.gov.uk/about/">GDS</a> or CDDO.</p>
@@ -347,9 +347,11 @@ git clone git@github.com:alphagov/govuk-puppet.git
 <p>If you are outside of the office or on GovWiFi, you must first <a href="#4-connect-to-the-gds-vpn">connect to the GDS VPN</a>.</p>
 <p>Test your SSH access by running:</p>
 <div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds govuk connect <span class="nt">--environment</span> integration ssh backend
-</code></pre></div><h4 id='running-a-console'>Running a console</h4><p>Once you have SSH access into a remote environment or server, you can also open a console for a particular application so you can run commands.</p>
-<p>For example, to open a console for GOV.UK Publisher, run the following:</p>
-<div class="highlight"><pre class="highlight shell" tabindex="0"><code>govuk_app_console publisher
+</code></pre></div><h4 id='running-a-console'>Running a console</h4><p>Once you have SSH access into a remote environment or server, you can also open a Rails app console for a particular application so you can run commands.</p>
+<p>For example, to open a console for GOV.UK Publisher, run the following on a <code>backend</code> machine:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code><span class="nv">$ </span>govuk_app_console publisher
+</code></pre></div><p>As a shortcut, to remove the need to look up the machine class for an application, you can use the following without SSHing first:</p>
+<div class="highlight"><pre class="highlight shell" tabindex="0"><code>gds govuk connect <span class="nt">--environment</span> integration app-console publisher
 </code></pre></div><h2 id='7-get-aws-access'>7. Get AWS access</h2><p>GDS maintains a central account for AWS access.</p>
 <p>You must have access to this GDS account to work with <a href="https://github.com/alphagov/govuk-aws">govuk-aws</a> and <a href="https://github.com/alphagov/govuk-aws-data">govuk-aws-data</a>.</p>
 <h3 id='request-access-to-the-gds-aws-account'>Request access to the GDS AWS account</h3><p>You request access to the GDS AWS account through the <a href="https://gds-request-an-aws-account.cloudapps.digital">Request an AWS account form</a>.</p>
