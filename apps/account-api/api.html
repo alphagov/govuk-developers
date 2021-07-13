@@ -367,7 +367,7 @@
 
   <div class="govuk-!-font-size-16 govuk-!-margin-top-6">
 
-  Last updated: <a href="https://github.com/alphagov/account-api/commit/c6a928b1640ac77e24a5dd647db5973e6ca50ead">7 Jul 2021</a>
+  Last updated: <a href="https://github.com/alphagov/account-api/commit/43d6d2fbf5aefc12f4c00fdb8a9fe2bfc9116bee">13 Jul 2021</a>
 </div>
 
   <h1 class="page-title">account-api: API documentation</h1>
@@ -394,8 +394,6 @@ management. This API is not for other government services.</p>
 <li><a href="#get-apiattributes"><code>GET /api/attributes</code></a></li>
 <li><a href="#patch-apiattributes"><code>PATCH /api/attributes</code></a></li>
 <li><a href="#get-apiattributesnames"><code>GET /api/attributes/names</code></a></li>
-<li><a href="#get-apitransition-checker-email-subscription"><code>GET /api/transition-checker-email-subscription</code></a></li>
-<li><a href="#post-apitransition-checker-email-subscription"><code>POST /api/transition-checker-email-subscription</code></a></li>
 <li><a href="#get-apiemail-subscriptionssubscription_name"><code>GET /api/email-subscriptions/:subscription_name</code></a></li>
 <li><a href="#put-apiemail-subscriptionssubscription_name"><code>PUT /api/email-subscriptions/:subscription_name</code></a></li>
 <li><a href="#delete-apiemail-subscriptionssubscription_name"><code>DELETE /api/email-subscriptions/:subscription_name</code></a></li>
@@ -799,97 +797,6 @@ end
 <pre lang="json"><code>{
     "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
     "values": ["name1", "name2"]
-}
-</code></pre>
-<h3 id="get-apitransition-checker-email-subscription"><code>GET /api/transition-checker-email-subscription</code></h3>
-<p>Checks if the user has an active Transition Checker email subscription.</p>
-<h4 id="request-headers">Request headers</h4>
-<ul>
-<li>
-<code>GOVUK-Account-Session</code>
-<ul>
-<li>the user's session identifier</li>
-</ul>
-</li>
-</ul>
-<h4 id="json-response-fields">JSON response fields</h4>
-<ul>
-<li>
-<code>govuk_account_session</code> <em>(optional)</em>
-<ul>
-<li>a new session identifier</li>
-</ul>
-</li>
-<li>
-<code>has_subscription</code>
-<ul>
-<li>a boolean</li>
-</ul>
-</li>
-</ul>
-<h4 id="response-codes">Response codes</h4>
-<ul>
-<li>403 if the session's level of authentication is too low (see <a href="#level-of-authentication-too-low">error: level of authentication too low</a>)</li>
-<li>401 if the session identifier is invalid</li>
-<li>200 otherwise</li>
-</ul>
-<h4 id="example-request-response">Example request / response</h4>
-<p>Request (with gds-api-adapters):</p>
-<pre lang="ruby"><code>GdsApi.account_api.check_for_email_subscription(
-    govuk_account_session: "session-identifier",
-)
-</code></pre>
-<p>Response:</p>
-<pre lang="json"><code>{
-    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg==",
-    "has_subscription": false
-}
-</code></pre>
-<h3 id="post-apitransition-checker-email-subscription"><code>POST /api/transition-checker-email-subscription</code></h3>
-<p>Updates the user's Transition Checker email subscription, cancelling any previous subscription they had.</p>
-<h4 id="request-headers">Request headers</h4>
-<ul>
-<li>
-<code>GOVUK-Account-Session</code>
-<ul>
-<li>the user's session identifier</li>
-</ul>
-</li>
-</ul>
-<h4 id="request-parameters">Request parameters</h4>
-<ul>
-<li>
-<code>slug</code>
-<ul>
-<li>the email topic slug to subscribe to</li>
-</ul>
-</li>
-</ul>
-<h4 id="json-response-fields">JSON response fields</h4>
-<ul>
-<li>
-<code>govuk_account_session</code> <em>(optional)</em>
-<ul>
-<li>a new session identifier</li>
-</ul>
-</li>
-</ul>
-<h4 id="response-codes">Response codes</h4>
-<ul>
-<li>403 if the session's level of authentication is too low (see <a href="#level-of-authentication-too-low">error: level of authentication too low</a>)</li>
-<li>401 if the session identifier is invalid</li>
-<li>200 otherwise</li>
-</ul>
-<h4 id="example-request-response">Example request / response</h4>
-<p>Request (with gds-api-adapters):</p>
-<pre lang="ruby"><code>GdsApi.account_api.set_email_subscription(
-    govuk_account_session: "session-identifier",
-    slug: "slug-name",
-)
-</code></pre>
-<p>Response:</p>
-<pre lang="json"><code>{
-    "govuk_account_session": "YWNjZXNzLXRva2Vu.cmVmcmVzaC10b2tlbg=="
 }
 </code></pre>
 <h3 id="get-apiemail-subscriptionssubscription_name"><code>GET /api/email-subscriptions/:subscription_name</code></h3>
