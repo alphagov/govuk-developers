@@ -471,75 +471,59 @@
 </ul>
 <h2 id='readme'>README</h2><p><div class="embedded-readme"></p>
 
-<p>This application defines global templates for <a href="https://www.gov.uk">GOV.UK</a> pages.</p>
+<p>This application defines global templates for <a href="https://www.gov.uk">GOV.UK</a> pages. It is used in conjunction with <a href="https://github.com/alphagov/slimmer">Slimmer</a>, which is Rack middleware that takes a HTML response from a Rails app and combines it with a template from Static.</p>
 
-<h2 id="screenshots">Screenshots</h2>
+<h2 id="live-examples">Live examples</h2>
 
-<p><code>gem_layout</code> template:</p>
-
-<p><img src="https://raw.githubusercontent.com/docs/gem_layout.png?raw=true" alt="screenshot"></p>
-
-<h2 id="nomenclature">Nomenclature</h2>
-
-<ul>
-<li>
-<a href="https://github.com/alphagov/slimmer">slimmer</a> - Rack middleware for wrapping Rack applications in shared templated layouts</li>
-</ul>
+<p>See this <a href="https://github.com/alphagov/static/blob/main/docs/gem_layout.png?raw=true"><code>gem_layout</code> template screenshot</a> for an example of the page furniture Static provides.</p>
 
 <h2 id="technical-documentation">Technical documentation</h2>
 
-<ul>
-<li><a href="/apps/static/image-optimisation.html">Image optimisation</a></li>
-<li><a href="/apps/static/slimmer_templates.html">Slimmer templates</a></li>
-<li><a href="/apps/static/emergency-banner.html">Emergency Banner</a></li>
-<li><a href="/apps/static/analytics.html">Analytics</a></li>
-<li><a href="/apps/static/humans.html"><code>humans.txt</code></a></li>
-</ul>
+<p>This is a Ruby on Rails app, and should follow <a href="https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html">our Rails app conventions</a>.</p>
 
-<h3 id="running-the-application">Running the application</h3>
+<p>You can use the <a href="https://github.com/alphagov/govuk-docker">GOV.UK Docker environment</a> to run the the application and its tests with all the necessary dependencies. Follow the <a href="https://github.com/alphagov/govuk-docker#usage">usage instructions</a> to get started.</p>
 
-<p><code>./startup.sh</code></p>
+<h3 id="running-the-app">Running the app</h3>
 
-<p>This will start the server running on <a href="http://0.0.0.0:3013">http://0.0.0.0:3013</a></p>
+<p>Static has no home page or navigation, so you need to manually type in the URL of the template you want to view. Here&rsquo;s an example:</p>
 
-<h4 id="running-locally">Running Locally</h4>
+<p><a href="http://static.dev.gov.uk/templates/gem_layout.html.erb">http://static.dev.gov.uk/templates/gem_layout.html.erb</a></p>
 
-<p>If you&rsquo;d like to run static locally, and keep all its asset links pointing to
-the same local instance, you&rsquo;ll need to set <code>PLEK_SERVICE_STATIC_URI</code>, which is
-the host used for static assets (even on static).</p>
+<p>See the <a href="/apps/static/slimmer_templates.html">list of Slimmer templates</a> for more.</p>
 
-<p>Otherwise it defaults to <code>static.dev.gov.uk</code>, which won&rsquo;t exist if you&rsquo;re
-running this repo locally, without the rest of the GOV.UK stack.</p>
-
-<p>To run this app locally, and have it point at its own assets, run it like this:</p>
-
-<pre><code>PLEK_SERVICE_STATIC_URI=0.0.0.0:3013 ./startup.sh
-</code></pre>
-
-<p>If you&rsquo;re making front end changes to <code>static</code> and testing them out
-on your development VM, you may find that it takes several minutes for changes to
-appear due to caching in Slimmer. One approach to speed this up is to run all of the
-relevant app&rsquo;s dependencies (including static), then start that app separately.
-Restarting the app should pick up the changes.</p>
-
-<p>For example, to see changes made to static templates which
-are wrapped around feedback pages, run <code>bowl feedback --without=feedback</code> in one terminal and the <code>.startup.sh</code> script for <code>feedback</code>
-in a separate terminal. Following local edits to <code>static</code>, restarting only
-<code>feedback</code> should be sufficient.</p>
-
-<p>If you repeatedly see 504 Gateway Timeout errors when developing with static in your
-development VM it&rsquo;s possible to increase the <code>proxy_read_timeout</code> value in
-<code>/etc/nginx/sites-available/static.dev.gov.uk</code> and restart nginx on the VM.</p>
+<p>If you&rsquo;re making front end changes to Static and testing them out inside your other apps, you may find that it takes several minutes for changes to appear due to caching in Slimmer. Restarting the consumer app should pick up the changes.</p>
 
 <h3 id="running-the-test-suite">Running the test suite</h3>
 
-<p><code>bundle exec rake</code> runs the test suite.</p>
+<pre><code>bundle exec rake
+</code></pre>
 
-<h4 id="javascript-unit-tests">Javascript unit tests</h4>
+<p>To run JavaScript tests (only):</p>
 
-<p>Tests can run in browser at <code>/specs</code></p>
+<pre><code>env RAILS_ENV=test bundle exec rake jasmine:ci
+</code></pre>
 
-<p>Or in terminal to run only the jasmine tests you can use <code>RAILS_ENV=test bundle exec rake jasmine:ci</code> or in Docker <code>govuk-docker run -e RAILS_ENV=test static-lite bundle exec rake jasmine:ci</code></p>
+<h3 id="further-documentation">Further documentation</h3>
+
+<p>Background information:</p>
+
+<ul>
+<li><a href="https://docs.publishing.service.gov.uk/apps/slimmer/what-slimmer-does.html">How Slimmer and Static work together</a></li>
+<li><a href="https://docs.publishing.service.gov.uk/manual/frontend-architecture.html">Frontend architecture and long term plan to remove Static / Slimmer</a></li>
+<li><a href="/apps/static/analytics.html">Analytics (no longer in Static, but imported from govuk_publishing_components)</a></li>
+</ul>
+
+<p>How to&rsquo;s:</p>
+
+<ul>
+<li><a href="/apps/static/emergency-banner.html">How to: deploy the Emergency Banner</a></li>
+<li><a href="/apps/static/image-optimisation.html">How to: optimise images</a></li>
+<li><a href="/apps/static/humans.html">How to: update <code>humans.txt</code></a></li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p><a href="https://github.com/alphagov/static/blob/main/LICENCE">MIT License</a></p>
 <p></div></p>
 
 
